@@ -1,0 +1,25 @@
+﻿$PBExportHeader$jour_et_mois_francais.srf
+global type jour_et_mois_francais from function_object
+end type
+
+forward prototypes
+global function string jour_et_mois_francais (string chaine)
+end prototypes
+
+global function string jour_et_mois_francais (string chaine);
+
+// Remplace les jours en anglais dans la chaine passée en paramètre
+
+// utile pour les formats de rendez-vous
+
+string v_retour 
+
+v_retour = jour_francais(chaine)
+
+v_retour = mois_francais(v_retour)
+
+
+return v_retour
+
+end function
+

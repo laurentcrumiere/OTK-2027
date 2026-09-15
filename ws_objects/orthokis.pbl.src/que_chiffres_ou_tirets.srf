@@ -1,0 +1,51 @@
+﻿$PBExportHeader$que_chiffres_ou_tirets.srf
+global type que_chiffres_ou_tirets from function_object
+end type
+
+forward prototypes
+global function string que_chiffres_ou_tirets (string chaine)
+end prototypes
+
+global function string que_chiffres_ou_tirets (string chaine);// Fonction qui renvoie uniquement les chiffres d'une chaine de caractères
+// utile pour les téléphones par exemple
+
+// Paramètres:
+// chaine : chaine de caractères à traiter
+// - elle peut contenir n'importe quel type de caractères
+// - le caractère "~n" est traduit en ""
+// - renvoie la chaine qui ne contient que des majuscules, chiffres et espaces
+
+// -------------------------------- ATTENTION -------------------------
+// Par rapport à la table de conversion réalisée par le CNDA, on
+// conserve les "-" 
+//--------------------------------------------------------------------------
+
+long ind						// Indice de la chaine pour le parcours
+string nouvelle_chaine	// Nouvelle chaine de caractère qui sera renvoyée
+char	car_lu					// Caractère courant étudié
+char	car_ecrit				// Caractère courant modifié
+long	lg_chaine			// Longueur de la chaine à étudier
+
+chaine = trim(chaine)
+lg_chaine = len(chaine)
+nouvelle_chaine = ''
+
+for ind = 1 to lg_chaine
+	
+	car_lu = mid(chaine,ind,1)
+	
+	// On ne prend que les chiffres
+	choose case car_lu
+		case "0","1","2","3","4","5","6","7","8","9", "-"
+			car_ecrit =  car_lu
+		case else
+			car_ecrit = ''
+	end choose
+	
+	nouvelle_chaine = nouvelle_chaine + car_ecrit	
+next
+
+return(nouvelle_chaine)
+
+end function
+

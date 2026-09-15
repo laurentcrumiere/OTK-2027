@@ -1,0 +1,29 @@
+﻿$PBExportHeader$composant_visible_selon_tag.srf
+global type composant_visible_selon_tag from function_object
+end type
+
+forward prototypes
+global subroutine composant_visible_selon_tag (window v_fenetre, string v_tag, boolean v_visible)
+end prototypes
+
+global subroutine composant_visible_selon_tag (window v_fenetre, string v_tag, boolean v_visible);
+
+// Fonction qui parcours tous les composants d'une fenetre pour les mettre à visible ou pas, 
+// selon la valeur de leur tag
+
+dragobject temp
+int cnt,i
+
+cnt = upperbound(v_fenetre.control)
+for i = cnt to 1 step -1
+	if  typeof(v_fenetre.control[i]) <> rectangle! then
+		temp = v_fenetre.control[i]
+		if pos(upper(temp.tag) , upper(v_tag)) > 0 then
+			temp.visible = v_visible
+		end if
+	end if
+next
+
+
+end subroutine
+

@@ -1,0 +1,270 @@
+﻿$PBExportHeader$fxg_imprimer_factures_luxembourg.srf
+global type fxg_imprimer_factures_luxembourg from function_object
+end type
+
+forward prototypes
+global subroutine fxg_imprimer_factures_luxembourg (datawindow dw_liste, datawindow dw_facture_luxembourg, richtextedit rte_1, boolean imprimer)
+end prototypes
+
+global subroutine fxg_imprimer_factures_luxembourg (datawindow dw_liste, datawindow dw_facture_luxembourg, richtextedit rte_1, boolean imprimer);// Dw_liste contient la liste des facture à imprimer
+// dw_facture_luxembourg modele de la facture
+// rte_1 pour les entetes et pied de page
+// imprimer pour imprimer réellement la facture ou juste la mettre dans la DW pour exploitation autre (pdf + envoi email par exemple)
+
+long lig, tot, lig2, ligtot
+long v_numero_facture, v_code, v_numero_facture_prec
+string v_compte_bancaire
+string v_caisse, v_matricule
+string v_entete, v_baspage,cade,cadbp
+string type_entete, v_conditions
+string v_symbole, v_prati
+date v_date_facture
+						
+
+integer v_code_titre
+string v_nom, v_prenom, v_nomp,v_adr1,v_adr2,v_codep,v_ville,v_code_pays, v_pays, v_titre
+string v_secu_patient
+double v_numero_dossier
+
+string v_libelle1, v_libelle2
+date v_date_exe
+string v_nom_soin
+double v_total_facture, v_total_soins
+
+integer categorie_nulle
+setnull(categorie_nulle)
+
+tot = dw_liste.rowcount() 
+
+
+if tot > 0 then
+
+
+	for lig = 1 to tot
+		
+		v_numero_facture = dw_liste.GetItemNumber(lig, "facture_numero")
+		
+		if v_numero_facture <> v_numero_facture_prec then
+			v_code = dw_liste.GetItemNumber(lig, "code")
+			
+			dw_facture_luxembourg.reset()
+			
+			
+			SELECT "entete_facture", "nom_entete_facture", "nom_baspage_facture", "conditions_facture" 
+			INTO :type_entete, :v_entete, :v_baspage , :v_conditions 
+			FROM "param" ;
+			
+			v_prati = dw_liste.GetiTemString(lig, "code_praticien_reel") 
+			
+			
+			if type_entete = "O" then
+				// on prend les entete et base de page du praticien
+				select entete, bas_page into :v_entete, :v_baspage from prati where code = :v_prati ;
+			end if
+			
+			rte_1.insertdocument(v_entete, False, FileTypeRichText!)
+			rte_1.SelectTextAll ()
+			v_entete = rte_1.CopyRtf( )
+				
+			rte_1.insertdocument(v_baspage, False, FileTypeRichText!)
+			rte_1.SelectTextAll ()
+			v_baspage = rte_1.CopyRtf( )
+			
+			select institution_perceptrice into :v_compte_bancaire from prati, patient  where patient.code = :v_code and patient.code_praticien = prati.code ;
+			
+			select caisse.nom, isnull(trim(patient.secu_parent1), ''), isnull(trim(secu_patient), '') 
+			into :v_caisse, :v_matricule , :v_secu_patient
+			from patient, caisse where patient.code = :v_code and patient.code_caisse = caisse.code ;
+			
+			select "date" into :v_date_facture from facture where numero = :v_numero_facture ;
+	
+	
+			// pour savoir si on prend le payeur ou le parent1 ...
+			
+			string v_payeur, v_parent1, v_numero_secu
+			select nom_payeur, nom_parent1 into :v_payeur, :v_parent1 
+			from patient 
+			where code = :v_code ;
+			
+			if isnull(v_payeur) or len(trim(v_payeur)) = 0 then
+				// on prend le parent 1
+				select nom, prenom, nom_parent1 , adr1_parent1 , adr2_parent1, codep_parent1 , 
+				ville_parent1, pays_parent1 , titre_parent1, code_praticien , numero_dossier , secu_parent1
+				into :v_nom, :v_prenom, :v_nomp, :v_adr1, :v_adr2, :v_codep, :v_ville, :v_code_pays, :v_code_titre, :v_prati  ,:v_numero_dossier, :v_numero_secu
+				from patient 
+				where code = :v_code ;
+			else
+				// on prend le payeur
+				select nom, prenom, nom_payeur, adr1_payeur ,	adr2_payeur , codep_payeur , 
+				ville_payeur, pays_payeur, titre_payeur , code_praticien , numero_dossier , secu_payeur
+				into :v_nom, :v_prenom, :v_nomp, :v_adr1, :v_adr2, :v_codep, :v_ville, :v_code_pays, :v_code_titre, :v_prati  ,:v_numero_dossier, :v_numero_secu
+				from patient 
+				where code = :v_code ;
+			end if
+			
+			
+			if not isnull(v_prenom) then
+				v_nom = trim(v_nom)+" "+trim(v_prenom)
+			end if
+		
+		
+			select nom into :v_titre from titre_personnes where code = :v_code_titre ;
+		
+			select nom into :v_pays from pays where code = :v_code_pays ;
+	
+	
+	
+			// Au luxembourg, les soins doivent être ordonnés de manière spéciale
+			declare Curfac cursor for 
+			SELECT date_exe, code_soins.nom , soins.total
+			from soins, code_soins 
+			where  soins.code = :v_code and code_soins.code = soins."type" and numero_facture = :v_numero_facture  order by "date_exe", "code_soins"."ordre_trie","code_soins"."nom", "code_soins"."code" ;
+			
+			// On rempli la dw_edition
+			dw_facture_luxembourg.reset()
+	
+			open Curfac ;
+			fetch curfac 		into :v_date_exe , :v_nom_soin, :v_total_soins ;
+			
+			do while sqlca.sqlcode = 0
+				
+				dw_facture_luxembourg.insertrow(0)
+				lig2 = dw_facture_luxembourg.rowcount()
+				dw_facture_luxembourg.setitem(lig2,"entete",v_entete)
+				dw_facture_luxembourg.setitem(lig2,"baspage",v_baspage)
+				dw_facture_luxembourg.setitem(lig2,"conditions",v_conditions)
+				
+//				if SERIAL = "87826" then
+//					// Spécifique Biver : ne veut pas le numéro de facture ni le N° de dossier
+//					dw_facture_luxembourg.setitem(lig2,"num_facture",v_numero_dossier)
+//					dw_facture_luxembourg.setitem(lig2,"nom_patient",trim(v_nom))
+//				else
+					dw_facture_luxembourg.setitem(lig2,"num_facture",v_numero_facture)
+					if SERIAL = "87774" then
+						// Spécifique Awada : il ne veut pas le N° de dossier
+						dw_facture_luxembourg.setitem(lig2,"nom_patient",trim(v_nom))
+					else				
+						dw_facture_luxembourg.setitem(lig2,"nom_patient",trim(v_nom)+" ("+string(v_numero_dossier)+")")
+					end if
+//				end if
+					
+				dw_facture_luxembourg.setitem(lig2,"date",v_date_facture)
+					
+				dw_facture_luxembourg.setitem(lig2,"titre_parent",v_titre)
+				dw_facture_luxembourg.setitem(lig2,"nom_parent",v_nomp)
+				dw_facture_luxembourg.setitem(lig2,"adr1_parent",v_adr1)
+				dw_facture_luxembourg.setitem(lig2,"adr2_parent",v_adr2)
+				dw_facture_luxembourg.setitem(lig2,"codep_parent",v_codep)
+				dw_facture_luxembourg.setitem(lig2,"ville_parent",v_ville)
+				dw_facture_luxembourg.setitem(lig2,"pays_parent",v_pays)
+	
+				dw_facture_luxembourg.setitem(lig2,"compte_bancaire",v_compte_bancaire)
+				dw_facture_luxembourg.setitem(lig2,"caisse",v_caisse)
+				
+				if v_secu_patient <> '' then 
+					// Si le patient à un N° de sécu, on prend celui la
+					dw_facture_luxembourg.setitem(lig2,"matricule",v_secu_patient)
+				else
+					dw_facture_luxembourg.setitem(lig2,"matricule",v_matricule)
+				end if
+											
+				dw_facture_luxembourg.setitem(lig2,"libelle1",v_nom_soin)
+				dw_facture_luxembourg.setitem(lig2,"libelle2", string(v_date_exe))
+				dw_facture_luxembourg.setitem(lig2,"montant", v_total_soins)
+						
+				if monnaie_base = 'F' then
+					v_symbole = symbole_franc
+				else
+					v_symbole = symbole_euro
+				end if
+		
+				dw_facture_luxembourg.setitem(lig2,"symbole_monnaie",v_symbole)
+				
+				fetch curfac 		into :v_date_exe , :v_nom_soin, :v_total_soins ;
+			loop 
+	
+	
+			close curfac ;
+			
+			// pour remise en forme
+			dw_facture_luxembourg.groupcalc()
+		
+			// impression effective
+			if imprimer then
+				
+				if profilestring(dir_ini+inifile_orthokis,"admini","facture_pdf","N") = "O"  then 
+					// impression en PDF
+					string rep_phot_patient, v_fichier_destination,v_fichier_destination_complet
+					rep_phot_patient = dir_photos + string( v_code )
+					if not fileexists( rep_phot_patient ) then gfx_creer_rep( rep_phot_patient )
+
+					v_fichier_destination =  string(today(), "yyyy-mm-dd")+" "+string(now(), "hh-mm-ss")+ " - Facture_" + string(v_numero_facture) + ".pdf"
+					v_fichier_destination_complet = rep_phot_patient + win_delimiter + v_fichier_destination
+//					if verif_bullzip_printer(v_fichier_destination_complet, true) then
+//						dw_facture_luxembourg.modify("Datawindow.printer = 'Bullzip PDF Printer'" ) 
+//					end if
+//
+					dw_facture_luxembourg.saveas(v_fichier_destination_complet, PDF!, false)
+					fxg_ouvrir_fichier_shell(v_fichier_destination_complet)
+
+
+				else
+					// impression normal
+					dw_facture_luxembourg.print()
+	
+				end if
+
+				
+			
+				if profilestring(dir_ini+inifile_orthokis,"admini","facture_pdf","N") = "O"  then 
+					// Mémo du PDF
+					string v_libelle , v_publication
+					v_libelle = "Facture N°"+string(v_numero_facture)+" (Document PDF)"
+					if  profilestring(dir_ini+inifile_orthokis,"admini","factures_pub_mon_ortho","N") = "O" then
+						v_publication = "O"
+					else
+						v_publication ="N"
+					end if
+					fxg_enregcourrierhisto ( v_code, "NOTHON" , today() ,v_libelle , v_fichier_destination_complet , 'E', v_publication, 'N' , '', categorie_nulle)
+					
+					if Messagebox("QUESTION","Souhaitez-vous envoyer cette facture par email ?", Question!, YesNo!, 1) = 1 then
+						// on enchaine par l'envoi de l'email
+						
+						// Par sécurité en reprend le code de la fênetre Administrative, clic droits dans les documents !
+						m_btdroit_historique		Menu
+						w_mdi_2020.dw_patient_courriers.settransobject(sqlca)
+						w_mdi_2020.dw_patient_courriers.retrieve(v_code, "E")
+						w_mdi_2020.dw_patient_courriers.setfilter("historique_editions_nom_courrier = '" + v_fichier_destination + "'" )
+						w_mdi_2020.dw_patient_courriers.filter()
+						ligtot = w_mdi_2020.dw_patient_courriers.rowcount()
+						if  ligtot > 0 then
+							w_mdi_2020.dw_patient_courriers.SetItem(1, "Selection", 'O')					
+							Menu = CREATE m_btdroit_historique
+							Menu.dw_locale = w_mdi_2020.dw_patient_courriers
+							Menu.var_code_local = v_code
+							
+							Menu.m_envoyerparemailpiècejointe.TriggerEvent(clicked!)
+							
+						end if
+					end if
+	
+				else				// Mise en historique de l'impression
+					ajout_histo_editions(v_code,"NOTHON",today(),"Facture N°"+string(v_numero_facture)+" pour "+string(dw_facture_luxembourg.getitemnumber(dw_facture_luxembourg.rowcount(),"total_facture"),'0.00')+' € ')
+				end if
+
+
+
+			end if
+			
+			
+			v_numero_facture_prec = v_numero_facture
+			
+		end if 
+				
+	next
+
+end if
+
+
+end subroutine
+

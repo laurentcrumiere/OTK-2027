@@ -1,0 +1,146 @@
+﻿$PBExportHeader$m_btdroit_alertes.srm
+forward
+global type m_btdroit_alertes from menu
+end type
+type m_ouvrirhistoriquedesalertes from menu within m_btdroit_alertes
+end type
+type m_creationdunetachepourlepatient from menu within m_btdroit_alertes
+end type
+global type m_btdroit_alertes from menu
+m_ouvrirhistoriquedesalertes m_ouvrirhistoriquedesalertes
+m_creationdunetachepourlepatient m_creationdunetachepourlepatient
+end type
+end forward
+
+global type m_btdroit_alertes from menu
+m_ouvrirhistoriquedesalertes m_ouvrirhistoriquedesalertes
+m_creationdunetachepourlepatient m_creationdunetachepourlepatient
+end type
+global m_btdroit_alertes m_btdroit_alertes
+
+type variables
+double var_code_local
+end variables
+
+on m_btdroit_alertes.create
+m_btdroit_alertes=this
+call super::create
+this.text = "m_btdroit_alertes"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_ouvrirhistoriquedesalertes=create m_ouvrirhistoriquedesalertes
+this.m_creationdunetachepourlepatient=create m_creationdunetachepourlepatient
+this.Item[UpperBound(this.Item)+1]=this.m_ouvrirhistoriquedesalertes
+this.Item[UpperBound(this.Item)+1]=this.m_creationdunetachepourlepatient
+end on
+
+on m_btdroit_alertes.destroy
+call super::destroy
+destroy(this.m_ouvrirhistoriquedesalertes)
+destroy(this.m_creationdunetachepourlepatient)
+end on
+
+type m_ouvrirhistoriquedesalertes from menu within m_btdroit_alertes
+end type
+
+on m_ouvrirhistoriquedesalertes.create
+call super::create
+this.text = "Ouvrir historique des alertes"
+this.menuimage = "ACTIONS_historique_noemie.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ouvrirhistoriquedesalertes.destroy
+call super::destroy
+end on
+
+event clicked;
+	
+	w_mdi_2020.uo_powerdock.of_openDocument(w_alertes_historique, "Historique des Alertes", image_menu_listes_admini)
+		
+
+string var_nom_local
+double var_numero_dossier_local
+
+select nom + ' ' + isnull(prenom, ''), numero_dossier into :var_nom_local, :var_numero_dossier_local from patient where code = :var_code_local ;
+
+w_alertes_historique.rb_tous_pat.checked = false
+w_alertes_historique.rb_un_pat.checked = true
+
+w_alertes_historique.sle_pat.text = var_nom_local
+w_alertes_historique.sle_pat.visible = true
+
+w_alertes_historique.var_numero_dossier_local = var_numero_dossier_local
+
+w_alertes_historique.em_min.text = "01/01/1900 00:00"
+
+w_alertes_historique.cb_ecran.triggerevent(clicked!)
+
+
+
+end event
+
+type m_creationdunetachepourlepatient from menu within m_btdroit_alertes
+end type
+
+on m_creationdunetachepourlepatient.create
+call super::create
+this.text = "Création d~'une tâche pour le patient"
+this.menuimage = "ACTIONS_ajouter.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_creationdunetachepourlepatient.destroy
+call super::destroy
+end on
+
+event clicked;param_win[1] = string(var_code_local)
+
+guo_fenetre_modale.wf_ouvrir_param_nombre(w_taches_fiche, 0)	
+
+end event
+

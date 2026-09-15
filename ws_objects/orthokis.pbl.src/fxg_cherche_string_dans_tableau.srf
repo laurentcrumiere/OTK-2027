@@ -1,0 +1,26 @@
+﻿$PBExportHeader$fxg_cherche_string_dans_tableau.srf
+global type fxg_cherche_string_dans_tableau from function_object
+end type
+
+forward prototypes
+global function boolean fxg_cherche_string_dans_tableau (string valeur, string tableau[])
+end prototypes
+
+global function boolean fxg_cherche_string_dans_tableau (string valeur, string tableau[]);// recherche une valeur string dans un tableau
+// Attentions au minuscules / Majuscules
+
+long ll_upper_bound , ll_row
+
+// If array is small then we can LOOP:
+ll_upper_bound = UpperBound(tableau[])
+for ll_row = 1 to ll_upper_bound
+	if tableau[ll_row] = valeur then
+		return true
+	end if
+next
+
+return false
+
+
+end function
+

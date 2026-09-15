@@ -1,0 +1,12 @@
+﻿$PBExportHeader$fxg_get_nom_fic_document_orthokis_pdf.srf
+global type fxg_get_nom_fic_document_orthokis_pdf from function_object
+end type
+
+forward prototypes
+global function string fxg_get_nom_fic_document_orthokis_pdf ()
+end prototypes
+
+global function string fxg_get_nom_fic_document_orthokis_pdf ();//Renvoie un nom de fichier Document_Orthokis.pdf basé sur l'heure pour éviter doublons
+return dir_ini + "Document_Orthokis.pdf"
+end function
+

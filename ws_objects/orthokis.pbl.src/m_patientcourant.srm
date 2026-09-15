@@ -1,0 +1,1528 @@
+﻿$PBExportHeader$m_patientcourant.srm
+forward
+global type m_patientcourant from menu
+end type
+type m_administratif from menu within m_patientcourant
+end type
+type m_courriersactionsdocuments from menu within m_patientcourant
+end type
+type m_commentairesadministratifs from menu within m_patientcourant
+end type
+type m_0 from menu within m_patientcourant
+end type
+type m_soinsprévisionnel from menu within m_patientcourant
+end type
+type m_soinsencours from menu within m_patientcourant
+end type
+type m_rêglement from menu within m_patientcourant
+end type
+type m_télévital from menu within m_patientcourant
+end type
+type m_2 from menu within m_patientcourant
+end type
+type m_commentairescliniques from menu within m_patientcourant
+end type
+type m_pagescliniques from menu within m_patientcourant
+end type
+type m_imagerie from menu within m_patientcourant
+end type
+type m_4 from menu within m_patientcourant
+end type
+type m_lienodrade from menu within m_patientcourant
+end type
+type m_3 from menu within m_patientcourant
+end type
+type m_rendez-vous from menu within m_patientcourant
+end type
+type m_- from menu within m_patientcourant
+end type
+type m_envoyeremail from menu within m_patientcourant
+end type
+type m_signatureenligne from menu within m_patientcourant
+end type
+type m_-0 from menu within m_patientcourant
+end type
+type m_exporterlalistesousexcel from menu within m_patientcourant
+end type
+type m_exporterlalisteauformatexcelavecprésentation from menu within m_patientcourant
+end type
+type m_pdf from menu within m_patientcourant
+end type
+type m_exporterlaliste from menu within m_patientcourant
+end type
+type m_etiquettes from menu within m_patientcourant
+end type
+type m_envoyersmsliste from menu within m_patientcourant
+end type
+type m_envoyersmsunitaire from menu within m_patientcourant
+end type
+type m_toutdeselectionner from menu within m_patientcourant
+end type
+global type m_patientcourant from menu
+m_administratif m_administratif
+m_courriersactionsdocuments m_courriersactionsdocuments
+m_commentairesadministratifs m_commentairesadministratifs
+m_0 m_0
+m_soinsprévisionnel m_soinsprévisionnel
+m_soinsencours m_soinsencours
+m_rêglement m_rêglement
+m_télévital m_télévital
+m_2 m_2
+m_commentairescliniques m_commentairescliniques
+m_pagescliniques m_pagescliniques
+m_imagerie m_imagerie
+m_4 m_4
+m_lienodrade m_lienodrade
+m_3 m_3
+m_rendez-vous m_rendez-vous
+m_- m_-
+m_envoyeremail m_envoyeremail
+m_signatureenligne m_signatureenligne
+m_-0 m_-0
+m_exporterlalistesousexcel m_exporterlalistesousexcel
+m_exporterlalisteauformatexcelavecprésentation m_exporterlalisteauformatexcelavecprésentation
+m_pdf m_pdf
+m_exporterlaliste m_exporterlaliste
+m_etiquettes m_etiquettes
+m_envoyersmsliste m_envoyersmsliste
+m_envoyersmsunitaire m_envoyersmsunitaire
+m_toutdeselectionner m_toutdeselectionner
+end type
+end forward
+
+global type m_patientcourant from menu
+m_administratif m_administratif
+m_courriersactionsdocuments m_courriersactionsdocuments
+m_commentairesadministratifs m_commentairesadministratifs
+m_0 m_0
+m_soinsprévisionnel m_soinsprévisionnel
+m_soinsencours m_soinsencours
+m_rêglement m_rêglement
+m_télévital m_télévital
+m_2 m_2
+m_commentairescliniques m_commentairescliniques
+m_pagescliniques m_pagescliniques
+m_imagerie m_imagerie
+m_4 m_4
+m_lienodrade m_lienodrade
+m_3 m_3
+m_rendez-vous m_rendez-vous
+m_- m_-
+m_envoyeremail m_envoyeremail
+m_signatureenligne m_signatureenligne
+m_-0 m_-0
+m_exporterlalistesousexcel m_exporterlalistesousexcel
+m_exporterlalisteauformatexcelavecprésentation m_exporterlalisteauformatexcelavecprésentation
+m_pdf m_pdf
+m_exporterlaliste m_exporterlaliste
+m_etiquettes m_etiquettes
+m_envoyersmsliste m_envoyersmsliste
+m_envoyersmsunitaire m_envoyersmsunitaire
+m_toutdeselectionner m_toutdeselectionner
+end type
+global m_patientcourant m_patientcourant
+
+type variables
+double	CodePatientCourant
+
+datawindow dw_clic
+
+w_liste_patients w_clic
+
+string nom_colonne_selection
+end variables
+
+forward prototypes
+public function integer gestion_des_droits ()
+end prototypes
+
+public function integer gestion_des_droits ();//fx publique qui gère les droit utilisateur
+//ainsi que la possession des divers modules
+//
+
+// Gestion des icones ...
+	
+m_administratif.MenuImage 					=  icone_fiche_admini_16 
+m_commentairesadministratifs.MenuImage =  icone_coment_admini_16
+m_soinsprévisionnel.MenuImage 				=  icone_soins_prevus_16 
+m_soinsencours.MenuImage 					=  icone_soins_16 
+m_rêglement.MenuImage 						=  icone_regl_16 
+m_pagescliniques.MenuImage					=   icone_clinique_16 
+m_commentairescliniques.MenuImage 		=  icone_coment_16 
+m_imagerie.MenuImage 							=  icone_imagerie_16 
+m_rendez-vous.MenuImage 					=   icone_rdv_16 	
+
+
+
+
+// Gestion de l'accés aux modules en fonction des menus !!
+
+
+
+m_administratif.enabled = m_orthokis_2020.m_patients.m_miseàjour.enabled 
+m_administratif.enabled = m_orthokis_2020.m_patients.m_courriersactionsdocuments.enabled 
+m_commentairesadministratifs.enabled = m_orthokis_2020.m_patients.m_commentaires.enabled
+
+
+// module Sesam Vitale
+if France then 
+	m_télévital.enabled = m_orthokis_2020.m_patients.m_suivitelevitale.enabled
+else
+	m_télévital.visible = false
+end if
+
+
+m_soinsprévisionnel.enabled = m_orthokis_2020.m_patients.m_soinsprevus.enabled
+m_soinsencours.enabled = m_orthokis_2020.m_patients.m_soins.enabled
+m_rêglement.enabled = m_orthokis_2020.m_patients.m_reglements.enabled
+
+
+m_rendez-vous.enabled = m_orthokis_2020.m_patients.m_miseàjour0.enabled
+
+
+
+// le clinique
+if not m_orthokis_2020.m_patients.m_commentairescliniques.enabled then
+	m_commentairescliniques.enabled = false
+end if 
+if not m_orthokis_2020.m_patients.m_pagescliniques.enabled then
+	m_pagescliniques.enabled = module_clinique
+end if
+
+m_imagerie.enabled = m_orthokis_2020.m_patients.m_imagerie.enabled
+
+
+//lien ODRADE
+if not m_orthokis_2020.m_patients.m_lienodrade.enabled then
+	m_lienodrade.enabled = odr
+end if
+
+///////////////////////////////////////////////////////////////////////////
+
+//gestion des droits utilisateurs
+
+// Fiche administrative 
+if droits_acces[10] = 'N' then
+	m_administratif.enabled = false
+end if
+// Commentaires Administratifs
+if droits_acces[18] = 'N' then
+	m_commentairesadministratifs.enabled = false
+end if
+// Soins prévisionnels 
+if droits_acces[17] = 'N' then
+	m_soinsprévisionnel.enabled = false
+end if
+// Soins 
+if droits_acces[11] = 'N' then
+	m_soinsencours.enabled = false
+end if
+// Règlements 
+if droits_acces[12] = 'N' then
+	m_rêglement.enabled = false
+end if
+// Suivi Télévitale 
+if droits_acces[13] = 'N' or not CCVITALE then
+	m_télévital.enabled = false
+else
+	if CCVITALE then
+		m_télévital.text = "Suivi CC-Vitale"
+	end if
+end if
+// Rendez-vous 
+if droits_acces[16] = 'N' then
+	m_rendez-vous.enabled = false
+end if
+// Commentaires-cliniques 
+if droits_acces[14] = 'N' or not module_clinique then
+	m_commentairescliniques.enabled = false
+end if
+// Pages-cliniques  
+if droits_acces[15] = 'N' or not module_clinique then
+	m_pagescliniques.enabled = false
+end if	
+
+
+//// Envoi de SMS uniquement si Dental SMS de configuré
+//uo_pocket uo_p
+//uo_p = create uo_pocket
+//uo_p.triggerevent(constructor!) 	// pour initialisation
+//if uo_p.is_dentalsms() then
+////	m_envoidesms.visible = true
+//end if
+
+if OPERATEUR_SMS = 2 then
+	m_envoyersmsunitaire.enabled = true
+	m_envoyersmsliste.enabled = true
+else
+	m_envoyersmsunitaire.enabled = false
+	m_envoyersmsliste.enabled = false
+end if
+
+
+
+//pas de gestion d'erreur
+return 1
+end function
+
+on m_patientcourant.create
+m_patientcourant=this
+call super::create
+this.text = "m_patient"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_administratif=create m_administratif
+this.m_courriersactionsdocuments=create m_courriersactionsdocuments
+this.m_commentairesadministratifs=create m_commentairesadministratifs
+this.m_0=create m_0
+this.m_soinsprévisionnel=create m_soinsprévisionnel
+this.m_soinsencours=create m_soinsencours
+this.m_rêglement=create m_rêglement
+this.m_télévital=create m_télévital
+this.m_2=create m_2
+this.m_commentairescliniques=create m_commentairescliniques
+this.m_pagescliniques=create m_pagescliniques
+this.m_imagerie=create m_imagerie
+this.m_4=create m_4
+this.m_lienodrade=create m_lienodrade
+this.m_3=create m_3
+this.m_rendez-vous=create m_rendez-vous
+this.m_-=create m_-
+this.m_envoyeremail=create m_envoyeremail
+this.m_signatureenligne=create m_signatureenligne
+this.m_-0=create m_-0
+this.m_exporterlalistesousexcel=create m_exporterlalistesousexcel
+this.m_exporterlalisteauformatexcelavecprésentation=create m_exporterlalisteauformatexcelavecprésentation
+this.m_pdf=create m_pdf
+this.m_exporterlaliste=create m_exporterlaliste
+this.m_etiquettes=create m_etiquettes
+this.m_envoyersmsliste=create m_envoyersmsliste
+this.m_envoyersmsunitaire=create m_envoyersmsunitaire
+this.m_toutdeselectionner=create m_toutdeselectionner
+this.Item[UpperBound(this.Item)+1]=this.m_administratif
+this.Item[UpperBound(this.Item)+1]=this.m_courriersactionsdocuments
+this.Item[UpperBound(this.Item)+1]=this.m_commentairesadministratifs
+this.Item[UpperBound(this.Item)+1]=this.m_0
+this.Item[UpperBound(this.Item)+1]=this.m_soinsprévisionnel
+this.Item[UpperBound(this.Item)+1]=this.m_soinsencours
+this.Item[UpperBound(this.Item)+1]=this.m_rêglement
+this.Item[UpperBound(this.Item)+1]=this.m_télévital
+this.Item[UpperBound(this.Item)+1]=this.m_2
+this.Item[UpperBound(this.Item)+1]=this.m_commentairescliniques
+this.Item[UpperBound(this.Item)+1]=this.m_pagescliniques
+this.Item[UpperBound(this.Item)+1]=this.m_imagerie
+this.Item[UpperBound(this.Item)+1]=this.m_4
+this.Item[UpperBound(this.Item)+1]=this.m_lienodrade
+this.Item[UpperBound(this.Item)+1]=this.m_3
+this.Item[UpperBound(this.Item)+1]=this.m_rendez-vous
+this.Item[UpperBound(this.Item)+1]=this.m_-
+this.Item[UpperBound(this.Item)+1]=this.m_envoyeremail
+this.Item[UpperBound(this.Item)+1]=this.m_signatureenligne
+this.Item[UpperBound(this.Item)+1]=this.m_-0
+this.Item[UpperBound(this.Item)+1]=this.m_exporterlalistesousexcel
+this.Item[UpperBound(this.Item)+1]=this.m_exporterlalisteauformatexcelavecprésentation
+this.Item[UpperBound(this.Item)+1]=this.m_pdf
+this.Item[UpperBound(this.Item)+1]=this.m_exporterlaliste
+this.Item[UpperBound(this.Item)+1]=this.m_etiquettes
+this.Item[UpperBound(this.Item)+1]=this.m_envoyersmsliste
+this.Item[UpperBound(this.Item)+1]=this.m_envoyersmsunitaire
+this.Item[UpperBound(this.Item)+1]=this.m_toutdeselectionner
+end on
+
+on m_patientcourant.destroy
+call super::destroy
+destroy(this.m_administratif)
+destroy(this.m_courriersactionsdocuments)
+destroy(this.m_commentairesadministratifs)
+destroy(this.m_0)
+destroy(this.m_soinsprévisionnel)
+destroy(this.m_soinsencours)
+destroy(this.m_rêglement)
+destroy(this.m_télévital)
+destroy(this.m_2)
+destroy(this.m_commentairescliniques)
+destroy(this.m_pagescliniques)
+destroy(this.m_imagerie)
+destroy(this.m_4)
+destroy(this.m_lienodrade)
+destroy(this.m_3)
+destroy(this.m_rendez-vous)
+destroy(this.m_-)
+destroy(this.m_envoyeremail)
+destroy(this.m_signatureenligne)
+destroy(this.m_-0)
+destroy(this.m_exporterlalistesousexcel)
+destroy(this.m_exporterlalisteauformatexcelavecprésentation)
+destroy(this.m_pdf)
+destroy(this.m_exporterlaliste)
+destroy(this.m_etiquettes)
+destroy(this.m_envoyersmsliste)
+destroy(this.m_envoyersmsunitaire)
+destroy(this.m_toutdeselectionner)
+end on
+
+type m_administratif from menu within m_patientcourant
+end type
+
+on m_administratif.create
+call super::create
+this.text = "Administratif"
+this.menuimage = "lc_admini_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_administratif.destroy
+call super::destroy
+end on
+
+event clicked;if fxg_ouverture_onglet_possible() then
+	w_patient_maj win
+	
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	m_orthokis_2020.ouvrir_mdi(2)
+end if
+end event
+
+type m_courriersactionsdocuments from menu within m_patientcourant
+end type
+
+event clicked;if fxg_ouverture_onglet_possible() then
+	w_patient_maj win
+	
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	m_orthokis_2020.ouvrir_mdi(16)
+end if
+end event
+
+on m_courriersactionsdocuments.create
+call super::create
+this.text = "Courriers / Actions / Documents"
+this.toolbaritemname = "lc_fiche_admini5.png"
+this.menuimage = "lc_fiche_admini5_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_courriersactionsdocuments.destroy
+call super::destroy
+end on
+
+type m_commentairesadministratifs from menu within m_patientcourant
+end type
+
+event clicked;if fxg_ouverture_onglet_possible() then
+	w_coment_admini_maj win
+	
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	
+	m_orthokis_2020.ouvrir_mdi(3)
+
+end if
+end event
+
+on m_commentairesadministratifs.create
+call super::create
+this.text = "Commentaires Administratifs"
+this.menuimage = "lc_coment_admini_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_commentairesadministratifs.destroy
+call super::destroy
+end on
+
+type m_0 from menu within m_patientcourant
+end type
+
+on m_0.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+type m_soinsprévisionnel from menu within m_patientcourant
+end type
+
+on m_soinsprévisionnel.create
+call super::create
+this.text = "Soins Prévisionnels"
+this.menuimage = "lc_soins_prevus_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_soinsprévisionnel.destroy
+call super::destroy
+end on
+
+event clicked;if fxg_ouverture_onglet_possible() then
+	//w_soins_prevus_maj win
+	
+	w_soins_reg_maj win
+	param_win[1] = 'P'
+	param_win[2] = '1'
+	param_win[3] = 'M'
+	
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	
+	m_orthokis_2020.ouvrir_mdi(4)
+
+end if
+end event
+
+type m_soinsencours from menu within m_patientcourant
+end type
+
+on m_soinsencours.create
+call super::create
+this.text = "Soins"
+this.menuimage = "lc_soins_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_soinsencours.destroy
+call super::destroy
+end on
+
+event clicked;if fxg_ouverture_onglet_possible() then
+	w_soins_reg_maj w1
+	param_win[1] = 'S'
+	param_win[2] = '1'
+	param_win[3] = 'M'
+	
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	m_orthokis_2020.ouvrir_mdi(5)
+
+end if
+
+end event
+
+type m_rêglement from menu within m_patientcourant
+end type
+
+on m_rêglement.create
+call super::create
+this.text = "Règlements"
+this.menuimage = "lc_regl_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_rêglement.destroy
+call super::destroy
+end on
+
+event clicked;if fxg_ouverture_onglet_possible() then
+	w_soins_reg_maj win
+	param_win[1] = 'R'
+	param_win[2] = '1'
+	param_win[3] = 'M'
+	
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	m_orthokis_2020.ouvrir_mdi(6)
+end if	
+
+end event
+
+type m_télévital from menu within m_patientcourant
+event clicked ( )
+end type
+
+event clicked;
+if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	// pour TV et pour CC Vitale
+	fxg_suivi_tv_eid_belgique(CodePatientCourant)
+end if
+
+
+
+
+
+end event
+
+on m_télévital.create
+call super::create
+this.text = "Suivi Sésam Vitale"
+this.menuimage = "lc_vitale_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_télévital.destroy
+call super::destroy
+end on
+
+type m_2 from menu within m_patientcourant
+end type
+
+on m_2.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_2.destroy
+call super::destroy
+end on
+
+type m_commentairescliniques from menu within m_patientcourant
+end type
+
+on m_commentairescliniques.create
+call super::create
+this.text = "Commentaires Cliniques"
+this.menuimage = "lc_coment_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_commentairescliniques.destroy
+call super::destroy
+end on
+
+event clicked;if fxg_ouverture_onglet_possible() then
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	m_orthokis_2020.ouvrir_mdi(9)
+
+
+end if
+
+end event
+
+type m_pagescliniques from menu within m_patientcourant
+end type
+
+on m_pagescliniques.create
+call super::create
+this.text = "Pages Cliniques"
+this.menuimage = "lc_clinique_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_pagescliniques.destroy
+call super::destroy
+end on
+
+event clicked;if fxg_ouverture_onglet_possible() then
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	m_orthokis_2020.ouvrir_mdi(10)
+
+end if
+
+end event
+
+type m_imagerie from menu within m_patientcourant
+end type
+
+event clicked;if fxg_ouverture_onglet_possible() then
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+
+	if profilestring(dir_ini+inifile_orthokis,"explorateur_photos_2013","a_part","N") = "O" then
+		// ouverture A part !
+		ouvrir_imagerie_2013_a_part ( var_code )
+	else
+		m_orthokis_2020.ouvrir_mdi(12)
+	end if
+end if
+
+
+end event
+
+on m_imagerie.create
+call super::create
+this.text = "Imagerie"
+this.menuimage = "lc_images_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_imagerie.destroy
+call super::destroy
+end on
+
+type m_4 from menu within m_patientcourant
+end type
+
+on m_4.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_4.destroy
+call super::destroy
+end on
+
+type m_lienodrade from menu within m_patientcourant
+end type
+
+on m_lienodrade.create
+call super::create
+this.text = "Lien Odrade"
+this.menuimage = "lc_odrade_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_lienodrade.destroy
+call super::destroy
+end on
+
+event clicked;param_lien_odrade p
+
+// ouverture en mode normal
+p.mode = 0
+p.code_patient = CodePatientCourant
+
+//Mise à jour des patients en mémoire
+MajTabPatientsCourants(CodePatientCourant)
+
+// On est obligé de mettre la connexion ici et pas la fenêtre Odrade car sinon ça plante
+// c'est pas beau mais ... ça marche !!
+
+
+
+if connexion_base_odrade() = 1 then
+	openwithparm(w_main_odrade,P)
+end if
+
+end event
+
+type m_3 from menu within m_patientcourant
+end type
+
+on m_3.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_3.destroy
+call super::destroy
+end on
+
+type m_rendez-vous from menu within m_patientcourant
+event clicked ( )
+end type
+
+event clicked;if fxg_ouverture_onglet_possible() then
+	w_rdv_maj win
+	
+	
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	m_orthokis_2020.ouvrir_mdi(8)
+
+end if
+
+end event
+
+on m_rendez-vous.create
+call super::create
+this.text = "Rendez-Vous"
+this.menuimage = "lc_rdv_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_rendez-vous.destroy
+call super::destroy
+end on
+
+type m_- from menu within m_patientcourant
+end type
+
+on m_-.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_envoyeremail from menu within m_patientcourant
+end type
+
+event clicked;var_code = CodePatientCourant
+
+//Mise à jour des patients en mémoire
+MajTabPatientsCourants(CodePatientCourant)
+
+// uniquement pour compatibilité de l'appel
+datawindow dw 
+integer desti
+
+if not isnull(VAR_CODE) and var_code <> 0 then
+	fxg_envoi_email_libre(var_code, dw, desti)
+else
+	son(5)
+	MessageBox("ATTENTION","Aucun patient courant !",Exclamation!)
+end if		
+
+end event
+
+on m_envoyeremail.create
+call super::create
+this.text = "Envoyer Email"
+this.menuimage = "lc_envoi_message_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_envoyeremail.destroy
+call super::destroy
+end on
+
+type m_signatureenligne from menu within m_patientcourant
+end type
+
+on m_signatureenligne.create
+call super::create
+this.tag = "SEULEMENT VISIBLE DANS LE MENU HERITE : m_patientcourant_signature"
+this.visible = false
+this.text = "Signature en Ligne"
+this.menuimage = "lc_signature_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_signatureenligne.destroy
+call super::destroy
+end on
+
+event clicked;string v_statut_signature
+string v_fichier_pdf
+string v_fichier_qm
+double row
+
+
+row = dw_clic.getSelectedRow( 0 )
+
+if row > 0 then
+	
+	if  dw_clic.getitemstring(row, "historique_editions_code_courrier") = "WORPDF" then
+		// Document Word passé en PDF => déjà prêt 
+		v_statut_signature	= dw_clic.getitemstring (row , "historique_editions_statut_signature")
+		v_fichier_pdf	= dw_clic.getitemstring (row , "historique_editions_nom_courrier")
+	
+		if v_statut_signature = "A1" or v_statut_signature = "A2" or v_statut_signature = "A3" then
+	
+			param_win[1] = v_statut_signature
+			param_win[2] = v_fichier_pdf
+			param_win[3] = dw_clic.getitemstring (row , "historique_editions_code_interne")
+			OpenWithParm(w_signature_en_ligne, CodePatientCourant )
+		end if
+	else
+		if  dw_clic.getitemstring(row, "historique_editions_code_courrier") = "QM" or dw_clic.getitemstring(row, "historique_editions_code_courrier") = "WORD" then
+			// QM en Word => faut d'abord le passé en en PDF => déjà prêt 
+			w_courriers_word_invisible  ww
+			
+			open(ww)
+			hide(ww)
+			v_fichier_qm= dw_clic.getitemstring (row , "historique_editions_nom_courrier")
+			
+			ww.signature_en_ligne (true, false, true, dir_photos + string(CodePatientCourant) + "\", v_fichier_qm)
+			close(ww)
+			
+		end if
+		
+	end if
+end if
+end event
+
+type m_-0 from menu within m_patientcourant
+end type
+
+on m_-0.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-0.destroy
+call super::destroy
+end on
+
+type m_exporterlalistesousexcel from menu within m_patientcourant
+end type
+
+event clicked;
+// Variable d'instance passée ....
+param_win[1] = "E"
+openWithParm(w_exporter_datawindow_excel, dw_click)
+end event
+
+on m_exporterlalistesousexcel.create
+call super::create
+this.text = "Exporter la liste au format Excel"
+this.menuimage = "lc_winexcel_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_exporterlalistesousexcel.destroy
+call super::destroy
+end on
+
+type m_exporterlalisteauformatexcelavecprésentation from menu within m_patientcourant
+end type
+
+event clicked;// Variable d'instance passée ....
+param_win[1] = "E+"
+openWithParm(w_exporter_datawindow_excel, dw_click)
+
+
+end event
+
+on m_exporterlalisteauformatexcelavecprésentation.create
+call super::create
+this.text = "Exporter la liste au format Excel (avec éléments affichés)"
+this.menuimage = "lc_winexcel_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_exporterlalisteauformatexcelavecprésentation.destroy
+call super::destroy
+end on
+
+type m_pdf from menu within m_patientcourant
+end type
+
+event clicked;// Variable passée en paramètre....
+param_win[1] = "P"
+openWithParm(w_exporter_datawindow_excel, dw_click)
+end event
+
+on m_pdf.create
+call super::create
+this.text = "Exporter la liste au format PDF"
+this.menuimage = "lc_pdf_petit.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_pdf.destroy
+call super::destroy
+end on
+
+type m_exporterlaliste from menu within m_patientcourant
+end type
+
+event clicked;dw_clic.saveas()
+end event
+
+on m_exporterlaliste.create
+call super::create
+this.text = "Exporter la liste"
+this.menuimage = "Export5!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_exporterlaliste.destroy
+call super::destroy
+end on
+
+type m_etiquettes from menu within m_patientcourant
+end type
+
+on m_etiquettes.create
+call super::create
+this.text = "Etiquettes"
+this.menuimage = "lc_etiquettes.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_etiquettes.destroy
+call super::destroy
+end on
+
+event clicked;
+// replissage de la liste des adresse
+
+
+long tot, lig
+double v_code
+
+datastore dw_liste
+dw_liste = create datastore
+dw_liste.DataObject = "dw_etiquettes"
+
+tot = dw_clic.rowcount()
+
+for lig = 1 to tot
+	
+	v_code = dw_clic.getItemNumber(lig, "code")
+	
+	dw_liste.insertrow(0)
+	
+	// recherche des éléments à partir du code du patient pour être sûr du coup !!!
+	string v_nom, v_adr1, v_adr2, v_codep, v_ville, v_titre
+	
+	select isnull(titre_personnes.nom, ''), nom_parent1, adr1_parent1, adr2_parent1, codep_parent1, ville_parent1
+	into :v_titre, :v_nom, :v_adr1, :v_adr2, :v_codep, :v_ville 
+	from patient, titre_personnes 
+	where patient.code = :v_code and titre_parent1 = titre_personnes.code ;
+	
+	if len(trim(v_titre)) = 0 then
+		dw_liste.setitem(lig, "ligne1", v_nom)
+	else
+		dw_liste.setitem(lig, "ligne1", trim(v_titre) + " "+ v_nom)
+	end if
+	dw_liste.setitem(lig, "ligne2",v_adr1)
+	dw_liste.setitem(lig, "ligne3", v_adr2)
+	dw_liste.setitem(lig, "ligne4", v_codep +" "+v_ville ) 
+	
+	
+next
+
+OpenWithParm (w_etiquettes, dw_liste)
+end event
+
+type m_envoyersmsliste from menu within m_patientcourant
+end type
+
+on m_envoyersmsliste.create
+call super::create
+this.text = "Envoyer SMS (Liste)"
+this.menuimage = "lc_sms_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_envoyersmsliste.destroy
+call super::destroy
+end on
+
+event clicked;//w_sms_listes wl_sms
+//gnv_modal.OpenModal(wl_sms)
+//
+
+Open(w_sms_listes)
+
+
+end event
+
+type m_envoyersmsunitaire from menu within m_patientcourant
+end type
+
+on m_envoyersmsunitaire.create
+call super::create
+this.text = "Envoyer SMS unitaire"
+this.menuimage = "lc_sms_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_envoyersmsunitaire.destroy
+call super::destroy
+end on
+
+event clicked;uo_envoyer_sms uo_sms
+uo_sms = create uo_envoyer_sms
+uo_sms.visible = true
+uo_sms.var_code_local = CodePatientCourant
+uo_sms.mode = "R"	// mode spécial pour choisir le N° ensuite
+uo_sms.p_1.triggerevent(clicked!)
+
+
+end event
+
+type m_toutdeselectionner from menu within m_patientcourant
+end type
+
+on m_toutdeselectionner.create
+call super::create
+this.visible = false
+this.text = "Tout désélectionner"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_toutdeselectionner.destroy
+call super::destroy
+end on
+
+event clicked;	long lig , tot
+	boolean tout_selectionne
+	
+	tout_selectionne = w_clic.tout_selectionne
+	
+	tot = dw_clic.rowcount()
+	
+	for lig = 1 to tot
+		if tout_selectionne then
+			dw_clic.setItem(lig, nom_colonne_selection, "N")
+		else
+			dw_clic.setItem(lig, nom_colonne_selection, "O")
+		end if
+	next
+	
+		
+	w_clic.tout_selectionne = not tout_selectionne
+
+end event
+

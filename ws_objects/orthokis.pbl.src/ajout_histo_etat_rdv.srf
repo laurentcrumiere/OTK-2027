@@ -1,0 +1,55 @@
+﻿$PBExportHeader$ajout_histo_etat_rdv.srf
+global type ajout_histo_etat_rdv from function_object
+end type
+
+forward prototypes
+global subroutine ajout_histo_etat_rdv (double code_interne, string etat)
+end prototypes
+
+global subroutine ajout_histo_etat_rdv (double code_interne, string etat);
+
+
+// Mise en historique des éditions
+// Automatiquement nom de l'utilisateur
+
+
+INSERT INTO "historique_etat_rdv"  
+         ( "code_interne",              "etat",                "date_modif" , 			  "user_modif"			  )  
+  VALUES ( :code_interne,   :etat,				 getdate(),						 :utilisateur_code			)  ;
+			  			  
+if sqlca.sqlcode <> 0 then
+	MessageBox("Problème d'ajout dans l'historique des Etats de RDV",Sqlca.sqlerrtext)	
+	rollback ;
+
+else
+	commit ;
+end if
+
+// Envoi de l'information de l'état à my Orthokis si Dental SMS
+boolean dental_sms
+datetime dt_rdv 
+long l_statut_reponse
+
+// On a besoin de l'uo Pocket ensuite, meme pour Dental SMS
+uo_pocket uo_poc
+uo_poc = create uo_pocket
+uo_poc.triggerevent(constructor!)
+
+
+if OPERATEUR_SMS = 2 then 
+	dental_sms = true
+else
+	dental_sms = false
+end if
+
+if DENTAL_SMS then
+
+	string s_host_dental_sms 
+	s_host_dental_sms = uo_poc.get_host()
+
+	fxg_maj_dental_sms(code_interne, etat, s_host_dental_sms, 'M' )
+	
+
+end if
+end subroutine
+

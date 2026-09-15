@@ -1,0 +1,42 @@
+﻿$PBExportHeader$gfx_suppr_rep.srf
+global type gfx_suppr_rep from function_object
+end type
+
+forward prototypes
+global function integer gfx_suppr_rep (ref listbox lb_fichiers, string str_path_rep)
+end prototypes
+
+global function integer gfx_suppr_rep (ref listbox lb_fichiers, string str_path_rep);// fx qui suprime un rep et les dosier qu'il contient
+// ATTENTION : pas du récursif (donc pas fait pour de multiples sous rep)
+// return 1 si OK
+//			-1 si pb
+
+integer	tot_items,i
+
+
+// histoire d'être sûr
+if right(str_path_rep, 1) <> "\" then str_path_rep += "\"
+
+// on liste les fichiers
+lb_fichiers.reset()
+lb_fichiers.DirList(str_path_rep + "*.*", 32)	// uniquement les fichiers avec aucun attribut et/ou attribut archive
+
+tot_items = lb_fichiers.TotalItems()
+if tot_items > 0 then
+	for i = 1 to tot_items
+	// pour chacun d'eux : on les suppr
+		FileDelete(str_path_rep + lb_fichiers.text(i))
+	next
+end if
+
+// pour libérer les fichiers de la mem
+lb_fichiers.reset()
+lb_fichiers.DirList("c:\*.*", 0+1+32)
+
+// on supr le rep vide
+RemoveDirectoryA(str_path_rep)
+
+
+return 1
+end function
+

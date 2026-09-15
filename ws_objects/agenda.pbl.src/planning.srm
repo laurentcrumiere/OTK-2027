@@ -1,0 +1,3735 @@
+﻿$PBExportHeader$planning.srm
+forward
+global type planning from menu
+end type
+type m_ajouter from menu within planning
+end type
+type m_ajouterpourpatientcourant from menu within planning
+end type
+type m_ajouterpourpatientcourant2 from menu within planning
+end type
+type m_ajouterpourpatientcourant3 from menu within planning
+end type
+type m_ajouterpourpatientcourant4 from menu within planning
+end type
+type m_ajouterpourpatientcourant5 from menu within planning
+end type
+type m_ajouterpourpatientcourant6 from menu within planning
+end type
+type m_modifier from menu within planning
+end type
+type m_supprimer from menu within planning
+end type
+type m_reportpatient from menu within planning
+end type
+type m_reportcabinet from menu within planning
+end type
+type m_reportmassifderendezvous from menu within planning
+end type
+type m_reporterlerendez-vous-mettreenattente from menu within planning
+end type
+type m_prendreunrendez-vousenattente from menu within planning
+end type
+type m_-7 from menu within planning
+end type
+type m_copier from menu within planning
+end type
+type m_couper from menu within planning
+end type
+type m_coller from menu within planning
+end type
+type m_- from menu within planning
+end type
+type m_rendez-vouspournouveaupatient from menu within planning
+end type
+type m_nouveaurendezvouspourcepatient from menu within planning
+end type
+type m_interdit from menu within planning
+end type
+type m_coller_interdit from menu within planning
+end type
+type m_-1 from menu within planning
+end type
+type m_ticketderendez-vous from menu within planning
+end type
+type m_-0 from menu within planning
+end type
+type m_synthèsepartype from menu within planning
+end type
+type m_synthèsepartypemois from menu within planning
+end type
+type m_synthèsepartypejournée from menu within planning
+end type
+type m_synthèsepartype12journée from menu within planning
+end type
+type m_-2 from menu within planning
+end type
+type m_administratif from menu within planning
+end type
+type m_courriersactionsdocuments from menu within planning
+end type
+type m_commentairesadministratifs from menu within planning
+end type
+type m_0 from menu within planning
+end type
+type m_soinsprévisionnels from menu within planning
+end type
+type m_soinsencours from menu within planning
+end type
+type m_règlements from menu within planning
+end type
+type m_suivitélévitale from menu within planning
+end type
+type m_-4 from menu within planning
+end type
+type m_commentairescliniques from menu within planning
+end type
+type m_pagescliniques from menu within planning
+end type
+type m_imagerie from menu within planning
+end type
+type m_-5 from menu within planning
+end type
+type m_rendez-vous from menu within planning
+end type
+type m_historiquedesetatsdurendez-vous from menu within planning
+end type
+type m_11 from menu within planning
+end type
+type m_envoyeremail from menu within planning
+end type
+type m_envoyersmsunitaire from menu within planning
+end type
+global type planning from menu
+m_ajouter m_ajouter
+m_ajouterpourpatientcourant m_ajouterpourpatientcourant
+m_ajouterpourpatientcourant2 m_ajouterpourpatientcourant2
+m_ajouterpourpatientcourant3 m_ajouterpourpatientcourant3
+m_ajouterpourpatientcourant4 m_ajouterpourpatientcourant4
+m_ajouterpourpatientcourant5 m_ajouterpourpatientcourant5
+m_ajouterpourpatientcourant6 m_ajouterpourpatientcourant6
+m_modifier m_modifier
+m_supprimer m_supprimer
+m_reportpatient m_reportpatient
+m_reportcabinet m_reportcabinet
+m_reportmassifderendezvous m_reportmassifderendezvous
+m_reporterlerendez-vous-mettreenattente m_reporterlerendez-vous-mettreenattente
+m_prendreunrendez-vousenattente m_prendreunrendez-vousenattente
+m_-7 m_-7
+m_copier m_copier
+m_couper m_couper
+m_coller m_coller
+m_- m_-
+m_rendez-vouspournouveaupatient m_rendez-vouspournouveaupatient
+m_nouveaurendezvouspourcepatient m_nouveaurendezvouspourcepatient
+m_interdit m_interdit
+m_coller_interdit m_coller_interdit
+m_-1 m_-1
+m_ticketderendez-vous m_ticketderendez-vous
+m_-0 m_-0
+m_synthèsepartype m_synthèsepartype
+m_synthèsepartypemois m_synthèsepartypemois
+m_synthèsepartypejournée m_synthèsepartypejournée
+m_synthèsepartype12journée m_synthèsepartype12journée
+m_-2 m_-2
+m_administratif m_administratif
+m_courriersactionsdocuments m_courriersactionsdocuments
+m_commentairesadministratifs m_commentairesadministratifs
+m_0 m_0
+m_soinsprévisionnels m_soinsprévisionnels
+m_soinsencours m_soinsencours
+m_règlements m_règlements
+m_suivitélévitale m_suivitélévitale
+m_-4 m_-4
+m_commentairescliniques m_commentairescliniques
+m_pagescliniques m_pagescliniques
+m_imagerie m_imagerie
+m_-5 m_-5
+m_rendez-vous m_rendez-vous
+m_historiquedesetatsdurendez-vous m_historiquedesetatsdurendez-vous
+m_11 m_11
+m_envoyeremail m_envoyeremail
+m_envoyersmsunitaire m_envoyersmsunitaire
+end type
+end forward
+
+global type planning from menu
+m_ajouter m_ajouter
+m_ajouterpourpatientcourant m_ajouterpourpatientcourant
+m_ajouterpourpatientcourant2 m_ajouterpourpatientcourant2
+m_ajouterpourpatientcourant3 m_ajouterpourpatientcourant3
+m_ajouterpourpatientcourant4 m_ajouterpourpatientcourant4
+m_ajouterpourpatientcourant5 m_ajouterpourpatientcourant5
+m_ajouterpourpatientcourant6 m_ajouterpourpatientcourant6
+m_modifier m_modifier
+m_supprimer m_supprimer
+m_reportpatient m_reportpatient
+m_reportcabinet m_reportcabinet
+m_reportmassifderendezvous m_reportmassifderendezvous
+m_reporterlerendez-vous-mettreenattente m_reporterlerendez-vous-mettreenattente
+m_prendreunrendez-vousenattente m_prendreunrendez-vousenattente
+m_-7 m_-7
+m_copier m_copier
+m_couper m_couper
+m_coller m_coller
+m_- m_-
+m_rendez-vouspournouveaupatient m_rendez-vouspournouveaupatient
+m_nouveaurendezvouspourcepatient m_nouveaurendezvouspourcepatient
+m_interdit m_interdit
+m_coller_interdit m_coller_interdit
+m_-1 m_-1
+m_ticketderendez-vous m_ticketderendez-vous
+m_-0 m_-0
+m_synthèsepartype m_synthèsepartype
+m_synthèsepartypemois m_synthèsepartypemois
+m_synthèsepartypejournée m_synthèsepartypejournée
+m_synthèsepartype12journée m_synthèsepartype12journée
+m_-2 m_-2
+m_administratif m_administratif
+m_courriersactionsdocuments m_courriersactionsdocuments
+m_commentairesadministratifs m_commentairesadministratifs
+m_0 m_0
+m_soinsprévisionnels m_soinsprévisionnels
+m_soinsencours m_soinsencours
+m_règlements m_règlements
+m_suivitélévitale m_suivitélévitale
+m_-4 m_-4
+m_commentairescliniques m_commentairescliniques
+m_pagescliniques m_pagescliniques
+m_imagerie m_imagerie
+m_-5 m_-5
+m_rendez-vous m_rendez-vous
+m_historiquedesetatsdurendez-vous m_historiquedesetatsdurendez-vous
+m_11 m_11
+m_envoyeremail m_envoyeremail
+m_envoyersmsunitaire m_envoyersmsunitaire
+end type
+global planning planning
+
+type variables
+double CodePatientCourant
+end variables
+
+forward prototypes
+public subroutine ajout_rdv_patient_courant ()
+public subroutine report_rdv (string v_type_report)
+end prototypes
+
+public subroutine ajout_rdv_patient_courant ();
+// w_agenda.param_rdv doit être initialisée avant
+
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+
+
+	openwithparm(w_detail_rdv,w_agenda_a_part.param_rdv)
+	
+	//Bloque l'affichage
+	//--------------
+	w_agenda_a_part.tab.object.redraw=FALSE
+	
+	//Rafraichit les RDV
+	//---------------
+	w_agenda_a_part.Actualiser()
+	
+	//Recherche de la pause dejeuner et affiche des heures dans la colonne fixe
+	// Utile surout pour matérialiser les heures fixes si besoin
+	//-----------------------------------------------------------
+	w_agenda_a_part.recherche_pause_dejeuner(w_agenda_a_part.pause_debut,w_agenda_a_part.pause_fin,w_agenda_a_part.nombre_intervalle)
+	
+	
+	//Autorise l'affichage
+	//----------------
+	w_agenda_a_part.tab.object.redraw=TRUE
+	
+else
+
+	openwithparm(w_detail_rdv,w_agenda.param_rdv)
+	
+	//Bloque l'affichage
+	//--------------
+	w_agenda.tab.object.redraw=FALSE
+	
+	//Rafraichit les RDV
+	//---------------
+	w_agenda.Actualiser()
+	
+	//Recherche de la pause dejeuner et affiche des heures dans la colonne fixe
+	// Utile surout pour matérialiser les heures fixes si besoin
+	//-----------------------------------------------------------
+	w_agenda.recherche_pause_dejeuner(w_agenda.pause_debut,w_agenda.pause_fin,w_agenda.nombre_intervalle)
+	
+	
+	//Autorise l'affichage
+	//----------------
+	w_agenda.tab.object.redraw=TRUE
+	
+end if
+
+end subroutine
+
+public subroutine report_rdv (string v_type_report);
+// Paramètre : v_type_report
+// C pour report Cabinet
+// P pour report patient
+// A pour mise en attente du rendez-vous -> report patient + mise en attente
+
+// etat du rdv de report
+string v_etat
+integer v_cpt
+boolean v_suite = true
+string ls_libelle_report, ls_libelle2_report, v_type_rdv, v_commentaire
+
+choose case v_type_report 
+	case "C" 
+		select top 1 etat_report_cabinet into :v_etat 
+		from param ; 
+		ls_libelle_report = "Le report"
+		ls_libelle2_report = "reporter"
+	case "P", "A"
+		select top 1 etat_report_patient into :v_etat 
+		from param ; 
+		if v_type_report = "P" then
+			ls_libelle_report = "Le report"
+			ls_libelle2_report = "reporter"
+		else
+			ls_libelle_report = "La mise en attente"
+			ls_libelle2_report = "mettre en attente"
+		end if
+end choose
+
+
+
+
+// Vérif qu'il existe 
+select count(*) into :v_cpt from etat_rdv where code = :v_etat ;
+
+if v_cpt = 1 then 
+	
+	v_suite = true
+else
+	
+	// faut définir les états
+	if Messagebox("ATTENTION !", "Vous n'avez pas défini d'état pour le report de rendez-vous !~n~nSouhaitez-vous le définir ?", Question!, YesNo!, 1) = 1 then
+		open(w_param_etats_reports)
+		
+		// En resteste ensuite car le user peut ne pas avoir mis à jour le bon ou les 2
+		
+		choose case v_type_report 
+			case "C" 
+				select top 1 etat_report_cabinet into :v_etat 
+				from param ; 
+			case "P", "A"
+				select top 1 etat_report_patient into :v_etat 
+				from param ; 
+		end choose
+		
+		// Vérif qu'il existe 
+		select count(*) into :v_cpt from etat_rdv where code = :v_etat ;
+		
+		if v_cpt = 1 then 
+			v_suite = true
+		else
+			v_suite = false
+			Messagebox("ATTENTION !", ls_libelle_report +" de rendez-vous est abandonné !")
+		end if
+	else
+		v_suite = false
+		Messagebox("ATTENTION !", ls_libelle_report + " de rendez-vous est abandonné !")
+	end if
+end if
+
+
+if v_suite then
+	
+	w_agenda w_agenda_ouvert
+
+	if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+		// Agenda à part
+		w_agenda_ouvert = w_agenda_a_part
+	else
+		w_agenda_ouvert = w_agenda
+	end if
+
+	// Copie du rdv
+	w_agenda_ouvert.code_patient_couper	=	w_agenda_ouvert.code_patient_agenda
+	w_agenda_ouvert.rdv_couper				=	w_agenda_ouvert.date_rdv_agenda
+	w_agenda_ouvert.type_couper				=	w_agenda_ouvert.type_rdv_agenda
+	w_agenda_ouvert.code_praticien_couper	=	w_agenda_ouvert.code_praticien_agenda
+	w_agenda_ouvert.couper						=	false
+	w_agenda_ouvert.copier						=	true
+	
+	w_agenda_ouvert.code_interne_rdv_couper = w_agenda_ouvert.code_interne_agenda 
+
+	
+	
+	// Y a t il pluisuers rdv qui se suivent pour la fratrie ?
+	double db_codes_internes_fratrie[], db_code_patient
+	integer i_nb_rdv_a_reporter, i_cpt
+	boolean b_erreur
+	datetime dt_rdv_report
+	string s_nom_complet_patient, v_code_praticien
+	
+	i_nb_rdv_a_reporter = nombre_rdv_meme_famille_a_la_suite(   double(w_agenda.code_patient_couper),  datetime(w_agenda.rdv_couper) , w_agenda.code_interne_rdv_couper, db_codes_internes_fratrie, integer(integer(w_agenda_ouvert.numero_fauteuil_agenda)))
+	
+	
+	if  i_nb_rdv_a_reporter > 1 then
+		
+		if Messagebox("ATTENTION", string(i_nb_rdv_a_reporter) + " rendez-vous à la suite concernent la même famille.~n~nSouhaitez vous tous les " + ls_libelle2_report + " ?", Question!, YesNo!, 1) = 2 then
+			// On ne garde que le 1er
+			i_nb_rdv_a_reporter = 1
+		end if
+	end if
+	
+	// Boucle pour traiter tous les rendez-vous
+	b_erreur = false
+	
+	for i_cpt = 1 to i_nb_rdv_a_reporter
+	
+		
+//		UPDATE rdv	 set absent = :v_etat, date_modif = getdate() , user_modif = :utilisateur_code 
+//				WHERE convert(numeric(30), code_interne) = :db_codes_internes_fratrie[i_cpt] ;
+
+		UPDATE rdv	 set absent = :v_etat, date_modif = getdate() , user_modif = :utilisateur_code 
+				WHERE round(code_interne,0) = :db_codes_internes_fratrie[i_cpt] ;
+	
+	
+		if sqlca.sqlcode = 0 then 
+			
+
+			commit ;
+	
+			// Memorisation de l'historique + info Dental SMS si besoin
+			ajout_histo_etat_rdv(db_codes_internes_fratrie[i_cpt] , v_etat )
+	
+			// recherche des élements du rdv
+			select code, rdv , code_praticien, "type"
+			into :db_code_patient, :dt_rdv_report, :v_code_praticien , :v_type_rdv
+			from rdv where round(code_interne,0) = :db_codes_internes_fratrie[i_cpt] ;
+			
+			// Mettre un commentaire de report de rdv ?
+			// Vérification si saisie d'un commentaire clinique pour report du rdv ....
+			
+			//commentaire_clinique_absence ( double(w_agenda_ouvert.code_patient_agenda), date(w_agenda_ouvert.date_rdv_agenda),  v_etat)
+			commentaire_clinique_absence (  db_code_patient , date(dt_rdv_report),  v_etat, db_codes_internes_fratrie[i_cpt] )
+			
+			if TEA then
+				fxg_lancer_commande_dsapi("appointment/update/" + string(db_codes_internes_fratrie[i_cpt]), "", "R", "G", db_code_patient  )
+				fxg_verif_envoi_questionnaire_tea(db_code_patient, dt_rdv_report, v_code_praticien, v_type_rdv)
+			end if
+	
+			if v_type_report = "A" then 
+				// Ajout des rendez-vous dans la liste des mise en attente
+				v_commentaire = "Report du rendez-vous du " + string(dt_rdv_report, "dd/mm/yyyy à hh:mm")
+				insert into "rdv_en_attente" ("code", "type_rdv", "a_partir", "code_praticien", "commentaire")
+				values ( :db_code_patient, :v_type_rdv, date(:dt_rdv_report), :v_code_praticien, :v_commentaire  ) ;
+				
+				if sqlca.sqlcode = 0 then 
+					commit ;
+				else
+					Messagebox("ATTENTION", "Erreur dans la mise en attente du rendez-vous du " +  string(dt_rdv_report, "dd/mm/yyyy à hh:mm") + " :~n~n" + sqlca.sqlerrtext + "~n~nLe rendez-vous est bien reporté mais pas consigné dans la liste !")
+					rollback ;
+				end if
+			end if
+	
+		else
+			
+			// recherche des élements du rdv pour affichage erreur
+			select nom + ' ' + isnull(prenom,'') , rdv into :s_nom_complet_patient, :dt_rdv_report 
+			from rdv , patient where round(code_interne,0) = :db_codes_internes_fratrie[i_cpt] and rdv.code = patient.code ;
+			
+			Messagebox("ATTENTION", "Une erreur c'est produite dans le report du rendez-vous.~nPatient : " + s_nom_complet_patient + "Rendez-vous : " + string(dt_rdv_report, "dd/mm/yyyy à hh:mm" ) + "~n~n~nErreur N° : " + string(sqlca.sqlcode)  + "~n~nTexte : " + sqlca.sqlerrtext)
+			b_erreur = true
+			
+			rollback ; 
+		end if
+		
+	next
+	
+	if not b_erreur then
+		// tout est OK ... on bascule le copier / coller 
+		w_agenda_ouvert.couper						=	false
+		w_agenda_ouvert.copier						=	true
+		w_agenda_ouvert.db_codes_internes_fratrie = db_codes_internes_fratrie
+		w_agenda_ouvert.i_nb_rdv_a_reporter = i_nb_rdv_a_reporter
+	else
+		setnull(w_agenda_ouvert.db_codes_internes_fratrie)
+		w_agenda_ouvert.i_nb_rdv_a_reporter = 0
+	end if
+
+	if v_type_report = "A" then 
+		// actualisation du compteur sur le bouton
+		// y a  t il des rendez-vous en attente 
+		w_agenda_ouvert.actualiser_nb_rdv_en_attente()
+		
+		// Actualisation de l'affichage de l'agenda
+		w_agenda_ouvert.cb_rafraichir.postevent(clicked!)
+	end if
+	
+end if
+end subroutine
+
+on planning.create
+planning=this
+call super::create
+this.text = "planning"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_ajouter=create m_ajouter
+this.m_ajouterpourpatientcourant=create m_ajouterpourpatientcourant
+this.m_ajouterpourpatientcourant2=create m_ajouterpourpatientcourant2
+this.m_ajouterpourpatientcourant3=create m_ajouterpourpatientcourant3
+this.m_ajouterpourpatientcourant4=create m_ajouterpourpatientcourant4
+this.m_ajouterpourpatientcourant5=create m_ajouterpourpatientcourant5
+this.m_ajouterpourpatientcourant6=create m_ajouterpourpatientcourant6
+this.m_modifier=create m_modifier
+this.m_supprimer=create m_supprimer
+this.m_reportpatient=create m_reportpatient
+this.m_reportcabinet=create m_reportcabinet
+this.m_reportmassifderendezvous=create m_reportmassifderendezvous
+this.m_reporterlerendez-vous-mettreenattente=create m_reporterlerendez-vous-mettreenattente
+this.m_prendreunrendez-vousenattente=create m_prendreunrendez-vousenattente
+this.m_-7=create m_-7
+this.m_copier=create m_copier
+this.m_couper=create m_couper
+this.m_coller=create m_coller
+this.m_-=create m_-
+this.m_rendez-vouspournouveaupatient=create m_rendez-vouspournouveaupatient
+this.m_nouveaurendezvouspourcepatient=create m_nouveaurendezvouspourcepatient
+this.m_interdit=create m_interdit
+this.m_coller_interdit=create m_coller_interdit
+this.m_-1=create m_-1
+this.m_ticketderendez-vous=create m_ticketderendez-vous
+this.m_-0=create m_-0
+this.m_synthèsepartype=create m_synthèsepartype
+this.m_synthèsepartypemois=create m_synthèsepartypemois
+this.m_synthèsepartypejournée=create m_synthèsepartypejournée
+this.m_synthèsepartype12journée=create m_synthèsepartype12journée
+this.m_-2=create m_-2
+this.m_administratif=create m_administratif
+this.m_courriersactionsdocuments=create m_courriersactionsdocuments
+this.m_commentairesadministratifs=create m_commentairesadministratifs
+this.m_0=create m_0
+this.m_soinsprévisionnels=create m_soinsprévisionnels
+this.m_soinsencours=create m_soinsencours
+this.m_règlements=create m_règlements
+this.m_suivitélévitale=create m_suivitélévitale
+this.m_-4=create m_-4
+this.m_commentairescliniques=create m_commentairescliniques
+this.m_pagescliniques=create m_pagescliniques
+this.m_imagerie=create m_imagerie
+this.m_-5=create m_-5
+this.m_rendez-vous=create m_rendez-vous
+this.m_historiquedesetatsdurendez-vous=create m_historiquedesetatsdurendez-vous
+this.m_11=create m_11
+this.m_envoyeremail=create m_envoyeremail
+this.m_envoyersmsunitaire=create m_envoyersmsunitaire
+this.Item[UpperBound(this.Item)+1]=this.m_ajouter
+this.Item[UpperBound(this.Item)+1]=this.m_ajouterpourpatientcourant
+this.Item[UpperBound(this.Item)+1]=this.m_ajouterpourpatientcourant2
+this.Item[UpperBound(this.Item)+1]=this.m_ajouterpourpatientcourant3
+this.Item[UpperBound(this.Item)+1]=this.m_ajouterpourpatientcourant4
+this.Item[UpperBound(this.Item)+1]=this.m_ajouterpourpatientcourant5
+this.Item[UpperBound(this.Item)+1]=this.m_ajouterpourpatientcourant6
+this.Item[UpperBound(this.Item)+1]=this.m_modifier
+this.Item[UpperBound(this.Item)+1]=this.m_supprimer
+this.Item[UpperBound(this.Item)+1]=this.m_reportpatient
+this.Item[UpperBound(this.Item)+1]=this.m_reportcabinet
+this.Item[UpperBound(this.Item)+1]=this.m_reportmassifderendezvous
+this.Item[UpperBound(this.Item)+1]=this.m_reporterlerendez-vous-mettreenattente
+this.Item[UpperBound(this.Item)+1]=this.m_prendreunrendez-vousenattente
+this.Item[UpperBound(this.Item)+1]=this.m_-7
+this.Item[UpperBound(this.Item)+1]=this.m_copier
+this.Item[UpperBound(this.Item)+1]=this.m_couper
+this.Item[UpperBound(this.Item)+1]=this.m_coller
+this.Item[UpperBound(this.Item)+1]=this.m_-
+this.Item[UpperBound(this.Item)+1]=this.m_rendez-vouspournouveaupatient
+this.Item[UpperBound(this.Item)+1]=this.m_nouveaurendezvouspourcepatient
+this.Item[UpperBound(this.Item)+1]=this.m_interdit
+this.Item[UpperBound(this.Item)+1]=this.m_coller_interdit
+this.Item[UpperBound(this.Item)+1]=this.m_-1
+this.Item[UpperBound(this.Item)+1]=this.m_ticketderendez-vous
+this.Item[UpperBound(this.Item)+1]=this.m_-0
+this.Item[UpperBound(this.Item)+1]=this.m_synthèsepartype
+this.Item[UpperBound(this.Item)+1]=this.m_synthèsepartypemois
+this.Item[UpperBound(this.Item)+1]=this.m_synthèsepartypejournée
+this.Item[UpperBound(this.Item)+1]=this.m_synthèsepartype12journée
+this.Item[UpperBound(this.Item)+1]=this.m_-2
+this.Item[UpperBound(this.Item)+1]=this.m_administratif
+this.Item[UpperBound(this.Item)+1]=this.m_courriersactionsdocuments
+this.Item[UpperBound(this.Item)+1]=this.m_commentairesadministratifs
+this.Item[UpperBound(this.Item)+1]=this.m_0
+this.Item[UpperBound(this.Item)+1]=this.m_soinsprévisionnels
+this.Item[UpperBound(this.Item)+1]=this.m_soinsencours
+this.Item[UpperBound(this.Item)+1]=this.m_règlements
+this.Item[UpperBound(this.Item)+1]=this.m_suivitélévitale
+this.Item[UpperBound(this.Item)+1]=this.m_-4
+this.Item[UpperBound(this.Item)+1]=this.m_commentairescliniques
+this.Item[UpperBound(this.Item)+1]=this.m_pagescliniques
+this.Item[UpperBound(this.Item)+1]=this.m_imagerie
+this.Item[UpperBound(this.Item)+1]=this.m_-5
+this.Item[UpperBound(this.Item)+1]=this.m_rendez-vous
+this.Item[UpperBound(this.Item)+1]=this.m_historiquedesetatsdurendez-vous
+this.Item[UpperBound(this.Item)+1]=this.m_11
+this.Item[UpperBound(this.Item)+1]=this.m_envoyeremail
+this.Item[UpperBound(this.Item)+1]=this.m_envoyersmsunitaire
+end on
+
+on planning.destroy
+call super::destroy
+destroy(this.m_ajouter)
+destroy(this.m_ajouterpourpatientcourant)
+destroy(this.m_ajouterpourpatientcourant2)
+destroy(this.m_ajouterpourpatientcourant3)
+destroy(this.m_ajouterpourpatientcourant4)
+destroy(this.m_ajouterpourpatientcourant5)
+destroy(this.m_ajouterpourpatientcourant6)
+destroy(this.m_modifier)
+destroy(this.m_supprimer)
+destroy(this.m_reportpatient)
+destroy(this.m_reportcabinet)
+destroy(this.m_reportmassifderendezvous)
+destroy(this.m_reporterlerendez-vous-mettreenattente)
+destroy(this.m_prendreunrendez-vousenattente)
+destroy(this.m_-7)
+destroy(this.m_copier)
+destroy(this.m_couper)
+destroy(this.m_coller)
+destroy(this.m_-)
+destroy(this.m_rendez-vouspournouveaupatient)
+destroy(this.m_nouveaurendezvouspourcepatient)
+destroy(this.m_interdit)
+destroy(this.m_coller_interdit)
+destroy(this.m_-1)
+destroy(this.m_ticketderendez-vous)
+destroy(this.m_-0)
+destroy(this.m_synthèsepartype)
+destroy(this.m_synthèsepartypemois)
+destroy(this.m_synthèsepartypejournée)
+destroy(this.m_synthèsepartype12journée)
+destroy(this.m_-2)
+destroy(this.m_administratif)
+destroy(this.m_courriersactionsdocuments)
+destroy(this.m_commentairesadministratifs)
+destroy(this.m_0)
+destroy(this.m_soinsprévisionnels)
+destroy(this.m_soinsencours)
+destroy(this.m_règlements)
+destroy(this.m_suivitélévitale)
+destroy(this.m_-4)
+destroy(this.m_commentairescliniques)
+destroy(this.m_pagescliniques)
+destroy(this.m_imagerie)
+destroy(this.m_-5)
+destroy(this.m_rendez-vous)
+destroy(this.m_historiquedesetatsdurendez-vous)
+destroy(this.m_11)
+destroy(this.m_envoyeremail)
+destroy(this.m_envoyersmsunitaire)
+end on
+
+event clicked;//
+end event
+
+type m_ajouter from menu within planning
+end type
+
+on m_ajouter.create
+call super::create
+this.text = "Ajouter"
+this.menuimage = "lc_rdv_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ajouter.destroy
+call super::destroy
+end on
+
+event clicked;//Ouverture de la fentre de detail du rendez-vous
+//--------------------------------------------------------
+
+w_agenda w_agenda_ouvert
+
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agenda_ouvert = w_agenda_a_part
+else
+	w_agenda_ouvert = w_agenda
+end if
+
+w_agenda_ouvert.param_rdv.patient_courant = false
+w_agenda_ouvert.param_rdv.rdv_en_attente = false
+
+openwithparm(w_detail_rdv,w_agenda_ouvert.param_rdv)
+
+// La fonction w_detail_rdv renvoi l'info 1 ou 0 si ajout ou pas de rdv 
+// Mise à jour du patient courant
+
+if Message.DoubleParm = 1 then
+	// Y a eu ajout => devient le patient courant
+	w_agenda_ouvert.set_patient_local()
+end if
+
+//Bloque l'affichage
+//--------------
+w_agenda_ouvert.tab.object.redraw=FALSE
+
+//Rafraichit les RDV
+//---------------
+w_agenda_ouvert.Actualiser()
+
+//Recherche de la pause dejeuner et affiche des heures dans la colonne fixe
+// Utile surout pour matérialiser les heures fixes si besoin
+//-----------------------------------------------------------
+w_agenda_ouvert.recherche_pause_dejeuner(w_agenda_ouvert.pause_debut,w_agenda_ouvert.pause_fin,w_agenda_ouvert.nombre_intervalle)
+
+
+//Autorise l'affichage
+//----------------
+w_agenda_ouvert.tab.object.redraw=TRUE
+
+
+end event
+
+type m_ajouterpourpatientcourant from menu within planning
+end type
+
+on m_ajouterpourpatientcourant.create
+call super::create
+this.text = "Ajouter pour Patient Courant"
+this.menuimage = "lc_rdv_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ajouterpourpatientcourant.destroy
+call super::destroy
+end on
+
+event clicked;//Ouverture de la fentre de detail du rendez-vous
+//--------------------------------------------------------
+w_agenda w_agende_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agende_ouvert = w_agenda_a_part
+else
+	w_agende_ouvert = w_agenda
+end if
+
+w_agende_ouvert.param_rdv.patient_courant = true
+w_agende_ouvert.param_rdv.code_patient_courant = w_agende_ouvert.var_code_local
+w_agende_ouvert.param_rdv.nom_patient_courant = w_agende_ouvert.var_nom_local
+w_agende_ouvert.param_rdv.rdv_en_attente = false
+
+ajout_rdv_patient_courant()
+
+end event
+
+type m_ajouterpourpatientcourant2 from menu within planning
+end type
+
+on m_ajouterpourpatientcourant2.create
+call super::create
+this.visible = false
+this.text = "Ajouter pour Patient Courant 2"
+this.menuimage = "lc_rdv_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ajouterpourpatientcourant2.destroy
+call super::destroy
+end on
+
+event clicked;//Ouverture de la fentre de detail du rendez-vous
+//--------------------------------------------------------
+w_agenda w_agende_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agende_ouvert = w_agenda_a_part
+else
+	w_agende_ouvert = w_agenda
+end if
+
+w_agende_ouvert.param_rdv.patient_courant = true
+w_agende_ouvert.param_rdv.code_patient_courant = w_agende_ouvert.var_code_local2
+w_agende_ouvert.param_rdv.nom_patient_courant = w_agende_ouvert.var_nom_local2
+w_agende_ouvert.param_rdv.rdv_en_attente = false
+
+ajout_rdv_patient_courant()
+
+end event
+
+type m_ajouterpourpatientcourant3 from menu within planning
+end type
+
+on m_ajouterpourpatientcourant3.create
+call super::create
+this.visible = false
+this.text = "Ajouter pour Patient Courant 3"
+this.menuimage = "lc_rdv_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ajouterpourpatientcourant3.destroy
+call super::destroy
+end on
+
+event clicked;//Ouverture de la fentre de detail du rendez-vous
+//--------------------------------------------------------
+w_agenda w_agende_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agende_ouvert = w_agenda_a_part
+else
+	w_agende_ouvert = w_agenda
+end if
+
+w_agende_ouvert.param_rdv.patient_courant = true
+w_agende_ouvert.param_rdv.code_patient_courant = w_agende_ouvert.var_code_local3
+w_agende_ouvert.param_rdv.nom_patient_courant = w_agende_ouvert.var_nom_local3
+w_agende_ouvert.param_rdv.rdv_en_attente = false
+
+ajout_rdv_patient_courant()
+
+end event
+
+type m_ajouterpourpatientcourant4 from menu within planning
+end type
+
+on m_ajouterpourpatientcourant4.create
+call super::create
+this.visible = false
+this.text = "Ajouter pour Patient Courant 4"
+this.menuimage = "lc_rdv_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ajouterpourpatientcourant4.destroy
+call super::destroy
+end on
+
+event clicked;//Ouverture de la fentre de detail du rendez-vous
+//--------------------------------------------------------
+w_agenda w_agende_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agende_ouvert = w_agenda_a_part
+else
+	w_agende_ouvert = w_agenda
+end if
+
+w_agende_ouvert.param_rdv.patient_courant = true
+w_agende_ouvert.param_rdv.code_patient_courant = w_agende_ouvert.var_code_local4
+w_agende_ouvert.param_rdv.nom_patient_courant = w_agende_ouvert.var_nom_local4
+w_agende_ouvert.param_rdv.rdv_en_attente = false
+
+ajout_rdv_patient_courant()
+
+end event
+
+type m_ajouterpourpatientcourant5 from menu within planning
+end type
+
+on m_ajouterpourpatientcourant5.create
+call super::create
+this.visible = false
+this.text = "Ajouter pour Patient Courant 5"
+this.menuimage = "lc_rdv_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ajouterpourpatientcourant5.destroy
+call super::destroy
+end on
+
+event clicked;//Ouverture de la fentre de detail du rendez-vous
+//--------------------------------------------------------
+w_agenda w_agende_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agende_ouvert = w_agenda_a_part
+else
+	w_agende_ouvert = w_agenda
+end if
+
+w_agende_ouvert.param_rdv.patient_courant = true
+w_agende_ouvert.param_rdv.code_patient_courant = w_agende_ouvert.var_code_local5
+w_agende_ouvert.param_rdv.nom_patient_courant = w_agende_ouvert.var_nom_local5
+w_agende_ouvert.param_rdv.rdv_en_attente = false
+
+ajout_rdv_patient_courant()
+
+end event
+
+type m_ajouterpourpatientcourant6 from menu within planning
+end type
+
+on m_ajouterpourpatientcourant6.create
+call super::create
+this.visible = false
+this.text = "Ajouter pour Patient Courant 6"
+this.menuimage = "lc_rdv_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ajouterpourpatientcourant6.destroy
+call super::destroy
+end on
+
+event clicked;//Ouverture de la fentre de detail du rendez-vous
+//--------------------------------------------------------
+w_agenda w_agende_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agende_ouvert = w_agenda_a_part
+else
+	w_agende_ouvert = w_agenda
+end if
+
+w_agende_ouvert.param_rdv.patient_courant = true
+w_agende_ouvert.param_rdv.code_patient_courant = w_agende_ouvert.var_code_local6
+w_agende_ouvert.param_rdv.nom_patient_courant = w_agende_ouvert.var_nom_local6
+w_agende_ouvert.param_rdv.rdv_en_attente = false
+
+ajout_rdv_patient_courant()
+
+end event
+
+type m_modifier from menu within planning
+end type
+
+on m_modifier.create
+call super::create
+this.text = "Modifier"
+this.menuimage = "lc_renommer.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_modifier.destroy
+call super::destroy
+end on
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	//Ouverture de la fentre de detail du rendez-vous
+	//--------------------------------------------------------
+	
+	w_agenda w_agende_ouvert
+	
+	if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+		// Agenda à part
+		w_agende_ouvert = w_agenda_a_part
+	else
+		w_agende_ouvert = w_agenda
+	end if
+	
+	
+	
+	openwithparm(w_detail_rdv,w_agende_ouvert.param_rdv)
+	
+	//Bloque l'affichage
+	//--------------
+	w_agende_ouvert.tab.object.redraw=FALSE
+	
+	//Rafraichit les RDV
+	//---------------
+	w_agende_ouvert.Actualiser()
+	
+	//Recherche de la pause dejeuner et affiche des heures dans la colonne fixe
+	// Utile surout pour matérialiser les heures fixes si besoin
+	//-----------------------------------------------------------
+	w_agende_ouvert.recherche_pause_dejeuner(w_agende_ouvert.pause_debut,w_agende_ouvert.pause_fin,w_agende_ouvert.nombre_intervalle)
+	
+	
+	//Autorise l'affichage
+	//----------------
+	w_agende_ouvert.tab.object.redraw=TRUE
+
+end if
+end event
+
+type m_supprimer from menu within planning
+end type
+
+on m_supprimer.create
+call super::create
+this.text = "Supprimer"
+this.menuimage = "lc_supprimer_rdv.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_supprimer.destroy
+call super::destroy
+end on
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	//Declaration des variables locales
+	//---------------------------
+	long temp_code_patient_agenda
+	datetime  temp_date_rdv_agenda
+	string rdv_agenda_string , v1
+	
+	//Demande de confirmation
+	//---------------------
+	
+	double var_code_interne_local
+	datetime v_proc 
+	
+	w_agenda w_agenda_ouvert
+	
+	if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+		// Agenda à part
+		w_agenda_ouvert = w_agenda_a_part
+	else
+		w_agenda_ouvert = w_agenda
+	end if
+	
+	//Caclul des variables temp du code_patient et de la date dur RDV
+	//---------------------------------------------------
+	temp_code_patient_agenda=long(w_agenda_ouvert.code_patient_agenda)
+	
+	if  temp_code_patient_agenda < 0 then
+		// patient temporaire de doctolib ou autre ... on touche pas
+		return
+	end if
+	
+	
+	if (messagebox("Suppression de rendez-vous.","Etes vous sûr de vouloir supprimer ce rendez-vous ?",Question!,YesNo!))=2 then
+		return
+	end if
+	
+	
+	temp_date_rdv_agenda=datetime(date(left(w_agenda_ouvert.date_rdv_agenda,10)),time(mid(w_agenda_ouvert.date_rdv_agenda,12,12)))
+	
+	v1 = w_agenda_ouvert.date_rdv_agenda
+	rdv_agenda_string = string( date(left(w_agenda_ouvert.date_rdv_agenda,10) ), 'yyyy-mm-dd') + " "+ mid(w_agenda_ouvert.date_rdv_agenda,12,12)
+	
+	// On récupère le code interne du rdv pour supprimer l'historique des états de rdv 
+	SELECT  code_interne into :var_code_interne_local 
+	FROM Rdv	WHERE code=:temp_code_patient_agenda
+								//AND rdv= :temp_date_rdv_agenda
+								AND rdv= datetime(:rdv_agenda_string) 
+								AND "type"=:w_agenda_ouvert.type_rdv_agenda
+								AND code_praticien = :w_agenda_ouvert.code_praticien_agenda;
+	
+	delete from historique_etat_rdv where round(code_interne,0) = :var_code_interne_local ;
+	commit ;
+	
+	
+	//Supprime le rdv grace a sa clef
+	//-------------------------
+	DELETE FROM Rdv	WHERE code=:temp_code_patient_agenda
+								AND rdv=:temp_date_rdv_agenda
+								AND "type"=:w_agenda_ouvert.type_rdv_agenda
+								AND code_praticien = :w_agenda_ouvert.code_praticien_agenda;
+								
+	commit;
+	
+	if TEA then
+		// le rdv a été supprimé
+		fxg_lancer_commande_dsapi("appointment/delete/" + string(var_code_interne_local), "", "R", "G", temp_code_patient_agenda  )
+	end if
+
+	ajout_histo_actions(temp_code_patient_agenda,"SUPRDV",today(),"Rendez-vous du "+string(temp_date_rdv_agenda, "dd/mm/yyyy à hh:mm" ))
+	
+	// On a besoin de l'uo Pocket ensuite, meme pour Dental SMS
+	uo_pocket uo_poc
+	uo_poc = create uo_pocket
+	uo_poc.triggerevent(constructor!)
+	
+	
+	if OPERATEUR_SMS = 2 then 
+		string s_host_dental_sms 
+		s_host_dental_sms = uo_poc.get_host()
+		fxg_maj_dental_sms(var_code_interne_local, "", s_host_dental_sms, 'S' )
+	end if
+	
+	
+	// On recherche si le patient à un prochain rendez-vous 
+	
+	v_proc = proc_rdv(temp_code_patient_agenda)
+	
+	if not isnull(v_proc) then
+		Messagebox("ATTENTION","Ce patient a un autre rendez-vous prévu le "+string(v_proc, "dd/mm/yyyy à hh:mm")+".")
+	end if
+	
+	//Bloque l'affichage
+	//--------------
+	w_agenda_ouvert.tab.object.redraw=FALSE
+	
+	//Rafraichit les RDV
+	//---------------
+	w_agenda_ouvert.Actualiser()
+	
+	//Recherche de la pause dejeuner et affiche des heures dans la colonne fixe
+	// Utile surout pour matérialiser les heures fixes si besoin
+	//-----------------------------------------------------------
+	w_agenda_ouvert.recherche_pause_dejeuner(w_agenda_ouvert.pause_debut,w_agenda_ouvert.pause_fin,w_agenda_ouvert.nombre_intervalle)
+	
+	
+	//Autorise l'affichage
+	//----------------
+	w_agenda_ouvert.tab.object.redraw=TRUE
+	
+end if
+end event
+
+type m_reportpatient from menu within planning
+end type
+
+on m_reportpatient.create
+call super::create
+this.text = "Reporter le rendez-vous - Demande Patient"
+this.menuimage = "lc_reporter_rdv.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_reportpatient.destroy
+call super::destroy
+end on
+
+event clicked;
+report_rdv("P")
+
+
+
+end event
+
+type m_reportcabinet from menu within planning
+end type
+
+on m_reportcabinet.create
+call super::create
+this.text = "Reporter le rendez-vous - Demande Cabinet"
+this.menuimage = "lc_reporter_rdv.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_reportcabinet.destroy
+call super::destroy
+end on
+
+event clicked;
+report_rdv("C")
+
+
+
+end event
+
+type m_reportmassifderendezvous from menu within planning
+end type
+
+on m_reportmassifderendezvous.create
+call super::create
+this.text = "Report Massif de Rendez-Vous"
+this.enabled = false
+this.menuimage = "lc_reporter_rdv.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_reportmassifderendezvous.destroy
+call super::destroy
+end on
+
+event clicked;
+w_agenda w_agenda_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agenda_ouvert = w_agenda_a_part
+else
+	w_agenda_ouvert = w_agenda
+end if
+
+
+
+OpenWithParm(w_report_massif_rdv, w_agenda_ouvert.param_rdv)
+
+if message.DoubleParm = 1 then
+	// On est sorti avec OK pour faire le report => on actualisae l'affichage 
+	
+	//Bloque l'affichage
+	//--------------
+	w_agenda_ouvert.tab.object.redraw=FALSE
+	
+	//Rafraichit les RDV
+	//---------------
+	w_agenda_ouvert.Actualiser()
+	
+	//Recherche de la pause dejeuner et affiche des heures dans la colonne fixe
+	// Utile surout pour matérialiser les heures fixes si besoin
+	//-----------------------------------------------------------
+	w_agenda_ouvert.recherche_pause_dejeuner(w_agenda_ouvert.pause_debut,w_agenda_ouvert.pause_fin,w_agenda_ouvert.nombre_intervalle)
+	
+	
+	//Autorise l'affichage
+	//----------------
+	w_agenda_ouvert.tab.object.redraw=TRUE
+end if
+end event
+
+type m_reporterlerendez-vous-mettreenattente from menu within planning
+end type
+
+on m_reporterlerendez-vous-mettreenattente.create
+call super::create
+this.text = "Reporter le rendez-vous - Mettre en attente"
+this.menuimage = "lc_reporter_rdv.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_reporterlerendez-vous-mettreenattente.destroy
+call super::destroy
+end on
+
+event clicked;report_rdv("A")
+end event
+
+type m_prendreunrendez-vousenattente from menu within planning
+end type
+
+on m_prendreunrendez-vousenattente.create
+call super::create
+this.text = "Prendre un rendez-vous en attente"
+this.menuimage = "lc_rdv_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_prendreunrendez-vousenattente.destroy
+call super::destroy
+end on
+
+event clicked;
+
+// Selection du rendez-vous dans la fenetre
+
+
+//"Rendez-vous en attente"
+var_suite = false
+
+openWithParm(w_rdv_en_attente, "S")
+//guo_fenetre_modale.wf_ouvrir_param_string(w1, "S")
+
+// récupration du rdv sélectionné 
+
+
+st_rdv v_rdv_a_donner
+
+
+if var_suite then
+	
+	v_rdv_a_donner = message.powerobjectparm
+	
+	w_agenda w_agenda_ouvert
+
+	if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+		// Agenda à part
+		w_agenda_ouvert = w_agenda_a_part
+	else
+		w_agenda_ouvert = w_agenda
+	end if
+	
+	w_agenda_ouvert.param_rdv.patient_courant = true
+	w_agenda_ouvert.param_rdv.nouveau = true
+	
+	w_agenda_ouvert.param_rdv.praticien_a = v_rdv_a_donner.praticien_a 
+	w_agenda_ouvert.param_rdv.type_rdv = v_rdv_a_donner.type_rdv 
+	w_agenda_ouvert.param_rdv.code_patient_courant = v_rdv_a_donner.code_patient_courant
+	w_agenda_ouvert.param_rdv.rdv_en_attente = true
+	
+//	w_agenda_ouvert.param_rdv.praticien_a ='JC'
+//	w_agenda_ouvert.param_rdv.type_rdv = '58'
+//	w_agenda_ouvert.param_rdv.code_patient_courant = 13279
+
+	
+	openwithparm(w_detail_rdv, w_agenda_ouvert.param_rdv)
+	
+	if param_win [1] = "1" then 
+		// le rendez vous a bien été pris
+		
+		// Actualisation de l'agenda
+		w_agenda_ouvert.cb_rafraichir.triggerevent(clicked!)
+		
+		// Suppression du rdv a prendre dans la liste
+		
+		delete from rdv_en_attente where code = :v_rdv_a_donner.code_patient_courant and type_rdv = :v_rdv_a_donner.type_rdv  ;
+		
+		if sqlca.sqlcode = 0 then 
+			commit ;
+			
+			w_agenda_ouvert.actualiser_nb_rdv_en_attente()
+			
+		else
+			
+			Messagebox("ATTENTION", "Erreur dans la suppresion du rendez-vous dans la liste d'attente !~n~n" + sqlca.sqlerrtext )
+			rollback ;
+			
+			
+		end if
+		
+	end if
+
+end if
+end event
+
+type m_-7 from menu within planning
+end type
+
+on m_-7.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-7.destroy
+call super::destroy
+end on
+
+type m_copier from menu within planning
+end type
+
+on m_copier.create
+call super::create
+this.text = "Copier"
+this.menuimage = "lc_Copy.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_copier.destroy
+call super::destroy
+end on
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	//Sauvegarde les champs de la clef primaire du rdv
+	//---------------------------------------
+	
+	w_agenda w_agenda_ouvert
+	
+	if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+		// Agenda à part
+		w_agenda_ouvert = w_agenda_a_part
+	else
+		w_agenda_ouvert = w_agenda
+	end if
+	
+	
+	w_agenda_ouvert.code_patient_couper	=	w_agenda_ouvert.code_patient_agenda
+	w_agenda_ouvert.rdv_couper				=	w_agenda_ouvert.date_rdv_agenda
+	w_agenda_ouvert.type_couper				=	w_agenda_ouvert.type_rdv_agenda
+	w_agenda_ouvert.code_praticien_couper	=	w_agenda_ouvert.code_praticien_agenda
+	w_agenda_ouvert.couper						=	false
+	w_agenda_ouvert.copier						=	true
+	
+	w_agenda_ouvert.code_interne_rdv_couper = verif_code_interne_rdv(w_agenda_ouvert.code_interne_agenda , w_agenda_ouvert)
+	
+	// Y a t il pluisuers rdv qui se suivent pour la fratrie ?
+	double db_codes_internes_fratrie[]
+	integer i_nb_rdv_a_reporter
+	
+	i_nb_rdv_a_reporter = nombre_rdv_meme_famille_a_la_suite(   double(w_agenda.code_patient_couper),  datetime(w_agenda.rdv_couper) , w_agenda.code_interne_rdv_couper, db_codes_internes_fratrie, integer(w_agenda_ouvert.numero_fauteuil_agenda))
+	
+	
+	if  i_nb_rdv_a_reporter > 1 then
+		
+		if Messagebox("ATTENTION", string(i_nb_rdv_a_reporter) + " rendez-vous à la suite concernent la même famille.~n~nSouhaitez vous tous les copier ?", Question!, YesNo!, 1) = 2 then
+			// On ne garde que le 1er
+			i_nb_rdv_a_reporter = 1
+		end if
+	end if
+	w_agenda_ouvert.i_nb_rdv_a_reporter = i_nb_rdv_a_reporter
+	w_agenda_ouvert.db_codes_internes_fratrie = db_codes_internes_fratrie	
+end if
+end event
+
+type m_couper from menu within planning
+end type
+
+on m_couper.create
+call super::create
+this.text = "Couper"
+this.menuimage = "lc_Cut.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_couper.destroy
+call super::destroy
+end on
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	//Sauvegarde les champs de la clef primaire du rdv
+	//---------------------------------------
+	w_agenda w_agenda_ouvert
+	
+	if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+		// Agenda à part
+		w_agenda_ouvert = w_agenda_a_part
+	else
+		w_agenda_ouvert = w_agenda
+	end if
+	
+	
+		
+	// Agenda à part
+	w_agenda_ouvert.code_patient_couper=w_agenda_ouvert.code_patient_agenda
+	w_agenda_ouvert.rdv_couper=w_agenda_ouvert.date_rdv_agenda
+	w_agenda_ouvert.type_couper=w_agenda_ouvert.type_rdv_agenda
+	w_agenda_ouvert.code_praticien_couper=w_agenda_ouvert.code_praticien_agenda
+	w_agenda_ouvert.couper=true
+	w_agenda_ouvert.copier=false
+	
+	w_agenda_ouvert.code_interne_rdv_couper = verif_code_interne_rdv(w_agenda_ouvert.code_interne_agenda , w_agenda_ouvert)
+	
+	// pour compatibilité avec les reports de rdv
+	// Y a t il pluisuers rdv qui se suivent pour la fratrie ?
+	double db_codes_internes_fratrie[]
+	integer i_nb_rdv_a_reporter
+	
+	i_nb_rdv_a_reporter = nombre_rdv_meme_famille_a_la_suite(   double(w_agenda_ouvert.code_patient_couper),  datetime(w_agenda_ouvert.rdv_couper) , w_agenda_ouvert.code_interne_rdv_couper, db_codes_internes_fratrie, integer(w_agenda_ouvert.numero_fauteuil_agenda))
+	
+	
+	if  i_nb_rdv_a_reporter > 1 then
+		
+		if Messagebox("ATTENTION", string(i_nb_rdv_a_reporter) + " rendez-vous à la suite concernent la même famille.~n~nSouhaitez vous tous les couper ?", Question!, YesNo!, 1) = 2 then
+			// On ne garde que le 1er
+			i_nb_rdv_a_reporter = 1
+		end if
+	end if
+
+	w_agenda_ouvert.i_nb_rdv_a_reporter = i_nb_rdv_a_reporter
+	w_agenda_ouvert.db_codes_internes_fratrie = db_codes_internes_fratrie
+end if
+end event
+
+type m_coller from menu within planning
+end type
+
+on m_coller.create
+call super::create
+this.text = "Coller"
+this.menuimage = "lc_Paste.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_coller.destroy
+call super::destroy
+end on
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	//Declaration des variables locales
+	//--------------------------
+	double temp_code_patient
+	datetime temp_rdv_date, temp_rdv_date2
+	integer v_duree
+	boolean ok_suite
+	integer v_fauteuil_pris
+	boolean ok_coller = false
+	
+	integer i_cpt, i_fauteuil
+	double db_code_interne_lu
+	string s_type, s_code_praticien
+	
+	w_agenda w_agenda_ouvert
+	
+	if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+		// Agenda à part
+		w_agenda_ouvert = w_agenda_a_part
+	else
+		w_agenda_ouvert = w_agenda
+	end if
+	
+	// On fait les vérification pour tous les rdv du tableau db_codes_internes_fratrie
+	ok_suite = true
+	
+	for i_cpt = 1 to w_agenda_ouvert.i_nb_rdv_a_reporter
+		
+//		select code , "type", duree, code_praticien 
+//		into :temp_code_patient, :s_type, :v_duree, :s_code_praticien 
+//		from rdv where round(code_interne,0) = round(:w_agenda_ouvert.db_codes_internes_fratrie[i_cpt],0) ;
+
+		select code , "type", duree, code_praticien 
+		into :temp_code_patient, :s_type, :v_duree, :s_code_praticien 
+		from rdv where ceiling(code_interne) = ceiling(:w_agenda_ouvert.db_codes_internes_fratrie[i_cpt]) ;
+
+		// Vérifications
+		// Vérifications par rapport aux blocages de fauteuil
+		if verif_blocages(1, temp_code_patient, w_agenda_ouvert.param_rdv.date_debut, v_duree, s_code_praticien, w_agenda_ouvert.param_rdv.numero_fauteuil,  s_type) > 0 then
+//			Messagebox("ATTENTION","Vous ne pouvez pas mettre ce rendez-vous sur ce fauteuil car il est bloqué par un autre rendez-vous !") 
+//			ok_suite = false
+			string v_autor_forcage_blocage_rdv
+			// Est ce que l'utilisateur a le droit de forcer ?
+			select isnull(autor_forcage_blocage_rdv, 'N') into :v_autor_forcage_blocage_rdv 
+			from utilisateurs 
+			where code = :utilisateur_code ;
+			
+			if v_autor_forcage_blocage_rdv = "N" then 
+				Messagebox("ATTENTION","Vous ne pouvez pas saisir ce rendez-vous sur ce fauteuil car il est bloqué par un autre rendez-vous !") 
+				ok_suite = false
+			else
+				if Messagebox("ATTENTION","Le fauteuil choisi pour ce rendez-vous est bloqué par un autre rendez-vous !~n~nSouhaitez-vous forcer ce blocage ?", Question!, YesNo!, 2)  = 1 then
+					ok_suite = true
+				else
+					ok_suite = false
+				end if
+
+			end if
+
+
+
+		end if
+		
+		// Vérifications du créneau en fonction du type de rendez-vous
+		if ok_suite then 
+			if not verif_creneau_interdiction(s_type , w_agenda_ouvert.param_rdv.date_debut, v_duree) then
+				// Le message d'erreur est dans la fonction
+				ok_suite = false
+			end if
+		end if
+		
+		
+		if ok_suite then 
+			// Vérifications par rapport aux blocages de fauteuil
+			v_fauteuil_pris = verif_blocages(2, temp_code_patient, w_agenda_ouvert.param_rdv.date_debut, v_duree, s_code_praticien, w_agenda_ouvert.param_rdv.numero_fauteuil, s_type)
+			if v_fauteuil_pris > 1 then
+				Messagebox("ATTENTION","Ce type de rendez-vous nécessite le blocage de fauteuil(s).~n~nOr le fauteuil N°"+string(v_fauteuil_pris) + " est déjà pris !") 
+				ok_suite = false
+			end if
+		end if
+	
+
+	next
+	
+	
+	
+	
+	
+	if ok_suite then
+	
+		// Calcul de l'écart du 1er rdv et on reportre ça sur les autres ..
+		double db_ecart_jour, db_ecart_secondes
+		
+//		select  rdv
+//		into :temp_rdv_date 
+//		from rdv where round(code_interne,0) = :w_agenda_ouvert.db_codes_internes_fratrie[1] ;
+//		
+		
+		select  rdv
+		into :temp_rdv_date 
+		from rdv where ceiling(code_interne) = ceiling(:w_agenda_ouvert.db_codes_internes_fratrie[1]) ;
+		
+		
+		db_ecart_jour = daysAfter(date(temp_rdv_date), date(w_agenda_ouvert.param_rdv.date_debut))
+		db_ecart_secondes = SecondsAfter(time(temp_rdv_date), time(w_agenda_ouvert.param_rdv.date_debut))
+			
+		// c'est un copier ou un couper ?
+		if w_agenda_ouvert.couper then
+			
+			// C'est un COUPER
+		
+			//Met a jour le rdv avec les infos sauvegarde et la nouvelle date et fauteuil selectionne 
+			//-------------------------------------------------------------------
+		//		UPDATE rdv	SET rdv."rdv" = :w_agenda_ouvert.param_rdv.date_debut, rdv.fauteuil = :w_agenda_ouvert.param_rdv.numero_fauteuil, date_modif = getdate() , user_modif = :utilisateur_code 
+		//							WHERE code_interne = :w_agenda_ouvert.code_interne_rdv_couper ;
+
+			// Mise à jours des rendez-vous ... 
+			
+			for i_cpt = 1 to w_agenda_ouvert.i_nb_rdv_a_reporter
+				select  rdv, "type"
+				into :temp_rdv_date , :s_type
+				from rdv where ceiling(code_interne) = :w_agenda_ouvert.db_codes_internes_fratrie[i_cpt] ;
+				
+				// Nouvelle date / heure du rdv 
+				temp_rdv_date2 = datetime(relativedate(date(temp_rdv_date),db_ecart_jour ) , relativetime(time(temp_rdv_date),db_ecart_secondes ))
+				
+				//UPDATE rdv	SET rdv."rdv" = :temp_rdv_date2, rdv.fauteuil = :w_agenda_ouvert.param_rdv.numero_fauteuil, date_modif = getdate()  , user_modif = :utilisateur_code 
+				//				WHERE round(code_interne,0) = :w_agenda_ouvert.db_codes_internes_fratrie[i_cpt] ;
+	
+				UPDATE rdv	SET rdv."rdv" = :temp_rdv_date2, rdv.fauteuil = :w_agenda_ouvert.param_rdv.numero_fauteuil, date_modif = getdate()  , user_modif = :utilisateur_code 
+								WHERE ceiling(code_interne) = ceiling(:w_agenda_ouvert.db_codes_internes_fratrie[i_cpt]) ;
+
+			
+				if sqlca.sqlcode <> 0 then
+					Messagebox("Erreur dans le déplacement du Rendez-vous du " + string(temp_rdv_date, "dd/mm/yyyy à hh:mm" ),"Erreur N°"+string(sqlca.sqlcode)+"~n~n"+sqlca.sqlerrtext)
+					rollback ;
+				else
+					commit ;
+					
+					if TEA then 
+						fxg_lancer_commande_dsapi("appointment/update/" + string(w_agenda_ouvert.db_codes_internes_fratrie[i_cpt]), "", "R", "G", temp_code_patient  )
+						fxg_verif_envoi_questionnaire_tea(temp_code_patient, temp_rdv_date2, s_code_praticien, s_type)
+					end if
+				
+					ok_coller = true
+					// Mémo du déplacement 
+					if version_ce_logiciel < "36.90" then 
+						ajout_histo_actions(temp_code_patient,"MODRDV",today(),"Couper/Coller Agenda - Rendez-vous du "+string(temp_rdv_date, "dd/mm/yyyy à hh:mm" ))
+					else
+						ajout_histo_actions(temp_code_patient,"MODRDV",today(),"Couper/Coller Agenda - Rendez-vous du "+string(temp_rdv_date, "dd/mm/yyyy à hh:mm" ) + " vers " + string(temp_rdv_date2, "dd/mm/yyyy à hh:mm" ))
+					end if
+				end if
+		
+			next
+			
+		else
+								
+			//Insertion du rdv copier 
+			//-------------------------------------------------------------------
+			
+			// recherche du type du rdv sélectionnée
+			string v_etat, v_commentaire
+			double v_code_interne
+
+			
+			// Réinitialisation de l'état
+			select min(code) into :v_etat from etat_rdv where ordre_trie = ( select min(ordre_trie) from etat_rdv ) ;
+
+			
+			for i_cpt = 1 to w_agenda_ouvert.i_nb_rdv_a_reporter
+				
+				select code , "type", duree, code_praticien , commentaire, rdv 
+				into :temp_code_patient, :s_type, :v_duree, :s_code_praticien , :v_commentaire, :temp_rdv_date
+				from rdv where round(code_interne,0) = :w_agenda_ouvert.db_codes_internes_fratrie[i_cpt] ;
+				
+				// Nouvelle date / heure du rdv 
+				temp_rdv_date2 = datetime(relativedate(date(temp_rdv_date),db_ecart_jour ) , relativetime(time(temp_rdv_date),db_ecart_secondes ))
+				
+	
+				v_code_interne = code_interne_rdv()
+				INSERT INTO RDV ("code", "rdv", "type", "code_praticien", "duree", "fauteuil", "absent", "arrivee", "date_modif", "user_modif", "code_interne", "commentaire")
+				values (:temp_code_patient, :temp_rdv_date2, :s_type, :s_code_praticien,  
+				:v_duree, :w_agenda_ouvert.param_rdv.numero_fauteuil, :v_etat, null, getdate(), :utilisateur_code, :v_code_interne, :v_commentaire) ;
+			
+				if sqlca.sqlcode <> 0 then
+					Messagebox("Erreur dans l'ajout du Rendez-vous du "+string(temp_rdv_date2, "dd/mm/yyyy à hh:mm" ) , " Erreur N°"+string(sqlca.sqlcode)+"~n~n"+sqlca.sqlerrtext)
+					rollback ;
+				else
+					commit ;
+				
+					ok_coller = true
+					
+					if TEA then 
+						fxg_lancer_commande_dsapi("appointment/create/" + string(v_code_interne), "", "R", "G" , temp_code_patient )
+						fxg_verif_envoi_questionnaire_tea(temp_code_patient, temp_rdv_date2, s_code_praticien, s_type)
+					end if
+					
+					// Ajout du blocage ...
+					
+					insert into rdv_blocages ("code_interne_rdv", "fauteuil") 
+					select :v_code_interne , "fauteuil" from rdv_blocages where code_interne_rdv = :w_agenda_ouvert.db_codes_internes_fratrie[i_cpt] ;
+					
+					if sqlca.sqlcode <> 0 then
+							Messagebox("Erreur dans l'ajout des blocages pour le Rendez-vous du "+string(temp_rdv_date2, "dd/mm/yyyy à hh:mm" ),"Erreur N°"+string(sqlca.sqlcode)+"~n~n"+sqlca.sqlerrtext)
+							rollback ;
+					else
+						commit ;
+					end if
+		
+					// Mémo du déplacement 
+					ajout_histo_actions(temp_code_patient,"AJORDV",today(),"Copier/Coller Agenda - Rendez-vous du "+string(temp_rdv_date2, "dd/mm/yyyy à hh:mm" ))
+			
+		
+				end if
+		
+				if ok_coller then
+					string v_email_ticket_auto
+					// Envoi d'un email automatique ...
+					select isnull(min(email_ticket_auto), 'N') into :v_email_ticket_auto from param ;
+				
+					if v_email_ticket_auto = "O" then 
+						w_mdi_2020.dw_lettre_ticket_rdv.settransobject(sqlca)
+						w_mdi_2020.dw_lettre_ticket_rdv.retrieve(temp_code_patient,temp_rdv_date2 )
+						if w_mdi_2020.dw_lettre_ticket_rdv.rowcount() > 0 then 
+							// La dw passée en paramètre ne sert à rien .. uniquement pour format de la fonction
+							fxg_envoi_email_libre(temp_code_patient, w_mdi_2020.dw_lettre_ticket_rdv, 2)
+						end if
+					end if
+				end if
+			
+			next
+		end if
+		//Bloque l'affichage
+		//----------------------
+		w_agenda_ouvert.tab.object.redraw=FALSE
+		
+		//Rafraichit les RDV
+		//---------------
+		w_agenda_ouvert.Actualiser()
+		
+		//Recherche de la pause dejeuner et affiche des heures dans la colonne fixe
+		// Utile surout pour matérialiser les heures fixes si besoin
+		//-----------------------------------------------------------
+		w_agenda_ouvert.recherche_pause_dejeuner(w_agenda_ouvert.pause_debut,w_agenda_ouvert.pause_fin,w_agenda_ouvert.nombre_intervalle)
+		
+		
+		//Autorise l'affichage
+		//----------------
+		w_agenda_ouvert.tab.object.redraw=TRUE
+
+	end if
+		
+		
+	//Enlve les flag
+	//----------
+	w_agenda_ouvert.couper=False
+	w_agenda_ouvert.copier=False
+
+end if
+
+end event
+
+type m_- from menu within planning
+end type
+
+on m_-.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_rendez-vouspournouveaupatient from menu within planning
+end type
+
+event clicked;w_agenda w_agenda_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agenda_ouvert = w_agenda_a_part
+else
+	w_agenda_ouvert = w_agenda
+end if
+
+
+
+
+
+//création rapide d'un nouveau patient
+openwithparm(w_creation_patient_rapide,w_agenda.param_rdv)
+
+//continue uniquement si tout va bien (var_suite = true)
+//copie du script de la ligne "Ajouter" du présent menu
+if var_suite then
+	//maj de param_rdv
+	w_agenda_ouvert.param_rdv.rdv_en_attente = false
+	
+	//Ouverture de la fentre de detail du rendez-vous
+	openwithparm(w_detail_rdv_pour_nouveau_patient,w_agenda_ouvert.param_rdv)
+	
+	
+	// La fonction w_detail_rdv renvoi l'info 1 ou 0 si ajout ou pas de rdv 
+	// Mise à jour du patient courant
+
+	//if Message.DoubleParm = 1 then
+	if param_win[1] = "1" then 
+		// Y a eu ajout => devient le patient courant
+		w_agenda_ouvert.set_patient_local()
+	end if
+	
+	//Bloque l'affichage
+	w_agenda_ouvert.tab.object.redraw=FALSE
+	//Rafraichit les RDV
+	w_agenda_ouvert.Actualiser()
+	
+	//Recherche de la pause dejeuner et affiche des heures dans la colonne fixe
+	// Utile surout pour matérialiser les heures fixes si besoin
+	//-----------------------------------------------------------
+	w_agenda_ouvert.recherche_pause_dejeuner(w_agenda_ouvert.pause_debut,w_agenda_ouvert.pause_fin,w_agenda_ouvert.nombre_intervalle)
+
+
+	//Autorise l'affichage
+	w_agenda_ouvert.tab.object.redraw=TRUE
+end if
+end event
+
+on m_rendez-vouspournouveaupatient.create
+call super::create
+this.text = "Rendez-vous pour Nouveau Patient"
+this.menuimage = "lc_rdv_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_rendez-vouspournouveaupatient.destroy
+call super::destroy
+end on
+
+type m_nouveaurendezvouspourcepatient from menu within planning
+end type
+
+on m_nouveaurendezvouspourcepatient.create
+call super::create
+this.text = "Nouveau Rendez-vous pour ce patient"
+this.menuimage = "lc_rdv_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_nouveaurendezvouspourcepatient.destroy
+call super::destroy
+end on
+
+event clicked;//Ouverture de la fentre de detail du rendez-vous
+//--------------------------------------------------------
+w_agenda w_agende_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agende_ouvert = w_agenda_a_part
+else
+	w_agende_ouvert = w_agenda
+end if
+
+w_agende_ouvert.param_rdv.patient_courant = true
+w_agende_ouvert.param_rdv.code_patient_courant = CodePatientCourant
+w_agende_ouvert.param_rdv.nom_patient_courant = ""
+w_agende_ouvert.param_rdv.nouveau = true
+w_agende_ouvert.param_rdv.rdv_en_attente = false
+
+ajout_rdv_patient_courant()
+end event
+
+type m_interdit from menu within planning
+end type
+
+event clicked;
+w_agenda w_agenda_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agenda_ouvert = w_agenda_a_part
+else
+	w_agenda_ouvert = w_agenda
+end if
+
+
+//Ouverture de la fentre de detail du rendez-vous
+//--------------------------------------------------------
+openwithparm(w_jours_interdits_ajout_agenda,w_agenda_ouvert.param_rdv)
+
+//Bloque l'affichage
+//--------------
+w_agenda_ouvert.tab.object.redraw=FALSE
+
+//Rafraichit les RDV
+//---------------
+w_agenda_ouvert.Actualiser()
+
+//Recherche de la pause dejeuner et affiche des heures dans la colonne fixe
+// Utile surout pour matérialiser les heures fixes si besoin
+//-----------------------------------------------------------
+w_agenda_ouvert.recherche_pause_dejeuner(w_agenda_ouvert.pause_debut,w_agenda_ouvert.pause_fin,w_agenda_ouvert.nombre_intervalle)
+
+
+//Autorise l'affichage
+//----------------
+w_agenda_ouvert.tab.object.redraw=TRUE
+
+end event
+
+on m_interdit.create
+call super::create
+this.text = "Ajout d~'un Interdit"
+this.enabled = false
+this.menuimage = "lc_ajouter_interdit.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_interdit.destroy
+call super::destroy
+end on
+
+type m_coller_interdit from menu within planning
+end type
+
+on m_coller_interdit.create
+call super::create
+this.text = "Coller l~'Interdit"
+this.menuimage = "lc_ajouter_interdit.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_coller_interdit.destroy
+call super::destroy
+end on
+
+event clicked;long lig, tot
+long ecart_jours, ecart_secondes, ecart_fauteuils
+
+datetime v_date_debut, v_date_fin
+datetime v_date_debut_initiale, v_date_fin_initiale
+integer 	v_fauteuil_debut, v_fauteuil_fin
+integer 	v_fauteuil_debut_initial, v_fauteuil_fin_initial
+
+string 	v_code_praticien, v_commentaire
+double v_couleur 
+
+// Recherche dans la table des jours interdits ... 
+//--------------------------------------------------------
+w_agenda w_agenda_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agenda_ouvert = w_agenda_a_part
+else
+	w_agenda_ouvert = w_agenda
+end if
+
+// datastore sur les périodes concernées (possiblement superposées)
+datastore dw_interdit 
+
+dw_interdit = CREATE DataStore
+dw_interdit.DataObject = "dw_jours_interdits_suppresion_agenda"
+dw_interdit.SetTransObject(SQLCA)
+
+dw_interdit.retrieve(w_agenda_ouvert.date_interdit_copier, w_agenda_ouvert.fauteuil_interdit_copier, w_agenda_ouvert.code_praticien_interdit_de_copier, w_agenda_ouvert.code_praticien_interdit_a_copier)
+
+tot = dw_interdit.rowcount()
+
+if tot > 0 then 
+		
+	for lig = 1 to tot
+		ecart_jours = daysafter( date( w_agenda_ouvert.date_interdit_copier ) , date(w_agenda_ouvert.param_rdv.date_debut) )
+		ecart_secondes = SecondsAfter(Time(w_agenda_ouvert.date_interdit_copier) , Time(w_agenda_ouvert.param_rdv.date_debut))
+		ecart_fauteuils = w_agenda_ouvert.param_rdv.numero_fauteuil - w_agenda_ouvert.fauteuil_interdit_copier
+		
+		// champs à décaler
+		v_date_debut = datetime ( RelativeDate( date(dw_interdit.getitemdatetime(lig, "date_debut")) , ecart_jours) , RelativeTime ( time(dw_interdit.getitemdatetime(lig, "date_debut")), ecart_secondes )   )
+		v_date_fin = datetime ( RelativeDate( date(dw_interdit.getitemdatetime(lig, "date_fin")) , ecart_jours) , RelativeTime ( time(dw_interdit.getitemdatetime(lig, "date_fin")), ecart_secondes )   )
+		v_fauteuil_debut = max(dw_interdit.getitemNumber(lig, "fauteuil_debut") + ecart_fauteuils, 0) 	// pas de fauteuil négatif
+		v_fauteuil_fin = min(dw_interdit.getitemNumber(lig, "fauteuil_fin") + ecart_fauteuils , 99) // pas de fauteuil supérieur à 100
+			
+		if w_agenda_ouvert.copier_interdit then 
+			// on duplique les périodes	
+			
+			// champs qui ne changent pas ...
+			v_code_praticien = dw_interdit.getitemString(lig, "code_praticien")
+			v_commentaire = dw_interdit.getitemString(lig, "jours_interdits_commentaire")
+			v_couleur = dw_interdit.getitemNumber(lig, "couleur")
+			
+			
+			insert into jours_interdits (date_debut, date_fin, fauteuil_debut, fauteuil_fin, code_praticien, commentaire, user_modif, date_modif, couleur)
+			values(:v_date_debut, :v_date_fin, :v_fauteuil_debut, :v_fauteuil_fin, :v_code_praticien, :v_commentaire, :utilisateur_code, getdate(*), :v_couleur ) ;
+			
+			if sqlca.sqlcode = 0 then 
+				commit ;
+			else
+				Messagebox("ATTENTION", "Erreur dans la copie de la nouvelle période du " + string(v_date_debut, "dd/mm/yyyy à hh:mm") + " au " + string(v_date_fin, "dd/mm/yyyy à hh:mm") + "~n~n" + sqlca.sqlerrtext)
+				rollback ;
+			end if
+		
+		
+		else
+			// on met à jour les périodes
+			
+			v_date_debut_initiale = dw_interdit.getitemdatetime(lig, "date_debut")
+			v_date_fin_initiale = dw_interdit.getitemdatetime(lig, "date_fin")
+			v_fauteuil_debut_initial = dw_interdit.getitemNumber(lig, "fauteuil_debut")
+			v_fauteuil_fin_initial = dw_interdit.getitemNumber(lig, "fauteuil_fin")
+
+			v_code_praticien = dw_interdit.getitemString(lig, "code_praticien")
+
+			update jours_interdits 
+			set date_debut = :v_date_debut, date_fin = :v_date_fin, fauteuil_debut = :v_fauteuil_debut, fauteuil_fin = :v_fauteuil_fin, user_modif = :utilisateur_code, date_modif = getdate(*)
+			where date_debut = :v_date_debut_initiale and date_fin = :v_date_fin_initiale and fauteuil_debut = :v_fauteuil_debut_initial 
+			and fauteuil_fin = :v_fauteuil_fin_initial and code_praticien = :v_code_praticien ;
+			
+			if sqlca.sqlcode = 0 then 
+				commit ;
+			else
+				Messagebox("ATTENTION", "Erreur dans la mise à jour de la période du " + string(v_date_debut_initiale, "dd/mm/yyyy à hh:mm") + " au " + string(v_date_fin_initiale, "dd/mm/yyyy à hh:mm") + "~n~n" + sqlca.sqlerrtext)
+				rollback ;
+			end if
+		
+		
+		end if		
+			
+	next
+		
+
+	
+	//Rafraichit les RDV
+	//---------------
+	w_agenda_ouvert.Actualiser()
+	
+	//Recherche de la pause dejeuner et affiche des heures dans la colonne fixe
+	// Utile surout pour matérialiser les heures fixes si besoin
+	//-----------------------------------------------------------
+	w_agenda_ouvert.recherche_pause_dejeuner(w_agenda_ouvert.pause_debut,w_agenda_ouvert.pause_fin,w_agenda_ouvert.nombre_intervalle)
+	
+	
+	//Autorise l'affichage
+	//----------------
+	w_agenda_ouvert.tab.object.redraw=TRUE
+	
+	
+else
+	Messagebox("ATTENTION !", "Impossible de récupérer la/les période(s) interdite(s) !~n~nOpération annulée")		
+	
+end if
+
+w_agenda_ouvert.copier_interdit = false
+w_agenda_ouvert.couper_interdit = false
+
+
+end event
+
+type m_-1 from menu within planning
+end type
+
+on m_-1.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-1.destroy
+call super::destroy
+end on
+
+type m_ticketderendez-vous from menu within planning
+end type
+
+event clicked;// Il peut y avoir plusieurs RDV sur la case
+// => On imprime tous les tickets possibles !!!
+
+
+// Les infos de la case sont ds la structure w_agenda.param_rdv
+
+// Curseur sur les RDV qui pourraient correspondre
+
+// Variable locales de recherche
+integer v_fauteuil
+string v_prat1,v_prat2
+datetime v_date_debut, v_date_fin
+
+// Rdv trouvés
+double v_pat, patient_trouve[]
+datetime v_rdv, rdv_trouve[]
+integer cpt_trouve, i
+
+
+w_agenda w_agenda_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agenda_ouvert = w_agenda_a_part
+else
+	w_agenda_ouvert = w_agenda
+end if
+
+
+
+v_fauteuil = w_agenda_ouvert.param_rdv.numero_fauteuil
+v_date_debut= w_agenda_ouvert.param_rdv.date_debut
+v_date_fin = datetime( date(w_agenda_ouvert.param_rdv.date_fin) , relativetime(time(w_agenda_ouvert.param_rdv.date_fin) , -1))	// pour ne pas mordre sur le rdv suivant
+v_prat1 = w_agenda_ouvert.param_rdv.praticien_de
+v_prat2 = w_agenda_ouvert.param_rdv.praticien_a
+
+
+DECLARE Cur_rdv_ticket CURSOR FOR 
+SELECT rdv.code , rdv FROM "rdv" , "etat_rdv" 
+WHERE "rdv"."code_praticien" between :v_prat1 and :v_prat2 and
+"rdv" between :v_date_debut and :v_date_fin and
+"fauteuil" = :v_fauteuil and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda <> 'O' ;
+
+
+// On est obligé de mémorisé dans un tableau car, avec un curseur, soucis du fait de la fonction impression_ticket
+
+cpt_trouve = 0
+Open Cur_rdv_ticket ;
+
+FETCH Cur_rdv_ticket INTO :v_pat, :v_rdv ;
+
+DO WHILE sqlca.sqlcode = 0 
+	
+	cpt_trouve = cpt_trouve + 1
+	
+	patient_trouve[cpt_trouve] = v_pat
+	rdv_trouve[cpt_trouve] = v_rdv
+	
+	FETCH Cur_rdv_ticket INTO :v_pat, :v_rdv ;
+	
+LOOP
+
+Close Cur_rdv_ticket ;
+
+
+for i = 1 to cpt_trouve 
+
+	Impression_ticket_rdv (patient_trouve[i],rdv_trouve[i], w_agenda_ouvert.uo_edition, false)
+
+next
+
+end event
+
+on m_ticketderendez-vous.create
+call super::create
+this.text = "Ticket de Rendez-vous"
+this.menuimage = "lc_ticket_rdv.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ticketderendez-vous.destroy
+call super::destroy
+end on
+
+type m_-0 from menu within planning
+end type
+
+on m_-0.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-0.destroy
+call super::destroy
+end on
+
+type m_synthèsepartype from menu within planning
+end type
+
+on m_synthèsepartype.create
+call super::create
+this.text = "Synthèse par type (semaine)"
+this.menuimage = "lc_synthese_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_synthèsepartype.destroy
+call super::destroy
+end on
+
+event clicked;open(w_patience)
+
+w_agenda w_agenda_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agenda_ouvert = w_agenda_a_part
+else
+	w_agenda_ouvert = w_agenda
+end if
+
+
+// Calcul du jour du debut de la semaine et de la fin de la semaine
+//--------------------------------------------------------------------------
+
+datetime date_min, date_max
+string prat1,prat2
+
+// Lundi
+date date_cal
+time time_cal
+w_agenda_ouvert.cal.getvalue(date_cal, time_cal)
+
+date_min = datetime( relativedate(date_cal,2 - daynumber(date_cal)), time("00:00"))
+
+// Dimanche
+date_max = datetime(relativedate(date(date_min),6)	, time("23:59"))
+
+
+// Praticiens
+if left(w_agenda_ouvert.tous,1)<> 'O' then
+		prat1=w_agenda_ouvert.dw_praticien.gettext()
+		prat2 = prat1 
+	else
+		prat1 = '      '
+		prat2 = 'ZZZZZZ'
+	end if
+
+
+// Appel de la Dw
+w_agenda_ouvert.dw_synthese.retrieve(date_min, date_max,prat1,prat2, 0, 99)
+
+w_agenda_ouvert.tab.visible = false
+w_agenda_ouvert.dw_synthese.visible = true
+
+close(w_patience)
+end event
+
+type m_synthèsepartypemois from menu within planning
+end type
+
+event clicked;open(w_patience)
+
+w_agenda w_agenda_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agenda_ouvert = w_agenda_a_part
+else
+	w_agenda_ouvert = w_agenda
+end if
+
+
+// Calcul du jour du debut du mois et de la fin du mois
+//--------------------------------------------------------------------------
+
+datetime date_min, date_max
+
+string prat1,prat2
+
+date date_base
+
+time time_cal
+w_agenda_ouvert.cal.getvalue(date_base, time_cal)
+//date_base = date(w_agenda_ouvert.cal.value)
+
+
+// debut du mois
+date_min = datetime( date(string(year(date_base))+"/"+string(month(date_base))+"/01"),  time("00:00"))
+
+relativedate(date(w_agenda_ouvert.cal.value),2 - daynumber(date(w_agenda_ouvert.cal.value)))
+	
+// fin du mois
+//date_temp = relativedate(date(date_min),32)
+//date_temp = date(string(year(date_temp))+"/"+string(month(date_temp))+"/01")
+//date_temp = relativedate(date_temp, -1 )
+
+date_max = datetime ( fin_mois(date(date_min)) , time("23:59"))
+
+// Praticiens
+if left(w_agenda_ouvert.tous,1)<> 'O' then
+		prat1=w_agenda_ouvert.dw_praticien.gettext()
+		prat2 = prat1 
+	else
+		prat1 = '      '
+		prat2 = 'ZZZZZZ'
+	end if
+
+
+// Appel de la Dw
+w_agenda_ouvert.dw_synthese.retrieve(date_min, date_max,prat1,prat2, 0, 99)
+
+w_agenda_ouvert.tab.visible = false
+w_agenda_ouvert.dw_synthese.visible = true
+
+close(w_patience)
+end event
+
+on m_synthèsepartypemois.create
+call super::create
+this.text = "Synthèse par type (mois)"
+this.menuimage = "lc_synthese_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_synthèsepartypemois.destroy
+call super::destroy
+end on
+
+type m_synthèsepartypejournée from menu within planning
+end type
+
+on m_synthèsepartypejournée.create
+call super::create
+this.text = "Synthèse par type (journée)"
+this.menuimage = "lc_synthese_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_synthèsepartypejournée.destroy
+call super::destroy
+end on
+
+event clicked;open(w_patience)
+
+w_agenda w_agenda_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agenda_ouvert = w_agenda_a_part
+else
+	w_agenda_ouvert = w_agenda
+end if
+
+
+// Calcul pour le jour cliqué
+//--------------------------------------------------------------------------
+
+date date_jour
+datetime date_min, date_max
+string prat1,prat2
+
+date_jour = date(w_agenda_ouvert.param_rdv.date_debut)
+
+date_min = datetime(date_jour, time("00:00"))
+date_max = datetime(date_jour, time("23:59"))
+
+// Praticiens
+if left(w_agenda_ouvert.tous,1)<> 'O' then
+		prat1=w_agenda_ouvert.dw_praticien.gettext()
+		prat2 = prat1 
+	else
+		prat1 = '      '
+		prat2 = 'ZZZZZZ'
+	end if
+
+
+// Appel de la Dw
+w_agenda_ouvert.dw_synthese.retrieve(date_min, date_max,prat1,prat2, 0, 99)
+
+w_agenda_ouvert.tab.visible = false
+w_agenda_ouvert.dw_synthese.visible = true
+
+close(w_patience)
+end event
+
+type m_synthèsepartype12journée from menu within planning
+end type
+
+on m_synthèsepartype12journée.create
+call super::create
+this.text = "Synthèse par type (1/2 journée)"
+this.menuimage = "lc_synthese_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_synthèsepartype12journée.destroy
+call super::destroy
+end on
+
+event clicked;open(w_patience)
+
+w_agenda w_agenda_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agenda_ouvert = w_agenda_a_part
+else
+	w_agenda_ouvert = w_agenda
+end if
+
+
+// Calcul pour la demi-journée cliquée
+//--------------------------------------------------------------------------
+
+
+datetime date_min, date_max, date_heure_cliquee
+date date_jour
+string prat1,prat2
+
+time v_pause_debut, v_pause_fin
+string v_praticien
+
+
+date_heure_cliquee = w_agenda_ouvert.param_rdv.date_debut
+
+date_jour = date(date_heure_cliquee)
+
+
+
+// Recherche des paramètres de pause 
+
+
+
+
+if w_agenda_ouvert.dw_praticien.visible then
+	
+	// Agenda pour 1 praticien 
+	v_praticien = w_agenda_ouvert.dw_praticien.gettext()
+	
+	string lib_fauteuil_praticien[10]
+
+	// On charge les données de la table des options PAR praticien !!
+	//-------------------------------------------------------------
+		SELECT	pause_debut, pause_fin
+		INTO		:v_pause_debut, :v_pause_fin
+		FROM 	"agenda_praticien" 
+		WHERE   code_praticien = :v_praticien ;
+
+	
+else
+
+		//Recuperation des paramètres depuis la table agenda
+		//-------------------------------------------------------------
+		SELECT	top 1 pause_debut, pause_fin 
+		INTO		:v_pause_debut, :v_pause_fin
+		FROM 	"agenda" ;
+
+end if
+
+// si pas de pause 
+if v_pause_debut = v_pause_fin then
+	// pas de pause, on fixe à 13h la rupture de la 1/2 journée
+	v_pause_debut = time("12:59")
+	v_pause_fin =  time("13:00")
+end if
+
+
+
+// Matin ou après midi ???
+
+if time(date_heure_cliquee) < v_pause_debut then 
+	// c'est le matin
+	date_min = datetime(date_jour, time("00:00"))
+	date_max = datetime(date_jour, v_pause_debut)
+	
+else
+	// c'est l'après midi !
+	date_min = datetime(date_jour, v_pause_fin)
+	date_max = datetime(date_jour, time("23:59"))
+	
+end if
+
+
+
+// Praticiens
+if left(w_agenda_ouvert.tous,1)<> 'O' then
+		prat1=w_agenda_ouvert.dw_praticien.gettext()
+		prat2 = prat1 
+	else
+		prat1 = '      '
+		prat2 = 'ZZZZZZ'
+	end if
+
+
+
+
+// Appel de la Dw
+w_agenda_ouvert.dw_synthese.retrieve(date_min, date_max,prat1,prat2, 0, 99)
+
+w_agenda_ouvert.tab.visible = false
+w_agenda_ouvert.dw_synthese.visible = true
+
+close(w_patience)
+end event
+
+type m_-2 from menu within planning
+end type
+
+on m_-2.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-2.destroy
+call super::destroy
+end on
+
+type m_administratif from menu within planning
+end type
+
+on m_administratif.create
+call super::create
+this.text = "Administratif"
+this.menuimage = "lc_admini_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_administratif.destroy
+call super::destroy
+end on
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	w_patient_maj win
+	
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	m_orthokis_2020.ouvrir_mdi(2)
+
+end if
+end event
+
+type m_courriersactionsdocuments from menu within planning
+end type
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	if fxg_ouverture_onglet_possible() then
+		w_patient_maj win
+		
+		//Mise à jour des patients en mémoire
+		MajTabPatientsCourants(CodePatientCourant)
+		
+		m_orthokis_2020.ouvrir_mdi(16)
+	end if
+end if
+end event
+
+on m_courriersactionsdocuments.create
+call super::create
+this.text = "Courriers / Actions / Documents"
+this.menuimage = "lc_fiche_admini5_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_courriersactionsdocuments.destroy
+call super::destroy
+end on
+
+type m_commentairesadministratifs from menu within planning
+end type
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	w_coment_admini_maj win
+	
+	
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	m_orthokis_2020.ouvrir_mdi(3)
+
+end if
+end event
+
+on m_commentairesadministratifs.create
+call super::create
+this.text = "Commentaires Administratifs"
+this.menuimage = "lc_coment_admini_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_commentairesadministratifs.destroy
+call super::destroy
+end on
+
+type m_0 from menu within planning
+end type
+
+on m_0.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+type m_soinsprévisionnels from menu within planning
+end type
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+
+	
+	w_soins_reg_maj win
+	param_win[1] = 'P'
+	param_win[3] = 'M'
+	
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	m_orthokis_2020.ouvrir_mdi(4)
+
+end if
+
+end event
+
+on m_soinsprévisionnels.create
+call super::create
+this.text = "Soins Prévisionnels"
+this.menuimage = "lc_soins_prevus_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_soinsprévisionnels.destroy
+call super::destroy
+end on
+
+type m_soinsencours from menu within planning
+end type
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	
+	w_soins_reg_maj w1
+	param_win[1] = 'S'
+	param_win[3] = 'M'
+	
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	//on ouvre la fenètre voulue
+	m_orthokis_2020.ouvrir_mdi(5)
+
+end if
+
+end event
+
+on m_soinsencours.create
+call super::create
+this.text = "Soins en cours"
+this.menuimage = "lc_soins_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_soinsencours.destroy
+call super::destroy
+end on
+
+type m_règlements from menu within planning
+end type
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	
+	//w_reglements_maj win
+	w_soins_reg_maj win
+	param_win[1] = 'R'
+	param_win[3] = 'M'
+	
+	
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	m_orthokis_2020.ouvrir_mdi(6)
+
+end if
+end event
+
+on m_règlements.create
+call super::create
+this.text = "Règlements"
+this.menuimage = "lc_regl_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_règlements.destroy
+call super::destroy
+end on
+
+type m_suivitélévitale from menu within planning
+end type
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	// pour TV et pour CC Vitale
+	fxg_suivi_tv_eid_belgique(CodePatientCourant)
+
+end if
+
+end event
+
+on m_suivitélévitale.create
+call super::create
+this.text = "Suivi CC-Vitale"
+this.menuimage = "lc_vitale_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_suivitélévitale.destroy
+call super::destroy
+end on
+
+type m_-4 from menu within planning
+end type
+
+on m_-4.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-4.destroy
+call super::destroy
+end on
+
+type m_commentairescliniques from menu within planning
+end type
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	m_orthokis_2020.ouvrir_mdi(9)
+
+end if
+end event
+
+on m_commentairescliniques.create
+call super::create
+this.text = "Commentaires Cliniques"
+this.menuimage = "lc_coment_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_commentairescliniques.destroy
+call super::destroy
+end on
+
+type m_pagescliniques from menu within planning
+end type
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	//on ouvre la fenètre voulue
+	pages_cliniques()
+end if
+
+end event
+
+on m_pagescliniques.create
+call super::create
+this.text = "Pages Cliniques"
+this.menuimage = "lc_clinique_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_pagescliniques.destroy
+call super::destroy
+end on
+
+type m_imagerie from menu within planning
+end type
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	
+	
+	if imagerie_2013 then
+		// L'imagerie 2013 peut être en 1 fenetre 1 patient ... Pas l'ancienne
+		if profilestring(dir_ini+inifile_orthokis,"explorateur_photos_2013","a_part","N") = "O" then
+			// ouverture A part !
+			setnull(fenetre_mere_imagerie_a_part)
+			ouvrir_imagerie_2013_a_part ( var_code )
+		else
+			m_orthokis_2020.ouvrir_mdi(12)
+		end if
+	end if
+end if
+
+end event
+
+on m_imagerie.create
+call super::create
+this.text = "Imagerie"
+this.menuimage = "lc_images_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_imagerie.destroy
+call super::destroy
+end on
+
+type m_-5 from menu within planning
+end type
+
+on m_-5.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-5.destroy
+call super::destroy
+end on
+
+type m_rendez-vous from menu within planning
+end type
+
+event clicked;if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	w_rdv_maj win
+	
+	
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	m_orthokis_2020.ouvrir_mdi(8)
+
+
+end if
+
+end event
+
+on m_rendez-vous.create
+call super::create
+this.text = "Rendez-Vous"
+this.menuimage = "lc_rdv_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_rendez-vous.destroy
+call super::destroy
+end on
+
+type m_historiquedesetatsdurendez-vous from menu within planning
+end type
+
+event clicked;//Declaration des variables locales
+//---------------------------
+long temp_code_patient_agenda
+datetime temp_date_rdv_agenda
+
+//Caclul des variables temp du code_patient et de la date dur RDV
+//---------------------------------------------------
+temp_code_patient_agenda=long(w_agenda.code_patient_agenda)
+temp_date_rdv_agenda=datetime(date(left(w_agenda.date_rdv_agenda,10)),time(mid(w_agenda.date_rdv_agenda,12,8)))
+
+double var_code_interne_local
+SELECT  code_interne into :var_code_interne_local 
+FROM Rdv	WHERE code=:temp_code_patient_agenda
+							AND rdv=:temp_date_rdv_agenda
+							AND "type"=:w_agenda.type_rdv_agenda
+							AND code_praticien = :w_agenda.code_praticien_agenda;
+
+
+openwithparm(w_rdv_histo_etat,  var_code_interne_local)
+
+end event
+
+on m_historiquedesetatsdurendez-vous.create
+call super::create
+this.text = "Historique des Etats du Rendez-vous"
+this.menuimage = "lc_historique_etat_rdv.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_historiquedesetatsdurendez-vous.destroy
+call super::destroy
+end on
+
+type m_11 from menu within planning
+end type
+
+on m_11.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_11.destroy
+call super::destroy
+end on
+
+type m_envoyeremail from menu within planning
+end type
+
+on m_envoyeremail.create
+call super::create
+this.text = "Envoyer Email"
+this.menuimage = "lc_envoi_message_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_envoyeremail.destroy
+call super::destroy
+end on
+
+event clicked;
+if CodePatientCourant < 0 then 
+	if Doctolib then
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+	else
+		MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous pris en ligne pour un patient non validé par Orthokis !")
+	end if
+else
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(CodePatientCourant)
+	
+	
+	if not isnull(CodePatientCourant) and CodePatientCourant <> 0 then
+		// uniquement pour compatibilité de l'appel
+		datawindow dw 
+		integer desti
+		
+		fxg_envoi_email_libre(CodePatientCourant, dw, desti)
+	
+	else
+		son(5)
+		MessageBox("ATTENTION","Aucun patient courant !",Exclamation!)
+	end if	
+end if
+
+end event
+
+type m_envoyersmsunitaire from menu within planning
+end type
+
+event clicked;uo_envoyer_sms uo_sms
+uo_sms = create uo_envoyer_sms
+uo_sms.visible = true
+uo_sms.var_code_local = CodePatientCourant
+uo_sms.mode = "R"	// mode spécial pour choisir le N° ensuite
+uo_sms.p_1.triggerevent(clicked!)
+end event
+
+on m_envoyersmsunitaire.create
+call super::create
+this.text = "Envoyer SMS unitaire"
+this.enabled = false
+this.menuimage = "lc_sms_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_envoyersmsunitaire.destroy
+call super::destroy
+end on
+

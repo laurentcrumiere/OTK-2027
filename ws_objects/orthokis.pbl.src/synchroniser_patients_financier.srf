@@ -1,0 +1,58 @@
+﻿$PBExportHeader$synchroniser_patients_financier.srf
+global type synchroniser_patients_financier from function_object
+end type
+
+forward prototypes
+global function integer synchroniser_patients_financier (double code_patient1, double code_patient2)
+end prototypes
+
+global function integer synchroniser_patients_financier (double code_patient1, double code_patient2);
+// Permet de synchroniser les infos qui doivent être identiques entre 2 fiches ... => éléments financier
+
+// Principe ...
+// Le patient code_patient1 a été mis à jour ... on met à jour code_parent2 avec ses infos
+
+// La fonction peut être appelé en directe pour par synchroniser_parente
+
+// renvoie 1 si succés, 0 sinon
+
+
+
+// élements à récupérer
+string v_nom, v_mode_reglement_habituel, v_code_banque, v_iban, v_bic
+
+
+
+// Récup des éléments mettre à jour ....
+	
+select  mode_reglement_habituel, code_banque, iban, bic
+into 	 :v_mode_reglement_habituel, :v_code_banque, :v_iban, :v_bic 
+from patient 
+where code = :code_patient1 ;
+
+	
+// Mise à jour		
+update patient 
+set  	mode_reglement_habituel = :v_mode_reglement_habituel, 	code_banque = :v_code_banque, iban = :v_iban, bic = :v_bic
+	where code = :code_patient2 ; 
+
+if sqlca.sqlcode = 0 then
+	commit ;
+	return 1
+else
+	
+	string texte_erreur
+	
+	texte_erreur = sqlca.sqlerrtext
+	
+	select nom + ' '+ isnull(prenom,'') into :v_nom from patient where code = :code_patient2 ;
+	Messagebox("ATTENTION","Erreur dans la mise à jour synchronisée de "+v_nom+".~n~n" + texte_erreur)
+	rollback ;
+	return 0
+end if
+
+
+
+
+end function
+

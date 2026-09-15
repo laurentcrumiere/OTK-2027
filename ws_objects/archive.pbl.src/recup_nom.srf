@@ -1,0 +1,20 @@
+﻿$PBExportHeader$recup_nom.srf
+global type recup_nom from function_object
+end type
+
+forward prototypes
+global function string recup_nom (string str_nom_list)
+end prototypes
+
+global function string recup_nom (string str_nom_list);// fx qui enlève les [ ] du nom passé en param qui provient d'une liste de rep
+// return la string épurée
+
+string	lstr_temp
+
+
+lstr_temp = left(str_nom_list , len(str_nom_list) -1)
+lstr_temp = right(lstr_temp, len(lstr_temp) -1)
+
+return lstr_temp
+end function
+

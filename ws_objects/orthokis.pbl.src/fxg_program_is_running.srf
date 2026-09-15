@@ -1,0 +1,81 @@
+﻿$PBExportHeader$fxg_program_is_running.srf
+global type fxg_program_is_running from function_object
+end type
+
+forward prototypes
+global function integer fxg_program_is_running (string v_nom_exe)
+end prototypes
+
+global function integer fxg_program_is_running (string v_nom_exe);
+
+OleObject locator,service,props
+int num, ret, i
+locator = CREATE OleObject
+
+try 
+	ret = locator.ConnectToNewObject("WbemScripting.SWbemLocator");
+	service = locator.ConnectServer("");
+	props = service.ExecQuery('select name , description from Win32_Process where name = "' + v_nom_exe + '"');
+	num = props.count()
+	
+	IF num > 0 THEN
+		return 1
+	ELSE
+		return 0
+	END IF
+catch (OleRuntimeError lore_001)
+	// 30/08/2023 : je mets un try catch car, soucis sur mon poste de dev 
+//	Messagebox("ATTENTION",'An error has occurred while connecting to WMI Scripting Locator.~r~n~r~n' + &
+//	'Error number: ' + string(lore_001.Number) + '~r~n' + &
+//	'Description: ' + lore_001.Description + '~r~n' + &
+//	'Source: ' + lore_001.Source + '~r~n' + &
+//	'Message: ' + lore_001.Text)
+	trace( "******* Erreur dans WMI pour déterminer si '" + v_nom_exe + "' est lancé ! ***************")
+	
+	// On fait pas autre moyen moins "classe" mais efficace 
+	string v_commande 
+	string v_fichier_resultat = "result.tmp"
+	integer i_fichier_resultat
+	string v_ligne = ""
+	v_commande = 'cmd /c tasklist.exe /nh /fi "IMAGENAME eq  ' + v_nom_exe + '" > ' + dir_ini + v_fichier_resultat
+
+	trace( "Commande : " + v_commande)
+	
+	Run(v_commande, Minimized!)
+
+	sleep(200)
+
+	i_fichier_resultat = fileopen(dir_ini + v_fichier_resultat, LineMode!, Read!)
+
+
+	// La première ligne est vide
+	ret = FileRead(i_fichier_resultat, v_ligne)
+	
+	// La deuxième est la bonne
+	ret = FileRead(i_fichier_resultat, v_ligne)
+	
+	trace( "Résultat : " + v_ligne)
+	
+	fileClose(i_fichier_resultat)
+	fileDelete(dir_ini + v_fichier_resultat)
+
+
+	if v_ligne = "" then
+		return 0
+	else
+		if pos( upper(v_ligne) , upper(v_nom_exe) ) > 0 then
+			return 1
+		else
+			return 0
+		end if
+	end if
+	
+	
+	
+	return 0
+ 
+end try
+
+
+end function
+

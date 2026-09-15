@@ -1,0 +1,258 @@
+﻿$PBExportHeader$m_btdroit_rendez_vous.srm
+forward
+global type m_btdroit_rendez_vous from menu
+end type
+type m_historiquedesetats from menu within m_btdroit_rendez_vous
+end type
+type m_informationsdemodifications from menu within m_btdroit_rendez_vous
+end type
+type m_suividesms from menu within m_btdroit_rendez_vous
+end type
+type m_codeinternedurendezvous from menu within m_btdroit_rendez_vous
+end type
+global type m_btdroit_rendez_vous from menu
+m_historiquedesetats m_historiquedesetats
+m_informationsdemodifications m_informationsdemodifications
+m_suividesms m_suividesms
+m_codeinternedurendezvous m_codeinternedurendezvous
+end type
+end forward
+
+global type m_btdroit_rendez_vous from menu
+m_historiquedesetats m_historiquedesetats
+m_informationsdemodifications m_informationsdemodifications
+m_suividesms m_suividesms
+m_codeinternedurendezvous m_codeinternedurendezvous
+end type
+global m_btdroit_rendez_vous m_btdroit_rendez_vous
+
+on m_btdroit_rendez_vous.create
+m_btdroit_rendez_vous=this
+call super::create
+this.text = "m_btdroit_rendez_vous"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_historiquedesetats=create m_historiquedesetats
+this.m_informationsdemodifications=create m_informationsdemodifications
+this.m_suividesms=create m_suividesms
+this.m_codeinternedurendezvous=create m_codeinternedurendezvous
+this.Item[UpperBound(this.Item)+1]=this.m_historiquedesetats
+this.Item[UpperBound(this.Item)+1]=this.m_informationsdemodifications
+this.Item[UpperBound(this.Item)+1]=this.m_suividesms
+this.Item[UpperBound(this.Item)+1]=this.m_codeinternedurendezvous
+end on
+
+on m_btdroit_rendez_vous.destroy
+call super::destroy
+destroy(this.m_historiquedesetats)
+destroy(this.m_informationsdemodifications)
+destroy(this.m_suividesms)
+destroy(this.m_codeinternedurendezvous)
+end on
+
+type m_historiquedesetats from menu within m_btdroit_rendez_vous
+end type
+
+event clicked;
+
+openwithparm(w_rdv_histo_etat,   w_click_rdv.dw_rdv_liste.getitemnumber(w_click_rdv.dw_rdv_liste.getrow(),"code_interne") )
+
+
+
+
+
+end event
+
+on m_historiquedesetats.create
+call super::create
+this.text = "Historique des Etats"
+this.menuimage = "lc_historique_etat_rdv.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_historiquedesetats.destroy
+call super::destroy
+end on
+
+type m_informationsdemodifications from menu within m_btdroit_rendez_vous
+end type
+
+on m_informationsdemodifications.create
+call super::create
+this.text = "Informations de modifications"
+this.menuimage = "lc_infos.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_informationsdemodifications.destroy
+call super::destroy
+end on
+
+event clicked;
+fxg_get_infos_modifs(w_click_rdv.dw_rdv_liste, w_click_rdv.dw_rdv_liste.getrow() )
+
+
+
+end event
+
+type m_suividesms from menu within m_btdroit_rendez_vous
+end type
+
+on m_suividesms.create
+call super::create
+this.text = "Suivi de SMS"
+this.menuimage = "lc_sms_suivi.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_suividesms.destroy
+call super::destroy
+end on
+
+event clicked;
+uo_pocket uo_poc
+
+
+uo_poc = create uo_pocket
+
+uo_poc.triggerevent(constructor!)
+
+if uo_poc.is_dentalsms () then 
+	
+	string v_code_interne_string
+	v_code_interne_string = string(w_click_rdv.dw_rdv_liste.getitemNumber(w_click_rdv.dw_rdv_liste.getrow(),"code_interne") )
+	
+	fxg_ouvrir_dentalsms("TR", v_code_interne_string)
+	
+else
+	
+	// Pocket Communication : suivi classique
+
+	datetime v_rdv
+	long v_numero_dossier
+	
+	select numero_dossier into :v_numero_dossier from patient where code = :w_click_rdv.var_code_local ;
+	
+	v_rdv = w_click_rdv.dw_rdv_liste.getitemDateTime(w_click_rdv.dw_rdv_liste.getrow(),"rdv") 
+	
+	w_mdi_2020.uo_powerdock.of_openDocument(w_sms_histo, "Suivi des envois de SMS", 'Export5!')
+	
+	
+	// mise en place des datas ...
+	
+	w_sms_histo.em_min.text =  string(v_numero_dossier)
+	w_sms_histo.em_max.text =  string(v_numero_dossier)
+	
+	w_sms_histo.em_date_min.SetDate(date(v_rdv))
+	w_sms_histo.em_date_max.SetDate(date(v_rdv))
+	
+	
+	w_sms_histo.em_date_envoi_min.SetDate( date(  year(date(v_rdv)) - 1 , 1 , 1))
+	w_sms_histo.em_date_envoi_max.setdate(today())
+	
+	
+	w_sms_histo.cb_ecran.triggerevent(clicked!)
+	
+end if
+
+end event
+
+type m_codeinternedurendezvous from menu within m_btdroit_rendez_vous
+end type
+
+event clicked;
+string v_code_interne
+// Affiche et copie le code interne du rdv  dans le clip board pour recherches ensuite
+v_code_interne = string(w_click_rdv.dw_rdv_liste.getitemnumber(w_click_rdv.dw_rdv_liste.getrow() , "code_interne") ) 
+Messagebox("Code interne du rendez-vous",v_code_interne ) 
+clipboard(v_code_interne)
+
+
+
+end event
+
+on m_codeinternedurendezvous.create
+call super::create
+this.text = "Code Interne du rendez-vous"
+this.menuimage = "lc_infos.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_codeinternedurendezvous.destroy
+call super::destroy
+end on
+

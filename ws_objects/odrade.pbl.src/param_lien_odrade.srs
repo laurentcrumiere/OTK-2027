@@ -1,0 +1,11 @@
+﻿$PBExportHeader$param_lien_odrade.srs
+global type param_lien_odrade from structure
+	integer		mode
+	double		code_patient
+	integer		numero_cadre_trace
+	integer		numero_cadre_tableau
+	string		plan
+	double		identifiant_odrade
+	string		dossier_radio
+end type
+

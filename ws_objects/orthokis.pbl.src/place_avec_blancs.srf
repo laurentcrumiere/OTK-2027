@@ -1,0 +1,36 @@
+﻿$PBExportHeader$place_avec_blancs.srf
+global type place_avec_blancs from function_object
+end type
+
+forward prototypes
+global subroutine place_avec_blancs (string chaine1, ref string chaine2, integer position, integer lg)
+end prototypes
+
+global subroutine place_avec_blancs (string chaine1, ref string chaine2, integer position, integer lg);// Identique à Place, avec remplissage de blancs
+// Place Chaine1 dans Chaine2 à la position Position
+// Lg = taille que doit occuper chaine1
+
+
+integer l1,l2
+
+
+
+l1 = len(chaine1)
+l2 = len(chaine2)
+
+
+if l1 < lg then
+	chaine1 = chaine1 + space(lg - l1)
+	l1 = lg
+end if
+
+chaine2 = left(chaine2,position - 1) + chaine1 + right(chaine2, l2 - l1 - position + 1)
+
+
+
+
+
+
+
+end subroutine
+

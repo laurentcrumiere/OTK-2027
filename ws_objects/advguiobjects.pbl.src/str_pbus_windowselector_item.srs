@@ -1,0 +1,8 @@
+﻿$PBExportHeader$str_pbus_windowselector_item.srs
+global type str_pbus_windowselector_item from structure
+	string		title
+	boolean		iswindow
+	window		window
+	userobject		userobject
+end type
+

@@ -1,0 +1,16 @@
+﻿$PBExportHeader$str_email_frm_output.srs
+global type str_email_frm_output from structure
+	string		a_adrs[]
+	string		objet
+	string		pj[]
+	boolean		pdf
+	boolean		cc
+	boolean		cci
+	boolean		envoi_securise
+	string		code_correspondant
+	string		a_adrs_cci[]		descriptor "comment" = "envoi en invisible"
+	string		pj_supplementaires[]		descriptor "comment" = "fichiers en PJ en +"
+	integer		categorie		descriptor "comment" = "catégorie de mail (pour l'historique des éditions)"
+	boolean		historiser_pj		descriptor "comment" = "historisation du fichier externe en PJ dans dossier patient"
+end type
+

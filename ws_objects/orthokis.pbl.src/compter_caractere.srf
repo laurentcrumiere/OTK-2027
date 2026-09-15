@@ -1,0 +1,37 @@
+﻿$PBExportHeader$compter_caractere.srf
+global type compter_caractere from function_object
+end type
+
+forward prototypes
+global function long compter_caractere (string car, string chaine)
+end prototypes
+
+global function long compter_caractere (string car, string chaine);// compte le nombre de caractères CAR dans la string CHAINE
+
+
+long cpt_car = 0
+boolean fin = false
+long v_position = 1
+
+
+if not isnull(chaine) then
+	
+	do while not fin
+	
+		v_position = pos ( chaine, car, v_position)
+		
+		if v_position = 0 then 
+			fin = true
+		else
+			v_position = v_position + len(car)
+			cpt_car = cpt_car + 1
+		end if
+		
+		
+	loop
+end if
+
+
+return cpt_car
+end function
+

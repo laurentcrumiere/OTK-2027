@@ -1,0 +1,40 @@
+﻿$PBExportHeader$police_rtf_par_defaut.srf
+global type police_rtf_par_defaut from function_object
+end type
+
+forward prototypes
+global subroutine police_rtf_par_defaut (datawindow dw_rtf)
+end prototypes
+
+global subroutine police_rtf_par_defaut (datawindow dw_rtf);
+// Applique une police de caratère à la zone Richt Text actuellement éditée par la datawindow passée en paramètre
+// Attention, si le focus n'est pas dans une zone RTF, ça ne fait rien !!!
+
+
+// Mise en place de la police de caractère par défaut 
+
+dw_rtf.SetRichTextFaceName (Profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_nom_police","Tahoma"))
+dw_rtf.SetRichTextColor(long(Profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_couleur_police","0")))
+dw_rtf.SetRichTextSize(long(Profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_taille_police","10")))
+
+boolean v_italique, v_gras, v_souligne
+
+if Profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_gras_police","N") = "O" then
+	v_gras = true
+else
+	v_gras = false
+end if
+if Profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_italique_police","N") = "O" then
+	v_italique = true
+else
+	v_italique = false
+end if
+if Profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_souligne_police","N") = "O" then
+	v_souligne = true
+else
+	v_souligne = false
+end if
+
+dw_rtf.SetRichTextStyle(v_gras, v_souligne, v_italique, false)
+end subroutine
+

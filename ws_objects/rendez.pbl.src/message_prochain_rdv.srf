@@ -1,0 +1,29 @@
+﻿$PBExportHeader$message_prochain_rdv.srf
+global type message_prochain_rdv from function_object
+end type
+
+forward prototypes
+global subroutine message_prochain_rdv (double var_code_local)
+end prototypes
+
+global subroutine message_prochain_rdv (double var_code_local);// La fonction recherche si un message de prochain rdv a été mis sur le patient
+// si oui, l'affiche
+
+string v_prochain_rdv_message
+
+// On utilise une DW de w_mdi pour utiliser la fonction StripRTF
+
+
+w_mdi_2020.dw_patient_prochain_rdv_message.setTransObject(sqlca)
+w_mdi_2020.dw_patient_prochain_rdv_message.retrieve(var_code_local)
+
+if w_mdi_2020.dw_patient_prochain_rdv_message.rowcount() > 0 then
+	if len(trim(w_mdi_2020.dw_patient_prochain_rdv_message.GetItemString(1, "texte_brut_prochain_rdv_message") )) > 0 then
+		openWithParm(w_affichage_message_prochain_rdv, var_code_local)
+	end if
+end if
+
+
+
+end subroutine
+

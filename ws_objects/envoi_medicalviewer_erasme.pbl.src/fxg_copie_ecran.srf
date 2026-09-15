@@ -1,0 +1,95 @@
+﻿$PBExportHeader$fxg_copie_ecran.srf
+global type fxg_copie_ecran from function_object
+end type
+
+forward prototypes
+global function integer fxg_copie_ecran (double var_code_local, string var_nom_fichier, window w_fenetre)
+end prototypes
+
+global function integer fxg_copie_ecran (double var_code_local, string var_nom_fichier, window w_fenetre);
+// réaliser une copie d'écran 
+// le fichier JPG est stocké dans le dossier photos du patient
+
+// renvoie 1 si OK , 0 sinon
+
+// Copie d'écran dans le ClipBoard !!
+//keybd_event( 44, 1, 0, 0 )
+
+n_bitmap in_bitmap
+Blob lblb_screen
+
+string v_dossier_destination
+string v_fichier_destination, v_fichier_temporaire, v_fichier_bmp_temporaire
+integer res
+
+
+v_fichier_bmp_temporaire = dir_ini + "ScreenShot.tmp"
+
+lblb_screen = in_bitmap.of_WindowCapture(w_fenetre, false)
+in_bitmap.of_WriteBlob(v_fichier_bmp_temporaire, lblb_screen)
+
+//w_main.uo_gearbox.object.SaveImage = w_main.destination_patient
+//
+
+
+
+if var_nom_fichier = "Page0.jpg" then
+	// sera effacé à la sortie du soft
+	v_dossier_destination = dir_ini
+	var_nom_fichier = "Page0.tmp"
+	v_fichier_temporaire = dir_ini + "Page00.tmp"
+else
+	v_dossier_destination = dir_photos + string(var_code_local) + win_delimiter
+	v_fichier_temporaire = dir_ini + var_nom_fichier
+end if
+
+//w_mdi.uo_gearbox.ole_image.object.delimage	= true
+//w_mdi.uo_gearbox.ole_image.object.clearimage = true
+
+//send(handle_parent, 271, 61760, 0)
+
+// Coller dans l'objet
+//messagebox("trace", "avant paste")
+//w_mdi.uo_gearbox.ole_image.object.ClipboardPaste	= true
+//w_mdi.uo_gearbox.ole_image.object.SaveFormat = IG_SAVE_JPG
+
+w_mdi_2020.uo_gearbox.ole_image.object.loadimage = v_fichier_bmp_temporaire
+w_mdi_2020.uo_gearbox.ole_image.object.SaveFormat = IG_SAVE_JPG
+//w_envoi_medicalviewer.uo_gearbox.ole_image.object.loadimage = v_fichier_bmp_temporaire
+//w_envoi_medicalviewer.uo_gearbox.ole_image.object.SaveFormat = IG_SAVE_JPG
+
+//messagebox("trace", "après paste")
+
+
+if not DirectoryExists(v_dossier_destination) then
+	// création du dossier
+	if CreateDirectory(v_dossier_destination) <> 1 then
+		Messagebox("ATTENTION","Erreur dans la copie de l'écran.~n~nImpossible de créer le dossier : " + v_dossier_destination + "~n~nVeuillez contacter l'administrateur du réseau.")
+		return 0
+	end if
+end if 
+
+// Copie de l'écran
+FileDelete(v_fichier_temporaire)
+v_fichier_destination = v_dossier_destination + var_nom_fichier
+
+// Sauvegarde
+w_mdi_2020.uo_gearbox.ole_image.object.SaveImage = v_fichier_temporaire
+//w_envoi_medicalviewer.uo_gearbox.ole_image.object.SaveImage = v_fichier_temporaire
+//messagebox("trace", "après Sauvgarde")
+
+if FileExists(v_fichier_temporaire) then
+	FileDelete(v_fichier_destination)
+	if FileCopy(v_fichier_temporaire, v_fichier_destination, true) <> 1 then
+		Messagebox("ATTENTION","Erreur dans la copie de l'écran.~n~nImpossible de copier le fichier dans le dossier : " + v_dossier_destination + "~n~nVeuillez contacter l'administrateur du réseau.")
+		FileDelete(v_fichier_temporaire)
+		return 0
+	else
+		FileDelete(v_fichier_temporaire)
+		return 1
+	end if
+end if
+
+return 0
+end function
+

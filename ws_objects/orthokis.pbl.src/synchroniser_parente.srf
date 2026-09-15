@@ -1,0 +1,58 @@
+﻿$PBExportHeader$synchroniser_parente.srf
+global type synchroniser_parente from function_object
+end type
+
+forward prototypes
+global subroutine synchroniser_parente (double code_patient1)
+end prototypes
+
+global subroutine synchroniser_parente (double code_patient1);
+// Permet de synchroniser les infos qui doivent être identiques entre 2 fiches ... selon lien de parenté ...
+
+// Principe ...
+// Le patient code_patient1 a été mis à jour ...
+
+// On va mettre à jour tous les autres patients avec qui il est lié par un lien de parenté avec demande de synchronisation ...
+
+
+// Liste des patients 
+// On se sert d'une dw car on va faire des MAJ dans la base et ça pine sinon
+
+datastore dw_liste
+long lig, tot
+double code_patient2
+
+
+
+dw_liste = create datastore
+dw_liste.dataobject = "dw_patient_lien_parente_liste"
+
+dw_liste.SetTransobject(sqlca)
+dw_liste.retrieve(code_patient1)
+
+tot = dw_liste.rowcount() 
+
+for lig = 1 to tot
+	
+	// On synchronise admini ?
+	if  dw_liste.GetItemString(lig, "patient_lien_parente_synchroniser") = "O" then
+		code_patient2 = dw_liste.GetItemNumber(lig, "patient_code")
+		synchroniser_patients(code_patient1, code_patient2)
+	end if
+	// On synchronise assuré ?
+	if  dw_liste.GetItemString(lig, "patient_lien_parente_meme_assure") = "O" then
+		code_patient2 = dw_liste.GetItemNumber(lig, "patient_code")
+		synchroniser_patients_assures(code_patient1, code_patient2)
+	end if
+	// On synchronise payeur ?
+	if  dw_liste.GetItemString(lig, "patient_lien_parente_liaison_financiere") = "O" then
+		code_patient2 = dw_liste.GetItemNumber(lig, "patient_code")
+		synchroniser_patients_financier(code_patient1, code_patient2)
+	end if
+
+next
+
+
+
+end subroutine
+

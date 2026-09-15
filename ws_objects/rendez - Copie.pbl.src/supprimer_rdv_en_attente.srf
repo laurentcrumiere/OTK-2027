@@ -1,0 +1,44 @@
+﻿$PBExportHeader$supprimer_rdv_en_attente.srf
+global type supprimer_rdv_en_attente from function_object
+end type
+
+forward prototypes
+global subroutine supprimer_rdv_en_attente (double v_code, string v_type)
+end prototypes
+
+global subroutine supprimer_rdv_en_attente (double v_code, string v_type);// Vérifie si le patient a un rdv en attente
+// Si oui :
+//   - si de même type : on supprime
+//   - sinon, on interroge
+
+integer i_cpt
+string s_libelle, s_code
+
+select isnull(count(*), 0) , min(type_rdv) into :i_cpt, :s_code from rdv_en_attente where code = :v_code ;
+
+if i_cpt > 0 then 
+	// Est - ce le même type ?
+	select isnull(count(*), 0) into :i_cpt from rdv_en_attente where code = :v_code and type_rdv = :v_type  ;
+	if i_cpt > 0 then 
+		// Oui ... on supprime le rdv en attente 
+		delete from rdv_en_attente where code = :v_code and type_rdv = :v_type  ;
+		commit ;
+		Messagebox("INFORMATION", "Ce patient avait un rendez-vous de ce type en attente.~n~nIl a été supprimé !")
+	else
+		// On demande confirmation 
+		select isnull(nom,'?') into :s_libelle from type_rdv where code = :s_code ;
+		if messagebox("ATTENTION", "Ce patient avait un rendez-vous en attente d'un type différent (" + s_libelle + ").~n~nSouhaitez-vous le supprimer ?", Question!, YesNo!, 2) = 1 then 
+			// Oui ... on supprime le rdv en attente 
+			delete from rdv_en_attente where code = :v_code and type_rdv = :s_code  ;
+			commit ;
+		end if
+	end if 
+	
+	
+end if
+
+
+
+
+end subroutine
+

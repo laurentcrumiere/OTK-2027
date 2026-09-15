@@ -1,0 +1,182 @@
+﻿$PBExportHeader$fxg_verif_bt.srf
+global type fxg_verif_bt from function_object
+end type
+
+forward prototypes
+global function boolean fxg_verif_bt ()
+end prototypes
+
+global function boolean fxg_verif_bt ();
+return FALSE
+//// Vérification des droits d'accès à Télévitale
+//
+//// Accées internet
+//Inet iinet_base
+//
+//// Retour XML
+//n_inetresult in_irdata
+//
+//string url_arakis , url_complete
+//string nom_fichier_bt = "bt.bin"
+//integer numero_fichier_bt
+//string s_date_base64, s_date
+//date d_date, d_date_serveur, d_date_du_jour
+//long l_nb_jours_restants
+//boolean b_retour, b_ok_suite
+//string s_options_bt
+//
+//// Version_base_autorisee peut avoir des décimales
+////url_arakis = "https://www.arakis.fr/fr/telecha/Orthokis_" + string(integer(Version_base_autorisee))+ "/"
+//url_arakis = "https://www.arakis.fr/fr/telecha/Orthokis_2024/"
+//
+//
+//
+//
+//GetContextService("Internet", iinet_base)
+//in_irdata = CREATE n_inetresult
+//
+//// pour codage en base 64
+//CoderObject lnv_CoderObject
+//lnv_CoderObject = Create CoderObject
+//
+//trace("=== DEBUT VERIFICATION TELEVITALE ===")
+//
+//
+//if TELEVITALE_DYN then
+//	
+//	// Si l'option est activée
+//	TELEVITALE = true
+//	
+//else
+//
+//	// Logique avec options_bt contenant aussi blocage POCKET   , sur 20 caractères chacun
+//	// Récupération du fichier de blocage
+//	
+//	url_complete = url_arakis + nom_fichier_bt
+//	iinet_base.GetURL(url_complete, in_irdata)
+//	
+//	in_irdata.of_WriteFile(dir_ini + nom_fichier_bt, in_irdata.iblob_data)
+//	
+//	if FileExists(dir_ini + nom_fichier_bt) then
+//		
+//		numero_fichier_bt = FileOpen(dir_ini + nom_fichier_bt, LineMode!)
+//		fileRead( numero_fichier_bt , s_date_base64)
+//		Fileclose(numero_fichier_bt)
+//		
+//		if not trace then
+//			// On garde le fichier en mode trace
+//			FileDelete(dir_ini + nom_fichier_bt)
+//		end if
+//		
+//		
+//		s_date = string(lnv_CoderObject.base64decode(s_date_base64), EncodingANSI! )
+//		trace ("s_date_base64 : " + s_date_base64)
+//		trace ("s_date : " + s_date)
+//		
+//		// Pour être sur qu'on récupère bien une infos
+//		if isnull(s_date_base64) or trim(s_date_base64) = "" or len (s_date_base64) > 20 then
+//			b_ok_suite = false
+//			trace("Pas Ok_suite")
+//		else
+//			b_ok_suite = true
+//			trace("Ok_suite")
+//		end if
+//	end if
+//	
+//	if not b_ok_suite then
+//		// Erreur dans la récup du fichier de blocge => date = 31/12/2023 si pas déjà initilisée
+//		
+//		select top 1 isnull( options_bt , '') into :s_options_bt from agenda ;
+//		
+//		s_date_base64 = trim(left(s_options_bt, 20))
+//		
+//		trace("Déjà stockée : " + s_date_base64)
+//		
+//		if s_date_base64 = "" then
+//			s_date = "31/12/2023" 
+//			s_date_base64 = lnv_CoderObject.base64encode(blob(s_date, EncodingANSI!))
+//		else
+//			s_date = string(lnv_CoderObject.base64decode(s_date_base64),EncodingANSI!)
+//		end if
+//		trace("s_date finale : " + s_date)
+//	end if
+//	
+//	// Stockage de la date en base 64
+//	s_options_bt = left( left(s_date_base64 + space(100) , 20) +  mid(s_options_bt + space(100) , 21, 20) + + space(100), 100)
+//	update agenda set options_bt = :s_options_bt ;
+//	commit ;
+//	
+//	
+//	
+//	// traitement de la date ...
+//	d_date = date(s_date)
+//	
+//	// On prend la date du serveur histoire de ... 
+//	select cast(getdate() as date) into :d_date_serveur from param ;
+//	
+//	// on prend la date la plus récente des 2
+//	if today() < d_date_serveur then
+//		d_date_du_jour =d_date_serveur
+//	else
+//		d_date_du_jour = today()
+//	end if
+//	
+//	l_nb_jours_restants = daysAfter(d_date_du_jour, d_date)
+//	
+//	
+//	// Affichage des messages en fonctions des jours restants
+//	
+//	// Autorisation ou pas ?
+//	if l_nb_jours_restants > 0 then 
+//		b_retour = true
+//		if l_nb_jours_restants < 15 then
+//			// ont ils déjà eu le message
+//			if profilestring(dir_ini+inifile_orthokis,"televitale","message15","N")  = "N" then
+//				son(5)
+//				MessageBox("ATTENTION","Le module TELEVITALE ne sera plus utilisable à partir du " + s_date +" !~n~nIL EST TRES URGENT DE CONTACTER VOTRE INTERLOCUTEUR COMMERCIAL AU 04 75 78 50 70 AFIN QU'IL PUISSE VOUS PROPOSER UNE MISE A JOUR VERS NOTRE MODULE CC VITALE !")
+//				Setprofilestring(dir_ini+inifile_orthokis,"televitale","message15","O")
+//			end if
+//		else
+//			if l_nb_jours_restants < 30 then
+//				// ont ils déjà eu le message
+//				if profilestring(dir_ini+inifile_orthokis,"televitale","message30","N")  = "N" then
+//					son(5)
+//					MessageBox("ATTENTION","Le module TELEVITALE ne sera plus utilisable à partir du " + s_date +" !~n~nAPRES CETTE DATE VOUS NE POURREZ PLUS FAIRE DE FSE A PARTIR D'ORTHOKIS.~n~n Nous vous conseillons de contacter TRES RAPIDEMENT votre interlocuteur commercial au 04 75 78 50 70 afin qu'il puisse vous proposer une mise à jour vers notre module CC Vitale !")
+//					Setprofilestring(dir_ini+inifile_orthokis,"televitale","message30","O")
+//				end if
+//			else
+//				if l_nb_jours_restants < 60 then
+//					// ont ils déjà eu le message
+//					if profilestring(dir_ini+inifile_orthokis,"televitale","message60","N")  = "N" then
+//						son(5)
+//						MessageBox("ATTENTION","Le module TELEVITALE ne sera plus utilisable à partir du " + s_date +" !~n~nAprès cette date, vous ne pourrez plus faire de FSE à partir d'Orthokis.~n~nNous vous conseillons de contacter au plus vite votre interlocuteur commercial au 04 75 78 50 70 afin qu'il puisse vous proposer une mise à jour vers notre module CC Vitale !")
+//						Setprofilestring(dir_ini+inifile_orthokis,"televitale","message60","O")
+//					end if
+//				else
+//					// pas de message car on est à + de 2 mois
+//				end if
+//			end if
+//		end if
+//			
+//	else
+//		
+//		// On est au déla de la date de blocage ... on chechk une option dynamique pour savoir si TV est débloqué temporairement pour ce cabinet 
+//		if fxg_demande_droits_modules('any', LIBELLE_MODULE_TELEVITALE) = 1	then
+//			b_retour = true
+//		else
+//			b_retour = false
+//			son(5)
+//			MessageBox("ATTENTION","Le module TELEVITALE est désormais désactivé !~n~nPour le réactiver veuillez contacter votre interlocuteur commercial au 04 75 78 50 70 !")
+//		end if
+//	end if
+//
+//end if
+//		
+//Trace ("- TELEVITALE : " + string(TELEVITALE) ) 
+//Trace ("- TELEVITALE_DYN : " + string(TELEVITALE_DYN) ) 
+//trace("=== FIN VERIFICATION TELEVITALE ===")
+//
+//return b_retour
+//
+end function
+

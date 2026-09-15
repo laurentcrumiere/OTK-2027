@@ -1,0 +1,85 @@
+﻿$PBExportHeader$verif_bullzip_printer.srf
+global type verif_bullzip_printer from function_object
+end type
+
+forward prototypes
+global function boolean verif_bullzip_printer (string v_fichier_pdf, readonly boolean v_visible)
+end prototypes
+
+global function boolean verif_bullzip_printer (string v_fichier_pdf, readonly boolean v_visible);// Vérifie la présence ou pas de Bullzip
+// renvoie true ou false
+
+// Si installé, si le dossier n'existe pas, il le crée et place le fichier runonce.ini avec ce qu'il faut pour que ça roule
+
+// en paramètre : le nom du fichier à générer
+
+
+
+/* Le principe de Bull : faut écrire un fichier runonce.ini avec la config qu'on veut de l'interface (en fait qu'on en veut pas) et ensuite on print
+    une fois l'impression terminée, le fichier est supprimé
+	 
+	 si pas possible de créer le fichier, emmet un message et renvoie false
+*/
+
+OleObject Bullzip
+
+boolean v_retour = true
+string v_fichier_runonce, v_dossier_runonce
+
+Bullzip  = CREATE oleobject
+if Bullzip.ConnectToNewObject("Bullzip.PDFSettings") <> 0 then 
+	// Pas ou mal installé
+	MessageBox("ATTENTION","L'imprimante PDF 'Bullzip Printer' ne semble pas installée sur ce poste. Elle est nécessaire !")
+	v_retour = false
+else
+	// installée	
+	v_fichier_runonce = Bullzip.GetSettingsFilePath ( true )
+	Bullzip.DisConnectObject()
+	
+	v_dossier_runonce = gfx_extraire_path_fichier(v_fichier_runonce)
+	
+	if Not FileExists(v_dossier_runonce) then
+		// faut créer le dossier
+		if gfx_creer_chemin_complet(v_dossier_runonce) <> 1 then 
+			MessageBox("ATTENTION","Impossible de créer le chemin temporaire : " + v_dossier_runonce)
+			v_retour = false
+		end  if 
+	end if
+	
+	if v_retour then
+		
+		// Création du fichier runonce.ini
+		integer num_fichier_runonce 
+
+		num_fichier_runonce = FileOpen( v_fichier_runonce, LineMode! , Write! )
+		if FileWrite(num_fichier_runonce , " ") > 0 then
+			FileClose(num_fichier_runonce)
+			
+			SetProfileString( v_fichier_runonce , "PDF Printer", "Output", v_fichier_pdf)
+			SetProfileString( v_fichier_runonce , "PDF Printer", "ShowSaveAS", "never")
+			SetProfileString( v_fichier_runonce , "PDF Printer", "ShowSettings", "never")
+			if v_visible then
+				SetProfileString( v_fichier_runonce , "PDF Printer", "ShowPDF", "yes")
+			else
+				SetProfileString( v_fichier_runonce , "PDF Printer", "ShowPDF", "no")
+			end if
+			SetProfileString( v_fichier_runonce , "PDF Printer", "RememberLastFileName", "no")
+			SetProfileString( v_fichier_runonce , "PDF Printer", "RememberLastFolderName", "no")
+			SetProfileString( v_fichier_runonce , "PDF Printer", "ConfirmOverwrite", "no")
+			SetProfileString( v_fichier_runonce , "PDF Printer", "ShowProgress", "yes")
+		else
+			FileClose(num_fichier_runonce)
+			v_retour = false
+			MessageBox("ATTENTION","Impossible de créer le fichier temporaire : " + v_fichier_runonce)
+			
+		end if
+		
+		
+	end if
+	
+end if
+
+
+return v_retour
+end function
+

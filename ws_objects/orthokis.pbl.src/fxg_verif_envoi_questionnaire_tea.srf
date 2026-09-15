@@ -1,0 +1,121 @@
+﻿$PBExportHeader$fxg_verif_envoi_questionnaire_tea.srf
+global type fxg_verif_envoi_questionnaire_tea from function_object
+end type
+
+forward prototypes
+global subroutine fxg_verif_envoi_questionnaire_tea (double v_code, datetime v_rdv, string v_code_praticien, string v_type)
+end prototypes
+
+global subroutine fxg_verif_envoi_questionnaire_tea (double v_code, datetime v_rdv, string v_code_praticien, string v_type);
+// Vérifie et envoi si besoin un questionnaire au patient
+// on prend en compte le praticien du rendez-vous .. pas celui de la fiche administrative
+
+if TEA then
+	
+	trace(" ------ Début de vérification de l'envoi d'un questionnaire Téa -------" )
+	
+	integer v_validite_questionnaire_adulte, v_validite_questionnaire_enfant
+	char v_adulte , v_envoi_questionnaire
+	integer v_delai
+	date d_dernier_questionnaire
+	boolean b_ok_suite
+	
+	// en 2026 on autorise ou pas selon le type de rendez-vous
+	
+	select isnull(envoi_questionnaire_tea, 'O') into :v_envoi_questionnaire from type_rdv where code = :v_type ; 
+	if v_envoi_questionnaire = "O" then
+		Trace("Pas d'envoi de questionnaire pour ce type de rendez-vous")
+		b_ok_suite = true
+	else
+		b_ok_suite = false
+	end if
+
+	
+	if b_ok_suite then
+		
+		// recherche des paramètres de délais pour le praticien
+		select top 1 isnull(validite_questionnaire_adulte, 0), isnull(validite_questionnaire_enfant, 0) 
+		into :v_validite_questionnaire_adulte, :v_validite_questionnaire_enfant 
+		from prati where code = :v_code_praticien ; 
+		
+		Trace("Délais du praticien :      Code : " + v_code_praticien + " - Adulte : " + string(v_validite_questionnaire_adulte) + " - Enfant : " + string(v_validite_questionnaire_enfant) )
+		
+		if v_validite_questionnaire_adulte = 0 and v_validite_questionnaire_enfant = 0 then 
+			// pas de pamaètres pour le praticien - on recherche les paramètres du cabinet
+			select top 1 isnull(validite_questionnaire_adulte, 0), isnull(validite_questionnaire_enfant, 0) 
+			into :v_validite_questionnaire_adulte, :v_validite_questionnaire_enfant 
+			from param ; 
+			Trace("Délais du cabinet :      Code : " + v_code_praticien + " - Adulte : " + string(v_validite_questionnaire_adulte) + " - Enfant : " + string(v_validite_questionnaire_enfant) )
+		end if
+		
+		if v_validite_questionnaire_adulte <> 0 or v_validite_questionnaire_enfant <> 0 then
+			
+			// Le patient est il adulte ?
+			select top 1 isnull(adulte, 'N') 
+			into :v_adulte 
+			from patient where code = :v_code ;
+			
+			if (v_adulte = 'O' and v_validite_questionnaire_adulte > 0) then
+				v_delai = v_validite_questionnaire_adulte
+			else
+				if v_adulte = 'N' and v_validite_questionnaire_enfant > 0 then
+					v_delai = v_validite_questionnaire_enfant
+				else
+					// en principe pas possible mais ...
+					v_delai = 0
+				end if
+			end if 
+				
+			if v_delai > 0 then
+				
+				Trace("Délais retenu : " +  string(v_validite_questionnaire_enfant) )
+			
+				// recherche de la date du dernier questionnaire rempli par le patient .... 
+				setnull(d_dernier_questionnaire)
+				select max(date(validation)) into :d_dernier_questionnaire 
+				from patient_questionnaires_medicaux 
+				where code = :v_code and archive <> 'O' ;
+				
+				
+				Trace("Délais retenu : " +  string(v_validite_questionnaire_enfant) + "   - Date dernier questionnaire validé  : " + string(d_dernier_questionnaire))
+				
+				if not isnull (d_dernier_questionnaire) then
+					Trace("Date du rendez-vous : " +  string(v_rdv) + "   - Nombre de jours d'écart  : " + string(daysafter(d_dernier_questionnaire, date(v_rdv))))
+					
+					// On compare la date de validation du dernier avec la date du rendez-vous pour déclencher ou non l'envoi d'un questionnaire 
+					if daysafter(d_dernier_questionnaire, date(v_rdv)) > v_delai then
+						
+						Trace("Déclenchement de l'envoi automatique d'un questionnaire")
+						
+						// envoi du questionnaire 
+						param_win[1] = 'QA'
+						param_win[2] = ''
+						param_win[3] = ''
+						Param_win[4]  = "P1"
+						openWithParm(w_signature_en_ligne, v_code)
+					else
+						
+						Trace("Questionnaire trouvé en historique et toujours valide => pas de renvoi")
+						
+					end if
+					
+				else
+					Trace("Pas questionnaire précédent pour le patient => pas de renvoi")
+					
+				end if
+			end if
+		end if
+		
+		
+		
+	end if
+	
+	trace(" ------ Fin de vérification de l'envoi d'un questionnaire Téa -------" )
+	
+	
+end if
+
+
+
+end subroutine
+

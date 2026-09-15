@@ -1,0 +1,31 @@
+﻿$PBExportHeader$fxg_dwtree_memo_state.srf
+global type fxg_dwtree_memo_state from function_object
+end type
+
+forward prototypes
+global subroutine fxg_dwtree_memo_state (datawindow dw, string nom_tree_inifile)
+end prototypes
+
+global subroutine fxg_dwtree_memo_state (datawindow dw, string nom_tree_inifile);// Mémorise l'état d'une DW tree view (eclaté ou pas)
+// l'info est stockée dans le .ini avec la clef passée en paramètre
+
+
+long lig, tot
+string state_tv = ""
+
+tot = dw.rowcount()
+
+for lig = 1 to tot
+	if dw.IsExpanded(lig, 1) then
+		state_tv = state_tv + "E"
+	else
+		state_tv = state_tv + "N"
+	end if
+next
+
+
+
+SetProfileString (dir_ini + inifile_orthokis ,"TREEVIEWS",nom_tree_inifile,state_tv)	
+
+end subroutine
+

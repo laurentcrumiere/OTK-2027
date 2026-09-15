@@ -1,0 +1,58 @@
+﻿$PBExportHeader$fxg_demande_droits_modules.srf
+global type fxg_demande_droits_modules from function_object
+end type
+
+forward prototypes
+global function integer fxg_demande_droits_modules (string s_code_praticien, string s_module)
+end prototypes
+
+global function integer fxg_demande_droits_modules (string s_code_praticien, string s_module);// INTERROGATION POUR OBTENIR LES DROITS SUR UN MODULE DONNE
+// Syntaxe : https://api.monorthodontiste.eu/cabinet/autorisation?numero_serie=87001&id_praticien=tous&nom_module=NOTEZ NOUS
+
+
+
+string v_commande
+// renvoie 
+// -1 si erreur
+// 0 si module pas actif
+// 1 si module actif
+
+integer retour
+
+s_code_praticien = string_non_nulle(s_code_praticien)
+
+v_commande = "cabinet/autorisation?numero_serie=" + SERIAL + "&code_praticien=" + s_code_praticien +"&nom_module=" + s_module
+
+Trace("--- Demande de droits pour : " + SERIAL + " - Prat : " + s_code_praticien + " - Module : " + s_module )
+
+// En 2024 les options sont en BD
+
+string s_libelle_consignation
+Select top 1 isnull(options_dynamiques, '') into :s_libelle_consignation from param ;
+
+// On décrypte 
+s_libelle_consignation = fxg_crypte_decrypte(s_libelle_consignation, "D")
+
+
+if pos(s_libelle_consignation, s_module + ":" + s_code_praticien + ":1") > 0 or pos(s_libelle_consignation, s_module + ":TOUS:1") > 0 then
+
+	retour = 1
+else
+	retour = 0
+end if
+
+
+if trace then
+	choose case retour 
+		case 1 
+		trace("=> Droit OK")
+	case 0
+		Trace("=> Droit PAS OK")
+	case -1
+		Trace("=> Erreur My Orthokis")
+	end choose
+end if
+
+return retour
+end function
+

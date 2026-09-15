@@ -1,0 +1,21 @@
+﻿$PBExportHeader$trace.srf
+global type trace from function_object
+end type
+
+forward prototypes
+global subroutine trace (string message_trace)
+end prototypes
+
+global subroutine trace (string message_trace);
+// Pour tracer dans un fichier
+
+if TRACE then
+	// Trace Fichier
+	FileWriteex(Fichier_trace, string(now() , "hh:mm:ss:fff") + " : " + message_trace )
+end if
+
+	
+
+	
+end subroutine
+

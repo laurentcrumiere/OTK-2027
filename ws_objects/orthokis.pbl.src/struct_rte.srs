@@ -1,0 +1,8 @@
+﻿$PBExportHeader$struct_rte.srs
+global type struct_rte from structure
+	string		nom_dw
+	string		chemin
+	string		nom_menu
+	string		titre
+end type
+

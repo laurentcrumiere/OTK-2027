@@ -1,0 +1,24 @@
+﻿$PBExportHeader$fxg_get_max_id_cloud.srf
+global type fxg_get_max_id_cloud from function_object
+end type
+
+forward prototypes
+global function double fxg_get_max_id_cloud (double v_code_local, string v_fichier_pdf)
+end prototypes
+
+global function double fxg_get_max_id_cloud (double v_code_local, string v_fichier_pdf);
+double v_id_max		
+		
+		
+select max("id_doc_cloud")
+into :v_id_max 
+from "historique_editions" where code = :v_code_local and nom_courrier = :v_fichier_pdf ;
+
+if sqlca.sqlcode <> 0 then
+	Messagebox("ERREUR", "Erreur dans la récupération de l'ID du document à signer ! Impossible de poursuivire l'envoi de mail !~n~n" + sqlca.sqlerrtext )
+end if
+
+
+return v_id_max
+end function
+

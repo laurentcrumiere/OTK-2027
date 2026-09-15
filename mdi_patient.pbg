@@ -1,0 +1,26 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "..\\power\\V2021\\mdi_patient.pbl" "";
+@end;
+@begin Objects
+ "..\\power\\V2021\\w_diagnos_maj_std_2009_mdi_patient.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_rdv_maj_mdi_patient.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_soins_reg_maj_mdi_patient.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_coment_admini_maj_mdi_patient.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_mdi_patient.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_coment_maj_mdi_patient.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_patient_maj_mdi_patient.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_diagnos_maj_standard_mdi_patient.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_coment_maj_2010_mdi_patient.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\u_barre_outils_mdi_patient_sauve_2020.sru" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_suivi_televitale_mdi_patient.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\droits_barre_outils_mdi.srf" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_mdi_patient_telecommande_2020.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_diagnostic_assistant_mdi_patient.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\dw_mdi_patient_telecommande.srd" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_mdi_patient_telecommande.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_courriers_word_patient_mdi_patient.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\u_barre_outils_mdi_patient.sru" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_patient_synthese_mdi_patient.srw" "..\\power\\V2021\\mdi_patient.pbl";
+ "..\\power\\V2021\\w_explorateur_2013_mdi_patient.srw" "..\\power\\V2021\\mdi_patient.pbl";
+@end;

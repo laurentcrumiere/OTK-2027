@@ -1,0 +1,39 @@
+﻿$PBExportHeader$fxg_fenetre_sauver_positions.srf
+global type fxg_fenetre_sauver_positions from function_object
+end type
+
+forward prototypes
+global function integer fxg_fenetre_sauver_positions (window fenetre, string position_prefixe)
+end prototypes
+
+global function integer fxg_fenetre_sauver_positions (window fenetre, string position_prefixe);// fx qui sauvegarde les coordonnées de la fenetre passée en param
+// ds orthokis.ini les valeurs sont sauvegardées
+// return 1 si ok
+//		-1 si pb
+
+int		returnval = -1
+long	l_x,l_y,l_w,l_h
+
+
+l_x =  UnitsToPixels( fenetre.x, XUnitsToPixels!)
+l_y = UnitsToPixels( fenetre.y, YUnitsToPixels!)
+l_w =  UnitsToPixels( fenetre.width, XUnitsToPixels!)
+l_h = UnitsToPixels( fenetre.height, YUnitsToPixels!)
+
+// depuis 2024, on empeche les x, y négatifs
+//if l_x < 0 then 
+//	l_x = 0
+//end if
+//if l_y < 0 then 
+//	l_y = 0
+//end if
+
+// Depuis 2025 on les remets
+
+trace("Sauvegarde des positions de la fenêtre : ")
+
+if fxg_positions_sauvegarder( position_prefixe, l_x, l_y, l_w, l_h ) = 1 then returnval = 1
+
+return returnval
+end function
+

@@ -1,0 +1,61 @@
+﻿$PBExportHeader$fxg_get_file_date.srf
+global type fxg_get_file_date from function_object
+end type
+
+forward prototypes
+global function datetime fxg_get_file_date (string as_filename)
+end prototypes
+
+global function datetime fxg_get_file_date (string as_filename);//	
+//
+//	L'hreure renvoyée de base est en GMT => convertie en Heure Locale
+
+	
+
+datetime date_return
+date date_fichier
+time time_fichier
+
+
+long		il_findfile		//Handle for search
+s_win32_find_data		is_win32_find_data	// pour récup des datas du fichier
+// pour recup les heures des fichiers
+s_filetime 		is_filetime, is_filetime2
+s_systemtime 	is_systemtime
+
+setnull(date_return)
+
+if not fileExists(as_filename) then
+	return date_return
+else
+	il_findfile = findfirstfile ( as_filename, is_win32_find_data )
+
+	IF il_findfile < 0 THEN
+		Return date_return
+	ELSE
+		// Le fichier existe et toutes les infos sont dans la structure 
+		//messagebox("trace", "Fichier  : "+as_filename+" ~n~nlow : "+string(is_win32_find_data.lastwritetime.lowdatetime )+" ~n~nhigh : "+string(is_win32_find_data.lastwritetime.highdatetime ))
+		
+		is_filetime.lowdatetime = is_win32_find_data.lastwritetime.lowdatetime
+		is_filetime.highdatetime = is_win32_find_data.lastwritetime.highdatetime
+		
+		
+		//FileTimeToSystemTime (is_filetime, is_systemtime)
+
+		FileTimeToLocalFileTime (is_filetime, is_filetime2)
+		FileTimeToSystemTime (is_filetime2, is_systemtime)
+		
+		date_fichier = date(is_systemtime.year, is_systemtime.month, is_systemtime.day)
+		time_fichier = time(is_systemtime.hour, is_systemtime.minute, is_systemtime.second,  is_systemtime.millisecond )
+		
+		date_return = DateTime ( date_fichier, time_fichier )
+			
+	END IF
+end if
+
+Return date_return
+
+
+
+end function
+

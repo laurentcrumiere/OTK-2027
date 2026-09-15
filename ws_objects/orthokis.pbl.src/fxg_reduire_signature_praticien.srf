@@ -1,0 +1,107 @@
+﻿$PBExportHeader$fxg_reduire_signature_praticien.srf
+global type fxg_reduire_signature_praticien from function_object
+end type
+
+forward prototypes
+global function string fxg_reduire_signature_praticien (string s_fichier_signature)
+end prototypes
+
+global function string fxg_reduire_signature_praticien (string s_fichier_signature);// Faut réduire la signature à la bonne dimension car pas mise en un cadre
+// On reprend le script de faire vignette !
+
+string s_fichier_signature_reduit
+s_fichier_signature_reduit = dir_ini + "signature_tmp.jpg"
+
+
+string v_fichier_image_seul
+
+v_fichier_image_seul = gfx_extraire_nom_fichier(s_fichier_signature)
+
+
+
+if isvalid(w_mdi_2020)  then 
+		
+	
+	// Mémo de valeur AVANT ...
+	long memo_autoreduce, memo_autoresizeX, memo_autoresizeY 
+	long memo_savequality
+	
+	integer largeur_vignette, hauteur_vignette, qualite_jpeg, bits_pixel
+	
+	string erreur_image_gear 
+	integer largeur_reelle,hauteur_reelle
+
+	gearbox uo_gearbox_w_mdi_2020
+	
+	// Constantes
+	largeur_vignette = 180
+	hauteur_vignette = 90
+	qualite_jpeg = 80
+	bits_pixel = 4
+		
+
+	// IMAGEGEAR
+	
+	uo_gearbox_w_mdi_2020 = w_mdi_2020.uo_gearbox
+	
+	memo_autoreduce = uo_gearbox_w_mdi_2020.ole_image.object.autoreduce
+	memo_autoresizeX = uo_gearbox_w_mdi_2020.ole_image.object.autoresizeX
+	memo_autoresizeY = uo_gearbox_w_mdi_2020.ole_image.object.autoresizeY 
+	memo_savequality = uo_gearbox_w_mdi_2020.ole_image.object.savequality
+	
+	//trace("Réduction de la signature - Fichier image : " + s_fichier_signature + " - Code patient : " + string( var_code_local ) )
+	trace("Réduction de la signature - Fichier image : " + s_fichier_signature  )
+	
+	
+	// Chargement de l'image d'origne
+	uo_gearbox_w_mdi_2020.ole_image.object.Loadimage = s_fichier_signature 
+
+	// recherche des infos de l'image d'origine
+	uo_gearbox_w_mdi_2020.ole_image.object.GetFileInfo = s_fichier_signature 
+	
+	// Reduction des pixels
+	if bits_pixel = 4 then 
+		uo_gearbox_w_mdi_2020.ole_image.object.autoreduce = 2
+	else
+		uo_gearbox_w_mdi_2020.ole_image.object.autoreduce = 3
+	end if
+	
+	largeur_reelle = uo_gearbox_w_mdi_2020.ole_image.object.ImageWidth
+	hauteur_reelle = uo_gearbox_w_mdi_2020.ole_image.object.ImageHeight
+	
+	
+	// Reduction de la taille ... 300 de large
+	// On resize selon la largeur
+	if largeur_vignette < largeur_reelle then
+		uo_gearbox_w_mdi_2020.ole_image.object.ResizeWidth = largeur_vignette
+		uo_gearbox_w_mdi_2020.ole_image.object.ResizeHeight = round(largeur_vignette * hauteur_reelle / largeur_reelle, 0)
+		uo_gearbox_w_mdi_2020.ole_image.object.ResizeImage = 3
+
+	end if
+	
+
+	// Sauvegarde en JPG
+	uo_gearbox_w_mdi_2020.ole_image.object.SaveFormat = IG_SAVE_JPG
+
+	// tx de compression
+	uo_gearbox_w_mdi_2020.ole_image.object.savequality = qualite_jpeg
+	erreur_image_gear = uo_gearbox_w_mdi_2020.ole_image.object.ErrString
+	
+	
+	uo_gearbox_w_mdi_2020.ole_image.object.SaveImage = s_fichier_signature_reduit
+	
+	// Remise en état de la gearBox
+	uo_gearbox_w_mdi_2020.rendre_vierge()
+	uo_gearbox_w_mdi_2020.ole_image.object.autoreduce = memo_autoreduce
+	uo_gearbox_w_mdi_2020.ole_image.object.autoresizeX =   memo_autoresizeX
+	uo_gearbox_w_mdi_2020.ole_image.object.autoresizeY = memo_autoresizeY
+	uo_gearbox_w_mdi_2020.ole_image.object.savequality = memo_savequality
+
+
+	
+	
+end if
+
+return s_fichier_signature_reduit
+end function
+

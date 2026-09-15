@@ -1,0 +1,7 @@
+﻿$PBExportHeader$str_traca.srs
+global type str_traca from structure
+	double		code_patient
+	date		date_rdv
+	string		code_praticien
+end type
+

@@ -1,0 +1,48 @@
+﻿$PBExportHeader$proposer_numero_archivage.srf
+global type proposer_numero_archivage from function_object
+end type
+
+forward prototypes
+global function double proposer_numero_archivage (double var_numero_dossier_local)
+end prototypes
+
+global function double proposer_numero_archivage (double var_numero_dossier_local);
+
+// Recherche du 1er N° archivable dispo
+
+// Principe ...
+// on recherche 1000000xxxx .. si déjà pris 2000000xxxx, 3000000xxxx
+// puis 1100000xxxx, 1200000xxxx
+
+double v_numero_archivage
+integer cpt, nb, decalage
+boolean trouve
+
+cpt = 1
+trouve = false
+decalage = 0 
+
+
+do while  cpt <= 9 and not trouve 
+	v_numero_archivage = (cpt * 100000000) + ( decalage *10000000 ) + abs(var_numero_dossier_local)
+	
+	// le N° est il libre
+	nb = 0
+	select count(*) into :nb from patient where numero_dossier = :v_numero_archivage ;
+	if nb = 0 then
+		// c'est good 
+		trouve = true
+	else
+		cpt = cpt + 1
+	end if
+	
+	if cpt = 10 and not trouve then
+		// Le passage n'a rien donné ... on ajoute du décalage 
+		cpt = 1
+		decalage = decalage + 1
+	end if
+loop
+
+return v_numero_archivage
+end function
+

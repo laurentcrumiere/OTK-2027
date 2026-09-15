@@ -1,0 +1,32 @@
+﻿$PBExportHeader$get_short_path_name.srf
+global type Get_Short_Path_Name from function_object
+end type
+
+forward prototypes
+global function string get_short_path_name (string long_path_name)
+end prototypes
+
+global function string get_short_path_name (string long_path_name);// assure la conversion en chemin/nom court (MS-DOS) du chemin passé en param
+// param long_Path_Name : un chemin/nom
+// renvoie chaine vide "" si pb ou chemin/nom court sinon
+
+string val_retour = ""
+
+if not len(long_path_name) > 0 then return val_retour
+if not fxg_fileexists(long_path_name) then return val_retour
+
+string nom_long
+nom_long = long_Path_Name
+
+string nom_court
+ulong nbr_carac
+nbr_carac = GetShortPathNameA(nom_long, nom_court, 255)
+
+if nbr_carac > 0 then
+	if right(long_path_name, 1) = win_delimiter AND right(nom_court, 1) <> win_delimiter then nom_court += win_delimiter
+	val_retour = nom_court
+end if
+
+return val_retour
+end function
+

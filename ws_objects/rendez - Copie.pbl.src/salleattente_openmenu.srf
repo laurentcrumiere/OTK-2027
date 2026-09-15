@@ -1,0 +1,140 @@
+﻿$PBExportHeader$salleattente_openmenu.srf
+global type salleattente_openmenu from function_object
+end type
+
+forward prototypes
+global function integer salleattente_openmenu (double code, boolean salle_mini, boolean salle_attente_parametrable)
+end prototypes
+
+global function integer salleattente_openmenu (double code, boolean salle_mini, boolean salle_attente_parametrable);//fx globale qui crée un popup menu de type "m_patient_salleattente"
+//renvoie 1 si ok
+//renvoie -1 si un pb ds la gestion des droits
+
+m_patient_salleattente m
+
+//création du menu en mémoire
+m = create m_patient_salleattente
+
+//maj des droits
+if m.gestion_des_droits_salleattente() <> 1 then return -1
+
+// Attention, script aussi utilisé dans la mni salle d'attente ... la salle normale n'est pas forcément ouverte !!!
+
+if not salle_mini then
+	
+	// Salle paramétrable => trucs en plus dans menu
+	if w_rdv_salle_attente.salle_attente_parametrable then
+		m.m_1.visible = true
+		m.m_salledattenteparametrable.visible = true
+		// Colonnes visibles ou pas ?
+		if w_rdv_salle_attente.dw_liste.describe("patient_mise_en_evidence.visible") = '1'  then
+			m.m_salledattenteparametrable.m_miseenevidence.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("rdv_rdv.visible") = '1'  then
+			m.m_salledattenteparametrable.m_heure.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("patient_nom_cherche.visible") = '1'  then
+			m.m_salledattenteparametrable.m_patient.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("patient_numero_dossier.visible") = '1'  then
+			m.m_salledattenteparametrable.m_numerodedossier.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("rdv_code_praticien.visible") = '1'  then
+			m.m_salledattenteparametrable.m_praticien.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("type_rdv_nom.visible") = '1'  then
+			m.m_salledattenteparametrable.m_typederendezvous.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("rdv_duree.visible") = '1'  then
+			m.m_salledattenteparametrable.m_duree.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("rdv_fauteuil.visible") = '1'  then
+			m.m_salledattenteparametrable.m_fauteuil.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("rdv_absent.visible") = '1'  then
+			m.m_salledattenteparametrable.m_etat.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("dossier_code.visible") = '1'  then
+			m.m_salledattenteparametrable.m_typededossier.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("rdv_arrivee.visible") = '1'  then
+			m.m_salledattenteparametrable.m_heuredarrivee.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("oval_retard.visible") = '1'  then
+			m.m_salledattenteparametrable.m_pastillederetard.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("alertes.visible") = '1'  then
+			m.m_salledattenteparametrable.m_alertes.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("rdv_commentaire.visible") = '1'  then
+			m.m_salledattenteparametrable.m_commentairedurendezvous.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("patient_code_praticien.visible") = '1'  then
+			m.m_salledattenteparametrable.m_praticienadministratif.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("patient_moulage.visible") = '1'  then
+			m.m_salledattenteparametrable.m_moulage.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("nom_fauteuil.visible") = '1'  then
+			m.m_salledattenteparametrable.m_nomfauteuil.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("temps_attente.visible") = '1'  then
+			m.m_salledattenteparametrable.m_tempsensalledattente.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("patient_couleur2.visible") = '1'  then
+			m.m_salledattenteparametrable.m_pastilledecouleur2.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("alerte_fs.visible") = '1'  then
+			m.m_salledattenteparametrable.m_alertefeuilledesoins.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("rdv_user_suivi_clinique.visible") = '1'  then
+			m.m_salledattenteparametrable.m_suiviclinique.checked = true
+		end if
+		if w_rdv_salle_attente.dw_liste.describe("anniversaire.visible") = '1'  then
+			m.m_salledattenteparametrable.m_anniversaire.checked = true
+		end if
+		m.m_salledattenteparametrable.m_pastilledecouleur2.visible = true
+		if w_rdv_salle_attente.dw_liste.describe("pastille_couleur2.visible") = '1'  then
+			m.m_salledattenteparametrable.m_pastilledecouleur2.checked = true
+		end if
+	end if
+		
+		
+else
+	//  On est dans la mini salle d'attente
+	m.m_1.visible = false
+	m.m_salledattenteparametrable.visible = false
+end if
+		
+
+
+//passe le code du patient qui nous interresse et lance le menu en popup
+m.CodePatientCourant = code
+//m.dw_click = dw_click
+
+// Salle paramétrable ?
+m.m_salledattenteparametrable.visible = salle_attente_parametrable
+m.m_1.visible = salle_attente_parametrable
+
+// Déjà fait au début
+//m.gestion_des_droits()
+
+if OPERATEUR_SMS = 2 then
+	m.m_envoyersmsunitaire.visible = true
+else
+	m.m_envoyersmsunitaire.visible = false
+end if
+
+if salle_mini then
+		m.PopMenu(w_mdi_2020.pointerX(),w_mdi_2020.pointerY())
+else
+		m.PopMenu(w_rdv_salle_attente.pointerX(),w_rdv_salle_attente.pointerY())
+end if
+
+//supression du menu de la mémoire
+destroy m
+
+//si ok
+return 1
+end function
+

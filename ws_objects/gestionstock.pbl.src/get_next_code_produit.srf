@@ -1,0 +1,29 @@
+﻿$PBExportHeader$get_next_code_produit.srf
+global type get_next_code_produit from function_object
+end type
+
+forward prototypes
+global function double get_next_code_produit ()
+end prototypes
+
+global function double get_next_code_produit ();// renvoie le prochain code interne de produit disponible
+
+boolean ok_max = false
+
+double max, nb
+
+do while not ok_max 
+	max = max + 1
+
+	select isnull(count(*),0) into :nb 	FROM "produit"  
+	 where trim(code_interne) = string( :max);
+ 
+	if nb = 0 then
+		// existe déjà => recherche le vrai max !!
+		ok_max = true
+	end if
+loop
+
+return max
+end function
+

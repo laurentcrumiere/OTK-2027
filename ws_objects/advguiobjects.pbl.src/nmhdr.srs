@@ -1,0 +1,7 @@
+﻿$PBExportHeader$nmhdr.srs
+global type nmhdr from structure
+	longptr		hwndfrom
+	longptr		idfrom
+	long		code
+end type
+

@@ -1,0 +1,21 @@
+﻿$PBExportHeader$age_calcul_des_annees.srf
+global type age_calcul_des_annees from function_object
+end type
+
+forward prototypes
+global function integer age_calcul_des_annees (string naissance_string)
+end prototypes
+
+global function integer age_calcul_des_annees (string naissance_string);//fx globale qui renvoie l'age d'un patient (juste en année)
+//en param --> "a string" de la date de naissance
+
+int  age
+date naissance
+
+
+// Convertit la date de naissance en format date
+naissance = date(naissance_string)
+
+return age_calcul_des_annees_date( naissance )
+end function
+

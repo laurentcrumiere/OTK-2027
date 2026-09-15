@@ -1,0 +1,39 @@
+﻿$PBExportHeader$gfx_tout_remplacer.srf
+global type gfx_tout_remplacer from function_object
+end type
+
+forward prototypes
+global function string gfx_tout_remplacer (string l_string, string a_remplacer, string remplacer_par)
+end prototypes
+
+global function string gfx_tout_remplacer (string l_string, string a_remplacer, string remplacer_par);// remplace ds "l_string" toutes les portions de "a_remplacer" par "remplacer_par"
+// ATTENTION : la fx est case sensitive
+// renvoie la string ainsi modifiée
+
+if isnull(l_string) then return l_string
+if l_string = '' then return l_string
+if isnull(a_remplacer) then return l_string
+
+// Modif 2026 pour tester les caractères "à la con"
+//if a_remplacer = '' then return l_string
+if asc(a_remplacer) = asc('') then return l_string
+
+if isnull(remplacer_par) then return l_string
+
+int nbr_carac_a_remplacer
+nbr_carac_a_remplacer = len(a_remplacer)
+int nbr_carac_remplacant
+nbr_carac_remplacant = len(remplacer_par)
+
+int j
+j = pos(l_string, a_remplacer)
+do while j > 0
+	l_string = replace(l_string, j , nbr_carac_a_remplacer, remplacer_par)
+	j += nbr_carac_remplacant
+	j = pos(l_string, a_remplacer, j )
+	if isnull(j) then j = 0
+loop
+
+return l_string
+end function
+

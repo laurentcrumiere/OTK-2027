@@ -1,0 +1,35 @@
+﻿$PBExportHeader$mois_francais.srf
+global type mois_francais from function_object
+end type
+
+forward prototypes
+global function string mois_francais (string chaine)
+end prototypes
+
+global function string mois_francais (string chaine);
+
+// Remplace les mois en anglais dans la chaine passée en paramètre
+
+// utile pour les formats de rendez-vous
+
+string v_retour 
+
+v_retour = chaine
+
+v_retour = gfx_tout_remplacer( v_retour, "January", "Janvier")
+v_retour = gfx_tout_remplacer( v_retour, "February", "Février")
+v_retour = gfx_tout_remplacer( v_retour, "March", "Mars")
+v_retour = gfx_tout_remplacer( v_retour, "April", "Avril")
+v_retour = gfx_tout_remplacer( v_retour, "May", "Mai")
+v_retour = gfx_tout_remplacer( v_retour, "June", "Juin")
+v_retour = gfx_tout_remplacer( v_retour, "July", "Juillet")
+v_retour = gfx_tout_remplacer( v_retour, "August", "Août")
+v_retour = gfx_tout_remplacer( v_retour, "September", "Septembre")
+v_retour = gfx_tout_remplacer( v_retour, "October", "Octobre")
+v_retour = gfx_tout_remplacer( v_retour, "November", "Novembre")
+v_retour = gfx_tout_remplacer( v_retour, "December", "Décembre")
+
+return v_retour
+
+end function
+

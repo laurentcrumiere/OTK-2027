@@ -1,0 +1,31 @@
+﻿$PBExportHeader$get_date_image.srf
+global type get_date_image from function_object
+end type
+
+forward prototypes
+global function date get_date_image (double code_patient, string fichier_image)
+end prototypes
+
+global function date get_date_image (double code_patient, string fichier_image);
+// recup de la BD la date d'acquis enreg du fichier de ce patient
+// param num_patient : le num du patient
+// param image : le chemin complet OU le nom du fichier image (ex : 3.jpg) --> sera converti en nom de fichier uniquement
+// renvoie la date d'acquis si trouvée ou 1900-01-01 sinon ou pb
+
+date val_retour = 1900-01-01
+
+if isnull(code_patient) then return val_retour
+if code_patient = 0 then return val_retour
+if not len(fichier_image) > 0 then return val_retour
+
+// recup uniquement le nom de l'image
+string nom_image
+nom_image = gfx_extraire_nom_fichier(fichier_image)
+
+date date_acquis
+select date_acquis into :date_acquis from images_infos where code = :code_patient and nom_fichier = :nom_image ;
+
+if date_acquis > val_retour then val_retour = date_acquis
+return val_retour
+end function
+

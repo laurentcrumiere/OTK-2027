@@ -1,0 +1,30 @@
+﻿$PBExportHeader$sup_apostrophe.srf
+global type sup_apostrophe from function_object
+end type
+
+forward prototypes
+global function string sup_apostrophe (string chaine)
+end prototypes
+
+global function string sup_apostrophe (string chaine);// Retourne une chaine qui double les apostrophes
+// Utile pour les recherche
+
+// Exemple : D'ALEMBERT => D''ALEMBERT
+
+
+integer l,i
+string retour
+
+l = len(trim(chaine))
+
+for i = 1 to l
+
+	if mid(chaine,i,1) = "'" then
+		retour = retour + "'"
+	end if
+	retour = retour + mid(chaine,i,1)
+next
+
+return retour
+end function
+

@@ -1,0 +1,132 @@
+﻿$PBExportHeader$m_btdroit_liste_produit.srm
+forward
+global type m_btdroit_liste_produit from menu
+end type
+type m_miseàjourproduit from menu within m_btdroit_liste_produit
+end type
+type m_référenceproduit from menu within m_btdroit_liste_produit
+end type
+global type m_btdroit_liste_produit from menu
+m_miseàjourproduit m_miseàjourproduit
+m_référenceproduit m_référenceproduit
+end type
+end forward
+
+global type m_btdroit_liste_produit from menu
+m_miseàjourproduit m_miseàjourproduit
+m_référenceproduit m_référenceproduit
+end type
+global m_btdroit_liste_produit m_btdroit_liste_produit
+
+type variables
+str_twostring struct_ref
+str_boolstring struct_maj
+end variables
+
+forward prototypes
+public subroutine listepopmenu (integer x, integer y, boolean maj_enabled, str_twostring refer, str_boolstring maj)
+end prototypes
+
+public subroutine listepopmenu (integer x, integer y, boolean maj_enabled, str_twostring refer, str_boolstring maj);
+end subroutine
+
+on m_btdroit_liste_produit.create
+m_btdroit_liste_produit=this
+call super::create
+this.text = "m_btdroit_liste_produit"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_miseàjourproduit=create m_miseàjourproduit
+this.m_référenceproduit=create m_référenceproduit
+this.Item[UpperBound(this.Item)+1]=this.m_miseàjourproduit
+this.Item[UpperBound(this.Item)+1]=this.m_référenceproduit
+end on
+
+on m_btdroit_liste_produit.destroy
+call super::destroy
+destroy(this.m_miseàjourproduit)
+destroy(this.m_référenceproduit)
+end on
+
+type m_miseàjourproduit from menu within m_btdroit_liste_produit
+end type
+
+on m_miseàjourproduit.create
+call super::create
+this.text = "Mise à jour Produit"
+this.menuimage = "lc_renommer.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_miseàjourproduit.destroy
+call super::destroy
+end on
+
+event clicked;	OpenWithparm(w_maj_stock_produit,struct_maj)
+	
+
+end event
+
+type m_référenceproduit from menu within m_btdroit_liste_produit
+end type
+
+on m_référenceproduit.create
+call super::create
+this.text = "Référence Produit"
+this.menuimage = "lc_ref.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_référenceproduit.destroy
+call super::destroy
+end on
+
+event clicked;openwithparm(w_produit_fiche,struct_ref)
+end event
+

@@ -1,0 +1,36 @@
+﻿$PBExportHeader$fxg_conversion_powerpoint_to_pdf.srf
+global type fxg_conversion_powerpoint_to_pdf from function_object
+end type
+
+forward prototypes
+global function integer fxg_conversion_powerpoint_to_pdf (string as_document_ppt, string as_document_pdf)
+end prototypes
+
+global function integer fxg_conversion_powerpoint_to_pdf (string as_document_ppt, string as_document_pdf);long ll_ret
+
+trace("- Début de la conversion en PDF de : " + as_document_ppt)
+oleobject	ole_pp
+ole_pp = create oleobject
+ll_ret = ole_pp.ConnectToNewObject("Powerpoint.Application")
+
+
+if ll_ret = 0 then
+
+
+    oleobject ole_pres
+    ole_pres = ole_pp.Presentations.Open(as_document_ppt, False, False, False)
+
+    // 32 = ppSaveAsPDF
+    ole_pres.SaveAs(as_document_pdf, 32)
+
+    ole_pres.Close()
+    ole_pp.Quit()
+end if
+
+
+trace("- Fin de la conversion vers : " + as_document_pdf)
+
+return ll_ret
+
+end function
+

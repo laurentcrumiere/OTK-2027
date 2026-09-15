@@ -1,0 +1,60 @@
+﻿$PBExportHeader$get_nom_prochain_cadre_image.srf
+global type get_nom_prochain_cadre_image from function_object
+end type
+
+forward prototypes
+global function string get_nom_prochain_cadre_image (double numpatient)
+end prototypes
+
+global function string get_nom_prochain_cadre_image (double numpatient);
+// Fonction qui recherche le prochain cadre photo disponible pour 
+// acquerir une image - utilisée en gestion 2013 => on ne gère pas les cadre
+
+// Renvoie le nom sur la forme ole_photo004
+
+
+string v_nom_prochain_cadre_image = ""
+string pathRepPhoto, section 
+
+integer v_nb_photos, i, indice_libre
+boolean v_trouve
+string pathFichierPhoto
+
+section = "ARAKIS"
+
+v_nb_photos = integer(profilestring(dir_photos + inifile_photo, section, "nbr_photos","1"))
+
+
+pathRepPhoto = dir_photos
+
+if pathRepPhoto <> "" then
+// si rep photo bien récup
+
+	// tente de détecter le premier cadre de libre pour acquisistion ... on part de la fin et on remonte !!
+	
+	i = v_nb_photos
+	v_trouve = false
+	indice_libre = 0
+	
+	do while not v_trouve and i > 0
+		pathFichierPhoto = pathRepPhoto + string(numPatient) + win_delimiter + profilestring ( pathRepPhoto + inifile_photo , section , "ole_photo" +  num_nom_photo( i ) , "" )
+		if FileExists ( pathFichierPhoto ) then 
+			v_trouve = true
+			indice_libre = i + 1
+		end if
+		i = i - 1
+	loop
+	if indice_libre = 0 then
+		indice_libre = 1
+	end if
+
+	v_nom_prochain_cadre_image = "ole_photo" +  num_nom_photo( indice_libre ) 
+	return v_nom_prochain_cadre_image		
+else
+	// impossible de récup le path photo --> msg d'erreur
+	messagebox ( "ERREUR" , "Votre répertoire photo doit être mal indiqué, ~nveuillez y remédier pour le bon fonctionnement de l'acquisition.")
+	return ""
+end if
+
+end function
+

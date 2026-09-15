@@ -1,0 +1,143 @@
+﻿$PBExportHeader$f_pbwc_rgba_multi_from_file.srf
+global type f_pbwc_rgba_multi_from_file from function_object
+end type
+
+forward prototypes
+global subroutine f_pbwc_rgba_multi_from_file ()
+end prototypes
+
+global subroutine f_pbwc_rgba_multi_from_file ();// -----------------------------------------------------------------------------
+// SCRIPT:     f_pbwc_rgb_to_rgba_from_file
+//
+// PURPOSE:    converts rgba list file to 16 rgba per row file
+//
+// ARGUMENTS: 
+//
+// RETURN:		
+//
+// DATE        PROG/ID		DESCRIPTION OF CHANGE / REASON
+// ----------  --------		-----------------------------------------------------
+// 01/01/2018	FFasolin	Initial Coding
+// ------------------------------------------------------------------------------
+
+integer li_FileNum, li_destnum
+string ls_color,ls_rgba
+int li_ret,li_pos_coma
+string ls_path, ls_file
+int li_start, li_pos_end, li_r[], li_g[], li_b[],jj
+string ls_value
+decimal ldc_a[], ldc_a_minus_20
+	
+IF getfileopenname("Select rbga code file",ls_path, ls_file) = 0 THEN return
+
+li_FileNum = FileOpen(ls_path, LineMode!)
+
+//loads all avlues in an array
+li_ret=   FileReadEx(li_FileNum, ls_color)
+DO WHILE li_ret <> -100
+	jj++
+	ls_color = lower(ls_color)
+	li_start = pos(ls_color,"(")
+	//gets r
+	li_start++
+	li_pos_end = pos(ls_color,",",li_start)
+	ls_value = trim(mid(ls_color,li_start,li_pos_end - li_start ))
+	li_r[jj] = integer(ls_value)
+	//gets g
+	li_start = li_pos_end +1
+	li_pos_end = pos(ls_color,",",li_start)
+	ls_value = trim(mid(ls_color,li_start,li_pos_end - li_start ))
+	li_g[jj] = integer(ls_value)
+	//gets b
+	li_start = li_pos_end +1
+	li_pos_end = pos(ls_color,",",li_start)
+	ls_value = trim(mid(ls_color,li_start,li_pos_end - li_start ))
+	li_b[jj] = integer(ls_value)	
+	//gets a
+	li_start = li_pos_end +1
+	li_pos_end = pos(ls_color,")",li_start)
+	ls_value = trim(mid(ls_color,li_start,li_pos_end - li_start ))
+	//check decimal point
+	IF dec("1.1") = 0 THEN 
+		li_pos_coma = pos(ls_value,".")
+		IF li_pos_coma > 0 THEN ls_value = replace(ls_value,li_pos_coma,1,",")
+	END IF
+	ldc_a[jj] = dec(ls_value)	
+
+	li_ret=   FileReadEx(li_FileNum, ls_color)
+LOOP
+
+fileClose(li_FileNum)
+
+li_destnum = FileOpen(ls_path+".multi.txt", LineMode!, Write!, LockWrite!, replace!)
+
+//generates 6 rows of 16 values shifting all 8 values
+string ls_multi1, ls_multi2,ls_multi3,ls_reverse_multi1, ls_reverse_multi2,ls_reverse_multi3
+string ls_a, ls_a_minus_20,ls_separator
+int ii, kk,mm
+
+jj = 1
+kk=16
+
+DO WHILE kk < upperbound(li_r)
+	ls_multi1="";ls_multi2="";ls_multi3="";
+	ls_reverse_multi1=""; ls_reverse_multi2="";ls_reverse_multi3="";
+	mm= 0
+	
+	FOR ii=jj to kk
+		mm++
+		ls_a = string(ldc_a[ii])
+		ldc_a_minus_20 = ldc_a[ii] -0.2
+		IF ldc_a_minus_20 < 0.2 THEN ldc_a_minus_20 = 0.2
+		ls_a_minus_20 = string(ldc_a_minus_20)
+		IF dec("1.1") = 0 THEN 
+			li_pos_coma = pos(ls_a,",")
+			IF li_pos_coma > 0 THEN ls_a = replace(ls_a,li_pos_coma,1,".")
+			li_pos_coma = pos(ls_a_minus_20,",")
+			IF li_pos_coma > 0 THEN ls_a_minus_20 = replace(ls_a_minus_20,li_pos_coma,1,".")
+		END IF		
+		ls_separator=";"
+		IF mm=1 THEN ls_separator = ""
+		ls_multi1+=ls_separator+ "rgba("+string(li_r[ii])+","+string(li_g[ii])+","+string(li_b[ii])+","+ls_a+")"
+		ls_multi2+=ls_separator+ "rgba("+string(li_r[ii])+","+string(li_g[ii])+","+string(li_b[ii])+","+"0.5"+")"
+		ls_multi3+=ls_separator+ "rgba("+string(li_r[ii])+","+string(li_g[ii])+","+string(li_b[ii])+","+"0.2"+")"
+	NEXT
+	
+	mm=0
+	//reverse values
+		FOR ii=kk to jj step -1
+		mm++
+		ls_a = string(ldc_a[ii])
+		ldc_a_minus_20 = ldc_a[ii] -0.2
+		IF ldc_a_minus_20 < 0.2 THEN ldc_a_minus_20 = 0.2
+		ls_a_minus_20 = string(ldc_a_minus_20)
+		IF dec("1.1") = 0 THEN 
+			li_pos_coma = pos(ls_a,",")
+			IF li_pos_coma > 0 THEN ls_a = replace(ls_a,li_pos_coma,1,".")
+			li_pos_coma = pos(ls_a_minus_20,",")
+			IF li_pos_coma > 0 THEN ls_a_minus_20 = replace(ls_a_minus_20,li_pos_coma,1,".")
+		END IF		
+		ls_separator=";"
+		IF mm=1 THEN ls_separator = ""
+		ls_reverse_multi1+=ls_separator+ "rgba("+string(li_r[ii])+","+string(li_g[ii])+","+string(li_b[ii])+","+ls_a+")"
+		ls_reverse_multi2+=ls_separator+ "rgba("+string(li_r[ii])+","+string(li_g[ii])+","+string(li_b[ii])+","+"0.5"+")"
+		ls_reverse_multi3+=ls_separator+ "rgba("+string(li_r[ii])+","+string(li_g[ii])+","+string(li_b[ii])+","+"0.2"+")"
+	NEXT
+	
+	filewriteex(li_destnum,ls_multi1)
+	filewriteex(li_destnum,ls_multi2)
+	filewriteex(li_destnum,ls_multi3)
+	filewriteex(li_destnum,ls_reverse_multi1)
+	filewriteex(li_destnum,ls_reverse_multi2)
+	filewriteex(li_destnum,ls_reverse_multi3)
+	
+	jj += 8
+	kk+=8
+LOOP
+
+
+
+fileClose(li_destnum)
+
+end subroutine
+

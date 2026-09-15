@@ -1,0 +1,10 @@
+﻿$PBExportHeader$rdv.srs
+global type rdv from structure
+	datetime		date_debut
+	datetime		date_fin
+	integer		numero_fauteuil
+	string		praticien_de
+	string		praticien_a
+	boolean		nouveau
+end type
+

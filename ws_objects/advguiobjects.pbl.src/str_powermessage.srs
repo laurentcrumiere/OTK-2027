@@ -1,0 +1,19 @@
+﻿$PBExportHeader$str_powermessage.srs
+global type str_powermessage from structure
+	string		title
+	string		message
+	window		parentwindow
+	button		buttons
+	long		background
+	long		default
+	long		timeout
+	string		theme
+	integer		messagetextsize
+	integer		titletextsize
+	string		button1text
+	string		button2text
+	string		button3text
+	string		linklabel
+	string		linkdata
+end type
+

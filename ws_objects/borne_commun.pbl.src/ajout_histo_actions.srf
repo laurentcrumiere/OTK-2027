@@ -1,0 +1,43 @@
+﻿$PBExportHeader$ajout_histo_actions.srf
+global type ajout_histo_actions from function_object
+end type
+
+forward prototypes
+global subroutine ajout_histo_actions (double code_patient, string code_action, date date_histo, string libelle)
+end prototypes
+
+global subroutine ajout_histo_actions (double code_patient, string code_action, date date_histo, string libelle);// Mise en historique des actions
+// Automatiquement nom de l'utilisateur
+
+
+// a cause des enregistrement automatique, on vérifie si l'action n'est pas déjà mémo
+// Si meme modif dans la meme minute on la prend pas !!
+
+long cpt = 0
+
+if enregistrement_automatique then
+	
+	select isnull(count(*), 0) into :cpt from historique_editions where
+				 "code" = :code_patient  and   "code_courrier" =  :code_action and  "date_document" =  :date_histo and "libelle" = :libelle 
+				 and cast ("date_modif" as date) = cast(getdate() as date) and hour("date_modif") = hour(getdate())  and minute("date_modif") = minute(getdate()) 
+				 and  "user_modif" = :utilisateur_code and   "nature" = 'A' ;
+end if
+
+if cpt = 0 then
+	
+	string v_code_interne
+	v_code_interne = fxg_get_clef_historique_editions()
+	INSERT INTO "historique_editions"  
+				( "code",              "code_courrier",              "date_document",              "libelle",			  "date_modif" , 			  "user_modif",			  "nature", "code_interne")  
+	  VALUES ( :code_patient,   :code_action,              :date_histo,              :libelle,				 getdate(),						 :utilisateur_code			,'A' , :v_code_interne)  ;
+			
+			
+	if sqlca.sqlcode <> 0 then
+		MessageBox("Problème d'ajout dans l'Historique des Actions",Sqlca.sqlerrtext)
+		rollback ;
+	else
+		commit ;
+	end if
+end if
+end subroutine
+

@@ -1,0 +1,25 @@
+﻿$PBExportHeader$fxg_nom_fichier_fs2014_doc_ou_docx.srf
+global type fxg_nom_fichier_fs2014_doc_ou_docx from function_object
+end type
+
+forward prototypes
+global function string fxg_nom_fichier_fs2014_doc_ou_docx ()
+end prototypes
+
+global function string fxg_nom_fichier_fs2014_doc_ou_docx ();// renvoie le nom du fichier fs2014 en .doc (la constante) ou en .docx si on le trouve
+
+
+string ls_nom_fichier_fs2014_docx 
+
+ls_nom_fichier_fs2014_docx = left(nom_fichier_fs2014, len(nom_fichier_fs2014) - 3) + "docx"
+
+if fileExists(ls_nom_fichier_fs2014_docx) then 
+	return ls_nom_fichier_fs2014_docx
+else
+	return nom_fichier_fs2014
+end if
+
+
+
+end function
+

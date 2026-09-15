@@ -1,0 +1,44 @@
+﻿$PBExportHeader$f_pbwc_rgb_to_rgba.srf
+global type f_pbwc_rgb_to_rgba from function_object
+end type
+
+forward prototypes
+global function string f_pbwc_rgb_to_rgba (integer r, integer g, integer b)
+end prototypes
+
+global function string f_pbwc_rgb_to_rgba (integer r, integer g, integer b);// -----------------------------------------------------------------------------
+// SCRIPT:     f_pbwc_rgb_to_rgba
+//
+// PURPOSE:    Converts rgb cololr to rgba color for a disired opacity
+//					over a white background
+//
+// ARGUMENTS: integer r,g,b
+//
+// RETURN:		String - "r,g,b,a"
+//
+// DATE        PROG/ID		DESCRIPTION OF CHANGE / REASON
+// ----------  --------		-----------------------------------------------------
+// 01/01/2018	FFasolin	Initial Coding
+// ------------------------------------------------------------------------------
+int rgba_r,rgba_g,rgba_b,li_pos_coma
+string ls_rgba
+dec rgba_a, dc_min
+
+//a = (255 - (min = Math.min(r, g, b))) / 255;
+dc_min = min(min(r,g),b)
+rgba_a = (255 - dc_min)/255
+IF rgba_a = 0 THEN  return "0,0,0,1"
+
+rgba_r = (r - dc_min) / rgba_a
+rgba_g = (g - dc_min) / rgba_a
+rgba_b = (b - dc_min) / rgba_a
+rgba_a = truncate(rgba_a,2)
+ls_rgba = string(rgba_a)
+//check decimal point
+IF dec("1.1") = 0 THEN 
+	li_pos_coma = pos(ls_rgba,",")
+	IF li_pos_coma > 0 THEN ls_rgba = replace(ls_rgba,li_pos_coma,1,".")
+END IF
+return string(rgba_r)+"," + string(rgba_g)+"," + string(rgba_b)+"," + ls_rgba
+end function
+

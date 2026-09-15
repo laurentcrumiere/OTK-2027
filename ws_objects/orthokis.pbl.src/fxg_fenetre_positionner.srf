@@ -1,0 +1,27 @@
+﻿$PBExportHeader$fxg_fenetre_positionner.srf
+global type fxg_fenetre_positionner from function_object
+end type
+
+forward prototypes
+global function integer fxg_fenetre_positionner (window fenetre, string position_prefixe)
+end prototypes
+
+global function integer fxg_fenetre_positionner (window fenetre, string position_prefixe);// fx qui positionne et redimentionne cette fenettre ds l'écran
+// ds orthokis.ini les valeurs sont en pixels
+// return 1 si ok
+//		-1 si pb
+
+int		returnval = -1
+long	x,y,w,h
+
+
+if fxg_positions_charger( position_prefixe, x, y, w, h ) = 1 then
+// si ça a déjà était init
+	if fenetre.move( PixelsToUnits( x, XPixelsToUnits!) , PixelsToUnits( y, YPixelsToUnits!) ) = 1 then
+		if fenetre.resize( PixelsToUnits( w, XPixelsToUnits!) , PixelsToUnits( h, YPixelsToUnits!) ) = 1 then returnval = 1
+	end if
+end if
+
+return returnval
+end function
+

@@ -1,0 +1,52 @@
+﻿$PBExportHeader$verif_meme_mot_de_passe_praticien.srf
+global type verif_meme_mot_de_passe_praticien from function_object
+end type
+
+forward prototypes
+global function boolean verif_meme_mot_de_passe_praticien ()
+end prototypes
+
+global function boolean verif_meme_mot_de_passe_praticien ();
+// Vérification, en version multipraticien que tous les praticiens on le meme mot de passe financier
+// Pour autoriser ou non certaines fonction
+
+// Renvoie TRUE si tous le meme mot de passe, FALSE sinon
+
+// Si l'utlisateur est autorisé .. on ne vérifie meme pas les mots de passe 
+
+boolean user_autorise, b_retour
+string mdp_dif, v_autor_agregation_finaniere
+
+
+	
+select top 1 autor_agregation_finaniere into :v_autor_agregation_finaniere from utilisateurs where code = :utilisateur_code ;
+
+if v_autor_agregation_finaniere = "O" then
+	user_autorise = true
+else
+	user_autorise = false
+end if
+
+
+
+if not user_autorise then
+	
+	SELECT DISTINCT  isnull(pasfin,'')  INTO :mdp_dif FROM "prati"  where actif = 1 and code <> 'COMMUN' ;
+		
+	if sqlca.sqlcode = 0 then 
+		// il n'y a qu'un MDP
+		b_retour = TRUE
+	else
+		b_retour =  FALSE
+	end if
+	
+else
+	
+	b_retour = true
+	
+end if
+
+return b_retour
+
+end function
+

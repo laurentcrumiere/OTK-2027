@@ -1,0 +1,98 @@
+﻿$PBExportHeader$information_zone_active_oui_non.srf
+global type information_zone_active_oui_non from function_object
+end type
+
+forward prototypes
+global function boolean information_zone_active_oui_non (datawindow dw, string nom_zone, string nom_table, string libelle, string type_zone)
+end prototypes
+
+global function boolean information_zone_active_oui_non (datawindow dw, string nom_zone, string nom_table, string libelle, string type_zone);
+// Permet d'afficher des informations sur une zone mise en DDDW qui contiendrait une valeur inactive (donc de libelle dans la dddw)
+// généralement, on l'appelle avec le clic droit Sur la zone
+
+// dw : datawindow
+// Nom_zone = nom de la valeur cliquée (toujours en minuscule) dans la dw
+// nom_table = nom de la table de la bd
+// libelle : va apparaitre pour informer
+// type_zone : N  pour nombre, S pour String
+
+
+string nom_clic
+long lig_clic
+
+string lib_clic
+
+boolean zone_trouve
+
+zone_trouve = false
+
+lib_clic = dw.GetObjectAtPointer()
+
+// La zone cliquée est sous la forme "code_caisse~1" ... 1 est le N° de la ligne cliquée
+
+nom_clic = left(lib_clic,pos(lib_clic,"~t") - 1)
+
+lig_clic = long( mid(lib_clic , pos(lib_clic,"~t") + 1))
+
+if lig_clic > 0 then
+	string v_code_string, v_nom, v_statut
+	long v_code_number
+	
+	integer v_actif
+	
+	if nom_clic = nom_zone then
+		
+		zone_trouve = true
+		
+		setnull(v_code_string)
+		setnull(v_code_number)
+		
+		if type_zone = 'S' then
+			v_code_string = dw.getitemstring(lig_clic,nom_zone)
+		else
+			v_code_number = dw.getitemnumber(lig_clic,nom_zone)
+		end if
+		
+		if isnull(v_code_string) and isnull(v_code_number) then
+			messagebox("Information","Aucune valeur dans cette zone")
+		else
+		
+			string sqlstatement
+			
+			sqlstatement = "select nom, actif  from "+nom_table+" where code = ?"
+	
+			PREPARE SQLSA FROM :sqlstatement ;
+			
+			DECLARE my_cursor DYNAMIC CURSOR FOR SQLSA ;
+	
+			if type_zone = 'S' then
+				OPEN DYNAMIC my_cursor using :v_code_string ;
+			else
+				OPEN DYNAMIC my_cursor using :v_code_number ;
+			end if
+			
+			FETCH my_cursor INTO :v_nom, :v_actif ;
+			
+			CLOSE my_cursor 		;
+			
+			
+			if v_actif = 1 then 
+				v_statut = "Actif"
+			else
+				v_statut = "Non Actif"
+			end if
+			
+			if type_zone = 'S' then
+				messagebox("Information","Code "+libelle+" : "+v_code_string+"~n~nNom "+libelle+" : "+v_nom+"~n~nStatut : "+v_statut)
+			else
+				messagebox("Information","Code "+libelle+" : "+string(v_code_number)+"~n~nNom "+libelle+" : "+v_nom+"~n~nStatut : "+v_statut)
+			end if
+		end if
+	end if
+end if
+
+
+
+return zone_trouve
+end function
+

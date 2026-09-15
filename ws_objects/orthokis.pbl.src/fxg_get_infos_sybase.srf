@@ -1,0 +1,65 @@
+﻿$PBExportHeader$fxg_get_infos_sybase.srf
+global type fxg_get_infos_sybase from function_object
+end type
+
+forward prototypes
+global function string fxg_get_infos_sybase (string nom_valeur_cherchee)
+end prototypes
+
+global function string fxg_get_infos_sybase (string nom_valeur_cherchee);// Iinfos concernants le serveur
+integer numero_propriete
+string nom_propriete
+string description_propriete
+string engine_name
+string valeur, valeur_cherchee
+
+
+DECLARE procedure_info PROCEDURE FOR   sa_eng_properties ;
+EXECUTE  procedure_info ;
+
+FETCH NEXT procedure_info into :numero_propriete, : nom_propriete, :description_propriete, :valeur;
+
+// Pour mémoriser les infos de la bases ... pour les tests ...
+string v_fichier
+long v_fichier_long
+boolean v_trouve
+
+// ------------ POUR LE DEVELOPPEMENT
+boolean memo_trace_fichier = false
+//----------------------------------------------------------------------------------------
+
+if memo_trace_fichier then
+	v_fichier = dir_ini + "infos_database.txt"
+	v_fichier_long = FileOpen(v_fichier , LineMode! , Write!, LockWrite! , replace!)
+end if
+
+v_trouve = false
+
+Do while sqlca.sqlcode=0 and not v_trouve
+	if upper(nom_propriete) = upper(nom_valeur_cherchee) then 
+		valeur_cherchee = valeur
+		v_trouve = true
+	else
+		FETCH NEXT procedure_info into :numero_propriete, : nom_propriete, :description_propriete, :valeur;
+	end if
+	
+	if memo_trace_fichier then
+		FileWrite( v_fichier_long, string(numero_propriete)+" - "+nom_propriete + " ("+description_propriete+")"+" : " + valeur)
+	end if
+
+loop
+
+if memo_trace_fichier then
+	FileClose(v_fichier_long)
+end if
+
+CLOSE procedure_info;
+
+if len(trim(valeur_cherchee)) > 0 then
+	return valeur_cherchee
+else
+	// Infos non disponoble selon la version du moteur de base de données
+	return "*** non disponible ***"
+end if
+end function
+

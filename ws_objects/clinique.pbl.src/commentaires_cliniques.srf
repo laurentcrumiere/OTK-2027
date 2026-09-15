@@ -1,0 +1,28 @@
+﻿$PBExportHeader$commentaires_cliniques.srf
+global type commentaires_cliniques from function_object
+end type
+
+forward prototypes
+global subroutine commentaires_cliniques ()
+end prototypes
+
+global subroutine commentaires_cliniques ();
+
+ 
+
+param_win[1] = '1'
+
+	
+
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","commentaires_2010","O") = "O" then
+	w_coment_maj_2010 w2010
+	w_mdi_2020.uo_powerdock.of_openDocument(w2010, "Commentaires Cliniques", m_orthokis_2020.m_patients.m_commentaires.toolbarItemName)
+else
+	w_coment_maj w1
+	w_mdi_2020.uo_powerdock.of_openDocument(w1, "Commentaires Cliniques", m_orthokis_2020.m_patients.m_commentaires.toolbarItemName)
+end if
+
+
+return
+end subroutine
+

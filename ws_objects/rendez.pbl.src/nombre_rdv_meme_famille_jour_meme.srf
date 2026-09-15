@@ -1,0 +1,38 @@
+﻿$PBExportHeader$nombre_rdv_meme_famille_jour_meme.srf
+global type nombre_rdv_meme_famille_jour_meme from function_object
+end type
+
+forward prototypes
+global function integer nombre_rdv_meme_famille_jour_meme (double code_patient, datetime date_rdv)
+end prototypes
+
+global function integer nombre_rdv_meme_famille_jour_meme (double code_patient, datetime date_rdv);
+ 
+// recherche si patient de la même famille à rdv le jour même !
+// renvoie le nombre de rendez-vous de la fratrie
+
+integer v_cpt_meme_famille, v_cpt_meme_famille2
+
+// 2 Recherches : 1 pour chaque coté du lien ...
+// On compte à partir du moment ou une case a été coché dans les liens de parenté, pas forcément la synchronisation adiministrative
+
+SELECT  isnull(count(*),0)  into :v_cpt_meme_famille  
+FROM "rdv"  ,  etat_rdv, "patient_lien_parente",  "patient",   
+WHERE   rdv.code <> :code_patient and cast("rdv"."rdv" as date)  =  cast(:date_rdv as date)  and   
+			etat_rdv.code = rdv.absent and etat_rdv.elimine_agenda <> 'O' and   
+			"patient_lien_parente"."code_patient2" = "patient"."code"  and  (  "patient_lien_parente"."code_patient2" = :code_patient  ) and 
+			(  "patient_lien_parente"."code_patient1" = rdv.code  )    and 
+			( "patient_lien_parente"."liaison_financiere" = 'O' or  "patient_lien_parente"."liaison_financiere" = 'D' or "patient_lien_parente"."synchroniser" = 'O' or  "patient_lien_parente"."meme_assure" = 'O'  )  ;
+
+SELECT  isnull(count(*),0)  into :v_cpt_meme_famille2  
+FROM "rdv"  ,  etat_rdv, "patient_lien_parente",  "patient",   
+WHERE   rdv.code <> :code_patient and cast("rdv"."rdv" as date)  =  cast(:date_rdv as date)  and   
+			etat_rdv.code = rdv.absent and etat_rdv.elimine_agenda <> 'O' and   
+			"patient_lien_parente"."code_patient1" = "patient"."code"  and   (  "patient_lien_parente"."code_patient1" = :code_patient  ) and 
+			(  "patient_lien_parente"."code_patient2" = rdv.code  )    and 
+			( "patient_lien_parente"."liaison_financiere" = 'O' or  "patient_lien_parente"."liaison_financiere" = 'D' or  "patient_lien_parente"."synchroniser" = 'O' or  "patient_lien_parente"."meme_assure" = 'O'  )  ;
+
+
+return v_cpt_meme_famille + v_cpt_meme_famille2
+end function
+

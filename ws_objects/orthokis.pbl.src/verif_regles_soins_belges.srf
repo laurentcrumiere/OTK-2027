@@ -1,0 +1,612 @@
+﻿$PBExportHeader$verif_regles_soins_belges.srf
+global type verif_regles_soins_belges from function_object
+end type
+
+forward prototypes
+global function boolean verif_regles_soins_belges (double v_code_patient, string v_code_soin_ajout, date v_date_soin_ajout, boolean v_avec_question)
+end prototypes
+
+global function boolean verif_regles_soins_belges (double v_code_patient, string v_code_soin_ajout, date v_date_soin_ajout, boolean v_avec_question);
+
+boolean v_retour = false
+
+date v_ds, v_dmin, v_ds2
+long v_cpt, v_cpt2, v_nb_mois, v_ecart_mois
+
+string v_ajout_305675, v_soin
+boolean v_ajout
+long v_nb_305616, cle_max, v_asc
+
+date v_date_naissance
+
+
+if verif_regles_belges_2013 then
+
+	choose case v_code_soin_ajout
+			
+		case "305933"			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	
+			// Forfait pour appareillage - TPI
+			update patient set Date_prem_demande = :v_date_soin_ajout where code = :v_code_patient and Date_prem_demande is null ; 
+			commit ;
+
+			v_retour = true
+
+
+
+// Désactivé en v2025
+// case "305955"			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//	
+//			// Second forfait pour traitement de première intention
+//			
+//			// Vérification que pas de soin 305933 durant les 6 derniers mois
+//			select isnull(count(*),0),  max ("date_demande")
+//			into :v_cpt, :v_ds
+//			from soins where code = :v_code_patient and soins."type" = '305933' ;
+//			
+//			if v_cpt > 0 then
+//				// Y a un soin
+//				v_ecart_mois = ecart_mois_civils(v_ds, v_date_soin_ajout)
+//				if v_ecart_mois >= 6 then
+//					// Ecrart suffisant
+//					v_retour = true
+//				else
+//					if v_avec_question then
+//						if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Or, un soin '305933' a déjà été saisi le " + string(v_ds) + ".~n~nIl devrait y avoir au moins 6 mois entre ces 2 actes (alors qu'il y en a "+ string(v_ecart_mois) + ").~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+//							v_retour = true
+//						else
+//							v_retour = false
+//						end if
+//					else
+//						v_retour = false
+//					end if
+//				end if
+//			else
+//				// Pas de soin
+//				v_retour = true
+//			end if
+//			
+//			if v_retour then
+//				update patient set date_fin_tpi = :v_date_soin_ajout where code = :v_code_patient and date_fin_tpi is null ; 
+//				commit ;
+//			end if
+//	
+			
+		case "305631"			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	
+			// Forfait pour appareillage - Début de traitement
+			
+			// Vérification que pas de soin 305933 durant les 12 derniers mois
+			select isnull(count(*),0),  max ("date_demande")
+			into :v_cpt, :v_ds
+			from soins where code = :v_code_patient and soins."type" = '305933' ;
+			
+			if v_cpt > 0 then
+				// Y a un soin
+				v_ecart_mois = ecart_mois_civils(v_ds, v_date_soin_ajout)
+				if v_ecart_mois >= 12 then
+					// Ecrart suffisant
+					v_retour = true
+				else
+					if v_avec_question then
+						if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Or, un soin '305933' a déjà été saisi le " + string(v_ds) + ".~n~nIl devrait y avoir au moins 12 mois entre ces 2 actes (alors qu'il y en a "+ string(v_ecart_mois) + ").~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+							v_retour = true
+						else
+							v_retour = false
+						end if
+					else
+						v_retour = false
+					end if
+				end if
+			else
+				// Pas de soin
+				v_retour = true
+			end if		
+			
+			if v_retour then
+				// Mise à jour de la date de début de TOC si pas encore saisie 
+				// 2013 : 
+				update patient set debut_traitement = :v_date_soin_ajout where code = :v_code_patient and debut_traitement is null ; 
+				commit ;
+				
+				// Ajout d'un soin 305616 le même jour ...
+				
+				// Vérification que pas deja 1 soins 305616 dans le même jour
+				select isnull(count(*),0)
+				into :v_cpt 
+				from soins where code = :v_code_patient and soins."type" = '305616' and date_demande = :v_date_soin_ajout  ;
+
+				if v_cpt = 0 then
+					MessageBox("ATTENTION","Vous venez d'ajouter un soin '305631'. Un soin '305616' va être également ajouté.")
+					ajout_soin(v_code_patient, '305616' , v_date_soin_ajout)
+				end if
+				
+				
+			end if
+			
+			
+			
+			case "305616" , "305653"			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	
+				// Forfait mensuel ou interruption
+		
+				// Vérification que pas deja 2 soins 305616 dans le même mois
+				select isnull(count(*),0),  max ("date_demande")
+				into :v_cpt , :v_ds
+				from soins where code = :v_code_patient and soins."type" in ('305616', '305653') and month(date_demande) = month(:v_date_soin_ajout) and year(date_demande) = year(:v_date_soin_ajout)  ;
+				
+				if v_cpt >= 2 then 
+					if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Or, au moins 2 soins '305616' ou '305653' ont déjà été saisis ce mois-ci (" + string(v_cpt) + ").~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+						v_retour = true
+					else
+						v_retour = false
+					end if
+				else
+					v_retour = true
+				end if
+		
+		
+				if v_retour and v_code_soin_ajout = '305653' then
+					// Vérification que pas deja 1 soin 305653 dans les 6 mois
+			
+					// le même date que celle de l'ajout en n-1, au début du mois
+					v_dmin = date(year(v_date_soin_ajout) - 1, month(v_date_soin_ajout), 1)
+					
+					// Début du mois suivant puis 6 plus tard => 7 mois
+					v_dmin = ajout_x_mois( v_dmin, 7)
+					
+					select isnull(count(*),0),  max ("date_demande")
+					into :v_cpt , :v_ds
+					from soins where code = :v_code_patient and soins."type" = '305653' and date_demande between :v_dmin and :v_date_soin_ajout ;
+					
+					if v_cpt >= 1 then 
+						if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Or, au moins un soin '305653' a déjà été saisi depuis 6 mois (" + string(v_cpt) + ").~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+							v_retour = true
+						else
+							v_retour = false
+						end if
+					else
+						v_retour = true
+					end if
+				end if
+		
+		
+				if v_retour and v_code_soin_ajout = '305653'  then
+					// Vérification que pas deja plus de 6 x 305653 dans les 6 mois
+			
+					// le même date que celle de l'ajout en n-1, au début du mois
+					v_dmin = date(year(v_date_soin_ajout) - 1, month(v_date_soin_ajout), 1)
+					
+					// Début du mois suivant puis 6 plus tard => 7 mois
+					v_dmin = ajout_x_mois( v_dmin, 7)
+					
+					select isnull(count(*),0),  max ("date_demande")
+					into :v_cpt , :v_ds
+					from soins where code = :v_code_patient and soins."type" in ('305653') and date_demande between :v_dmin and :v_date_soin_ajout ;
+					
+					if v_cpt >= 6 then 
+						if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Or, au moins 6 soins '305653' ont déjà été saisis depuis 6 mois (" + string(v_cpt) + ").~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+							v_retour = true
+						else
+							v_retour = false
+						end if
+					else
+						v_retour = true
+					end if
+				end if
+		
+				if v_retour and v_code_soin_ajout = '305616'  then
+					// Vérification que pas deja plus de 6 x 305653 dans les 6 mois calendaires, par périodes de 6 mois depuis la date de début de traitement
+					
+					date v_date_debut_semestre, v_date_debut_traitement
+					integer nb_semestre
+					
+					select debut_traitement into :v_date_debut_traitement from patient where code = :v_code_patient ;
+					
+					if isnull(v_date_debut_traitement) then
+						v_retour = true
+					else
+						
+						// Recherche de la date de début de semestre 
+						v_date_debut_semestre = v_date_debut_traitement
+						nb_semestre = 1
+						
+						do while ajout_x_mois(v_date_debut_semestre, 6) < v_date_soin_ajout
+							v_date_debut_semestre = ajout_x_mois(v_date_debut_semestre, 6)
+							nb_semestre = nb_semestre + 1
+						loop 
+						
+						// On peut maintenant calculer bon nombre de 305616 depuis cette date !!!!
+						v_dmin = v_date_debut_semestre
+						
+		
+						select isnull(count(*),0),  max ("date_demande")
+						into :v_cpt , :v_ds
+						from soins where code = :v_code_patient and soins."type" in ('305616') and date_demande between :v_dmin and :v_date_soin_ajout ;
+						
+						if v_cpt >= 6 then 
+							if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Or, au moins 6 soins '305616' ont déjà été saisis depuis le debut du semestre (" + string(v_cpt) + " depuis le " + string(v_date_debut_semestre) + " (Semestre " +  string (nb_semestre) +  ")).~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+								v_retour = true
+							else
+								v_retour = false
+							end if
+						else
+							v_retour = true
+						end if
+					end if
+				end if
+			
+			
+				// Ajout d'un forfait => est ce une reprise ?
+				if v_retour and v_code_soin_ajout = '305616' then
+					
+					// Y a t il déjà un soin 305653 ?
+					select isnull(count(*),0),  max ("date_demande")
+					into :v_cpt , :v_ds
+					from soins where code = :v_code_patient and soins."type" = '305653' ;
+					
+					if v_cpt >= 1 then 
+						v_retour = true
+						
+						// mise à jour de la date de reprise si pas encore saisie 
+						update patient set date_reprise = :v_date_soin_ajout where code = :v_code_patient and date_reprise is null ; 
+						commit ;
+					end if
+				end if
+				
+				if v_retour and v_code_soin_ajout = '305616' then
+					
+					// Y a t il déjà un soin 305675
+					select isnull(count(*),0),  max ("date_demande")
+					into :v_cpt , :v_ds
+					from soins where code = :v_code_patient and soins."type" = '305675' ;
+					
+					if v_cpt = 0 then
+						// y en a pas => on étudie les conditions d'ajout
+	
+						// Y a t il + de 6 soins 305616 pour ajout de soin 305675 
+						select isnull(count(*),0),  max ("date_demande")
+						into :v_cpt , :v_ds
+						from soins where code = :v_code_patient and soins."type" = '305616' ;
+						
+						v_cpt = v_cpt + 1 		// On comptabilise celui qu'on est en train d'ajouter
+						
+						if v_cpt >= 6 then		
+						
+							// Règle pour ajouter soins 305675
+							
+							select dernier into :v_ajout_305675 from param ;
+							
+							if v_ajout_305675 = '0' then
+								// Pas d'automatisme 
+								v_ajout = false
+							else
+								
+								// Y a t il bien si mois depuis le 1er forfait ...
+								select isnull(count(*),0),  max ("date_demande")
+								into :v_cpt2 , :v_ds2
+								from soins where code = :v_code_patient and soins."type" = '305631' ;
+								
+								if v_cpt2 = 0 then
+									if Messagebox("ATTENTION","Un automatisme est en place pour ajouter un '305675'.~n~nCe soin devrait suivre un soin '305631' datant de plus de 6 mois, or aucun soin '305631' n'a été saisi pour ce patient.~n~nVoulez-vous poursuivre l'ajout automatique ?",Question!, Yesno!, 2) = 1 then
+										v_ajout = true
+									else
+										v_ajout = false
+									end if
+								else
+									if ajout_x_mois(v_ds2, 6) <= v_date_soin_ajout then
+										v_ajout = true
+									else
+										if Messagebox("ATTENTION","Un automatisme est en place pour ajouter un '305675'.~n~nCe soin devrait suivre un soin '305631' datant de plus de 6 mois, or ce soin '305631' a été saisi le "+ string (v_ds2) + ".~n~nVoulez-vous poursuivre l'ajout automatique ?",Question!, Yesno!, 2) = 1 then
+											v_ajout = true
+										else
+											v_ajout = false
+										end if
+									end if
+								end if
+
+								
+								if v_ajout then
+									if v_ajout_305675 = '1' then
+										// Question posée à l'utilisateur ....
+										if v_avec_question then
+											if Messagebox("ATTENTION","Souhaitez-vous ajouter également un soin '305675' ?",Question!, Yesno!, 2) = 1 then
+												v_ajout = true
+											else
+												v_ajout = false
+											end if
+										else
+											v_ajout = false
+										end if
+									else
+										
+										v_asc = asc(v_ajout_305675)
+										if 65 <= v_asc and v_asc <= 95 then
+											// ajout automatique selon le nombre de 305616 déjà créé ...
+											// v_ajout_305675 contient un caraxctère => A pour 7, B pour 8 ...
+											
+											v_nb_305616 = v_asc - 59
+											
+											if v_cpt >= v_nb_305616 then
+												v_ajout = true
+											else
+												v_ajout = false
+											end if
+										else
+											v_ajout = false
+										end if
+									end if
+								end if
+							end if
+							
+							// Ajout effectif du soin 305675
+							if v_ajout then
+								
+								ajout_soin(v_code_patient, '305675' , v_date_soin_ajout)
+								
+							end if
+						end if
+					end if
+				end if
+				
+				 if v_code_soin_ajout = "305653" then
+					
+					// Interruption 
+					// mise à jour de la date d'interruption  si pas encore saisie 
+					update patient set date_interruption = :v_date_soin_ajout where code = :v_code_patient and date_interruption is null ; 
+					commit ;
+					
+				end if
+
+	
+//			case "305653"			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//	
+//	
+//				// Interruption 
+//				// mise à jour de la date d'interruption  si pas encore saisie 
+//				update patient set date_interruption = :v_date_soin_ajout where code = :v_code_patient and date_interruption is null ; 
+//				commit ;
+//				
+//				// Pas de règle
+//				v_retour = true
+	
+			case "305675"			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	
+			// Forfait pour appareillage - Au moins après 6 mois de traitement (6 mois après un 305631 ET aussi 6 forfaits 305616)
+	
+			// Vérification que pas de soin 305675 déjà saisi
+			select isnull(count(*),0),  max ("date_demande")
+			into :v_cpt , :v_ds
+			from soins where code = :v_code_patient and soins."type" = '305675' ;
+			
+			if v_cpt > 0 then 
+				if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Or, au moins un soin '305675' a déjà été saisi le " + string(v_ds) + ".~n~nIl ne devrait y avoir qu'un soin '305675' par patient.~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+					v_retour = true
+				else
+					v_retour = false
+				end if
+			else
+				v_retour = true
+			end if
+			
+			// Vérification que 6 mois écoulés depuis un 305631
+			if v_retour then
+				select isnull(count(*),0),  max ("date_demande")
+				into :v_cpt , :v_ds
+				from soins where code = :v_code_patient and soins."type" = '305631' ;
+				if v_cpt = 0 then 
+					v_retour = true
+				else
+					
+					if ajout_x_mois(v_ds, 6) <= v_date_soin_ajout then
+						v_retour = true
+					else
+						if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Or, un soin '305631' a été saisi le " + string(v_ds) + ".~n~nIl devrait y avoir 6 mois entre ces 2 soins.~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+							v_retour = true
+						else
+							v_retour = false
+						end if
+					end if
+				end if
+			end if
+			
+			
+			if v_retour then
+				// Vérification que 6 soin 305616 déjà saisis
+				select isnull(count(*),0),  max ("date_demande")
+				into :v_cpt , :v_ds
+				from soins where code = :v_code_patient and soins."type" = '305616' and date_demande <= :v_date_soin_ajout ;
+				if v_cpt < 6 then 
+					if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Vous devriez avoir déjà saisi 6 soins '305616'  alors que vous n'en avez que " +string(v_cpt) + ".~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+						v_retour = true
+					else
+						v_retour = false
+					end if
+				else
+					v_retour = true
+				end if
+			end if
+			
+			
+			case "305852"			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	
+			// Forfait Contention
+	
+			// Vérification que 4 au maximum par année civile
+			
+			// le même date que celle de l'ajout en n-1, au début du mois
+			v_dmin = date(year(v_date_soin_ajout) - 1, month(v_date_soin_ajout), 1)
+			
+			// Début du mois suivant
+			v_dmin = ajout_x_mois( v_dmin, 1)
+			
+					
+			select isnull(count(*),0), max ("date_demande")
+			into :v_cpt , :v_ds
+			from soins where code = :v_code_patient and soins."type" in ('305852', '305896') and date_demande between :v_dmin and :v_date_soin_ajout ;
+			
+			if v_cpt > 4 then 
+				if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Vous ne pouvez pas avoir plus de 4 soins '305852' ou '305896' dans une même année civile.~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+					v_retour = true
+				else
+					v_retour = false
+				end if
+			else
+				v_retour = true
+			end if
+			
+			
+			// Vérification que 12 au maximum par patient
+			
+			if v_retour then 
+
+				select isnull(count(*),0) 
+				into :v_cpt 
+				from soins where code = :v_code_patient and soins."type" in ('305852', '305896') ;
+				
+				if v_cpt >= 12 then 
+					if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Vous ne pouvez pas avoir plus de 12 soins '305852' ou '305896' pour un même patient.~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+						v_retour = true
+					else
+						v_retour = false
+					end if
+				else
+					v_retour = true
+				end if
+			
+
+			end if
+			
+			
+			if v_retour then
+				
+				// 6 mois plus tard ...
+				v_dmin = ajout_x_mois( v_dmin, 6)
+					
+				select isnull(count(*),0), max ("date_demande")
+				into :v_cpt , :v_ds
+				from soins where code = :v_code_patient and soins."type" = '305896' and date_demande between :v_dmin and :v_date_soin_ajout ;
+				
+				if v_cpt > 0 then 
+					if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Or vous avez saisi un soin '305896' depuis moins de 6 mois ("+ string(v_ds) + "). ~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+						v_retour = true
+					else
+						v_retour = false
+					end if
+				else
+					v_retour = true
+				end if
+			end if
+			
+			
+			
+			
+			case "305896"			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	
+			// Contrôle de Contention
+	
+			// Vérification que pas de soin 305896 durant les 6 derniers mois
+			select isnull(count(*),0),  max ("date_demande")
+			into :v_cpt, :v_ds
+			from soins where code = :v_code_patient and soins."type" = '305896' ;
+			
+			if v_cpt > 0 then
+				// Y a un soin
+				v_ecart_mois = ecart_mois_civils(v_ds, v_date_soin_ajout)
+				if v_ecart_mois >= 6 then
+					// Ecrart suffisant
+					v_retour = true
+				else
+					if v_avec_question then
+						if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Or, un soin '305896' a déjà été saisi le " + string(v_ds) + ".~n~nIl devrait y avoir au moins 6 mois entre ces 2 actes (alors qu'il y en a "+ string(v_ecart_mois) + ").~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+							v_retour = true
+						else
+							v_retour = false
+						end if
+					else
+						v_retour = false
+					end if
+				end if
+			else
+				// Pas de soin
+				v_retour = true
+			end if
+
+
+		case "377090"	, "377311", "307090"		// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	
+			// Radios Panoramiques : 1 par année civile, tous les 2 ans
+			
+			select isnull(count(*),0), max(date_demande)
+			into :v_cpt, :v_ds
+			from soins where code = :v_code_patient and soins."type" in ('377090', '307090')  and year(date_demande) in (year(:v_date_soin_ajout) - 1 , year(:v_date_soin_ajout))  ;
+			
+			if v_cpt > 0 then
+				// Y a une radio cette année ou n-1
+				if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Or, un soin '377090'  ou '307090' a déjà été saisi le " + string(v_ds) + ".~n~nCes actes doivent être attestés 1 fois par année civile, toute les 2 années civiles..~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+					v_retour = true
+				else
+					v_retour = false
+				end if
+			else
+				v_retour = true
+			end if
+			
+			if v_retour then 
+				// Interdit pour les patients de moins de 7 ans
+				Select date_naissance into :v_date_naissance from patient where code = :v_code_patient ;
+				
+				if age_calcul_des_annees_date(v_date_naissance) < 7 then
+					MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + ".~n~nCe soin ne peut concerné un enfant de moins de 7 ans.~n~nOr, ce patient a : " + string(age_calcul_des_annees_date(v_date_naissance) ) + " ans.")
+					v_retour = false
+				else
+					v_retour = true
+				end if
+				
+			end if
+
+			
+		case else
+			v_retour = true
+	end choose
+
+else
+	
+	// Si on vérifie pas c'est que OK 
+	v_retour = true
+	
+end if
+
+
+
+// Verification de non simultanéité ....
+if v_retour then
+	choose case v_code_soin_ajout 
+		case '305616', '305653', '305712', '305852', '305896' 
+			
+			// Vérification que pas de soin 305896 durant les 6 derniers mois
+			select isnull(count(*),0),  max ("type")
+			into :v_cpt, :v_soin
+			from soins where code = :v_code_patient and soins."type" in ('305616', '305653', '305712', '305852', '305896' ) and soins."date_demande" = cast(getdate() as date) ;
+			
+			if v_cpt > 0 then
+				if MessageBox("ATTENTION","Vous souhaitez ajouter un soin '" + v_code_soin_ajout + "' au "+string(v_date_soin_ajout) +". Or, un soin '" + v_soin + "' a déjà été saisi aujourd'hui.~n~nVous ne devez pas saisir ces 2 soins le même jour.~n~nSouhaitez-vous tout de même ajouter ce soin ?",Question!,Yesno!,2) = 1 then
+					v_retour = true
+				else
+					v_retour = false
+				end if
+			else
+				// Pas de soin
+				v_retour = true
+			end if
+	end choose
+end if
+
+
+
+return v_retour
+
+
+
+end function
+

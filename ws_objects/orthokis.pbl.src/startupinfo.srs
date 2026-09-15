@@ -1,0 +1,21 @@
+﻿$PBExportHeader$startupinfo.srs
+global type startupinfo from structure
+	unsignedlong		cb
+	string		lpReserved
+	string		lpDeskop
+	string		lpTitle
+	unsignedlong		dwX
+	unsignedlong		dwY
+	unsignedlong		dwXsize
+	unsignedlong		dwYsize
+	unsignedlong		dwXCountChars
+	unsignedlong		dwYCountChars
+	unsignedlong		dwFillAttribute
+	unsignedlong		dwFlags
+	unsignedinteger		wShowWindow
+	unsignedinteger		cbReserved2
+	unsignedlong		hstdInput
+	unsignedlong		hstdOutput
+	unsignedlong		hstdError
+end type
+

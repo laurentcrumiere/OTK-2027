@@ -1,0 +1,28 @@
+﻿$PBExportHeader$appel_palette.srf
+global type appel_palette from function_object
+end type
+
+forward prototypes
+global function boolean appel_palette (ref long resultat_couleur)
+end prototypes
+
+global function boolean appel_palette (ref long resultat_couleur);//Declaration des variable locales
+//--------------------------
+boolean 				resultat
+
+init_couleur_personnalisee()
+
+if chooseColor(resultat_couleur, couleur_personnalisee ) = 1 then
+	//----------------------------------------------------------------------------
+	save_couleur_personnalisee ()
+	resultat = true
+else
+	resultat = false
+end if
+
+
+return resultat
+
+
+end function
+

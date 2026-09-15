@@ -1,0 +1,274 @@
+﻿$PBExportHeader$m_btdroit_check_salle_attente.srm
+forward
+global type m_btdroit_check_salle_attente from menu
+end type
+type m_patientsdujoursansacteprevu from menu within m_btdroit_check_salle_attente
+end type
+type m_patientsdujoursansprochainrendezvous from menu within m_btdroit_check_salle_attente
+end type
+type m_patientsdujoursanssaisieentraçabilité from menu within m_btdroit_check_salle_attente
+end type
+type m_patientsdujoursanssaisiedestérilisation from menu within m_btdroit_check_salle_attente
+end type
+global type m_btdroit_check_salle_attente from menu
+m_patientsdujoursansacteprevu m_patientsdujoursansacteprevu
+m_patientsdujoursansprochainrendezvous m_patientsdujoursansprochainrendezvous
+m_patientsdujoursanssaisieentraçabilité m_patientsdujoursanssaisieentraçabilité
+m_patientsdujoursanssaisiedestérilisation m_patientsdujoursanssaisiedestérilisation
+end type
+end forward
+
+global type m_btdroit_check_salle_attente from menu
+m_patientsdujoursansacteprevu m_patientsdujoursansacteprevu
+m_patientsdujoursansprochainrendezvous m_patientsdujoursansprochainrendezvous
+m_patientsdujoursanssaisieentraçabilité m_patientsdujoursanssaisieentraçabilité
+m_patientsdujoursanssaisiedestérilisation m_patientsdujoursanssaisiedestérilisation
+end type
+global m_btdroit_check_salle_attente m_btdroit_check_salle_attente
+
+on m_btdroit_check_salle_attente.create
+m_btdroit_check_salle_attente=this
+call super::create
+this.text = "m_btdroit_check_salle_attente"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_patientsdujoursansacteprevu=create m_patientsdujoursansacteprevu
+this.m_patientsdujoursansprochainrendezvous=create m_patientsdujoursansprochainrendezvous
+this.m_patientsdujoursanssaisieentraçabilité=create m_patientsdujoursanssaisieentraçabilité
+this.m_patientsdujoursanssaisiedestérilisation=create m_patientsdujoursanssaisiedestérilisation
+this.Item[UpperBound(this.Item)+1]=this.m_patientsdujoursansacteprevu
+this.Item[UpperBound(this.Item)+1]=this.m_patientsdujoursansprochainrendezvous
+this.Item[UpperBound(this.Item)+1]=this.m_patientsdujoursanssaisieentraçabilité
+this.Item[UpperBound(this.Item)+1]=this.m_patientsdujoursanssaisiedestérilisation
+end on
+
+on m_btdroit_check_salle_attente.destroy
+call super::destroy
+destroy(this.m_patientsdujoursansacteprevu)
+destroy(this.m_patientsdujoursansprochainrendezvous)
+destroy(this.m_patientsdujoursanssaisieentraçabilité)
+destroy(this.m_patientsdujoursanssaisiedestérilisation)
+end on
+
+type m_patientsdujoursansacteprevu from menu within m_btdroit_check_salle_attente
+end type
+
+on m_patientsdujoursansacteprevu.create
+call super::create
+this.text = "Patients du jour sans acte prévu"
+this.menuimage = "lc_rdv_sans_coment.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_patientsdujoursansacteprevu.destroy
+call super::destroy
+end on
+
+event clicked;// Liste des rdv de la journée sans commentaires
+w_liste_patients_rdv_sans_commentaire w1
+str_param_string param_passe  
+param_passe.param = "A"
+w_mdi_2020.uo_powerdock.of_openDocument(w1, param_passe, "Rendez-vous du jour sans Commentaire Clinique",  m_orthokis_2020.m_tables.m_tables_rendezvous.toolbarItemName)
+
+
+w1.em_date_min.text =  w_rdv_salle_attente.em_date.text
+w1.em_date_max.text =  w_rdv_salle_attente.em_date.text
+
+w1.em_max.text = "999999999"
+
+
+w1.rb_tous.checked =   w_rdv_salle_attente.rb_tous.checked
+w1.rb_un.checked =   w_rdv_salle_attente.rb_un.checked
+w1.dw_prati.visible =   w_rdv_salle_attente.dw_prati.visible
+
+if  w_rdv_salle_attente.dw_prati.visible then
+	// c'est pour un praticien => faut positionner
+	string v_code, v_find
+	v_code =  w_rdv_salle_attente.dw_prati.gettext()
+	v_find =  "code = '"+	v_code +"'"
+	w1.dw_prati.scrolltorow(w1.dw_prati.Find(v_find ,1,999))
+end if
+
+// Sans comprendre pourquoi .... l'affichage sera bon mais si on clique sur Autre, les boutons configurés ci dessus ne le seront plus dans la fenetre w1 .. why ???
+w1.cb_ecran.Postevent(clicked!)
+end event
+
+type m_patientsdujoursansprochainrendezvous from menu within m_btdroit_check_salle_attente
+end type
+
+on m_patientsdujoursansprochainrendezvous.create
+call super::create
+this.text = "Patients du jour sans prochain Rendez-vous"
+this.menuimage = "lc_rdv_sans_coment.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_patientsdujoursansprochainrendezvous.destroy
+call super::destroy
+end on
+
+event clicked;// Liste des rdv de la journée sans prochain rendez-vous
+//w_rdv_salle_attente.pb_sans.triggerEvent(clicked!)
+
+w_liste_patients_rdv_sans_prochain_rdv w1
+
+w_mdi_2020.uo_powerdock.of_openDocument(w1, "Rendez-vous du jour sans Prochain Rendez-vous",  m_orthokis_2020.m_tables.m_tables_rendezvous.toolbarItemName)
+
+w1.em_date_min.text = w_rdv_salle_attente.em_date.text
+w1.em_date_max.text = w_rdv_salle_attente.em_date.text
+
+w1.em_max.text = "999999999"
+
+w1.cb_ecran.triggerevent(clicked!)
+end event
+
+type m_patientsdujoursanssaisieentraçabilité from menu within m_btdroit_check_salle_attente
+end type
+
+on m_patientsdujoursanssaisieentraçabilité.create
+call super::create
+this.text = "Patients du jour sans saisie de Traçabilité"
+this.menuimage = "lc_rdv_sans_coment.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_patientsdujoursanssaisieentraçabilité.destroy
+call super::destroy
+end on
+
+event clicked;// Liste des rdv de la journée sans traçabilité
+w_liste_patients_rdv_sans_commentaire w1
+str_param_string param_passe  
+param_passe.param = "T"
+w_mdi_2020.uo_powerdock.of_openDocument(w1, param_passe, "Rendez-vous du jour sans Traçabilité",  m_orthokis_2020.m_tables.m_tables_rendezvous.toolbarItemName)
+
+w1.em_date_min.text = w_rdv_salle_attente.em_date.text
+w1.em_date_max.text = w_rdv_salle_attente.em_date.text
+
+w1.rb_tous.checked =  w_rdv_salle_attente.rb_tous.checked
+w1.rb_un.checked =  w_rdv_salle_attente.rb_un.checked
+w1.dw_prati.visible =  w_rdv_salle_attente.dw_prati.visible
+
+if  w_rdv_salle_attente.dw_prati.visible then
+	// c'est pour un praticien => faut positionner
+	string v_code, v_find
+	v_code = w_rdv_salle_attente.dw_prati.gettext()
+	v_find =  "code = '"+	v_code +"'"
+	w1.dw_prati.scrolltorow(w1.dw_prati.Find(v_find ,1,999))
+end if
+
+w1.cb_ecran.triggerevent(clicked!)
+end event
+
+type m_patientsdujoursanssaisiedestérilisation from menu within m_btdroit_check_salle_attente
+end type
+
+on m_patientsdujoursanssaisiedestérilisation.create
+call super::create
+this.text = "Patients du jour sans saisie de Stérilisation"
+this.menuimage = "lc_rdv_sans_coment.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_patientsdujoursanssaisiedestérilisation.destroy
+call super::destroy
+end on
+
+event clicked;// Liste des rdv de la journée sans traçabilité
+w_liste_patients_rdv_sans_commentaire w1
+str_param_string param_passe  
+param_passe.param = "S"
+w_mdi_2020.uo_powerdock.of_openDocument(w1, param_passe, "Rendez-vous du jour sans Stérilisation",  m_orthokis_2020.m_tables.m_tables_rendezvous.toolbarItemName)
+
+w1.em_date_min.text = w_rdv_salle_attente.em_date.text
+w1.em_date_max.text = w_rdv_salle_attente.em_date.text
+
+w1.rb_tous.checked =  w_rdv_salle_attente.rb_tous.checked
+w1.rb_un.checked =  w_rdv_salle_attente.rb_un.checked
+w1.dw_prati.visible =  w_rdv_salle_attente.dw_prati.visible
+
+if  w_rdv_salle_attente.dw_prati.visible then
+	// c'est pour un praticien => faut positionner
+	string v_code, v_find
+	v_code = w_rdv_salle_attente.dw_prati.gettext()
+	v_find =  "code = '"+	v_code +"'"
+	w1.dw_prati.scrolltorow(w1.dw_prati.Find(v_find ,1,999))
+end if
+
+w1.cb_ecran.triggerevent(clicked!)
+end event
+

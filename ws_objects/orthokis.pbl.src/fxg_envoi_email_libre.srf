@@ -1,0 +1,904 @@
+﻿$PBExportHeader$fxg_envoi_email_libre.srf
+global type fxg_envoi_email_libre from function_object
+end type
+
+forward prototypes
+global function boolean fxg_envoi_email_libre (double var_code_passe, datawindow dw_liste, integer desti)
+end prototypes
+
+global function boolean fxg_envoi_email_libre (double var_code_passe, datawindow dw_liste, integer desti);
+// envoi d'un email simple (pas un courrier) à un patient
+
+// soit utilisée de manière unitaire (en passant un var_code_passe <> 0)
+// soit en emailing ( var_code_passe = 0 mais en passsant dw_liste et desti) 
+
+// dans ce cas l'interface est différente car on ne demande rien ... on envoi à desti (0 pour patient, 1 pour parent 1, 9 pour parent 2)
+
+// si desti = 2 ... c'est un ticket de rdv : interface avec texte Ticket pré chargé ou pas d'interface si mode automatique
+// si desti = 3 ... c'est un rappel de rdv par email => pas d'interface du tout ... 
+// si desti = 4 ... c'est un ticket de rdv sans interface, pour forcer le mode automatique ponctuellement si non configuré pour tous
+// si desti = 5 ... c'est un rappel de rdv par email mais avec interface pour pouvoir ajouter une PJ (clic doit sur bouton envoyer dans la fonction de rappel).. 
+// si desti = 6 ... c'est en envoi de mail selon le type de rdv, selon un changement d'état de rendez-vous - param_win[8] = email du patient, param_win[9] = email du parent1, param_win[10] = en string le code du texte email à envoyer
+							// Pour Notez Nous on utilise également desti = 6 avec EN PLUS  a variable globale param_win[1] pour passer le code du formulaire 
+// si desti = 7 ... c'est un envoi pour signature en ligne ... pour le signataire 1 
+// si desti = 8 ... c'est un envoi pour signature en ligne ... pour le signataire 2 
+
+// si desti = 9  .. envoi au parent2 
+// si desti = 10  ... envoi d'un document après signature (PDF en PJ)   ... param_win[10] contient le fichier PDF à mettre en PJ
+// si desti = 11 ... envoi de mail pour absence à un rdv - uniquement utilisée en planificateur de tache => pas d'interface du tout 
+
+
+open(w_patience)
+
+uo_smtp					smtp
+uo_email_compte		cpt_email
+uo_email_email 		email
+str_email_frm_output		frm_output
+security_attributes	sa			// pour compatibilité winNT lors de création de rep
+string chemindossier
+string v_titre_email = ""
+string fichier_signature_en_ligne_ini = "signature_en_ligne.ini"
+
+string fichier_texte_origine, fichier_texte_envoye, fichier_texte_patient
+integer num_fichier_texte_avec_adresses
+string fichier_texte_avec_adresses
+string v_texte, v_objet, v_emapat, v_emapar
+double v_code_texte 
+boolean v_suite
+string local_objet
+RichTextEdit v_rte
+
+string v_rappel_rdv_email_patient, v_rappel_rdv_email_parent1, v_rappel_rdv_email_parent2, v_emapar2
+
+boolean avec_pj = false	// pour indiquer si Pièce jointe ou pas, pour le libellé qui sera stocké dans l'historique
+boolean historiser_pj	= false	// pour historiser un PJ uniquement en envoi unitaire
+string v_fichier_pj,  v_fichier_pj_type_rdv
+string v_code_interne_historique_editions
+boolean masquer_adresses = false			// sera possiblement à true utilisé uniquement si desti = 3 (rappel de rendez-vous)
+
+double var_code_local
+
+integer id_cpt
+
+string ls_rdv_email_joindre_fichier_ics
+boolean var_retour = false
+
+var_code_local = var_code_passe
+
+zeroi(desti)
+
+// Dossier de destination (du patient) ... utile si envoi unique 
+// Si passage d'une liste de patient par la DW, chemin dossier sera remis à jour plus tard
+chemindossier = dir_photos + string(var_code_local) 
+
+
+id_cpt = compte_email_a_utiliser(utilisateur_code, var_code_local)
+
+if id_cpt = -1 then
+	
+	MessageBox("ATTENTION","Vous devez définir des Comptes Emails pour chaque praticien avant d'envoyer des emails (menu 'Tables', 'Administratif').~n~nCeci ne semble pas être le cas.~n~nL'envoi de l'email ne peut avoir lieu.")
+	
+else
+	trace(" - Début fxg_envoi_email_libre")
+	if OUTIL_ENVOI_EMAIL = "O" then
+		// Utilisation de Chillkat
+		// init cpt mail et affection au mail manager
+		cpt_email = create uo_email_compte
+		cpt_email.charger(id_cpt)
+		email_manager.set_compte(cpt_email)
+		email_manager.propos_objet = cpt_email.email_objet_defaut
+		
+		
+		// Test 2026 - MULTI FACTEUR
+		if right(cpt_email.nom ,3) = "MFA" then 
+			/*
+			string ls_json
+			ls_json = '{' + &
+			'"client_id":"ab136763-9623-45b3-afd9-2758f45ed11d",' + &
+			'"client_secret":"0b5da574-22fe-4784-b3d0-3e0e0c8eaef6",' + &
+			'"token_endpoint":"https://login.microsoftonline.com/34ede239-1aad-41ca-818f-cd24c5635f23/oauth2/v2.0/token",' + &
+			'"scope":"https://outlook.office365.com/.default"' + &
+			'}'
+			
+			email_manager.set_OAuth2AccessToken ( ls_json )
+
+*/
+
+/*
+			integer li_rc
+			integer li_Success
+			oleobject loo_Oauth2
+			string ls_Url
+			integer li_NumMsWaited
+			oleobject loo_Json
+			oleobject loo_Fac, loo_Glob
+			
+			
+			loo_Glob = create oleobject
+			li_rc = loo_Glob.ConnectToNewObject("Chilkat_9_5_0.Global")
+			if li_rc < 0 then
+			    destroy loo_Glob
+			    MessageBox("Error","Connecting to COM object failed")
+			end if
+			
+			string unlock_code = "ARAKISFRMAILQ_hUaUqXhO1ZpE"
+
+			loo_Glob.UnlockBundle(unlock_code) 
+			
+			
+			loo_Oauth2 = create oleobject
+			li_rc = loo_Oauth2.ConnectToNewObject("Chilkat_9_5_0.OAuth2")
+			if li_rc < 0 then
+			    destroy loo_Oauth2
+			    MessageBox("Error","Connecting to COM object failed")
+			end if
+			
+			
+
+			
+			loo_Oauth2.AuthorizationEndpoint = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize"
+			loo_Oauth2.TokenEndpoint = "https://login.microsoftonline.com/common/oauth2/v2.0/token"
+
+
+
+// Replace these with actual values.
+loo_Oauth2.ClientId = "ab136763-9623-45b3-afd9-2758f45ed11d"
+
+// This is for Require Proof Key for Code Exchange (PKCE)
+// See OAuth2 PKCE Explained
+loo_Oauth2.CodeChallenge = 1
+loo_Oauth2.CodeChallengeMethod = "S256"
+
+// Provide a SPACE separated list of scopes.
+// See https://developer.microsoft.com/en-us/graph/docs/authorization/permission_scopes 
+
+// Important: To get a refresh token in the final response, ask for "offline_access" scope
+loo_Oauth2.Scope = "openid profile offline_access user.readwrite mail.readwrite mail.send files.readwrite"
+
+// Begin the OAuth2 three-legged flow.  This returns a URL that should be loaded in a browser.
+ls_Url = loo_Oauth2.StartAuth()
+if loo_Oauth2.LastMethodSuccess <> 1 then
+    messagebox("erreur",  string(loo_Oauth2.LastErrorText))
+    destroy loo_Oauth2
+end if
+
+// Launch the default browser on the system and navigate to the url.
+// The LaunchBrowser method was added in Chilkat v10.1.2.
+li_Success = loo_Oauth2.LaunchBrowser(ls_Url)
+if li_Success = 0 then
+    messagebox("erreur",  string(loo_Oauth2.LastErrorText))
+    destroy loo_Oauth2
+end if
+
+
+// Wait for the user to approve or deny authorization in the browser.
+li_NumMsWaited = 0
+do while (li_NumMsWaited < 90000) AND (loo_Oauth2.AuthFlowState < 3)
+    loo_Oauth2.SleepMs(100)
+    li_NumMsWaited = li_NumMsWaited + 100
+loop
+
+// If the browser does not respond within the specified time, AuthFlowState will be:
+// 
+// 1: Waiting for Redirect – The OAuth2 background thread is waiting for the browser's redirect request.
+// 2: Waiting for Final Response – The thread is awaiting the final access token response.
+// In either case, cancel the background task initiated by StartAuth.
+
+if loo_Oauth2.AuthFlowState < 3 then
+    loo_Oauth2.Cancel()
+    Write-Debug "No response from the browser!"
+    destroy loo_Oauth2
+    return
+end if
+
+// Check AuthFlowState to determine if authorization was granted, denied, or failed:
+// 
+// 3: Success – OAuth2 flow completed, the background thread exited, and the successful response is in AccessTokenResponse.
+// 4: Access Denied – OAuth2 flow completed, the background thread exited, and the error response is in AccessTokenResponse.
+// 5: Failure – OAuth2 flow failed before completion, the background thread exited, and error details are in FailureInfo.
+
+if loo_Oauth2.AuthFlowState = 5 then
+    Write-Debug "OAuth2 failed to complete."
+    Write-Debug loo_Oauth2.FailureInfo
+    destroy loo_Oauth2
+    return
+end if
+
+if loo_Oauth2.AuthFlowState = 4 then
+    Write-Debug "OAuth2 authorization was denied."
+    Write-Debug loo_Oauth2.AccessTokenResponse
+    destroy loo_Oauth2
+    return
+end if
+
+if loo_Oauth2.AuthFlowState <> 3 then
+    Write-Debug "Unexpected AuthFlowState:" + string(loo_Oauth2.AuthFlowState)
+    destroy loo_Oauth2
+    return
+end if
+
+Write-Debug "OAuth2 authorization granted!"
+Write-Debug "Access Token = " + loo_Oauth2.AccessToken
+
+// When the token is near expiration, your app can refresh as shown here:
+// Refresh Expiring OAuth2 Access Token for Azure Registered App
+
+// Get the full JSON response:
+loo_Json = create oleobject
+// Use "Chilkat_9_5_0.JsonObject" for versions of Chilkat < 10.0.0
+li_rc = loo_Json.ConnectToNewObject("Chilkat.JsonObject")
+
+loo_Json.Load(loo_Oauth2.AccessTokenResponse)
+loo_Json.EmitCompact = 0
+
+// The JSON response looks like this:
+
+// {
+//   "token_type": "Bearer",
+//   "scope": "User.Read Mail.ReadWrite Mail.Send",
+//   "expires_in": 3600,
+//   "ext_expires_in": 0,
+//   "access_token": "EwBAA8l6B...",
+//   "refresh_token": "MCRMdbe...",
+//   "id_token": "eyJ0eXA..."
+// }
+
+// If an "expires_on" member does not exist, then add the JSON member by
+// getting the current system date/time and adding the "expires_in" seconds.
+// This way we'll know when the token expires.
+if loo_Json.HasMember("expires_on") <> 1 then
+    loo_DtExpire = create oleobject
+    // Use "Chilkat_9_5_0.CkDateTime" for versions of Chilkat < 10.0.0
+    li_rc = loo_DtExpire.ConnectToNewObject("Chilkat.CkDateTime")
+
+    loo_DtExpire.SetFromCurrentSystemTime()
+    loo_DtExpire.AddSeconds(loo_Json.IntOf("expires_in"))
+    loo_Json.AppendString("expires_on",loo_DtExpire.GetAsUnixTimeStr(0))
+end if
+
+Write-Debug loo_Json.Emit()
+
+// Save the JSON to a file for future requests.
+loo_Fac = create oleobject
+// Use "Chilkat_9_5_0.FileAccess" for versions of Chilkat < 10.0.0
+li_rc = loo_Fac.ConnectToNewObject("Chilkat.FileAccess")
+
+loo_Fac.WriteEntireTextFile("qa_data/tokens/_myAzureApp.json",loo_Json.Emit(),"utf-8",0)
+
+// This is a screenshot of how we created the Azure App for this example:
+// 
+
+
+destroy loo_Oauth2
+destroy loo_Json
+destroy loo_DtExpire
+destroy loo_Fac
+
+
+
+
+
+
+
+*/
+			
+			
+			
+			
+			
+			
+			
+			
+		end if 
+				
+		
+	else
+		// Utilisation de l'objet SMTP de PB
+		smtp = create uo_smtp
+		smtp.charger_compte(id_cpt)
+		email_manager.propos_objet = smtp.email_objet_defaut
+	end if
+		
+	// Envoi unitaire
+	email_manager.mode_choix_adr_courant = email_manager.mode_choix_adr_unitaire
+	
+	
+	// Fenetre de choix du destinataire
+	
+	// Génératon du fichier rtf pour passage en paramètre
+	string is_FileName, fichier_pdf
+	integer num_fichier_texte
+	string v_email_ticket_auto = "N"
+	double v_aleatoire		// servira pour les fichiers temporaires pour éviterles doublons si envoi par planif par exemple
+	
+	v_aleatoire =  rand(65000)
+	
+	is_FileName = dir_ini + "texte_email_" + string(v_aleatoire)+ "_tmp.rtf"
+	num_fichier_texte = FileOpen( is_FileName, StreamMode! , Write! , LockWrite! , replace!)
+	
+	if OUTIL_ENVOI_EMAIL = "O" then
+		FileWrite(num_fichier_texte, cpt_email.texte_brut_defaut)
+	else
+		FileWrite(num_fichier_texte, smtp.texte_brut_defaut)
+	end if
+	FileClose(num_fichier_texte)
+	
+	str_patient v_patient
+	v_patient.code = var_code_passe
+	v_patient.aleatoire = v_aleatoire
+	
+	if desti = 2 or desti = 4 then
+		v_patient.appelant = 'T'	// Libre mais ticket
+		select isnull(min(email_ticket_auto), 'N') into :v_email_ticket_auto from param ;
+		
+		v_patient.type_rdv = dw_liste.getitemstring(dw_liste.getrow(), "type")
+		
+		if v_email_ticket_auto = "O" or desti = 4 then
+			// recherche des emails patients et patent pout envoi en auto
+			select isnull(email_patient, '') , isnull(email, '') into :v_emapat, :v_emapar from patient where code = :v_patient.code ;
+			if trim(v_emapat) + trim( v_emapar) = "" then
+				// Aucune adresse email ... on quitte
+				close(w_patience)
+				Messagebox("ATTENTION !", "Ce patient et/ou le parent 1 n'a pas d'adresse email. Aucun envoi de ticket n'est possible.")
+				return var_retour
+			end if
+		end if		
+	else
+		if desti = 10 then
+			v_patient.appelant = 'D' // fichier PDF en PJ
+		else
+			v_patient.appelant = 'L'	// Libre
+		end if
+	end if
+	
+	v_patient.desti = desti	
+	
+	fichier_texte_origine = dir_ini + "texte_email_" + string(v_aleatoire)+ "_tmp.html"
+	fichier_texte_envoye = dir_ini + "texte_email_envoye_" + string(v_aleatoire)+ "_tmp.html"
+	fichier_texte_avec_adresses = dir_ini + "texte_email_adresses_" + string(v_aleatoire)+ "_tmp.text"
+
+	
+	if (desti <> 3 and desti <> 6 and desti <> 7 and desti <> 8 and desti <> 11) and not ((desti = 2 and v_email_ticket_auto = "O") or desti = 4) then
+		
+		// Affichage de l'interface
+		openwithparm(w_email_choix_adr_pat, v_patient)
+
+		// réception des éléments de la fenêtre précédente
+		frm_output = message.PowerObjectParm
+		
+		if frm_output.a_adrs[1] <> '' or frm_output.a_adrs_cci[1] <> ''  then
+			v_suite = true
+			// Mémorisation de la PJ ?
+			historiser_pj = frm_output.historiser_pj
+		else
+			v_suite = false
+		end if
+	else
+		v_suite = true
+		v_rte = create richtextedit
+	end if
+							
+	if v_suite  then			// vide correspond au bouton annuler de la fenêtre de choix d'adresse
+		
+		
+		integer nb_emails, cpt, nb_emails_bien_envoyes, cpt_pj
+		
+		if var_code_passe <> 0 then 
+			// envoi unique classique
+			nb_emails = 1
+		else
+			// Emailin g avec dw_liste
+			nb_emails = dw_liste.rowcount()
+		end if
+		
+		if desti = 10 then
+			// fichier PDF signé en PJ
+			frm_output.pj[1] = param_win[10]
+		end if
+
+		
+		nb_emails_bien_envoyes = 0
+		
+		for cpt = 1 to nb_emails
+			
+			//creation et envoie email
+			email = create uo_email_email			// on garde uo_email meme avec SMTP ... fonctions dédoublées
+		
+			if OUTIL_ENVOI_EMAIL = "N" then
+				email.smtp_email = smtp
+			end if
+		
+			if (desti = 3 or desti = 6 or desti = 7 or desti = 8 or desti = 11 )  or (desti = 2 and v_email_ticket_auto = "O" ) or desti = 4 then
+				
+				// Code de l'email à envoyer
+				if desti = 3 then
+					// Rappel de rendez-vous => recherche du texte 
+					v_code_texte = dw_liste.GetItemNumber(cpt, "type_rdv_message_email")
+					
+					
+					// Fichier en PJ
+					avec_pj = false
+					frm_output.pj[1] = ""
+								
+					if PLANIFICATION_EN_COURS then
+						// le fichier en PJ est configuré différemment pour la planification des taches
+						v_fichier_pj = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","rrv_fichier_pj","")
+					else
+						// Fichier désigné dans l'interface
+						v_fichier_pj = profileString(dir_ini+inifile_orthokis,"rendez-vous","fichier_pj_rappel_rdv","")
+					end if
+					
+					// Est qu'il y a une PJ spécifique avec ce message ?
+					
+					select isnull(nom_complet_fichier_pj, '')  into :v_fichier_pj_type_rdv  from email_texte_defaut where id = :v_code_texte ;
+	
+					if v_fichier_pj_type_rdv <> "" then
+						if fileExists(v_fichier_pj_type_rdv) then 
+							avec_pj = true
+							frm_output.pj[1] = v_fichier_pj_type_rdv
+						end if
+					end if
+					if not avec_pj then
+						// Pas de spécifique ... on prend le fiche global si y a 
+						if v_fichier_pj <> "" then
+							avec_pj = true
+							frm_output.pj[1] = v_fichier_pj
+						end if
+					end if
+					
+
+					/// Masquage des destinataires ?
+					if profileString(dir_ini+inifile_orthokis,"rendez-vous","masquer_adresses_rappel_rdv","N") = "O" then 
+						masquer_adresses = true
+					end if
+
+
+				else
+					if desti = 6 then
+						// envoi d'un mail automatique suite à un rendez-vous ... recherche du text
+						v_code_texte = double(param_win[10])
+						
+						// Est qu'il y a une PJ spécifique avec ce message ?
+					
+						select isnull(nom_complet_fichier_pj, '')  into :v_fichier_pj_type_rdv  from email_texte_defaut where id = :v_code_texte ;
+		
+						if v_fichier_pj_type_rdv <> "" then
+							if fileExists(v_fichier_pj_type_rdv) then 
+								avec_pj = true
+								frm_output.pj[1] = v_fichier_pj_type_rdv
+							end if
+						end if					
+						
+						
+						
+						
+					else
+						if desti = 2 or desti = 4 then 
+							// Ticket de rendez-vous
+							//select isnull(min(id_texte_email_ticket), 'N') into :v_code_texte from param ;
+							
+							// y a t il un texte particulier pour le type de rdv
+							select isnull(message_ticket_email, 0) into :v_code_texte from type_rdv where code = :v_patient.type_rdv ;
+							if v_code_texte = 0 then
+								select top 1 id_texte_email_ticket into :v_code_texte from param ;
+							end if
+							select isnull(nom_complet_fichier_pj, '')  into :v_fichier_pj  from email_texte_defaut where id = :v_code_texte ;
+							
+							if v_fichier_pj <> "" then
+								if fileExists(v_fichier_pj) then 
+									// Ajout de la PJ
+									frm_output.pj[1] = v_fichier_pj
+								end if
+							end if
+						
+						else
+							if desti = 7 then
+								v_code_texte = double(ProfileString( cheminDossier + win_delimiter + fichier_signature_en_ligne_ini, "signataire_1", "texte_email", "") )
+							else
+								if desti = 8 then
+									v_code_texte = double(ProfileString( cheminDossier + win_delimiter + fichier_signature_en_ligne_ini, "signataire_2", "texte_email", "") )
+								else 
+									if desti = 11 then
+										v_code_texte = double(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "ARV_texte_email","0"))
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "ARV_maquer_adresse","N") = "O" then  
+											masquer_adresses = true
+										end if
+									end if
+								end if
+							end if
+						end if
+					end if
+				end if
+				
+				select texte, objet, isnull(nom,'')  into :v_texte, :v_objet , :v_titre_email from email_texte_defaut where id = :v_code_texte ;
+			
+				// on va passer par un fichier RTF
+				num_fichier_texte = FileOpen( is_FileName, StreamMode! , Write! , LockWrite! , replace!)
+				FileWrite(num_fichier_texte, v_texte)
+				FileClose(num_fichier_texte)
+				
+				w_mdi_2020.rte_1.selecttextall()
+				w_mdi_2020.rte_1.clear()
+				w_mdi_2020.rte_1.insertdocument(is_FileName, True, FileTypeRichText!)
+				w_mdi_2020.rte_1.savedocument(fichier_texte_envoye, FileTypeHTML!, EncodingANSI!)
+			else
+				// copie du fichier initial ...
+				FileCopy(fichier_texte_origine, fichier_texte_envoye, true)
+			end if
+			
+			
+			if frm_output.envoi_securise then
+				
+				string fichier_a_envoyer[]
+				
+				// 2024
+				fichier_a_envoyer = frm_output.pj_supplementaires
+
+				if Belgique then
+					// envoi messagerie spéciale via myOrthokis
+					// Envoi unitaire
+
+					fxg_envoi_mail_securise_ehealth(frm_output , var_code_passe, email,  fichier_a_envoyer)
+				else
+					if France then
+						fxg_envoi_mail_securise_france(frm_output , var_code_passe, email,  fichier_a_envoyer)
+					end if
+				end if
+				
+			else
+				trace(" - Mise à jour des destinataires 1")
+
+				if var_code_passe = 0 or (desti = 2 and v_email_ticket_auto = "O") or desti = 4 or desti = 6 or desti = 7 or desti = 8   then
+					if isvalid(dw_liste) then // dw_liste est nulle si desti = 6
+						if dw_liste.rowcount() > 0 then
+							var_code_local = dw_liste.GetItemNumber(cpt, "code")
+						else
+							// Cas du ticket de rdv par mail après un coller / la dw est vierge !
+							var_code_local = v_patient.code
+						end if
+					end if
+					if (desti <> 3 and desti <> 5 and desti <> 6 and desti <> 7 and desti <> 8 and desti <> 11)  and not  ( (desti = 2 and v_email_ticket_auto = "O")  or desti = 4)  then
+						// la Dw contient l'adresse email du destinataire
+						choose case desti 
+							case 0
+								frm_output.a_adrs[1] = dw_liste.GetItemString(cpt, "patient_email_patient")
+							case 1
+								frm_output.a_adrs[1] = dw_liste.GetItemString(cpt, "patient_email")
+							case 9
+								frm_output.a_adrs[1] = dw_liste.GetItemString(cpt, "patient_email_parent2")
+						end choose
+					else
+						if desti = 6 then
+							// les mails sont en variables globales
+							v_emapat = param_win[8]
+							v_emapar = param_win[9]
+						else
+							if desti = 7 then
+								// Signature en ligne 1
+								//v_emapat = ProfileString( cheminDossier + win_delimiter + fichier_signature_en_ligne_ini, "signataire_1", "nom_destinataire_email", "" ) + " <" + ProfileString( cheminDossier + win_delimiter + fichier_signature_en_ligne_ini, "signataire_1", "email_destinataire_email", "" ) + ">"
+								v_emapat = ProfileString( cheminDossier + win_delimiter + fichier_signature_en_ligne_ini, "signataire_1", "email_destinataire_email", "" ) 
+								v_emapar = ""
+							else
+								if desti = 8 then
+									// Signature en ligne 2
+									//v_emapat = ProfileString( cheminDossier + win_delimiter + fichier_signature_en_ligne_ini, "signataire_2", "nom_destinataire_email", "" ) + " <"  + ProfileString( cheminDossier + win_delimiter + fichier_signature_en_ligne_ini, "signataire_2", "email_destinataire_email", "" ) + ">"
+									v_emapat = ProfileString( cheminDossier + win_delimiter + fichier_signature_en_ligne_ini, "signataire_2", "email_destinataire_email", "" ) 
+									v_emapar = ""
+								else
+									// On est dans le cas du ticket de rdv ou envoyé au patient ET au parent1
+									if v_email_ticket_auto = "O" then
+										// ticket en mode automatique ... les variables sont déjà à jour plus haut
+									else
+										if desti = 3 then 
+											// Ticket de rendez-vous .. paramétrage des desitinataires
+											select top 1 isnull(rappel_rdv_email_patient, 'N'), isnull(rappel_rdv_email_parent1, 'N'), isnull(rappel_rdv_email_parent2, 'N') into
+											:v_rappel_rdv_email_patient, :v_rappel_rdv_email_parent1, :v_rappel_rdv_email_parent2
+											from param ;
+											if v_rappel_rdv_email_patient = "O" then 
+												v_emapat = string_non_nulle(dw_liste.GetItemString(cpt, "patient_email_patient"))
+											else
+												v_emapat = ""
+											end if
+											if v_rappel_rdv_email_parent1 = "O" then 
+												v_emapar = string_non_nulle(dw_liste.GetItemString(cpt, "patient_email"))
+											else
+												v_emapar = ""
+											end if
+											if v_rappel_rdv_email_parent2 = "O" then 
+												v_emapar2 = string_non_nulle(dw_liste.GetItemString(cpt, "patient_email_parent2"))
+											else
+												v_emapar2 = ""
+											end if
+										else
+											if desti = 11 then
+												if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "ARV_destinataire_patient","O") = "O" then 
+													v_emapat = string_non_nulle(dw_liste.GetItemString(cpt, "patient_email_patient"))
+												else
+													v_emapat = ""
+												end if
+												
+											else
+												v_emapat = string_non_nulle(dw_liste.GetItemString(cpt, "patient_email_patient"))
+												v_emapar = string_non_nulle(dw_liste.GetItemString(cpt, "patient_email"))
+											end if
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "ARV_destinataire_parent1","O") = "O" then
+												v_emapar = string_non_nulle(dw_liste.GetItemString(cpt, "patient_email"))
+											else
+												v_emapar = ""
+											end if
+										end if
+									end if
+								end if
+							end if
+						end if
+						frm_output.a_adrs[1] = v_emapat
+						if frm_output.a_adrs[1] <> '' then
+							frm_output.a_adrs[1]  = frm_output.a_adrs[1] + ";"
+						end if
+						if v_emapar <> "" then 
+							frm_output.a_adrs[1]  = frm_output.a_adrs[1]  + v_emapar + ";"
+						end if
+						
+						if desti = 3 then
+							// pour le rappel de rdv par mail ... il est possible d'avoir 3 destinataires
+							if  v_emapar2 <> ""  then
+								frm_output.a_adrs[1]  = frm_output.a_adrs[1]  + v_emapar2 + ";"
+							end if
+						end if
+					end if
+					
+					
+					trace(" - Mise à jour du compte email")
+					// On vérifie le compte émetteur 
+					id_cpt = compte_email_a_utiliser(utilisateur_code, var_code_local)
+					
+					if OUTIL_ENVOI_EMAIL = "O" then
+						cpt_email.charger(id_cpt)
+						email_manager.set_compte(cpt_email)
+					else
+						smtp.charger_compte(id_cpt)
+					end if
+	
+				end if
+	//************************************
+	
+				// Utile si liste de patients
+				chemindossier = dir_photos + string(var_code_local) 
+				if not fxg_FileExists(chemindossier) then CreateDirectoryA(chemindossier,sa)
+	
+	
+				fichier_texte_patient = chemindossier + win_delimiter + string(today(), "yyyy-mm-dd")+" "+string(now(),"hh-mm-ss") + " - Texte email.html"
+	
+				//creation et envoie email
+				email.set_patient(var_code_local)
+				
+				if desti <> 3 and desti <> 6 and desti <> 7 and desti <> 8 and desti <> 11 and not  ((desti = 2 and v_email_ticket_auto = "O") or desti = 4)   then
+					local_objet = frm_output.objet 
+				else
+					local_objet =   v_objet
+				end if
+				
+				trace(" - Mise à jour des destinataires 2")
+				if OUTIL_ENVOI_EMAIL = "O" then
+					if masquer_adresses then
+						// on met les destinataires en CCi
+						email.add_destinataire_a(frm_output.a_adrs[1], true)
+					else
+						email.add_destinataire_a(frm_output.a_adrs[1], false)
+					end if
+					
+					email.set_from(cpt_email.my_alias,cpt_email.my_adr)
+					
+					email_manager.propos_objet = local_objet 
+					email.set_sujet(email_manager.propos_objet)
+					
+					if frm_output.cc then 
+						email.set_cc(cpt_email.my_alias, cpt_email.my_adr)
+					end if
+				else
+					email.add_destinataire_a(frm_output.a_adrs[1], false)
+					email.set_sujet(local_objet)
+					if frm_output.cc then 
+						email.set_cc(cpt_email.my_alias, cpt_email.my_adr)
+					end if
+					
+				end if
+				
+				if  upperbound(frm_output.a_adrs_cci) > 0 then 
+					if trim(frm_output.a_adrs_cci[1])  <> "" then
+						// Il y a des destinataires CCi 
+						string s_cci
+						
+						s_cci = frm_output.a_adrs_cci[1]
+						
+						if frm_output.cci then 
+							s_cci = s_cci + ";" +  cpt_email.my_adr
+						end if
+						
+						email.add_destinataire_a(s_cci, true)
+					else
+						if frm_output.cci then 
+							email.set_cci(cpt_email.my_alias, cpt_email.my_adr)
+						end if
+					end if
+				else
+					if frm_output.cci then 
+						email.set_cci(cpt_email.my_alias, cpt_email.my_adr)
+					end if
+
+				end if
+					
+
+				
+				// Y a t il un fichier en PJ
+				if upperbound(frm_output.pj[]) = 1 then
+					if FileExists(frm_output.pj[1]) then
+						avec_pj = true
+						email.add_fichier_joint(frm_output.pj[1])
+					end if
+				end if
+				
+				// On ajoute les éventuelles PJ supplémentares ... 
+				for cpt_pj = 1 to upperbound(frm_output.pj_supplementaires[])
+					email.add_fichier_joint(frm_output.pj_supplementaires[cpt_pj])
+					avec_pj = true
+				next
+				
+				// Spécifique pour rappel de rdv .. pour le champ prochain rdv qui doit être rappelable ou pas
+				if desti = 3 or desti = 5  then 
+					email.rappel_rdv_email = true
+				end if
+				
+				// fichier ICS ?
+				select top 1 isnull(rdv_email_joindre_fichier_ics, 'N') into :ls_rdv_email_joindre_fichier_ics from param ;
+
+				if ls_rdv_email_joindre_fichier_ics = "O" then 
+					filedelete (dir_ini + nom_fichier_ics)
+				end if
+				
+				// Mise à jour des champs du texte de mail
+				v_suite = email.set_body_html(fichier_texte_envoye)
+				
+				// pour être sûr on supprime fichier .ICS précédent 
+				if ls_rdv_email_joindre_fichier_ics = "O"and fileexists (dir_ini + nom_fichier_ics) then 
+					email.add_fichier_joint(dir_ini + nom_fichier_ics)
+				end if
+	
+				if v_suite then 
+					// envoi effectif
+					trace("Début de l'envoi effectif de l'email patient  "  + string(var_code_local))
+					if OUTIL_ENVOI_EMAIL = "O" then 
+						v_suite = email_manager.envoyer_email(email.get_email()) 
+					else
+						v_suite = email.envoi_mail_smtp()
+					end if
+					trace("Fin de l'envoi effectif de l'email patient  "  + string(var_code_local))
+				end if
+				
+				if  v_suite  then
+					
+					trace("Début de la consignation du mail en historique")
+
+					// On génère un fichier texte contenant la liste des destinataires ... meme nom que le fichier en PJ avec .dest comme extension
+					email.generer_fichier_adresses(fichier_texte_avec_adresses, fichier_texte_patient, frm_output)
+					
+			//		num_fichier_texte_avec_adresses = FileOpen(fichier_texte_avec_adresses, LineMode! , Write! , LockWrite! , replace!)
+			//		FileWrite(num_fichier_texte_avec_adresses, frm_output.a_adrs[1])
+			//		FileClose(num_fichier_texte_avec_adresses)
+			//		FileCopy(fichier_texte_avec_adresses, fichier_texte_patient + ".dest" )
+					
+					
+					// Copy du fichier pour mémo
+					FileCopy(fichier_texte_envoye, fichier_texte_patient)
+			
+			
+					if desti < 2 then
+						if avec_pj then 
+							v_code_interne_historique_editions = fxg_enregcourrierhisto ( var_code_local , "EMAIPJ" , today() , email.get_sujet() , fichier_texte_patient , 'E' , 'N', 'N', '', frm_output.categorie)
+							fxg_memorisation_pieces_jointes(var_code_local, v_code_interne_historique_editions,  email.fichiers_joints, historiser_pj )
+						else
+							fxg_enregcourrierhisto ( var_code_local , "EMAILL" , today() , email.get_sujet() , fichier_texte_patient , 'E' , 'N', 'N', '',  frm_output.categorie)
+						end if
+					else
+						if desti = 2 or desti = 4 or desti = 7 or desti = 8  or desti = 6 or desti = 9 then
+							if avec_pj then 
+								v_code_interne_historique_editions = fxg_enregcourrierhisto ( var_code_local , "EMAIPJ" , today() , email.get_sujet() , fichier_texte_patient , 'E' , 'N', 'N', '',  frm_output.categorie)
+								fxg_memorisation_pieces_jointes(var_code_local, v_code_interne_historique_editions,  email.fichiers_joints, historiser_pj )
+							else
+								fxg_enregcourrierhisto ( var_code_local , "EMAILL" , today() , email.get_sujet() , fichier_texte_patient , 'E' , 'N', 'N', '',  frm_output.categorie)
+							end if
+						else
+							if desti = 3 or desti = 5  then
+								fxg_enregcourrierhisto ( var_code_local , "EMARDV" , today() , email.get_sujet() , fichier_texte_patient , 'E' , 'N', 'N', '',  frm_output.categorie)
+							else
+								if desti = 11 then
+									fxg_enregcourrierhisto ( var_code_local , "EMARVA" , today() , email.get_sujet() , fichier_texte_patient , 'E' , 'N', 'N', '',  frm_output.categorie) 
+								end if
+							end if
+						end if
+					end if
+					
+					trace("Fin de la consignation du mail en historique")
+
+					// envoi de l'info à mon orthodontiste si besoin
+					if email.questionnaire_monorthodontiste then 
+						trace("Début d'envoi d'un questionnaire mon Ortho")
+						// Pas de gestion d'erreur
+						fxg_lancer_commande_myorthokis_simple("action?type=setQuestionnaireEnvoye&id=" + email.id_cloud_questionnaire_monorthodontiste, true , "A" )
+						trace("Fin d'envoi d'un questionnaire mon Ortho")
+					end if
+		
+
+			
+					// Le fichier est parti
+					if var_code_passe <> 0 then
+						if not planification_en_cours then
+							if v_titre_email <> "" then
+								v_titre_email = "(" + v_titre_email + ")"
+							end if
+							// On ne met pas de message positif pour signature en ligne
+							if desti <> 7 and desti <> 8  then
+								MessageBox("INFORMATION","L'email "+ v_titre_email + " a été correctement envoyé.")
+							end if
+							var_retour = true
+						end if
+					else
+						nb_emails_bien_envoyes = nb_emails_bien_envoyes + 1
+					end if
+					
+					
+				else
+					if var_code_passe <> 0 then
+						if not planification_en_cours then
+							if MessageBox("ATTENTION","Une erreur s'est produite dans l'envoi de l'email !~n~nSouhaitez-vous afficher le message complet ?", Question!, YesNo!, 2) = 1 then 
+								gfx_run_by_shell(email_manager.get_chemin_fichier_log_erreur ( ))
+							end if
+						end if
+					else
+						string v_nom, v_prenom
+						double v_numero_dossier
+						select isnull(nom, ''), isnull(prenom, ''), numero_dossier into :v_nom, :v_prenom, :v_numero_dossier from patient where code = :var_code_local ;
+						if not planification_en_cours then
+							if MessageBox("ATTENTION","Une erreur s'est produite dans l'envoi de l'email pour " + v_nom + " " + v_prenom + " (" + string(v_numero_dossier)   +") !~n~nSouhaitez-vous afficher le message complet ?", Question!, YesNo!, 2) = 1 then 
+								gfx_run_by_shell(email_manager.get_chemin_fichier_log_erreur ( ))
+							end if
+						end if
+					end if
+				end if
+				
+				if frm_output.pdf then
+					// on efface de suite le temporaire !
+					FileDelete(fichier_pdf)
+				end if
+				
+				if isvalid(email) then
+					destroy email
+				end if
+			end if
+			next 
+			
+			if not planification_en_cours then
+				if nb_emails_bien_envoyes > 0 then
+					if 	nb_emails_bien_envoyes = 1 then
+						if v_titre_email <> "" then
+							v_titre_email = "(" + v_titre_email + ")"
+						end if
+						if desti <> 7 and desti <> 8  then
+							MessageBox("INFORMATION","L'email "+ v_titre_email + " a été correctement envoyé.")
+						end if
+						var_retour = true
+					else
+						MessageBox("INFORMATION","Les "+  string (nb_emails_bien_envoyes) + " emails ont été correctement envoyés.")
+						var_retour = true
+					end if
+				end if
+			end if
+	end if
+end if
+
+trace(" - Fin fxg_envoi_email_libre")
+close(w_patience)
+
+return var_retour
+end function
+

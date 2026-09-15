@@ -1,0 +1,42 @@
+﻿$PBExportHeader$titre_onglet_patient.srf
+global type titre_onglet_patient from function_object
+end type
+
+forward prototypes
+global function string titre_onglet_patient (double v_code)
+end prototypes
+
+global function string titre_onglet_patient (double v_code);// Titre d'un onglet patient
+
+string v_nom, v_prenom
+date v_date_naissance
+string v_cmu
+double v_numero_dossier
+string v_titre
+
+SELECT trim(patient.nom), trim(prenom), isnull(mise_en_evidence.nom,'')  , numero_dossier , date_naissance
+INTO :v_nom,:v_prenom, :v_CMU, :v_numero_dossier, :v_date_naissance
+FROM { oj  "patient" LEFT OUTER JOIN "mise_en_evidence" ON "patient"."mise_en_evidence" = "mise_en_evidence"."code"}  
+WHERE patient.code = :v_code ;
+
+if not isnull(v_prenom) then
+	v_nom = v_nom + ' ' + v_prenom
+end if
+
+if len(trim(v_CMU)) > 0 then
+	v_cmu = " - "+v_CMU
+end if
+
+
+v_titre = v_nom+" ("+string(v_numero_dossier)+")" + v_cmu
+
+if not isnull(v_date_naissance) then
+	v_titre = v_titre + " - " +  calcul_age_titre(v_date_naissance)
+end if
+
+return v_titre
+
+
+
+end function
+

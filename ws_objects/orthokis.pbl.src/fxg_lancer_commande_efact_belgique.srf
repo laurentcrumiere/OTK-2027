@@ -1,0 +1,192 @@
+﻿$PBExportHeader$fxg_lancer_commande_efact_belgique.srf
+global type fxg_lancer_commande_efact_belgique from function_object
+end type
+
+forward prototypes
+global function boolean fxg_lancer_commande_efact_belgique (string v_commande, string v_body, string v_type_requete, ref string v_returnjson)
+end prototypes
+
+global function boolean fxg_lancer_commande_efact_belgique (string v_commande, string v_body, string v_type_requete, ref string v_returnjson);
+//  EXECUTION D'UNE COMMANDE SIMPLE VERS eFact Belgique
+
+// v_type_requete : G pour GET, P pour POST
+
+// http://localhost:8090/ehealth/action?type=executeEhealth&cmd=SP;FACTURATION
+
+
+Trace (" *** ENVOI D'UNE COMMANDE A eFact BELGIQUE : " + v_commande +"    ***")
+
+integer li_rc, li_code
+HttpClient lnv_HttpClient
+lnv_HttpClient = Create HttpClient
+long l_statut_reponse
+string ls_ReturnJson, ls_code, ls_ReturnJson64
+
+
+string s_body,  s_url_application, s_commande
+string ls_retour_ehealth, ls_retour_ehealth64, ls_result
+string ls_trace_java, ls_succes, ls_erreur
+boolean b_succes
+string url_myo
+
+long ll_root, ll_trace, ll_cnt_trace, i
+
+
+// pour codage en base 64
+CoderObject lnv_CoderObject
+lnv_CoderObject = Create CoderObject
+
+
+boolean retour = true
+
+s_body = v_body
+
+if v_type_requete = "G" then
+	v_type_requete = "GET"
+else
+	v_type_requete = "POST"
+end if
+
+
+// recherche du port my ortho
+integer p1, p2
+integer i_port_ehealth
+string s_port_myo, s_port_ehealth 
+
+// myo ?
+select top 1 trim(url_my_orthokis), isnull(port_specifique_ehealth, 8090) into :url_myo, :i_port_ehealth from param ;
+
+
+//s_url_application = url_myo + "myorthokis/"
+
+// modification du port spécifique 
+
+
+
+// l'adresse url_myo est sous la forme http://192.168.2.40:5000/ ..... faut change le port
+// port_health = "8090"
+
+s_port_ehealth = string(i_port_ehealth)
+
+p1 = pos(url_myo, ":")
+p1 = pos(url_myo, ":", p1 + 1)
+if p1 > 0 then 
+	p2 = pos(url_myo, "/", p1)
+	if p2 = 0 then 
+		p2 = len(url_myo) + 1
+	end if
+	
+	s_port_myo = mid(url_myo, p1 +1, p2 - p1 - 1)
+	url_myo = gfx_tout_remplacer(url_myo, s_port_myo, s_port_ehealth)
+else
+	// pas de port ? on rajoute
+	url_myo = left(url_myo, len(url_myo) - 1) + ":" + s_port_ehealth + "/"
+end if
+	
+s_url_application = url_myo + "ehealth/"
+
+if url_myo <> "" then 
+	
+	v_ReturnJson = ""
+	
+	s_commande = s_url_application + v_commande
+	
+	TRACE ( " - Body : " + v_body )
+	trace( " - Type de Requete : " + v_type_requete)
+	TRACE ( " - Envoi de la commande : " + s_commande )
+	
+	// Envoi de la commande
+	li_rc = lnv_HttpClient.SendRequest(v_type_requete, s_commande , s_body, EncodingUTF8!)
+	
+	TRACE ( " - Code Retour de la recherche : " + string(li_rc))
+	
+	if li_rc = 1 then 
+		
+			l_statut_reponse = lnv_HttpClient.GetResponseStatusCode()
+			li_code = 0
+			
+			if lnv_HttpClient.GetResponseBody(ls_ReturnJson) = 1 then
+				
+					
+				//TRACE ( " Reponse Json (en base 64): " + ls_ReturnJson)
+
+				JSONParser json
+				json = CREATE JSONParser
+			  
+				ls_result = json.LoadString (ls_ReturnJson)
+				ll_root = json.GetRootItem()
+				
+				ls_retour_ehealth64 = json.GetItemString(ll_root, 'retour') 
+				
+				if not isnull(ls_retour_ehealth64) then
+				
+					//TRACE ( " ls_retour_ehealth64 : " + ls_retour_ehealth64)
+					
+					// fonction standard qui merde ?
+					// ls_retour_ehealth = string(lnv_CoderObject.base64decode(ls_retour_ehealth64), EncodingUTF8! )
+					ls_retour_ehealth = string(lnv_CoderObject.base64decode(ls_retour_ehealth64), EncodingANSI!  )
+//					n_cryptoapi ln_capi
+//					ls_retour_ehealth = ln_capi.of_Decode64(ls_retour_ehealth64)
+
+					//TRACE ( " ls_retour_ehealth64 : " + ls_retour_ehealth64)
+	
+					TRACE ( " ls_retour_ehealth : " + ls_retour_ehealth)
+					
+					// décodage du retour 
+					ls_result = json.LoadString (ls_retour_ehealth)
+					ll_root = json.GetRootItem()
+			
+					ls_trace_java = json.GetItemArrayJSONString(ll_root, "trace")
+					
+					b_succes = json.GetItemBoolean(ll_root, 'succes')
+					if b_succes then
+						ls_succes = "true"
+					else
+						ls_succes = "false"
+					end if
+					
+					ls_erreur = json.GetItemString(ll_root, 'erreur')            
+					
+					TRACE ( " ===========================================================================================================")
+					TRACE ( " - Trace_java : " + ls_trace_java)
+					TRACE ( " ===========================================================================================================")
+					TRACE ( " - Succes : " + ls_succes)
+					TRACE ( " - Erreur : " + ls_erreur)
+					
+					if not b_succes then 
+						MessageBox("ERREUR DE COMMUNICATION","Une erreur s'est produite dans l'exécution de la commande : ~n~n" + ls_erreur)
+						retour = false
+					else
+						v_ReturnJson = ls_retour_ehealth
+					end if
+					
+				else
+					TRACE ( " ***********************  LE JSON RENVOYE PAR EHEALTH EST NUL !!!! ***************************************")
+					retour = false
+				end if
+					
+				
+			
+			else
+				TRACE ( " **** Erreur GetResponseStatusCode N°" + string(l_statut_reponse) + "  dans la l'exécution de la requête : ~n" + ls_ReturnJson +"~n*********************************************************" )
+				MessageBox("ERREUR COMMANDE eFACTURATION",	"Erreur de communication avec eHealth / eFacturation !~n~nCode GetResponseStatusCode : " + string (l_statut_reponse  )+"~n~nCode Erreur : " + string(li_code))
+				retour = false
+			end if
+		else
+			
+			TRACE ( " **** Erreur SendRequest N°" + string(li_rc) + " dans la l'exécution de la requête : ~n" + ls_ReturnJson + "~n*** "  + fxg_get_message_httpclient_sendrequest(li_rc) + "~n*********************************************************" )
+			MessageBox("ERREUR DANS L'EXECUTION DE LA COMMANDE",	"Erreur de communication avec eHealth / eFacturation !~n~nCode SendRequest : " +  string(li_rc  ) + "~n~n" + fxg_get_message_httpclient_sendrequest(li_rc))
+			retour = false
+	
+	end if
+else
+	Trace (" *** AUCUNE URL  : PAS D'ENVOI DE COMMANDE A eFacturation Belgique ***")
+	trace("  Commande : " + v_commande)	
+	retour = false
+end if
+
+return retour
+
+
+end function
+

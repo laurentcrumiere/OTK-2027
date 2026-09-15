@@ -1,0 +1,138 @@
+﻿$PBExportHeader$nombre_en_lettres.srf
+global type nombre_en_lettres from function_object
+end type
+
+forward prototypes
+global function string nombre_en_lettres (decimal nombre, string monnaie)
+end prototypes
+
+global function string nombre_en_lettres (decimal nombre, string monnaie);
+// Transforme un nombre en toute lettres
+// Paramètres : 
+//   - nombre : nombre à convertir
+//   - monnaie : libellé de la monnaie
+
+
+// Définition des constantes
+
+string unite[0 to 16]
+
+unite[0] = 'zéro'
+unite[1] = 'un'
+unite[2] = 'deux'
+unite[3] = 'trois'
+unite[4] = 'quatre'
+unite[5] = 'cinq'
+unite[6] = 'six'
+unite[7] = 'sept'
+unite[8] = 'huit'
+unite[9] = 'neuf'
+unite[10] = 'dix'
+unite[11] = 'onze'
+unite[12] = 'douze'
+unite[13] = 'treize'
+unite[14] = 'quatorze'
+unite[15] = 'quinze'
+unite[16] = 'seize'
+
+string dizaine[9]
+
+dizaine[1] = 'dix'
+dizaine[2] = 'vingt'
+dizaine[3] = 'trente'
+dizaine[4] = 'quarante'
+dizaine[5] = 'cinquante'
+dizaine[6] = 'soixante'
+dizaine[7] = 'soixante dix'
+dizaine[8] = 'quatre vingt'
+dizaine[9] = 'quatre vingt dix'
+
+
+string resultat
+
+long nombre_entier
+
+// on arrondi !!
+nombre = round(nombre,2)
+
+
+// On ne traite que les valeurs inférieures à 99 999
+//----------------------------------------------------------------------
+
+if nombre > 99999 then
+	resultat = ""
+else
+			
+	
+	//	 Partie centimes ....
+
+	nombre_entier = (nombre - truncate(nombre,0)) * 100
+	
+	if nombre_entier > 1 then
+		resultat = 	dizaine_en_lettres (  (nombre - truncate(nombre,0)) * 100) +" centimes"
+	else
+		resultat = 	dizaine_en_lettres (  (nombre - truncate(nombre,0)) * 100) +" centime"
+	end if
+	
+
+	
+	// On élimine les centimes	
+	nombre_entier = truncate(nombre,0)
+
+	
+	// On garde les dizaines ...
+	integer v_dizaine,v_centaine,v_millier
+	
+	if nombre_entier > 99 then
+		v_dizaine = nombre_entier - int(nombre_entier/100) * 100
+	else
+		v_dizaine = nombre_entier
+	end if
+
+
+	if v_dizaine <> 0 or nombre = 0 then
+		resultat = dizaine_en_lettres(v_dizaine)+" "+monnaie+" et "+resultat
+	else
+		resultat = monnaie +" et "+resultat
+	end if
+	
+
+	// Traitement des centaines .....
+	if nombre > 99 then
+		
+		v_centaine = int(nombre_entier / 100) -  int(nombre_entier / 1000) * 10
+
+		if v_centaine <> 0 then
+			if v_centaine = 1 then
+				resultat = " cent "+resultat
+			else
+				// On ne doit ajouter un "s" que si rien derrier
+				if left(resultat,4) = left(monnaie,4) then
+					resultat = unite[v_centaine] + " cents "+resultat
+				else
+					resultat = unite[v_centaine] + " cent "+resultat
+				end if
+			end if
+		end if
+		
+		if nombre > 999 then
+		
+			v_millier = int(nombre_entier / 1000) 
+			if nombre < 1999 then
+				resultat = "mille "+resultat
+			else
+				resultat = dizaine_en_lettres(v_millier)+" mille "+resultat
+			end if
+		end if
+	
+	end if 
+	
+	
+	
+
+
+end if
+
+return resultat 
+end function
+

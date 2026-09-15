@@ -1,0 +1,116 @@
+﻿$PBExportHeader$colore_tous_objets.srf
+global type colore_tous_objets from function_object
+end type
+
+forward prototypes
+global subroutine colore_tous_objets (userobject uo)
+end prototypes
+
+global subroutine colore_tous_objets (userobject uo);////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// recherche tous les objets d'un UO et leur applique la couleur de fond de la fenêtre
+
+// NOTE !!!! uo process does not work on objects that are not descended
+// from the dragobject class.
+
+dragobject temp
+int cnt,i
+
+cnt = upperbound(uo.control)
+
+for i = cnt to 1 step -1
+	
+	if typeof(uo.control[i]) <> rectangle! then
+		temp = uo.control[i]
+	
+		// now go get text size information
+		choose case typeof(temp)
+			case picture!
+			// On ne mémorise rien de plus
+			
+			case tab!
+				tab vtab
+				vtab = temp
+				if vtab.backcolor = couleur_sky then
+					vtab.backcolor = couleur_fond_fenetre
+				end if
+	
+			case commandbutton!
+				commandbutton cb
+				cb = temp
+				
+			case singlelineedit!
+				singlelineedit sle
+				sle = temp
+				if sle.backcolor = couleur_sky then
+					sle.backcolor = couleur_fond_fenetre
+				end if
+	
+			case editmask!
+				editmask em
+				em = temp
+				if em.backcolor = couleur_sky then
+					em.backcolor = couleur_fond_fenetre
+				end if
+	
+			case statictext!
+				statictext st
+				st = temp
+				if st.backcolor = couleur_sky then
+					st.backcolor = couleur_fond_fenetre
+				end if
+		
+			case picturebutton!
+				picturebutton pb
+				pb = temp
+	
+			case checkbox!
+				checkbox cbx
+				cbx = temp
+				if cbx.backcolor = couleur_sky then
+					cbx.backcolor = couleur_fond_fenetre
+				end if
+	
+			case dropdownlistbox!
+				dropdownlistbox ddlb
+				ddlb = temp
+	
+			case groupbox!
+				groupbox gb
+				gb = temp
+				if gb.backcolor = couleur_sky then
+					gb.backcolor = couleur_fond_fenetre
+				end if
+	
+			case listbox!
+				listbox lb
+				lb = temp
+	
+			case multilineedit!
+				multilineedit mle
+				mle = temp
+				if mle.backcolor = couleur_sky then
+					mle.backcolor = couleur_fond_fenetre
+				end if
+				
+			case radiobutton!
+				radiobutton rb
+				rb = temp
+				if rb.backcolor = couleur_sky then
+					rb.backcolor = couleur_fond_fenetre
+				end if
+				
+				
+		end choose
+		
+	end if // pas un rectangle
+next
+
+
+// couleur de fond de la fenêtre
+uo.backcolor = couleur_fond_fenetre
+
+
+return
+end subroutine
+

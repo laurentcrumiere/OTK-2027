@@ -1,0 +1,71 @@
+﻿$PBExportHeader$commentaire_clinique_absence.srf
+global type commentaire_clinique_absence from function_object
+end type
+
+forward prototypes
+global subroutine commentaire_clinique_absence (double num, date date_commentaire, string code_etat_rdv, double code_rdv)
+end prototypes
+
+global subroutine commentaire_clinique_absence (double num, date date_commentaire, string code_etat_rdv, double code_rdv);// Objet :
+// Permet d'ajouter un commentaiure prédéfini en fonction de l'Etat de rendez-vous
+// Si l'utilisateur l'a paramétré dans la table des états de rendez-vous
+
+
+string	texte_commentaire
+double coul_texte_commentaire,coul_fond_commentaire ;
+
+
+string nom_etat_rdv				// Etat de rendez-vous
+
+string var_com, var_coul_texte, var_coul_fond 	// Pour recherche du commentaire prédéfini 
+string var_com_recherche
+string commande	// commande SQL pour la recherche
+string v_commentaire_auto, v_texte_commentaire_auto , v_texte_commentaire_auto_html 
+
+integer cpt
+
+// Faut il un commentaire auto ?
+SELECT "commentaire_auto", "texte_commentaire_auto", "texte_commentaire_auto_html" INTO :v_commentaire_auto, :v_texte_commentaire_auto, :v_texte_commentaire_auto_html  FROM "etat_rdv" WHERE code = :code_etat_rdv ;
+
+
+if v_commentaire_auto = 'O' then
+	// L'utilisateur veut générer un commentaire
+	coul_texte_commentaire = couleur_noire
+	coul_fond_commentaire = couleur_blanche
+	
+	var_com_recherche =  '%' + trim( v_texte_commentaire_auto_html ) + '%'
+	select isnull(count(*),0) into :cpt from "coment" where code = :num and dat = :date_commentaire and "com_html" like :var_com_recherche ;
+	
+	if cpt = 0 then 
+		
+		// Reprise de l'acte prévu précédent ...
+		string v_acte, v_acte_html 
+		select top 1 "acte_prevu", "acte_prevu_html" into :v_acte, :v_acte_html  from  "coment"  
+		where code = :num order by "dat" desc, "ordre" desc ;
+		
+//		// rdv du jour 
+//		double v_code_interne_rdv
+//		v_code_interne_rdv = fxg_rdv_pour_commentaire(num, datetime(date_commentaire) )
+//		
+		
+		//  Ajout du commentaire
+		INSERT INTO "coment"   ( "code",   "dat",    "com",   "coul_texte",    "coul_fond" , "ordre", "user_modif" , 
+		"date_modif", "com_html", "acte_prevu", "acte_prevu_html", "code_interne_rdv" )  
+		VALUES ( :num, :date_commentaire,   :v_texte_commentaire_auto, :coul_texte_commentaire, :coul_fond_commentaire, 1, 
+		:utilisateur_code, getdate(), :v_texte_commentaire_auto_html, :v_acte, :v_acte_html, :code_rdv ) ;
+
+		if SQLCA.SQLCODE = 0 then
+			// Le insert est OK
+			commit ;
+		else
+			// IMPORTANT !
+			// On ne vérifie pas si le commentaire y est déjà car, si c'est le cas, il sera rejeté par SYBASE (clef non unique)
+			// sans message ...		
+			rollback ;
+		end if
+	end if
+
+end if
+
+end subroutine
+

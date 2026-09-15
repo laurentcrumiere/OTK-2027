@@ -1,0 +1,26 @@
+﻿$PBExportHeader$fxg_get_uuid.srf
+global type fxg_get_uuid from function_object
+end type
+
+forward prototypes
+global function string fxg_get_uuid ()
+end prototypes
+
+global function string fxg_get_uuid ();
+OLEObject lole
+string ls_guid
+ 
+lole = CREATE OLEObject
+IF lole.ConnectToNewObject("Scriptlet.TypeLib") = 0 THEN
+    ls_guid = lole.GUID
+    // Le GUID retourné est entre accolades → on les enlève
+    ls_guid = Mid(ls_guid, 2, Len(ls_guid) - 2)
+END IF
+ 
+lole.DisconnectObject()
+DESTROY lole
+ 
+RETURN ls_guid
+
+end function
+

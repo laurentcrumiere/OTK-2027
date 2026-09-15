@@ -1,0 +1,6 @@
+﻿$PBExportHeader$struct_expl_media_editeur.srs
+global type struct_expl_media_editeur from structure
+	string		description
+	string		path_fichier
+end type
+

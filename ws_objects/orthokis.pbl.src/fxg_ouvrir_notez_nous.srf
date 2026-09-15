@@ -1,0 +1,35 @@
+﻿$PBExportHeader$fxg_ouvrir_notez_nous.srf
+global type fxg_ouvrir_notez_nous from function_object
+end type
+
+forward prototypes
+global subroutine fxg_ouvrir_notez_nous ()
+end prototypes
+
+global subroutine fxg_ouvrir_notez_nous ();/*
+
+Ouverture simple de l'url Notez Nous
+
+*/
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+string url_notez_nous
+
+if SERIAL = "87001" or SERIAL = "88005" or SERIAL = "88036" or SERIAL = "88052" then
+	url_notez_nous = "https://dev.noteznous.fr/gestionnaire"
+else
+	url_notez_nous = "https://noteznous.fr/gestionnaire"
+end if
+
+
+// run('cmd /C start "Notez-Nous" "' + url_notez_nous +'"')
+
+openurl ( url_notez_nous )
+
+
+return
+end subroutine
+

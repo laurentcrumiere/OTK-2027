@@ -1,0 +1,93 @@
+﻿$PBExportHeader$fxg_ouvrir_dentalsms.srf
+global type fxg_ouvrir_dentalsms from function_object
+end type
+
+forward prototypes
+global subroutine fxg_ouvrir_dentalsms (string partie_a_ouvrir, string v_parametre)
+end prototypes
+
+global subroutine fxg_ouvrir_dentalsms (string partie_a_ouvrir, string v_parametre);/*
+
+url production : https://sms.arakis.fr url test : https://sms-dev.arakis.fr
+
+L’accès direct aux sections de l’interface d’administration Dental SMS se fait via la construction de l’url.
+
+- /#config : ouverture sur la section configuration.
+- /#activite/histo : ouverture sur la recherche dans l’historique
+- /#activite/prog : ouverture sur la visu de la programmation.
+- /#activite/trace/portable/06xxxxxxxx : ouverture sur la section trace avec un numéro de téléphone pré-rempli.
+- /#activite/trace/rdv/xxxxxxxx: ouverture sur la section trace avec un id de rdv pré-rempli.
+
+Exemple d’adresse complète : https://sms.arakis.fr/#activite/trace/portable/06xxxxxxxx?cle=a0lmo59aec
+
+Cette adresse permet de se connecter à l’interface en sans passer par la saisie du numéro du cabinet et du code pin (avec le paramètre « cle »), et l’affichage est positionné dans la section « Trace » de l’activité avec le numéro de téléphone pré-rempli.
+
+
+
+*/
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+// Param en entrée : partie_a_ouvrir avec pour valeur
+// C = section cabinet
+
+
+// au cas où
+partie_a_ouvrir = upper(partie_a_ouvrir)
+
+
+string url_wb, url_hec
+inet iinet_base
+string v_commande_partie_a_ouvrir
+
+uo_pocket uo_p
+
+uo_p = create uo_pocket
+
+// pour forcer les intitilisations
+uo_p.triggerevent(constructor!)
+
+if not uo_p.is_dentalsms() then 
+	
+	messagebox("ATTENTION","Dental SMS ne semble pas correctement configuré pour votre cabinet !~n~nVous ne pouvez pas utiliser cette fonctionnalité !")
+
+else
+	
+	string url_dental_sms 
+	url_dental_sms = uo_p.get_host()
+	
+	// on vire le "api-" pour avoir l'url de connection
+	url_dental_sms = gfx_tout_remplacer(url_dental_sms, "api-", "" )
+	
+	
+
+	// partie à ouvrir
+	choose case partie_a_ouvrir
+		case "C"
+			v_commande_partie_a_ouvrir = "#config"
+		case "H"
+			v_commande_partie_a_ouvrir = "#activite/histo" 
+		case "P"
+			v_commande_partie_a_ouvrir = "#activite/prog" 
+		case "TN"
+			v_commande_partie_a_ouvrir = "#activite/trace/portable/" + v_parametre
+		case "TR"
+			v_commande_partie_a_ouvrir = "#activite/trace/rdv/" + v_parametre
+	end choose
+			
+	
+	
+	// Url complète 
+	url_dental_sms = url_dental_sms + v_commande_partie_a_ouvrir + "?cle=" + fxg_generer_clef_connexion()
+	
+	
+	//run('cmd /C start "Dental SMS" "' + url_dental_sms +'"')
+	
+	openurl ( url_dental_sms )
+end if
+
+
+return
+end subroutine
+

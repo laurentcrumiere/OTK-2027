@@ -1,0 +1,63 @@
+﻿$PBExportHeader$calcul_age.srf
+global type calcul_age from function_object
+end type
+
+forward prototypes
+global function string calcul_age (string naissance_string)
+end prototypes
+
+global function string calcul_age (string naissance_string);// But de la fonction :
+// Calculer l'age d'une personne
+
+// Explications des variables : 
+//				 naissance_string : date de naissance sous forme de string (jj/mm/aaaa)
+//				 age : retourne l'age sous la forme an + mois
+
+// ATTENTION
+// LA DATE EST PASSEE EN STRING SINON CA BUG AU NIVEAU DE L'UTILISATION DE LA FONCTION DANS UNE DATAWINDOW
+
+
+string age
+long  an_naissance, mois_naissance
+date naissance
+
+// Convertit la date de naissance en format date
+naissance = date(naissance_string)
+
+
+
+IF naissance = date('00/00/0000') OR IsNull(naissance)  THEN
+	
+	age = "0 an 0 mois"
+	
+ELSE	
+	
+	// Calcul de l'an
+	IF month(today()) * 100 +  day(today()) < month( naissance ) * 100 + day( naissance ) THEN
+		an_naissance = year(today()) - year( naissance ) - 1
+	ELSE
+		an_naissance = year(today()) - year( naissance )
+	END IF
+	
+	// Calcul du mois
+	IF month(today()) < month( naissance ) THEN
+		mois_naissance = month(today()) - month( naissance ) +12
+	ELSE
+		IF month(today()) = month( naissance ) THEN
+			if day(today()) < day( naissance ) then
+				mois_naissance = 11
+			else
+				mois_naissance = 0
+			end if
+		else
+			mois_naissance = month(today()) - month( naissance )
+		end if
+	END IF
+	
+	age = string(an_naissance) + " ans " + string(mois_naissance) + " mois"
+	
+END IF
+return age
+
+end function
+

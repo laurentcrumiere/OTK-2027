@@ -1,0 +1,38 @@
+﻿$PBExportHeader$demande_telemaintenance.srf
+global type demande_telemaintenance from function_object
+end type
+
+forward prototypes
+global subroutine demande_telemaintenance (character lequel)
+end prototypes
+
+global subroutine demande_telemaintenance (character lequel);
+// Lequel vaut H pour Hotline.exe /   T pour teamviewer
+
+string fichier_exe_complet, fichier_exe
+
+choose case lequel
+	case "H"
+		fichier_exe = "hotline.exe"
+	case "T"
+		fichier_exe = "TeamViewerQS_fr.exe"
+end choose
+		
+		
+fichier_exe_complet = dir_ini + fichier_exe
+
+
+
+
+if not fileExists(fichier_exe_complet) then 
+	MessageBox("ATTENTION","Impossible de localiser le fichier '"+ fichier_exe+"'~n~nNous allons le lancer / télécharger directement depuis notre site")
+	// depuis version 15.00i, on prend IE obligatoirement
+	lance_url_avec_ie ( "https://www.arakis.fr/" + fichier_exe )
+else
+	run(fichier_exe_complet	)
+end if
+
+
+
+end subroutine
+

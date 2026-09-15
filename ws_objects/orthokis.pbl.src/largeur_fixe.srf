@@ -1,0 +1,21 @@
+﻿$PBExportHeader$largeur_fixe.srf
+global type largeur_fixe from function_object
+end type
+
+forward prototypes
+global function string largeur_fixe (string str, integer largeur, character droite_gauche)
+end prototypes
+
+global function string largeur_fixe (string str, integer largeur, character droite_gauche);
+// renvoie une chaine de largeur fixe, avec des blancs à droite ou a gauche (selon config) si besoin
+
+
+str = string_non_nulle (str)
+
+if upper(droite_gauche) = "D" then
+	return left( str + space(largeur), largeur)
+else
+	return right( space(largeur) + str, largeur)
+end if
+end function
+

@@ -1,0 +1,30 @@
+﻿$PBExportHeader$contre_indic.srf
+global type contre_indic from function_object
+end type
+
+forward prototypes
+global subroutine contre_indic (double num, picture plein, picture vide)
+end prototypes
+
+global subroutine contre_indic (double num, picture plein, picture vide);string v_contre_indic
+decimal l
+
+SELECT contre_indic INTO :v_contre_indic FROM patient 
+WHERE code = :num ;
+
+
+l = len(trim(v_contre_indic))
+
+zero(l)
+
+vide.visible = false
+plein.visible = false
+
+if l = 0 then
+	vide.visible = true
+else
+	plein.visible = true
+end if
+
+end subroutine
+

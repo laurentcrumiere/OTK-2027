@@ -1,0 +1,39 @@
+﻿$PBExportHeader$libelle_debut_traitement.srf
+global type libelle_debut_traitement from function_object
+end type
+
+forward prototypes
+global function string libelle_debut_traitement (double v_code)
+end prototypes
+
+global function string libelle_debut_traitement (double v_code);
+// recherche du nom du praticien
+string nom_praticien , v_libelle_debut_traitement 
+date v_debut_traitement, v_dn, v_date_reprise
+string v_age
+
+select  patient.debut_traitement, patient.date_reprise into  :v_debut_traitement , :v_date_reprise
+from patient where patient.code  = :v_code ;
+
+if Belgique then
+	if not isnull(v_debut_traitement) then
+		v_libelle_debut_traitement = " - Début TOC : "+string(v_debut_traitement)
+	else
+		if not isnull(v_date_reprise) then
+			v_libelle_debut_traitement = " - Début TPI : "+string(v_date_reprise)
+		else
+			v_libelle_debut_traitement = " - Traitement non débuté"
+		end if
+	end if
+else
+	if not isnull(v_debut_traitement) then
+		v_libelle_debut_traitement = " - Début traitement : "+string(v_debut_traitement)
+	else
+		v_libelle_debut_traitement = " - Traitement non débuté"
+	end if
+end if
+
+return v_libelle_debut_traitement
+
+end function
+

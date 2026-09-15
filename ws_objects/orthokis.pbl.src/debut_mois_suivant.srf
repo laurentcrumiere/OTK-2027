@@ -1,0 +1,23 @@
+﻿$PBExportHeader$debut_mois_suivant.srf
+global type debut_mois_suivant from function_object
+end type
+
+forward prototypes
+global function date debut_mois_suivant (date date_depart)
+end prototypes
+
+global function date debut_mois_suivant (date date_depart);// Retourne le premier du mois suivant par rapport à une date donnée
+date d
+integer mtd
+
+mtd = month(date_depart)
+
+d = date_depart
+
+DO WHILE month(d) = mtd
+	d = relativedate(d,1)
+LOOP
+
+return d
+end function
+

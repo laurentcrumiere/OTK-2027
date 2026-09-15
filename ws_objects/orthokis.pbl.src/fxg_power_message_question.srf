@@ -1,0 +1,19 @@
+﻿$PBExportHeader$fxg_power_message_question.srf
+global type fxg_power_message_question from function_object
+end type
+
+forward prototypes
+global function integer fxg_power_message_question (string titre, string power_message, string bouton1, string bouton2, integer bouton_defaut)
+end prototypes
+
+global function integer fxg_power_message_question (string titre, string power_message, string bouton1, string bouton2, integer bouton_defaut);
+// Utilisation des PowerMessage ... 
+integer bouton_clique
+
+gnv_message.of_Register(w_mdi_2020)
+gnv_message.of_setbuttontext (bouton1, bouton2)
+bouton_clique = gnv_message.messagebox (titre, power_message,  YesNo! , bouton_defaut)
+
+return bouton_clique
+end function
+

@@ -1,0 +1,109 @@
+﻿$PBExportHeader$appel_palette.srf
+global type appel_palette from function_object
+end type
+
+forward prototypes
+global function boolean appel_palette (ref long resultat_couleur)
+end prototypes
+
+global function boolean appel_palette (ref long resultat_couleur);//Declaration des variable locales
+//--------------------------
+boolean 				resultat
+
+init_couleur_personnalisee()
+
+if chooseColor(resultat_couleur, couleur_personnalisee ) = 1 then
+	//----------------------------------------------------------------------------
+	save_couleur_personnalisee ()
+	resultat = true
+else
+	resultat = false
+end if
+
+/*
+
+str_choix_couleur 	structure_couleur		//Structure de la couleur
+ulong					tableau_temporaire		//Stocke les couleurs personnalisé pendant l'affichage de la fenetre couleur
+														//Necessaire pour avoir une gestion par pointeur
+
+// Si la palette de couleur est déjà active, on la ferme pour en ouvrir une autre
+
+
+
+ulong handle
+string  lpClassName
+
+string nom_fenetre
+
+nom_fenetre = "Couleurs"
+
+setnull(lpClassName)
+// Récupération du Handle de la fenetre pour savoir si le soft est lancé ou pas
+handle = FindWindowA ( lpClassName, nom_fenetre) 
+if handle > 0 then
+	// La palette est lancé => mis en avant plan
+	integer id
+//	for id = 0 to 9
+//		Messagebox("id",id)
+		ShowWindow(  handle ,8)
+		ShowWindow(  handle ,9)
+//	next
+else
+
+		
+	
+	// Autorise toutes les options de la fenetre
+	//---------------------------------
+	structure_couleur.flag = 1
+	
+	// Valeur par defaut, c'est comme ca
+	//----------------------------
+	SetNull(structure_couleur.proprietaire)
+	
+	// Alloue la memoire dans laquelle on va copier le tableau de couleur perso pour le faire passe en param
+	//---------------------------------------------------------------------------------
+	tableau_temporaire = globalAlloc(2,64)
+	
+	//Renvoie le pointeur
+	//----------------
+	tableau_temporaire = globallock (tableau_temporaire)
+	
+	//Copie des couleurs perso en memoire
+	//-------------------------------
+	CopyMemory(tableau_temporaire,couleur_personnalisee,64)
+	
+	//Affecte l'adresse du tableau a la structure couleur
+	//----------------------------------------
+	structure_couleur.couleur_personnalise = tableau_temporaire
+	
+	//Definit la taille de la structure, pourquoi 36 ? => Mystere
+	//----------------------------------------------
+	structure_couleur.taille_structure = 36
+	
+	// Appel de la fenetre
+	//----------------
+	resultat = ChooseColorA ( structure_couleur )
+	
+	//Renvoie la valeur et le tableau des couleurs personnalisé
+	//---------------------------------------------
+	if resultat then
+		resultat_couleur = structure_couleur.resultat_rgb 
+		CopyMemory(couleur_personnalisee,tableau_temporaire,64)
+	end if
+	
+	//Libere la memoire du tableau de couleur temporaire
+	//------------------------------------------
+	globalunlock(tableau_temporaire)
+	globalfree(tableau_temporaire)
+	
+	//On sauvegarde la palette des couleurs perso au cas ou elle a ete modifie dans la fenetre couleur
+	//----------------------------------------------------------------------------
+	save_couleur_personnalisee ()
+
+end if
+*/
+return resultat
+
+
+end function
+

@@ -1,0 +1,127 @@
+﻿$PBExportHeader$synchroniser_patients.srf
+global type synchroniser_patients from function_object
+end type
+
+forward prototypes
+global function integer synchroniser_patients (double code_patient1, double code_patient2)
+end prototypes
+
+global function integer synchroniser_patients (double code_patient1, double code_patient2);
+// Permet de synchroniser les infos qui doivent être identiques entre 2 fiches ... => aynchro admini
+
+// Principe ...
+// Le patient code_patient1 a été mis à jour ... on met à jour code_parent2 avec ses infos
+
+// La fonction peut être appelé en directe pour par synchroniser_parente
+
+// renvoie 1 si succés, 0 sinon
+
+
+string v_nom_patient2, v_nom_patient1
+boolean b_suite
+
+select isnull(nom,'') + ' '+ isnull(prenom,'') into :v_nom_patient2 from patient where code = :code_patient2 ;
+select isnull(nom,'') + ' '+ isnull(prenom,'') into :v_nom_patient1 from patient where code = :code_patient1 ;
+
+
+// élements à récupérer
+string v_nom_parent1,            v_adr1_parent1,             v_adr2_parent1,             v_codep_parent1,         v_ville_parent1,     		v_pays_parent1,        v_teldom_parent1,             v_teltra_parent1,      	v_com_parent1,             v_secu_parent1
+string	v_prof_parent1,				v_prof2_parent1, 			v_titre_parent1,				 v_portable, 				v_teldom2_parent1,    v_teltra2_parent1, 	v_portable2_parent1,			v_comtel1_parent1, 	v_comtel2_parent1 
+string	v_nom_parent2,            v_adr1_parent2,             v_adr2_parent2,             v_codep_parent2,         v_ville_parent2,     		v_pays_parent2,        v_teldom_parent2,             v_teltra_parent2,      	v_com_parent2,             v_secu_parent2
+string	v_prof_parent2,				v_prof2_parent2, 			v_titre_parent2,				 v_portable1_parent2, 				v_teldom2_parent2,    v_teltra2_parent2, 	v_portable2_parent2,			v_comtel1_parent2, 	v_comtel2_parent2 
+string	v_nom_payeur,            v_adr1_payeur,             v_adr2_payeur,             v_codep_payeur,         v_ville_payeur,     		v_pays_payeur,        v_teldom_payeur,             v_teltra_payeur,      	v_com_payeur,             v_secu_payeur
+string	v_prof_payeur,				v_prof2_payeur, 			v_titre_payeur,				 v_portable1_payeur, 				v_teldom2_payeur,    v_teltra2_payeur, 	v_portable2_payeur,			v_comtel1_payeur, 	v_comtel2_payeur
+string v_email, v_email_parent2, v_email_payeur
+
+
+// Récup des éléments mettre à jour ....
+	
+select "nom_parent1",             "adr1_parent1",              "adr2_parent1",              "codep_parent1",          "ville_parent1",     		"pays_parent1",         "teldom_parent1",              "teltra_parent1",      	"com_parent1",              "secu_parent1",
+		"prof_parent1",				"prof2_parent1", 			"titre_parent1",				  "portable", 				"teldom2_parent1",     "teltra2_parent1", 	"portable2_parent1",			"comtel1_parent1", 	 "comtel2_parent1" , 
+		"nom_parent2",             "adr1_parent2",              "adr2_parent2",              "codep_parent2",          "ville_parent2",     		"pays_parent2",         "teldom_parent2",              "teltra_parent2",      	"com_parent2",              "secu_parent2",
+		"prof_parent2",				"prof2_parent2", 			"titre_parent2",				  "portable1_parent2", 				"teldom2_parent2",     "teltra2_parent2", 	"portable2_parent2",			"comtel1_parent2", 	 "comtel2_parent2" , 
+		"nom_payeur",             "adr1_payeur",              "adr2_payeur",              "codep_payeur",          "ville_payeur",     		"pays_payeur",         "teldom_payeur",              "teltra_payeur",      	"com_payeur",              "secu_payeur",
+		"prof_payeur",				"prof2_payeur", 			"titre_payeur",				  "portable1_payeur", 				"teldom2_payeur",     "teltra2_payeur", 	"portable2_payeur",			"comtel1_payeur", 	 "comtel2_payeur" ,
+		"email",						"email_parent2",			"email_payeur"
+
+into 	:v_nom_parent1,            :v_adr1_parent1,             :v_adr2_parent1,             :v_codep_parent1,         :v_ville_parent1,     		:v_pays_parent1,        :v_teldom_parent1,             :v_teltra_parent1,      	:v_com_parent1,             :v_secu_parent1,
+		:v_prof_parent1,				:v_prof2_parent1, 			:v_titre_parent1,				 :v_portable, 				:v_teldom2_parent1,    :v_teltra2_parent1, 	:v_portable2_parent1,			:v_comtel1_parent1, 	:v_comtel2_parent1 , 
+		:v_nom_parent2,            :v_adr1_parent2,             :v_adr2_parent2,             :v_codep_parent2,         :v_ville_parent2,     		:v_pays_parent2,        :v_teldom_parent2,             :v_teltra_parent2,      	:v_com_parent2,             :v_secu_parent2,
+		:v_prof_parent2,				:v_prof2_parent2, 			:v_titre_parent2,				 :v_portable1_parent2, 				:v_teldom2_parent2,    :v_teltra2_parent2, 	:v_portable2_parent2,			:v_comtel1_parent2, 	:v_comtel2_parent2 , 
+		:v_nom_payeur,            :v_adr1_payeur,             :v_adr2_payeur,             :v_codep_payeur,         :v_ville_payeur,     		:v_pays_payeur,        :v_teldom_payeur,             :v_teltra_payeur,      	:v_com_payeur,             :v_secu_payeur,
+		:v_prof_payeur,				:v_prof2_payeur, 			:v_titre_payeur,				 :v_portable1_payeur, 				:v_teldom2_payeur,    :v_teltra2_payeur, 	:v_portable2_payeur,			:v_comtel1_payeur, 	:v_comtel2_payeur ,
+		:v_email, 					:v_email_parent2, 			:v_email_payeur		
+from patient
+
+where code = :code_patient1 ;
+
+v_nom_parent1 = string_non_nulle(v_nom_parent1)
+
+if v_nom_parent1 = "" then 
+	if messagebox("ATTENTION", "Vous êtes sur le point de synchroniser les informations administratives de " + v_nom_patient1 + " vers " + v_nom_patient2 +".~n~nOr, la fiche de " + v_nom_patient1 + " n'a pas de nom saisi dans la zone Parent 1.~n~nConfirmez-vous la synchronisation (au risque d'effacer des informations saisies dans le dossier de " + v_nom_patient2 + ") ?", Question!, YesNo!, 2) = 1 then 
+		b_suite = true
+	else
+		b_suite = false
+	end if
+	
+else
+	b_suite = true
+	
+end if
+	
+	
+if b_suite then	
+	// on ne met pas à jour les N° de sécu !!!!
+	// Lien même assuré pour ça
+		
+	if belgique then
+			
+		update patient 
+		set  "nom_parent1" = :v_nom_parent1,             "adr1_parent1" = :v_adr1_parent1,              "adr2_parent1" = :v_adr2_parent1,              "codep_parent1" = :v_codep_parent1,          "ville_parent1" = :v_ville_parent1,     		"pays_parent1" = :v_pays_parent1,         "teldom_parent1" = :v_teldom_parent1,              "teltra_parent1" = :v_teltra_parent1,      	"com_parent1" = :v_com_parent1,              
+		//"secu_parent1" = :v_secu_parent1,
+				"prof_parent1" = :v_prof_parent1,				"prof2_parent1" = :v_prof2_parent1 , 			"titre_parent1" = :v_titre_parent1 ,				  "portable" = :v_portable , 				"teldom2_parent1" = :v_teldom2_parent1 ,     "teltra2_parent1" = :v_teltra2_parent1 , 	"portable2_parent1" = :v_portable2_parent1 ,			"comtel1_parent1" = :v_comtel1_parent1 , 	 "comtel2_parent1" = :v_comtel2_parent1 , 
+				"nom_parent2" = :v_nom_parent2 ,             "adr1_parent2" = :v_adr1_parent2 ,              "adr2_parent2" = :v_adr2_parent2,              "codep_parent2" = :v_codep_parent2 ,          "ville_parent2" = :v_ville_parent2 ,     		"pays_parent2" = :v_pays_parent2 ,         "teldom_parent2" = :v_teldom_parent2 ,              "teltra_parent2" = :v_teltra_parent2 ,      	"com_parent2" = :v_com_parent2 ,             
+				//"secu_parent2" = :v_secu_parent2 ,
+				"prof_parent2" = :v_prof_parent2 ,				"prof2_parent2" = :v_prof2_parent2 , 			"titre_parent2" = :v_titre_parent2 ,				  "portable1_parent2" = :v_portable1_parent2 , 				"teldom2_parent2" = :v_teldom2_parent2 ,     "teltra2_parent2" = :v_teltra2_parent2 , 	"portable2_parent2" = :v_portable2_parent2 ,			"comtel1_parent2" = :v_comtel1_parent2 , 	 "comtel2_parent2" = :v_comtel2_parent2 , 
+				"nom_payeur" = :v_nom_payeur ,             "adr1_payeur" = :v_adr1_payeur ,              "adr2_payeur" = :v_adr2_payeur ,              "codep_payeur" = :v_codep_payeur ,          "ville_payeur" = :v_ville_payeur ,     		"pays_payeur" = :v_pays_payeur ,         "teldom_payeur" = :v_teldom_payeur ,              "teltra_payeur" = :v_teltra_payeur ,      	"com_payeur" = :v_com_payeur ,             
+				//"secu_payeur" = :v_secu_payeur ,
+				"prof_payeur" = :v_prof_payeur ,				"prof2_payeur" = :v_prof2_payeur , 			"titre_payeur" = :v_titre_payeur ,				  "portable1_payeur" = :v_portable1_payeur , 				"teldom2_payeur" = :v_teldom2_payeur ,     "teltra2_payeur" = :v_teltra2_payeur , 	"portable2_payeur" = :v_portable2_payeur ,			"comtel1_payeur" = :v_comtel1_payeur , 	 "comtel2_payeur" = :v_comtel2_payeur ,
+				"email" = :v_email ,								"email_parent2" = :v_email_parent2,			"email_payeur" = :v_email_payeur
+		
+		where code = :code_patient2 ; 
+	
+	else
+	
+		update patient 
+		set  "nom_parent1" = :v_nom_parent1,             "adr1_parent1" = :v_adr1_parent1,              "adr2_parent1" = :v_adr2_parent1,              "codep_parent1" = :v_codep_parent1,          "ville_parent1" = :v_ville_parent1,     		"pays_parent1" = :v_pays_parent1,         "teldom_parent1" = :v_teldom_parent1,              "teltra_parent1" = :v_teltra_parent1,      	"com_parent1" = :v_com_parent1,              "secu_parent1" = :v_secu_parent1,
+				"prof_parent1" = :v_prof_parent1,				"prof2_parent1" = :v_prof2_parent1 , 			"titre_parent1" = :v_titre_parent1 ,				  "portable" = :v_portable , 				"teldom2_parent1" = :v_teldom2_parent1 ,     "teltra2_parent1" = :v_teltra2_parent1 , 	"portable2_parent1" = :v_portable2_parent1 ,			"comtel1_parent1" = :v_comtel1_parent1 , 	 "comtel2_parent1" = :v_comtel2_parent1 , 
+				"nom_parent2" = :v_nom_parent2 ,             "adr1_parent2" = :v_adr1_parent2 ,              "adr2_parent2" = :v_adr2_parent2,              "codep_parent2" = :v_codep_parent2 ,          "ville_parent2" = :v_ville_parent2 ,     		"pays_parent2" = :v_pays_parent2 ,         "teldom_parent2" = :v_teldom_parent2 ,              "teltra_parent2" = :v_teltra_parent2 ,      	"com_parent2" = :v_com_parent2 ,              "secu_parent2" = :v_secu_parent2 ,
+				"prof_parent2" = :v_prof_parent2 ,				"prof2_parent2" = :v_prof2_parent2 , 			"titre_parent2" = :v_titre_parent2 ,				  "portable1_parent2" = :v_portable1_parent2 , 				"teldom2_parent2" = :v_teldom2_parent2 ,     "teltra2_parent2" = :v_teltra2_parent2 , 	"portable2_parent2" = :v_portable2_parent2 ,			"comtel1_parent2" = :v_comtel1_parent2 , 	 "comtel2_parent2" = :v_comtel2_parent2 , 
+				"nom_payeur" = :v_nom_payeur ,             "adr1_payeur" = :v_adr1_payeur ,              "adr2_payeur" = :v_adr2_payeur ,              "codep_payeur" = :v_codep_payeur ,          "ville_payeur" = :v_ville_payeur ,     		"pays_payeur" = :v_pays_payeur ,         "teldom_payeur" = :v_teldom_payeur ,              "teltra_payeur" = :v_teltra_payeur ,      	"com_payeur" = :v_com_payeur ,              "secu_payeur" = :v_secu_payeur ,
+				"prof_payeur" = :v_prof_payeur ,				"prof2_payeur" = :v_prof2_payeur , 			"titre_payeur" = :v_titre_payeur ,				  "portable1_payeur" = :v_portable1_payeur , 				"teldom2_payeur" = :v_teldom2_payeur ,     "teltra2_payeur" = :v_teltra2_payeur , 	"portable2_payeur" = :v_portable2_payeur ,			"comtel1_payeur" = :v_comtel1_payeur , 	 "comtel2_payeur" = :v_comtel2_payeur ,
+				"email" = :v_email ,								"email_parent2" = :v_email_parent2,			"email_payeur" = :v_email_payeur
+		
+		where code = :code_patient2 ; 
+		
+	end if
+
+
+	if sqlca.sqlcode = 0 then
+		commit ;
+		return 1
+	else
+		
+		string texte_erreur
+		
+		texte_erreur = sqlca.sqlerrtext
+		
+		Messagebox("ATTENTION","Erreur dans la mise synchronisée de "+v_nom_patient2+".~n~n" + texte_erreur)
+		rollback ;
+		return 0
+	end if
+	
+end if
+
+
+end function
+

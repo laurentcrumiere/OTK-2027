@@ -1,0 +1,64 @@
+﻿$PBExportHeader$p_archive.srj
+$PBExportComments$Generated Application Executable Project
+EXE:archive.exe,orthokis.pbr,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 21.0.0.1506
+CMP:0,0,0,2,0,0,1
+COM:ARAKIS
+DES:(c) ARAKIS
+CPY:ARAKIS 2009
+PRD:Archivage Externe de Dossiers Orthokis
+PVS:2009
+PVN:2009,0,0,1
+FVS:2009
+FVN:2009,0,0,1
+MAN:0,asInvoker,0
+PBD:archive.pbl,,0
+OBJ:c:\power\v2022 - sources\archive.pbl,fxg_get_rep_photos,f
+OBJ:c:\power\v2022 - sources\archive.pbl,archive,a
+OBJ:c:\power\v2022 - sources\archive.pbl,dw_reglements_edition,d
+OBJ:C:\power\V2022 - Sources\archive.pbl,archive,a
+OBJ:c:\power\v2022 - sources\archive.pbl,dw_cherche_prati,d
+OBJ:c:\power\v2022 - sources\archive.pbl,w_diagnos_maj_sebillotte2,w
+OBJ:c:\power\v2022 - sources\archive.pbl,copie_ecran_fenetre_clipboard,f
+OBJ:c:\power\v2022 - sources\archive.pbl,gfx_extraire_extension_fichier,f
+OBJ:c:\power\v2022 - sources\archive.pbl,fxg_em_setdata,f
+OBJ:c:\power\v2022 - sources\archive.pbl,w_diagnos_maj_sebillotte3,w
+OBJ:c:\power\v2022 - sources\archive.pbl,dw_diagnos_kuntzel2,d
+OBJ:c:\power\v2022 - sources\archive.pbl,gfx_extraire_nom_fichier,f
+OBJ:c:\power\v2022 - sources\archive.pbl,dw_coment_edition_sebillotte,d
+OBJ:c:\power\v2022 - sources\archive.pbl,w_affpasse,w
+OBJ:c:\power\v2022 - sources\archive.pbl,w_diagnos_maj_sebillotte1,w
+OBJ:c:\power\v2022 - sources\archive.pbl,centrer,f
+OBJ:c:\power\v2022 - sources\archive.pbl,w_mot_passe_reglements,w
+OBJ:c:\power\v2022 - sources\archive.pbl,dw_rdv_edition,d
+OBJ:c:\power\v2022 - sources\archive.pbl,place,f
+OBJ:c:\power\v2022 - sources\archive.pbl,dw_patient_fiche_edition,d
+OBJ:c:\power\v2022 - sources\archive.pbl,gfx_extraire_path_fichier,f
+OBJ:c:\power\v2022 - sources\archive.pbl,uo_fx_pages_cliniques,u
+OBJ:c:\power\v2022 - sources\archive.pbl,w_mot_passe_acces,w
+OBJ:c:\power\v2022 - sources\archive.pbl,uo_picturebutton,u
+OBJ:c:\power\v2022 - sources\archive.pbl,w_patience,w
+OBJ:c:\power\v2022 - sources\archive.pbl,hasp,u
+OBJ:c:\power\v2022 - sources\archive.pbl,export_pdf,f
+OBJ:c:\power\v2022 - sources\archive.pbl,dw_liste_archive,d
+OBJ:c:\power\v2022 - sources\archive.pbl,security_attributes,s
+OBJ:c:\power\v2022 - sources\archive.pbl,dw_comment_admini_edition,d
+OBJ:c:\power\v2022 - sources\archive.pbl,w_main,w
+OBJ:c:\power\v2022 - sources\archive.pbl,place_avec_blancs,f
+OBJ:c:\power\v2022 - sources\archive.pbl,dw_cherche_dossier,d
+OBJ:c:\power\v2022 - sources\archive.pbl,uo_picturebutton_390x120,u
+OBJ:c:\power\v2022 - sources\archive.pbl,gearbox,u
+OBJ:c:\power\v2022 - sources\archive.pbl,w_diagnos_maj_standard1,w
+OBJ:c:\power\v2022 - sources\archive.pbl,gfx_suppr_rep,f
+OBJ:c:\power\v2022 - sources\archive.pbl,uo_exif_jhead,u
+OBJ:c:\power\v2022 - sources\archive.pbl,w_diagnos_maj_kuntzel3,w
+OBJ:c:\power\v2022 - sources\archive.pbl,copie_ecran,f
+OBJ:c:\power\v2022 - sources\archive.pbl,dw_diag_sebillotte,d
+OBJ:c:\power\v2022 - sources\archive.pbl,w_diagnos_maj_kuntzel2,w
+OBJ:c:\power\v2022 - sources\archive.pbl,dw_comment_edition,d
+OBJ:c:\power\v2022 - sources\archive.pbl,dw_diagnos_kuntzel4,d
+OBJ:c:\power\v2022 - sources\archive.pbl,w_diagnos_maj_standard3,w
+OBJ:c:\power\v2022 - sources\archive.pbl,w_diagnos_maj_,w
+OBJ:c:\power\v2022 - sources\archive.pbl,w_diagnos_maj_kuntzel1,w
+OBJ:c:\power\v2022 - sources\archive.pbl,w_diagnos_maj_standard2,w
+OBJ:c:\power\v2022 - sources\archive.pbl,fxg_fileexists,f
+OBJ:c:\power\v2022 - sources\archive.pbl,dw_historique_diagnostic,d

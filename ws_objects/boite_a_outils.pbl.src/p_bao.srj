@@ -1,0 +1,17 @@
+﻿$PBExportHeader$p_bao.srj
+EXE:boite_a_outils.exe,,0,0,1
+CMP:0,0,0,2,0,0,1
+COM:Sybase, Inc.
+DES:Sybase, Inc. Product File
+CPY:
+PRD:PowerBuilder Enterprise Series
+PVS:1.0.0.1
+PVN:1,0,0,1
+FVS:1.0.0.1
+FVN:1,0,0,1
+MAN:0,asInvoker,0
+PBD:boite_a_outils.pbl,,0
+OBJ:c:\power\v2019\boite_a_outils.pbl,w_patience,w
+OBJ:C:\Power\V2019\boite_a_outils.pbl,boite_a_outils,a
+OBJ:c:\power\v2019\boite_a_outils.pbl,win_protection,w
+OBJ:c:\power\v2019\boite_a_outils.pbl,w_main,w

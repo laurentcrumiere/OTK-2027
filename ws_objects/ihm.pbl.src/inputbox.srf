@@ -1,0 +1,30 @@
+﻿$PBExportHeader$inputbox.srf
+global type inputbox from function_object
+end type
+
+forward prototypes
+global function string inputbox (string ltitre, string lquestion)
+end prototypes
+
+global function string inputbox (string ltitre, string lquestion);// fx qui ouvre une fenêtre w_inputbox
+// et la configue selon les éléments passés en param
+
+string			lstr, lstrparam
+str_inputbox	str_ib
+
+
+// on charge la structure
+str_ib.w_titre		= ltitre
+str_ib.w_question	= lquestion
+
+// construction 
+if OpenWithParm(w_inputbox, str_ib) = 1 then
+// pas de pb, la fenêtre s'est bien ouverte
+	// on récup alors la réponse
+	// dès que l'utilisateur ferme la fenêtre -> car elle est en Response!
+	lstr = message.StringParm
+end if
+
+return string_non_nulle(lstr)
+end function
+

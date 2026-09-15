@@ -1,0 +1,54 @@
+﻿$PBExportHeader$exporter_fichier_texte_brut.srf
+global type exporter_fichier_texte_brut from function_object
+end type
+
+forward prototypes
+global function integer exporter_fichier_texte_brut (datawindow dw_export, string nom_fichier_export)
+end prototypes
+
+global function integer exporter_fichier_texte_brut (datawindow dw_export, string nom_fichier_export);
+
+
+// Exporte la DW jointe en tant que fichier texte, brute, sans entête
+
+
+string nom_fichier_export_temp
+integer numero_fichier_export_temp, numero_fichier_export
+string ligne
+long cpt_lig
+
+
+nom_fichier_export_temp = nom_fichier_export+".tmp"
+
+if dw_export.SaveAsFormattedText(nom_fichier_export_temp, EncodingANSI!, '', '' )  = 1 then
+	
+	// Faut virer la première ligne qui contient les entêtes
+	numero_fichier_export_temp = FileOpen(nom_fichier_export_temp, LineMode!, read!)
+	numero_fichier_export = FileOpen(nom_fichier_export, LineMode!, Write!, Lockwrite!, replace!)
+	cpt_lig = 0
+	
+	do while FileRead(numero_fichier_export_temp, ligne) > 0 
+		cpt_lig = cpt_lig + 1
+		if cpt_lig > 1 then
+			// pas la 1ère ligne
+			FileWrite(numero_fichier_export, ligne)
+		end if
+	loop
+	
+	FileClose(numero_fichier_export_temp)
+	FileClose(numero_fichier_export)
+	
+	if FileExists(nom_fichier_export	) then
+		return 1
+	else
+		return 0
+	end if
+else
+
+	return 0
+end if
+
+
+return 1
+end function
+

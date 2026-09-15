@@ -1,0 +1,83 @@
+﻿$PBExportHeader$enlever_accents.srf
+global type enlever_accents from function_object
+end type
+
+forward prototypes
+global function string enlever_accents (string chaine)
+end prototypes
+
+global function string enlever_accents (string chaine);// Fonction fournie par TELEVITALE (Eric FAYET le 21.03.2000)
+
+// Paramètres:
+// chaine : chaine de caractères à traiter
+// - elle peut contenir n'importe quel type de caractères
+// - le caractère "~n" est traduit en ""
+// - renvoie la chaine qui ne contient que des majuscules, chiffres et espaces
+
+// -------------------------------- ATTENTION -------------------------
+// Par rapport à la table de conversion réalisée par le CNDA, on
+// conserve les "-" 
+//--------------------------------------------------------------------------
+
+long ind						// Indice de la chaine pour le parcours
+string nouvelle_chaine	// Nouvelle chaine de caractère qui sera renvoyée
+char	car_lu					// Caractère courant étudié
+char	car_ecrit				// Caractère courant modifié
+long	lg_chaine			// Longueur de la chaine à étudier
+
+
+lg_chaine = len(chaine)
+nouvelle_chaine = ''
+
+for ind = 1 to lg_chaine
+	
+	car_lu = mid(chaine,ind,1)
+	
+	if car_lu ="~n" then
+		// vide buffer et écrit le fichier
+		car_ecrit = ""
+	else
+		// Converti certains car. spéciaux en majuscules
+		choose case car_lu
+			case "é","è","ê","ë","È","É","Ê","Ë"
+				car_ecrit="E"
+			case "à","á","â","ã","ä","å","À","Á","Â","Ã","Ä","Å"
+				car_ecrit="A"
+			case "ù","ú","û","ü","Ù","Ú","Û","Ü"
+				car_ecrit="U"
+			case "ò","ó","ô","õ","ö","Ò","Ó","Ô","Õ","Ö"
+				car_ecrit="O"
+			case "ç","Ç"
+				car_ecrit="C"
+			case "æ","Æ"
+				car_ecrit="A"
+			case "ì","í","î","ï","Ì","Í","Î","Ï"
+				car_ecrit="I"
+			case "Ð","ð"
+				car_ecrit="D"
+			case "Ñ","ñ"
+				car_ecrit="N"
+			case "Ø","ø"
+				car_ecrit="O"
+			case "Ý","ý","ÿ"
+				car_ecrit="Y"
+			case "ß"
+				car_ecrit="B"
+			case "-"
+				car_ecrit = car_lu
+			case "'"
+				car_ecrit = car_lu
+			case "A" to "Z","0" to "9","a" to "z", " "
+				car_ecrit = upper(car_lu)
+//			case else
+//				car_ecrit = ' '
+		end choose
+	end if
+
+	nouvelle_chaine = nouvelle_chaine + car_ecrit	
+next
+
+return(nouvelle_chaine)
+
+end function
+

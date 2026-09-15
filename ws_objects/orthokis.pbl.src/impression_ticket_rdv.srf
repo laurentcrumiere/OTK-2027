@@ -1,0 +1,230 @@
+﻿$PBExportHeader$impression_ticket_rdv.srf
+global type impression_ticket_rdv from function_object
+end type
+
+forward prototypes
+global subroutine impression_ticket_rdv (double code_patient, datetime var_rdv, uo_edition_rtf uo_edition, boolean envoi_email)
+end prototypes
+
+global subroutine impression_ticket_rdv (double code_patient, datetime var_rdv, uo_edition_rtf uo_edition, boolean envoi_email);// Impression d'un ticket de RDV
+// Fonction appelée depuis w_rdv_maj et w_agenda et salle d'attente
+
+// envoi email sert à savoir si impression papier ou envoi email diret
+
+integer  nb
+datetime proc_rdv
+date date_eche
+decimal  montant
+decimal {2} du, du_rdv
+long lig
+integer cpt
+boolean tous_rdv_futurs
+
+string type_de_ticket, v_format_rdv_courrier
+
+// Vaut R pour RTF et W pour WORD
+type_de_ticket = profileString(dir_ini+inifile_orthokis,"rendez-vous","ticket_format","R")
+
+// est ce qu'on prend tous les rdv futurs en automatique
+if profileString(dir_ini+inifile_orthokis,"rendez-vous","ticket_tous_rdv_futurs","O") = "O" then
+	// on prend tous ls rdv futurs => on se "repositionne" automatiquement sur le premier rdv futur du patient
+	var_rdv = proc_rdv(code_patient)
+	
+	if isnull(var_rdv) then
+		
+		MessageBox("ATTENTION","Vous souhaitez imprimer un ticket pour les Rendez-vous futurs du patient (cf. Option de l'environnement du poste de travail), or ce patient n'en a aucun !")
+		
+	end if
+end if
+
+// Récupération du format des dates et heures ...
+select min(format_rdv_courrier) into :v_format_rdv_courrier from param ;
+
+
+	if type_de_ticket = "R" then
+		Datastore dw_donnees_datastore				// pour le RTF
+		dw_donnees_datastore = CREATE DataStore
+		dw_donnees_datastore.DataObject = "dw_lettre_ticket"
+		dw_donnees_datastore.SetTransObject(SQLCA)
+		dw_donnees_datastore.Retrieve(code_patient,var_rdv)
+
+		// on ne garde qu'un enregistrement !!!
+		// cas de 2 rdv pour le meme patient à la meme heure !!
+		if dw_donnees_datastore.rowcount() > 1 then
+			for cpt = dw_donnees_datastore.rowcount() to 2 step -1
+				dw_donnees_datastore.deleterow(cpt)
+			next
+		end if
+	else
+		// Ticket WORD
+		// On est obligé d'avoir une datawindow et non un datastore
+		// Soucis en local
+		// => La datawindow est placé dans w_mdi
+	
+		w_mdi_2020.dw_lettre_ticket_rdv.SetTransObject(SQLCA)
+		w_mdi_2020.dw_lettre_ticket_rdv.Retrieve(code_patient,var_rdv)
+		// on ne garde qu'un enregistrement !!!
+		// cas de 2 rdv pour le meme patient à la meme heure !!
+		if w_mdi_2020.dw_lettre_ticket_rdv.rowcount() > 1 then
+			for cpt = w_mdi_2020.dw_lettre_ticket_rdv.rowcount() to 2 step -1
+				w_mdi_2020.dw_lettre_ticket_rdv.deleterow(cpt)
+			next
+		end if
+		
+	end if		
+
+	 
+// On va mettre des champs à jour par programme ... on peut pas faire autrement !!!
+	du = due(code_patient,today())
+	du_rdv = due(code_patient,date(var_rdv))
+	if type_de_ticket = "R" then
+		lig = dw_donnees_datastore.GetRow()
+		// On ne met la somme due qui si effectivement due
+		if du > 0 then
+			dw_donnees_datastore.SetItem(lig,"somme_due",du)
+		else
+			dw_donnees_datastore.SetItem(lig,"somme_due",0)
+		end if
+		
+		// On ne met la somme due au jour du rdv qui si effectivement due
+		if du_rdv > 0 then
+			dw_donnees_datastore.SetItem(lig,"somme_due_date_rdv",string(du_rdv,"0.00"))
+		else
+			dw_donnees_datastore.SetItem(lig,"somme_due_date_rdv","0")
+		end if
+
+		proc_reglt(code_patient,date_eche,montant,'P')
+		dw_donnees_datastore.SetItem(lig,"date_proc_reglt",date_eche)
+		dw_donnees_datastore.SetItem(lig,"mont_proc_reglt",montant)	
+		// Mise à jour du jour du rendez-vous
+		dw_donnees_datastore.SetItem(lig,"date_rdv",jour(daynumber(date(var_rdv))) +" "+jour_et_mois_francais(string(  var_rdv ,v_format_rdv_courrier ) ))
+		dw_donnees_datastore.SetItem(lig,"date_rdv2","" )
+		dw_donnees_datastore.SetItem(lig,"date_rdv3","" )
+		dw_donnees_datastore.SetItem(lig,"date_rdv4","" )
+		dw_donnees_datastore.SetItem(lig,"date_rdv5","" )
+		dw_donnees_datastore.SetItem(lig,"date_rdv6","" )
+		dw_donnees_datastore.SetItem(lig,"mois_annee_prochain_reglement", mois( month( date_eche ))+ " "+string(year(date_eche )) )
+	else
+		
+			
+		// Word
+		// On ne met la somme due qui si effectivement due
+		lig = w_mdi_2020.dw_lettre_ticket_rdv.GetRow()
+		
+		if du > 0 then
+			w_mdi_2020.dw_lettre_ticket_rdv.SetItem(lig,"somme_due",du)
+		else
+			w_mdi_2020.dw_lettre_ticket_rdv.SetItem(lig,"somme_due",0)
+		end if
+		if du_rdv > 0 then
+			w_mdi_2020.dw_lettre_ticket_rdv.SetItem(lig,"somme_due_date_rdv",string(du_rdv, "0.00"))
+		else
+			w_mdi_2020.dw_lettre_ticket_rdv.SetItem(lig,"somme_due_date_rdv","0")
+		end if
+		proc_reglt(code_patient,date_eche,montant,'P')
+		w_mdi_2020.dw_lettre_ticket_rdv.SetItem(lig,"date_proc_reglt",date_eche)
+		w_mdi_2020.dw_lettre_ticket_rdv.SetItem(lig,"mont_proc_reglt",montant)	
+		// Mise à jour du jour du rendez-vous
+		w_mdi_2020.dw_lettre_ticket_rdv.SetItem(lig,"date_rdv",jour(daynumber(date(var_rdv))) +" "+jour_et_mois_francais(string(  var_rdv , v_format_rdv_courrier ) ))
+		w_mdi_2020.dw_lettre_ticket_rdv.SetItem(lig,"date_rdv2","" )
+		w_mdi_2020.dw_lettre_ticket_rdv.SetItem(lig,"date_rdv3","" )
+		w_mdi_2020.dw_lettre_ticket_rdv.SetItem(lig,"date_rdv4","" )
+		w_mdi_2020.dw_lettre_ticket_rdv.SetItem(lig,"date_rdv5","" )
+		w_mdi_2020.dw_lettre_ticket_rdv.SetItem(lig,"date_rdv6","" )
+		w_mdi_2020.dw_lettre_ticket_rdv.SetItem(lig,"mois_annee_prochain_reglement", mois( month( date_eche ))+ " "+string(year(date_eche )) )
+
+	end if
+
+	// Recherche des 4 prochains rendez-vous ... 
+	datetime v_rdv
+	
+	cpt = 2
+	
+	// curseur pour parcours les rdv du patient , dans l'ordre chrono
+	declare Cur_rdv Cursor for select 	rdv from rdv, etat_rdv 
+	where rdv.absent = etat_rdv.code and elimine_agenda <> 'O' and rdv.code = :code_patient and rdv > :var_rdv  order by rdv ;
+
+	open cur_rdv ;
+	
+	fetch cur_rdv into :v_rdv ; 
+	
+	do while sqlca.sqlcode = 0 and cpt <= 6
+		
+		// On ne tient pas compte des patients exlus de l'agenda
+		//select min(rdv) into :v_rdv 
+		//from rdv, etat_rdv 
+		//where rdv.absent = etat_rdv.code and elimine_agenda <> 'O' and rdv.code = :code_patient and rdv > :var_rdv  ;
+		
+		
+		var_rdv = v_rdv
+		
+		if type_de_ticket = "R" then
+			dw_donnees_datastore.SetItem(lig,"date_rdv"+string(cpt),jour(daynumber(date(v_rdv))) +" "+ jour_et_mois_francais(string(  v_rdv , v_format_rdv_courrier ) ) )
+		else
+			w_mdi_2020.dw_lettre_ticket_rdv.SetItem(lig,"date_rdv"+string(cpt),jour(daynumber(date(v_rdv))) +" "+jour_et_mois_francais(string(  v_rdv , v_format_rdv_courrier ) ) )
+		end if
+		
+		cpt = cpt + 1
+	
+		fetch cur_rdv into :v_rdv ; 
+
+	loop
+	
+	
+	close cur_rdv ;
+	
+	
+	
+	// impression proprement dite !!!
+	if type_de_ticket = 'R' then
+		
+		// Ticket RTF ... historique
+		uo_edition.edition(dw_donnees_datastore,"lettre_ticket" , envoi_email, "")
+		
+	else
+		
+		// Ticket WORD
+		uo_lien_word lien_word
+		lien_word = create uo_lien_word
+		
+		string libelle_propose = "Ticket de rendez-vous"
+		string fichier_ticket_word = ''
+		double ancien_var_code = 0
+		
+		// Nom du fichier configuré
+		select min(nom_courrier) into :fichier_ticket_word  from courriers where type_courrier = 14 ;
+		
+		if len(trim(fichier_ticket_word)) > 0 then
+			
+			//fichier_ticket_word = fxg_get_rep_courriers() + fichier_ticket_word
+			
+			// Mémorisation du code du patient courant, le temp de 
+			ancien_var_code = var_code
+			var_code = code_patient
+			
+			integer v_quel_service
+			
+			if envoi_email then
+				v_quel_service = Service_MajEtEmail
+			else
+				v_quel_service = Service_MajEtImprime
+			end if 
+			
+			if lien_word.traiter_avec_word(v_quel_service , fichier_ticket_word, w_mdi_2020.dw_lettre_ticket_rdv, fxg_get_rep_courriers(),  true) <> 1 then
+				// si pb sur le job WORD : msg d'erreur
+				messagebox("ERREUR","Un problème est survenu durant l'exécution, ~nImpossible de poursuivre !",StopSign!)
+			end if
+			
+			var_code = ancien_var_code
+
+		else
+				messagebox("ERREUR","Impossible d'imprimer le ticket.~n~nVous devez définir un document 'Ticket' dans la fenêtre des Courriers Word, bouton 'Param. Publipostage' !",StopSign!)
+		end if
+	end if
+		
+	
+	Destroy dw_donnees_datastore
+
+
+end subroutine
+

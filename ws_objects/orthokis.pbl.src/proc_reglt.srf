@@ -1,0 +1,190 @@
+﻿$PBExportHeader$proc_reglt.srf
+global type proc_reglt from function_object
+end type
+
+forward prototypes
+global subroutine proc_reglt (double nocode, ref date date_montant, ref decimal montant, character type_prochain)
+end prototypes
+
+global subroutine proc_reglt (double nocode, ref date date_montant, ref decimal montant, character type_prochain);setnull(date_montant)
+setnull(montant)
+
+// Date et montant du prochain reglement ... selon type_prochain
+//
+// type_prochain = 'P' pour reglement Patient
+// type_prochain = 'T' pour reglement TP
+// type_prochain = 'D' pour reglement de l'un ou de l'autre
+
+ 
+// Pour la somme due sur le mois !!!
+integer v_jour_somme_due
+select min(jour_somme_due) into :v_jour_somme_due from param;
+ 
+ 
+date v_date_recherche
+boolean ok_recherche = false
+decimal due1, due2, montant_proc
+date date_proc
+ 
+ 
+ v_date_recherche = today()
+ 
+// Recherche de la somme que le patient doit ou l'accompte versé par le patient à la date du jour!
+choose case type_prochain
+	case 'P'
+		due1 = due(nocode, today() )
+	case 'T'
+		due1 = due_tp(nocode, today() )
+	case 'D'
+		due1 = due(nocode, today() ) + due_tp(nocode, today() )
+end choose
+
+if due1 < 0 then 
+	// on ne tient pas compte du trop percu ici ... on en tiendra compte avec due2 ensuite
+	due1 = 0
+end if
+ 
+ 
+ do while not ok_recherche
+ 
+ 	// Recherche des dates et montant du prochain règlement
+ 	montant = 0
+ 
+	choose case type_prochain
+		case 'P'
+			// Recherche du montant et de la date du prochain réglement QUE DU PATIENT
+			
+			if v_jour_somme_due = -30 then
+				// on prend le prochain reglement par rapport à la date du jour
+				
+			  SELECT "ligne_soins"."date",   
+						sum("ligne_soins"."montant") 
+				 INTO :date_montant,   
+						:montant  
+				 FROM "ligne_soins" , "param" 
+				WHERE ( "ligne_soins"."code" = :nocode ) AND  ("ligne_soins"."tp" <> 'O' ) AND 
+						( "ligne_soins"."date" > :v_date_recherche )			
+				GROUP BY "date"
+				ORDER BY  "ligne_soins"."date" ASC ;
+				
+				
+			else
+	
+			  
+			  SELECT "ligne_soins"."date",   
+						sum("ligne_soins"."montant") 
+				 INTO :date_montant,   
+						:montant  
+				 FROM "ligne_soins"  
+				WHERE ( "ligne_soins"."code" = :nocode ) AND  ("ligne_soins"."tp" <> 'O' ) AND 
+						( "ligne_soins"."date" > dateadd(day,:v_jour_somme_due, :v_date_recherche)  )			// On tient compte du mode de calcul de la somme due J ou J-1
+				GROUP BY "date"
+				ORDER BY  "ligne_soins"."date" ASC ;
+			end if
+		case 'D'
+			// Recherche du montant et de la date du prochain réglement des 2
+			
+			if v_jour_somme_due = -30 then
+				// on prend le prochain reglement par rapport à la date du jour
+			  
+	
+			  SELECT "ligne_soins"."date",   
+						sum("ligne_soins"."montant") 
+				 INTO :date_montant,   
+						:montant  
+				 FROM "ligne_soins" , "param" 
+				WHERE ( "ligne_soins"."code" = :nocode )  AND 
+						( "ligne_soins"."date" > :v_date_recherche )			
+				GROUP BY "date"
+				ORDER BY  "ligne_soins"."date" ASC ;		
+			
+			else
+				
+			  SELECT "ligne_soins"."date",   
+						sum("ligne_soins"."montant") 
+				 INTO :date_montant,   
+						:montant  
+				 FROM "ligne_soins"  
+				WHERE ( "ligne_soins"."code" = :nocode )  AND 
+						( "ligne_soins"."date" > dateadd(day, :v_jour_somme_due, :v_date_recherche)  )			// On tient compte du mode de calcul de la somme due J ou J-1
+				GROUP BY "date"
+				ORDER BY  "ligne_soins"."date" ASC ;
+				
+			end if
+			case 'T'
+			// Recherche du montant et de la date du prochain réglement QUE TP
+			
+			if v_jour_somme_due = -30 then
+				// on prend le prochain reglement par rapport à la date du jour
+			  SELECT "ligne_soins"."date",   
+						sum("ligne_soins"."montant") 
+				 INTO :date_montant,   
+						:montant  
+				 FROM "ligne_soins"  
+				WHERE ( "ligne_soins"."code" = :nocode ) AND  ("ligne_soins"."tp" = 'O' ) AND 
+						( "ligne_soins"."date" > :v_date_recherche  )			
+				GROUP BY "date"
+				ORDER BY  "ligne_soins"."date" ASC ;
+	
+			else
+				
+				
+			  SELECT "ligne_soins"."date",   
+						sum("ligne_soins"."montant") 
+				 INTO :date_montant,   
+						:montant  
+				 FROM "ligne_soins"  
+				WHERE ( "ligne_soins"."code" = :nocode ) AND  ("ligne_soins"."tp" = 'O' ) AND 
+						( "ligne_soins"."date" > dateadd(day,:v_jour_somme_due, :v_date_recherche)  )			// On tient compte du mode de calcul de la somme due J ou J-1
+				GROUP BY "date"
+				ORDER BY  "ligne_soins"."date" ASC ;
+			end if
+	
+		end choose
+		
+		zero(montant)
+		
+		if montant = 0 then
+			// pas de prochain règlement => On arrête
+			ok_recherche = true
+		else
+			
+			// Que doit le patient à cette date ?
+		
+			// Recherche de la somme que le patient doit ou l'accompte versé par le patient à la date du jour !
+			// On tient compte du délai de somme due à l'envers de manière à savoir la somme due au jour J, quelle que soit le paramétrage des param généraux
+			choose case type_prochain
+				case 'P'
+					due2 = due(nocode,  relativedate(date_montant, - v_jour_somme_due ))
+				case 'T'
+					due2 = due_tp(nocode,  relativedate(date_montant, - v_jour_somme_due))
+				case 'D'
+					due2 = due(nocode, date_montant) + due_tp(nocode,  relativedate(date_montant, - v_jour_somme_due))
+			end choose
+			
+			if due2 - due1 > 0 then 
+				
+				// le patient doit quelque chose à cette date => C'est le prochain règlement ... et le montant est la somme du ... en enlevement la somme due aujourd'hui
+				montant = due2 - due1
+				ok_recherche = true
+			else
+				// le patient ne doit rien ou a trop payé
+				// On ne fait rien, on continue
+				// v_jour_somme_due est <= 0
+				v_date_recherche = relativedate(date_montant, - v_jour_somme_due)
+			end if
+		end if
+	loop
+				
+	
+// On ne veut pas d'un chiffre négatif ou dû
+if montant <= 0 then
+	SetNull(montant)
+	SetNull(date_montant)
+end if
+
+
+
+
+end subroutine
+

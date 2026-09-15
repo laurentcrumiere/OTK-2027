@@ -1,0 +1,19 @@
+﻿$PBExportHeader$ajout_log_special.srf
+global type ajout_log_special from function_object
+end type
+
+forward prototypes
+global subroutine ajout_log_special (double code_patient, string action)
+end prototypes
+
+global subroutine ajout_log_special (double code_patient, string action);
+
+// Ajoute un évènement dans le log spécial
+
+insert into "log_special" (code, action, date_heure, user_nom)
+values (:code_patient, :action, getdate(), :utilisateur_nom)  ;
+
+
+commit ;
+end subroutine
+

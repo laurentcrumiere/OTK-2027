@@ -1,0 +1,28 @@
+﻿$PBExportHeader$age_calcul_des_annees_date.srf
+global type age_calcul_des_annees_date from function_object
+end type
+
+forward prototypes
+global function integer age_calcul_des_annees_date (date naissance)
+end prototypes
+
+global function integer age_calcul_des_annees_date (date naissance);// fx globale qui renvoie l'age d'un patient (juste en année)
+// en param --> la date de naissance
+
+int  age
+
+
+// si pas date valide = on sort
+IF naissance = date('00/00/0000') OR IsNull(naissance)  THEN goto fin
+
+// Calcul de l'an (au jour prêt)
+IF month(today()) * 100 +  day(today()) < month( naissance ) * 100 + day( naissance )  THEN
+	age = year(today()) - year(naissance) - 1
+ELSE
+	age = year(today()) - year(naissance)
+END IF
+
+fin:
+	return age
+end function
+

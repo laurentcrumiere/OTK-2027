@@ -1,0 +1,5048 @@
+﻿$PBExportHeader$m_orthosoins.srm
+forward
+global type m_orthosoins from menu
+end type
+type m_soins from menu within m_orthosoins
+end type
+type m_decalage from menu within m_soins
+end type
+type m_decalagepartiel from menu within m_soins
+end type
+type m_trait1 from menu within m_soins
+end type
+type m_decalage2 from menu within m_soins
+end type
+type m_decalage3 from menu within m_soins
+end type
+type m_-1 from menu within m_soins
+end type
+type m_decalagepartiel2 from menu within m_soins
+end type
+type m_decalagepartiel3 from menu within m_soins
+end type
+type m_-0 from menu within m_soins
+end type
+type m_imprimerrecto from menu within m_soins
+end type
+type m_ouvrirleattest from menu within m_soins
+end type
+type m_annulerleattest from menu within m_soins
+end type
+type m_duplicatadeleattest from menu within m_soins
+end type
+type m_inscriptioneattest from menu within m_soins
+end type
+type m_imprimerverso from menu within m_soins
+end type
+type m_imprimerrectoverso from menu within m_soins
+end type
+type m_1 from menu within m_soins
+end type
+type m_feuilledesoins2014 from menu within m_soins
+end type
+type m_feuilledesoins2014verso from menu within m_soins
+end type
+type m_feuilledesoins2014rectoverso from menu within m_soins
+end type
+type m_fs2014 from menu within m_soins
+end type
+type m_remplacerpar from menu within m_soins
+end type
+type m_annulertransfertdusoin from menu within m_soins
+end type
+type m_- from menu within m_soins
+end type
+type m_imprimersoins from menu within m_soins
+end type
+type m_envoyerlessoinsparemailapartirde from menu within m_soins
+end type
+type m_facture from menu within m_soins
+end type
+type m_utiliseruncourrierword from menu within m_soins
+end type
+type m_-2 from menu within m_soins
+end type
+type m_selectionnertouslessoinsdunememedate from menu within m_soins
+end type
+type m_deblocageimpression from menu within m_soins
+end type
+type m_annulationfeuilledesoins from menu within m_soins
+end type
+type m_-3 from menu within m_soins
+end type
+type m_informationsdemodifications from menu within m_soins
+end type
+type m_2 from menu within m_soins
+end type
+type m_renvoyerlesoinaods from menu within m_soins
+end type
+type m_selectionnertouslessoinsdus from menu within m_soins
+end type
+type m_soins from menu within m_orthosoins
+m_decalage m_decalage
+m_decalagepartiel m_decalagepartiel
+m_trait1 m_trait1
+m_decalage2 m_decalage2
+m_decalage3 m_decalage3
+m_-1 m_-1
+m_decalagepartiel2 m_decalagepartiel2
+m_decalagepartiel3 m_decalagepartiel3
+m_-0 m_-0
+m_imprimerrecto m_imprimerrecto
+m_ouvrirleattest m_ouvrirleattest
+m_annulerleattest m_annulerleattest
+m_duplicatadeleattest m_duplicatadeleattest
+m_inscriptioneattest m_inscriptioneattest
+m_imprimerverso m_imprimerverso
+m_imprimerrectoverso m_imprimerrectoverso
+m_1 m_1
+m_feuilledesoins2014 m_feuilledesoins2014
+m_feuilledesoins2014verso m_feuilledesoins2014verso
+m_feuilledesoins2014rectoverso m_feuilledesoins2014rectoverso
+m_fs2014 m_fs2014
+m_remplacerpar m_remplacerpar
+m_annulertransfertdusoin m_annulertransfertdusoin
+m_- m_-
+m_imprimersoins m_imprimersoins
+m_envoyerlessoinsparemailapartirde m_envoyerlessoinsparemailapartirde
+m_facture m_facture
+m_utiliseruncourrierword m_utiliseruncourrierword
+m_-2 m_-2
+m_selectionnertouslessoinsdunememedate m_selectionnertouslessoinsdunememedate
+m_deblocageimpression m_deblocageimpression
+m_annulationfeuilledesoins m_annulationfeuilledesoins
+m_-3 m_-3
+m_informationsdemodifications m_informationsdemodifications
+m_2 m_2
+m_renvoyerlesoinaods m_renvoyerlesoinaods
+m_selectionnertouslessoinsdus m_selectionnertouslessoinsdus
+end type
+global type m_orthosoins from menu
+m_soins m_soins
+end type
+end forward
+
+global type m_orthosoins from menu
+m_soins m_soins
+end type
+global m_orthosoins m_orthosoins
+
+type variables
+boolean ajustement_recto_effectue = false
+boolean ajustement_verso_effectue = false
+
+date date_paiement_honoraires
+
+double var_code_local
+
+
+
+// uniquement pour Feuille de Soins 2014
+boolean fs2014_tp_caisse, fs2014_tp_mutuelle
+date date_ep_fs2014
+
+//string nom_fichier_fs2014 = "fs2014.doc"
+end variables
+
+forward prototypes
+public subroutine decalage_total (character mode)
+protected subroutine ajustement_verso (ref datawindow dw_verso)
+public subroutine mise_jour_total_date (datawindow dw_recto)
+public subroutine impression_verso (datawindow dw_verso, datawindow dw_impression)
+public subroutine impression_recto_verso (datawindow dw_recto, datawindow dw_verso, datawindow dw_impression)
+public subroutine impression_recto (ref datawindow dw_recto, datawindow dw_impression)
+public subroutine remet_imprimante_defaut (string v_imprim)
+public subroutine ajustement_recto (ref datawindow dw_recto)
+public function boolean prepa_recto_feuille_soin (datawindow dw_paye)
+public subroutine maj_tableaux_recto_feuille_soins (datawindow dw_recto)
+public subroutine decalage_partiel (character mode, boolean avec_confirmation, double cle_a_ne_pas_modifier)
+public subroutine utiliser_courrier_word (string type_courrier, double numero)
+public function string getimprimspecif (double v_code_patient)
+public function string change_imprimante (double v_code_patient)
+end prototypes
+
+public subroutine decalage_total (character mode);// Décalage total par rapport à la date de début de traitement
+
+// L'argument mode sert à savoir ce qu'on décale :
+//    Mode = 'E' : on ne décale que les échéances
+//    Mode = 'D' : on ne décale que les dates de soins (demande)
+//    Mode = 'T' :  on décale toutes les dates
+
+
+If dw_click.rowCount() > 0 Then
+
+
+	var_code_local = dw_click.getitemnumber(dw_click.GetRow(),"soins_code")
+	
+	date dt,dd
+	string cde
+	integer ecart
+	string libelle_decalage, v_id_tea
+	double v_cle
+	decimal{2} v_total
+	
+	select debut_traitement INTO :dt FROM "patient"  WHERE code = :var_code_local ;
+	
+	if isnull(dt) then
+		Messagebox("ATTENTION","La date de début de traitement n'est pas renseignée !")
+	else
+//		select min(date_demande) INTO :dd FROM soins  
+//		WHERE code = :var_code and type = 'S' and numero = 1 ;
+		
+		// On recherche la première date de demande dans les soins
+		Select min(date_demande) INTO :dd  
+		FROM "soins","code_soins"
+		WHERE soins.code = :var_code_local and soins."type" = code_soins.code 
+		and "code_soins"."duree" > 0 ;
+		
+		
+		if isnull(dd) then
+			Messagebox("ATTENTION","Il n'y a pas de date de première demande !")
+		else
+			ecart = daysafter(dd,dt)
+
+			
+			libelle_decalage = ''
+			// Libellé en fonction du mode de décalage
+			CHOOSE CASE mode
+			CASE 'E'
+				libelle_decalage ='(Décalage des Echéances)'
+			CASE 'D'
+				libelle_decalage ='(Décalage des Dates de Demandes)'
+			CASE 'T'
+				libelle_decalage ='(Décalage des Echéances et des Dates de Demandes)'
+			END CHOOSE
+
+			
+			
+			If MessageBox("Actualisation totale de dates","La 1ère demande a été effectuée le "+string(dd)+"~nLe début de traitement est le "+string(dt)+"~n~nSoit un écart de "+string(ecart)+" jour(s)~n~nVoulez-vous décaler d'autant les semestres et contention suivants " + libelle_decalage+" ?~n~n(Attention, cette actualisation est irréversible !)",Question!,YesNo!,2) = 1 then
+				
+				open(w_patience)
+				
+				
+				if mode = 'E' or mode = 'T' then
+					// On actualise les Echeances !!
+//					cde = 'UPDATE ligne_soins,soins,code_soins SET "date" = days("date",'+string(ecart)+') WHERE "soins"."type" = "code_soins"."code"  and "code_soins"."duree" > 0  and "soins"."code" = "ligne_soins"."code" 	and "soins"."cle" = "ligne_soins"."cle" and "soins"."code" = '+string(var_code_local) + ' and "date_demande" >= '+"'"+string(dd,'yyyy-mm-dd') +"'"
+					cde = 'UPDATE ligne_soins,soins,code_soins SET "date" = dateadd(day,'+string(ecart)+', "date") WHERE "soins"."type" = "code_soins"."code"  and "code_soins"."duree" > 0  and "soins"."code" = "ligne_soins"."code" 	and "soins"."cle" = "ligne_soins"."cle" and "soins"."code" = '+string(var_code_local) + ' and "date_demande" >= '+"'"+string(dd,'yyyy-mm-dd') +"'"
+					EXECUTE IMMEDIATE :cde ;
+					if sqlca.sqlcode <> 0 then
+						messagebox("Problème dans l'actualisation 1",sqlca.sqlerrtext)
+					end if
+					w_patience.Wf_SetValue(50)
+				end if
+				
+				if mode = 'D' or mode = 'T' then
+					// On actualise les Dates de demandes  !!
+//					cde = 'UPDATE soins,code_soins SET "date_demande" = days("date_demande",'+string(ecart)+') WHERE "soins"."type" = "code_soins"."code"  and "code_soins"."duree" > 0 and "soins"."code" = '+string(var_code_local) + ' and "date_demande" > '+"'"+string(dd,'yyyy-mm-dd') +"'"
+					cde = 'UPDATE soins,code_soins SET "date_demande" = dateadd(day,'+string(ecart)+', "date_demande") WHERE "soins"."type" = "code_soins"."code"  and "code_soins"."duree" > 0 and "soins"."code" = '+string(var_code_local) + ' and "date_demande" > '+"'"+string(dd,'yyyy-mm-dd') +"'"
+					EXECUTE IMMEDIATE :cde ;
+					if sqlca.sqlcode <> 0 then
+						messagebox("Problème dans l'actualisation 2",sqlca.sqlerrtext)
+					end if
+					// On actualise les Dates d'execution depuis la V10
+//					cde = 'UPDATE soins,code_soins SET "date_exe" = days("date_exe",'+string(ecart)+') WHERE "soins"."type" = "code_soins"."code"  and "code_soins"."duree" > 0 and "soins"."code" = '+string(var_code_local) + " and date_exe is not null "
+					cde = 'UPDATE soins,code_soins SET "date_exe" = dateadd(day,'+string(ecart)+', "date_exe")  WHERE "soins"."type" = "code_soins"."code"  and "code_soins"."duree" > 0 and "soins"."code" = '+string(var_code_local) + " and date_exe is not null "
+					EXECUTE IMMEDIATE :cde ;
+					if sqlca.sqlcode <> 0 then
+						messagebox("Problème dans l'actualisation 3",sqlca.sqlerrtext)
+					end if
+				end if
+				
+				Commit ;
+				
+				if APPEL_VISIODENT and NOT VISIODENT_LIMITE then
+					// Il y a eu actualisation, on renvoie tous les soins
+					fxg_ods_envoi_soins_date(var_code_local, date('1900-01-01'))
+				end if
+				
+				IF TEA then
+					// On parcours les soins modifiés pour actualiser Téa
+					declare cur_soins cursor for select soins.cle, soins.total from soins  ,code_soins WHERE "soins"."type" = "code_soins"."code"  and "code_soins"."duree" > 0 and "soins"."code" = :var_code_local ;
+					open cur_soins ;
+					fetch cur_soins into :v_cle, :v_total ;
+					do while sqlca.sqlcode = 0  
+						if v_total > 0 then
+							v_id_tea = string(var_code_local) + "-" + string(v_cle)
+							//fxg_lancer_commande_dsapi("payment/update/" + v_id_tea, "",  "S", "G", var_code_local )
+							fxg_maj_soins_tea(var_code_local, v_cle, "U")
+						end if
+						fetch cur_soins into :v_cle, :v_total ;
+					loop
+					close cur_soins ;
+				end if
+				
+				close(w_patience)
+				dw_click.retrieve(var_code_local)
+				dw_click.scrolltorow(99999)
+
+			end if
+		end if
+	end if
+End If
+
+end subroutine
+
+protected subroutine ajustement_verso (ref datawindow dw_verso);//fx protected qui fait les ajustement pour les imprimantes avant impression DEP
+//renvoie rien
+
+
+double dx,dy
+
+if type_menu = 'R' then
+	// remboursement
+	
+	
+	// N° Sécu et date de naissance de l'assuré
+	SELECT remb_secu_verso_x,remb_secu_verso_y INTO :dx,:dy FROM param_secu ;
+	chg_coord(dw_verso,"secu",dx,dy)
+	chg_coord(dw_verso,"naissance_assure",dx,dy)
+	
+	// Nom
+	SELECT remb_nom_verso_x,remb_nom_verso_y INTO :dx,:dy FROM param_secu ;
+	chg_coord(dw_verso,"nom",dx,dy)
+	// Adresse Zone N°1
+	SELECT remb_adr1_verso_x,remb_adr1_verso_y INTO :dx,:dy FROM param_secu ;
+	chg_coord(dw_verso,"adr1",dx,dy)
+	// Adresse Zone N°2
+	SELECT remb_adr2_verso_x,remb_adr2_verso_y INTO :dx,:dy FROM param_secu ;
+	chg_coord(dw_verso,"adr2",dx,dy)
+	// Code Postal
+	SELECT remb_codep_verso_x,remb_codep_verso_y INTO :dx,:dy FROM param_secu ;
+	chg_coord(dw_verso,"codep",dx,dy)
+	// Ville
+	SELECT remb_ville_verso_x,remb_ville_verso_y INTO :dx,:dy FROM param_secu ;
+	chg_coord(dw_verso,"ville",dx,dy)
+	// Nom du patient
+	SELECT remb_nom2_verso_x,remb_nom2_verso_y INTO :dx,:dy FROM param_secu ;
+	chg_coord(dw_verso,"nom2",dx,dy)
+	chg_coord(dw_verso,"prenom2",dx,dy)
+	// Date de naissance
+	SELECT remb_dtenais2_verso_x,remb_dtenais2_verso_y INTO :dx,:dy FROM param_secu ;
+	chg_coord(dw_verso,"naissance",dx,dy)
+	
+else
+	
+	// Demande d'entente 
+	//------------------------------
+
+	boolean v_dep_utiliser_cadagre_local
+	
+	if profilestring(dir_ini+inifile_orthokis,"DEP-FSE","dep_utiliser_cadagre_local", "N") = "O" then
+		v_dep_utiliser_cadagre_local = true
+	else
+		v_dep_utiliser_cadagre_local = false
+	end if
+	
+	
+	// N° Sécu et date de naissance de l'assuré
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_secu_ital_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_secu_ital_y", "0"))
+	else
+		SELECT renouv_secu_ital_x,renouv_secu_ital_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_verso,"secu",dx,dy)
+	chg_coord(dw_verso,"naissance_assure",dx,dy)
+	
+	// Nom
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_nom_ital_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_nom_ital_y", "0"))
+	else
+		SELECT renouv_nom_ital_x,renouv_nom_ital_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_verso,"nom",dx,dy)
+	
+	// Adresse Zone N°1
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_adr1_ital_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_adr1_ital_y", "0"))
+	else
+		SELECT renouv_adr1_ital_x,renouv_adr1_ital_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_verso,"adr1",dx,dy)
+
+	// Adresse Zone N°2
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_adr2_ital_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_adr2_ital_y", "0"))
+	else
+		SELECT renouv_adr2_ital_x,renouv_adr2_ital_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_verso,"adr2",dx,dy)
+
+	// Code Postal
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_codep_ital_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_codep_ital_y", "0"))
+	else
+		SELECT renouv_codep_ital_x,renouv_codep_ital_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_verso,"codep",dx,dy)
+	
+	// Ville
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_ville_ital_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_ville_ital_y", "0"))
+	else
+		SELECT renouv_ville_ital_x,renouv_ville_ital_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_verso,"ville",dx,dy)
+	
+	// Nom du patient
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_nom2_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_nom2_y", "0"))
+	else
+		SELECT renouv_nom2_x,renouv_nom2_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_verso,"nom2",dx,dy)
+	chg_coord(dw_verso,"prenom2",dx,dy)
+	
+	// Date de naissance
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_dtenais2_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_dtenais2_y", "0"))
+	else
+		SELECT renouv_dtenais2_x,renouv_dtenais2_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_verso,"naissance",dx,dy)
+end if
+end subroutine
+
+public subroutine mise_jour_total_date (datawindow dw_recto);	
+	// Mise à jour des éléments non mis dans la table ....
+	
+	integer cpt,tot
+	decimal {2} nb_lettre
+	string lettre_prec, lettre_cour, libelle
+	decimal {2} total_euros
+	
+	// Total par lette 
+	
+	// CADRE 1
+	//----------------
+
+	// Pour obtenir le nombre le ligne dans la Dw Cadre1
+	SELECT count(*) into :tot FROM feuille_soins WHERE ep= 'N' ;
+	lettre_prec = '-*/-'
+	libelle = ""
+	nb_lettre = 0
+	
+	// Les lignes de la DW sont classées par lettre
+	for cpt = 1 to tot 
+		//if lettre_prec <> dw_recto.object.cadre1.object.lettre[cpt]  then
+		lettre_cour = dw_recto.describe("tab1_lig"+string(cpt)+"_lettre.text") 
+		if lettre_prec <> lettre_cour  then
+			// C'est un nouvelle lettre
+			if nb_lettre > 0 then
+				// y avait une lettre avant !!
+				if libelle <> "" then
+					libelle = libelle + " + " 
+				end if
+				libelle = libelle + lettre_prec + " " + string(nb_lettre)
+				// remise à jour pour le soin suivant
+				nb_lettre = 0
+			end if
+			lettre_prec = lettre_cour
+		end if
+		nb_lettre = nb_lettre + double (dw_recto.describe("tab1_lig"+string(cpt)+"_nb_lettre.text"))
+	next
+	
+	if libelle <> "" then
+		libelle = libelle + " + " 
+	end if
+	// Libelle ne contient pas les éléments de la dernière lettre
+	if tot > 0 then
+		dw_recto.Modify("tab1_total_lettres.text = '"+ libelle + lettre_prec + " " + string(nb_lettre)+"'")
+	end if
+	
+	select sum (montant) into :total_euros from feuille_soins where ep = 'N' ;
+	if total_euros > 0 then
+		dw_recto.Modify("tab1_total_euros.text = '"+ string(total_euros,"0.00")+" €'")
+		dw_recto.Modify("tab1_nombre_en_lettres.text = '"+nombre_en_lettres( total_euros , 'euros' )+"'")
+	end if
+	
+
+	// CADRE 2
+	//----------------
+
+	// Pour obtenir le nombre le ligne dans la Dw Cadre1
+	SELECT count(*) into :tot FROM feuille_soins WHERE ep= 'O' ;
+	lettre_prec = '-*/-'
+	libelle = ""
+	nb_lettre = 0
+	
+
+	// Les lignes de la DW sont classées par lettre
+	for cpt = 1 to tot 
+		//if lettre_prec <> dw_recto.object.cadre2.object.lettre[cpt]  then
+		lettre_cour = dw_recto.describe("tab2_lig"+string(cpt)+"_lettre.text") 
+		if lettre_prec <> lettre_cour  then
+			// C'est un nouvelle lettre
+			if nb_lettre > 0 then
+				// y avait une lettre avant !!
+				if libelle <> "" then
+					libelle = libelle + " + " 
+				end if
+				libelle = libelle + lettre_prec + " " + string(nb_lettre)
+				// remise à jour pour le soin suivant
+				nb_lettre = 0
+			end if
+			lettre_prec = lettre_cour
+		end if
+		nb_lettre = nb_lettre + double (dw_recto.describe("tab2_lig"+string(cpt)+"_nb_lettre.text"))
+	next
+	
+	if libelle <> "" then
+		libelle = libelle + " + " 
+	end if
+	 
+	// Libelle ne contient pas les éléments de la dernière lettre
+	if tot > 0 then
+		dw_recto.Modify("tab2_total_lettres.text = '"+ libelle + lettre_prec + " " + string(nb_lettre)+"'")
+	end if
+	
+	select sum (montant) into :total_euros from feuille_soins where ep = 'O' ;
+	if total_euros > 0 then
+		dw_recto.Modify("tab2_total_euros.text = '"+ string(total_euros,"0.00")+" €'")
+		dw_recto.Modify("tab2_nombre_en_lettres.text = '"+nombre_en_lettres( total_euros , 'euros' )+"'")
+	end if 
+
+	
+	//------------------------------------------------------------------------------------------------------------------------------
+
+	
+	// Mise à jour de la date de la feuille
+	
+	if isnull(date_paiement_honoraires) or date_paiement_honoraires = date('1900-1-1') then
+		date date_max
+		select max("date") into :date_max from "feuille_soins" ;
+		dw_recto.modify("date.text='"+string(date_max,"dd/mm/yyyy")+"'")
+	else
+		dw_recto.modify("date.text='"+string(date_paiement_honoraires,"dd/mm/yyyy")+"'")
+	end if
+	
+	
+
+end subroutine
+
+public subroutine impression_verso (datawindow dw_verso, datawindow dw_impression);double cle,code
+boolean ok_suite
+
+
+if BELGIQUE then
+		
+		// Impression de la demane d'intervention : c'est un docu Word nommé "Annexe 60.doc"
+		// On passe par une prévisualisation impression
+		
+		
+		uo_lien_word		wrd
+		string				propoNom
+
+		// on instancie wrd
+		wrd = create uo_lien_word
+		
+		// on a bien récup l'élément
+		propoNom = "Annexe 61.doc"
+		if wrd.traiter_avec_word(Service_MajEtVisualise, fxg_get_rep_courriers(),  propoNom, false) <> 1 then
+		// si pb sur le job WORD : msg d'erreur
+			messagebox("ERREUR","Un problème est survenu durant l'exécution, ~nImpossible de poursuivre !",StopSign!)
+		end if
+		
+		// on libère la mémoire
+		destroy wrd
+		
+	
+else
+	// FRANCE
+
+		ok_suite = true
+		
+		// 1ère verif pour ceux qui n'ont pas le droit de refaire des FS
+		if not w_click_soins_reg.multi_fs_autorise and  type_menu = 'R' then 
+			if w_click_soins_reg.verif_si_deja_fs(dw_click) then
+					ok_suite = false
+			end if
+		end  if
+	
+		if not ok_suite then
+			Messagebox("ATTENTION","Au moins un des soins sélectionnés a déjà fait l'objet d'une Feuille de Soin. Vous devez le désélectionner pour poursuivre.")
+		else
+
+
+
+			// pas de cadrage si impression intégrée 
+			if not w_click_soins_reg.impression_integre then
+				//réalise les ajustement suivant les valeurs de décalage entrées ds param généraux
+				if not ajustement_verso_effectue then
+					ajustement_verso(dw_verso)
+					ajustement_verso_effectue = true
+				end if
+			end if
+			
+			//trouve le code et la cle du soins en question
+			code = dw_click.getitemnumber(dw_click.GetRow(),"soins_code")
+			cle = dw_click.getitemnumber(dw_click.GetRow(),"cle")
+			
+			//rerieve les données de la datawindow
+			dw_verso.retrieve(code,cle)
+			
+			//si qqch ds datawin verso alors on continue .... :-)
+			if dw_verso.rowcount() > 0 then
+				//impression verso DEP
+				string v_imprim_defaut
+				
+					// si impression intégrée gestion de l'image de fond ODF ou MEDECIN
+					if w_click_soins_reg.impression_integre then
+						if (type_menu = 'S' or type_menu = 'P' ) then
+							if dw_verso.getitemstring( 1, "prati_typort") = "TO" then
+								dw_verso.Object.p_fond.Filename = "cerfa_10518_verso.jpg"
+							else
+								dw_verso.Object.p_fond.Filename = "cerfa_10522_verso.jpg"
+							end if
+						else
+							// Pour les règlements ... RAS
+							
+						end if
+					end if
+		
+				// recherche de l'imprimante spécifique pour les dep et feuilles de soins
+				if (  (type_menu = 'S' or type_menu = 'P' ) and profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep_active","N") = "O") or & 
+					(type_menu = 'R' and profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","feuilles_soins_active","N") = "O") then 
+					dw_verso.Modify ('DataWindow.Printer="'+getimprimspecif(code)+'" ')
+				end if
+		
+				dw_verso.print()
+				
+				// Si la date d'impression est vide, on la met à jour
+				if type_menu = 'P' then
+					UPDATE "soins_prevus"  SET "date_impr" = cast(getdate() as date)  
+					WHERE ( "soins"."cle" = :cle ) AND  ( "soins"."code" = :code )  AND ( "soins_prevus"."date_impr" is null ) ;
+					COMMIT ;
+				else
+					UPDATE "soins"  SET "date_impr" = cast(getdate() as date)  
+					WHERE ( "soins"."cle" = :cle ) AND  ( "soins"."code" = :code ) AND ( "soins"."date_impr" is null ) ;
+					COMMIT ;
+				end if
+
+				// Actualisation
+				dw_impression.retrieve(cle,code,'F')
+
+				// véritable datawindow des soins ... pas de retrieve sur la cle
+				// depuis 21.00g on ne retrive plus .. quel intérêt pour le version ... rien n'est mis à jour dans la dw ?
+				//dw_click.retrieve(code)
+
+				//remet_imprimante_defaut(v_imprim_defaut)
+			end if // ok_suite
+			
+	end if
+end if
+end subroutine
+
+public subroutine impression_recto_verso (datawindow dw_recto, datawindow dw_verso, datawindow dw_impression);string	rc
+double	cle, code
+long		num_job
+boolean ok_suite
+string v_fichier_destination_complet, lib_histo, v_dir_patient
+
+ok_suite = false
+
+if not w_click_soins_reg.impression_integre then
+	// Ajustement des coordonnées pour le recto !
+	if not ajustement_recto_effectue then
+		ajustement_recto(dw_recto)
+		//maj du boolean
+		ajustement_recto_effectue = true
+	end if
+
+	// Ajustement des coordonnées pour verso !
+	if not ajustement_verso_effectue then
+		ajustement_verso(dw_verso)
+		//maj du boolean
+		ajustement_verso_effectue = true
+	end if
+end if
+
+
+var_suite = true
+
+if type_menu = 'R' then	
+
+	var_suite = true
+	
+	// 1ère verif pour ceux qui n'ont pas le droit de refaire des FS
+	if not w_click_soins_reg.multi_fs_autorise then 
+		if w_click_soins_reg.verif_si_deja_fs(dw_click) then
+				var_suite = false
+		end if
+	end  if
+
+	if not var_suite then
+		Messagebox("ATTENTION","Au moins un des soins sélectionnés a déjà fait l'objet d'une Feuille de Soin. Vous devez le désélectionner pour poursuivre.")
+	else
+		
+		// Saisie / modification des totaux !!
+		// si dw_impression
+		
+		if dw_recto = dw_impression then
+			open(w_feuille_soins_saisie_actes)
+			if Message.DoubleParm = 1 then
+				ok_suite = true
+			end if
+		else
+			ok_suite = true
+		end if
+	
+		if ok_suite then
+			var_suite = true
+		else
+			var_suite = false
+			delete from "feuille_soins" ;
+			commit ;
+		end if
+	end if
+else
+
+	var_suite = true
+end if
+
+if var_suite then
+	//maj des code et cle du soins en question
+	code = dw_click.getitemnumber(dw_click.GetRow(),"soins_code")
+	cle = dw_click.getitemnumber(dw_click.GetRow(),"cle")
+	
+	//retrieve des datawindows
+	dw_recto.retrieve(code,cle)
+	dw_verso.retrieve(code,cle)
+	
+	boolean date_modifiee = false
+		
+	if (type_menu = 'S' or type_menu = 'P') and dw_recto.rowcount() > 0 then
+		
+		// pour DEP
+	
+		// Spécifique Simon Pierson et Darmon Soulié .. la date de début de traitement est invisible
+		If serial = "87612" or serial = "87623" then
+			dw_recto.object.debtrai.visible = 0
+		end if
+	
+		// Spécifique Simon Pierson ..la demande est surchargée par la date du jour .... 
+		If serial = "87623" then
+			dw_recto.setitem(1, "dtedem_bd", today())
+		end if
+	end if
+	
+	IF APPEL_VISIODENT then
+		// uniquement pour l'impression normal ... spécificité pour les centre dentaires ... Visiodent ...
+		dw_recto.Object.nom_praticien.visible = true
+		dw_recto.Object.prati_numero_structure.visible = true
+				
+		dw_recto.Object.nom_praticien_1.visible = true
+		dw_recto.Object.prati_numero_structure_1.visible = true
+	end if
+			
+	if  serial = "87879" or serial = "87880" or serial = "87881" then
+		// Exclusivement pour les caisses Mutualité Grand sud .. on ajoute la caisse
+		dw_recto.Object.caisse_nom.visible = true
+	end if
+
+
+	date v_date_deja_impr
+	date v_date_impr
+	// recherche si déjà imprimée 
+	if type_menu = 'S' then
+		// soins "normaux
+		select "date_impr" into :v_date_deja_impr from "soins"  where ( "soins"."cle" = :cle ) AND  ( "soins"."code" = :code );
+	else
+		// soins prévus
+		select "date_impr" into :v_date_deja_impr from "soins_prevus"  where ( "soins_prevus"."cle" = :cle ) AND  ( "soins_prevus"."code" = :code );
+	end if
+
+	v_date_impr = date(dw_recto.getItemString(1, "date_imp"))
+
+	
+	// Spécifique Barloy : si DEP déjà imprimée, on proposer de la réimprimer à la bonne date
+	if serial = "87639"  then
+		if not isnull(	v_date_deja_impr ) then
+			v_date_impr = date(dw_recto.getItemString(1, "date_imp"))
+			
+			if Messagebox("ATTENTION","La DEP de soin a déjà été imprimée le "+string(	v_date_deja_impr) + ".~n~nSi vous cliquez sur OUI, vous allez imprimer la DEP datée du "+string(v_date_impr) + ".~n~nSi vous cliquez sur NON, vous allez imprimer la DEP en conservant la date du "+string(v_date_deja_impr)+".", Question!, YesNo!, 2 )	= 2 then
+				// on remet la date d'impression à la 1ère date
+				dw_recto.object.date_imp_modifiee.text = string(v_date_deja_impr)
+				dw_recto.Object.date_imp_modifiee.visible = 1
+				dw_recto.Object.date_imp.visible = 0
+				dw_recto.Object.date_imp_modifiee.x = dw_recto.Object.date_imp.x
+				dw_recto.Object.date_imp_modifiee.y = dw_recto.Object.date_imp.y
+				date_modifiee = true
+			else
+				// remise en état au cas où
+				dw_recto.Object.date_imp_modifiee.visible = 0
+				dw_recto.Object.date_imp.visible = 1
+			end if
+			
+		end if
+	end if	
+	
+	// si impression intégrée gestion de l'image de fond ODF ou MEDECIN
+	if w_click_soins_reg.impression_integre then
+		if type_menu = 'S' or type_menu = 'P'  then 
+			if dw_recto.getitemstring( 1, "prati_typort") = "TO" then
+				dw_recto.Object.p_fond.Filename = "cerfa_10518_recto.jpg"
+				dw_verso.Object.p_fond.Filename = "cerfa_10518_verso.jpg"
+			else
+				dw_recto.Object.p_fond.Filename = "cerfa_10522_recto.jpg"
+				dw_recto.Object.p_fond.Filename = "cerfa_10522_verso.jpg"
+			end if
+		else
+			// reglements : RAS
+		end if
+	end if
+	
+	//si qqch ds les datawin recto et verso alors on continue
+	if (dw_recto.rowcount() > 0) AND (dw_verso.rowcount() > 0) then
+		//maj de la var globale
+		print_ok = false
+
+
+		//si on est ds gestion rglts
+		if type_menu = 'R' then 
+			maj_tableaux_recto_feuille_soins(dw_recto)
+			mise_jour_total_date(dw_recto)
+		end if
+	
+		string v_imprim_defaut
+		
+		v_imprim_defaut = change_imprimante(code)
+		
+		// recherche de l'imprimante spécifique pour les dep et feuilles de soins
+		// ne marche pas en print job
+		//dw_recto.Modify ('DataWindow.Printer="'+getimprimspecif()+'" ')
+		//dw_verso.Modify ('DataWindow.Printer="'+getimprimspecif()+'" ')
+
+		//lance les impressions ds un seul "job"
+		num_job = printopen("DEP recto/verso")
+		Printdatawindow(num_job,dw_recto)
+		Printdatawindow(num_job,dw_verso)
+		printclose(num_job)
+
+		remet_imprimante_defaut(v_imprim_defaut)
+
+		if 	type_menu = 'R' then
+			//ajoute à l'histo du patient cette impression
+			lib_histo = ""
+			
+			if 	trim(dw_recto.object.tab1_total_lettres.text) <> "" then
+				lib_histo = dw_recto.object.tab1_total_lettres.text+" "
+			end if
+			
+			
+			if 	trim(dw_recto.object.tab2_total_lettres.text) <> "" then
+				if lib_histo <> "" then
+					lib_histo = lib_histo +" + "
+				end if
+				lib_histo = lib_histo + dw_recto.object.tab2_total_lettres.text
+			end if
+			
+		
+			ajout_histo_editions(code,"FEUSOI",today(),lib_histo)
+		
+			
+			double code_patient
+			long cle_soin, lig, ligtot
+			ligtot = dw_click.rowcount()
+	
+			for lig = 1 to ligtot
+				if dw_click.getitemstring(lig,"fse") = 'O'  then
+					// Ligne de soins
+					code_patient = dw_click.getitemnumber(lig,"soins_code")
+					cle_soin = dw_click.getitemnumber(lig,"cle")
+					UPDATE "soins" SET "soins"."fse_edite" = 'M'  ,  "soins"."date_fs" = cast(getdate() as date) 
+					WHERE code = :code_patient and cle = :cle_soin ;
+				end if
+			next
+			commit ;
+			dw_click.retrieve(code)
+
+			//si impression =Ok alors suite ...
+			delete from "feuille_soins" ;
+			commit ;
+		else
+			
+			// On est dans les renouvellements de DEP
+			
+			//ajoute une ligne à hito des éditions
+			
+			lib_histo = trim(left(dw_click.getitemstring(dw_click.getrow(),"code_soins_nom"),14)) 
+			
+			if dw_click.getitemnumber(dw_click.getrow(),"numero") > 0 then
+				lib_histo = lib_histo + " N°"+string(dw_click.getitemnumber(dw_click.getrow(),"numero"))
+			end if
+	
+			lib_histo = lib_histo + " : "	+ dw_recto.getitemstring(1,"dem")+" au "+dw_recto.getitemstring(1,"dtedem")
+	
+			//ajout_histo_editions(code,"RENSEC",today(),lib_histo)
+			
+
+			// Mémo du PDF
+			v_dir_patient = dir_photos + string(code) + win_delimiter 
+			if not DirectoryExists(v_dir_patient) then
+				CreateDirectory(v_dir_patient)
+			end if
+
+			v_fichier_destination_complet =  string(today(), "yyyy-mm-dd")+" "+string(now(), "hh-mm-ss")+ " - DEP.pdf"
+			v_fichier_destination_complet = v_dir_patient + v_fichier_destination_complet
+			dw_recto.saveas(v_fichier_destination_complet, PDF!, false)
+
+
+			//Depuis 22.00h on met la date réellement imprimée sur le doc ...
+			integer categorie_nulle
+			setnull(categorie_nulle)
+			if date_modifiee then
+				fxg_enregcourrierhisto ( code, "RENSEC" , v_date_deja_impr ,lib_histo , v_fichier_destination_complet , 'E', 'N', 'N', '', categorie_nulle )
+			else
+				fxg_enregcourrierhisto ( code, "RENSEC" , v_date_impr ,lib_histo , v_fichier_destination_complet , 'E', 'N', 'N', '' , categorie_nulle)
+			end if	
+			
+			
+			
+			//On ne met à jour la date d'impression de la DEP
+			//pour les soins ET pour les soins prévus
+			if type_menu = 'S' or type_menu = 'P' then
+					if type_menu = 'S' then
+						if not date_modifiee then
+							UPDATE "soins"  SET "date_impr" = cast(getdate() as date)  
+							WHERE ( "soins"."cle" = :cle ) AND  ( "soins"."code" = :code );
+							COMMIT ;
+						end if
+						// "petite" datawindow en bas à droite
+						if belgique then
+							dw_impression.retrieve(cle,code,'B')
+						else
+							if france then
+								dw_impression.retrieve(cle,code,'F')
+							else
+								dw_impression.retrieve(cle,code,'')
+							end if
+						end if
+					else
+						if not date_modifiee then
+							UPDATE "soins_prevus"  SET "date_impr" = cast(getdate() as date)  
+							WHERE ( "soins_prevus"."cle" = :cle ) AND  ( "soins_prevus"."code" = :code );
+							COMMIT ;
+						end if
+						// véritable datawindow des soins ... pas de retrieve sur la cle
+						dw_impression.retrieve(code)
+					end if
+			end if
+		end if
+	end if
+end if
+
+end subroutine
+
+public subroutine impression_recto (ref datawindow dw_recto, datawindow dw_impression);//string plan
+string rc
+double cle,code
+boolean ok_suite
+string lib_histo, v_imprim_defaut, v_type_soins
+
+long ligtot, lig
+boolean date_exe_ok
+double code_patient, cle_soin
+date date_exe
+
+string v_fichier_destination_complet, v_dir_patient
+
+
+// REGLEMENTS
+if type_menu = 'R' then
+	
+	if BELGIQUE then
+
+		// open(w_attestation_impression)
+		w_click_soins_reg.tab_1.tabpage_reglements.cb_facture.triggerevent(clicked!)
+	else
+		// FRANCE : Feuille de soins AVANT 2017
+	
+		ok_suite = true
+		
+		// 1ère verif pour ceux qui n'ont pas le droit de refaire des FS
+		if not w_click_soins_reg.multi_fs_autorise then 
+			if w_click_soins_reg.verif_si_deja_fs(dw_click) then
+					ok_suite = false
+			end if
+		end  if
+	
+		if not ok_suite then
+			Messagebox("ATTENTION","Au moins un des soins sélectionnés a déjà fait l'objet d'une Feuille de Soin. Vous devez le désélectionner pour poursuivre.")
+		else
+	
+			// Pour les règlement => feuille de soins
+			code = dw_click.getitemnumber(dw_click.GetRow(),"soins_code")
+			cle = dw_click.getitemnumber(dw_click.GetRow(),"cle")
+			
+		
+			ok_suite = false
+			
+			// Saisie / modification des totaux !!
+			// on ne lance la mise à jour que lorsqu'on est en impression UNITAIRE de feuille de soin
+			// par convention, quand on passe 2 fois la même datawindow en entrée
+			if dw_recto = dw_impression then
+				open(w_feuille_soins_saisie_actes)
+				if Message.DoubleParm = 1 then
+					ok_suite = true
+				end if
+			else
+				ok_suite = true
+			end if
+		end if
+		
+		if ok_suite then
+			
+					
+			// IMPORTANT
+			// L'Ajustement DOIT SE FAIRE AVANT LE RETIEVE ... sinon, pb dans les dw filles
+			
+			// pas de cadrage si impression intégrée 
+			if not w_click_soins_reg.impression_integre then
+				// Ajustement
+				if not ajustement_recto_effectue then
+					ajustement_recto(dw_recto)
+					ajustement_recto_effectue = true
+				end if
+			end if
+
+		
+			//	retrieve de la datawin
+			dw_recto.retrieve(code)
+			
+			maj_tableaux_recto_feuille_soins(dw_recto)
+			
+			mise_jour_total_date(dw_recto)
+		
+	
+			//v_imprim_defaut = change_imprimante()
+			
+			// recherche de l'imprimante spécifique pour les dep et feuilles de soins
+			if profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","feuilles_soins_active","N") = "O" then 
+				dw_recto.Modify ('DataWindow.Printer="'+getimprimspecif(code)+'" ')
+			end if
+	
+			dw_recto.print()
+			
+			//remet_imprimante_defaut(v_imprim_defaut)
+		
+			//ajoute à l'histo du patient cette impression
+			lib_histo = ""
+		
+			if 	trim(dw_recto.object.tab1_total_lettres.text) <> "" then
+				lib_histo = dw_recto.object.tab1_total_lettres.text+" "
+			end if
+			
+			
+			if 	trim(dw_recto.object.tab2_total_lettres.text) <> "" then
+				if lib_histo <> "" then
+					lib_histo = lib_histo +" + "
+				end if
+				lib_histo = lib_histo + dw_recto.object.tab2_total_lettres.text
+			end if
+		
+	
+			ajout_histo_editions(code,"FEUSOI",today(),lib_histo)
+	
+			ligtot = dw_click.rowcount()
+		
+			for lig = 1 to ligtot
+				if dw_click.getitemstring(lig,"fse") = 'O'  then
+					// Ligne de soins
+					code_patient = dw_click.getitemnumber(lig,"soins_code")
+					cle_soin 		 = dw_click.getitemnumber(lig,"cle")
+					UPDATE "soins" SET "soins"."fse_edite" = 'M'  ,  "soins"."date_fs" = cast(getdate() as date)  
+					WHERE code = :code_patient and cle = :cle_soin ;
+				end if
+			next
+			commit ;
+			dw_click.retrieve(code)
+	
+		
+		end if
+	end if
+//************************************************
+	delete from "feuille_soins" ;
+	commit ;
+//************************************************
+
+else
+	//---------------------------------------------------------------------------------------- 
+	// Demande Ententes Préalables
+	// GESTION DES SOINS ou SOINS PREV !!!
+	
+	if BELGIQUE then
+		
+		// Impression de la demande d'intervention : c'est un docu Word nommé "Annexe 60.doc"
+		// On passe par une prévisualisation impression
+		
+		
+		uo_lien_word		wrd
+		string				propoNom
+
+		// on instancie wrd
+		wrd = create uo_lien_word
+		
+		// on a bien récup l'élément
+		propoNom = "Annexe 60.doc"
+		if wrd.traiter_avec_word(Service_MajEtVisualise, fxg_get_rep_courriers(),  propoNom, false) <> 1 then
+		// si pb sur le job WORD : msg d'erreur
+			messagebox("ERREUR","Un problème est survenu durant l'exécution, ~nImpossible de poursuivre !",StopSign!)
+		end if
+		
+		// on libère la mémoire
+		destroy wrd
+		
+	
+	else
+		// DEP Française
+		
+		// pas de cadrage si impression intégrée 
+		if not w_click_soins_reg.impression_integre then 
+	
+			// Pour les feuille de renouvellement
+			//les ajustement suivant les chiffres ds params généreaux
+			if not ajustement_recto_effectue then
+				ajustement_recto(dw_recto)
+				ajustement_recto_effectue = true
+			end if
+		end if
+
+		//on retrouve le code et la cle pour ce patient
+		code = dw_click.getitemnumber(dw_click.GetRow(),"soins_code")
+		cle = dw_click.getitemnumber(dw_click.GetRow(),"cle")
+		
+		
+		//retrieve de la datawin
+		dw_recto.retrieve(code,cle)
+
+	
+		//si qqch ds datawin recto alors on continue ...
+		if dw_recto.rowcount() > 0 then
+			print_ok = false
+			
+			boolean date_modifiee = false
+			
+			// Spécifique Simon Pierson et Sarmon Soulié .. la date de début de traitement est invisible
+			If serial = "87612"  then
+				dw_recto.object.debtrai.visible = 0
+			end if
+	
+			// Spécifique Soulié et Poncet ..la demande est surchargée par la date du jour .... 
+			If serial = "87623" then
+				dw_recto.setitem(1, "dtedem_bd", today())
+			end if
+			
+			// pour mémorisation de la date réelle d'impression
+			date v_date_deja_impr
+			date v_date_impr
+			// recherche si déjà imprimée 
+			if type_menu = 'S' then
+				// soins "normaux
+				select "date_impr" into :v_date_deja_impr from "soins"  where ( "soins"."cle" = :cle ) AND  ( "soins"."code" = :code );
+			else
+				// soins prévus
+				select "date_impr" into :v_date_deja_impr from "soins_prevus"  where ( "soins_prevus"."cle" = :cle ) AND  ( "soins_prevus"."code" = :code );
+			end if
+			
+			v_date_impr = date(dw_recto.getItemString(1, "date_imp"))
+
+			
+			// Spécifique Barloy : si DEP déjà imprimée, on propose de la réimprimer à la bonne date
+			if serial = "87639"  then
+				if not isnull(	v_date_deja_impr ) then
+	
+					if Messagebox("ATTENTION","La DEP de soin a déjà été imprimée le "+string(	v_date_deja_impr) + ".~n~nSi vous cliquez sur OUI, vous allez imprimer la DEP datée du "+string(v_date_impr) + ".~n~nSi vous cliquez sur NON, vous allez imprimer la DEP en conservant la date du "+string(v_date_deja_impr)+".", Question!, YesNo!, 2 )	= 2 then
+						// on remet la date d'impression à la 1ère date
+						dw_recto.object.date_imp_modifiee.text = string(v_date_deja_impr)
+						dw_recto.Object.date_imp_modifiee.visible = 1
+						dw_recto.Object.date_imp.visible = 0
+						dw_recto.Object.date_imp_modifiee.x = dw_recto.Object.date_imp.x
+						dw_recto.Object.date_imp_modifiee.y = dw_recto.Object.date_imp.y
+						date_modifiee = true
+					else
+						// remise en état au cas où
+						dw_recto.Object.date_imp_modifiee.visible = 0
+						dw_recto.Object.date_imp.visible = 1
+					end if
+					
+				end if
+			end if
+		
+			// si impression intégrée gestion de l'image de fond ODF ou MEDECIN
+			if w_click_soins_reg.impression_integre then
+				if dw_recto.getitemstring( 1, "prati_typort") = "TO" then
+					dw_recto.Object.p_fond.Filename = "cerfa_10518_recto.jpg"
+				else
+					dw_recto.Object.p_fond.Filename = "cerfa_10522_recto.jpg"
+				end if
+				
+			else
+				
+				IF APPEL_VISIODENT then
+					// uniquement pour l'impression normal ... spécificité pour les centre dentaires ... Visiodent ...
+					dw_recto.Object.nom_praticien.visible = true
+					dw_recto.Object.prati_numero_structure.visible = true
+					
+					dw_recto.Object.nom_praticien_1.visible = true
+					dw_recto.Object.prati_numero_structure_1.visible = true
+				end if
+				
+				if  serial = "87879" or serial = "87880" or serial = "87881" then
+					// Exclusivement pour les caisses Mutualité Grand sud .. on ajoute la caisse
+					dw_recto.Object.caisse_nom.visible = true
+				end if
+			end if
+
+	
+			
+			//v_imprim_defaut = change_imprimante()
+			
+			// recherche de l'imprimante spécifique pour les dep et feuilles de soins
+			if profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep_active","N") = "O" then 
+				dw_recto.Modify ('DataWindow.Printer="'+getimprimspecif(code)+'" ')
+			end if
+	
+			//envoie l'impression
+			if dw_recto.print() = 1 then
+				print_ok = true
+			end if
+	
+			// Mémo du PDF
+			v_dir_patient = dir_photos + string(code) + win_delimiter 
+			if not DirectoryExists(v_dir_patient) then
+				CreateDirectory(v_dir_patient)
+			end if
+			v_fichier_destination_complet =  string(today(), "yyyy-mm-dd")+" "+string(now(), "hh-mm-ss")+ " - DEP.pdf"
+			v_fichier_destination_complet = v_dir_patient + v_fichier_destination_complet
+			dw_recto.saveas(v_fichier_destination_complet, PDF!, false)
+		
+			//remet_imprimante_defaut(v_imprim_defaut)
+		
+			
+			//si impresion OK alors ...
+			if print_ok then
+				//ajoute à l'histo du patient cette impression
+	
+					lib_histo = trim(left(dw_click.getitemstring(dw_click.getrow(),"code_soins_nom"),14)) 
+					
+					if dw_click.getitemnumber(dw_click.getrow(),"numero") > 0 then
+						lib_histo = lib_histo + " N°"+string(dw_click.getitemnumber(dw_click.getrow(),"numero"))
+					end if
+	
+					lib_histo = lib_histo + " : "	+ dw_recto.getitemstring(1,"dem")+" au "+dw_recto.getitemstring(1,"dtedem")
+				
+				//ajout_histo_editions(code,"RENSEC",today(),lib_histo)
+				
+				//Depuis 22.00h on met la date réellement imprimée sur le doc ...
+				integer categorie_nulle
+				setnull(categorie_nulle)
+				if date_modifiee then
+					//ajout_histo_editions(code,"RENSEC",v_date_deja_impr,lib_histo)
+					fxg_enregcourrierhisto ( code, "RENSEC" , v_date_deja_impr ,lib_histo , v_fichier_destination_complet , 'E', 'N', 'N', '', categorie_nulle )
+				else
+					//ajout_histo_editions(code,"RENSEC",v_date_impr,lib_histo)
+					fxg_enregcourrierhisto ( code, "RENSEC" , v_date_impr ,lib_histo , v_fichier_destination_complet , 'E', 'N', 'N', '', categorie_nulle )
+				end if
+				//On ne met à jour la date d'impression de la DEP
+				//pour les soins ET pour les soins prévus
+				if type_menu = 'S' or type_menu = 'P' then
+						if type_menu = 'S' then
+							if not date_modifiee then
+								UPDATE "soins"  SET "date_impr" = cast(getdate() as date)  
+								WHERE ( "soins"."cle" = :cle ) AND  ( "soins"."code" = :code );
+								COMMIT ;
+							end if
+							// "petite" datawindow en bas à droite
+							if belgique then
+								dw_impression.retrieve(cle,code,'B')
+							else
+								if france then
+									dw_impression.retrieve(cle,code,'F')
+								else
+									dw_impression.retrieve(cle,code,'')
+								end if
+							end if
+						else
+							if not date_modifiee then
+								UPDATE "soins_prevus"  SET "date_impr" = cast(getdate() as date)  
+								WHERE ( "soins_prevus"."cle" = :cle ) AND  ( "soins_prevus"."code" = :code );
+								COMMIT ;
+							end if
+							// véritable datawindow des soins ... pas de retrieve sur la cle
+							dw_impression.retrieve(code, w_click_soins_reg.var_code_devis_local)
+						end if
+				end if
+			end if
+		else
+			Messagebox("INFORMATION","Pas de DEP pour ce soin ! Le type de soin est paramétré sans renouvellement (Cf. table des Types de soins).")
+		end if
+	end if
+end if
+end subroutine
+
+public subroutine remet_imprimante_defaut (string v_imprim);
+// Permet de remettre l'imprimante passée en paramètre par défaut
+
+
+
+// On vérifie si on a activée l'imprimante ou pas !!
+if profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep_active","N")  = 'O' then
+
+	
+	//	Instance de la liste pour utiliser les fonctions ad'hoc
+	uo_liste_imprimantes  imprim
+	imprim = CREATE uo_liste_imprimantes  
+	// pour mise à jour des valeurs
+	imprim.triggerevent(constructor!)
+		
+	
+	
+	imprim.setImprimanteDefaut(v_imprim)
+	
+		
+		
+	
+	
+	destroy imprim 
+	
+end if
+end subroutine
+
+public subroutine ajustement_recto (ref datawindow dw_recto);//fx protected qui permet de faire les ajustements d'impression seulon imprimante
+//renvoie rien
+
+long dx,dy
+string plan
+
+
+if type_menu = 'R' then
+	
+	if Belgique then
+		
+		// C'est l'Attestation de Soins Donnés
+		SELECT remb_retro_x,remb_retro_y INTO :dx,:dy FROM param_secu ;
+		chg_coord(dw_recto,"nom_parent1",dx,dy)
+		chg_coord(dw_recto,"nom_caisse",dx,dy)
+		chg_coord(dw_recto,"num_secu",dx,dy)
+		chg_coord(dw_recto,"adr1_parent1",dx,dy)
+		chg_coord(dw_recto,"adr2_parent1",dx,dy)
+		chg_coord(dw_recto,"codep_parent1",dx,dy)
+		chg_coord(dw_recto,"ville_parent1",dx,dy)
+
+		
+		
+		SELECT remb_pano_x,remb_pano_y INTO :dx,:dy FROM param_secu ;
+		chg_coord(dw_recto,"nom_patient",dx,dy)
+		chg_coord(dw_recto,"prenom_patient",dx,dy)
+
+
+		SELECT remb_nom_x,remb_nom_y INTO :dx,:dy FROM param_secu ;
+		chg_coord(dw_recto,"nom_praticien",dx,dy)
+		chg_coord(dw_recto,"numero_inami",dx,dy)
+
+		// imprime t on le remboursement sur l'attestation ?
+		string v_attestation_remboursement
+		select top 1 attestation_remboursement into :v_attestation_remboursement from param ;
+		
+		if v_attestation_remboursement = 'O' then 
+			chg_coord(dw_recto,"total_montant_rembourse",dx,dy)
+			dw_recto.object.total_montant_rembourse.visible = 1
+		else
+			dw_recto.object.total_montant_rembourse.visible = 0
+		end if
+		
+		SELECT remb_date_x,remb_date_y INTO :dx,:dy FROM param_secu ;
+		if dx = -999 and dy = -999 then
+			// Rendre invisible 
+			dw_recto.modify("date.visible = 0")
+		else
+			chg_coord(dw_recto,"date",dx,dy)
+		end if
+
+		if profilestring(dir_ini+inifile_orthokis,"DEP-FSE","attestations_2016","N")  ="O" then 
+			// modèle attestation 2016
+			SELECT remb_cadre2_x,remb_cadre2_y INTO :dx,:dy FROM param_secu ;
+			chg_coord(dw_recto,"numero_bce",dx,dy)
+			chg_coord(dw_recto,"montant_recu",dx,dy)
+			chg_coord(dw_recto,"date_1",dx,dy)
+			dw_recto.object.numero_bce.visible = 1
+			dw_recto.object.montant_recu.visible = 1
+			dw_recto.object.date_1.visible = 1
+		else
+			// Attestation AVANT 2016
+			SELECT remb_cadre1_x,remb_cadre1_y INTO :dx,:dy FROM param_secu ;
+			dw_recto.modify("date_1.visible = 0")
+			chg_coord(dw_recto,"institution_perceptrice",dx,dy)
+			dw_recto.object.institution_perceptrice.visible = 1
+		end if
+		
+
+		
+		
+		
+		SELECT remb_tele_x,remb_tele_y INTO :dx,:dy FROM param_secu ;
+		
+		// L'horizontalement de règle classique
+		chg_coord(dw_recto,"date_exe",dx,0)
+		chg_coord(dw_recto,"soins",dx,0)
+		chg_coord(dw_recto,"dent",dx,0)
+		
+		// Le verticlament c'est la hauteur du Header du Group 1
+		dy = dy + 1204
+		dw_recto.modify ("Datawindow.header.1.height = "+ string(dy) ) 
+		
+	else
+		// FRANCE !!
+		
+		// C'est une feuille de soins
+
+		// Cadre1
+		SELECT remb_cadre1_x,remb_cadre1_y INTO :dx,:dy FROM param_secu ;
+		//chg_coord(dw_recto,"cadre1",dx,dy)
+		
+		integer lig, nb_lig
+		
+		// Cadre du haut
+		nb_lig = 9
+		for lig = 1 to nb_lig
+			chg_coord(dw_recto,"tab1_lig"+string(lig)+"_date",dx,dy)
+			chg_coord(dw_recto,"tab1_lig"+string(lig)+"_dent",dx,dy)
+			chg_coord(dw_recto,"tab1_lig"+string(lig)+"_lettre",dx,dy)
+			chg_coord(dw_recto,"tab1_lig"+string(lig)+"_nb_lettre",dx,dy)
+			chg_coord(dw_recto,"tab1_lig"+string(lig)+"_libelle",dx,dy)
+			chg_coord(dw_recto,"tab1_lig"+string(lig)+"_motif",dx,dy)
+		next
+
+		chg_coord(dw_recto,"tab1_total_lettres",dx,dy)
+		chg_coord(dw_recto,"tab1_total_euros",dx,dy)
+		chg_coord(dw_recto,"tab1_nombre_en_lettres",dx,dy)
+
+		
+		// identification (zone du haut)
+		SELECT remb_identification_x,remb_identification_y INTO :dx,:dy FROM param_secu ;
+		if dx = -999 and dy = -999 then
+			dw_recto.modify("prati_institution_perceptrice.visible = 0")
+		else
+			chg_coord(dw_recto,"prati_institution_perceptrice",dx,dy)
+		end if
+		
+	
+		// Rétroalvéolie
+		SELECT remb_retro_x,remb_retro_y INTO :dx,:dy FROM param_secu ;
+		chg_coord(dw_recto,"retro",dx,dy)
+		// Panoramique
+		SELECT remb_pano_x,remb_pano_y INTO :dx,:dy FROM param_secu ;
+		chg_coord(dw_recto,"pano",dx,dy)
+		// Téléradiographique
+		SELECT remb_tele_x,remb_tele_y INTO :dx,:dy FROM param_secu ;
+		chg_coord(dw_recto,"tele",dx,dy)
+
+		// Nom du patient
+		SELECT remb_nom_x,remb_nom_y INTO :dx,:dy FROM param_secu ;
+		chg_coord(dw_recto,"nom_complet",dx,dy)
+
+		// Cadre2
+		SELECT remb_cadre2_x,remb_cadre2_y INTO :dx,:dy FROM param_secu ;
+//		chg_coord(dw_recto,"cadre2",dx,dy)
+
+		// Cadre du bas
+		nb_lig = 5
+		for lig = 1 to nb_lig
+			chg_coord(dw_recto,"tab2_lig"+string(lig)+"_date",dx,dy)
+			chg_coord(dw_recto,"tab2_lig"+string(lig)+"_dent",dx,dy)
+			chg_coord(dw_recto,"tab2_lig"+string(lig)+"_lettre",dx,dy)
+			chg_coord(dw_recto,"tab2_lig"+string(lig)+"_nb_lettre",dx,dy)
+			chg_coord(dw_recto,"tab2_lig"+string(lig)+"_libelle",dx,dy)
+			chg_coord(dw_recto,"tab2_lig"+string(lig)+"_motif",dx,dy)
+		next
+		chg_coord(dw_recto,"tab2_total_lettres",dx,dy)
+		chg_coord(dw_recto,"tab2_total_euros",dx,dy)
+		chg_coord(dw_recto,"tab2_nombre_en_lettres",dx,dy)
+
+		// Date
+		SELECT remb_date_x,remb_date_y INTO :dx,:dy FROM param_secu ;
+		chg_coord(dw_recto,"date",dx,dy)
+	end if
+		
+else
+	// C'est une feuille d'entente
+
+	boolean v_dep_utiliser_cadagre_local
+	
+	// plan de traitement
+	SELECT plan_traitement_renouv
+	INTO :plan FROM param ;
+	
+	if profilestring(dir_ini+inifile_orthokis,"DEP-FSE","dep_utiliser_cadagre_local", "N") = "O" then
+		v_dep_utiliser_cadagre_local = true
+	else
+		v_dep_utiliser_cadagre_local = false
+	end if
+	
+	
+	// identification (zone du haut)
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_identification_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_identification_y", "0"))
+	else
+		SELECT renouv_identification_x,renouv_identification_y INTO :dx,:dy FROM param_secu ;
+	end if
+	if dx = -999 and dy = -999 then
+		dw_recto.modify("prati_institution_perceptrice.visible = 0")
+	else
+		chg_coord(dw_recto,"prati_institution_perceptrice",dx,dy)
+	end if
+	
+	// identification (zone du bas)
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_identification2_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_identification2_y", "0"))
+	else
+		SELECT renouv_identification2_x,renouv_identification2_y INTO :dx,:dy FROM param_secu ;
+	end if
+	if dx = -999 and dy = -999 then
+		dw_recto.modify("prati_institution_perceptrice_1.visible = 0")
+	else
+		chg_coord(dw_recto,"prati_institution_perceptrice_1",dx,dy)
+	end if
+		
+
+	// Références nationales R
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_r_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_r_y", "0"))
+	else
+		SELECT renouv_r_x,renouv_r_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"r",dx,dy)
+	
+	// Références nationales HR
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_hr_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_hr_y", "0"))
+	else
+		SELECT renouv_hr_x,renouv_hr_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"hr",dx,dy)
+
+	// date proposition
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_dtepropo_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_dtepropo_y", "0"))
+	else
+		SELECT renouv_dtepropo_x,renouv_dtepropo_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"dtedem",dx,dy)
+	
+	// date début de traitement
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_debtrai_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_debtrai_y", "0"))
+	else
+		SELECT renouv_debtrai_x,renouv_debtrai_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"debtrai",dx,dy)
+	
+	// Cotation 
+	// ATTENTION ! Gestion spéciale car plus de variables disponibles
+	// dans table param_secu
+	chg_coord(dw_recto,"cotation",dx,0)
+	dy = (2 * double(dw_recto.describe("debtrai.y")) - double(dw_recto.describe("dtedem.y")))
+	dw_recto.modify("cotation.y = "+string(dy))
+	
+	
+	// Devis oui
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_oui_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_oui_y", "0"))
+	else
+		SELECT renouv_oui_x,renouv_oui_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"oui",dx,dy)
+	
+	// Devis non
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_non_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_non_y", "0"))
+	else
+		SELECT renouv_non_x,renouv_non_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"non",dx,dy)
+	
+	// Nom du patient 
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_nom1_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_nom1_y", "0"))
+	else
+		SELECT renouv_nom1_x,renouv_nom1_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"patient_nom_1",dx,dy)
+	
+	// Date de naissance
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_dtenais_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_dtenais_y", "0"))
+	else
+		SELECT renouv_dtenais_x,renouv_dtenais_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"patient_date_naissance",dx,dy)
+	
+	// N° Sécu de l'assuré
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_secu_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_secu_y", "0"))
+	else
+		SELECT renouv_secu_x,renouv_secu_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"secu",dx,dy)
+
+	// Début de traitement
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_semestre_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_semestre_y", "0"))
+	else
+		SELECT renouv_semestre_x,renouv_semestre_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"sem1",dx,dy)
+	// Surveillance
+	chg_coord(dw_recto,"surv",dx,dy)
+	
+	// Suite
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_contention_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_contention_y", "0"))
+	else
+		SELECT renouv_contention_x,renouv_contention_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"suite",dx,dy)
+	// Contention
+	chg_coord(dw_recto,"cont",dx,dy)
+	
+	// N° semestre
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_nosem_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_nosem_y", "0"))
+	else
+		SELECT renouv_nosem_x,renouv_nosem_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"semno",dx,dy)
+	// N° contention
+	chg_coord(dw_recto,"an",dx,dy)
+
+	// Autres
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_autres_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_autres_y", "0"))
+	else
+		SELECT renouv_autres_x,renouv_autres_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"autres",dx,dy)	
+	
+	// Lesquels
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_lesquels_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_lesquels_y", "0"))
+	else
+		SELECT renouv_lesquels_x,renouv_lesquels_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"lesquels",dx,dy)	
+	
+	// Basal max pro
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_basal_max_pro_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_basal_max_pro_y", "0"))
+	else
+		SELECT renouv_basal_max_pro_x,renouv_basal_max_pro_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"basal_max_pro",dx,dy)	
+	// Basal max endo
+	chg_coord(dw_recto,"basal_max_endo",dx,dy)			
+	// Hypodivergence
+	chg_coord(dw_recto,"hypodivergence",dx,dy)	
+	
+	// Basal max retro
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_basal_max_retro_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_basal_max_retro_y", "0"))
+	else
+		SELECT renouv_basal_max_retro_x,renouv_basal_max_retro_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"basal_max_retro",dx,dy)	
+	// Basal max exo
+	chg_coord(dw_recto,"basal_max_exo",dx,dy)	
+	
+	
+	// Basal mand pro
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_basal_mand_pro_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_basal_mand_pro_y", "0"))
+	else
+		SELECT renouv_basal_mand_pro_x,renouv_basal_mand_pro_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"basal_mand_pro",dx,dy)	
+	// Basal mand endo
+	chg_coord(dw_recto,"basal_mand_endo",dx,dy)			
+	// Hyperdivergence
+	chg_coord(dw_recto,"hyperdivergence",dx,dy)
+	
+	// Basal mand retro
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_basal_mand_retro_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_basal_mand_retro_y", "0"))
+	else
+		SELECT renouv_basal_mand_retro_x,renouv_basal_mand_retro_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"basal_mand_retro",dx,dy)	
+	// Basal mand exo
+	chg_coord(dw_recto,"basal_mand_exo",dx,dy)	
+	
+	// Alvéo max pro
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_alveo_max_pro_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_alveo_max_pro_y", "0"))
+	else
+		SELECT renouv_alveo_max_pro_x,renouv_alveo_max_pro_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"alveo_max_pro",dx,dy)	
+	// Alvéo max endo
+	chg_coord(dw_recto,"alveo_max_endo",dx,dy)			
+	// Supraclusion
+	chg_coord(dw_recto,"supraclusion",dx,dy)	
+	
+	// Alvéo max retro
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_alveo_max_retro_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_alveo_max_retro_y", "0"))
+	else
+		SELECT renouv_alveo_max_retro_x,renouv_alveo_max_retro_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"alveo_max_retro",dx,dy)	
+	// Alvéo max exo
+	chg_coord(dw_recto,"alveo_max_exo",dx,dy)	
+	
+	// Alvéo mand pro
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_alveo_mand_pro_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_alveo_mand_pro_y", "0"))
+	else
+		SELECT renouv_alveo_mand_pro_x,renouv_alveo_mand_pro_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"alveo_mand_pro",dx,dy)	
+	// Alvéo mand endo
+	chg_coord(dw_recto,"alveo_mand_endo",dx,dy)			
+	// Infraclusion
+	chg_coord(dw_recto,"infraclusion",dx,dy)
+	
+	// Alvéo mand retro
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_alveo_mand_retro_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_alveo_mand_retro_y", "0"))
+	else
+		SELECT renouv_alveo_mand_retro_x,renouv_alveo_mand_retro_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"alveo_mand_retro",dx,dy)	
+	// Alvéo mand exo
+	chg_coord(dw_recto,"alveo_mand_exo",dx,dy)	
+	
+	// Molaire Cl1
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_mol_cl1_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_mol_cl1_y", "0"))
+	else
+		SELECT renouv_mol_cl1_x,renouv_mol_cl1_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"mol_cl1",dx,dy)	
+	
+	// Molaire Cl2
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_mol_cl2_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_mol_cl2_y", "0"))
+	else
+		SELECT renouv_mol_cl2_x,renouv_mol_cl2_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"mol_cl2",dx,dy)	
+	
+	// Molaire Cl3
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_mol_cl3_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_mol_cl3_y", "0"))
+	else
+		SELECT renouv_mol_cl3_x,renouv_mol_cl3_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"mol_cl3",dx,dy)	
+
+	// Molaire
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_mol_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_mol_y", "0"))
+	else
+		SELECT renouv_mol_x,renouv_mol_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"molaire",dx,dy)	
+	
+	// Canine Cl1
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_can_cl1_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_can_cl1_y", "0"))
+	else
+		SELECT renouv_can_cl1_x,renouv_can_cl1_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"can_cl1",dx,dy)	
+	
+	// Canine Cl2
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_can_cl2_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_can_cl2_y", "0"))
+	else
+		SELECT renouv_can_cl2_x,renouv_can_cl2_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"can_cl2",dx,dy)
+	
+	// Canine Cl3
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_can_cl3_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_can_cl3_y", "0"))
+	else
+		SELECT renouv_can_cl3_x,renouv_can_cl3_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"can_cl3",dx,dy)	
+	
+	// Canine
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_can_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_can_y", "0"))
+	else
+		SELECT renouv_can_x,renouv_can_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"canine",dx,dy)	
+	
+	// Dysharmonie dento-maxillaire
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_dys_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_dys_y", "0"))
+	else
+		SELECT renouv_dys_x,renouv_dys_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"dento_max",dx,dy)	
+	// Dysharmonie dento-dentaire
+	chg_coord(dw_recto,"dento_dent",dx,dy)	
+	
+	// Agénésie
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_agene_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_agene_y", "0"))
+	else
+		SELECT renouv_agene_x,renouv_agene_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"agenesie",dx,dy)	
+	
+	// Surnum.
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_surnum_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_surnum_y", "0"))
+	else
+		SELECT renouv_surnum_x,renouv_surnum_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"surnum",dx,dy)	
+	
+	// Malposition
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_malpo_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_malpo_y", "0"))
+	else
+		SELECT renouv_malpo_x,renouv_malpo_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"malposition",dx,dy)	
+	
+	// Occlusion inversée dte
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_occl_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_occl_y", "0"))
+	else
+		SELECT renouv_occl_x,renouv_occl_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"occl_dte",dx,dy)	
+	// Occlusion inversée gche                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+	chg_coord(dw_recto,"occl_gche",dx,dy)	
+	// Occlusion inversée antérieure
+	chg_coord(dw_recto,"occl_ant",dx,dy)
+	
+	// Facteur fonctionnel
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_facteur_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_facteur_y", "0"))
+	else
+		SELECT renouv_facteur_x,renouv_facteur_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"patient_facteur",dx,dy)	
+	// Plan de traitement
+	//if plan = "O" then
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_plan_trait_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_plan_trait_y", "0"))
+	else
+		SELECT renouv_plan_trait_x,renouv_plan_trait_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"patient_plan_traitement",dx,dy)
+	//else
+	//	dw_recto.Modify("patient_plan_traitement.visible = 0")
+	//end if
+	
+	// Commentaires
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_comment_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_comment_y", "0"))
+	else
+		SELECT renouv_comment_x,renouv_comment_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"patient_commentaire",dx,dy)
+	
+	// Date
+	if v_dep_utiliser_cadagre_local then
+		dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_date_x", "0"))
+		dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_date_y", "0"))
+	else
+		SELECT renouv_date_x,renouv_date_y INTO :dx,:dy FROM param_secu ;
+	end if
+	chg_coord(dw_recto,"date_imp",dx,dy)
+	
+	
+	IF APPEL_VISIODENT then
+		// pour le haut
+		// on fait un mixte de coordonnées existantes
+		if v_dep_utiliser_cadagre_local then
+			dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_basal_mand_retro_x", "0"))
+			dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_secu_y", "0"))
+		else
+			SELECT renouv_basal_mand_retro_x,renouv_secu_y INTO :dx,:dy FROM param_secu ;
+		end if
+		chg_coord(dw_recto,"caisse_nom",dx,dy)	
+		chg_coord(dw_recto,"nom_praticien",dx,dy)	
+		chg_coord(dw_recto,"prati_numero_structure",dx,dy)	
+		
+		if v_dep_utiliser_cadagre_local then
+			dx = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_basal_mand_retro_x", "0"))
+			dy = long(profilestring(dir_ini+inifile_orthokis,"DEP-FSE","renouv_hr_y", "0"))
+		else
+			SELECT renouv_basal_mand_retro_x,renouv_hr_y INTO :dx,:dy FROM param_secu ;
+		end if
+		chg_coord(dw_recto,"nom_praticien_1",dx,dy)	
+		chg_coord(dw_recto,"prati_numero_structure_1",dx,dy)	
+
+	end if
+	
+end if
+end subroutine
+
+public function boolean prepa_recto_feuille_soin (datawindow dw_paye);	// On va se service de la table feuille_soins en tant que temporaire
+	
+	long nb		// Dans la table feuille de soins
+	long ligtot,lig, cpttp // Lignes de soins
+	boolean 	date_exe_ok = true
+	date date_temp
+
+ 	fs2014_tp_caisse = false
+	fs2014_tp_mutuelle = false
+	setnull(date_ep_fs2014)
+
+	setnull(date_paiement_honoraires)
+	
+	// Pour se repérer dans les actes
+	double code_patient,cle_soin,nb_lettre_soin,montant_soin
+	date date_exe
+	string code_soin,lettre_soin,v_ep,v_motif,v_nom_soin, v_libelle
+	integer v_duree
+	
+	select count(*) into :nb from "feuille_soins" ;
+	
+	// Y a t il quelqu'un qui l'utilise ?
+	if nb > 0 then
+		MessageBox("ATTENTION","Un autre utilisateur imprime une feuille. ~n~nVeuillez renouveler votre demande.~n~n(Si aucun utilisateur n'imprime, utilisez la fonction 'Déblocage impression' de ce menu)")
+		return (false)
+	else
+		
+		// On ajoute tous les soins sélectionnés dans la DW ...
+		// On se sert de la zone FSE
+
+		if dw_paye.find("fse = 'O'",0,dw_paye.rowcount()) > 0 then
+
+			// Balayage des actes
+			ligtot = dw_paye.rowcount()
+			for lig = 1 to ligtot
+				if dw_paye.getitemstring(lig,"fse") = 'O' and date_exe_ok then
+					// Ligne de soins
+					code_patient = dw_paye.getitemnumber(lig,"soins_code")
+					cle_soin 		 = dw_paye.getitemnumber(lig,"cle")
+					date_exe 	 = dw_paye.getitemdate(lig,"soins_date_exe")
+				
+					// Si la date d'exécution du soin est nulle => On empêche d'aller plus loin
+					// (On mettra, dans les soins, la date d'exécution par défaut pour les actes non soumis à entente)
+					If isnull(date_exe) then
+						MessageBox("ATTENTION !","Au moins un des actes sélectionné n'a pas de date d'exécution !")
+						date_exe_ok = false
+					else
+
+						code_soin = dw_paye.getitemstring(lig,"code_soins_code")
+						nb_lettre_soin = dw_paye.getitemnumber(lig,"scp_demande")
+						montant_soin = dw_paye.getitemnumber(lig,"total")
+						
+						// on met un motif lorsqu'il y a déplassement 
+						if dw_paye.getitemnumber(lig,"hn") > 0 then
+							v_motif = "ED"
+						else
+							v_motif = ''
+						end if
+						
+						
+						SELECT "lettre" , "renouvt", "nom" , "duree"	
+						INTO :lettre_soin , :v_ep, :v_nom_soin 	, :v_duree 
+						FROM "code_soins" WHERE code = :code_soin ;
+
+						// On mémorise le soin dans la table "temporaire"
+						v_libelle = ""
+						if v_ep = "O" then
+							// Pour les actes avec ententes, on va en plus regarder le libellé du soin
+							// Pas pour les autres
+							v_libelle = "("+v_nom_soin + " "+string(dw_paye.getitemnumber(lig,"numero"))+")"
+							date_ep_fs2014 =  dw_paye.getitemdate(lig,"date_demande")
+						else
+							v_libelle = "("+v_nom_soin+")"
+						end if
+						
+						// Depuis V2014, pour l'impression dans le cadre du haut ou du bas on se base sur la durée et non le renouvellement (cas des FDO et des Trimestre)
+						if v_duree > 0 then
+							v_ep ='O'
+						end if
+						
+						  INSERT INTO "feuille_soins"   ( "date",   "dent",   "lettre",   "nb_lettre",   "motif",    "montant",   "ep", "libelle" )  
+						  VALUES ( :date_exe,   'ODF',   :lettre_soin,   :nb_lettre_soin,   :v_motif,   :montant_soin,   :v_ep, :v_libelle )  ;
+						  
+							fs2014_tp_caisse = false
+							fs2014_tp_mutuelle = false
+
+						// Tiers payants ?
+						select isnull(count(*), 0) into :cpttp from ligne_soins where code = :code_patient and cle = :cle_soin  and origine_tp = 'C' ;
+						if cpttp > 0 then
+							fs2014_tp_caisse = true
+						end if
+						select isnull(count(*), 0) into :cpttp from ligne_soins where code = :code_patient and cle = :cle_soin  and origine_tp = 'M' ;
+						if cpttp > 0 then
+							fs2014_tp_mutuelle = true
+						end if
+						
+						
+						
+						// Calcul de la date de paiement des honoraires (en bas du recto)					
+				
+						// on prend la date maxi de règlement
+						select max("date") into :date_temp from "paye" where code = :code_patient and cle = :cle_soin ;  
+						
+						if isnull(date_paiement_honoraires) and not isnull(date_temp) then
+							date_paiement_honoraires = date_temp
+						else 
+							if not isnull(date_paiement_honoraires) and  not isnull(date_temp) then
+								if date_paiement_honoraires < date_temp then
+									date_paiement_honoraires = date_temp
+								end if
+							end if
+						end if
+					
+					end if
+				end if
+			next
+			
+			commit ;
+
+			if date_exe_ok then
+				return(true)
+			else
+				// On vide la table 
+				delete from "feuille_soins" ;
+				commit ;
+				return(false)
+			end if
+				
+		else
+			if not Belgique then
+				MessageBox("ATTENTION","Vous devez sélectionner (au moins) un soin avant de réaliser une Feuille de Soin.")
+			end if
+			return (false)
+		end if
+	end if
+
+end function
+
+public subroutine maj_tableaux_recto_feuille_soins (datawindow dw_recto);//
+//
+//   Remplissage manuel des "tableaux" depuis 14.01m car ça merde avec PB 10.5.2
+//
+//
+
+
+string v_ep 
+string v_dent, v_lettre,  v_libelle, v_motif 
+decimal {2} v_nb_lettre
+date v_dat
+integer lig, nb_lig
+
+// Remplissage manuel des "tableaux" depuis 14.01m car ça merde avec PB 10.5.2
+DECLARE cur CURSOR FOR SELECT "date", dent, lettre, nb_lettre, libelle, motif 
+from feuille_soins 
+where ep = :v_ep 
+order by lettre, "date", nb_lettre ;
+
+
+// Cadre 1
+v_ep = 'N'
+open cur ;
+fetch cur into :v_dat, :v_dent, :v_lettre, :v_nb_lettre, :v_libelle, :v_motif ;
+lig = 1
+
+// On vierge les ZONES
+	
+	// Cadre du haut
+	nb_lig = 9
+	for lig = 1 to nb_lig
+		dw_recto.modify("tab1_lig"+string(lig)+"_date.text = ''") 
+		dw_recto.modify("tab1_lig"+string(lig)+"_dent.text = ''") 
+		dw_recto.modify("tab1_lig"+string(lig)+"_lettre.text = ''") 
+		dw_recto.modify("tab1_lig"+string(lig)+"_nb_lettre.text = ''") 
+		dw_recto.modify("tab1_lig"+string(lig)+"_libelle.text = ''") 
+		dw_recto.modify("tab1_lig"+string(lig)+"_motif.text = ''") 
+	next
+	dw_recto.modify("tab1_total_lettres.text = ''") 
+	dw_recto.modify("tab1_total_euros.text = ''") 
+	dw_recto.modify("tab1_nombre_en_lettres.text = ''") 
+
+// On limite à 9 lignes !!!
+lig = 1
+do while sqlca.sqlcode = 0 and lig <= nb_lig
+	
+	// Mise à jour des valeurs
+	dw_recto.modify("tab1_lig"+string(lig)+"_date.text = '"+string(v_dat,"dd/mm/yyyy")+"'")
+	dw_recto.modify("tab1_lig"+string(lig)+"_dent.text = '"+v_dent+"'")
+	dw_recto.modify("tab1_lig"+string(lig)+"_lettre.text = '"+v_lettre+"'")
+	dw_recto.modify("tab1_lig"+string(lig)+"_nb_lettre.text = '"+string(v_nb_lettre)+"'")
+	dw_recto.modify("tab1_lig"+string(lig)+"_libelle.text = '"+v_libelle+"'")
+	dw_recto.modify("tab1_lig"+string(lig)+"_motif.text = '"+v_motif+"'")
+	
+	lig = lig + 1
+	
+	fetch cur into :v_dat, :v_dent, :v_lettre, :v_nb_lettre, :v_libelle, :v_motif ;
+loop
+
+close cur ;
+
+
+// Cadre 2
+
+// On vierge les ZONES
+	// Cadre du bas
+	nb_lig = 5
+	for lig = 1 to nb_lig
+		dw_recto.modify("tab2_lig"+string(lig)+"_date.text = ''") 
+		dw_recto.modify("tab2_lig"+string(lig)+"_dent.text = ''") 
+		dw_recto.modify("tab2_lig"+string(lig)+"_lettre.text = ''") 
+		dw_recto.modify("tab2_lig"+string(lig)+"_nb_lettre.text = ''") 
+		dw_recto.modify("tab2_lig"+string(lig)+"_libelle.text = ''") 
+		dw_recto.modify("tab2_lig"+string(lig)+"_motif.text = ''") 
+	next
+	dw_recto.modify("tab2_total_lettres.text = ''") 
+	dw_recto.modify("tab2_total_euros.text = ''") 
+	dw_recto.modify("tab2_nombre_en_lettres.text = ''") 
+
+
+v_ep = 'O'
+open cur ;
+fetch cur into :v_dat, :v_dent, :v_lettre, :v_nb_lettre, :v_libelle, :v_motif ;
+lig = 1
+// On limite à 5 lignes !!!
+do while sqlca.sqlcode = 0 and lig < 6
+	
+	// Mise à jour des valeurs
+	dw_recto.modify("tab2_lig"+string(lig)+"_date.text = '"+string(v_dat,"dd/mm/yyyy")+"'")
+	dw_recto.modify("tab2_lig"+string(lig)+"_dent.text = '"+v_dent+"'")
+	dw_recto.modify("tab2_lig"+string(lig)+"_lettre.text = '"+v_lettre+"'")
+	dw_recto.modify("tab2_lig"+string(lig)+"_nb_lettre.text = '"+string(v_nb_lettre)+"'")
+	dw_recto.modify("tab2_lig"+string(lig)+"_libelle.text = '"+v_libelle+"'")
+	dw_recto.modify("tab2_lig"+string(lig)+"_motif.text = '"+v_motif+"'")
+	
+	lig = lig + 1
+	
+	fetch cur into :v_dat, :v_dent, :v_lettre, :v_nb_lettre, :v_libelle, :v_motif ;
+loop
+
+close cur ;
+end subroutine
+
+public subroutine decalage_partiel (character mode, boolean avec_confirmation, double cle_a_ne_pas_modifier);// Décalage partiel par rapport à une date de soin
+
+// L'argument mode sert à savoir ce qu'on décale :
+//    Mode = 'E' : on ne décale que les échéances
+//    Mode = 'D' : on ne décale que les dates de soins (demande)
+//    Mode = 'T' :  on décale toutes les dates
+
+
+// Avec_confirmation : pour savoir si on pose ou pas la question AVANT de décaler
+// cle_a_ne_pas_modifier : vaudra -1 dans les cas décalages par le user (on modifie toutes les clefs) - vaudra une valeur si on est en insertion d'un soin et qu'on décale la suite
+
+
+boolean v_suite
+
+
+If dw_click.rowCount() > 0 Then
+	date dt,dd
+	string cde
+	integer ecart, numero
+	string libelle_decalage, v_id_tea
+	long ligne_courante 
+	decimal{2} v_total
+	double v_cle
+	
+	ligne_courante = dw_click.GetRow()
+	
+	var_code_local = dw_click.getitemnumber(ligne_courante,"soins_code")
+	
+	v_date_soin = dw_click.GetItemDate(ligne_courante,"date_demande")
+	
+	if avec_confirmation then
+		open(w_soin_date_decalage)
+	else
+
+		var_suite = true
+		
+		// recherche de la date de fin du soin   "cle_a_ne_pas_modifier" 
+		select dateadd (month , code_soins.duree, soins.date_demande ) into :v_date_soin 
+		from soins, code_soins 
+		where soins.code = :var_code_local and cle = :cle_a_ne_pas_modifier and soins."type" = code_soins.code ;
+				
+	end if
+	
+	IF var_suite THEN
+		dd = dw_click.GetItemDate(dw_click.GetRow(),"date_demande")
+		numero = dw_click.GetItemNumber(dw_click.GetRow(),"numero")
+		dt = v_date_soin
+		ecart = daysafter(dd,dt) 
+		
+		libelle_decalage = ''
+		// Libellé en fonction du mode de décalage
+		CHOOSE CASE mode
+		CASE 'E'
+			libelle_decalage ='(Décalage des Echéances)'
+		CASE 'D'
+			libelle_decalage ='(Décalage des Dates de Demandes)'
+		CASE 'T'
+			libelle_decalage ='(Décalage des Echéances et des Dates de Demandes)'
+		END CHOOSE
+
+		
+		
+		v_suite = true
+		
+		if avec_confirmation then
+			If not MessageBox("Actualisation partielle de dates","L'ancienne date de demande était le "+string(dd)+"~nLa nouvelle date de demande sera le "+string(dt)+"~n~nSoit un écart de "+string(ecart)+" jour(s)~n~nVoulez-vous décaler d'autant les semestres et contentions suivants "+ libelle_decalage+" ?~n~n(Attention, cette actualisation est irréversible !)",Question!,YesNo!,2) = 1 then
+				v_suite = false
+			end if
+		end if
+		
+		
+		if v_suite then
+			open(w_patience)
+	
+			if mode = 'E' or mode = 'T' then
+				// On actualise les dates d'échéances
+//				cde = 'UPDATE ligne_soins,soins,code_soins SET "date" = days("date",'+string(ecart)+') WHERE "soins"."type" = "code_soins"."code"  and "code_soins"."duree" > 0  and "soins"."code" = "ligne_soins"."code" 	and "soins"."cle" <> ' + string(cle_a_ne_pas_modifier)+ 'and "soins"."cle" = "ligne_soins"."cle" and "soins"."code" = '+string(var_code_local) + ' and "date_demande" >= '+"'"+string(dd,'yyyy-mm-dd') +"'"
+				cde = 'UPDATE ligne_soins,soins,code_soins SET "date" =  dateadd(day,'+string(ecart)+', "date")  WHERE "soins"."type" = "code_soins"."code"  and "code_soins"."duree" > 0  and "soins"."code" = "ligne_soins"."code" 	and "soins"."cle" <> ' + string(cle_a_ne_pas_modifier)+ 'and "soins"."cle" = "ligne_soins"."cle" and "soins"."code" = '+string(var_code_local) + ' and "date_demande" >= '+"'"+string(dd,'yyyy-mm-dd') +"'"
+				EXECUTE IMMEDIATE :cde ;
+				if sqlca.sqlcode <> 0 then
+					messagebox("Problème dans l'actualisation 1",sqlca.sqlerrtext)
+				end if
+				w_patience.Wf_SetValue(50)
+			end if
+			
+			
+			if mode = 'D' or mode = 'T' then
+				// On actualise les Dates d'execution depuis la V10 .. y compris le premier
+//				cde = 'UPDATE soins,code_soins SET "date_exe" = days("date_exe",'+string(ecart)+') WHERE "soins"."type" = "code_soins"."code"  and "code_soins"."duree" > 0 and "soins"."code" = '+string(var_code_local) + ' and "date_demande" >= '+"'"+string(dd,'yyyy-mm-dd') +"' and date_exe is not null and soins.cle <> "+string(cle_a_ne_pas_modifier)
+				cde = 'UPDATE soins,code_soins SET "date_exe" = dateadd(day,'+string(ecart)+', "date_exe") WHERE "soins"."type" = "code_soins"."code"  and "code_soins"."duree" > 0 and "soins"."code" = '+string(var_code_local) + ' and "date_demande" >= '+"'"+string(dd,'yyyy-mm-dd') +"' and date_exe is not null and soins.cle <> "+string(cle_a_ne_pas_modifier)
+				EXECUTE IMMEDIATE :cde ;
+				if sqlca.sqlcode <> 0 then
+					messagebox("Problème dans l'actualisation 3",sqlca.sqlerrtext)
+				end if
+
+				// On actualise les dates de demandes
+//				cde = 'UPDATE soins,code_soins SET "date_demande" = days("date_demande",'+string(ecart)+') WHERE "soins"."type" = "code_soins"."code"  and "code_soins"."duree" > 0 and "soins"."code" = '+string(var_code_local) + ' and "date_demande" >= '+"'"+string(dd,'yyyy-mm-dd') +"'"+ "  and soins.cle <> "+string(cle_a_ne_pas_modifier)
+				cde = 'UPDATE soins,code_soins SET "date_demande" = dateadd(day,'+string(ecart)+', "date_demande")  WHERE "soins"."type" = "code_soins"."code"  and "code_soins"."duree" > 0 and "soins"."code" = '+string(var_code_local) + ' and "date_demande" >= '+"'"+string(dd,'yyyy-mm-dd') +"'"+ "  and soins.cle <> "+string(cle_a_ne_pas_modifier)
+				EXECUTE IMMEDIATE :cde ;
+				if sqlca.sqlcode <> 0 then
+					messagebox("Problème dans l'actualisation 2",sqlca.sqlerrtext)
+				end if
+
+			end if
+			
+			commit ;
+			
+			if APPEL_VISIODENT and NOT VISIODENT_LIMITE then
+				// Il y a eu actualisation, on renvoie tous les soins
+				fxg_ods_envoi_soins_date(var_code_local, v_date_soin )
+			end if
+			
+			IF TEA then
+				// On parcours les soins modifiés pour actualiser Téa
+				declare cur_soins cursor for select soins.cle, soins.total from soins  ,code_soins WHERE "soins"."type" = "code_soins"."code"  and "code_soins"."duree" > 0 and "soins"."code" = :var_code_local  and "date_demande" >= :dd and soins.cle <> :cle_a_ne_pas_modifier ;
+				open cur_soins ;
+				fetch cur_soins into :v_cle, :v_total ;
+				do while sqlca.sqlcode = 0  
+					if  v_total  > 0 then
+						v_id_tea = string(var_code_local) + "-" + string(v_cle)
+						//fxg_lancer_commande_dsapi("payment/update/" + v_id_tea, "",  "S", "G", var_code_local )
+						fxg_maj_soins_tea(var_code_local, v_cle, "U")
+					end if
+					fetch cur_soins into :v_cle , :v_total  ;
+				loop
+				close cur_soins ;
+			end if
+
+			dw_click.retrieve(var_code_local)
+			dw_click.scrolltorow(99999)
+			close(w_patience)
+   
+		end if			
+
+	end if
+End If
+
+end subroutine
+
+public subroutine utiliser_courrier_word (string type_courrier, double numero);
+// Type courrier :
+// S : soins classiques (pour devis ou autres)
+// F : spécial feuille de soins FRANCE .. pas le choix du docu word ....
+// A : spécial attestation de soins Belge feuille de soin .. pas le choix du docu word ....
+// FF : spécial Facture France .. pas le choix du docu word ....
+// J : spécial Justificatif Belgique .. pas le choix du docu word ....
+// R : spécial Reçu ... pas le choix de docu word ....
+
+
+// Numero : contient numero de facture si besoin (FF), 0 sinon
+
+
+
+
+// Principe identique à l'imagerie
+// Centralisation du code là bas ... sauf pour la sélection des actes
+
+
+// uniquement pour utiliser la fonction
+m_btdroit_gearbox m_menu
+
+
+m_menu = create m_btdroit_gearbox
+
+// Repérage des soins sélectionnés et exportation des valeurs en vue du publipostage !
+long nb_soins_max
+long nb_echeance_max = 12
+long cpt_soins, cpt_ech, cpt_soins_general
+long nb_lig, lig
+string v_libelle, v_nature, v_renouvt
+double  v_cle
+double v_numero
+
+date v_date_eche, v_date_demande, v_date_cour
+double v_montant_eche, v_code_local, v_nb_lettres
+
+string inifile_echeancier = "echeancier.ini"
+string v_coment,  v_date_exe, v_nb_lettres_string, v_dent
+
+date v_fin_soin
+string v_code_soin
+long v_duree
+
+
+date v_date_paye
+decimal {2} v_montant_paye
+string v_mode_reglement
+
+boolean v_suite = false
+
+
+nb_soins_max= integer(profilestring(dir_ini+inifile_orthokis,"WORD","nb_lignes_soins","10"))
+ 
+//Création du fichier si n'existe pas ... sera temporaire
+if fileexists(dir_ini + inifile_echeancier) then
+	v_suite = FileDelete(dir_ini + inifile_echeancier)
+else
+	v_suite = true
+end if
+	
+
+
+if v_suite then
+
+	open(w_patience)
+
+	integer v_file
+	v_file = FileOpen(dir_ini + inifile_echeancier, linemode!, Write!)
+	 FileWrite(v_file, "")
+	 FileClose(v_file)
+	 
+
+	
+	
+	
+	// Curseur sur les échéances de reglements des soins
+	declare cur cursor for select "date", montant from ligne_soins where code = :v_code_local and cle = :v_cle order by "date" asc, tp desc, origine_tp asc, montant desc ;
+	
+	// Curseur sur les échéances de reglements des soins prévus
+	declare curprev cursor for select "date", montant from ligne_soins_prevus where code = :v_code_local and cle = :v_cle order by "date" asc, tp desc, origine_tp asc, montant desc ;
+	
+	
+	// Curseur sur les règlements
+	declare curreg cursor for select "date", montant, mode_reglement.nom from paye, mode_reglement where paye.code = :v_code_local and cle = :v_cle and paye."mode" = mode_reglement.code  
+	order by "date" asc, tp desc, origine_tp asc, montant desc ;
+	
+	
+	
+	// Ecriture des valeurs sélectionnées
+	
+	v_code_local = w_click_soins_reg.var_code_local
+	
+	// Faut mettre à jour la variable globale pour compatibilité
+	// sera ensuite remise à jour par la fonction Utiliser_Office
+	var_code = v_code_local
+	
+	decimal {2} total_honoraires = 0
+	decimal {2} total_honoraires_pc = 0
+	decimal {2} total_base = 0
+	decimal {2} total_depassement = 0
+	decimal {2} total_paye = 0
+	decimal {2} total_paye_pc = 0
+	decimal {2} total_paye_du_jour = 0
+	decimal {2} total_paye_sans_virement = 0
+	decimal {2} total_paye_du_jour_sans_virement = 0
+	decimal {2} montant_paye_soin = 0
+	decimal {2} inter_inami_avec , inter_inami_sans
+	
+	
+	integer nb_echeances_patient, nb_echeances_mutuelle, nb_echeances_caisse
+	
+	string v_symbole_euro
+	select top 1 isnull(symbole_euro, '€') into :v_symbole_euro from param ;
+	
+	String v_croix_part_obligatoire = ""
+	String v_croix_part_complementaire = ""
+	string v_code_association
+	
+	double v_part_patient, v_part_caisse, v_part_mutuelle
+	
+	//--------------------------- GESTION DES PSEUDOCODES -----------------------------------------------------------------------
+	// Prefixe .. correspond à la catégorie du pseudo code ... Catégorie de 1 à 15
+	string s_prefixe = ""
+	boolean b_pseudocode
+	if Belgique and type_courrier = 'J' then
+		string v_pseudocode, v_categorie_pseudocode
+		integer tab_cpt_pc[]	// compteur de pseudocodes 
+		integer i_cpt_pc
+		for i_cpt_pc = 1 to 15
+			tab_cpt_pc[i_cpt_pc] = 0
+		next
+	end if
+	
+	//------------------------------------------------------------------------------------------------------------------------------------
+	
+	nb_lig = dw_click.rowcount()
+	cpt_soins_general = 0
+		
+	for lig = 1 to nb_lig
+		if dw_click.getItemString(lig, "fse")  = "O" then
+			
+			cpt_soins_general = cpt_soins_general + 1
+			
+			if BELGIQUE and type_courrier = "J" then 
+				// pour le justificatif belge, si quelque chise de dnotee dans le commentaire onle prend pour spécifiquer les soins spéciaux Orthodontie
+				
+				if trim (dw_click.getItemString(lig, "soins_comment") ) <> "" then
+					v_libelle = trim (dw_click.getItemString(lig, "soins_comment") )
+				else
+					v_libelle = trim (dw_click.getItemString(lig, "code_soins_nom") )
+				end if
+			else
+				v_libelle = trim (dw_click.getItemString(lig, "code_soins_nom") )
+			end if
+			v_numero  = dw_click.getItemNumber(lig, "numero") 
+			v_cle = dw_click.getItemNumber(lig, "cle") 
+			v_nature = dw_click.getItemString(lig, "code_soins_nature") 
+			v_renouvt = dw_click.getItemString(lig, "code_soins_renouvt")  
+			
+			select isnull(count(*), 0), isnull(sum(montant),0) into :nb_echeances_patient, :v_part_patient from ligne_soins where code = :v_code_local and cle = :v_cle and tp = 'N' ;
+			select isnull(count(*), 0), isnull(sum(montant),0) into :nb_echeances_caisse, :v_part_caisse from ligne_soins where code = :v_code_local and cle = :v_cle and tp = 'O' and origine_tp = 'C' ;
+			select isnull(count(*), 0), isnull(sum(montant),0) into :nb_echeances_mutuelle, :v_part_mutuelle from ligne_soins where code = :v_code_local and cle = :v_cle and tp = 'O' and origine_tp = 'M' ;
+			
+			if v_numero > 0 then
+				v_libelle = v_libelle + " N°"+string(v_numero)
+			end if
+			
+			if w_click_soins_reg.type_gestion = 'S'  or w_click_soins_reg.type_gestion = 'R' then
+				// recherche du commentaire du soin directement en BD
+				if LUXEMBOURG then
+					// Format de date spécial
+					SELECT isnull("soins"."comment",''), dateformat("soins"."date_exe", 'ddmmyy'), isnull(dent,'') , code_association     
+					INTO :v_coment, :v_date_exe , :v_dent  , :v_code_association   
+					FROM "soins"     
+					WHERE ( "soins"."code" = :v_code_local ) AND ( "soins"."cle" = :v_cle )   ;
+				else
+					// format de date normal
+					SELECT isnull("soins"."comment",''), dateformat("soins"."date_exe", 'dd/mm/yyyy'), isnull(dent,'') , code_association     
+					INTO :v_coment, :v_date_exe , :v_dent  , :v_code_association   
+					FROM "soins"     
+					WHERE ( "soins"."code" = :v_code_local ) AND ( "soins"."cle" = :v_cle )   ;
+				end if
+				
+			else
+				// Pas de commentaire en soins 
+				v_coment = ""
+				v_date_exe = ""
+				v_dent=''
+				v_code_association=""
+			end if
+	
+			v_code_soin = dw_click.getItemString(lig, "type")
+	
+			//--------------------------- GESTION DES PSEUDOCODES -----------------------------------------------------------------------
+			b_pseudocode = false
+			
+			if Belgique and type_courrier = 'J' then
+				// Uniquement pour les justificatifs Belges, on doit gérer les pseudocodes
+				select isnull(pseudocode, 'N'), trim(isnull(categorie_pseudocode, ''))
+				into :v_pseudocode, :v_categorie_pseudocode 
+				from code_soins where code = :v_code_soin ;  
+				i_cpt_pc =  integer(v_categorie_pseudocode)
+				if v_pseudocode = "O" and 1 <= i_cpt_pc  and  i_cpt_pc <= 15   then
+					// Pseudo code
+					b_pseudocode = true
+					s_prefixe = "PC_" + trim(v_categorie_pseudocode) + "_"
+					tab_cpt_pc[i_cpt_pc] = tab_cpt_pc[i_cpt_pc] + 1 
+					cpt_soins = tab_cpt_pc[i_cpt_pc]
+					cpt_soins_general = cpt_soins_general - 1 // pour ne pas avancer le compte de soins "normaux"
+					if len(trim(v_code_soin)) = 13 then 
+						// Les pseudocodes doivent etre sous la forme xxxxxx-yyyyyy => on découpe
+						SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Code_soin_courant"  + string(cpt_soins) , left(v_code_soin, 6) )
+						SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Code_pc_soin_courant"  + string(cpt_soins) , right(v_code_soin, 6) )
+					else
+						// on ne découpe pas
+						SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Code_soin_courant"  + string(cpt_soins) , v_code_soin )
+						SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Code_pc_soin_courant"  + string(cpt_soins) , "" )
+					end if
+				else
+					// Soin normal
+					s_prefixe = ""
+					cpt_soins = cpt_soins_general
+					SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Code_soin_courant"  + string(cpt_soins) , v_code_soin )
+				end if 
+			else
+				s_prefixe = ""
+				cpt_soins = cpt_soins_general
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Code_soin_courant"  + string(cpt_soins) , v_code_soin )
+			end if
+			//------------------------------------------------------------------------------------------------------------------------------------------
+			
+			
+			SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Libelle_soin_courant" + string(cpt_soins) , v_libelle )
+			SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Du_Debut_soin_courant"  + string(cpt_soins) , "Du" )
+			if LUXEMBOURG then 
+				// Format de date spécial
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Debut_soin_courant"  + string(cpt_soins) , string(dw_click.getItemDate(lig, "date_demande") , "ddmmyy" ))
+			else
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Debut_soin_courant"  + string(cpt_soins) , string(dw_click.getItemDate(lig, "date_demande") ))
+			end if
+			
+			
+			// Eléments de la fiche code_soins
+			select isnull(duree, 0), isnull(inter_inami_sans, 0), isnull(inter_inami_avec, 0)
+			into :v_duree , :inter_inami_sans, :inter_inami_avec
+			from code_soins where code = :v_code_soin ;
+			
+			if v_duree > 0 then 
+				if v_date_exe = "" then 
+					v_fin_soin = ajout_x_mois(dw_click.getItemDate(lig, "date_demande"), v_duree)
+				else
+					v_fin_soin = date(v_date_exe)
+				end if
+				
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Au_Fin_soin_courant"  + string(cpt_soins) , "au" )
+	
+				if LUXEMBOURG then 
+					// Format de date spécial
+					SetProfileString( dir_ini + inifile_echeancier, s_prefixe + "Admini",s_prefixe + "Fin_soin_courant"  + string(cpt_soins) , string(v_fin_soin , "ddmmyy" ))
+				else
+					SetProfileString( dir_ini + inifile_echeancier, s_prefixe + "Admini",s_prefixe + "Fin_soin_courant"  + string(cpt_soins) , string(v_fin_soin ))
+				end if
+			end if
+			
+			SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Date_execution_soin_courant"  + string(cpt_soins) , v_date_exe)
+			SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Nature_soin_courant"  + string(cpt_soins) , v_nature)
+			
+			if v_renouvt = "O" then
+				if LUXEMBOURG then 
+					// Format de date spécial
+					SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Date_demande_soin_courant" , string(dw_click.getItemDate(lig, "date_demande"), "ddmmyy" ) )
+				else
+					SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Date_demande_soin_courant" , string(dw_click.getItemDate(lig, "date_demande") ) )
+				end if
+			else
+				// Si pas de renouvellement, on regarde si TO 45 ou TO 90 et on recherche une demande sur une autre ligne.. idem pour TO 50 et TO 100 pour fentes palatines
+				if dw_click.getItemNumber(lig, "scp_demande") = 45 or dw_click.getItemNumber(lig, "scp_demande") = 90 or dw_click.getItemNumber(lig, "scp_demande") = 50 or dw_click.getItemNumber(lig, "scp_demande") = 100 then
+	
+					// recherche de la demande précédent 
+					v_date_cour = dw_click.getItemDate(lig, "date_demande")
+					if w_click_soins_reg.type_gestion = 'S'  or w_click_soins_reg.type_gestion = 'R' then
+						// soins
+						select max(date_demande) into :v_date_demande from soins, code_soins
+						where  ( "soins"."code" = :v_code_local ) and "soins"."type" = "code_soins"."code" and "code_soins"."renouvt" = 'O' and "soins"."date_demande" <= :v_date_cour ;
+					else
+						// soins prévus
+						select max(date_demande) into :v_date_demande from soins_prevus, code_soins
+						where  ( "soins_prevus"."code" = :v_code_local ) and "soins_prevus"."type" = "code_soins"."code" and "code_soins"."renouvt" = 'O' and "soins_prevus"."date_demande" <= :v_date_cour ;
+					end if
+					if LUXEMBOURG then 
+						// Format de date spécial
+						SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Date_demande_soin_courant" , string(v_date_demande, "ddmmyy") )
+					else
+						SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Date_demande_soin_courant" , string(v_date_demande) )
+					end if
+				end if
+			end if
+				
+			
+			if v_nature = "C" then
+				// CCAM
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Code_ccam_soin_courant"  + string(cpt_soins) , trim(dw_click.getItemString(lig, "code_soins_lettre")) )
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Code_association_soin_courant"  + string(cpt_soins) , v_code_association )
+				
+			else
+				// NGAP
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Cotation_soin_courant"  + string(cpt_soins) , trim(dw_click.getItemString(lig, "code_soins_lettre"))+" "+string(dw_click.getItemNumber(lig, "scp_demande")) )
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Lettre_soin_courant"  + string(cpt_soins) , trim(dw_click.getItemString(lig, "code_soins_lettre")) )
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Nombre_lettres_soin_courant"  + string(cpt_soins) , string(dw_click.getItemNumber(lig, "scp_demande")) )
+			end if
+			
+			
+			// Total
+			if dw_click.getItemNumber(lig, "total") <> 0 then
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Montant_soin_courant"  + string(cpt_soins) , string(dw_click.getItemNumber(lig, "total"), "0.00" ) + " " + v_symbole_euro)
+			else
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Montant_soin_courant"  + string(cpt_soins) , "")
+			end if
+			// Base sécu
+			if dw_click.getItemNumber(lig, "scp_demande") * dw_click.getItemNumber(lig, "code_soins_valeur") <> 0 then
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Base_soin_courant"  + string(cpt_soins) , string(dw_click.getItemNumber(lig, "scp_demande") * dw_click.getItemNumber(lig, "code_soins_valeur") , "0.00" )  + " " + v_symbole_euro )
+			else
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Base_soin_courant"  + string(cpt_soins) ,"")
+			end if
+			
+			// Depassement 
+			if dw_click.getItemNumber(lig, "hn")  <> 0  then
+				
+				// Cas du dépassement négatif pour la CCAM
+				if dw_click.getItemNumber(lig, "hn")  < 0 then
+					SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Depassement_soin_courant"  + string(cpt_soins) ,"")
+					// hn est négatif
+					SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Base_soin_courant"  + string(cpt_soins) , string(dw_click.getItemNumber(lig, "scp_demande") * dw_click.getItemNumber(lig, "code_soins_valeur") + dw_click.getItemNumber(lig, "hn") , "0.00" )  + " " + v_symbole_euro )
+				else
+					SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Depassement_soin_courant"  + string(cpt_soins) , string(dw_click.getItemNumber(lig, "hn"), "0.00" )  + " " + v_symbole_euro)
+					// On peut pas prendre dw_click car mis à jour ailleurs
+					// pour être sûr, on prend en base (compatibilité avec liste des fse à faire
+					//SetProfileString( dir_ini + inifile_echeancier, "Admini","Motif_depassement_soin_courant"  + string(cpt_soins) , w_click_soins_reg.tab_1.tabpage_soins.dw_impression.getItemString(1, "motif_depassement"))
+					
+					string v_motif
+					select motif_depassement into  :v_motif from soins where code = :v_code_local and cle = :v_cle ;
+					SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Motif_depassement_soin_courant"  + string(cpt_soins) , v_motif )
+				end if
+			else
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Depassement_soin_courant"  + string(cpt_soins) ,"")
+			end if
+			
+			
+			SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Commentaire_soin_courant"  + string(cpt_soins) ,v_coment )
+			SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Dents_soin_courant"  + string(cpt_soins) ,v_dent )
+			
+			SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Part_patient_soin_courant" + string(cpt_soins) , string(v_part_patient, '0.00') )
+			SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Part_caisse_soin_courant" + string(cpt_soins) , string(v_part_caisse, '0.00') )
+			SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Part_mutuelle_soin_courant" + string(cpt_soins) , string(v_part_mutuelle, '0.00') )
+			
+			SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Inter_Inami_Avec_Pref_soin_courant" + string(cpt_soins), string(inter_inami_avec, '0.00') )
+			SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Inter_Inami_sans_Pref_soin_courant" + string(cpt_soins), string(inter_inami_sans, '0.00') )
+	
+	
+			if type_menu <> "P" then
+				// Pas dispo dans les soins Prévisionnel
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Date_Feuille_Soins_soin_courant" + string(cpt_soins) , string(dw_click.getItemDate(lig, "soins_date_fs") , "dd/mm/yyyy") )
+			end if
+					
+			if nb_echeances_caisse > 0 then
+				v_croix_part_obligatoire = "X"
+			end if
+			if nb_echeances_mutuelle > 0 then
+				v_croix_part_complementaire = "X"
+			end if
+	
+			
+			if not isnull(dw_click.getItemNumber(lig, "total")) then 
+				if not b_pseudocode then
+					total_honoraires = total_honoraires + dw_click.getItemNumber(lig, "total")
+				else
+					total_honoraires_pc = total_honoraires_pc + dw_click.getItemNumber(lig, "total")
+				end if
+			end if
+			
+			if not isnull(dw_click.getItemNumber(lig, "scp_demande") * dw_click.getItemNumber(lig, "code_soins_valeur")) then
+				total_base = total_base + dw_click.getItemNumber(lig, "scp_demande") * dw_click.getItemNumber(lig, "code_soins_valeur")
+			end if
+			
+			if not isnull(dw_click.getItemNumber(lig, "hn")) and not b_pseudocode then			// on ne tient pas compte des pseucode pour ces totaux là
+				if dw_click.getItemNumber(lig, "hn") > 0 then
+					total_depassement = total_depassement + dw_click.getItemNumber(lig, "hn")
+				else
+					// on enlève les HN négatifs du total base (cas des 2ème radio CCAM)
+					total_base = total_base + dw_click.getItemNumber(lig, "hn")
+				end if
+			end if
+			
+			// règlements
+			Select isnull(sum (montant), 0) into :montant_paye_soin  from paye where code = :v_code_local and cle = :v_cle ;
+			if montant_paye_soin <> 0 then
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Montant_paye_soin_courant"  + string(cpt_soins) , string(montant_paye_soin, "0.00" ) + " " + v_symbole_euro)
+			else
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Montant_paye_soin_courant"  + string(cpt_soins) , "")
+			end if
+			
+			if b_pseudocode then
+				total_paye_pc  = total_paye_pc + montant_paye_soin
+			else
+				total_paye  = total_paye + montant_paye_soin
+			end if
+			
+				
+			
+	//		2025
+	//		Select isnull(sum (montant), 0) into :montant_paye_soin  from paye where code = :v_code_local and cle = :v_cle and "date" = getdate();
+	//		if montant_paye_soin <> 0 then
+	//			SetProfileString( dir_ini + inifile_echeancier, "Admini","Montant_paye_du_jour_soin_courant"  + string(cpt_soins) , string(montant_paye_soin, "0.00" ) + " " + v_symbole_euro)
+	//		else
+	//			SetProfileString( dir_ini + inifile_echeancier, "Admini","Montant_paye_du_jour_soin_courant"  + string(cpt_soins) , "")
+	//		end if
+	//		total_paye_du_jour  = total_paye_du_jour + montant_paye_soin
+	//		
+	
+			// Sans virement
+			Select isnull(sum (montant), 0) into :montant_paye_soin  from paye where code = :v_code_local and cle = :v_cle and "mode" <> 'V';
+	//		if montant_paye_soin <> 0 then
+	//			SetProfileString( dir_ini + inifile_echeancier, "Admini","Montant_paye_sans_virement_soin_courant"  + string(cpt_soins) , string(montant_paye_soin, "0.00" ) + " " + v_symbole_euro)
+	//		else
+	//			SetProfileString( dir_ini + inifile_echeancier, "Admini","Montant_paye_sans_virement_soin_courant"  + string(cpt_soins) , "")
+	//		end if
+			total_paye_sans_virement  = total_paye_sans_virement + montant_paye_soin
+			
+			
+	//		Select isnull(sum (montant), 0) into :montant_paye_soin  from paye where code = :v_code_local and cle = :v_cle and "mode" <> 'V' and "date" = getdate();
+	//		if montant_paye_soin <> 0 then
+	//			SetProfileString( dir_ini + inifile_echeancier, "Admini","Montant_paye_du_jour_sans_virement_soin_courant"  + string(cpt_soins) , string(montant_paye_soin, "0.00" ) + " " + v_symbole_euro)
+	//		else
+	//			SetProfileString( dir_ini + inifile_echeancier, "Admini","Montant_paye_du_jour_sans_virement_soin_courant"  + string(cpt_soins) , "")
+	//		end if
+	//		total_paye_du_jour_sans_virement  = total_paye_du_jour_sans_virement + montant_paye_soin
+	//		
+			
+			// lignes d'échéances
+			if w_click_soins_reg.type_gestion = "P" then
+				open curprev ;
+				fetch curprev into  :v_date_eche, :v_montant_eche ;
+			else
+				open cur ;
+				fetch cur into  :v_date_eche, :v_montant_eche ;
+			end if
+			cpt_ech = 1
+			do while sqlca.sqlcode = 0
+				if LUXEMBOURG then 
+					// Format de date spécial
+					SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Date_echeance"+ string(cpt_ech)+"_soin_courant" + string(cpt_soins) , string(v_date_eche, "ddmmyy" ))
+				else
+					SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Date_echeance"+ string(cpt_ech)+"_soin_courant" + string(cpt_soins) , string(v_date_eche) )
+				end if
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Montant_echeance"+ string(cpt_ech)+"_soin_courant" + string(cpt_soins) , string(v_montant_eche, "0.00" )  + " " + v_symbole_euro)
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Mois_echeance"+ string(cpt_ech)+"_soin_courant" + string(cpt_soins) , mois[month(v_date_eche)] )
+				SetProfileString( dir_ini + inifile_echeancier, "Admini",s_prefixe + "Annee_echeance"+ string(cpt_ech)+"_soin_courant" + string(cpt_soins) , string(year(v_date_eche)) )
+				if w_click_soins_reg.type_gestion = "P" then
+					fetch curprev into  :v_date_eche, :v_montant_eche ;
+				else
+					fetch cur into  :v_date_eche, :v_montant_eche ;
+				end if
+				cpt_ech = cpt_ech + 1
+			loop
+			if w_click_soins_reg.type_gestion = "P" then
+				close curprev ;
+			else
+				close cur ;
+			end if
+			
+			
+	
+			
+	//		2025
+	// 		Lignes de règlements
+	//		if w_click_soins_reg.type_gestion <> "P" then
+	//			open curreg ;
+	//			fetch curreg into  :v_date_paye , :v_montant_paye , :v_mode_reglement ;
+	//			do while sqlca.sqlcode = 0 
+	//				SetProfileString( dir_ini + inifile_echeancier, "Admini","Montant_reglement"+ string(cpt_ech)+"_soin_courant" + string(cpt_soins) , string(v_montant_paye, "0.00" )  + " " + v_symbole_euro)
+	//				SetProfileString( dir_ini + inifile_echeancier, "Admini","Date_reglement"+ string(cpt_ech)+"_soin_courant" + string(cpt_soins) , string(v_date_paye) )
+	//				SetProfileString( dir_ini + inifile_echeancier, "Admini","Mode_reglement"+ string(cpt_ech)+"_soin_courant" + string(cpt_soins) , v_mode_reglement )
+	//				fetch curreg into  :v_date_paye , :v_montant_paye , :v_mode_reglement ;
+	//			loop
+	//			
+	//			close curreg ;
+	//
+	//		
+	//		end if
+			
+			
+		end if
+	next
+	
+	// Totaux soins
+	if total_honoraires <> 0 then
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_honoraires" , string(total_honoraires, "0.00" ) + " " + v_symbole_euro)
+	else
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_honoraires" , "")
+	end if
+	if total_honoraires_pc <> 0 then
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_honoraires_pc" , string(total_honoraires_pc, "0.00" ) + " " + v_symbole_euro)
+	else
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_honoraires_pc" , "")
+	end if
+	if total_honoraires_pc + total_honoraires <> 0 then
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_honoraires_justif" , string(total_honoraires_pc + total_honoraires, "0.00" ) + " " + v_symbole_euro)
+	else
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_honoraires_justif" , "")
+	end if
+
+	if Total_base <> 0 then
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_base" , string(total_base, "0.00" )+ " " + v_symbole_euro )
+	else
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_base" , "")
+	end if
+	if Total_depassement <> 0 then
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_depassement" , string(total_depassement, "0.00" )+ " " + v_symbole_euro )
+	else
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_depassement" , "")
+	end if
+
+	// Totaux paiements
+	if Total_paye <> 0 then
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_paye" , string(Total_paye, "0.00" )+ " " + v_symbole_euro )
+	else
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_paye" , "")
+	end if
+	if Total_paye_pc <> 0 then
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_paye_pc" , string(Total_paye_pc, "0.00" )+ " " + v_symbole_euro )
+	else
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_paye_pc" , "")
+	end if
+	if Total_paye_pc + Total_paye <> 0 then
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_paye_justif" , string(Total_paye_pc + Total_paye, "0.00" )+ " " + v_symbole_euro )
+	else
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_paye_justif" , "")
+	end if
+	if Total_paye_sans_virement <> 0 then
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_paye_sans_virement" , string(Total_paye_sans_virement, "0.00" )+ " " + v_symbole_euro )
+	else
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_paye_sans_virement" , "")
+	end if
+	if Total_paye_du_jour <> 0 then
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_paye_du_jour" , string(Total_paye, "0.00" )+ " " + v_symbole_euro )
+	else
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_paye_du_jour" , "")
+	end if
+	if Total_paye_du_jour_sans_virement <> 0 then
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_paye_du_jour_sans_virement" , string(Total_paye_sans_virement, "0.00" )+ " " + v_symbole_euro )
+	else
+		SetProfileString( dir_ini + inifile_echeancier, "Admini","Total_paye_du_jour_sans_virement" , "")
+	end if
+	
+	
+	SetProfileString( dir_ini + inifile_echeancier, "Admini","Croix_part_obligatoire" , v_croix_part_obligatoire )
+	SetProfileString( dir_ini + inifile_echeancier, "Admini","Croix_part_complementaire" , v_croix_part_complementaire )
+	
+	// Spécial pour la Facture France
+	if type_courrier = "FF" then
+		
+		double v_numero_facture
+		date v_date_facture
+		
+		v_numero_facture = numero
+		
+		select "date" into :v_date_facture from facture where numero = :v_numero_facture ;
+		
+		// Bloc facture
+		SetProfileString( dir_ini + inifile_echeancier, "Facture","Numero_Facture" , string(v_numero_facture)) 
+		SetProfileString( dir_ini + inifile_echeancier, "Facture","Date_Facture" , string(v_date_facture)) 
+		
+		// Vérification si la facture est acquittée ou pas ?
+		decimal {2} v_total_paye, v_total_soins
+		v_total_paye =  fxg_get_paiements_facture(v_numero_facture, today())
+		
+		select isnull(sum(total),0) into :v_total_soins from soins where code = :v_code_local and numero_facture =  :v_numero_facture ;
+		
+		if v_total_soins <= v_total_paye then
+			// facture totalement payée
+			SetProfileString( dir_ini + inifile_echeancier, "Facture","Acquittement_Facture" , "FACTURE ACQUITTEE") 
+		else
+			SetProfileString( dir_ini + inifile_echeancier, "Facture","Acquittement_Facture" , "") 
+		end if
+	
+	
+		// Uniquement pour la France
+		if FRANCE then
+			SetProfileString( dir_ini + inifile_echeancier, "Facture","Titre_Facture" , w_facture_impression.v_titre) 
+			SetProfileString( dir_ini + inifile_echeancier, "Facture","Nom_Facture" , w_facture_impression.v_nomp ) 
+			SetProfileString( dir_ini + inifile_echeancier, "Facture","Adresse1_Facture" , w_facture_impression.v_adr1 ) 
+			SetProfileString( dir_ini + inifile_echeancier, "Facture","Adresse2_Facture" , w_facture_impression.v_adr2 ) 
+			SetProfileString( dir_ini + inifile_echeancier, "Facture","Code_postal_Facture" , w_facture_impression.v_codep ) 
+			SetProfileString( dir_ini + inifile_echeancier, "Facture","Ville_Facture" , w_facture_impression.v_ville ) 
+			SetProfileString( dir_ini + inifile_echeancier, "Facture","Pays_Facture" , w_facture_impression.v_pays ) 
+			SetProfileString( dir_ini + inifile_echeancier, "Facture","Numero_Secu_Facture" , w_facture_impression.v_numero_secu ) 
+		end if
+	
+		
+	end if
+	
+	
+	// Spécial pour le reçu
+	if type_courrier = "R" then
+	
+			// Il a y eu passage de paramètres dans w_soins_reg_maj
+			//param_win[1] = string(montant_total_soins )
+			//param_win[2] = string(montant_total_reglements) 
+			//param_win[3] = string(v_montant_recu) 
+			//param_win[4] = libelle_du_soin
+			//param_win[5] = string(montant_total_soins_hn )
+			//param_win[6] = v_mode
+			//param_win[7] = string(v_date)
+			// param_win[8] = v_comment  commentaire du règlement
+			// param_win[9] = ls_payeur payeur de règlement
+			
+			SetProfileString( dir_ini + inifile_echeancier, "Recu","Date_reglement" , param_win[7]  ) 
+			SetProfileString( dir_ini + inifile_echeancier, "Recu","Montant_reglement" , param_win[3]  ) 
+			SetProfileString( dir_ini + inifile_echeancier, "Recu","Mode_reglement" , param_win[6]  ) 
+			SetProfileString( dir_ini + inifile_echeancier, "Recu","Commentaire_Reglement" , param_win[8]  ) 
+			SetProfileString( dir_ini + inifile_echeancier, "Recu","Payeur_Reglement" , param_win[9]  ) 
+
+	end if
+
+	close(w_patience)
+
+	m_menu.utiliser_office(type_courrier, numero)
+	
+else
+	Messagebox("ATTENTION","Impossible de supprimer le fichier temporaire de liaison (" + dir_ini + inifile_echeancier + ").~n~nOpéarion annulée")
+
+end if 
+
+
+end subroutine
+
+public function string getimprimspecif (double v_code_patient);
+if type_menu = 'R' then
+	return profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","feuilles_soins","") 
+else
+	//return profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep","") 
+	string v_code_praticien
+	var_code_local = v_code_patient
+	select code_praticien into :v_code_praticien from patient where code = :var_code_local ;
+	return get_imprimante_dep(v_code_praticien)
+end if
+end function
+
+public function string change_imprimante (double v_code_patient);
+// Permet de changer l'imprimante par défaut par l'imprimante spécifique désignée pour les DEP et feuillees de soins
+// La fonction renvoie l'imprimante par défaut AVANT pour permettre de la remettre par défaut APRES
+
+
+
+// on vérifie si on a activé ou pas l'imprimante
+if (type_menu = 'R' and profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","feuilles_soins_active","N")  = 'O') or &
+((type_menu = 'S' or type_menu = 'P')  and profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep_active","N")  = 'O') then
+
+	
+	//	Instance de la liste pour utiliser les fonctions ad'hoc
+	uo_liste_imprimantes  imprim
+	imprim = CREATE uo_liste_imprimantes  
+	// pour mise à jour des valeurs
+	imprim.triggerevent(constructor!)
+		
+	
+		
+	// Mémo de l'imprimante par défaut
+	string v_imprim_defaut, v_imprim_specif
+		
+	v_imprim_defaut = imprim.getImprimanteDefaut()
+	
+	
+	// recherche de l'imprimante spécifique pour les dep et feuilles de soins
+//	if type_menu = 'R' then
+//		v_imprim_specif = profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","feuilles_soins","") 
+//	else
+//		v_imprim_specif = profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep","") 
+//	end if
+	v_imprim_specif =  getimprimspecif(v_code_patient)
+	
+	imprim.setImprimanteDefaut(v_imprim_specif)
+//	PrintSetPrinter ( printername )
+		
+	destroy imprim
+end if
+
+return v_imprim_defaut
+end function
+
+on m_orthosoins.create
+m_orthosoins=this
+call super::create
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_soins=create m_soins
+this.Item[UpperBound(this.Item)+1]=this.m_soins
+end on
+
+on m_orthosoins.destroy
+call super::destroy
+destroy(this.m_soins)
+end on
+
+type m_soins from menu within m_orthosoins
+m_decalage m_decalage
+m_decalagepartiel m_decalagepartiel
+m_trait1 m_trait1
+m_decalage2 m_decalage2
+m_decalage3 m_decalage3
+m_-1 m_-1
+m_decalagepartiel2 m_decalagepartiel2
+m_decalagepartiel3 m_decalagepartiel3
+m_-0 m_-0
+m_imprimerrecto m_imprimerrecto
+m_ouvrirleattest m_ouvrirleattest
+m_annulerleattest m_annulerleattest
+m_duplicatadeleattest m_duplicatadeleattest
+m_inscriptioneattest m_inscriptioneattest
+m_imprimerverso m_imprimerverso
+m_imprimerrectoverso m_imprimerrectoverso
+m_1 m_1
+m_feuilledesoins2014 m_feuilledesoins2014
+m_feuilledesoins2014verso m_feuilledesoins2014verso
+m_feuilledesoins2014rectoverso m_feuilledesoins2014rectoverso
+m_fs2014 m_fs2014
+m_remplacerpar m_remplacerpar
+m_annulertransfertdusoin m_annulertransfertdusoin
+m_- m_-
+m_imprimersoins m_imprimersoins
+m_envoyerlessoinsparemailapartirde m_envoyerlessoinsparemailapartirde
+m_facture m_facture
+m_utiliseruncourrierword m_utiliseruncourrierword
+m_-2 m_-2
+m_selectionnertouslessoinsdunememedate m_selectionnertouslessoinsdunememedate
+m_deblocageimpression m_deblocageimpression
+m_annulationfeuilledesoins m_annulationfeuilledesoins
+m_-3 m_-3
+m_informationsdemodifications m_informationsdemodifications
+m_2 m_2
+m_renvoyerlesoinaods m_renvoyerlesoinaods
+m_selectionnertouslessoinsdus m_selectionnertouslessoinsdus
+end type
+
+on m_soins.create
+call super::create
+this.text = "&Soins"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_decalage=create m_decalage
+this.m_decalagepartiel=create m_decalagepartiel
+this.m_trait1=create m_trait1
+this.m_decalage2=create m_decalage2
+this.m_decalage3=create m_decalage3
+this.m_-1=create m_-1
+this.m_decalagepartiel2=create m_decalagepartiel2
+this.m_decalagepartiel3=create m_decalagepartiel3
+this.m_-0=create m_-0
+this.m_imprimerrecto=create m_imprimerrecto
+this.m_ouvrirleattest=create m_ouvrirleattest
+this.m_annulerleattest=create m_annulerleattest
+this.m_duplicatadeleattest=create m_duplicatadeleattest
+this.m_inscriptioneattest=create m_inscriptioneattest
+this.m_imprimerverso=create m_imprimerverso
+this.m_imprimerrectoverso=create m_imprimerrectoverso
+this.m_1=create m_1
+this.m_feuilledesoins2014=create m_feuilledesoins2014
+this.m_feuilledesoins2014verso=create m_feuilledesoins2014verso
+this.m_feuilledesoins2014rectoverso=create m_feuilledesoins2014rectoverso
+this.m_fs2014=create m_fs2014
+this.m_remplacerpar=create m_remplacerpar
+this.m_annulertransfertdusoin=create m_annulertransfertdusoin
+this.m_-=create m_-
+this.m_imprimersoins=create m_imprimersoins
+this.m_envoyerlessoinsparemailapartirde=create m_envoyerlessoinsparemailapartirde
+this.m_facture=create m_facture
+this.m_utiliseruncourrierword=create m_utiliseruncourrierword
+this.m_-2=create m_-2
+this.m_selectionnertouslessoinsdunememedate=create m_selectionnertouslessoinsdunememedate
+this.m_deblocageimpression=create m_deblocageimpression
+this.m_annulationfeuilledesoins=create m_annulationfeuilledesoins
+this.m_-3=create m_-3
+this.m_informationsdemodifications=create m_informationsdemodifications
+this.m_2=create m_2
+this.m_renvoyerlesoinaods=create m_renvoyerlesoinaods
+this.m_selectionnertouslessoinsdus=create m_selectionnertouslessoinsdus
+this.Item[UpperBound(this.Item)+1]=this.m_decalage
+this.Item[UpperBound(this.Item)+1]=this.m_decalagepartiel
+this.Item[UpperBound(this.Item)+1]=this.m_trait1
+this.Item[UpperBound(this.Item)+1]=this.m_decalage2
+this.Item[UpperBound(this.Item)+1]=this.m_decalage3
+this.Item[UpperBound(this.Item)+1]=this.m_-1
+this.Item[UpperBound(this.Item)+1]=this.m_decalagepartiel2
+this.Item[UpperBound(this.Item)+1]=this.m_decalagepartiel3
+this.Item[UpperBound(this.Item)+1]=this.m_-0
+this.Item[UpperBound(this.Item)+1]=this.m_imprimerrecto
+this.Item[UpperBound(this.Item)+1]=this.m_ouvrirleattest
+this.Item[UpperBound(this.Item)+1]=this.m_annulerleattest
+this.Item[UpperBound(this.Item)+1]=this.m_duplicatadeleattest
+this.Item[UpperBound(this.Item)+1]=this.m_inscriptioneattest
+this.Item[UpperBound(this.Item)+1]=this.m_imprimerverso
+this.Item[UpperBound(this.Item)+1]=this.m_imprimerrectoverso
+this.Item[UpperBound(this.Item)+1]=this.m_1
+this.Item[UpperBound(this.Item)+1]=this.m_feuilledesoins2014
+this.Item[UpperBound(this.Item)+1]=this.m_feuilledesoins2014verso
+this.Item[UpperBound(this.Item)+1]=this.m_feuilledesoins2014rectoverso
+this.Item[UpperBound(this.Item)+1]=this.m_fs2014
+this.Item[UpperBound(this.Item)+1]=this.m_remplacerpar
+this.Item[UpperBound(this.Item)+1]=this.m_annulertransfertdusoin
+this.Item[UpperBound(this.Item)+1]=this.m_-
+this.Item[UpperBound(this.Item)+1]=this.m_imprimersoins
+this.Item[UpperBound(this.Item)+1]=this.m_envoyerlessoinsparemailapartirde
+this.Item[UpperBound(this.Item)+1]=this.m_facture
+this.Item[UpperBound(this.Item)+1]=this.m_utiliseruncourrierword
+this.Item[UpperBound(this.Item)+1]=this.m_-2
+this.Item[UpperBound(this.Item)+1]=this.m_selectionnertouslessoinsdunememedate
+this.Item[UpperBound(this.Item)+1]=this.m_deblocageimpression
+this.Item[UpperBound(this.Item)+1]=this.m_annulationfeuilledesoins
+this.Item[UpperBound(this.Item)+1]=this.m_-3
+this.Item[UpperBound(this.Item)+1]=this.m_informationsdemodifications
+this.Item[UpperBound(this.Item)+1]=this.m_2
+this.Item[UpperBound(this.Item)+1]=this.m_renvoyerlesoinaods
+this.Item[UpperBound(this.Item)+1]=this.m_selectionnertouslessoinsdus
+end on
+
+on m_soins.destroy
+call super::destroy
+destroy(this.m_decalage)
+destroy(this.m_decalagepartiel)
+destroy(this.m_trait1)
+destroy(this.m_decalage2)
+destroy(this.m_decalage3)
+destroy(this.m_-1)
+destroy(this.m_decalagepartiel2)
+destroy(this.m_decalagepartiel3)
+destroy(this.m_-0)
+destroy(this.m_imprimerrecto)
+destroy(this.m_ouvrirleattest)
+destroy(this.m_annulerleattest)
+destroy(this.m_duplicatadeleattest)
+destroy(this.m_inscriptioneattest)
+destroy(this.m_imprimerverso)
+destroy(this.m_imprimerrectoverso)
+destroy(this.m_1)
+destroy(this.m_feuilledesoins2014)
+destroy(this.m_feuilledesoins2014verso)
+destroy(this.m_feuilledesoins2014rectoverso)
+destroy(this.m_fs2014)
+destroy(this.m_remplacerpar)
+destroy(this.m_annulertransfertdusoin)
+destroy(this.m_-)
+destroy(this.m_imprimersoins)
+destroy(this.m_envoyerlessoinsparemailapartirde)
+destroy(this.m_facture)
+destroy(this.m_utiliseruncourrierword)
+destroy(this.m_-2)
+destroy(this.m_selectionnertouslessoinsdunememedate)
+destroy(this.m_deblocageimpression)
+destroy(this.m_annulationfeuilledesoins)
+destroy(this.m_-3)
+destroy(this.m_informationsdemodifications)
+destroy(this.m_2)
+destroy(this.m_renvoyerlesoinaods)
+destroy(this.m_selectionnertouslessoinsdus)
+end on
+
+type m_decalage from menu within m_soins
+end type
+
+on m_decalage.create
+call super::create
+this.text = "&Décalage total / date début traitement"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+event clicked;// On decale tout
+decalage_total('T')
+
+end event
+
+on m_decalage.destroy
+call super::destroy
+end on
+
+type m_decalagepartiel from menu within m_soins
+end type
+
+on m_decalagepartiel.create
+call super::create
+this.text = "Décalage &partiel / date du soin"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+event clicked;// Décalage partiel de tout
+decalage_partiel('T', True, -1)
+end event
+
+on m_decalagepartiel.destroy
+call super::destroy
+end on
+
+type m_trait1 from menu within m_soins
+end type
+
+on m_trait1.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_trait1.destroy
+call super::destroy
+end on
+
+type m_decalage2 from menu within m_soins
+end type
+
+event clicked;// On decale que les dates de demandes
+decalage_total('D')
+end event
+
+on m_decalage2.create
+call super::create
+this.text = "Décalage total (Dates de Demandes uniquement)"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_decalage2.destroy
+call super::destroy
+end on
+
+type m_decalage3 from menu within m_soins
+end type
+
+event clicked;// On decale que les dates d'échéances
+decalage_total('E')
+end event
+
+on m_decalage3.create
+call super::create
+this.text = "Décalage total (Dates d~'Echéances uniquement)"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_decalage3.destroy
+call super::destroy
+end on
+
+type m_-1 from menu within m_soins
+end type
+
+on m_-1.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-1.destroy
+call super::destroy
+end on
+
+type m_decalagepartiel2 from menu within m_soins
+end type
+
+event clicked;// Décalage partiel des Dates de delandes
+decalage_partiel('D', True, -1)
+end event
+
+on m_decalagepartiel2.create
+call super::create
+this.text = "Décalage partiel (Dates de Demandes uniquement)"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_decalagepartiel2.destroy
+call super::destroy
+end on
+
+type m_decalagepartiel3 from menu within m_soins
+end type
+
+event clicked;// Décalage partiel des Echéances
+decalage_partiel('E', True, -1)
+end event
+
+on m_decalagepartiel3.create
+call super::create
+this.text = "Décalage partiel (Dates d~'Echéances uniquement)"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_decalagepartiel3.destroy
+call super::destroy
+end on
+
+type m_-0 from menu within m_soins
+end type
+
+on m_-0.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-0.destroy
+call super::destroy
+end on
+
+type m_imprimerrecto from menu within m_soins
+end type
+
+on m_imprimerrecto.create
+call super::create
+this.text = "Imprimer &Recto"
+this.menuimage = "lc_print.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+event clicked;if type_menu = 'R' then
+	// Appel depuis les reglements
+	
+	// ANCIENNES FEUILLES DE SOINS ... PLUS UTILISE !!!!!!!!!!!!!!!!!!!!!!!!!
+
+//	if prepa_recto_feuille_soin(w_click_soins_reg.dw_soins) then
+//		// La dw_impression n'est pas utilisée lors de l'impression de ce recto
+//		// On la meme DW 2eme paramètre : ne sera pas utilisée par la fonction mais sert à détecter si impression UNITAIRE
+//		// ou dans le cadre de la fonction d'impression groupée
+//		impression_recto (w_click_soins_reg.dw_recto,w_click_soins_reg.dw_recto)
+//	end if
+
+	if Belgique then
+		w_click_soins_reg.tab_1.tabpage_reglements.cb_facture.triggerevent(clicked!)
+	end if
+
+
+else
+	
+	if type_menu = "S" then
+		// Appeler depuis les soins
+		impression_recto (w_click_soins_reg.dw_recto,w_click_soins_reg.tab_1.tabpage_soins.dw_impression)
+	else
+		if type_menu = "P" then
+			// Appeler depuis les soins prévus
+			impression_recto (w_click_soins_reg.dw_recto,w_click_soins_reg.dw_soins_prevus)
+		end if
+	end if
+end if
+
+end event
+
+on m_imprimerrecto.destroy
+call super::destroy
+end on
+
+type m_ouvrirleattest from menu within m_soins
+end type
+
+event clicked;
+
+// Ouvre le fichier PDF contenant l'e-Attest
+string chemin_complet_courrier, v_eattest
+double v_cle_soin, v_code_local
+
+v_cle_soin = dw_click.GetItemNumber(dw_click.GetRow(),"cle")
+v_code_local = dw_click.GetItemNumber(dw_click.GetRow(),"soins_code")
+
+select trim(ar_eattest) into :v_eattest from soins 
+where code = :v_code_local and cle = :v_cle_soin ;
+
+chemin_complet_courrier = dir_photos + string(v_code_local) + win_delimiter + v_eattest + ".pdf"
+
+if not fileExists(chemin_complet_courrier) then
+	Messagebox("ATTENTION", "Impossible de localiser le fichier : " + chemin_complet_courrier)
+else
+	fxg_ouvrir_fichier_shell(chemin_complet_courrier)
+end if
+end event
+
+on m_ouvrirleattest.create
+call super::create
+this.visible = false
+this.text = "Ouvrir l~'e-Attest"
+this.menuimage = "Control Text_2!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ouvrirleattest.destroy
+call super::destroy
+end on
+
+type m_annulerleattest from menu within m_soins
+end type
+
+on m_annulerleattest.create
+call super::create
+this.visible = false
+this.text = "Annuler l~'e-Attest"
+this.menuimage = "Control Static Hyper Link_2!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_annulerleattest.destroy
+call super::destroy
+end on
+
+event clicked;
+// Fonction rendue invisble dans Orthokis ... 
+
+// Effacement des informations dans le soin et du fichier PDF
+long row
+double v_code_local, v_cle_soin 
+
+string chemin_complet_courrier, v_eattest
+
+row = dw_click.GetRow()
+v_code_local = dw_click.GetItemNumber(dw_click.GetRow(),"soins_code")
+v_cle_soin = dw_click.GetItemNumber(dw_click.GetRow(),"cle")
+
+select trim(ar_eattest) into :v_eattest from soins 
+where code = :v_code_local and cle = :v_cle_soin ;
+
+if Messagebox("ATTENTION", "Vous allez annuler la mémorisation de l'e-Attest " + v_eattest + " dans Orthokis.~n~nCela n'entrainera cependant pas sa suppression dans le système eHealth national.~n~nConfirmez-vous cette suppression ?", Question!, YesNo!, 2) = 1 then
+	
+	update soins set ar_eattest = null , fse_edite = null, date_fs = null
+	where code = :v_code_local and ar_eattest = :v_eattest ;
+	
+	if sqlca.sqlcode = 0 then 
+	
+		commit ;
+
+		// Suppression du fichier PDF physique 
+		chemin_complet_courrier = dir_photos + string(v_code_local) + win_delimiter + v_eattest + ".pdf"
+	
+		if not fileExists(chemin_complet_courrier) then
+			Messagebox("ATTENTION", "Impossible de localiser le fichier : " + chemin_complet_courrier)
+		else
+			if FileDelete(chemin_complet_courrier) then
+				Messagebox("INFORMATION", "L'e-Attest a été annulée avec succès !")
+				
+				// On actualise l'affichage
+				dw_click.retrieve(v_code_local)
+				dw_click.scrolltorow(row)
+
+
+			else
+				Messagebox("ATTENTION", "Impossible de supprimer le fichier : " + chemin_complet_courrier)
+			end if
+		end if
+	else
+		Messagebox("ATTENTION","Erreur N°1 dans l'annulation de l'e-Attest.~n~n" + sqlca.sqlerrtext)
+		rollback ;
+	end if
+end if
+
+end event
+
+type m_duplicatadeleattest from menu within m_soins
+end type
+
+on m_duplicatadeleattest.create
+call super::create
+this.visible = false
+this.text = "Duplicata de l~'e-Attest"
+this.menuimage = "StaticHyperLink4!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_duplicatadeleattest.destroy
+call super::destroy
+end on
+
+event clicked;
+
+w_click_soins_reg.ehealth("D")
+end event
+
+type m_inscriptioneattest from menu within m_soins
+end type
+
+event clicked;
+
+// Visible uniquement pour la Belgique, dans les soins ou les règlements
+
+
+
+string chaine_nulle 
+date date_nulle , nouvelle_date, v_date_fse
+long row 
+string v_fse_edite, v_ar_eattest
+boolean v_suite = true
+
+
+
+If dw_click.rowCount() > 0 Then
+	
+	row = dw_click.GetRow()
+	var_code_local = w_click_soins_reg.var_code_local
+	
+	v_fse_edite = string_non_nulle(dw_click.getItemString(row,"soins_fse_edite"))
+	
+	v_date_fse = dw_click.getItemDate(row,"soins_date_fs")
+	
+	if v_fse_edite = "" then 
+		if messagebox("ATTENTION !","Vous allez inscrire l'information de réalisation d'une eAttest.~n~nConfirmez-vous ?"	,Question!,Yesno!,2) = 1 then
+			dw_click.setItem(row,"soins_fse_edite","E")
+			dw_click.setItem(row,"soins_date_fs",today())
+			
+			v_ar_eattest = inputboxWithPropo("Inscription d'eAttest", "Veuillez indiquer le N° de l'eAttest à inscrire :" , "Inscription Manuelle", false)
+
+			dw_click.setItem(row,"ar_eattest",v_ar_eattest)
+			
+			
+			if dw_click.update() = 1 then
+				commit ;
+			else
+				rollback ;
+			end if
+			
+			// Retrieve pour actualiser les infos ... cadre des soins
+			dw_click.retrieve(var_code_local)
+			dw_click.scrollToRow(row)
+
+		end if
+	else
+		
+		Messagebox("ATTENTION","Vous ne pouvez mettre à jour que des lignes sans eAttest ni Justificatif !")
+	end if
+	
+end if
+end event
+
+on m_inscriptioneattest.create
+call super::create
+this.visible = false
+this.text = "Inscription eAttest"
+this.menuimage = "Control Static Hyper Link_2!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_inscriptioneattest.destroy
+call super::destroy
+end on
+
+type m_imprimerverso from menu within m_soins
+end type
+
+on m_imprimerverso.create
+call super::create
+this.text = "Imprimer &Verso"
+this.menuimage = "lc_print.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_imprimerverso.destroy
+call super::destroy
+end on
+
+event clicked;if type_menu = "S" then
+	// Appeler depuis les soins
+	impression_verso (w_click_soins_reg.dw_verso,w_click_soins_reg.tab_1.tabpage_soins.dw_impression)
+else
+	if type_menu = "P" then
+		// Appeler depuis les soins prévus
+		impression_verso (w_click_soins_reg.dw_verso,w_click_soins_reg.tab_1.tabpage_soins.dw_impression)
+	else
+		// Appel depuis les règlements
+		impression_verso (w_click_soins_reg.dw_verso,w_click_soins_reg.dw_verso)
+	end if
+end if
+
+end event
+
+type m_imprimerrectoverso from menu within m_soins
+event clicked ( )
+end type
+
+event clicked;//open(w_attention_recto_verso_dep)
+
+
+//If message.DoubleParm = 1 then
+	if type_menu = "S" then
+		// Appelé depuis les soins
+		impression_recto_verso(w_click_soins_reg.dw_recto,w_click_soins_reg.dw_verso,w_click_soins_reg.tab_1.tabpage_soins.dw_impression)
+	else
+		if type_menu = "P" then
+			// Appelé depuis les soins prévus
+			impression_recto_verso(w_click_soins_reg.dw_recto,w_click_soins_reg.dw_verso,w_click_soins_reg.dw_soins)
+		else
+			// Appel depuis les règlements
+			if prepa_recto_feuille_soin(w_click_soins_reg.dw_soins) then
+				impression_recto_verso(w_click_soins_reg.dw_recto,w_click_soins_reg.dw_verso,w_click_soins_reg.dw_recto)
+			end if
+		end if
+	end if
+//end if
+
+end event
+
+on m_imprimerrectoverso.create
+call super::create
+this.text = "&Imprimer Recto / Verso"
+this.menuimage = "lc_print.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_imprimerrectoverso.destroy
+call super::destroy
+end on
+
+type m_1 from menu within m_soins
+end type
+
+on m_1.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_1.destroy
+call super::destroy
+end on
+
+type m_feuilledesoins2014 from menu within m_soins
+end type
+
+on m_feuilledesoins2014.create
+call super::create
+this.text = "Feuille de Soins"
+this.menuimage = "lc_print.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_feuilledesoins2014.destroy
+call super::destroy
+end on
+
+event clicked;
+
+
+if w_click_soins_reg.impression_integre then
+	// Impression intégrée 
+	datawindow dw_nulle
+	setnull(dw_nulle) 
+
+	//impression_fs2014_recto (w_click_soins_reg.dw_fs2014_recto, dw_nulle)
+else
+	
+	long lig, ligtot, ligcour
+	double code_patient, cle_soin
+	boolean b_ok_imprime
+	
+	integer i_cpt_deja_fs = 0
+	ligtot = dw_click.rowcount()
+
+	// Si pas de soins sélectionné ... on prend le soin courant
+	if dw_click.find("fse = 'O'",0,ligtot) = 0 then
+		dw_click.SetItem(dw_click.getrow(), "fse", "O")
+	end if
+
+
+	lig = dw_click.find("fse = 'O'",0,ligtot)
+	if  lig > 0 then
+
+		// Verification si même praticien pour tous les soins ....
+		string v_code_praticien_soin, v_code_praticien_fs, v_code_praticien_patient
+		boolean praticien_ok = true
+		
+		code_patient = dw_click.getitemnumber(lig,"soins_code")
+		v_code_praticien_soin = dw_click.getitemString(lig,"soins_code_praticien")
+		
+		select code_praticien into :v_code_praticien_patient from patient where code = :code_patient ;
+	
+		// Praticien de la feuille de soin
+		if isnull(v_code_praticien_soin) then 
+			v_code_praticien_fs = v_code_praticien_patient
+		else
+			v_code_praticien_fs = v_code_praticien_soin
+		end if
+		
+		for lig = 1 to ligtot
+			if dw_click.getitemstring(lig,"fse") = 'O'  then
+				v_code_praticien_soin = dw_click.getitemString(lig,"soins_code_praticien")
+				
+				// Pour détecter les soins qui on déjà été sur une FS
+				if trim(string_non_nulle(dw_click.getitemString(lig,"soins_fse_edite"))) <> "" then 
+					i_cpt_deja_fs = i_cpt_deja_fs + 1
+				end if
+				
+				if isnull(v_code_praticien_soin) then
+					if v_code_praticien_fs <> v_code_praticien_patient then
+						praticien_ok = false
+					end if
+				else
+					if v_code_praticien_fs <> v_code_praticien_soin then
+						praticien_ok = false
+					end if
+				end if
+
+			end if
+		next
+		
+		if not praticien_ok then
+			Messagebox("ATTENTION", "Les actes sélectionnés ne sont pas tous du même praticien. Vous ne pouvez pas les inclure dans la même feuille de soins.")
+		else
+			b_ok_imprime = true
+
+			if i_cpt_deja_fs > 0 then 
+				if messagebox("ATTENTION", "Au moins un soin ("+string(i_cpt_deja_fs)+") a déjà fait l'objet d'une feuille de soins !~n~nConfirmez-vous l'impression ?", Question!, YesNo!, 2) = 2 then 
+					b_ok_imprime = false
+				end if
+			end if
+
+			
+			if b_ok_imprime then 
+				// impression avec un document Word
+				utiliser_courrier_word("F", 0)
+			
+				for lig = 1 to ligtot
+					if dw_click.getitemstring(lig,"fse") = 'O'  then
+						// Mise à jour des lignes comme quoi FS editée
+						cle_soin 		 = dw_click.getitemnumber(lig,"cle")
+						UPDATE "soins" SET "soins"."fse_edite" = 'M'  ,  "soins"."date_fs" = cast(getdate() as date)  
+						WHERE code = :code_patient and cle = :cle_soin ;
+					end if
+				next
+				commit ;
+				
+				ajout_histo_actions(var_code_local,"AJOFS", today(), 'Feuille manuelle' )
+
+			end if
+			
+			dw_click.retrieve(code_patient)	
+		end if
+	else
+		MessageBox("ATTENTION","Vous devez sélectionner (au moins) un soin avant de réaliser une Feuille de Soin.")
+	end if
+
+end if
+
+
+end event
+
+type m_feuilledesoins2014verso from menu within m_soins
+end type
+
+on m_feuilledesoins2014verso.create
+call super::create
+this.text = "Cadrage Feuille de Soins"
+this.menuimage = "lc_print.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_feuilledesoins2014verso.destroy
+call super::destroy
+end on
+
+event clicked;if w_click_soins_reg.impression_integre then
+	
+	// Impression du Versio
+	
+	string v_imprim_defaut
+	long num_job
+	
+	v_imprim_defaut = change_imprimante(var_code_local)
+	
+	num_job = printopen("Feuille Soins 2014")
+	//w_click_soins_reg.dw_fs2014_verso.retrieve(1)
+	//Printdatawindow(num_job,w_click_soins_reg.dw_fs2014_verso)
+	//printclose(num_job)
+	
+	remet_imprimante_defaut(v_imprim_defaut)
+else
+	
+	// Modification du docu fs2014.doc
+	
+	if FileExists(dir_ini + fxg_nom_fichier_fs2014_doc_ou_docx()) then
+		
+		// ouvre un fichier word 
+		uo_lien_word uo_word
+		
+		uo_word = create uo_lien_word
+		
+		uo_word.traiter_avec_word(Service_EditerCourrier, dir_ini, fxg_nom_fichier_fs2014_doc_ou_docx(), false) 
+		
+	else
+		Messagebox("ATTENTION","Le fichier d'impression de la Feuille de Soins est introuvable.~n~nVeuillez contacter ARAKIS.")
+	end if
+end if
+end event
+
+type m_feuilledesoins2014rectoverso from menu within m_soins
+end type
+
+on m_feuilledesoins2014rectoverso.create
+call super::create
+this.text = "Réinitialisation du cadrage Feuille de Soins"
+this.menuimage = "lc_print.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_feuilledesoins2014rectoverso.destroy
+call super::destroy
+end on
+
+event clicked;if w_click_soins_reg.impression_integre then
+	if prepa_recto_feuille_soin(w_click_soins_reg.dw_soins) then
+	
+			//impression_fs2014_recto (w_click_soins_reg.dw_fs2014_recto,w_click_soins_reg.dw_fs2014_verso)
+	
+	end if
+else
+	
+	// recopie du document Word 
+	If Messagebox("ATTENTION","Vous allez reinitialiser le document d'impression de la Feuille de Soins.~nVous serez peut-être amené à le recadrer ensuite.~n~nConfirmez-vous ?", Question!, Yesno!, 2) = 1 then
+		string doc_temp, doc_doc
+		
+		doc_doc =  dir_ini + fxg_nom_fichier_fs2014_doc_ou_docx()
+		doc_temp = doc_doc + ".origine"
+		
+		if FileCopy(doc_temp, doc_doc, true) = 1 then 
+			MessageBox("INFORMATION","La réinitilisation a été réalisée avec succès.")
+		else
+			MessageBox("ATTENTION","Une erreur s'est produite durant la réinitilisation . Elle n'a pas été réalisée.")
+		end if
+		
+	end if
+	
+end if
+end event
+
+type m_fs2014 from menu within m_soins
+end type
+
+on m_fs2014.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_fs2014.destroy
+call super::destroy
+end on
+
+type m_remplacerpar from menu within m_soins
+end type
+
+event clicked;
+
+open(w_soins_remplacer_par)
+end event
+
+on m_remplacerpar.create
+call super::create
+this.text = "Remplacer par ..."
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_remplacerpar.destroy
+call super::destroy
+end on
+
+type m_annulertransfertdusoin from menu within m_soins
+end type
+
+event clicked;
+if dw_click.rowcount() > 0 then
+	dw_click.SetItem(dw_click.getrow(), "soins_prevus_transfert" , "N")
+	if dw_click.update() = 1 then
+		commit ;
+	else
+		rollback ;
+		messagebox("ATTENTION !","Erreur dans la mise à jour de la ligne !~n~n" + sqlca.sqlerrtext )
+	end if
+end if
+end event
+
+on m_annulertransfertdusoin.create
+call super::create
+this.visible = false
+this.text = "Annuler transfert du soin"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_annulertransfertdusoin.destroy
+call super::destroy
+end on
+
+type m_- from menu within m_soins
+end type
+
+on m_-.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_imprimersoins from menu within m_soins
+end type
+
+on m_imprimersoins.create
+call super::create
+this.text = "Imprimer les soins à partir de ..."
+this.menuimage = "lc_print.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_imprimersoins.destroy
+call super::destroy
+end on
+
+event clicked;date date_soin
+
+If dw_click.rowCount() > 0 Then
+	
+	date_soin = dw_click.GetItemDate(dw_click.GetRow(),"date_demande")
+
+	choose case w_click_soins_reg.type_gestion
+		case 'P'
+			w_click_soins_reg.imprimer_soins (date_soin,monnaie_base,w_click_soins_reg.dw_edition_soins_prevus, "I")
+		case 'S'
+			w_click_soins_reg.imprimer_soins (date_soin,monnaie_base,w_click_soins_reg.dw_edition, "I")
+		case 'R'
+			w_click_soins_reg.imprimer_soins (date_soin,monnaie_base,w_click_soins_reg.dw_edition_reglements, "I")
+		end choose
+end if
+end event
+
+type m_envoyerlessoinsparemailapartirde from menu within m_soins
+event create ( )
+event destroy ( )
+end type
+
+on m_envoyerlessoinsparemailapartirde.create
+call super::create
+this.text = "Envoyer les soins par email a partir de ..."
+this.menuimage = "lc_envoi_message_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_envoyerlessoinsparemailapartirde.destroy
+call super::destroy
+end on
+
+event clicked;date date_soin
+
+If dw_click.rowCount() > 0 Then
+	
+	date_soin = dw_click.GetItemDate(dw_click.GetRow(),"date_demande")
+
+	choose case w_click_soins_reg.type_gestion
+		case 'P'
+			w_click_soins_reg.imprimer_soins (date_soin,monnaie_base,w_click_soins_reg.dw_edition_soins_prevus, "E")
+		case 'S'
+			w_click_soins_reg.imprimer_soins (date_soin,monnaie_base,w_click_soins_reg.dw_edition, "E")
+		case 'R'
+			w_click_soins_reg.imprimer_soins (date_soin,monnaie_base,w_click_soins_reg.dw_edition_reglements, "E")
+		end choose
+end if
+end event
+
+type m_facture from menu within m_soins
+end type
+
+on m_facture.create
+call super::create
+this.visible = false
+this.text = "Facture (Note d~'Honoraires)"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_facture.destroy
+call super::destroy
+end on
+
+event clicked;open(w_facture_impression)
+end event
+
+type m_utiliseruncourrierword from menu within m_soins
+end type
+
+on m_utiliseruncourrierword.create
+call super::create
+this.text = "Utiliser un courrier Word"
+this.menuimage = "lc_winword_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_utiliseruncourrierword.destroy
+call super::destroy
+end on
+
+event clicked;
+
+utiliser_courrier_word("S", 0)
+
+
+end event
+
+type m_-2 from menu within m_soins
+end type
+
+on m_-2.create
+call super::create
+this.visible = false
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-2.destroy
+call super::destroy
+end on
+
+type m_selectionnertouslessoinsdunememedate from menu within m_soins
+end type
+
+event clicked;date date_soin
+long cpt, tot
+
+
+If dw_click.rowCount() > 0 Then
+	
+	date_soin = dw_click.GetItemDate(dw_click.GetRow(),"date_demande")
+
+	tot = dw_click.rowCount()
+	
+	for cpt = 1 to tot
+		dw_click.SetItem(cpt,"fse", "N")
+	Next
+	
+	for cpt = 1 to tot
+		if date_soin = dw_click.GetItemDate(cpt,"date_demande")  then
+			dw_click.SetItem(cpt,"fse", "O")
+		end if
+	next
+end if
+end event
+
+on m_selectionnertouslessoinsdunememedate.create
+call super::create
+this.text = "Sélectionner tous les soins d~'une même date"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_selectionnertouslessoinsdunememedate.destroy
+call super::destroy
+end on
+
+type m_deblocageimpression from menu within m_soins
+end type
+
+event clicked;delete from "feuille_soins" ;
+commit ;
+end event
+
+on m_deblocageimpression.create
+call super::create
+this.visible = false
+this.text = "Déblocage impression"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_deblocageimpression.destroy
+call super::destroy
+end on
+
+type m_annulationfeuilledesoins from menu within m_soins
+end type
+
+on m_annulationfeuilledesoins.create
+call super::create
+this.visible = false
+this.text = "Annulation Feuille de Soins / Inscription FSE"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_annulationfeuilledesoins.destroy
+call super::destroy
+end on
+
+event clicked;
+string chaine_nulle 
+date date_nulle , nouvelle_date, v_date_fse
+long row 
+string v_fse_edite
+boolean v_suite = true
+boolean b_suppression_fse  = false
+string s_numero_fse
+double db_numero_fse
+string v_version_ccvitale, ls_numero_fse
+
+string s_code_praticien_fse
+ls_numero_fse = ''
+
+If dw_click.rowCount() > 0 Then
+	
+	row = dw_click.GetRow()
+	var_code_local = w_click_soins_reg.var_code_local
+	
+	v_fse_edite = dw_click.getItemString(row,"soins_fse_edite")
+	
+	
+	if belgique then
+		if v_fse_edite = "J" then 
+			if messagebox("ATTENTION !","Vous allez annuler l'information de réalisation d'un Justificatif.~n~nCeci ne supprimera pas le Justificatif.~n~nConfirmez-vous ?"	,Question!,Yesno!,2) = 1 then
+			
+				setnull(chaine_nulle)
+				setnull(date_nulle)
+				dw_click.setItem(row,"soins_fse_edite",chaine_nulle)
+				dw_click.setItem(row,"soins_date_fs",date_nulle)
+				
+	
+				if dw_click.update() = 1 then
+					commit ;
+				else
+					rollback ;
+				end if
+			end if
+		else
+			Messagebox("ATTENTION","Ce soin n'a pas fait l'objet d'un justificatif !")
+		end if
+		
+	else
+	
+		// On est en France
+		s_numero_fse = dw_click.getItemString(row,"soins_numero_fse")
+		v_date_fse	= dw_click.getItemDate(row,"soins_date_fs")
+	
+		if not isnull(v_fse_edite) then
+			if messagebox("ATTENTION !","Vous allez annuler l'information de réalisation d'une Feuille de Soins.~n~nConfirmez-vous ?"	,Question!,Yesno!,2) = 1 then
+				
+				if v_fse_edite = "V" and CCVITALE then
+					if messagebox("ATTENTION !","Souhaitez-vous également supprimer la FSE N°"+ s_numero_fse +" dans CC-Vitale ?~n~nConfirmez-vous ?"	,Question!,Yesno!,2) = 1 then
+						b_suppression_fse = true
+					end if
+				end if
+				setnull(nouvelle_date)
+				setnull(v_fse_edite)
+				v_suite = true
+			end if
+		else
+			
+			v_suite = true
+		
+			string code_soin_fact, fs_necessaire
+			code_soin_fact = dw_click.getitemstring(row,"code_soins_code")
+			
+			// Recherche des caractéristiques du soin
+			SELECT isnull("fs", 'O') INTO :fs_necessaire 	FROM "code_soins" WHERE code = :code_soin_fact ;
+
+			// On verifie si feuille de soin nécessaire
+			if fs_necessaire = "N" then
+				MessageBox("ATTENTION !","Le type de soin " + dw_click.getitemstring(row,"code_soins_nom") + " ne nécessite pas de Feuille de soins !~n~nAction impossible !")
+				v_suite = false
+			end if
+			
+				
+			if v_suite then
+				if messagebox("ATTENTION !","Vous allez inscrire l'information de réalisation d'une Feuille de Soins.~n~nConfirmez-vous ?"	,Question!,Yesno!,2) = 1 then
+					nouvelle_date = today()
+					v_fse_edite = "V"
+					v_suite = true
+				end if
+			end if
+		end if
+			
+		if v_suite then
+			setnull(chaine_nulle)
+			dw_click.setItem(row,"soins_fse_edite",v_fse_edite)
+			dw_click.setItem(row,"soins_date_fs",nouvelle_date)
+			
+			if isnull(v_fse_edite) then
+				// mémorisation pour mise en histo
+				ls_numero_fse = string_non_nulle(trim(dw_click.GetItemString(row,"soins_numero_fse")))
+				dw_click.setItem(row,"soins_numero_fse",chaine_nulle)
+			end if
+	
+	
+			if dw_click.update() = 1 then
+				commit ;
+				
+				if isnull(v_fse_edite) then
+					// on vient d'annuler la feuille de soins => mémo de l'action en historique
+					string s_libelle
+					s_libelle = dw_click.GetItemString(row,"code_soins_nom") 
+					if dw_click.GetItemNumber(row,"numero") > 0 then
+						s_libelle = s_libelle + " N°" + string( dw_click.GetItemNumber(row,"numero") )
+					else
+						s_libelle = s_libelle + " du " + string( dw_click.GetItemDate(row,"date_demande") )
+					end if
+
+						
+					if ls_numero_fse <> "" then
+						s_libelle = "FSE N°" + ls_numero_fse + " - Soin : " + s_libelle
+					else
+						s_libelle = "FS " + " - Soin : " + s_libelle
+					end if
+					ajout_histo_actions(var_code_local,"SUPFS", today(), s_libelle )
+	
+				end if
+				
+				if b_suppression_fse and CCVITALE then
+					// Il faut aussi supprimer la FSE dans CC Vitale ... et annuler les "V" des autres lignes de soins ... 
+					
+					// Praticien ?
+					s_code_praticien_fse  = dw_click.GetItemString(row ,"soins_code_praticien") 
+					s_code_praticien_fse = string_non_nulle(s_code_praticien_fse)
+					if s_code_praticien_fse = "" then
+						select code_praticien into :s_code_praticien_fse from patient where code = :var_code_local ;
+					end if
+				
+					// Nouveau mécanisme de communication => version CC Obligatoire
+					v_version_ccvitale = fxg_get_version_ccvitale() 
+					if v_version_ccvitale >= "4.10" then
+						// Suppression effective de la facture
+						
+						param_win[1] = '10'
+						param_win[2] = s_code_praticien_fse
+						param_win[3] = string(var_code_local)
+						param_win[4] = s_numero_fse
+						Trace("ouverture de w_cc_vitale")
+						Open (w_cc_vitale)
+						
+	
+						// la fenetre renvoie 1 si Ok ou 0 sinon
+						if message.doubleparm = 1 then
+							// La facture a été supprimée
+							// Faut effacer éventellement les infos des autres soins de la facture
+							
+							db_numero_fse = double (s_numero_fse)
+							
+							update soins set numero_fse = null, fse_edite = null, date_fs = null 
+							where code = :var_code_local and numero_fse = :db_numero_fse ;
+							
+							if sqlca.sqlcode = 0 then
+								
+								if sqlca.sqlnrows > 0 then
+									if sqlca.sqlnrows = 1 then
+										Messagebox("INFORMATION !", string(sqlca.sqlnrows) + " autre soin figure dans la facture.~nSes informations de FSE ont été supprimées !")
+									else
+										Messagebox("INFORMATION !", string(sqlca.sqlnrows) + " autres soins figurent dans la facture.~nLeurs informations de FSE ont été supprimées !")
+									end if
+									
+								end if
+								commit ;
+								
+								// Retrieve pour actuliser les infos ...
+								dw_click.retrieve(var_code_local)
+								dw_click.scrollToRow(row)
+								
+							else
+								Messagebox("ATTENTION !","Erreur dans la mise à jour des informations de suppression de FSE !~n~n" + sqlca.sqlerrtext)
+								rollback ;
+							end if
+						else
+							
+							// La suppression dans CC Vitale c'est mal passée 
+							
+							
+							// On remet les informations dans le soin
+							dw_click.SetItem(row,"soins_fse_edite", "V")
+							dw_click.SetItem(row,"soins_numero_fse", s_numero_fse)
+							dw_click.SetItem(row,"soins_date_fs", v_date_fse)
+							
+							if dw_click.update() = 1 then
+								commit ;
+								Messagebox("ATTENTION !", "Les informations de la FSE dans Orthokis n'ont pas été mises à jour !")
+							else
+								rollback ;
+								Messagebox("ATTENTION !", "Erreur dans la remise en place des informations de la FSE dans Orthokis.~n~nVous devez les réinscrire.~n~nErreur : " + sqlca.sqlerrtext)
+							end if
+							
+							// Retrieve pour actuliser les infos ...
+							dw_click.retrieve(var_code_local)
+							dw_click.scrollToRow(row)
+	
+	
+							
+						end if
+	
+					else
+						if v_version_ccvitale = '' then 
+							MessageBox("ATTENTION", "CC-Vitale n'est pas installé sur ce poste !~n~nIl est donc impossible de supprimer la FSE. Vous devez le faire depuis CC-Vitale, sur un poste équipé de ce logiciel !")
+						else
+							Messagebox("ATTENTION","Cette version d'Orthokis fonctionne avec CC-Vitale version 4.10 ou supérieure or vous êtes actuellement en " + v_version_ccvitale + ".~n~nVeuillez faire la mise à jour de CC-Vitale !")
+						end if
+					end if
+	
+				end if
+				
+				
+			else
+				Messagebox("ERREUR","Problème dans la mise à jour de la base de données !~n~nVeuillez fermer le dossier et renouveler l'opération.")
+				rollback ;
+			end if
+			
+			dw_click.retrieve(var_code_local)
+			dw_click.scrolltorow(row)
+	
+			
+		end if
+	end if
+
+end if
+
+
+
+
+end event
+
+type m_-3 from menu within m_soins
+end type
+
+on m_-3.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-3.destroy
+call super::destroy
+end on
+
+type m_informationsdemodifications from menu within m_soins
+end type
+
+event clicked;
+if type_menu = "P" then
+	// soins prévus
+	fxg_get_infos_modifs(w_click_soins_reg.dw_soins_prevus, w_click_soins_reg.dw_soins_prevus.getrow() )
+else
+	// soins ou reglements
+	fxg_get_infos_modifs(w_click_soins_reg.dw_soins, w_click_soins_reg.dw_soins.getrow() )
+	
+end if
+
+end event
+
+on m_informationsdemodifications.create
+call super::create
+this.text = "Informations de modifications"
+this.menuimage = "lc_infos.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_informationsdemodifications.destroy
+call super::destroy
+end on
+
+type m_2 from menu within m_soins
+end type
+
+on m_2.create
+call super::create
+this.visible = false
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_2.destroy
+call super::destroy
+end on
+
+type m_renvoyerlesoinaods from menu within m_soins
+end type
+
+on m_renvoyerlesoinaods.create
+call super::create
+this.visible = false
+this.text = "Renvoyer le soin à Visiodent"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_renvoyerlesoinaods.destroy
+call super::destroy
+end on
+
+event clicked;double v_code_patient
+long v_clef
+string v_nom_soins
+date v_date_demande
+
+If dw_click.rowCount() > 0 and not VISIODENT_LIMITE Then
+	
+	v_clef = dw_click.GetItemNumber(dw_click.GetRow(),"cle")
+	v_code_patient = dw_click.GetItemNumber(dw_click.GetRow(),"soins_code")
+	v_nom_soins = dw_click.GetItemString(dw_click.GetRow(),"code_soins_nom")
+	v_date_demande = dw_click.GetItemDate(dw_click.GetRow(),"date_demande")
+	
+	// On ne doit pas envoyer les soins FDO 
+	if upper(trim(dw_click.GetItemString(dw_click.GetRow(),"code_soins_lettre"))) = "FDO" then
+			MessageBox("ATTENTION","Les soins FDO n'ont pas besoin d'être envoyés à Veasy. Ils sont automatiquement intégrés lors de l'envoi du Semestre.") 
+	else			
+		if true then
+//		if not fxg_ods_envoi_soin(v_code_patient, v_clef, true) then
+			MessageBox("ERREUR","Le soin " + v_nom_soins + " du " + string(v_date_demande) + " n'a pas été correctement mis à jour dans Visiodent !") 
+		end if
+	end if
+
+end if
+end event
+
+type m_selectionnertouslessoinsdus from menu within m_soins
+end type
+
+on m_selectionnertouslessoinsdus.create
+call super::create
+this.visible = false
+this.text = "Selectionner tous les soins dûs"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_selectionnertouslessoinsdus.destroy
+call super::destroy
+end on
+
+event clicked;
+
+//cpaye >= cdoit
+
+date date_soin
+long cpt, tot
+
+tot = dw_click.rowCount()
+
+for cpt = 1 to tot
+	dw_click.SetItem(cpt,"fse", "N")
+Next
+
+for cpt = 1 to tot
+	if dw_click.GetItemNumber(cpt,"cpaye") < dw_click.GetItemNumber(cpt,"cdoit") then
+		dw_click.SetItem(cpt,"fse", "O")
+	end if
+next
+
+end event
+

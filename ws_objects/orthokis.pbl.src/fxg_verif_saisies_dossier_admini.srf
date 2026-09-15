@@ -1,0 +1,230 @@
+﻿$PBExportHeader$fxg_verif_saisies_dossier_admini.srf
+global type fxg_verif_saisies_dossier_admini from function_object
+end type
+
+forward prototypes
+global function boolean fxg_verif_saisies_dossier_admini (datawindow dw1, datawindow dw2, ref boolean verif_a_faire, boolean poser_question)
+end prototypes
+
+global function boolean fxg_verif_saisies_dossier_admini (datawindow dw1, datawindow dw2, ref boolean verif_a_faire, boolean poser_question);
+
+// Verification des éléments obligatoires en saisie / modification de dossier ...  pas de blocage, uniquement message (groupé) d'alerte ..
+
+// verif_a_faire : sert à éviter qu'on fasse plusieurs fois la vérif en enregistrement automatique
+// poser_question : pose question de confirmation de fermer la fenêtre
+
+// la fonction renvoie toujours true, sauf s'il faut empecher la fermeture de la fenetre
+
+// dw1 = corresdont à la dw1 de la fiche administrative 
+// dw2 = dw qui contient le correspondant et le dentiste traitant
+
+string  v_verif_dossier_admini,            v_verif_nom_patient,            v_verif_prenom_patient,            v_verif_email_patient,            v_verif_portable_patient,            v_verif_date_naissance_patient,            v_verif_nom_parent1,            v_verif_portable_parent1,            v_verif_email_parent1  
+string v_verif_sexe, v_verif_niss_patient, v_verif_niss_parent1
+string v_verif_adresse1_parent1 , v_verif_codep_parent1, v_verif_ville_parent1, v_verif_correspondant ,v_verif_dentiste  
+
+integer  nb_manquants = 0	
+string libelle_manquants = ""
+boolean v_retour = true
+
+integer v_ordre
+string var_corresp
+
+if verif_a_faire then
+	
+
+	SELECT TOP 1 isnull("param"."verif_dossier_admini", 'N'),   
+			 isnull("param"."verif_nom_patient", 'N'),      
+			 isnull("param"."verif_prenom_patient", 'N'),      
+			 isnull("param"."verif_email_patient", 'N'),      
+			 isnull("param"."verif_portable_patient", 'N'),      
+			 isnull("param"."verif_date_naissance", 'N'),      
+			 isnull("param"."verif_nom_parent1", 'N'),      
+			 isnull("param"."verif_portable_parent1", 'N'),      
+			 isnull("param"."verif_email_parent1", 'N'),     
+			 isnull("param"."verif_sexe_patient" , 'N'),    
+			 isnull("param"."verif_niss_patient", 'N') ,  
+			 isnull("param"."verif_adresse1_parent1", 'N') ,  
+			 isnull("param"."verif_codep_parent1", 'N') ,  
+			 isnull("param"."verif_ville_parent1", 'N') ,  
+			 isnull("param"."verif_niss_parent1", 'N') ,
+			 isnull("param"."verif_correspondant", 'N') ,  
+			 isnull("param"."verif_dentiste", 'N') 
+			 
+	 INTO :v_verif_dossier_admini,   
+			:v_verif_nom_patient,   
+			:v_verif_prenom_patient,   
+			:v_verif_email_patient,   
+			:v_verif_portable_patient,   
+			:v_verif_date_naissance_patient,   
+			:v_verif_nom_parent1,   
+			:v_verif_portable_parent1,   
+			:v_verif_email_parent1,
+			:v_verif_sexe, 
+			:v_verif_niss_patient,
+			:v_verif_adresse1_parent1 , 
+			:v_verif_codep_parent1, 
+			:v_verif_ville_parent1, 
+			:v_verif_niss_parent1,
+			:v_verif_correspondant ,
+			:v_verif_dentiste  
+	 FROM "param"  ;
+
+	
+
+	if v_verif_dossier_admini = "O" then
+	
+		// Patient
+		if v_verif_nom_patient = "O" then
+			if trim(string_non_nulle(dw1.getItemString( 1 , "nom"))) = "" or trim(upper(string_non_nulle(dw1.getItemString(1 , "nom")))) = "A RENSEIGNER" then 
+				 nb_manquants = nb_manquants + 1
+				 libelle_manquants = libelle_manquants + "~n- Nom du Patient"
+			end if 
+		end if
+		if v_verif_prenom_patient = "O" then
+			if trim(string_non_nulle(dw1.getItemString( 1 , "prenom"))) = ""  then 
+				 nb_manquants = nb_manquants + 1
+				 libelle_manquants = libelle_manquants + "~n- Prénom du Patient"
+			end if 
+		end if
+		if v_verif_email_patient = "O" then
+			if trim(string_non_nulle(dw1.getItemString( 1 , "email_patient"))) = ""  then 
+				 nb_manquants = nb_manquants + 1
+				 libelle_manquants = libelle_manquants + "~n- Email du Patient"
+			end if 
+		end if
+	
+		if v_verif_portable_patient = "O" then
+			if trim(string_non_nulle(dw1.getItemString( 1 , "portable_patient"))) = ""  then 
+				 nb_manquants = nb_manquants + 1
+				 libelle_manquants = libelle_manquants + "~n- N° de Portable du Patient"
+			end if 
+		end if
+	
+		if v_verif_date_naissance_patient = "O" then
+			if trim(string(dw1.getItemDate( 1 , "date_naissance"))) = "00/00/0000"  then 
+				 nb_manquants = nb_manquants + 1
+				 libelle_manquants = libelle_manquants + "~n- Date de Naissance du Patient"
+			end if 
+		end if
+
+		if v_verif_sexe = "O" then
+			if trim(string_non_nulle(dw1.getItemString( 1 , "sexe"))) = ""    then 
+				 nb_manquants = nb_manquants + 1
+				 libelle_manquants = libelle_manquants + "~n- Sexe du Patient"
+			end if 
+		end if
+
+
+		if v_verif_niss_patient = "O" then
+			if trim(string_non_nulle(dw1.getItemString( 1 , "secu_patient"))) = ""    then 
+				 nb_manquants = nb_manquants + 1
+				 if Belgique then	
+				 	libelle_manquants = libelle_manquants + "~n- NISS du Patient"
+				 else
+					 libelle_manquants = libelle_manquants + "~n- N° de Sécurité Social du Patient"
+				 end if
+			end if 
+		end if
+
+
+
+
+		// Parent 1
+		if v_verif_nom_parent1 = "O" then
+			if trim(string_non_nulle(dw1.getItemString( 1 , "nom_parent1"))) = ""  then 
+				 nb_manquants = nb_manquants + 1
+				 libelle_manquants = libelle_manquants + "~n- Nom du Parent 1"
+			end if 
+		end if
+	
+		if v_verif_email_parent1 = "O" then
+			if trim(string_non_nulle(dw1.getItemString( 1 , "email"))) = ""  then 
+				 nb_manquants = nb_manquants + 1
+				 libelle_manquants = libelle_manquants + "~n- Email du Parent 1"
+			end if 
+		end if
+	
+		if v_verif_portable_parent1 = "O" then
+			if trim(string_non_nulle(dw1.getItemString( 1 , "portable"))) = ""  then 
+				 nb_manquants = nb_manquants + 1
+				 libelle_manquants = libelle_manquants + "~n- N° de Portable du Parent 1"
+			end if 
+		end if
+	
+		if v_verif_adresse1_parent1 = "O" then
+			if trim(string_non_nulle(dw1.getItemString( 1 , "adr1_parent1"))) = ""  then 
+				 nb_manquants = nb_manquants + 1
+				 libelle_manquants = libelle_manquants + "~n- Adresse 1 du Parent 1"
+			end if 
+		end if
+		if v_verif_codep_parent1 = "O" then
+			if trim(string_non_nulle(dw1.getItemString( 1 , "codep_parent1"))) = ""  then 
+				 nb_manquants = nb_manquants + 1
+				 libelle_manquants = libelle_manquants + "~n- Code Postal du Parent 1"
+			end if 
+		end if
+		if v_verif_ville_parent1 = "O" then
+			if trim(string_non_nulle(dw1.getItemString( 1 , "ville_parent1"))) = ""  then 
+				 nb_manquants = nb_manquants + 1
+				 libelle_manquants = libelle_manquants + "~n- Ville du Parent 1"
+			end if 
+		end if
+		if v_verif_niss_parent1 = "O" then
+			if trim(string_non_nulle(dw1.getItemString( 1 , "secu_parent1"))) = ""    then 
+				 nb_manquants = nb_manquants + 1
+				 if Belgique then	
+				 	libelle_manquants = libelle_manquants + "~n- NISS du Parent 1"
+				 else
+					 libelle_manquants = libelle_manquants + "~n- N° de Sécurité Social du Parent 1"
+				 end if
+			end if 
+		end if
+
+		// Correspondant et Dentiste
+		
+		// Recherche du code par défaut
+		SELECT min(ordre_trie) INTO :v_ordre FROM correspondants where actif = 1 ;
+		SELECT min(code)  INTO :var_corresp FROM correspondants where ordre_trie = :v_ordre ;
+
+		if v_verif_correspondant = "O" then
+			if string_non_nulle(dw2.getItemString( 1 , "code_correspondant")) = var_corresp  then 
+				 nb_manquants = nb_manquants + 1
+				 libelle_manquants = libelle_manquants + "~n- Correspondant (valeur par défaut)"
+			end if 
+		end if
+		if v_verif_dentiste = "O" then
+			if string_non_nulle(dw2.getItemString( 1 , "code_dentiste")) = var_corresp  then 
+				 nb_manquants = nb_manquants + 1
+				 libelle_manquants = libelle_manquants + "~n- Dentiste Traitant (valeur par défaut)"
+			end if 
+		end if
+
+
+		if nb_manquants > 0 then 
+			if nb_manquants = 1 then
+				if poser_question then
+					if Messagebox("ATTENTION", "Vous n'avez pas saisi l'élément suivant : ~n" + libelle_manquants+"~n~nVoulez-vous tout de même fermer le dossier ?", Question!, Yesno!, 1) = 2 then 
+						v_retour = false
+					end if
+				else
+					Messagebox("ATTENTION", "Vous n'avez pas saisi l'élément suivant : ~n" + libelle_manquants) 
+				end if
+			else
+				if poser_question then
+					if Messagebox("ATTENTION", "Vous n'avez pas saisi les éléments suivants : ~n" + libelle_manquants+"~n~nVoulez-vous tout de même fermer le dossier ?", Question!, Yesno!, 1) = 2 then 
+						v_retour = false
+					end if
+				else
+					Messagebox("ATTENTION", "Vous n'avez pas saisi les éléments suivants : ~n" + libelle_manquants)
+				end if
+			end if
+		end if
+	end if
+end if
+
+verif_a_faire = false 
+
+return v_retour
+
+end function
+

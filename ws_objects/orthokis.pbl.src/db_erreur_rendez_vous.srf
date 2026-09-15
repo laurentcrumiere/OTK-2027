@@ -1,0 +1,104 @@
+﻿$PBExportHeader$db_erreur_rendez_vous.srf
+global type db_erreur_rendez_vous from function_object
+end type
+
+forward prototypes
+global function boolean db_erreur_rendez_vous (datawindow dw, long err_code, string err_text)
+end prototypes
+
+global function boolean db_erreur_rendez_vous (datawindow dw, long err_code, string err_text);// Gestion des erreurs en base de données de la table Rendez-vous
+// Depuis 2024 elle renvoie   true si besoin de faire une actualisation des données à l'écran (rendez-vous réactivé)
+
+boolean b_rendez_vous_reactive = false
+
+son(4)
+
+CHOOSE CASE err_code
+	CASE -193
+		// Le rendez-vous existe déjà, on va vérifier qu'il n'existe pas avec un ETat "éliminer de l'agenda" .. si c'est le cas , on propose de le réactiver
+		if dw.rowcount() > 0   then
+			// clef primaire
+			double v_code, v_code_interne
+			string v_code_praticien, v_type, v_elimine_agenda, v_nom_etat, v_code_etat_defaut
+			datetime v_rdv
+			long lig
+			
+			lig = dw.getrow()
+			
+			v_code = dw.getitemNumber(lig, "code")
+			v_rdv = dw.getItemDatetime(lig, "rdv")
+			v_code_praticien = dw.getitemstring(lig, "code_praticien")
+			v_type = dw.getitemstring(lig, "type")
+			
+			select top 1 etat_rdv.elimine_agenda, rdv.code_interne , etat_rdv.nom 
+			into :v_elimine_agenda, :v_code_interne , :v_nom_etat
+			from rdv, etat_rdv 
+			where rdv.code = :v_code and rdv.rdv = :v_rdv and rdv.code_praticien = :v_code_praticien and rdv."type" = :v_type 
+			and rdv.absent = etat_rdv.code ;
+			
+			if v_elimine_agenda = "O" then 
+				// Le rendez-vous existe déjà et a été annulé 
+				if MessageBox("Alerte Base de Données",'Ce rendez-vous a déjà été saisi et a été mis en "'+ v_nom_etat +'" !~n~nSouhaitez-vous le réactiver ?',Question!, YesNo!, 1) = 1 then 
+					// recherche de l'état par défaut 
+					select top 1 isnull(code, '') into :v_code_etat_defaut 
+					from etat_rdv where elimine_agenda = 'N' order by ordre_trie  ;
+					
+					if v_code_etat_defaut <> '' then
+						update rdv set absent = :v_code_etat_defaut 
+						where rdv.code = :v_code and rdv.rdv = :v_rdv and rdv.code_praticien = :v_code_praticien and rdv."type" = :v_type ;
+						if sqlca.sqlcode = 0 then 
+							commit ;
+							b_rendez_vous_reactive = true
+							if TEA then
+								// Modif
+								fxg_lancer_commande_dsapi("appointment/update/" + string(v_code_interne), "", "R", "G" , v_code )
+								fxg_verif_envoi_questionnaire_tea(v_code, v_rdv, v_code_praticien, v_type)
+							end if
+
+						else
+							messagebox("ATTENTION", "Erreur dans la réactivation du rendez-vous !~n~nAucune modification n'a été effectuée !")
+							rollback ;
+						end if
+					end if
+				end if
+			else
+				MessageBox("Alerte Base de Données","Ce rendez-vous a déjà été saisi !",Information!)
+			end if
+			
+			
+		else
+			MessageBox("Alerte Base de Données","Ce rendez-vous a déjà été saisi !",Information!)
+		end if
+	CASE -195
+		MessageBox("Alerte Base de Données","Vous devez indiquer un type de rendez-vous !",Information!)
+	CASE -198
+		MessageBox("Alerte Base de Données","Vous n'avez pas le droit de supprimer cette ligne !~n~nElle est utilisée dans une fiche PATIENT.",Information!)
+	CASE -3
+		MessageBox("Alerte Base de Données","Le rendez-vous que vous manipulez a été~nmodifé par un autre utilisateur~nou dans une autre fenêtre.~n~nVeuillez annuler votre opération ....",Information!)
+	CASE -1
+		MessageBox("Alerte Base de Données","Erreur de communication avec la base de données liée certainement à un problème précédent.~n~nNous allons essayer de rétablir cette communication.~n~nVeuillez ensuite vérifier vos dernières opérations.",Information!)
+		dw.settransobject(sqlca)
+	CASE -85, -308
+		MessageBox("Alerte Base de Données","Erreur de communication avec la base de données probablement dû à un problème réseau.~n~nNous allons tenter une reconnexion.",Information!)
+		// pour virer la transacion
+		disconnect ;
+		// pour réessayer
+		connect ;
+		if sqlca.sqlcode = 0 then
+			// La reconnexion 
+			Messagebox("Alerte Base de Données","La reconnexion a été réalisée. Veuillez vérifier vos dernières opérations.")
+			dw.settransobject(sqlca)
+		else
+			// La reconnect
+			Messagebox("Alerte Base de Données","La reconnexion a échouée.~n~nVous allez quitter Orthokis.")
+			Halt close
+		end if
+	CASE ELSE
+		MessageBox("Alerte Base de Données Non Référencée","N° "+String(err_code)+"~nText : "+err_text,Information!)
+END CHOOSE
+
+
+return b_rendez_vous_reactive
+
+end function
+

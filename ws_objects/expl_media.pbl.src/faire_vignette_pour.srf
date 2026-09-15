@@ -1,0 +1,93 @@
+﻿$PBExportHeader$faire_vignette_pour.srf
+global type faire_vignette_pour from function_object
+end type
+
+forward prototypes
+global subroutine faire_vignette_pour (string fichier_image, string fichier_vignette)
+global subroutine faire_vignette_pour (string fichier_image, double v_code_patient)
+end prototypes
+
+global subroutine faire_vignette_pour (string fichier_image, string fichier_vignette);//// CONSTANTE imageGear .. (source Gear.h)
+//constant integer IG_LOAD_COLOR_DEFAULT =      0     
+//constant integer IG_LOAD_COLOR_1        =     1  
+//constant integer IG_LOAD_COLOR_4         =    2  
+//constant integer IG_LOAD_COLOR_8          =   3  
+//constant integer IG_LOAD_GRAYSCALE_8	= 4
+//Messagebox("vignette",fichier_vignette)
+
+
+integer largeur_vignette, hauteur_vignette, qualite_jpeg, bits_pixel
+
+// Lecture des éléments de la config des vignettes
+largeur_vignette = profileInt(dir_photos + inifile_photo, "vignettes", "largeur", 300)
+hauteur_vignette = profileInt(dir_photos + inifile_photo, "vignettes", "hauteur", 0)
+qualite_jpeg = profileInt(dir_photos + inifile_photo, "vignettes", "qualite_jpeg", 80)
+bits_pixel = profileInt(dir_photos + inifile_photo, "vignettes", "bits_pixel", 4)
+	
+
+// IMAGEGEAR
+
+w_mdi_2020.uo_gearbox.ole_image.object.Loadimage = fichier_image 
+w_mdi_2020.uo_gearbox.ole_image.object.GetFileInfo = fichier_image 
+
+// Reduction des pixels
+if bits_pixel = 4 then 
+	w_mdi_2020.uo_gearbox.ole_image.object.autoreduce = 2
+else
+	w_mdi_2020.uo_gearbox.ole_image.object.autoreduce = 3
+end if
+
+integer largeur_reelle,hauteur_reelle
+largeur_reelle = w_mdi_2020.uo_gearbox.ole_image.object.ImageWidth
+hauteur_reelle = w_mdi_2020.uo_gearbox.ole_image.object.ImageHeight
+
+
+// Reduction de la taille ... 300 de large
+if largeur_vignette > 0 then
+	// On resize selon la largeur
+	if largeur_vignette < largeur_reelle then
+		w_mdi_2020.uo_gearbox.ole_image.object.autoresizeX = largeur_vignette
+		w_mdi_2020.uo_gearbox.ole_image.object.autoresizeY = largeur_vignette * hauteur_reelle / largeur_reelle
+	end if
+else
+	// On resize selon la largeur
+	if hauteur_vignette < hauteur_reelle then
+		w_mdi_2020.uo_gearbox.ole_image.object.autoresizeX = hauteur_vignette * largeur_reelle / hauteur_reelle
+		w_mdi_2020.uo_gearbox.ole_image.object.autoresizeY = hauteur_vignette
+	end if
+end if
+
+//
+//		ole_image.object.loadimage = fichier_photo 
+////
+w_mdi_2020.uo_gearbox.ole_image.object.SaveFormat = IG_SAVE_JPG
+//
+//// tx de compression
+w_mdi_2020.uo_gearbox.ole_image.object.savequality = qualite_jpeg
+
+
+w_mdi_2020.uo_gearbox.ole_image.object.SaveImage = fichier_vignette
+w_mdi_2020.uo_gearbox.rendre_vierge()
+w_mdi_2020.uo_gearbox.ole_image.object.autoreduce = 0
+w_mdi_2020.uo_gearbox.ole_image.object.autoresizeX = largeur_reelle
+w_mdi_2020.uo_gearbox.ole_image.object.autoresizeY = hauteur_reelle
+
+// pour GdPicture
+//w_mdi_2020.uo_gearbox.mode_ocx = 2 
+//w_mdi_2020.uo_gearbox.charger_image(fichier_image)
+////w_mdi_2020.uo_gearbox.ole_image_gd.object.ResizeWidthRatio  (400, 0)
+//w_mdi_2020.uo_gearbox.ole_image_gd.object.SaveAsJpeg (fichier_vignette, 80)
+end subroutine
+
+global subroutine faire_vignette_pour (string fichier_image, double v_code_patient);// Faire la vignette d'un fichier photo sans qu'on lui passe le nom du fichier vignette
+// => on doit le construire
+
+string fichier_vignette
+
+fichier_vignette = construire_nom_fichier_vignette(fichier_image)
+
+faire_vignette(fichier_image,fichier_vignette,v_code_patient )
+
+
+end subroutine
+

@@ -1,0 +1,42 @@
+﻿$PBExportHeader$fxg_suppr1patientcourant.srf
+global type fxg_suppr1patientcourant from function_object
+end type
+
+forward prototypes
+global function integer fxg_suppr1patientcourant (double num_patient_suppr)
+end prototypes
+
+global function integer fxg_suppr1patientcourant (double num_patient_suppr);//met à jour les tableaux (tab_patientscourants & Tab_PatientsCourantsToolbar) en var globale
+//ainsi que l'affichage du menu principal de w_mdi
+//lors de la suppression d'un patient "num_patient" présent ds ces tableaux
+//de patients en mémoire
+
+int 		i, j
+double	Tab_PatientsCourants_temp[10]
+string	Tab_PatientsCourantsToolbar_temp[10]
+boolean	sortir
+
+
+for i = 1 to upperbound(Tab_PatientsCourants)
+// pour tout les éléments du tab des pastients en mem
+	if Tab_PatientsCourants[i] <> num_patient_suppr then
+	// si élément courant pas celui qui est suppr
+		// maj cpt des tab temp
+		j++
+		// on l'insère ds les tabs temp
+			Tab_PatientsCourants_temp[j] 			= Tab_PatientsCourants[i]
+			Tab_PatientsCourantsToolbar_temp[j]	= Tab_PatientsCourantsToolbar[i]
+	end if
+next
+
+//on remplace les tableaux globaux par les tab tem (locaux)
+Tab_PatientsCourants = Tab_PatientsCourants_temp
+Tab_PatientsCourantsToolbar = Tab_PatientsCourantsToolbar_temp
+
+//maj du menu principal de la w_mdi suivant tableaux globaux
+//fxg_maj_menu_patients_memoire()
+
+// pas de gestion d'erreur
+return 1
+end function
+

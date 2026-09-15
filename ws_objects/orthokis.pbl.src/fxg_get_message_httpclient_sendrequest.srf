@@ -1,0 +1,68 @@
+﻿$PBExportHeader$fxg_get_message_httpclient_sendrequest.srf
+global type fxg_get_message_HttpClient_SendRequest from function_object
+end type
+
+forward prototypes
+global function string fxg_get_message_httpclient_sendrequest (integer code_erreur)
+end prototypes
+
+global function string fxg_get_message_httpclient_sendrequest (integer code_erreur);string v_message
+
+choose case code_erreur
+	case 1 
+		v_message = "Succès."
+	case -1 
+		v_message = "Erreur Générale."
+	case -2
+		v_message = "URL Invalide."
+	case -3 
+		v_message = "Impossible de se connecter à Internet."
+	case -4 
+		v_message = "Temps depassé."
+	case -5
+		v_message = "Code conversion failed."
+	case -6 
+		v_message = "Unsupported character sets."
+	case -7
+		v_message = "Certification revocation checking has been enabled, but the revocation check failed to verify whether a certificate has been revoked. The server used to check for revocation might be unreachable."
+	case -8
+		v_message = "SSL certificate is invalid."
+	case -9 
+		v_message = "SSL certificate was revoked"
+	case -10 
+		v_message = "The function is unfamiliar with the Certificate Authority that generated the server certificate."
+	case -11
+		v_message = "SSL certificate common name (host name field) is incorrect, for example, you entered www.appeon.com and the common name on the certificate says www.demo.appeon.com."
+	case -12 
+		v_message = "SSL certificate date that was received from the server is invalid. The certificate has expired."
+	case 13
+		v_message = "The certificate was not issued for the server authentication purpose."
+	case -14
+		v_message = "The application experienced an internal error when loading the SSL libraries."
+	case -15
+		v_message = "More than one type of errors when validating the server certificate."
+	case -16 
+		v_message = "Le serveur a besoin d'un certificat de ce poste pour accepter la connexion."
+	case -17
+		v_message = "Le certificat de ce poste n'a pas de clef privée."
+	case -18
+		v_message = "La clef privée du certificat de ce poste est éronée."
+	case -19
+		v_message = "Erreur de sécurité . Cause possible : votre poste ne supporte pas la version de SSL/TLS requise par le serveur. Par exemple : votre poste ne supporte pas TLS 1.3 alors que le serveur attend TLS 1.3."
+	case -20 
+		v_message = "Response is unrecognizable. Normally this is because the HTTP version does not match with the version required by the server."
+	case -21
+		v_message = "Erreur TLS 1.3. Le serveur ne supporte pas TLS 1.3."
+	case -22 
+		v_message = "La requête doit être renvoyée."
+	case -24
+		v_message = "Erreur dans l'authentification de la connexion au serveur."
+	case -25 
+		v_message = "Erreur pour décompresser les données."
+	case 0
+		v_message = "Impossible d'accéder au service d'autorisation ARAKIS."
+end choose 
+
+return v_message
+end function
+

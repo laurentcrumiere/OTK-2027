@@ -1,0 +1,16 @@
+﻿$PBExportHeader$patient.srs
+global type patient from structure
+	string		nom
+	string		prenom
+	string		adulte
+	string		titre
+	string		heure
+	string		retard
+	string		message_specifique
+	string		message_specifique_adulte
+	double		numero_dossier
+	string		moulage
+	double		code
+	string		son_specifique
+end type
+

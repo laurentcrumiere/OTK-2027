@@ -1,0 +1,54 @@
+﻿$PBExportHeader$nom_theme_2020.srf
+global type nom_theme_2020 from function_object
+end type
+
+forward prototypes
+global function string nom_theme_2020 (integer index)
+end prototypes
+
+global function string nom_theme_2020 (integer index);choose case index
+	case 1
+		return "BLUE"
+	case 2
+		return "OLIVE"
+	case 3
+		return "SILVER"
+	case 4
+		return "CLASSIC"
+	case 5
+		return "BLACK"
+	case 6
+		return "Windows8_Blue"
+	case 7
+		return "Windows8_Olive"
+	case 8
+		return "Windows8_Silver"
+	case 9
+		return "Windows8_Black"
+	case 10
+		return "Amber_Light"
+	case 11
+		return "Cobalt_Light"
+	case 12
+		return "Crimson_Light"
+	case 13
+		return "Emerald_Light"
+	case 14
+		return "Magenta_Light"
+	case 15
+		return "Mauve_Light"
+	case 16
+		return "Orange_Light"
+	case 17
+		return "Pink_Light"
+	case 18
+		return "Red_Light"
+	case 19
+		return "Teal_Light"
+	case 20
+		return "Violet_Light"
+end choose
+
+
+end function
+

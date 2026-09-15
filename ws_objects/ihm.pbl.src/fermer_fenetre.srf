@@ -1,0 +1,29 @@
+﻿$PBExportHeader$fermer_fenetre.srf
+global type fermer_fenetre from function_object
+end type
+
+forward prototypes
+global subroutine fermer_fenetre (window w_fenetre)
+end prototypes
+
+global subroutine fermer_fenetre (window w_fenetre);
+
+// pour fermet une fenetre selon l'UI
+
+if w_fenetre.WindowType = Response! then
+	// faut fermer basiquement
+	close(w_fenetre)
+else
+
+	if UI_v2020 then
+		// Faut en plus fermer le Dock
+		w_mdi_2020.uo_powerDock.of_closedocument (w_fenetre)
+	else
+		Close(w_fenetre)
+	end if
+end if
+
+
+
+end subroutine
+

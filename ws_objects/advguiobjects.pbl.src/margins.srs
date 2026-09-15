@@ -1,0 +1,8 @@
+﻿$PBExportHeader$margins.srs
+global type margins from structure
+	int cxLeftWidth;
+  int cxRightWidth;
+  int cyTopHeight;
+  int cyBottomHeight;
+end type
+

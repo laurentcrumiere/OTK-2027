@@ -1,0 +1,74 @@
+﻿$PBExportHeader$save_patients_courants_ini.srf
+global type save_patients_courants_ini from function_object
+end type
+
+forward prototypes
+global function integer save_patients_courants_ini ()
+end prototypes
+
+global function integer save_patients_courants_ini ();// Mémorisation des 10 derniers patients courants
+// Pour la sortie du soft
+
+integer i
+
+// Recherche des infos dans la base de données
+string v_nom,v_prenom
+//constant	integer	MaxPatientsCourants = 10
+//double	Tab_PatientsCourants[10]
+//string	Tab_PatientsCourantsToolbar[10]
+
+ 
+if MaxPatientsCourants < 1 or (MaxPatientsCourants > 10 and not ui_v2020) then
+	return -1
+end if
+
+integer j
+j = 0
+
+if not ui_v2020 then
+	// pour éviter les trous ...
+	for i = 1 to MaxPatientsCourants
+		if len(trim(Tab_PatientsCourantsToolbar[i])) > 0 and left(Tab_PatientsCourantsToolbar[i], 1) <> "(" then
+			j = j + 1
+			SetProfileString(dir_ini+inifile_orthokis,"Patients_Courants","Tab_PatientsCourants_" + string(j) , string(Tab_PatientsCourants[i]))
+			SetProfileString(dir_ini+inifile_orthokis,"Patients_Courants","Tab_PatientsCourantsToolbar_" + string(j) , Tab_PatientsCourantsToolbar[i])
+		end if
+	next
+	
+	SetProfileString(dir_ini+inifile_orthokis,"Patients_Courants","MaxPatientsCourants"  , string(j))
+	
+	// pour finir et RAZ 
+	for i = j + 1 to MaxPatientsCourants
+		if len(trim(Tab_PatientsCourantsToolbar[i])) > 0 then
+			SetProfileString(dir_ini+inifile_orthokis,"Patients_Courants","Tab_PatientsCourants_" + string(i) , "")
+			SetProfileString(dir_ini+inifile_orthokis,"Patients_Courants","Tab_PatientsCourantsToolbar_" + string(i) , "")
+		end if
+	next
+
+
+else
+	if isvalid(uo_volet_patients) then 
+	
+		j = uo_volet_patients.dw_liste.rowcount()
+		for i = 1 to j
+			SetProfileString(dir_ini+inifile_orthokis,"Patients_Courants","Tab_PatientsCourants_" + string(i) , string(uo_volet_patients.dw_liste.GetItemNumber(i, "code")))
+			SetProfileString(dir_ini+inifile_orthokis,"Patients_Courants","Tab_PatientsCourantsToolbar_" + string(i) , uo_volet_patients.dw_liste.GetItemString(i, "titre"))
+		next
+		
+		SetProfileString(dir_ini+inifile_orthokis,"Patients_Courants","MaxPatientsCourants"  , string(j))
+		
+		// pour finir et RAZ 
+		for i = j + 1 to 30
+			SetProfileString(dir_ini+inifile_orthokis,"Patients_Courants","Tab_PatientsCourants_" + string(i) , "")
+			SetProfileString(dir_ini+inifile_orthokis,"Patients_Courants","Tab_PatientsCourantsToolbar_" + string(i) , "")
+		next
+	end if
+
+end if
+
+
+
+//si tout bien déroulé
+return 1
+end function
+

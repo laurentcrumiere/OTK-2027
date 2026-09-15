@@ -1,0 +1,25 @@
+﻿$PBExportHeader$faire_maj_patientcourant.srf
+global type faire_maj_patientcourant from function_object
+end type
+
+forward prototypes
+global function integer faire_maj_patientcourant (double cpatientcourant, ref boolean deja_fait)
+end prototypes
+
+global function integer faire_maj_patientcourant (double cpatientcourant, ref boolean deja_fait);//fx globale qui détermine selon le boolean passé en param si
+//besoin de faire une majpatientcourant ou pas
+//et maj le boolean selon !
+//renvoie tjrs 1 (pas de gestion d'erreur)
+
+
+if deja_fait then
+	//maj du boolean
+	deja_fait = false
+else
+	//Mise à jour des patients en mémoire
+	MajTabPatientsCourants(cpatientcourant)
+end if
+
+return 1
+end function
+

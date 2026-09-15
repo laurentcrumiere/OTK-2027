@@ -1,0 +1,29 @@
+﻿$PBExportHeader$fxg_generer_fichier_temporaire.srf
+global type fxg_generer_fichier_temporaire from function_object
+end type
+
+forward prototypes
+global function string fxg_generer_fichier_temporaire ()
+end prototypes
+
+global function string fxg_generer_fichier_temporaire ();
+
+// Genère une fichier temporaire dans le répertoire d'installaiton d'Orthokis
+// Ce fichier pourra servir par exemple a être copier quelque part pour tester si dossier accessible ou pas
+// La fonction renvoie uniquement le nom du fichier car on sait que dans le répertoire d'installation
+
+
+string v_fichier_temporaire, v_fichier_temporaire_seul
+long fichier_temporaire
+
+v_fichier_temporaire_seul =  "tmp_tmp.txt"
+v_fichier_temporaire = dir_ini + v_fichier_temporaire_seul
+fichier_temporaire = FileOpen(v_fichier_temporaire , LineMode! , Write!)
+FileWrite( fichier_temporaire, "temporaire")
+FileClose(fichier_temporaire)
+
+if not FileExists (v_fichier_temporaire) then MessageBox("ATTENTION","Impossible de générer le fichier temporaire : "+v_fichier_temporaire)
+
+return v_fichier_temporaire_seul
+end function
+

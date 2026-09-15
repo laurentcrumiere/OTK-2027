@@ -1,0 +1,28 @@
+﻿$PBExportHeader$fxg_conversion_word_to_pdf.srf
+global type fxg_conversion_word_to_pdf from function_object
+end type
+
+forward prototypes
+global function integer fxg_conversion_word_to_pdf (string as_document_word, string as_document_pdf)
+end prototypes
+
+global function integer fxg_conversion_word_to_pdf (string as_document_word, string as_document_pdf);long ll_ret
+
+trace("- Début de la conversion en PDF de : " + as_document_word)
+oleobject	ole_doc
+ole_doc = create oleobject
+ll_ret = ole_doc.ConnectToNewObject("Word.Application")
+
+if ll_ret = 0 then
+	ole_doc.Documents.Open(as_document_word)
+	ole_doc.ActiveDocument.saveas(as_document_pdf,17)
+	ole_doc.ActiveDocument.Close(false)
+	ole_doc.Quit()
+	ole_doc.DisconnectObject()
+end if
+trace("- Fin de la conversion vers : " + as_document_pdf)
+
+return ll_ret
+
+end function
+

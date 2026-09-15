@@ -1,0 +1,32 @@
+﻿$PBExportHeader$set_today.srf
+global type set_today from function_object
+end type
+
+forward prototypes
+global subroutine set_today (datawindow dw_1, string colonne)
+end prototypes
+
+global subroutine set_today (datawindow dw_1, string colonne);
+boolean ok
+// Met la valeur de la date du jour dans la colonne de la datawindow
+// utilisé avec un bouton
+
+if dw_1.rowcount() > 0 then
+	ok = true
+	if not isnull(dw_1.getitemDate(dw_1.getrow(),colonne)) then
+		if messagebox("CONFIRMATION","Vous allez remplacer la date saisie précédemment par la date du jour.~n~nConfirmez-vous ?",Question!,YesNo!,2) = 1 then
+			ok = true
+		else
+			ok = false
+		end if
+	else
+		ok = true
+	end if
+	
+	if ok then
+		dw_1.setitem(dw_1.getrow(),colonne,today())
+		dw_1.postevent(itemchanged!)
+	end if
+end if
+end subroutine
+

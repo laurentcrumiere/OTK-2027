@@ -1,0 +1,2778 @@
+﻿$PBExportHeader$m_btdroit_historique.srm
+forward
+global type m_btdroit_historique from menu
+end type
+type m_ajouter from menu within m_btdroit_historique
+end type
+type m_ajouterplusieurslignes from menu within m_btdroit_historique
+end type
+type m_ajouterunmoulage from menu within m_btdroit_historique
+end type
+type m_visualiserlecourrier from menu within m_btdroit_historique
+end type
+type m_imprimerledocument from menu within m_btdroit_historique
+end type
+type m_supprimer from menu within m_btdroit_historique
+end type
+type m_modifierladate from menu within m_btdroit_historique
+end type
+type m_modifierlelibelle from menu within m_btdroit_historique
+end type
+type m_signaturenumerique from menu within m_btdroit_historique
+end type
+type m_signatureenligne from menu within m_btdroit_historique
+end type
+type m_envoyerparemailpiècejointe from menu within m_btdroit_historique
+end type
+type m_informations from menu within m_btdroit_historique
+end type
+type m_renomerfichierphysique from menu within m_btdroit_historique
+end type
+type m_pdf from menu within m_btdroit_historique
+end type
+type m_pdf2 from menu within m_btdroit_historique
+end type
+type m_a_lire from menu within m_btdroit_historique
+end type
+type m_copierledocumentversunautrepatient from menu within m_btdroit_historique
+end type
+type m_copierledocumentverstoutelafratrie from menu within m_btdroit_historique
+end type
+type m_dupliquerledocument from menu within m_btdroit_historique
+end type
+type m_exportationdedocuments from menu within m_btdroit_historique
+end type
+type m_piecesjointess from menu within m_btdroit_historique
+end type
+global type m_btdroit_historique from menu
+m_ajouter m_ajouter
+m_ajouterplusieurslignes m_ajouterplusieurslignes
+m_ajouterunmoulage m_ajouterunmoulage
+m_visualiserlecourrier m_visualiserlecourrier
+m_imprimerledocument m_imprimerledocument
+m_supprimer m_supprimer
+m_modifierladate m_modifierladate
+m_modifierlelibelle m_modifierlelibelle
+m_signaturenumerique m_signaturenumerique
+m_signatureenligne m_signatureenligne
+m_envoyerparemailpiècejointe m_envoyerparemailpiècejointe
+m_informations m_informations
+m_renomerfichierphysique m_renomerfichierphysique
+m_pdf m_pdf
+m_pdf2 m_pdf2
+m_a_lire m_a_lire
+m_copierledocumentversunautrepatient m_copierledocumentversunautrepatient
+m_copierledocumentverstoutelafratrie m_copierledocumentverstoutelafratrie
+m_dupliquerledocument m_dupliquerledocument
+m_exportationdedocuments m_exportationdedocuments
+m_piecesjointess m_piecesjointess
+end type
+end forward
+
+global type m_btdroit_historique from menu
+m_ajouter m_ajouter
+m_ajouterplusieurslignes m_ajouterplusieurslignes
+m_ajouterunmoulage m_ajouterunmoulage
+m_visualiserlecourrier m_visualiserlecourrier
+m_imprimerledocument m_imprimerledocument
+m_supprimer m_supprimer
+m_modifierladate m_modifierladate
+m_modifierlelibelle m_modifierlelibelle
+m_signaturenumerique m_signaturenumerique
+m_signatureenligne m_signatureenligne
+m_envoyerparemailpiècejointe m_envoyerparemailpiècejointe
+m_informations m_informations
+m_renomerfichierphysique m_renomerfichierphysique
+m_pdf m_pdf
+m_pdf2 m_pdf2
+m_a_lire m_a_lire
+m_copierledocumentversunautrepatient m_copierledocumentversunautrepatient
+m_copierledocumentverstoutelafratrie m_copierledocumentverstoutelafratrie
+m_dupliquerledocument m_dupliquerledocument
+m_exportationdedocuments m_exportationdedocuments
+m_piecesjointess m_piecesjointess
+end type
+global m_btdroit_historique m_btdroit_historique
+
+type variables
+double 		var_code_local
+datawindow 	dw_locale		// Contient la dw des éditions ou des documents
+datawindow 	dw_locale_reference	// Idem la précédente - pour servir de référence à la mise à jour de Téa ... si on retrieve dw_locale faut retrieve dw_locale_reference
+w_patient_ged 	w_locale
+string var_type_histo
+
+private constant string col_dw_histo_code = "historique_editions_code"
+private constant string col_dw_histo_date_docu = "historique_editions_date_document"
+private constant string col_dw_histo_date_histo = "historique_editions_date_modif"
+private constant string col_dw_histo_libelle = "historique_editions_libelle"
+private constant string col_dw_histo_fichier = "historique_editions_nom_courrier"
+private constant string col_dw_histo_type = "historique_editions_code_courrier"
+private constant string col_dw_histo_nature = "historique_editions_nature"
+
+integer i_type_moulage = 1		// 1 = moulage normal ; 2 = moulage myray_as
+
+string type_gestion	
+
+
+end variables
+
+forward prototypes
+public function integer ajouter_ligne (ref datawindow dw, double num_patient)
+public function integer supprimer_ligne (ref datawindow dw, double num_patient)
+public function integer editer_courrier (ref datawindow dw, double num_patient)
+private function integer recup_nom_courrier (ref string nom_courrier)
+private function integer courrier_valide (ref string chemin_complet_courrier)
+public function integer rafraichir_lignes (ref datawindow dw, double num_patient, string tab_nom_fichier[])
+public function integer popup (integer x, integer y, ref datawindow dw, double num_patient, string type_histo)
+public subroutine copier_document (string a_qui)
+end prototypes
+
+public function integer ajouter_ligne (ref datawindow dw, double num_patient);// fx qui lance le service d'ajout d'une ligne d'historique
+// pas de gestion d'erreur (return tjrs 1)
+
+// recup param en ref
+dw_locale	= dw
+var_code_local = num_patient
+
+// init du menu
+m_ajouter.triggerevent( clicked!)
+
+// pas de gestion d'erreur
+return 1
+
+end function
+
+public function integer supprimer_ligne (ref datawindow dw, double num_patient);// fx qui lance le service de  Suppression de courrier
+// pas de gestion d'erreur (return tjrs 1)
+
+// recup param en ref
+dw_locale	= dw
+var_code_local = num_patient
+
+// init du menu
+m_supprimer.triggerevent( clicked!)
+
+// pas de gestion d'erreur
+return 1
+
+end function
+
+public function integer editer_courrier (ref datawindow dw, double num_patient);// fx qui lance le service de visualisation d'un courrier
+// pas de gestion d'erreur (return tjrs 1)
+
+// recup param en ref
+dw_locale	= dw
+var_code_local = num_patient
+
+// init du menu
+m_visualiserlecourrier.triggerevent( clicked!)
+
+// pas de gestion d'erreur
+return 1
+
+end function
+
+private function integer recup_nom_courrier (ref string nom_courrier);// fx qui recup de la datawin le nom du fichier du courrier et le teste
+// return 1 si string valide + nom du courrier ds param en ref
+//		-1 si pb
+
+
+// recup du nom du courrier de la datawin
+nom_courrier = dw_locale.GetItemString( dw_locale.getSelectedRow( 0 ), col_dw_histo_fichier )
+if len(nom_courrier) > 0 then  return 1
+
+return -1
+
+end function
+
+private function integer courrier_valide (ref string chemin_complet_courrier);// fx qui construit le chemin d'accès complet au courrier de 
+// la ligne d'historique sélectionner et en vérifie son existance
+// retrun 1 si ok + ds param passer en ref le chemin complet
+//		-1 si pb
+
+
+string	nom_courrier,  rep_photo
+int		return_val = -1
+
+
+rep_photo = fxg_get_rep_photos()
+
+if rep_photo <> "" then
+ //si recup du rep photos = OK
+ 	if recup_nom_courrier( nom_courrier ) = 1 then
+	// si recup du nom du courrier = OK
+		// transfo en rep courrier patient + rajout du nom du courrier
+		chemin_complet_courrier = rep_photo + string( var_code_local ) + win_delimiter + nom_courrier
+//		if lower(right(chemin_complet_courrier,3))="doc"then
+			if FileExists( chemin_complet_courrier ) then
+				// maj val retour
+				return_val = 1
+			else
+				messagebox("INFORMATION ...", "Répertoire photo non valide ou libellé du courrier erroné. ~n~nOpération annulée.")
+			end if
+//		else
+//			messagebox("ERREUR ...", "Libellé du courrier erroné ou courrier inexistant. ~n~nOpération annulée.", StopSign!)
+//		end if
+	end if
+else
+	messagebox("ERREUR ...", "Impossible de déterminer l'emplacement de sauvegarde des courriers. ~n~nOpération annulée.", StopSign!)
+end if
+
+return return_val
+
+end function
+
+public function integer rafraichir_lignes (ref datawindow dw, double num_patient, string tab_nom_fichier[]);// lance une synchronisation lignes historiques/courriers word présent sur DD pour correc le lien si ce dernier est ds les choux !
+// suite à bug ds changement num dossier --> on perdait le lien entre courrier sur DD et la ligne
+// renvoie 1 si ok , -1 si erreur
+
+if isnull(dw) then return -1
+dw_locale	= dw
+
+if isnull(num_patient) or num_patient = 0 then return -1
+var_code_local = num_patient
+
+if isnull(tab_nom_fichier) then return -1
+long nbr_fichier
+nbr_fichier = upperbound(tab_nom_fichier)
+if not nbr_fichier > 0 then return -1
+
+string nom_fichier_dw
+datetime	date_today
+date_today = datetime(today(),now())
+string	str_date_time_fichier
+string	str_date_time_dw
+datetime date_time_fichier
+boolean traite
+long nbr_dw_row
+long dw_ligne_trouve
+date date_a_trouver
+long new_row
+long index_fichier
+
+date v_date_docu
+time v_time_docu
+
+dw_locale.retrieve(num_patient, "E")
+
+for index_fichier = 1 to nbr_fichier
+	nbr_dw_row = dw_locale.RowCount()
+	
+	long lig
+	
+	lig = dw_locale.find(col_dw_histo_fichier + ' =  "'+ tab_nom_fichier[index_fichier] + '"', 1, nbr_dw_row)
+	
+	if not ( lig  > 0) then
+		// lien a retrouver
+		// par convention, en prenant les 10 premiers carac du nom d'un fichier courrier enreg
+		// on retrouve une date que l'on peut caster (ex = 2006-12-01)
+		date_a_trouver = date(left(tab_nom_fichier[index_fichier], 10))
+		if not (isnull(date_a_trouver) or date_a_trouver = 1900-01-01) then 
+			// c bien un fichier d'historique valide (il commmence par une date)
+			traite = false
+			dw_ligne_trouve = 1
+			dw_ligne_trouve = dw_locale.find(col_dw_histo_date_docu + " = " + string(date_a_trouver,"yyyy-mm-dd"), dw_ligne_trouve, nbr_dw_row)
+//			messagebox("trace après",col_dw_histo_date_docu + " = " + string(date_a_trouver,"yyyy-mm-dd"))
+			do while dw_ligne_trouve > 0
+				// une ligne existante avec cette date de document
+				nom_fichier_dw = dw_locale.GetItemString( dw_ligne_trouve, col_dw_histo_fichier)
+				if isnull(nom_fichier_dw) or not (len(nom_fichier_dw) > 0) then
+					// aucun courrier n'est encore indiqué
+					// par convention, en prenant les 17 premiers carac du nom d'un fichier courrier enreg
+					// on retrouve la date, les heures et minutes (ex = 2006-12-01  13-51)
+					str_date_time_fichier = left(tab_nom_fichier[index_fichier], 17)
+					str_date_time_dw = string(dw_locale.GetItemDateTime( dw_ligne_trouve, col_dw_histo_date_histo), "yyyy-mm-dd  hh-mm")
+					if str_date_time_fichier = str_date_time_dw then
+						// la date de l'historique est identique
+						dw_locale.setitem(dw_ligne_trouve,col_dw_histo_fichier  ,tab_nom_fichier[index_fichier])
+						traite = true
+						exit
+					end if
+				end if	
+				
+				// ligne suivante
+				dw_ligne_trouve++
+				if dw_ligne_trouve > nbr_dw_row then exit
+				dw_ligne_trouve = dw_locale.find(col_dw_histo_date_docu + " = " + string(date_a_trouver,"yyyy-mm-dd"), dw_ligne_trouve, nbr_dw_row)
+			loop
+			if not traite then
+				// on insere une nouvelle ligne avec le courrier 'étudié'
+				new_row = dw_locale.insertrow(0)
+				if new_row >0 then
+					dw_locale.setitem(new_row, col_dw_histo_code ,var_code_local)
+					
+					if right(tab_nom_fichier[index_fichier], 3) = "doc" or right(tab_nom_fichier[index_fichier], 4) = "docx" then
+						dw_locale.setitem(new_row, col_dw_histo_type, "WORD")
+					else
+						if right(tab_nom_fichier[index_fichier], 3) = "ppt" or right(tab_nom_fichier[index_fichier], 4) = "pptx" then
+							dw_locale.setitem(new_row, col_dw_histo_type, "DOCPPT")
+						else
+							// pdf
+							dw_locale.setitem(new_row, col_dw_histo_type, "SIGNE")
+						end if
+					end if
+					
+					
+					dw_locale.setitem(new_row,col_dw_histo_date_docu, date_a_trouver)
+					
+					// récupération de la date et heure inscrite dans le nom du fichier !!!
+					v_date_docu = date(left(tab_nom_fichier[index_fichier], 10))
+					v_time_docu = time(trim(mid(tab_nom_fichier[index_fichier], 11, 9))) // on prend une marge car 1 seul espace entre date et heure pour les ppt et 2 espaces pour les autres
+					
+					dw_locale.setitem(new_row,col_dw_histo_date_histo, datetime(v_date_docu, v_time_docu))
+					//dw_locale.setitem(new_row,col_dw_histo_date_histo  ,date_today)
+					// en supprimant les 23 premier carac --> on retrouve le nom de fichier orignel
+					dw_locale.setitem(new_row,col_dw_histo_libelle  ,trim(right(tab_nom_fichier[index_fichier], len(tab_nom_fichier[index_fichier]) -22 )))
+					dw_locale.setitem(new_row,col_dw_histo_fichier ,tab_nom_fichier[index_fichier])
+					dw_locale.setitem(new_row,col_dw_histo_nature ,'E')
+				end if
+			end if
+			dw_locale.AcceptText()
+			dw_locale.update()
+		end if
+	end if
+
+next
+
+dw_locale.retrieve( var_code_local, "E" )
+if TEA then
+	dw_locale_reference.retrieve( var_code_local, "E" )
+end if
+return 1
+
+end function
+
+public function integer popup (integer x, integer y, ref datawindow dw, double num_patient, string type_histo);// fx qui ouvre en popup menu ce menu (pour la fiche ad, onglet edition)
+
+
+// type_histo vaut "E" pour Edition, "D" pour Documents, "A" pour actions  .. 
+
+
+string	nom_courrier
+
+// recup des param en ref
+dw_locale	= dw
+var_code_local = num_patient
+var_type_histo = type_histo
+
+
+// init du menu
+if dw_locale.getSelectedRow( 0 ) > 0 then
+	if droits_acces[80] = "O" then
+		m_supprimer.enabled = true
+	end if
+	if var_type_histo = "D" then
+		// Documents 
+		m_ajouter.enabled = true
+		m_ajouterplusieurslignes.enabled = true
+		m_ajouterunmoulage.enabled = true
+		m_copierledocumentversunautrepatient.enabled = true
+		m_copierledocumentverstoutelafratrie.enabled = true
+	else
+		m_ajouter.enabled = false
+		m_ajouterplusieurslignes.enabled = false
+		m_ajouterunmoulage.enabled = false
+		m_copierledocumentversunautrepatient.enabled = false
+		m_copierledocumentverstoutelafratrie.enabled = false
+		if SIGNATURE_DENTALSIGN and var_type_histo = "E" then
+			m_signaturenumerique.visible = true
+		end if
+	end if
+	if recup_nom_courrier( nom_courrier ) = 1 then
+		// si bien un courrier rataché à cette ligne d'histo
+		m_visualiserlecourrier.enabled = true
+		m_envoyerparemailpiècejointe.enabled = true
+		string v_extension
+		v_extension = gfx_extraire_extension_fichier(nom_courrier) 
+		// Si c'est un courrier Word
+		if  v_extension = "doc" or v_extension = "docx" then
+			m_imprimerledocument.enabled = true
+		else
+			m_imprimerledocument.enabled = false
+		end if
+	else
+		m_imprimerledocument.enabled = false
+	end if
+	
+	m_dupliquerledocument.visible = true
+end if
+
+// on affiche le menu en popup
+this.popmenu(x,y)
+
+// pas de gestion d'erreur
+return 1
+
+end function
+
+public subroutine copier_document (string a_qui);
+
+// Copie de document(s) pour un Patient ou une Fratrie, ou duplication pour lui meme
+
+// A_qui = "P" ou "F" ou "D"
+
+
+
+string	chemin_complet_courrier, rep_photo
+long lig, nb_fichier_a_envoyer, tot
+string fichiers_a_envoyer[]
+boolean v_suite
+string v_libelle1, v_libelle2
+double var_code_local_arrivee, var_code_depart
+double patients_destination[], nb_patients_destination, cpt
+string nom_patients_destination[], var_nom_complet
+
+string fichier_depart, fichier_arrivee, dossier_arrivee
+integer resultat_copy
+string nom_fichier_seul, s_debut_fichier, nom_fichier_seul_destination
+string v_code_interne
+
+// Depuis 2016, on peut sélectionner plusieurs lignes
+v_suite = true
+lig = dw_locale.Find("Selection = 'O'", 0, 99999)
+
+if lig = 0 then
+	if dw_locale.getSelectedRow( 0 )> 0 then
+		// ligne courrante
+		nb_fichier_a_envoyer = 1
+		fichiers_a_envoyer[1] = dir_photos + string( var_code_local ) + win_delimiter + dw_locale.getItemString( dw_locale.getSelectedRow( 0 ), "historique_editions_nom_courrier")
+		if FileExists(fichiers_a_envoyer[1]) then
+			v_suite = true
+		else
+			v_suite = false
+			Messagebox("ATTENTION","La ligne que vous avez sélectionnée ne contient pas de document à copier !")
+		end if
+	else
+		nb_fichier_a_envoyer =  0
+		v_suite = false
+	end if
+else
+	// 1 ou plusieurs lignes
+	tot = dw_locale.rowcount() 
+	nb_fichier_a_envoyer = 0
+	for lig = 1 to tot
+		if dw_locale.GetItemString(lig, "Selection") = "O" then
+			nb_fichier_a_envoyer = nb_fichier_a_envoyer + 1
+			fichiers_a_envoyer[nb_fichier_a_envoyer] = dir_photos + string( var_code_local ) + win_delimiter + dw_locale.getItemString( lig, "historique_editions_nom_courrier")
+			if not FileExists(fichiers_a_envoyer[nb_fichier_a_envoyer]) then
+				fichiers_a_envoyer[nb_fichier_a_envoyer] = ""
+				nb_fichier_a_envoyer = nb_fichier_a_envoyer - 1 
+			end if
+		end if
+	next
+	if nb_fichier_a_envoyer > 0 then
+		if nb_fichier_a_envoyer = 1 then 
+			v_suite = true
+		end if
+	else
+		v_suite = false
+		Messagebox("ATTENTION","Les lignes que vous avez sélectionnées ne contiennent pas de document à copier !")
+	end if
+end if
+	
+
+if v_suite then
+
+	choose case a_qui 
+			
+		Case "P" 
+			// Copie vers un autre patient
+			Messagebox("DOSSIER PATIENT DE DESTINATION","Vous devez indiquer à présent le dossier du patient de destination.")
+	
+			//open(w_cherche)
+			guo_fenetre_modale.wf_ouvrir(w_cherche)
+			
+			if var_suite then
+				patients_destination[1] = var_code
+				nom_patients_destination[1] = var_nom
+				nb_patients_destination = 1
+			end if
+		case "F" 
+			// Copie vers Fratrie
+			// récupération des membres de la famille avec synchronisation activée
+		
+			DECLARE cur1 CURSOR FOR SELECT code_patient1, isnull(nom,'') + (case when "prenom" is null then '' else ' ' + "prenom" end)
+			from patient_lien_parente , patient 
+			where  code_patient2 = :var_code_local and synchroniser = 'O' and patient.code = code_patient1 ;
+			
+			DECLARE cur2 CURSOR FOR SELECT code_patient2 , isnull(nom,'') + (case when "prenom" is null then '' else ' ' + "prenom" end)
+			from patient_lien_parente , patient  
+			where  code_patient1 = :var_code_local and synchroniser = 'O' and patient.code = code_patient2 ; 
+			nb_patients_destination = 0
+			
+			open cur1 ; 
+			fetch cur1 into :var_code_depart, :var_nom_complet ;
+			do while sqlca.sqlcode = 0
+				nb_patients_destination = nb_patients_destination + 1
+				patients_destination[nb_patients_destination] = var_code_depart
+				nom_patients_destination[nb_patients_destination] = var_nom_complet
+				fetch cur1 into :var_code_depart, :var_nom_complet ;
+			loop
+			close cur1 ;
+			
+			open cur2 ; 
+			fetch cur2 into :var_code_depart, :var_nom_complet ;
+			do while sqlca.sqlcode = 0
+				nb_patients_destination = nb_patients_destination + 1
+				patients_destination[nb_patients_destination] = var_code_depart
+				nom_patients_destination[nb_patients_destination] = var_nom_complet
+				fetch cur2 into :var_code_depart, :var_nom_complet ;
+			loop
+			close cur2 ;
+			
+			if nb_patients_destination > 0 then 
+				var_suite = true
+			else
+				var_suite = false
+			end if
+		Case "D" 
+			// Duplcation
+			
+			var_suite = true
+			patients_destination[1] = var_code_local
+			nom_patients_destination[1] = ""
+			nb_patients_destination = 1
+
+	end choose
+		
+	
+	if var_suite then
+		
+		if nb_fichier_a_envoyer = 1 then 
+			v_libelle1 = "du document"
+			v_libelle2 = "La ligne sera conservée"
+		else
+			v_libelle1 = "des " + string(nb_fichier_a_envoyer) + " documents"
+			v_libelle2 = "Les " + string(nb_fichier_a_envoyer) + " lignes seront conservées"
+		end if
+		
+		choose case a_qui 
+			case "P" 
+				// Autre patient
+				if Messagebox("CONFIRMATION","Confirmez-vous la copie " + v_libelle1 + " dans le dossier de " + var_nom +" ?~n~n"+ v_libelle2 + " dans le dossier actuel.", Question!, YesNo!, 2) = 1 then
+					var_suite = true
+				else
+					var_suite = false
+				end if 
+			case "F"
+				// Fratrie
+				if Messagebox("CONFIRMATION","Confirmez-vous la copie " + v_libelle1 + " dans le dossier de(s) " + string(nb_patients_destination) +" autre(s) dossier(s) de la fratrie ?~n~n"+ v_libelle2 + " dans le dossier actuel.", Question!, YesNo!, 2) = 1 then
+					var_suite = true
+				else
+					var_suite = false
+				end if 
+			case "D"
+				// Duplication 
+				if Messagebox("CONFIRMATION","Confirmez-vous la duplication " + v_libelle1 + " dans ce dossier ?", Question!, YesNo!, 2) = 1 then
+					var_suite = true
+				else
+					var_suite = false
+				end if 
+		end choose
+	
+		if var_suite then
+			
+			for cpt = 1 to nb_patients_destination
+
+			
+				var_code_local_arrivee = patients_destination[cpt]
+				dossier_arrivee = fxg_get_rep_photos( ) + string(var_code_local_arrivee)
+	
+				var_suite = true
+				// Test de l'existence du dossier de destination
+				if not DirectoryExists( dossier_arrivee ) then
+					// faut le créér
+					if gfx_creer_rep( dossier_arrivee ) <> 1 then 
+							MessageBox("ERREUR DANS LA CREATION DU DOSSIER DE DESTINATION","Impossible de créer le dossier : "+dossier_arrivee)
+							var_suite = false
+					end if
+				end if
+				
+				if var_suite then
+	
+					open(w_patience)
+	
+					// On envoie les fichiers
+					
+					var_suite = true
+					
+					for lig = 1 to nb_fichier_a_envoyer
+						
+						nom_fichier_seul = gfx_extraire_nom_fichier(fichiers_a_envoyer[lig])
+						fichier_depart = fichiers_a_envoyer[lig]
+						
+						if a_qui = "D" then
+							// Duplication => on reste dans le meme dossier => faut renommer le fichier de destinantion
+							
+							// Si le début du nom du fichier est sous la forme  aaaa-mm-jj-hh-mm-ss - ... on actualise, sinon, on ajoute
+							if isdate(left(nom_fichier_seul, 10)) then
+								nom_fichier_seul_destination = string(today(), "yyyy-mm-dd")+" "+string(now(), "hh-mm-ss")+  " - " + trim(right(nom_fichier_seul, len(nom_fichier_seul) -  22))
+							else
+								nom_fichier_seul_destination =  string(today(), "yyyy-mm-dd")+" "+string(now(), "hh-mm-ss")+  " - " + nom_fichier_seul
+							end if
+						else
+							nom_fichier_seul_destination = nom_fichier_seul
+						end if
+						
+						fichier_arrivee =  dossier_arrivee + win_delimiter + nom_fichier_seul_destination
+	
+						resultat_copy = FileCopy (fichier_depart,fichier_arrivee, false ) 
+								
+						choose case resultat_copy
+						case 1 
+							// La copie a marché
+							if utilisation_distante then
+								// Mémo du fichier en vue du retour au cabinet
+								fxg_ajout_acquis_distante ( var_code_local_arrivee , fichier_arrivee ) 
+							end if
+							
+							// Copie de l'infos en base de données
+							datetime dt_today
+							dt_today = datetime(today(),  now())
+							
+							v_code_interne = fxg_get_clef_historique_editions()
+							
+							insert into "historique_editions" (code, code_courrier, date_document, libelle, nom_courrier, user_modif, date_modif, nature, public_web_patient, invisible, a_lire, id_categorie, code_interne)
+							select :var_code_local_arrivee, code_courrier, date_document, libelle, :nom_fichier_seul_destination, :utilisateur_code, :dt_today, nature , public_web_patient, invisible, a_lire , id_categorie, :v_code_interne 
+							from historique_editions 
+							where code = :var_code_local and nom_courrier = :nom_fichier_seul ;
+							
+							
+							
+							if sqlca.sqlcode <> 0 then
+								MessageBox("ERREUR DANS MEMORISATION","Impossible de mémoriser le fichier : " + fichier_arrivee + "~n~n" + sqlca.sqlerrtext)
+								rollback ;
+								var_suite = false
+							else
+								commit ;
+								string publication_patient
+								select isnull(public_web_patient, 'N' ) into :publication_patient from historique_editions 
+								where code = :var_code_local and code_interne = :v_code_interne ;
+								if TEA and publication_patient = "O" then
+									fxg_lancer_commande_dsapi("document/create/" + v_code_interne, "", "D", "G", var_code_local  )
+								end if
+							end if
+		
+						case -1
+							MessageBox("ERREUR DANS LA COPIE DU FICHIER","Impossible de trouver le fichier : "+fichier_depart)
+							var_suite = false
+						case -2
+							MessageBox("ERREUR DANS LA COPIE DU FICHIER","Impossible d'écrire le fichier : " + fichier_arrivee + "~n~nIl est possible que vous n'ayez pas les droits nécessaires ou que le fichier existe déjà")
+							var_suite = false
+						end choose
+					
+						
+					next
+				
+					close(w_patience)
+
+					if var_suite  then
+						// Pas eu d'erreur
+						MessageBox("INFORMATION","La duplication a été correctement réalisée !")
+						// Si duplication, on raffraichit
+						if a_qui = "D" then
+							dw_locale.retrieve( var_code_local,var_type_histo)
+							if TEA then
+								dw_locale_reference.retrieve( var_code_local,  var_type_histo )
+							end if
+						end if
+					end if
+				end if
+			next
+		end if
+	end if
+end if
+
+end subroutine
+
+on m_btdroit_historique.create
+m_btdroit_historique=this
+call super::create
+this.text = "m_btdroit_historique_ged"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_ajouter=create m_ajouter
+this.m_ajouterplusieurslignes=create m_ajouterplusieurslignes
+this.m_ajouterunmoulage=create m_ajouterunmoulage
+this.m_visualiserlecourrier=create m_visualiserlecourrier
+this.m_imprimerledocument=create m_imprimerledocument
+this.m_supprimer=create m_supprimer
+this.m_modifierladate=create m_modifierladate
+this.m_modifierlelibelle=create m_modifierlelibelle
+this.m_signaturenumerique=create m_signaturenumerique
+this.m_signatureenligne=create m_signatureenligne
+this.m_envoyerparemailpiècejointe=create m_envoyerparemailpiècejointe
+this.m_informations=create m_informations
+this.m_renomerfichierphysique=create m_renomerfichierphysique
+this.m_pdf=create m_pdf
+this.m_pdf2=create m_pdf2
+this.m_a_lire=create m_a_lire
+this.m_copierledocumentversunautrepatient=create m_copierledocumentversunautrepatient
+this.m_copierledocumentverstoutelafratrie=create m_copierledocumentverstoutelafratrie
+this.m_dupliquerledocument=create m_dupliquerledocument
+this.m_exportationdedocuments=create m_exportationdedocuments
+this.m_piecesjointess=create m_piecesjointess
+this.Item[UpperBound(this.Item)+1]=this.m_ajouter
+this.Item[UpperBound(this.Item)+1]=this.m_ajouterplusieurslignes
+this.Item[UpperBound(this.Item)+1]=this.m_ajouterunmoulage
+this.Item[UpperBound(this.Item)+1]=this.m_visualiserlecourrier
+this.Item[UpperBound(this.Item)+1]=this.m_imprimerledocument
+this.Item[UpperBound(this.Item)+1]=this.m_supprimer
+this.Item[UpperBound(this.Item)+1]=this.m_modifierladate
+this.Item[UpperBound(this.Item)+1]=this.m_modifierlelibelle
+this.Item[UpperBound(this.Item)+1]=this.m_signaturenumerique
+this.Item[UpperBound(this.Item)+1]=this.m_signatureenligne
+this.Item[UpperBound(this.Item)+1]=this.m_envoyerparemailpiècejointe
+this.Item[UpperBound(this.Item)+1]=this.m_informations
+this.Item[UpperBound(this.Item)+1]=this.m_renomerfichierphysique
+this.Item[UpperBound(this.Item)+1]=this.m_pdf
+this.Item[UpperBound(this.Item)+1]=this.m_pdf2
+this.Item[UpperBound(this.Item)+1]=this.m_a_lire
+this.Item[UpperBound(this.Item)+1]=this.m_copierledocumentversunautrepatient
+this.Item[UpperBound(this.Item)+1]=this.m_copierledocumentverstoutelafratrie
+this.Item[UpperBound(this.Item)+1]=this.m_dupliquerledocument
+this.Item[UpperBound(this.Item)+1]=this.m_exportationdedocuments
+this.Item[UpperBound(this.Item)+1]=this.m_piecesjointess
+end on
+
+on m_btdroit_historique.destroy
+call super::destroy
+destroy(this.m_ajouter)
+destroy(this.m_ajouterplusieurslignes)
+destroy(this.m_ajouterunmoulage)
+destroy(this.m_visualiserlecourrier)
+destroy(this.m_imprimerledocument)
+destroy(this.m_supprimer)
+destroy(this.m_modifierladate)
+destroy(this.m_modifierlelibelle)
+destroy(this.m_signaturenumerique)
+destroy(this.m_signatureenligne)
+destroy(this.m_envoyerparemailpiècejointe)
+destroy(this.m_informations)
+destroy(this.m_renomerfichierphysique)
+destroy(this.m_pdf)
+destroy(this.m_pdf2)
+destroy(this.m_a_lire)
+destroy(this.m_copierledocumentversunautrepatient)
+destroy(this.m_copierledocumentverstoutelafratrie)
+destroy(this.m_dupliquerledocument)
+destroy(this.m_exportationdedocuments)
+destroy(this.m_piecesjointess)
+end on
+
+event clicked;
+// Affichages des PJ
+end event
+
+type m_ajouter from menu within m_btdroit_historique
+end type
+
+on m_ajouter.create
+call super::create
+this.text = "Ajouter une ligne"
+this.menuimage = "lc_nouveau.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ajouter.destroy
+call super::destroy
+end on
+
+event clicked;string		recup_libelle_courrier, libelle_courrier
+date	 	recup_date
+string 	recup_type_document
+string 	recup_fichier_document
+integer 	resultat_copy
+string 	recup_effacer_fichier
+integer   recup_nb_acquisitions, cpt_acquisition, recup_categorie
+
+
+var_suite = false
+
+openWithParm (w_patient_ajout_courrier_word, 0)
+
+
+if var_suite then
+	var_suite = false
+	
+	recup_date = date(param_win[1])
+	recup_libelle_courrier = param_win[2]
+	recup_type_document = param_win[3]
+	recup_fichier_document = param_win[4]
+	recup_effacer_fichier = param_win[5]
+	recup_categorie = integer( param_win[8] )
+	
+	recup_nb_acquisitions = integer(param_win[6])
+	var_suite  = true
+	
+	if len(trim(recup_fichier_document)) > 0 then
+		
+		// Y a un nom de fichier 
+		// Recopie du fichier 
+		string fichier_depart, fichier_arrivee, dossier_arrivee
+		
+		
+		for cpt_acquisition = 1 to recup_nb_acquisitions
+		
+			
+			if recup_nb_acquisitions = 1 then 
+				fichier_depart = trim(recup_fichier_document)
+				libelle_courrier = recup_libelle_courrier
+			else
+				fichier_depart = trim(recup_fichier_document)+"-"+string(cpt_acquisition)+".jpg"
+				libelle_courrier = recup_libelle_courrier+ " ("+string(cpt_acquisition)+"/"+string(recup_nb_acquisitions)+")"
+			end if
+			
+			if fileExists(fichier_depart) then
+				dossier_arrivee = fxg_get_rep_photos( ) + string(var_code_local)
+				// on rajoute un élément alétoire pour rendre unique le nom
+				string aleatoire
+				Randomize(minute(now()) * second(now()))
+				aleatoire = string(rand(65000))
+				fichier_arrivee =  dossier_arrivee + win_delimiter +aleatoire+ gfx_extraire_nom_fichier(fichier_depart)
+				
+				// Test de l'existence du dossier de destination
+				if not DirectoryExists( dossier_arrivee ) then
+					// faut le créér
+					if gfx_creer_rep( dossier_arrivee ) <> 1 then 
+						MessageBox("ERREUR DANS LA CREATION DU DOSSIER DE DESTINATION","Impossible de créer le dossier : "+dossier_arrivee)
+						var_suite = false
+					end if
+				end if
+			else
+				var_suite = false
+				MessageBox("ERREUR DANS RECUPERATION DU FICHIER","Le fichier à ajouter n'existe pas (ou plus) : "+fichier_depart)
+			end if
+	
+			if var_suite then		
+			
+				var_suite = false
+				resultat_copy = FileCopy (fichier_depart,fichier_arrivee, false ) 
+				
+				choose case resultat_copy
+					case 1 
+						// La copie a marché
+						var_suite = true
+						if utilisation_distante then
+							// Mémo du fichier en vue du retour au cabinet
+							fxg_ajout_acquis_distante ( var_code_local , fichier_arrivee ) 
+						end if
+						
+						if recup_effacer_fichier = "O" and fileExists(fichier_depart) then
+							FileDelete(fichier_depart)
+						end if
+	
+					case -1
+						MessageBox("ERREUR DANS LA COPIE DU FICHIER","Impossible de trouver le fichier : "+fichier_depart)
+					case -2
+						MessageBox("ERREUR DANS LA COPIE DU FICHIER","Impossible d'écrire le fichier : " + fichier_arrivee + "~n~nIl est possible que vous n'ayez pas les droits nécessaires ou que le fichier existe déjà")
+				end choose
+			end if
+			
+			if var_suite then
+				fxg_enregcourrierhisto(var_code_local, recup_type_document, recup_date, libelle_courrier,  aleatoire + gfx_extraire_nom_fichier(fichier_depart) , 'D', "N", 'N', '', recup_categorie)
+			end if
+		next
+	end if
+	
+	
+	dw_locale.AcceptText()
+	if	dw_locale.update() = 1 then
+		commit ;
+	else
+		rollback ;
+	end if
+	dw_locale.retrieve( var_code_local,'D' )
+	if TEA then
+		dw_locale_reference.retrieve( var_code_local, "D" )
+	end if
+
+end if
+
+end event
+
+type m_ajouterplusieurslignes from menu within m_btdroit_historique
+end type
+
+on m_ajouterplusieurslignes.create
+call super::create
+this.text = "Ajouter plusieurs lignes"
+this.menuimage = "lc_nouveau.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ajouterplusieurslignes.destroy
+call super::destroy
+end on
+
+event clicked;string		recup_libelle_courrier, libelle_courrier
+date	 	recup_date
+string 	recup_type_document
+string 	recup_fichier_document
+integer 	resultat_copy
+string 	recup_effacer_fichier
+integer   recup_nb_acquisitions, cpt_acquisition, recup_categorie
+string fichier_depart, fichier_arrivee, dossier_arrivee
+string aleatoire, garder_nom_fichier
+
+openWithParm (w_patient_ajout_courrier_word, 3)
+
+
+
+if var_suite then
+	
+	open(w_patience)
+	
+	// les fichiers à acquerir sont dans      fichiers_a_acquerir[]   variable globale
+	recup_date = date(param_win[1])
+	recup_libelle_courrier = param_win[2]
+	recup_type_document = param_win[3]
+	recup_fichier_document = param_win[4]
+	recup_effacer_fichier = param_win[5]
+	recup_categorie = integer( param_win[8] )
+	garder_nom_fichier = param_win[9]
+	
+	recup_nb_acquisitions =  integer( param_win[6] )
+	
+		
+	
+	for cpt_acquisition = 1 to recup_nb_acquisitions
+	
+		
+		fichier_depart = fichiers_a_acquerir[cpt_acquisition]
+		
+		if fileExists(fichier_depart) then
+			dossier_arrivee = fxg_get_rep_photos( ) + string(var_code_local)
+			// on rajoute un élément alétoire pour rendre unique le nom
+			Randomize(minute(now()) * second(now()))
+			aleatoire = string(rand(65000))
+			fichier_arrivee =  dossier_arrivee + win_delimiter +aleatoire+ gfx_extraire_nom_fichier(fichier_depart)
+			
+			// Test de l'existence du dossier de destination
+			if not DirectoryExists( dossier_arrivee ) then
+				// faut le créér
+				if gfx_creer_rep( dossier_arrivee ) <> 1 then 
+					MessageBox("ERREUR DANS LA CREATION DU DOSSIER DE DESTINATION","Impossible de créer le dossier : "+dossier_arrivee)
+					var_suite = false
+				end if
+			end if
+		else
+			var_suite = false
+			MessageBox("ERREUR DANS RECUPERATION DU FICHIER","Le fichier à ajouter n'existe pas (ou plus) : "+fichier_depart)
+		end if
+
+		if var_suite then		
+		
+			var_suite = false
+			resultat_copy = FileCopy (fichier_depart,fichier_arrivee, false ) 
+			
+			choose case resultat_copy
+				case 1 
+					// La copie a marché
+					var_suite = true
+					if utilisation_distante then
+						// Mémo du fichier en vue du retour au cabinet
+						fxg_ajout_acquis_distante ( var_code_local , fichier_arrivee ) 
+					end if
+					
+					if recup_effacer_fichier = "O" and fileExists(fichier_depart) then
+						FileDelete(fichier_depart)
+					end if
+
+				case -1
+					MessageBox("ERREUR DANS LA COPIE DU FICHIER","Impossible de trouver le fichier : "+fichier_depart)
+				case -2
+					MessageBox("ERREUR DANS LA COPIE DU FICHIER","Impossible d'écrire le fichier : " + fichier_arrivee + "~n~nIl est possible que vous n'ayez pas les droits nécessaires ou que le fichier existe déjà")
+			end choose
+		end if
+		
+		if var_suite then
+			if garder_nom_fichier = "O" then
+				recup_libelle_courrier = gfx_extraire_nom_fichier(fichier_depart) 
+			end if
+			fxg_enregcourrierhisto(var_code_local, recup_type_document, recup_date, recup_libelle_courrier,  aleatoire + gfx_extraire_nom_fichier(fichier_depart) , 'D', "N", 'N', '', recup_categorie)
+		end if
+	next
+
+	
+	dw_locale.AcceptText()
+	if dw_locale.update() = 1 then
+		commit ;
+	else
+		rollback ;
+	end if
+	dw_locale.retrieve( var_code_local,'D' )
+	if TEA then
+		dw_locale_reference.retrieve( var_code_local, "D" )
+	end if
+
+	close(w_patience)
+
+end if
+
+end event
+
+type m_ajouterunmoulage from menu within m_btdroit_historique
+end type
+
+event clicked;string		recup_libelle_courrier, libelle_courrier
+date	 	recup_date
+string 	recup_type_document
+string 	recup_fichier_document
+integer 	resultat_copy
+string 	recup_effacer_fichier
+integer   recup_nb_acquisitions, cpt_acquisition, recup_categorie, nb_acquisition_ok
+string 	recup_fichier_document2 
+boolean  ok_fichier_depart
+
+var_suite = false
+
+openWithParm(w_patient_ajout_courrier_word, i_type_moulage)
+
+
+if var_suite then
+	
+	recup_date = date(param_win[1])
+	recup_libelle_courrier = param_win[2]
+	recup_type_document = param_win[3]
+	recup_fichier_document = param_win[4]
+	recup_effacer_fichier = param_win[5]
+	
+	recup_nb_acquisitions = integer(param_win[6])
+	var_suite  = true
+	
+	recup_fichier_document2 = param_win[7]
+	recup_categorie = integer(param_win[8])
+
+	if len(trim(recup_fichier_document)) > 0 or len(trim(recup_fichier_document2)) > 0 then
+		
+		// Y a un nom de fichier 
+		// Recopie du fichier 
+		string fichier_depart, fichier_arrivee, dossier_arrivee
+
+		// on rajoute un élément alétoire pour rendre unique le nom - idem si 2 fichiers STL 
+		string aleatoire
+		Randomize ( Minute ( now() ) * second ( now() ) )
+		aleatoire = string(rand(65000))
+
+		nb_acquisition_ok = 0 
+		
+		for cpt_acquisition = 1 to recup_nb_acquisitions
+		
+			ok_fichier_depart = false
+			var_suite = true
+			
+			dossier_arrivee = fxg_get_rep_photos( ) + string(var_code_local)
+			fichier_depart = trim(recup_fichier_document)
+			if cpt_acquisition = 1 and len(fichier_depart) > 0 then
+				ok_fichier_depart  = fileExists(fichier_depart)
+				fichier_depart = trim(recup_fichier_document)
+				libelle_courrier = recup_libelle_courrier
+				//fichier_arrivee =  dossier_arrivee + win_delimiter +aleatoire+ "mandibular." + gfx_extraire_extension_fichier(fichier_depart)
+				fichier_arrivee =  dossier_arrivee + win_delimiter +aleatoire+ "lower." + gfx_extraire_extension_fichier(fichier_depart)
+			else
+				fichier_depart = trim(recup_fichier_document2)
+				if cpt_acquisition = 2 and len(fichier_depart) > 0 then
+					ok_fichier_depart  = fileExists(fichier_depart)
+					libelle_courrier = recup_libelle_courrier
+					fichier_arrivee =  dossier_arrivee + win_delimiter +aleatoire + "upper." + gfx_extraire_extension_fichier(fichier_depart)
+				end if
+			end if
+
+			if ok_fichier_depart then
+				
+				// Test de l'existence du dossier de destination
+				if not DirectoryExists( dossier_arrivee ) then
+					// faut le créér
+					if gfx_creer_rep( dossier_arrivee ) <> 1 then 
+						MessageBox("ERREUR DANS LA CREATION DU DOSSIER DE DESTINATION","Impossible de créer le dossier : "+dossier_arrivee)
+						var_suite = false
+					end if
+				end if
+			else
+				var_suite = false
+				// Il peut y avoir fichier_depart = "" dans l'acquisition myRay AS si on ne recupère que le bas => pas d'erreur
+				//MessageBox("ERREUR DANS RECUPERATION DU FICHIER","Le fichier à ajouter n'existe pas (ou plus) : "+fichier_depart)
+			end if
+	
+			if var_suite then		
+			
+				var_suite = false
+				resultat_copy = FileCopy (fichier_depart,fichier_arrivee, false ) 
+				
+				choose case resultat_copy
+					case 1 
+						// La copie a marché
+						var_suite = true
+						if utilisation_distante then
+							// Mémo du fichier en vue du retour au cabinet
+							fxg_ajout_acquis_distante ( var_code_local , fichier_arrivee ) 
+						end if
+						
+						if recup_effacer_fichier = "O" and fileExists(fichier_depart) then
+							FileDelete(fichier_depart)
+						end if
+						
+						nb_acquisition_ok = nb_acquisition_ok + 1 
+						
+						if i_type_moulage = 2  then
+							// Ajout my Ray / As connect => message car on est pas sur la fenetre classique
+							if (cpt_acquisition = recup_nb_acquisitions) or (nb_acquisition_ok = 1 and ( trim(recup_fichier_document) = "" or  trim(recup_fichier_document2) = "" ))  then
+								if nb_acquisition_ok = 1 then 
+									Messagebox("INFORMATION","1 fichier a été acquis avec succés !")
+								else
+									Messagebox("INFORMATION", string(nb_acquisition_ok) + " fichiers ont été acquis avec succés !")
+								end if
+							end if
+						end if
+	
+					case -1
+						MessageBox("ERREUR DANS LA COPIE DU FICHIER","Impossible de trouver le fichier : "+fichier_depart)
+					case -2
+						MessageBox("ERREUR DANS LA COPIE DU FICHIER","Impossible d'écrire le fichier : " + fichier_arrivee + "~n~nIl est possible que vous n'ayez pas les droits nécessaires ou que le fichier existe déjà")
+				end choose
+			end if
+			
+			if var_suite then
+				fxg_enregcourrierhisto(var_code_local, recup_type_document, recup_date, libelle_courrier, gfx_extraire_nom_fichier(fichier_arrivee) , 'D', "N", "N", "", recup_categorie)
+			end if
+		next
+	end if
+	
+	
+	dw_locale.AcceptText()
+	if	dw_locale.update() = 1 then
+		commit ;
+	else
+		rollback ;
+	end if
+	dw_locale.retrieve( var_code_local,'D' )
+	if TEA then
+		dw_locale_reference.retrieve( var_code_local, "D" )
+	end if
+
+end if
+
+end event
+
+on m_ajouterunmoulage.create
+call super::create
+this.text = "Ajouter un moulage numérique"
+this.menuimage = "lc_moulage_petit.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ajouterunmoulage.destroy
+call super::destroy
+end on
+
+type m_visualiserlecourrier from menu within m_btdroit_historique
+event create ( )
+event destroy ( )
+end type
+
+on m_visualiserlecourrier.create
+call super::create
+this.text = "Visualiser le document"
+this.enabled = false
+this.menuimage = "Preview1.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_visualiserlecourrier.destroy
+call super::destroy
+end on
+
+event clicked;uo_lien_word		uo_word
+string	chemin_complet_courrier
+
+string v_nom_document
+
+recup_nom_courrier (v_nom_document)
+
+if dw_locale.getSelectedRow( 0 )> 0 then
+	if courrier_valide( chemin_complet_courrier ) = 1 then
+		if lower(right(chemin_complet_courrier,4)) = ".doc" or lower(right(chemin_complet_courrier,5)) = ".docx" then
+			// c'est un courrier Word
+			// On se sert de nos outils pour le mettre en avant plan
+			
+			w_locale.ouvrir_document_word(chemin_complet_courrier)
+			//fxg_ouvrir_fichier_shell(chemin_complet_courrier)
+			
+			fxg_modification_pieces_jointes(var_code_local, v_nom_document, "Fichier ouvert le " + string(today()) )
+		else
+			if lower(right(chemin_complet_courrier,4)) = ".ppt" or lower(right(chemin_complet_courrier,5)) = ".pptx" then
+				// c'est un document PowerPoint
+				// On se sert de nos outils pour le mettre en avant plan
+				
+				//w_locale.ouvrir_document_powerpoint(chemin_complet_courrier)
+				fxg_ouvrir_fichier_shell(chemin_complet_courrier)
+				fxg_modification_pieces_jointes(var_code_local, v_nom_document, "Fichier ouvert le " + string(today()) )
+				
+			else
+				if lower(right(chemin_complet_courrier,4)) = ".mht"  then
+					// c'est un email venant d'une boite mail
+					// on l'ouvre avec Internet Explorel
+					//lance_url_avec_ie(chemin_complet_courrier)
+					
+					fxg_ouvrir_fichier_shell(chemin_complet_courrier)
+	
+					
+				else
+					// Si c'est un email, on cherche si on a un fichier de destintaires
+					
+					string c
+					c =  dw_locale.GetItemString( dw_locale.getrow() , "historique_editions_code_courrier" ) 
+					
+					 if dw_locale.GetItemString( dw_locale.getrow() , "historique_editions_code_courrier" ) = "EMAIPJ" or dw_locale.GetItemString( dw_locale.getrow() , "historique_editions_code_courrier" ) = "EMAILL" or dw_locale.GetItemString( dw_locale.getrow() , "historique_editions_code_courrier" ) = "EMARDV"   then
+						string fichier_destinataires, destinataires, emetteur
+						integer num_fichier_destinataires
+						fichier_destinataires = chemin_complet_courrier + ".dest"
+						if fileExists(fichier_destinataires) then
+							destinataires = ""
+							 num_fichier_destinataires = FileOpen(fichier_destinataires, LineMode! , read!)
+							 FileRead(num_fichier_destinataires, destinataires)
+							 emetteur = ""
+							 FileRead(num_fichier_destinataires, emetteur)
+							 
+							 if len(trim(emetteur)) > 0 then
+								destinataires = destinataires + "~n~nEnvoyé depuis : " + emetteur
+							else
+								destinataires = destinataires + "~n~nEnvoyé depuis le compte mail du praticien."
+							end if
+							 fileclose(num_fichier_destinataires)
+							 
+							 if destinataires <> "" then
+								Messagebox("DESTINATAIRES",destinataires)
+							end if
+							
+						end if
+					end if	
+	
+					fxg_ouvrir_fichier_shell(chemin_complet_courrier)
+	
+				
+				end if
+			end if
+		end if
+		
+		// Attribut à Lire ?
+		if dw_locale.GetItemString( dw_locale.getrow() , "a_lire" ) = "O" then
+			If Messagebox("ATTENTION","Souhaitez-vous supprimer l'attribut 'Important - A lire' de cette ligne ?",Question!, YesNo!, 2) = 1 then 
+				dw_locale.SetItem( dw_locale.getrow()  , "a_lire", "N" )
+				dw_locale.update()
+				commit ;
+			end if
+		end if
+	end if
+end if
+end event
+
+type m_imprimerledocument from menu within m_btdroit_historique
+end type
+
+on m_imprimerledocument.create
+call super::create
+this.text = "Imprimer le document Word"
+this.menuimage = "lc_print.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_imprimerledocument.destroy
+call super::destroy
+end on
+
+event clicked;string chemin_complet_courrier
+string v_path, v_nom_fichier_avec_extention, v_nom_fichier_sans_extention
+
+open(w_patience)
+
+// fichier Word !
+
+v_path = dir_photos + string(var_code_local)+"\"
+chemin_complet_courrier = v_path + dw_locale.getItemString( dw_locale.getSelectedRow( 0 )  , "historique_editions_nom_courrier")
+v_nom_fichier_avec_extention = gfx_extraire_nom_fichier(chemin_complet_courrier)
+
+v_nom_fichier_sans_extention = gfx_fichier_sans_extension(v_nom_fichier_avec_extention)
+
+uo_lien_word uo_word
+uo_word = create uo_lien_word
+uo_word.traiter_avec_word(Service_Imprime, v_path, v_nom_fichier_avec_extention , false) 
+close(w_patience)
+end event
+
+type m_supprimer from menu within m_btdroit_historique
+end type
+
+on m_supprimer.create
+call super::create
+this.text = "Supprimer la/les ligne(s)"
+this.enabled = false
+this.menuimage = "lc_supprimer.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_supprimer.destroy
+call super::destroy
+end on
+
+event clicked;string		nom_courrier
+boolean	stop = false
+boolean	fichier_a_supprimer = false
+string		chemin_complet_courrier, v_libelle
+long 		ligne_selectionnee
+string 	v_invisible
+
+
+if dw_locale.getSelectedRow( 0 )> 0 then
+	
+	// On est dans la suppression de documents ... il peut y avoir plusieurs lignes de sélectionnées
+	dw_locale.AcceptText()
+
+	long lig, tot
+	
+	// Y a t il une ligne cochée
+	tot = dw_locale.rowcount()
+	lig = dw_locale.find("selection = 'O'", 1, tot + 1)
+
+	if lig = 0 then 
+		// On coche la ligne en cours
+		dw_locale.setitem(dw_locale.getrow() , "selection",  "O")
+	end if
+
+	// On va supprimer des lignes ..on part de la fin !
+	for lig = tot to 1 step -1 
+		
+		stop = false
+		fichier_a_supprimer = false
+		
+		if dw_locale.getitemString(lig, "selection") = "O" then
+			
+			// pour assurer la compatibilité avec une sous fonction, on sélectionne la ligne à supprimer 
+			dw_locale.SelectRow(0, false)
+			dw_locale.SelectRow(lig, true)
+			
+			chemin_complet_courrier = dw_locale.getitemString(lig, "historique_editions_nom_courrier")
+			v_libelle = dw_locale.getitemstring(lig, "historique_editions_libelle")
+	
+			if courrier_valide( chemin_complet_courrier ) = 1 then 
+				if messagebox("ATTENTION", dw_locale.getitemstring(lig, "historique_editions_libelle") + "~n~nLa suppression de cette ligne entraînera également la suppression du document qui s'y rattache. ~n~nSouhaitez-vous continuer ?", Question!, YesNo!) = 1 then
+					// si l'utilisateur souhaite bien suppr cette ligne
+					fichier_a_supprimer = true
+				else
+					stop = true
+				end if
+			end if
+			
+			if not stop then
+				// Vérification si signature 
+				double id_doc_cloud
+				id_doc_cloud = dw_locale.getItemNumber( lig , "historique_editions_id_doc_cloud")
+				if id_doc_cloud > 0 then
+					if dw_locale.getItemString( lig,  "historique_editions_statut_signature") = "S" then
+						// Le document a été signé .. on empeche sa suppression
+						messagebox("ATTENTION", "Ce document a été signé numériquement !~n~nSa suppression n'est pas autorisée.", StopSign!)
+						stop=true
+					end if
+				end if
+			end if
+
+			if not stop and TEA then
+				// Vérification si signature en attente dans TEA
+				if dw_locale.getItemString( lig,  "historique_editions_statut_signature") = "A1"or dw_locale.getItemString( lig,  "historique_editions_statut_signature") = "A2" then
+					// Le document est en attente de signature
+					messagebox("ATTENTION", "Ce document est en attente de signatrure Téa !~n~nSi besoin, vous devez également le supprimer dans la console d'administation de Téa !", StopSign!)
+				end if
+			end if	
+			
+			if not stop then
+				
+				// avant de supprimer on mémorise pour supprimer les PJ ensuite
+				string v_code_interne, v_code_courrier
+				v_code_interne = dw_locale.getitemstring(lig , "historique_editions_code_interne")
+				v_code_courrier = dw_locale.getitemstring(lig , "historique_editions_code_courrier")
+				
+				if dw_locale.deleterow( lig ) = 1 then
+					if fichier_a_supprimer then 
+						if DeleteFileA( chemin_complet_courrier ) = 0 then
+							messagebox("ERREUR", "Impossible de supprimer le courrier qui s'y rattache, opération annulée.", StopSign!)
+							stop=true
+						else
+							// Vérification si par aussi fichier .dest si envoi d'un email
+							if FileExists( chemin_complet_courrier+ ".dest" )	then
+								 FileDelete( chemin_complet_courrier+ ".dest" )
+							end if
+							
+							if upper(v_code_courrier) = "EMAIPJ" then 
+								// Si c'est un envoi d'email avec PJ, suppression de l'historique des PJ ...
+								delete from "historique_editions_pieces_jointes" where
+								code_patient = :var_code_local and code_interne_historique_editions = :v_code_interne ;
+								
+								if sqlca.sqlcode <> 0 then
+									messagebox("ATTENTION", "Erreur dans la suppression de la mémorisation des pièces jointes !~n~n" + sqlca.sqlerrtext )
+									rollback ;
+								else
+									commit ;
+								end if
+							end if
+							
+							
+						end if
+					end if
+					if not stop then
+						dw_locale.AcceptText()
+						if dw_locale.update() = 1 then
+							commit ;
+							ajout_histo_actions(var_code_local,"SUPDOC",today(),v_libelle)
+							if MON_ORTHODONTISTE or TEA then
+								if MON_ORTHODONTISTE then
+									// La ligne a été supprimée et le document qui s'y rattache aussi ... si on a une id Cloud, on envoi à Mon Orthodonsite
+									if id_doc_cloud > 0 then
+										// Pas de gestion d'erreur
+										fxg_lancer_commande_myorthokis_simple("action?type=deleteDocumentCloud&id=" + string(id_doc_cloud ) , true, "A"  )
+									end if
+								else
+									// Suppression dans DSAPI
+									fxg_lancer_commande_dsapi("document/delete/" + v_code_interne, "",  "D", "G", var_code_local  )
+								end if
+							end if
+					
+						else
+							rollback ;
+						end if
+					end if
+					
+				else
+				// si un pb lors de la suppr de la ligne
+					messagebox("ERREUR ...", "Impossible de supprimer cette ligne, opération annulée.", StopSign!)
+				end if
+			end if
+		end if
+	next
+
+	dw_locale.retrieve( var_code_local,var_type_histo)
+	if TEA then
+		dw_locale_reference.retrieve( var_code_local, var_type_histo )
+	end if
+		
+end if
+
+
+end event
+
+type m_modifierladate from menu within m_btdroit_historique
+end type
+
+on m_modifierladate.create
+call super::create
+this.text = "Modifier la date du document"
+this.menuimage = "actions_modifier.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_modifierladate.destroy
+call super::destroy
+end on
+
+event clicked;
+long 		ligne_selectionnee
+string dir_patient
+ligne_selectionnee = dw_locale.getSelectedRow( 0 )
+
+date v_ancienne_date, v_nouvelle_date
+
+if ligne_selectionnee > 0 then
+
+	v_ancienne_date = dw_locale.getItemDate( ligne_selectionnee , "historique_editions_date_document")
+	var_suite = false
+	OpenWithParm(w_patient_modification_date_courrier_word, string(v_ancienne_date ) )
+	v_nouvelle_date = date(Message.StringParm)
+	if var_suite then
+		
+		// On a validé la modif de la date du document
+		// La nouvekke date est retournée par la fenêtre
+		
+		dw_locale.SetItem( ligne_selectionnee , "historique_editions_date_document", v_nouvelle_date)
+		
+		if dw_locale.update() = 1 then
+			
+			commit ;
+		else
+			rollback ;
+		end if
+		
+	end if
+end if	
+end event
+
+type m_modifierlelibelle from menu within m_btdroit_historique
+end type
+
+on m_modifierlelibelle.create
+call super::create
+this.text = "Modifier le libellé du document"
+this.menuimage = "lc_modifier_libelle.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_modifierlelibelle.destroy
+call super::destroy
+end on
+
+event clicked;
+long 		ligne_selectionnee
+string v_ancien_libelle, v_nouveau_libelle
+string v_ancien_nom_fichier, v_nouveau_nom_fichier, v_nouveau_nom_fichier_simple
+string dir_patient
+ligne_selectionnee = dw_locale.getSelectedRow( 0 )
+
+string v_extension_ancien, v_extension_nouveau
+
+if ligne_selectionnee > 0 then
+
+	v_ancien_libelle = dw_locale.getItemString( ligne_selectionnee , "historique_editions_libelle")
+	var_suite = false
+	OpenWithParm(w_patient_modification_libelle_courrier_word, v_ancien_libelle ) 
+	v_nouveau_libelle = Message.StringParm
+	if var_suite then
+		
+		// On a validé la modif du libellé 
+		// Le nouveau libelle est retourné par la fenêtre
+		
+		dw_locale.SetItem( ligne_selectionnee , "historique_editions_libelle", v_nouveau_libelle)
+		
+		if dw_locale.update() = 1 then
+			
+			// On essaie de renommer aussi le fichier physique
+			v_ancien_nom_fichier = dw_locale.getItemString( ligne_selectionnee , "historique_editions_nom_courrier")
+			v_extension_ancien = gfx_extraire_extension_fichier(v_ancien_nom_fichier)
+			
+			// Nouveau nom du fichier
+			v_nouveau_nom_fichier = gfx_tout_remplacer(v_ancien_nom_fichier, v_ancien_libelle, v_nouveau_libelle)
+			v_extension_nouveau = gfx_extraire_extension_fichier(v_nouveau_nom_fichier)
+			
+			// Si le renommage a bousillé l'extension, on la remet
+			if v_extension_ancien <> v_extension_nouveau then
+				v_nouveau_nom_fichier = v_nouveau_nom_fichier + "." + v_extension_ancien
+			end if
+			
+			// mémorisation du nom court
+			v_nouveau_nom_fichier_simple = v_nouveau_nom_fichier
+			
+			// On convertit en nom complet
+			v_ancien_nom_fichier = dir_photos + string( var_code_local ) + win_delimiter + v_ancien_nom_fichier
+			v_nouveau_nom_fichier = dir_photos + string( var_code_local ) + win_delimiter + v_nouveau_nom_fichier
+			
+			if MoveFileA ( v_ancien_nom_fichier , v_nouveau_nom_fichier ) = 1 then
+				dw_locale.SetItem( ligne_selectionnee , "historique_editions_nom_courrier", v_nouveau_nom_fichier_simple )
+				dw_locale.update()
+			end if
+
+			
+			commit ;
+		else
+			rollback ;
+		end if
+		
+	end if
+end if	
+end event
+
+type m_signaturenumerique from menu within m_btdroit_historique
+end type
+
+event clicked;
+// C'est la même chise que la signature en ligne ... 
+m_signatureenligne.triggerevent(clicked!)
+end event
+
+on m_signaturenumerique.create
+call super::create
+this.visible = false
+this.text = "Signature Numérique"
+this.menuimage = "Control LnkEdit_2!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_signaturenumerique.destroy
+call super::destroy
+end on
+
+type m_signatureenligne from menu within m_btdroit_historique
+end type
+
+event clicked;string v_statut_signature
+string v_fichier_pdf
+string v_fichier_qm
+double row
+
+
+row = dw_locale.getSelectedRow( 0 )
+
+if row > 0 then
+	
+	if  dw_locale.getitemstring(row, "historique_editions_code_courrier") = "WORPDF" then
+		// Document Word passé en PDF => déjà prêt 
+		v_statut_signature	= dw_locale.getitemstring (row , "historique_editions_statut_signature")
+		v_fichier_pdf	= dw_locale.getitemstring (row , "historique_editions_nom_courrier")
+	
+		if v_statut_signature = "A1" or v_statut_signature = "A2" or v_statut_signature = "A3" then
+	
+			param_win[1] = v_statut_signature
+			param_win[2] = v_fichier_pdf
+			param_win[3] = dw_locale.getitemstring (row , "historique_editions_code_interne")
+			OpenWithParm(w_signature_en_ligne, var_code_local )
+		end if
+	else
+		if  dw_locale.getitemstring(row, "historique_editions_code_courrier") = "QM" or dw_locale.getitemstring(row, "historique_editions_code_courrier") = "WORD" then
+			// QM en Word => faut d'abord le passé en en PDF => déjà prêt 
+			w_courriers_word_invisible  ww
+			// On récupère la catégorie du document pour que le PDF généré la reprenent ... on pas par VAR19 par convention, utilisé lors de la génération du document WORD
+			integer v_id_categorie 
+			 v_id_categorie = dw_locale.getitemNumber(row, "historique_editions_id_categorie")
+			SetProfilestring(dir_ini+inifile_orthokis,"Macros","var19",string(v_id_categorie)) 
+			open(ww)
+			hide(ww)
+			v_fichier_qm= dw_locale.getitemstring (row , "historique_editions_nom_courrier")
+			// Pour la signature en ligne, par construction, on se sert forcement de VAR_CODE (variable globale), on la préserve !
+			double var_code_sauve
+			var_code_sauve = var_code
+			var_code = var_code_local
+			ww.signature_en_ligne (true, false, true, dir_photos + string(var_code_local) + "\", v_fichier_qm)
+			var_code = var_code_sauve
+			close(ww)
+			
+		end if
+		
+	end if
+end if
+end event
+
+on m_signatureenligne.create
+call super::create
+this.text = "Signature En Ligne"
+this.menuimage = "lc_signature_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_signatureenligne.destroy
+call super::destroy
+end on
+
+type m_envoyerparemailpiècejointe from menu within m_btdroit_historique
+end type
+
+on m_envoyerparemailpiècejointe.create
+call super::create
+this.text = "Envoyer par email (Pièce Jointe)"
+this.enabled = false
+this.menuimage = "lc_envoi_message_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_envoyerparemailpiècejointe.destroy
+call super::destroy
+end on
+
+event clicked;
+
+
+string	chemin_complet_courrier, rep_photo
+long lig, nb_fichier_a_envoyer, tot
+string fichiers_a_envoyer[]
+boolean v_suite
+long taille_totale, i
+
+// Depuis 2016, on peut sélectionner plusieurs lignes
+v_suite = true
+lig = dw_locale.Find("Selection = 'O'", 0, 99999)
+
+if lig = 0 then
+	if dw_locale.getSelectedRow( 0 )> 0 then
+		// ligne courrante
+		nb_fichier_a_envoyer = 1
+		fichiers_a_envoyer[1] = dir_photos + string( var_code_local ) + win_delimiter + dw_locale.getItemString( dw_locale.getSelectedRow( 0 ), "historique_editions_nom_courrier")
+		if FileExists(fichiers_a_envoyer[1]) then
+			v_suite = true
+		else
+			v_suite = false
+			Messagebox("ATTENTION","La ligne que vous avez sélectionnée ne contient pas de document à joindre !")
+		end if
+	else
+		nb_fichier_a_envoyer =  0
+		v_suite = false
+	end if
+else
+	// 1 ou plusieurs lignes
+	tot = dw_locale.rowcount() 
+	nb_fichier_a_envoyer = 0
+	for lig = 1 to tot
+		if dw_locale.GetItemString(lig, "Selection") = "O" then
+			nb_fichier_a_envoyer = nb_fichier_a_envoyer + 1
+			fichiers_a_envoyer[nb_fichier_a_envoyer] = dir_photos + string( var_code_local ) + win_delimiter + dw_locale.getItemString( lig, "historique_editions_nom_courrier")
+			if not FileExists(fichiers_a_envoyer[nb_fichier_a_envoyer]) then
+				fichiers_a_envoyer[nb_fichier_a_envoyer] = ""
+				nb_fichier_a_envoyer = nb_fichier_a_envoyer - 1 
+			end if
+		end if
+	next
+	if nb_fichier_a_envoyer > 0 then
+		v_suite = true
+	else
+		v_suite = false
+			Messagebox("ATTENTION","Les lignes que vous avez sélectionnées ne contiennent pas de document à joindre !")
+	end if
+end if
+	
+
+if v_suite then
+
+
+	open(w_patience)
+
+	uo_email_compte		cpt_email
+	uo_email_email 		email
+	str_email_frm_output		frm_output
+	
+	
+	
+	integer id_cpt
+	
+	id_cpt = compte_email_a_utiliser(utilisateur_code, var_code_local)
+
+	if id_cpt = -1 then
+		
+		MessageBox("ATTENTION","Vous devez définir des Comptes Emails pour chaque praticien avant d'envoyer des emails (menu 'Tables', 'Administratif').~n~nCeci ne semble pas être le cas.~n~nL'envoi de l'email ne peut avoir lieu.")
+		
+	else
+		
+		taille_totale = 0
+		if nb_fichier_a_envoyer > 1 then
+			for lig = 1 to nb_fichier_a_envoyer
+				taille_totale = taille_totale +  FileLength(fichiers_a_envoyer[lig])
+			next
+		end if
+		
+		v_suite = false
+		
+		// on convertit en Mo
+		taille_totale = taille_totale / 1024 / 1024
+		
+		if taille_totale > 3 then 
+			if Messagebox("ATTENTION","Vous allez envoyer "+string(nb_fichier_a_envoyer)+" documents en Pièces Jointes.~nTaille des fichiers : " + string(taille_totale , "0.0") +" Mo~n~nConfirmez-vous ?",Question!,YesNo!,2) = 2 then 
+				v_suite = false
+			else
+				v_suite = true
+			end if
+		else
+			v_suite = true
+		end if
+
+		if v_suite then
+			// init cpt mail et affection au mail manager
+			cpt_email = create uo_email_compte
+			cpt_email.charger(id_cpt)
+			email_manager.set_compte(cpt_email)
+			
+			// Envoi unitaire
+			email_manager.propos_objet = cpt_email.email_objet_defaut
+			email_manager.mode_choix_adr_courant = email_manager.mode_choix_adr_unitaire
+			
+			
+			// Fenetre de choix du destinataire
+			
+			// Génératon du fichier rtf pour passage en paramètre
+			string is_FileName, fichier_pdf
+			integer num_fichier_texte
+		
+			is_FileName = dir_ini + "texte_email_tmp.rtf"
+			num_fichier_texte = FileOpen( is_FileName, StreamMode! , Write! , LockWrite! , replace!)
+			FileWrite(num_fichier_texte, cpt_email.texte_brut_defaut)
+			FileClose(num_fichier_texte)
+			
+			
+			// pour les fichiers joints
+			
+			str_patient v_patient
+			v_patient.code = var_code_local
+			
+			if nb_fichier_a_envoyer = 1 then
+				// on permettra le PDF uniquement si 1 fichier Word ... sinon, on fait comme si Powerpoint pour ne pas proposer PDF
+				string extension 
+				extension = upper(gfx_extraire_extension_fichier ( fichiers_a_envoyer[1] ) )
+				
+				if extension = "DOC" or extension = "DOCX" then
+					v_patient.appelant = 'W'	// courrier Word 
+				else
+					if extension = "PDF" then
+						v_patient.appelant = 'D'	// Doc PPT
+					else
+						if extension = "PPT" or extension = "PPTX" then 
+							v_patient.appelant = 'P'	// Doc PPT
+						else
+							v_patient.appelant = 'O'	// Doc autre
+						end if
+					end if
+				end if
+			else
+					v_patient.appelant = 'P'	// Doc PPT
+			end if
+			
+			openwithparm(w_email_choix_adr_pat, v_patient)
+			
+			
+			//cpt_email.texte_brut_defaut = param_win[1]
+			
+			// réception des éléments de la fenêtre précédente
+			frm_output = message.PowerObjectParm
+			
+			// Sécurité pour éviter de renvoyer du vide
+			if upperbound( frm_output.a_adrs_cci ) = 0 then
+				frm_output.a_adrs_cci[1] = ""
+			end if
+			
+			if upperbound( frm_output.a_adrs ) = 0 then
+				frm_output.a_adrs[1] = ""
+			end if
+			
+
+									
+			if frm_output.a_adrs[1] <> ''  or frm_output.a_adrs_cci[1] <> '' then			// correspond au bouton annuler de la fenêtre de choix d'adresse
+			
+			
+				if frm_output.envoi_securise then
+					
+					// 2024
+					// il faut ajouter les fichier supplémentaires 
+					for i = 1 to upperbound(frm_output.pj_supplementaires)
+						fichiers_a_envoyer[upperbound(fichiers_a_envoyer) + 1 ] = frm_output.pj_supplementaires[i]
+					next
+
+					
+					if Belgique then
+						// envoi messagerie spéciale via myOrthokis
+						// Envoi unitaire
+						fxg_envoi_mail_securise_ehealth(frm_output , var_code_local, email, fichiers_a_envoyer)
+					else
+						if France then 
+							fxg_envoi_mail_securise_france(frm_output , var_code_local, email, fichiers_a_envoyer)
+						end if
+					end if
+				
+				else
+	
+					// Envoi normal
+					string fichier_texte, fichier_texte_patient
+					integer num_fichier_texte_avec_adresses
+					string fichier_texte_avec_adresses
+					
+					fichier_texte = dir_ini + "texte_email_tmp.html"
+					fichier_texte_avec_adresses = dir_ini + "texte_email_adresses_tmp.text"
+					fichier_texte_patient = dir_photos + string(var_code_local) + win_delimiter + string(today(), "yyyy-mm-dd")+" "+string(now(),"hh-mm-ss") + " - Texte email.html"
+					
+					//creation et envoie email
+					email = create uo_email_email
+					email.set_patient(var_code_local)
+					email.add_destinataire_a(frm_output.a_adrs[1], false)
+					email.set_from(cpt_email.my_alias,cpt_email.my_adr)
+					email_manager.propos_objet = frm_output.objet 
+					email.set_sujet(email_manager.propos_objet)
+					if frm_output.cc then 
+						email.set_cc(cpt_email.my_alias, cpt_email.my_adr)
+					end if
+					
+					if trim(frm_output.a_adrs_cci[1])  <> "" then
+						// Il y a des destinataires CCi 
+						string s_cci
+						
+						s_cci = frm_output.a_adrs_cci[1]
+						
+						if frm_output.cci then 
+							s_cci = s_cci + ";" +  cpt_email.my_adr
+						end if
+						
+						email.add_destinataire_a(s_cci, true)
+					else
+						if frm_output.cci then 
+							email.set_cci(cpt_email.my_alias, cpt_email.my_adr)
+						end if
+					end if
+					
+
+//					if frm_output.cci then 
+//						email.set_cci(cpt_email.my_alias, cpt_email.my_adr)
+//					end if
+//					
+					if frm_output.pdf then
+						// il faut envoyer le fichier en PDF 
+						// Faut d'abord le convertir !!!
+						fichier_pdf = fxg_get_nom_fic_document_orthokis_pdf()
+					
+						fxg_conversion_word_to_pdf(fichiers_a_envoyer[1] , fichier_pdf )
+						
+
+						// On mémorise désormais le PDF en PJ pour pouvoir le revoir ensuite
+						string fichier_pdf_patient 
+						fichier_pdf_patient = dir_photos + string(var_code_local) + win_delimiter + string(today(), "yyyy-mm-dd")+" "+string(now(),"hh-mm-ss") + " - Document_Orthokis.pdf" 
+						FileCopy(fichier_pdf , fichier_pdf_patient)
+						email.add_fichier_joint(fichier_pdf_patient)
+						
+					else
+						// On envoie les fichiers en tant que Pièce jointe !!!
+						
+						for lig = 1 to nb_fichier_a_envoyer
+							email.add_fichier_joint(fichiers_a_envoyer[lig])
+						next
+					end if
+					
+					
+					// On ajoute les éventuelles PJ supplémentares ... 
+					for lig = 1 to upperbound(frm_output.pj_supplementaires[])
+						email.add_fichier_joint(frm_output.pj_supplementaires[lig])
+					next
+								
+					email.set_body_html(fichier_texte)
+												
+					if email_manager.envoyer_email(email.get_email()) then
+						
+						// On génère un fichier texte contenant la liste des destinataires ... meme nom que le fichier en PJ avec .dest comme extension
+						email.generer_fichier_adresses(fichier_texte_avec_adresses, fichier_texte_patient, frm_output)
+						
+						
+						// Copy du fichier pour mémo
+						FileCopy(fichier_texte, fichier_texte_patient)
+		
+						string libelle_sup = ""
+						if frm_output.pdf then 
+							libelle_sup = " - Format PDF"
+						end if
+		
+						string v_code_interne_historique_editions
+						if nb_fichier_a_envoyer = 1 then
+							v_code_interne_historique_editions = fxg_enregcourrierhisto ( var_code_local , "EMAIPJ" , today() , "Envoi fichier : " + gfx_extraire_nom_fichier(fichiers_a_envoyer[1]) + libelle_sup , fichier_texte_patient , 'E' , "N", "N", "", frm_output.categorie)
+						else
+							v_code_interne_historique_editions = fxg_enregcourrierhisto ( var_code_local , "EMAIPJ" , today() , "Envois de "+ string(nb_fichier_a_envoyer) + " fichiers dont " + gfx_extraire_nom_fichier(fichiers_a_envoyer[1]) , fichier_texte_patient , 'E' , "N", "N", "", frm_output.categorie)
+						end if
+						
+						fxg_memorisation_pieces_jointes(var_code_local, v_code_interne_historique_editions,   email.fichiers_joints, false )
+						
+						// Raffraichissement de la liste
+						if isvalid(w_locale) then
+							// w_locale contient en principe la fenetre w_patient_maj mais on peut récupérer le code pour envoyer autres documents par email => pas de w_locale
+							w_locale.pb_rafraichir_courrier.triggerEvent(clicked!)
+						end if
+			
+						// Le fichier est parti
+						MessageBox("INFORMATION","L'email a été correctement envoyé.")
+						
+						
+					else
+						MessageBox("ATTENTION","Une erreur s'est produite dans l'envoi de l'email !")
+					end if
+				end if
+				
+				if frm_output.pdf then
+					// on efface de suite le temporaire !
+					FileDelete(fichier_pdf)
+				end if
+			end if
+		end if
+	end if
+	close(w_patience)
+
+end if
+end event
+
+type m_informations from menu within m_btdroit_historique
+end type
+
+event clicked;
+
+// Affiche la taille du fichier
+
+double v_taille
+string	chemin_complet_courrier
+
+if dw_locale.getSelectedRow( 0 )> 0 then
+	if courrier_valide( chemin_complet_courrier ) = 1 then
+		v_taille = FileLength64(chemin_complet_courrier)	
+		MessageBox("Informations sur le fichier","Nom du fichier : "+chemin_complet_courrier+"~n~nTaille : " + string (v_taille / 1024 / 1024 , "0.00")+" Mo~n~nDate de dernière modification : " + string(fxg_get_file_date(chemin_complet_courrier) ,"dd/mm/yyyy à hh:mm"))
+	end if
+end if
+
+end event
+
+on m_informations.create
+call super::create
+this.text = "Informations sur le fichier"
+this.menuimage = "lc_infos.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_informations.destroy
+call super::destroy
+end on
+
+type m_renomerfichierphysique from menu within m_btdroit_historique
+end type
+
+event clicked;
+long 		ligne_selectionnee
+string v_ancien_nom_fichier, v_nouveau_nom_fichier, v_nouveau_nom_fichier_simple
+string dir_patient
+
+ligne_selectionnee = dw_locale.getSelectedRow( 0 )
+
+string v_extension_ancien, v_extension_nouveau
+
+if dw_locale.getSelectedRow( 0 )> 0 then
+	
+	if courrier_valide( v_ancien_nom_fichier ) = 1 then
+		
+		v_ancien_nom_fichier = trim(gfx_extraire_nom_fichier(v_ancien_nom_fichier))
+		
+		// Si le fichier est sous la forme nnnnnAAAAA : on vire les 5 premiers chiffres (pour fichiers STL venant de chez 3Shape)
+		if long(left(v_ancien_nom_fichier,5)) > 0 and long(mid(v_ancien_nom_fichier, 6, 2)) = 0 then
+			v_nouveau_nom_fichier = mid(v_ancien_nom_fichier, 6, len(v_ancien_nom_fichier) - 5)
+		else
+			v_extension_nouveau = gfx_extraire_extension_fichier(v_ancien_nom_fichier)
+			v_nouveau_nom_fichier = gfx_fichier_sans_extension(v_ancien_nom_fichier)
+		end if
+		
+		var_suite = false
+		
+		OpenWithParm(w_patient_modification_libelle_courrier_word, v_nouveau_nom_fichier ) 
+		
+		v_nouveau_nom_fichier = Message.StringParm + "." + v_extension_nouveau
+		
+		if var_suite then
+			
+			// On a validé la modif du libellé 
+			// Le nouveau libelle est retourné par la fenêtre
+			
+			// On essaie de renommer aussi le fichier physique
+			// mémorisation du nom court
+			v_nouveau_nom_fichier_simple = v_nouveau_nom_fichier
+			
+			// On convertit en nom complet
+			v_ancien_nom_fichier = dir_photos + string( var_code_local ) + win_delimiter + v_ancien_nom_fichier
+			v_nouveau_nom_fichier = dir_photos + string( var_code_local ) + win_delimiter + v_nouveau_nom_fichier
+		
+			
+			if MoveFileA ( v_ancien_nom_fichier , v_nouveau_nom_fichier ) = 1 then
+				dw_locale.SetItem( ligne_selectionnee , "historique_editions_nom_courrier", v_nouveau_nom_fichier_simple )
+				dw_locale.update()
+				commit ;
+				
+				fxg_modification_pieces_jointes(var_code_local, v_nouveau_nom_fichier, "Fichier renommé le " + string(today()) + " -> " + v_nouveau_nom_fichier )
+			else
+				Messagebox("ATTENTION","Erreur dans le renommage du fichier.")
+			end if
+		end if
+	end if
+end if	
+end event
+
+on m_renomerfichierphysique.create
+call super::create
+this.text = "Renommer fichier physique"
+this.menuimage = "lc_renommer.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_renomerfichierphysique.destroy
+call super::destroy
+end on
+
+type m_pdf from menu within m_btdroit_historique
+end type
+
+on m_pdf.create
+call super::create
+this.text = "Générer fichier PDF pour publication Patient"
+this.menuimage = "lc_pdf_petit.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_pdf.destroy
+call super::destroy
+end on
+
+event clicked;string fichier_pdf
+
+string chemin_complet_courrier
+string ls_code_docu_genere
+string v_path, v_nom_fichier_avec_extention, v_nom_fichier_sans_extention, v_nouveau_fichier_pdf
+
+boolean v_suite
+
+long row, ll_ret
+
+row = dw_locale.getSelectedRow( 0 )
+
+if row > 0 then
+	open(w_patience)
+	
+	// fichier Word !
+	
+	v_path = dir_photos + string(var_code_local)+"\"
+	chemin_complet_courrier = v_path + dw_locale.getItemString( dw_locale.getSelectedRow( 0 )  , "historique_editions_nom_courrier")
+	
+	if fileexists(chemin_complet_courrier) then 
+		v_nom_fichier_avec_extention = gfx_extraire_nom_fichier(chemin_complet_courrier)
+		
+		v_nom_fichier_sans_extention = gfx_fichier_sans_extension(v_nom_fichier_avec_extention)
+		
+		
+		// On récupère la catégorie du document pour que le PDF généré la reprenent ... 
+		integer v_id_categorie 
+		 v_id_categorie = dw_locale.getitemNumber(row, "historique_editions_id_categorie")
+	
+		// Conversion en PDF !!!
+		fichier_pdf = fxg_get_nom_fic_document_orthokis_pdf()
+		
+		// On vire le précédent si ...
+		FileDelete(fichier_pdf)
+	
+		if upper(right(v_nom_fichier_avec_extention, 3)) = "DOC" or upper(right(v_nom_fichier_avec_extention, 4)) = "DOCX" then
+			// Nouvelle méthode directe
+			fxg_conversion_word_to_pdf(chemin_complet_courrier, fichier_pdf )
+			ls_code_docu_genere = "WORPDF"
+		else
+			// Nouvelle méthode directe
+			fxg_conversion_powerpoint_to_pdf(chemin_complet_courrier, fichier_pdf )
+			ls_code_docu_genere = "PPTPDF"
+		end if
+			
+		
+		If FileExists(fichier_pdf) then
+			// La converion a réussie
+			// Copie du fichier dans le dossier du patient
+			v_nouveau_fichier_pdf = v_path + v_nom_fichier_sans_extention  + ".pdf"
+			
+			v_suite = true
+			if FileExists(v_nouveau_fichier_pdf) then
+				if Messagebox("ATTENTION", "Le fichier " + v_nouveau_fichier_pdf + " existe déjà.~n~nVoulez-vous poursuivre et le remplacer ?", Question!, YesNo!, 2) = 1 then
+					v_suite = true
+				else
+					v_suite = false
+				end if
+			else
+				v_suite = true
+			end if
+					
+			// Mémoridsation
+			if v_suite then
+				if FileCopy(fichier_pdf , v_nouveau_fichier_pdf, true) <> 1 then
+					Messagebox("ATTENTION", "Une erreur s'est produite dans le recopie du fichier : " + fichier_pdf + "~n~nvers le fichier : "+ v_nouveau_fichier_pdf)
+				else
+					// la copie est OK, on génère la liste en historique
+					// 
+					fxg_enregcourrierhisto (var_code_local , ls_code_docu_genere , today() ,  dw_locale.getItemString( dw_locale.getSelectedRow( 0 )  , "historique_editions_libelle")  ,v_nouveau_fichier_pdf ,  type_gestion, "O" , "N", "", v_id_categorie)
+					
+					if utilisation_distante then
+						// Mémo du fichier en vue du retour au cabinet
+						fxg_ajout_acquis_distante ( var_code_local , v_nouveau_fichier_pdf ) 
+					end if
+					
+					// Raffraichissement de la liste
+					w_locale.pb_rafraichir_courrier.triggerEvent(clicked!)
+				end if
+			end if
+			
+		else
+			Messagebox("ATTENTION","La conversion du document en PDF a échoué.")
+		end if
+	else
+		// Fichier n'existe pas
+		Messagebox("ATTENTION", "Impossible de localiser le fichier à convertir : " + chemin_complet_courrier)
+	end if
+	
+	close(w_patience)
+end if
+end event
+
+type m_pdf2 from menu within m_btdroit_historique
+event create ( )
+event destroy ( )
+end type
+
+on m_pdf2.create
+call super::create
+this.text = "Générer fichier PDF pour publication Correspondant"
+this.menuimage = "lc_pdf_petit.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_pdf2.destroy
+call super::destroy
+end on
+
+event clicked;string fichier_pdf
+
+string chemin_complet_courrier
+
+string v_path, v_nom_fichier_avec_extention, v_nom_fichier_sans_extention, v_nouveau_fichier_pdf
+
+boolean v_suite
+
+long row
+
+row = dw_locale.getSelectedRow( 0 )
+
+if row > 0 then
+	open(w_patience)
+	
+	// fichier Word !
+	
+	v_path = dir_photos + string(var_code_local)+"\"
+	chemin_complet_courrier = v_path + dw_locale.getItemString( dw_locale.getSelectedRow( 0 )  , "historique_editions_nom_courrier")
+	v_nom_fichier_avec_extention = gfx_extraire_nom_fichier(chemin_complet_courrier)
+	
+	v_nom_fichier_sans_extention = gfx_fichier_sans_extension(v_nom_fichier_avec_extention)
+	
+	// On récupère la catégorie du document pour que le PDF généré la reprenent ...
+	integer v_id_categorie 
+	 v_id_categorie = dw_locale.getitemNumber(row, "historique_editions_id_categorie")
+
+	// Conversion en PDF !!!
+	fichier_pdf = fxg_get_nom_fic_document_orthokis_pdf()
+	
+	// On vire le précédent si ...
+	FileDelete(fichier_pdf)
+	
+	fxg_conversion_word_to_pdf(chemin_complet_courrier, fichier_pdf )
+
+	
+	If FileExists(fichier_pdf) then
+		// La converion a réussie
+		// Copie du fichier dans le dossier du patient
+		v_nouveau_fichier_pdf = v_path + v_nom_fichier_sans_extention  + ".pdf"
+		
+		v_suite = true
+		if FileExists(v_nouveau_fichier_pdf) then
+			if Messagebox("ATTENTION", "Le fichier " + v_nouveau_fichier_pdf + " existe déjà.~n~nVoulez-vous poursuivre et le remplacer ?", Question!, YesNo!, 2) = 1 then
+				v_suite = true
+			else
+				v_suite = false
+			end if
+		else
+			v_suite = true
+		end if
+				
+		// Mémoridsation
+		if v_suite then
+			if FileCopy(fichier_pdf , v_nouveau_fichier_pdf, true) <> 1 then
+				Messagebox("ATTENTION", "Une erreur s'est produite dans le recopie du fichier : " + fichier_pdf + "~n~nvers le fichier : "+ v_nouveau_fichier_pdf)
+			else
+				// la copie est OK, on génère la liste en historique
+				// 
+				fxg_enregcourrierhisto (var_code_local , 'WORPDF' , today() ,  dw_locale.getItemString( dw_locale.getSelectedRow( 0 )  , "historique_editions_libelle")  ,v_nouveau_fichier_pdf , type_gestion, "N" , "O", "", v_id_categorie)
+				if utilisation_distante then
+					// Mémo du fichier en vue du retour au cabinet
+					fxg_ajout_acquis_distante ( var_code_local , v_nouveau_fichier_pdf ) 
+				end if
+				
+				// Raffraichissement de la liste
+				w_locale.pb_rafraichir_courrier.triggerEvent(clicked!)
+			end if
+		end if
+		
+	else
+		Messagebox("ATTENTION","La conversion du document en PDF a échoué.")
+	end if
+	
+	close(w_patience)
+end if
+end event
+
+type m_a_lire from menu within m_btdroit_historique
+end type
+
+on m_a_lire.create
+call super::create
+this.text = "Important - A lire"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_a_lire.destroy
+call super::destroy
+end on
+
+event clicked;long 		ligne_selectionnee
+
+ligne_selectionnee = dw_locale.getSelectedRow( 0 )
+
+
+if ligne_selectionnee > 0 then
+	
+	if dw_locale.GetItemString( ligne_selectionnee , "a_lire" ) = 'O' then
+		dw_locale.SetItem( ligne_selectionnee , "a_lire", "N" )
+	else
+		dw_locale.SetItem( ligne_selectionnee , "a_lire", "O" )
+	end if
+	dw_locale.update()
+	commit ;
+
+end if
+
+end event
+
+type m_copierledocumentversunautrepatient from menu within m_btdroit_historique
+end type
+
+on m_copierledocumentversunautrepatient.create
+call super::create
+this.text = "Copier le document vers un autre patient"
+this.menuimage = "lc_copier_vers_un_patient.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_copierledocumentversunautrepatient.destroy
+call super::destroy
+end on
+
+event clicked;
+
+
+copier_document ("P")
+
+
+end event
+
+type m_copierledocumentverstoutelafratrie from menu within m_btdroit_historique
+end type
+
+on m_copierledocumentverstoutelafratrie.create
+call super::create
+this.text = "Copier le document vers toute la fratrie"
+this.menuimage = "lc_copier_vers_fratrie.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_copierledocumentverstoutelafratrie.destroy
+call super::destroy
+end on
+
+event clicked;
+
+copier_document ("F")
+
+end event
+
+type m_dupliquerledocument from menu within m_btdroit_historique
+end type
+
+on m_dupliquerledocument.create
+call super::create
+this.visible = false
+this.text = "Dupliquer le document"
+this.menuimage = "lc_copy.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_dupliquerledocument.destroy
+call super::destroy
+end on
+
+event clicked;
+
+copier_document ("D")
+
+end event
+
+type m_exportationdedocuments from menu within m_btdroit_historique
+end type
+
+event clicked;open(w_export_documents_ged)
+end event
+
+on m_exportationdedocuments.create
+call super::create
+this.text = "Exportation de documents"
+this.menuimage = "lc_exporter_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_exportationdedocuments.destroy
+call super::destroy
+end on
+
+type m_piecesjointess from menu within m_btdroit_historique
+end type
+
+on m_piecesjointess.create
+call super::create
+this.visible = false
+this.text = "Pièce(s) jointes(s)"
+this.menuimage = "lc_piece_jointe.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_piecesjointess.destroy
+call super::destroy
+end on
+
+event clicked;long  ligne_selectionnee
+string v_code_interne_historique_editions
+
+ligne_selectionnee = dw_locale.getSelectedRow( 0 )
+
+if ligne_selectionnee > 0 then 
+	v_code_interne_historique_editions = dw_locale.getItemString( ligne_selectionnee, "historique_editions_code_interne") 
+	
+	// On se sert d'une structure patient pour passer en paramètres ... Pas très propre mais cela évite de créer une autre structure
+	str_patient v_patient
+	v_patient.code = var_code_local
+	v_patient.nom = v_code_interne_historique_editions
+	
+	openwithparm(w_patient_ged_pieces_jointes, v_patient)
+	
+	
+end if
+end event
+

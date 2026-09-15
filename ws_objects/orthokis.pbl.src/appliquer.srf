@@ -1,0 +1,32 @@
+﻿$PBExportHeader$appliquer.srf
+global type appliquer from function_object
+end type
+
+forward prototypes
+global subroutine appliquer (datawindow dwlettre, datawindow dwcontroles, string objet)
+end prototypes
+
+global subroutine appliquer (datawindow dwlettre, datawindow dwcontroles, string objet);string rc
+
+string italique,police,taille,gras
+
+if dwcontroles.getitemstring(1,"italique") = "O" then
+	italique = "1"
+else
+	italique = "0"
+end if
+
+dwcontroles.accepttext()
+dwlettre.accepttext()
+
+taille = string(dwcontroles.getitemnumber(1,"taille"),"#0")
+gras = string(dwcontroles.getitemnumber(1,"gras"),"##0")
+police = dwcontroles.getitemstring(1,"police")
+
+dwlettre.modify(objet+".font.italic = "+italique)
+dwlettre.modify(objet+".font.height = -"+taille)
+dwlettre.modify(objet+".font.face = '"+police+"'")
+dwlettre.modify(objet+".font.weight = "+gras)
+
+end subroutine
+

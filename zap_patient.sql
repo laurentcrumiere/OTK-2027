@@ -1,0 +1,20 @@
+delete from histo_dossier;
+delete from historique_alertes;
+delete from historique_editions_pieces_jointes;
+delete from historique_editions;
+delete from historique_etat_rdv;
+delete from historique_messages_winpopup;
+delete from historique_traitement  ;
+delete from semaine_patient  ;
+
+delete from rdv ;
+delete from paye ;
+delete from ligne_soins ;
+delete from soins ; 
+delete from ligne_soins_prevus; 
+delete from soins_prevus;
+delete from images_infos ;
+delete from diagnos ;
+delete from coment ;
+delete from coment_admini ;
+delete from patient ;

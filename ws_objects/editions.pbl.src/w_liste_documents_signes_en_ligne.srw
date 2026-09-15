@@ -1,0 +1,117 @@
+﻿$PBExportHeader$w_liste_documents_signes_en_ligne.srw
+forward
+global type w_liste_documents_signes_en_ligne from w_liste_documents_attente_signature_en_ligne
+end type
+end forward
+
+global type w_liste_documents_signes_en_ligne from w_liste_documents_attente_signature_en_ligne
+string title = "Liste des Documents signés en ligne"
+end type
+global w_liste_documents_signes_en_ligne w_liste_documents_signes_en_ligne
+
+on w_liste_documents_signes_en_ligne.create
+int iCurrent
+call super::create
+end on
+
+on w_liste_documents_signes_en_ligne.destroy
+call super::destroy
+end on
+
+event open;call super::open;
+
+em_date_min.setDate(date(year(today()),month(today()),1))
+
+end event
+
+type p_fond from w_liste_documents_attente_signature_en_ligne`p_fond within w_liste_documents_signes_en_ligne
+end type
+
+type cb_fermer from w_liste_documents_attente_signature_en_ligne`cb_fermer within w_liste_documents_signes_en_ligne
+end type
+
+type cb_imprimer from w_liste_documents_attente_signature_en_ligne`cb_imprimer within w_liste_documents_signes_en_ligne
+end type
+
+type cb_autre from w_liste_documents_attente_signature_en_ligne`cb_autre within w_liste_documents_signes_en_ligne
+end type
+
+type cb_ecran from w_liste_documents_attente_signature_en_ligne`cb_ecran within w_liste_documents_signes_en_ligne
+end type
+
+type uo_1 from w_liste_documents_attente_signature_en_ligne`uo_1 within w_liste_documents_signes_en_ligne
+end type
+
+type st_2 from w_liste_documents_attente_signature_en_ligne`st_2 within w_liste_documents_signes_en_ligne
+boolean visible = false
+end type
+
+type sle_pat from w_liste_documents_attente_signature_en_ligne`sle_pat within w_liste_documents_signes_en_ligne
+end type
+
+type rb_tous_pat from w_liste_documents_attente_signature_en_ligne`rb_tous_pat within w_liste_documents_signes_en_ligne
+end type
+
+type rb_un_pat from w_liste_documents_attente_signature_en_ligne`rb_un_pat within w_liste_documents_signes_en_ligne
+end type
+
+type dw_prati from w_liste_documents_attente_signature_en_ligne`dw_prati within w_liste_documents_signes_en_ligne
+end type
+
+type rb_un from w_liste_documents_attente_signature_en_ligne`rb_un within w_liste_documents_signes_en_ligne
+end type
+
+type rb_tous from w_liste_documents_attente_signature_en_ligne`rb_tous within w_liste_documents_signes_en_ligne
+end type
+
+type em_nb from w_liste_documents_attente_signature_en_ligne`em_nb within w_liste_documents_signes_en_ligne
+end type
+
+type gb_4 from w_liste_documents_attente_signature_en_ligne`gb_4 within w_liste_documents_signes_en_ligne
+boolean visible = false
+end type
+
+type gb_2 from w_liste_documents_attente_signature_en_ligne`gb_2 within w_liste_documents_signes_en_ligne
+end type
+
+type gb_1 from w_liste_documents_attente_signature_en_ligne`gb_1 within w_liste_documents_signes_en_ligne
+end type
+
+type em_date_rdv_min from w_liste_documents_attente_signature_en_ligne`em_date_rdv_min within w_liste_documents_signes_en_ligne
+boolean visible = false
+end type
+
+type em_date_rdv_max from w_liste_documents_attente_signature_en_ligne`em_date_rdv_max within w_liste_documents_signes_en_ligne
+boolean visible = false
+end type
+
+type cbx_filtre from w_liste_documents_attente_signature_en_ligne`cbx_filtre within w_liste_documents_signes_en_ligne
+end type
+
+type rb_pas_rdv from w_liste_documents_attente_signature_en_ligne`rb_pas_rdv within w_liste_documents_signes_en_ligne
+boolean visible = false
+end type
+
+type rb_rdv from w_liste_documents_attente_signature_en_ligne`rb_rdv within w_liste_documents_signes_en_ligne
+boolean visible = false
+end type
+
+type em_date_min from w_liste_documents_attente_signature_en_ligne`em_date_min within w_liste_documents_signes_en_ligne
+end type
+
+type st_1 from w_liste_documents_attente_signature_en_ligne`st_1 within w_liste_documents_signes_en_ligne
+end type
+
+type em_date_max from w_liste_documents_attente_signature_en_ligne`em_date_max within w_liste_documents_signes_en_ligne
+end type
+
+type st_3 from w_liste_documents_attente_signature_en_ligne`st_3 within w_liste_documents_signes_en_ligne
+end type
+
+type gb_3 from w_liste_documents_attente_signature_en_ligne`gb_3 within w_liste_documents_signes_en_ligne
+end type
+
+type dw_liste from w_liste_documents_attente_signature_en_ligne`dw_liste within w_liste_documents_signes_en_ligne
+string dataobject = "dw_liste_documents_signes_en_ligne"
+end type
+

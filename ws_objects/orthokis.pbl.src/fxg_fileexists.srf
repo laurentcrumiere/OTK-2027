@@ -1,0 +1,26 @@
+﻿$PBExportHeader$fxg_fileexists.srf
+global type fxg_fileexists from function_object
+end type
+
+forward prototypes
+global function boolean fxg_fileexists (string str_path)
+end prototypes
+
+global function boolean fxg_fileexists (string str_path);// fx qui permet d'éviter un pb génant de compatibiliter entre les dif windows
+// si on fait un file existe sur un rep et que la string passé en param
+// fini par un "\" -> ça fonctionne que sous win 2000/XP
+// donc pour rester compatible avec les autres il y a besoin d'un ptit traitement
+
+boolean	return_boolean
+
+
+if right(str_path,1) = "\" then
+// si chemin fini par un "\" -> on le vire
+	return_boolean = FileExists(left(str_path, len(str_path) -1))
+else
+	return_boolean = FileExists(str_path)
+end if
+
+return return_boolean
+end function
+

@@ -1,0 +1,142 @@
+﻿$PBExportHeader$fxg_isvalid_email.srf
+global type fxg_isvalid_email from function_object
+end type
+
+forward prototypes
+global function boolean fxg_isvalid_email (string email_a_valider)
+end prototypes
+
+global function boolean fxg_isvalid_email (string email_a_valider);Boolean bOK = True  
+String strDomainType  
+String strDomainName  , sEmail
+Integer i  
+string v_raison_invalide
+integer pos1, pos2    
+Constant String sInvalidChars = "!#$%^&*()=+{}[]|\:'/?>,< "  
+  
+  email_a_valider = trim(string_non_nulle(email_a_valider) )
+  
+  if email_a_valider <> "" then
+  
+  	// est ce qu'on a plusieurs adresses séparées par des ;
+	pos1 = 1
+	pos2 = pos(email_a_valider, ";")
+	
+	if pos2 = 0 then
+		pos2 = len(email_a_valider) + 1
+	end if
+	
+	do while pos1 < len(email_a_valider)
+  
+  	  sEmail = trim(mid(email_a_valider , pos1, pos2 - pos1))
+		 
+	  // if there double quote character  
+	  If Pos(sEmail, Char(34)) > 0 Then 
+		bOk = False  
+		v_raison_invalide = "Vous ne devez pas mettre de caractère " + Char(34) + " dans l'adresse."
+	end if
+	  If Left(sEmail,1) = "." Or Right(sEmail,1) = "." Then 
+		bOK = False  
+		v_raison_invalide = "Vous ne devez pas mettre de . en début ou fin d'adresse."
+	end if
+		 
+	  If bOK Then  
+		  // Check for invalid characters.  
+		  If Len(sEmail) > Len(sInvalidChars) Then  
+				For i = 1 To Len(sInvalidChars)  
+					If Pos(sEmail, Mid(sInvalidChars, i, 1)) > 0 Then  
+						  bOK = False  
+							v_raison_invalide = "Les caractères suivants sont interdits dans l'adresse : " + sInvalidChars
+							Exit  
+					End If  
+				Next  
+		  Else  
+				For i = 1 To Len(sEmail)  
+					If Pos(sInvalidChars, Mid(sEmail, i, 1)) > 0 Then  
+						  bOK = False 
+						  v_raison_invalide = "Les caractères suivants sont interdits dans l'adresse : " + sInvalidChars
+						  Exit  
+					End If  
+				Next  
+		  End If  
+			 
+		  If bOK Then  
+			  //Check for an @ symbol  
+			  If Pos(sEmail, "@") > 1 Then   
+				if Len(Left(sEmail, Pos(sEmail, "@", 1) - 1)) > 0 then
+						bOK = True
+				else
+					bOK =	False  
+					v_raison_invalide = "Vous devez avoir des caratères avant le @ dans l'adresse."
+				end if
+			  Else  
+					bOk = False  
+					v_raison_invalide = "Vous devez avoir un caractère @ dans l'adresse."
+			  End If  
+		 
+			  If bOK Then  
+				  //Check to see if there are too many @'s  
+				  sEmail = Right(sEmail, Len(sEmail) - Pos(sEmail, "@"))  
+			 if Pos(sEmail, "@") > 0 then
+				bOK = False
+				v_raison_invalide = "Vous devez avoir un seul caractère @ dans l'adresse."
+			else
+				bOK = True
+			end if
+				  
+		 
+		 
+				  If bOK Then  
+					  strDomainType = Right(sEmail, Len(sEmail) - Pos(sEmail, "."))
+				
+					if Len(strDomainType) > 0 And Pos(sEmail, ".") < Len(sEmail) then
+						bOK = true
+					else
+						bOK = false
+						v_raison_invalide = "Le nom de domaine (après le @) doit contenir un ."
+					end if
+				  
+		 
+					  If bOK Then  
+						  sEmail = Left(sEmail, Len(sEmail) - Len(strDomainType) - 1)  
+						  Do Until Pos(sEmail, ".") <= 1  
+								If Len(sEmail) >= Pos(sEmail, ".") Then  
+									sEmail = Left(sEmail, Len(sEmail) - (Pos(sEmail, ".") - 1))  
+								Else  
+									v_raison_invalide = "Le nom de domaine " + strDomainType +" n'est pas valide."
+								 	 bOK = False  
+									Exit  
+								End If  
+						  Loop  
+						  If bOK Then  
+							  If sEmail = "." Or Len(sEmail) = 0 Then 
+								bOK = False  
+								v_raison_invalide = "Le nom de domaine " + strDomainType +" n'est pas valide."
+							end if
+
+						  End If  
+					  End If  
+				  End If  
+			  End If  
+		  End If  
+	  End If  
+	  if not bok then
+		  Messagebox("ATTENTION", email_a_valider + " n'est pas une adresse mail valide !~n~n" + v_raison_invalide)
+	end if
+	
+		pos1 = pos2 + 1
+		pos2 = pos(email_a_valider, ";" , pos1)
+		
+		if pos2 = 0 then
+			pos2 = len(email_a_valider) - pos2 + 1
+		end if
+
+	
+	loop 
+	
+end if
+ Return bOk  
+
+
+end function
+

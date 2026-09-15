@@ -1,0 +1,55 @@
+﻿$PBExportHeader$tracer_points.srf
+global type tracer_points from function_object
+end type
+
+forward prototypes
+global subroutine tracer_points (long code_patient, long code_radio, long code_trace, picture image, real resolution_x, real resolution_y, real pourcentage)
+end prototypes
+
+global subroutine tracer_points (long code_patient, long code_radio, long code_trace, picture image, real resolution_x, real resolution_y, real pourcentage);// Variables
+
+
+double x,y
+string visible
+long couleur,epaisseur, couleur_point
+
+// Recherche de la couleur de tracé des droites
+SELECT couleur_point, epaisseur_point into :couleur, :epaisseur from traces where code_trace = :code_trace and code_patient = :code_patient 
+and code_radio = :code_radio using t_Odrade  ;
+
+
+// Recherche des points dans la base ...
+
+
+// LISTE DES POINTS DU TRACE
+DECLARE cur_points CURSOR FOR 
+Select x, y,visible, couleur  from points_traces where code_patient = :code_patient and code_radio = :code_radio and code_trace = :code_trace 
+order by code_point_trace using t_Odrade ;
+
+
+	open cur_points ;
+	fetch cur_points into :x, :y, :visible, :couleur_point;
+	
+	// Parcours de tous les points du tracé
+	do while t_Odrade.sqlcode = 0
+		
+		if upper(visible) = 'OUI' then
+			x= x * resolution_x * pourcentage /100
+			y = y * resolution_y * pourcentage / 100
+		
+			if couleur_point = -1 then
+				dessiner_point(x,y,epaisseur,couleur,image)
+			else
+				dessiner_point(x,y,epaisseur,couleur_point,image)
+			end if
+		end if
+		
+		fetch cur_points into :x, :y, :visible, :couleur_point ;
+	loop
+	
+	close cur_points ;
+
+
+
+end subroutine
+

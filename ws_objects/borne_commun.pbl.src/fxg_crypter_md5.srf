@@ -1,0 +1,31 @@
+﻿$PBExportHeader$fxg_crypter_md5.srf
+global type fxg_crypter_md5 from function_object
+end type
+
+forward prototypes
+global function string fxg_crypter_md5 (string s_chaine_a_crypter)
+end prototypes
+
+global function string fxg_crypter_md5 (string s_chaine_a_crypter);
+Blob lblb_data
+Blob lblb_md5
+String s_chaine_cryptee
+
+lblb_data = Blob(s_chaine_a_crypter, EncodingANSI!)
+
+CrypterObject lnv_CrypterObject
+lnv_CrypterObject = Create CrypterObject
+
+// Encrypt with MD5
+lblb_md5 = lnv_CrypterObject.MD5(lblb_data)
+
+Coderobject lnv_code
+Lnv_code = create coderobject
+
+//Encode the MD5 blob data to be hex data and output as a string
+s_chaine_cryptee = lower(lnv_code.hexencode(lblb_md5))
+
+
+return s_chaine_cryptee
+end function
+

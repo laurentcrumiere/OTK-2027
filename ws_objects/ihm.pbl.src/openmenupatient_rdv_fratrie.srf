@@ -1,0 +1,45 @@
+﻿$PBExportHeader$openmenupatient_rdv_fratrie.srf
+global type openmenupatient_rdv_fratrie from function_object
+end type
+
+forward prototypes
+global function integer openmenupatient_rdv_fratrie (datawindow dw_clic, window w_clic)
+end prototypes
+
+global function integer openmenupatient_rdv_fratrie (datawindow dw_clic, window w_clic);
+// FONCTION IDENTIQUE A OpenMenuPatient sauf qu'on prend le code du patient dans une DataWindows ( liste)
+
+//fx globale qui crée un popup menu de type "m_patientcourant"
+//renvoie 1 si ok
+//renvoie -1 si un pb ds la gestion des droits
+
+m_patientcourant m
+double v_code
+
+v_code = dw_clic.getitemnumber(dw_clic.getrow(),"code")
+
+if  v_code > 0 then 
+
+	//création du menu en mémoire
+	m = create m_patientcourant
+	
+	//maj des droits
+	if m.gestion_des_droits() <> 1 then return -1
+	
+	//passe le code du patient qui nous interresse et lance le menu en popup
+	m.CodePatientCourant = v_code
+	m.dw_clic = dw_clic
+	m.PopMenu(dw_clic.pointerX(), dw_clic.pointerY())
+	
+	//supression du menu de la mémoire
+	destroy m
+
+else
+	MessageBox("ATTENTION !","Ce patient est un patient provisoire non validé dans Orthokis !~n~nVous allez accéder à la fenêtre de validation.")
+	openwithparm(w_patient_fusion_doctolib,  v_code )
+end if
+//si ok
+return 1
+
+end function
+

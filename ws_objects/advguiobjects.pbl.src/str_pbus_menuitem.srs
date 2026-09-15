@@ -1,0 +1,22 @@
+﻿$PBExportHeader$str_pbus_menuitem.srs
+global type str_pbus_menuitem from structure
+	string		image
+	long		imageindex
+	boolean		isseparator
+	string		text
+	boolean		enabled
+	boolean		visible
+	menu		menu
+	point		cords[]
+	boolean		haschildren
+	boolean		isexpanded
+	integer		textheight
+	integer		level
+	unsignedlong		textcolor
+	unsignedlong		backcolor
+	boolean		mouseover
+	boolean		selected
+	integer		index
+	boolean		focused
+end type
+

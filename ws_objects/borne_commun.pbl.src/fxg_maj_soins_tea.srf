@@ -1,0 +1,24 @@
+﻿$PBExportHeader$fxg_maj_soins_tea.srf
+global type fxg_maj_soins_tea from function_object
+end type
+
+forward prototypes
+global subroutine fxg_maj_soins_tea (double v_code, double v_cle, string v_action)
+end prototypes
+
+global subroutine fxg_maj_soins_tea (double v_code, double v_cle, string v_action);// On utilise uo_patient_mon_orthondiste car tout est regroupé dedans
+
+boolean retour 
+
+uo_patient_mon_orthodontiste uo_1
+
+
+uo_1 = create uo_patient_mon_orthodontiste
+
+uo_1.maj_soins_tea(v_code, v_cle, v_action)
+
+destroy uo_1
+
+
+end subroutine
+

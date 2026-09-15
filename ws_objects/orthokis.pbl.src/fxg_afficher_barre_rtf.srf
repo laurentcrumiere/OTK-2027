@@ -1,0 +1,13 @@
+﻿$PBExportHeader$fxg_afficher_barre_rtf.srf
+global type fxg_afficher_barre_rtf from function_object
+end type
+
+forward prototypes
+global subroutine fxg_afficher_barre_rtf ()
+end prototypes
+
+global subroutine fxg_afficher_barre_rtf ();
+// Pour déclencher le barre RTF sur un clic droit par exemple ... envoi de CTRL + ALT + D
+of_keystroke(VK_CONTROL, VK_ALT,  asc("D"))
+end subroutine
+

@@ -1,0 +1,7 @@
+﻿$PBExportHeader$str_pbus_primarytable.srs
+global type str_pbus_primarytable from structure
+	string		tablename
+	string		aliasname
+	str_pbus_secondarytable		secondarytables[]
+end type
+

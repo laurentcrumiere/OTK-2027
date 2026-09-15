@@ -1,0 +1,19 @@
+﻿$PBExportHeader$str_patient.srs
+global type str_patient from structure
+	double		code		descriptor "comment" = "code interne du patient"
+	string		appelant		descriptor "comment" = "code de l'appelant de la fenêtre => induit de l'IHM"
+	string		nom
+	string		prenom
+	date		date_naissance
+	string		code_postal
+	string		ville
+	string		contact
+	string		type_contact		descriptor "comment" = "1 : parent1, 2 : parent2, P : Payeur"
+	integer		desti		descriptor "comment" = "destinataire en cas de emailing (0 : patient, 1 : parent 1)"
+	integer		aleatoire		descriptor "comment" = "nombre aléatoire pour fichiers temporaires"
+	string		fichiers_en_pj[]		descriptor "comment" = "pour envoi de pieces jointes additionnelles par mail - images"
+	string		type_rdv		descriptor "comment" = "utile pour un ticket de rdv par email"
+	string		type_fichiers
+	string		fichiers_documents_en_pj[]		descriptor "comment" = "pour envoi de pieces jointes additionnelles par mail - documents"
+end type
+

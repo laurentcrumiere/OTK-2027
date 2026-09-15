@@ -1,0 +1,41 @@
+﻿$PBExportHeader$fxg_premier_plan.srf
+global type fxg_premier_plan from function_object
+end type
+
+forward prototypes
+global subroutine fxg_premier_plan (string v_process)
+end prototypes
+
+global subroutine fxg_premier_plan (string v_process);// mettre au premier plan le process passé en parametre
+
+string soft_ToFront
+long sleep_time 
+
+soft_ToFront = dir_ini + "tofront.exe"
+
+if FileExists ( soft_ToFront ) then
+	run ( soft_ToFront + " " + v_process )
+	// attente seconde pour être sur que
+	sleep_time = long( profilestring(dir_ini+inifile_orthokis,"Communication","sleep_time","1000") )
+	sleep (sleep_time)
+end if
+
+
+//constant integer SW_RESTORE = 9
+//constant integer SW_MINIMIZE = 6
+//
+//long handle
+//
+//handle =long(v_process)
+//
+//if (IsIconic(handle)) then
+//     ShowWindow(handle, SW_RESTORE)
+//else
+//     ShowWindow(handle, SW_MINIMIZE)
+//     ShowWindow(handle, SW_RESTORE)
+//end if
+//
+//SetForegroundWindow(handle)
+//
+end subroutine
+

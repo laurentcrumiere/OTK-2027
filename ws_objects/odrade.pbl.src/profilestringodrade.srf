@@ -1,0 +1,42 @@
+﻿$PBExportHeader$profilestringodrade.srf
+global type profilestringodrade from function_object
+end type
+
+forward prototypes
+global function string profilestringodrade (string fichier, string section)
+end prototypes
+
+global function string profilestringodrade (string fichier, string section);// Recherche d'une clef dans le fichier ODRADE.INI
+// Ne respecte pas la syntaxe ds fichiers ini => A la mimine
+				
+long num_file
+string ligne
+boolean suivant, trouve
+
+string valeur_trouvee
+
+suivant = false
+trouve = false
+
+
+num_file = fileopen(fichier,linemode!,read!,Shared! )
+
+
+do while fileread(num_file,ligne) <> -1 and not trouve 
+	
+	if suivant then
+		trouve = true
+		valeur_trouvee = ligne
+	else
+		if upper(ligne) = "["+upper(section)+"]" then
+			suivant = true
+		end if
+	end if
+loop
+
+
+fileClose(num_file)
+
+return valeur_trouvee
+end function
+

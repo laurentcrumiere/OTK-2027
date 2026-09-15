@@ -1,0 +1,62 @@
+﻿$PBExportHeader$loadddlbphoto.srf
+global type loadddlbphoto from function_object
+end type
+
+forward prototypes
+global function integer loadddlbphoto (ref dropdownlistbox ddlb, string numpatient)
+end prototypes
+
+global function integer loadddlbphoto (ref dropdownlistbox ddlb, string numpatient);string	nbr_du_nom
+int		n
+int		lg_tab_photos
+string	description_a_charger
+int		i , nbrTotCadre
+boolean	trouve
+int		parDefault = 1
+string	pathRepPhoto
+string	pathFichierPhoto
+
+
+SetPointer ( HourGlass! )
+
+lg_tab_photos = integer(profilestring(dir_photos + inifile_photo, section, "nbr_photos","1"))
+
+
+pathRepPhoto = fxg_get_rep_photos()
+if pathRepPhoto <> "" then
+// si rep photo bien récup
+
+	for n=1 to lg_tab_photos
+		nbr_du_nom = num_nom_photo(n)
+		description_a_charger = profilestring(dir_photos + inifile_photo, section, "ole_nom_photo" + nbr_du_nom,"")
+		ddlb.AddItem(description_a_charger)
+		
+		// tente de détecter le premier cadre de libre pour acquisistion
+		// ex : si cadre 1 , 2 , 3 , 6 et 7 de pris --> l'algo proposera le cadre 4
+			nbrTotCadre  = integer ( profilestring ( pathRepPhoto + inifile_photo , section , "nbr_photos", "" ) )
+			
+			do while not trouve and i < nbrTotCadre
+				i++
+				pathFichierPhoto = pathRepPhoto + numPatient + win_delimiter + profilestring ( pathRepPhoto + inifile_photo , section , "ole_photo" +  num_nom_photo( i ) , "" )
+				if not FileExists ( pathFichierPhoto ) then trouve = true
+			loop
+			
+			if trouve then parDefault =  i
+		
+	next
+
+
+else
+	// impossible de récup le path photo --> msg d'erreur
+	messagebox ( "ERREUR" , "Votre répertoire photo doit être mal indiqué, ~nveuillez y remédier pour le bon fonctionnement de l'acquisition.")
+end if
+
+// on affiche par defaut ce qu'il faut ..
+ddlb.SelectItem( parDefault )
+
+SetPointer ( Arrow! )
+
+// pas de gestion d'erreur
+return 1
+end function
+

@@ -1,0 +1,101 @@
+﻿$PBExportHeader$fxg_envoyer_sms_inscription_mon_orthodontiste.srf
+global type fxg_envoyer_sms_inscription_mon_orthodontiste from function_object
+end type
+
+forward prototypes
+global subroutine fxg_envoyer_sms_inscription_mon_orthodontiste (double db_code_patient, string s_type)
+end prototypes
+
+global subroutine fxg_envoyer_sms_inscription_mon_orthodontiste (double db_code_patient, string s_type);// envoi un sms d'sincprion à mon ortho dontistye pour un patient données
+
+// selon s_type 
+// - P = Patient
+// - P11 = Portable 1 du parent 1
+// - P12 = Portable 2 du parent 1
+// - P21 = Portable 1 du parent 2
+// - P21 = Portable 2 du parent 2
+// - PA1 = Portable 1 du payeur
+// - PA2 = Portable 2 du payeur
+
+w_patience w_patience_locale
+
+open(w_patience_locale)
+
+string s_numero_portable, s_nom, s_prenom, s_pays, s_date_naissance
+date d_date_naissance
+integer i_indicatif
+string s_indicatif, s_commande
+
+// Infos communes
+select  nom, prenom, date_naissance 
+into :s_nom, :s_prenom, :d_date_naissance  
+from patient
+where code = :db_code_patient ;
+
+s_date_naissance = string(d_date_naissance, "yyyy-mm-dd")
+
+// Récupération des infos pays selon s_type
+
+choose case s_type
+		
+	case "P"
+		// patient 
+		select  portable_patient, pays_parent1 	
+		into  :s_numero_portable, :s_pays 
+		from patient where code = :db_code_patient ;
+	case "P11"
+		// parent 1 - 1
+		select  portable, pays_parent1 	
+		into  :s_numero_portable, :s_pays 
+		from patient where code = :db_code_patient ;
+	case "P12"
+		// parent 1 - 2
+		select  portable2_parent1, pays_parent1 	
+		into  :s_numero_portable, :s_pays 
+		from patient where code = :db_code_patient ;
+	case "P21"
+		// parent 2 - 1
+		select  portable1_parent2, pays_parent2 	
+		into  :s_numero_portable, :s_pays 
+		from patient where code = :db_code_patient ;
+	case "P22"
+		// parent 1 - 2
+		select  portable2_parent2, pays_parent2 	
+		into  :s_numero_portable, :s_pays 
+		from patient where code = :db_code_patient ;
+
+	case "PA1"
+		// payeur -  1
+		select  portable1_payeur, pays_parent2 	
+		into  :s_numero_portable, :s_pays 
+		from patient where code = :db_code_patient ;
+	case "PA2"
+		// payeur - 2
+		select  portable2_payeur, pays_parent2 	
+		into  :s_numero_portable, :s_pays 
+		from patient where code = :db_code_patient ;
+
+end choose
+
+
+// Recherche des infos du pays
+select isnull(indicatif_international, 0) into :i_indicatif from pays where code = :s_pays ;
+
+if i_indicatif = 0 then
+	s_indicatif = ""
+else
+	s_indicatif = "00" + string(i_indicatif)
+end if
+
+s_numero_portable = trim(s_numero_portable)
+
+if messagebox("Confirmation","Vous allez envoyer un SMS  au numero " + s_numero_portable+ ".~n~nConfirmez-vous ?", Question!, YesNo!, 2) = 1 then
+	s_commande = "messagesms/envoiSmsConnexion?country_code=" + s_indicatif + "&numero=" + s_numero_portable + "&nom=" + s_nom + "&prenom=" + s_prenom + "&date_naissance=" + s_date_naissance + "&serial=" + SERIAL 
+	if fxg_lancer_commande_myorthokis_simple(s_commande , false, "A" ) then
+		MessageBox("INFORMATION","Le SMS a été correctement envoyé !")
+	end if
+end if
+
+close(w_patience_locale)
+end subroutine
+

@@ -1,0 +1,8 @@
+﻿$PBExportHeader$str_inputbox.srs
+global type str_inputbox from structure
+	string		w_titre		descriptor "comment" = "Titre de la fenêtre input"
+	string		w_question		descriptor "comment" = "Question posée"
+	string		w_reponse		descriptor "comment" = "Réponse par défaut"
+	boolean		is_fichier		descriptor "comment" = "Est ce un nom de fichier ... si oui, il y aura des restrictions sur le nom saisi"
+end type
+

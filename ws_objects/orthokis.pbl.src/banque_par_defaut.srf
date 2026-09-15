@@ -1,0 +1,27 @@
+﻿$PBExportHeader$banque_par_defaut.srf
+global type banque_par_defaut from function_object
+end type
+
+forward prototypes
+global function string banque_par_defaut (string v_code_praticien, string v_mode_reglement)
+end prototypes
+
+global function string banque_par_defaut (string v_code_praticien, string v_mode_reglement);// Renvoie la banque par défaut selon le praticien et le mode de règlement 
+string v_code_banque
+
+
+
+
+// recherche dans la table spéciale ...
+select isnull(banque,'') into :v_code_banque from prati_banque_mode where praticien = :v_code_praticien and mode_reglement = :v_mode_reglement ;
+
+if v_code_banque = '' then
+
+	// Banque défaut de la fiche praticien
+	select banque into :v_code_banque from prati where code = :v_code_praticien ;
+	
+end if
+
+return v_code_banque ;
+end function
+

@@ -1,0 +1,66 @@
+﻿$PBExportHeader$verif_premier_rdv_x_jour_avant_16.srf
+global type verif_premier_rdv_x_jour_avant_16 from function_object
+end type
+
+forward prototypes
+global function boolean verif_premier_rdv_x_jour_avant_16 (datetime rdv_saisi, double var_code_local)
+end prototypes
+
+global function boolean verif_premier_rdv_x_jour_avant_16 (datetime rdv_saisi, double var_code_local);// Vérifie si un patient à plusieurs rdv le meme jour
+
+//retourne : Ok ou 
+
+boolean ok_enregistrer = true
+integer nb1 = 0
+datetime rdv_autre
+long nb_jours
+date v_date_16_ans, v_date_naissance
+string v_adulte
+
+
+
+// est qu'on doit tester
+select top 1 alerte_nb_jours_avant_16_ans into :nb_jours from param ;
+
+if nb_jours > 0 then
+	// On doit tester
+
+	date v_date_prem
+	
+	// Vraie date de première visite !!
+	select  min(cast(rdv as date)) into :v_date_prem from rdv, etat_rdv  where rdv.code = :var_code_local and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda <> 'O'  ;
+	
+	if isnull(v_date_prem) then
+		v_date_prem = date(rdv_saisi)
+	end if
+		
+	
+	if v_date_prem > today() then
+		
+		// Calcule des 16 ans du patient (15 ans en belgique)
+		select date_naissance, adulte into :v_date_naissance , :v_adulte from patient where code = :var_code_local ;
+		
+		if not isnull(v_date_naissance) and v_adulte = "N" then 
+			
+			integer v_age_legal
+			if Belgique then 
+				v_age_legal = 15
+			else
+				v_age_legal = 16
+			end if
+	
+			v_date_16_ans = date(year(v_date_naissance) + v_age_legal , month(v_date_naissance), day(v_date_naissance))
+			
+			if 0 <= daysafter(v_date_prem, v_date_16_ans) and daysafter(v_date_prem, v_date_16_ans) <= nb_jours  then
+				if Messagebox("ATTENTION", "La date de 1ère Viste de ce patient aura le lieu le " + string(v_date_prem) + " soit " + string(daysafter(v_date_prem, v_date_16_ans)) + " jours avant ses " + string(v_age_legal) + " ans (" + string(v_date_16_ans) +").~n~nConfirmez-vous ?", Question!, YesNo!, 2) = 2 then
+					ok_enregistrer = false
+				end if
+			end if
+		end if
+	end if
+end if
+
+return ok_enregistrer
+
+end function
+

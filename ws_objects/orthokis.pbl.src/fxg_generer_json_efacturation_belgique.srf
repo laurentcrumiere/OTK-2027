@@ -1,0 +1,360 @@
+﻿$PBExportHeader$fxg_generer_json_efacturation_belgique.srf
+global type fxg_generer_json_efacturation_belgique from function_object
+end type
+
+forward prototypes
+global function string fxg_generer_json_efacturation_belgique (string v_code_praticien, string v_code_oa, integer v_numero_envoi, date v_date_envoi)
+end prototypes
+
+global function string fxg_generer_json_efacturation_belgique (string v_code_praticien, string v_code_oa, integer v_numero_envoi, date v_date_envoi);
+
+// Génération du fichier Json correspondant à un envoi de facture
+// -------------------------------------------------------------------------------
+
+string nom_fichier_json
+string v_numero_tiers_payant, v_code_profession_tiers_payant, v_numero_bce , v_reference_etablissement, v_bic, v_iban, v_nom, v_prenom, v_telephone, v_sexe, v_niss, v_codes_titulaires, v_affiliation, v_causes
+string v_etablissement_de_sejour, v_levee_delai_de_prescription, v_type_facturation
+
+string v_norme_prestation, v_code_nomenclature, v_prestation_relative, v_lieu_prestation
+string v_heures_non_ouvrees, v_identification_prestataire, v_prestataire_conventionne, v_norme_prescripteur, v_identification_prescripteur, v_derogation
+string v_norme_dispensateur, v_dispensateur_auxiliaire, v_prescription_de_renvoi_electronique 
+string v_code_facturation_intervention_personnelle, v_numero_engagement, v_dent
+date v_date_prestation, v_date_prescription, v_date_engagement
+decimal{2} v_intervention_assurance, v_intervention_personnelle
+boolean b_levee_delai_de_prescription
+string v_identite_type_saisie, v_identite_type_support, v_identite_raison_encodage_manuel , v_identite_raison_utilisation_vignette, v_identite_numero_serie_support, v_numero_document_justificatif
+datetime v_identite_date_heure_lecture
+
+string ls_oa_destination_facture
+
+Long ll_RootObject, ll_compte, ll_contact, ll_factures, ll_facture_item, ll_facture_patient, ll_prestations, ll_prestation_item, ll_dispensateur, ll_prescription, ll_engagement_tarif, ll_lecture_identite, ll_saisie_identite, ll_support_identite, ll_lecture
+long v_numero_facture, v_numero_facture_precedente, v_numero_envoi_precedent
+string v_mutualite_precedente
+integer v_annee_facture_precedente, v_mois_facture_precedente
+
+date v_date_facture
+double v_code_patient , v_cle ;
+string v_type_facture
+
+string tab_exo_record52[]
+string v_code_a_exam
+integer tot_tab_exo_record52, i_tab_exo_record52
+boolean a_exempter
+
+// liste des code de soins qui exemptent de record 52
+ tab_exo_record52[] = {"309411", "309433,", "379411", "379433", "305572", "305911", "384016" , "384031", "384053"}
+ tot_tab_exo_record52 = upperbound(tab_exo_record52)
+ 
+
+nom_fichier_json = dir_ini + "envoi-" + v_code_oa + "-" + v_code_praticien  + "-" + string(year(v_date_envoi))+"-" + string(v_numero_envoi)+".json"
+
+// Factures
+declare cur_efacture cursor for select ligne_envoi_efacture_belgique.numero_facture, date_facture, sexe, niss, codes_titulaires, code_oa_affiliation , 
+cause_traitement,   isnull(etablissement_de_sejour, ''), levee_delai_de_prescription, isnull(type_facturation, '') , code_patient, 
+isnull(identite_type_saisie, ''), isnull(identite_type_support, ''), isnull(identite_raison_encodage_manuel, '') , isnull(identite_raison_utilisation_vignette, ''), 
+isnull(identite_numero_serie_support, ''), isnull(numero_document_justificatif,''), identite_date_heure_lecture, 
+isnull(efacture_belgique.type_facture,'F'), numero_facture_precedente, numero_envoi_precedent, mutualite_precedente, annee_facture_precedente, mois_facture_precedente
+
+from ligne_envoi_efacture_belgique, efacture_belgique 
+where ligne_envoi_efacture_belgique.code_praticien = :v_code_praticien and ligne_envoi_efacture_belgique.code_oa = :v_code_oa and 
+ligne_envoi_efacture_belgique.numero_envoi = :v_numero_envoi and ligne_envoi_efacture_belgique.date_envoi = :v_date_envoi and 
+ligne_envoi_efacture_belgique.numero_facture = efacture_belgique.numero_facture and ligne_envoi_efacture_belgique.type_facture = efacture_belgique.type_facture 
+order by efacture_belgique.code_oa_affiliation,  efacture_belgique.numero_facture  ;
+
+// Lignes de factures
+declare cur_ligne_efacture cursor for select cle , isnull(norme_prestation, '') , code_nomenclature, isnull(prestation_relative, ''), date_prestation, isnull(lieu_prestation, ''), 
+isnull(heures_non_ouvrees, '0'), isnull(identification_prestataire, '') , isnull(prestataire_conventionne, '') , isnull(norme_prescripteur, ''), isnull(identification_prescripteur, '') , date_prescription ,
+isnull(derogation, ''), isnull(code_facturation_intervention_personnelle, '1'), isnull(montant_rembourse_oa,0),  isnull(intervention_personnelle, 0), 
+isnull(numero_engagement_tarif, '') , date_engagement_tarif, isnull(dent, ''), isnull(norme_dispensateur, '1') , isnull(dispensateur_auxiliaire, ''), isnull(prescription_de_renvoi_electronique, '')
+from ligne_efacture_belgique 
+where ligne_efacture_belgique.numero_facture = :v_numero_facture   and ligne_efacture_belgique.type_facture = :v_type_facture  ;
+
+
+
+
+
+JsonGenerator lnv_JsonGenerator
+lnv_JsonGenerator = Create JsonGenerator
+
+ll_RootObject = lnv_JsonGenerator.CreateJsonObject()
+
+
+if ll_RootObject <> -1 then
+ 
+	lnv_JsonGenerator.AddItemString ( ll_RootObject, "origine", "OTK" + SERIAL )
+ 	lnv_JsonGenerator.AddItemString ( ll_RootObject, "organisme_assureur", v_code_oa )
+ 	lnv_JsonGenerator.AddItemString ( ll_RootObject, "numero", fxg_complete_zero_gauche(string(v_numero_envoi),3) )
+
+ 	select numero_tiers_payant, code_profession_tiers_payant, numero_bce , reference_etablissement, bic, iban,  nom_contact, prenom_contact, telephone_contact
+	 into :v_numero_tiers_payant, :v_code_profession_tiers_payant, :v_numero_bce , :v_reference_etablissement, :v_bic, :v_iban,  :v_nom, :v_prenom, :v_telephone
+	from envoi_efacture_belgique 
+	where code_praticien = :v_code_praticien and code_oa = :v_code_oa and numero_envoi = :v_numero_envoi and date_envoi = :v_date_envoi ;
+ 
+ 	lnv_JsonGenerator.AddItemString ( ll_RootObject, "tiers_payant", v_numero_tiers_payant )
+  	lnv_JsonGenerator.AddItemString ( ll_RootObject, "code_profession_tiers_payant", v_code_profession_tiers_payant )
+	lnv_JsonGenerator.AddItemString ( ll_RootObject, "numero_bce", v_numero_bce )
+ 	lnv_JsonGenerator.AddItemString ( ll_RootObject, "reference_etablissement", v_reference_etablissement )
+
+ 	ll_compte = lnv_JsonGenerator.AddItemObject ( ll_RootObject, "compte_bancaire" )
+ 	lnv_JsonGenerator.AddItemString ( ll_compte, "bic", v_bic )
+ 	lnv_JsonGenerator.AddItemString ( ll_compte, "iban", v_iban )
+
+ 	ll_contact = lnv_JsonGenerator.AddItemObject ( ll_RootObject, "contact" )
+ 	lnv_JsonGenerator.AddItemString ( ll_contact, "nom", v_nom )
+ 	lnv_JsonGenerator.AddItemString ( ll_contact, "prenom", v_prenom)
+ 	lnv_JsonGenerator.AddItemString ( ll_contact, "telephone", v_telephone )
+
+
+	// parcours des factures 
+	ll_factures = lnv_JsonGenerator.AddItemArray ( ll_RootObject, "factures" )
+
+	open cur_efacture ;
+	fetch cur_efacture  into :v_numero_facture, :v_date_facture, :v_sexe, :v_niss, :v_codes_titulaires,  :v_affiliation, :v_causes, :v_etablissement_de_sejour, :v_levee_delai_de_prescription, 
+	:v_type_facturation, :v_code_patient , :v_identite_type_saisie, :v_identite_type_support, :v_identite_raison_encodage_manuel , :v_identite_raison_utilisation_vignette, :v_identite_numero_serie_support, :v_numero_document_justificatif, 
+	:v_identite_date_heure_lecture,  :v_type_facture, :v_numero_facture_precedente, :v_numero_envoi_precedent, :v_mutualite_precedente, :v_annee_facture_precedente, :v_mois_facture_precedente ;
+
+	do while sqlca.sqlcode = 0
+		
+
+		ll_facture_item = lnv_JsonGenerator.AddItemObject ( ll_factures)
+//		ll_facture_item = lnv_JsonGenerator.AddItemObject ( ll_facture_item, "facture")
+ 		lnv_JsonGenerator.AddItemstring ( ll_facture_item, "numero", fxg_complete_zero_gauche( string(v_numero_facture), 12) )
+ 		lnv_JsonGenerator.AddItemstring ( ll_facture_item, "date_facture", string(v_date_facture, "yyyy-mm-dd") )
+
+		ll_facture_patient = lnv_JsonGenerator.AddItemObject(ll_facture_item, "patient")
+ 		lnv_JsonGenerator.AddItemstring ( ll_facture_patient, "numero", v_niss )
+ 		lnv_JsonGenerator.AddItemstring ( ll_facture_patient, "sexe", v_sexe )
+ 		lnv_JsonGenerator.AddItemstring ( ll_facture_patient, "codes_titulaire", v_codes_titulaires )
+ 		lnv_JsonGenerator.AddItemstring ( ll_facture_patient, "affiliation", v_affiliation )
+		 
+ 		lnv_JsonGenerator.AddItemstring ( ll_facture_item, "cause_du_traitement", v_causes )
+		
+		select top 1 code_oa_destination into :ls_oa_destination_facture from efacture_belgique where numero_facture = :v_numero_facture ;
+
+		 
+ 		lnv_JsonGenerator.AddItemstring ( ll_facture_item, "destination", ls_oa_destination_facture )
+
+		if v_etablissement_de_sejour <> '' then
+	 		lnv_JsonGenerator.AddItemstring ( ll_facture_item, "etablissement_de_sejour", v_etablissement_de_sejour )
+		end if
+		
+		
+		
+		if upper( v_levee_delai_de_prescription ) = 'O' then 
+			b_levee_delai_de_prescription =  true
+		else
+			b_levee_delai_de_prescription = false
+		end if
+	
+ 		lnv_JsonGenerator.AddItemBoolean ( ll_facture_item, "levee_delai_de_prescription", b_levee_delai_de_prescription)
+		 
+		 lnv_JsonGenerator.AddItemstring ( ll_facture_item, "type_facturation", v_type_facturation )
+		
+		if v_type_facture = 'N' then
+			// Note de crédit .. il faut des élements en +
+			lnv_JsonGenerator.AddItemstring ( ll_facture_item, "facture_precedente", fxg_complete_zero_gauche( string(v_numero_facture_precedente), 12) )
+			lnv_JsonGenerator.AddItemstring ( ll_facture_item, "envoi_precedent", fxg_complete_zero_gauche( string(v_numero_envoi_precedent), 3) )
+			lnv_JsonGenerator.AddItemstring ( ll_facture_item, "mutualite_precedente", v_mutualite_precedente )
+			lnv_JsonGenerator.AddItemstring ( ll_facture_item, "annee_mois_precedents", string(v_annee_facture_precedente ) + fxg_complete_zero_gauche( string(v_mois_facture_precedente), 2) )
+		end if
+		 
+		 
+		// Parcours des prestation
+		
+		//ll_prestations, ll_prestation_item
+		ll_prestations = lnv_JsonGenerator.AddItemArray ( ll_facture_item, "prestations" )
+		
+		open cur_ligne_efacture ;
+		fetch cur_ligne_efacture  into :v_cle, :v_norme_prestation, :v_code_nomenclature, :v_prestation_relative, :v_date_prestation, :v_lieu_prestation, 
+		:v_heures_non_ouvrees, 	:v_identification_prestataire, :v_prestataire_conventionne , :v_norme_prescripteur, :v_identification_prescripteur , :v_date_prescription ,
+		:v_derogation, :v_code_facturation_intervention_personnelle, :v_intervention_assurance, :v_intervention_personnelle ,
+		:v_numero_engagement, :v_date_engagement, :v_dent, :v_norme_dispensateur, :v_dispensateur_auxiliaire, :v_prescription_de_renvoi_electronique ;
+
+
+		do while sqlca.sqlcode = 0
+			
+			
+			ll_prestation_item = lnv_JsonGenerator.AddItemObject ( ll_prestations)
+			
+			lnv_JsonGenerator.AddItemString ( ll_prestation_item, "norme", v_norme_prestation )
+			lnv_JsonGenerator.AddItemString ( ll_prestation_item, "code_nomenclature", v_code_nomenclature )
+			if v_prestation_relative <> "" then
+				lnv_JsonGenerator.AddItemString ( ll_prestation_item, "prestation_relative", v_prestation_relative )
+			end if
+			
+			// Dents
+			if v_dent <> "" then
+				lnv_JsonGenerator.AddItemString ( ll_prestation_item, "dent", v_dent )
+			end if
+			
+			lnv_JsonGenerator.AddItemString ( ll_prestation_item, "date_realisation", string(v_date_prestation, "yyyy-mm-dd") )
+			if v_lieu_prestation <> "" then 
+				lnv_JsonGenerator.AddItemString ( ll_prestation_item, "lieu_prestation", v_lieu_prestation )
+			end if
+			lnv_JsonGenerator.AddItemString ( ll_prestation_item, "heures_non_ouvrees", v_heures_non_ouvrees )
+
+			ll_dispensateur = lnv_JsonGenerator.AddItemObject(ll_prestation_item, "dispensateur")
+			lnv_JsonGenerator.AddItemString ( ll_dispensateur, "identification", v_identification_prestataire )
+			lnv_JsonGenerator.AddItemString ( ll_dispensateur, "conventionne", v_prestataire_conventionne )
+			
+			// Géré en dur pour l'instant
+			// "1" -> Prestation pouvant etre affectée au dispensateur unique qui l'a effectuée.
+			// "2" -> Prestation attestée par un praticien de l'art dentaire / stomatologue, mais effectuée par un hygiéniste bucco-dentaire.
+			lnv_JsonGenerator.AddItemString ( ll_dispensateur, "norme_dispensateur", v_norme_dispensateur )
+			
+			if string_non_nulle(v_dispensateur_auxiliaire) <> "" then 
+				lnv_JsonGenerator.AddItemString ( ll_dispensateur, "dispensateur_auxiliaire", v_dispensateur_auxiliaire )
+			end if
+			
+			//lnv_JsonGenerator.AddItemString ( ll_dispensateur, "maison_medicale", "" )
+
+			ll_prescription = lnv_JsonGenerator.AddItemObject(ll_prestation_item, "prescription")
+			lnv_JsonGenerator.AddItemString ( ll_prescription, "norme_prescripteur", v_norme_prescripteur )
+			if v_identification_prescripteur <> "" then
+				lnv_JsonGenerator.AddItemString ( ll_prescription, "identification_prescripteur", v_identification_prescripteur )
+				lnv_JsonGenerator.AddItemString ( ll_prescription, "date_prescription", string(v_date_prestation, "yyyy-mm-dd") )
+			end if
+			
+			
+			lnv_JsonGenerator.AddItemString ( ll_prestation_item, "derogation", v_derogation )
+
+			lnv_JsonGenerator.AddItemNumber ( ll_prestation_item, "intervention_assurance", v_intervention_assurance * 100  )
+			lnv_JsonGenerator.AddItemNumber ( ll_prestation_item, "intervention_personnelle", v_intervention_personnelle * 100 )
+			lnv_JsonGenerator.AddItemString ( ll_prestation_item, "code_facturation_intervention_personnelle_ou_supplement", v_code_facturation_intervention_personnelle )
+			
+			if trim(v_numero_engagement) <> "" then
+				ll_engagement_tarif = lnv_JsonGenerator.AddItemObject(ll_prestation_item, "engagement_tarif")
+				lnv_JsonGenerator.AddItemString ( ll_engagement_tarif, "numero_engagement", v_numero_engagement )
+				lnv_JsonGenerator.AddItemString ( ll_engagement_tarif, "date_engagement", string(v_date_engagement, "yyyy-mm-dd") )
+			end if
+			
+			// gérer v_identite_type_saisie = "Z" pour PAS de RT 52
+			
+			ll_lecture_identite = lnv_JsonGenerator.AddItemObject(ll_prestation_item, "lecture_identite")
+			ll_saisie_identite = lnv_JsonGenerator.AddItemObject(ll_lecture_identite, "saisie")
+			
+			// Vérification si le code de la nomenclature fait partie de la liste qui exempte de recode 52
+
+			
+			// Le 1er chiffre est un "0" à virer
+			v_code_a_exam = mid(v_code_nomenclature, 2, 6) 
+			
+			a_exempter = false
+			
+			for i_tab_exo_record52 = 1 to tot_tab_exo_record52
+				if tab_exo_record52[i_tab_exo_record52] = v_code_a_exam then 
+					a_exempter = true
+				end if
+			next
+			
+			// cas particulier ou il ne faut pas d'enregistrement 52
+			if v_identite_type_saisie = "Z" or left(v_codes_titulaires, 2) = "18" or a_exempter  then 
+				
+				// Pas de record 52
+				ll_support_identite = lnv_JsonGenerator.AddItemObject ( ll_lecture_identite, "support" )
+			else
+		
+			// gestion de l'identité
+			
+				choose case v_identite_type_saisie
+					case "1", "2", "3", "A"
+						// lecture puce
+						// Lecture code barre
+						// Lecture QR Code
+						// Saisie électronique
+						lnv_JsonGenerator.AddItemString ( ll_saisie_identite, "type", v_identite_type_saisie )
+						lnv_JsonGenerator.AddItemString ( ll_saisie_identite, "lecture", string(v_identite_date_heure_lecture, "yyyy-mm-ddThh:mm"))
+					case "4"
+						// Encodage manuel
+						
+						choose case v_identite_raison_encodage_manuel
+							case "1", "2"
+								// Document sans puce
+								// Lecteur carte non disponible
+	
+								lnv_JsonGenerator.AddItemString ( ll_saisie_identite, "raison", v_identite_raison_encodage_manuel )
+								lnv_JsonGenerator.AddItemString ( ll_saisie_identite, "type", v_identite_type_saisie )
+								lnv_JsonGenerator.AddItemString ( ll_saisie_identite, "lecture", string(v_identite_date_heure_lecture, "yyyy-mm-ddThh:mm"))
+							case "3", "4", "5", "6"
+								// Panne informatique
+								// Pas de document d'identité valide
+								// Vérification différée
+								// Absence d'interconnectiviteé entre logiciels
+								lnv_JsonGenerator.AddItemString ( ll_saisie_identite, "raison", v_identite_raison_encodage_manuel )
+								lnv_JsonGenerator.AddItemString ( ll_saisie_identite, "type", v_identite_type_saisie )
+							case "7"
+								// Pas de document d'dentité
+								lnv_JsonGenerator.AddItemString ( ll_saisie_identite, "raison", v_identite_raison_encodage_manuel )
+								lnv_JsonGenerator.AddItemString ( ll_saisie_identite, "type", v_identite_type_saisie )
+								lnv_JsonGenerator.AddItemString ( ll_saisie_identite, "lecture", string(v_identite_date_heure_lecture, "yyyy-mm-ddThh:mm"))
+	
+						end choose 
+				end choose
+			
+			
+				ll_support_identite = lnv_JsonGenerator.AddItemObject ( ll_lecture_identite, "support" )
+				
+				choose case v_identite_type_support
+					case "0"
+						// pas de document d'identité
+						lnv_JsonGenerator.AddItemString ( ll_support_identite, "type", v_identite_type_support )	
+	 					lnv_JsonGenerator.AddItemString ( ll_support_identite, "numero_de_justificatif", v_numero_document_justificatif )				
+					case "1", "2", "4"
+						// 	Carte d'identité électronique belge (ou Kids-id)
+						// 	Carte d'identité électronique étranger ou document de séjour électronique
+						//	Carte ISI+
+						lnv_JsonGenerator.AddItemString ( ll_support_identite, "type", v_identite_type_support )				
+	 					lnv_JsonGenerator.AddItemString ( ll_support_identite, "numero_de_justificatif", v_numero_document_justificatif )				
+						lnv_JsonGenerator.AddItemString ( ll_support_identite, "numero_de_serie", v_identite_numero_serie_support )		
+					case "7"
+						// Vignette avec code-à-barres
+						lnv_JsonGenerator.AddItemString ( ll_support_identite, "type", v_identite_type_support )				
+	 					lnv_JsonGenerator.AddItemString ( ll_support_identite, "raison", v_identite_raison_utilisation_vignette )		
+	 					lnv_JsonGenerator.AddItemString ( ll_support_identite, "numero_de_justificatif", v_numero_document_justificatif )		
+					case "8", "9", "A"
+						// Attestation d'assuré social
+						// Attestation de perte ou de vol
+						// Saisie électronique (itsme®)
+						lnv_JsonGenerator.AddItemString ( ll_support_identite, "type", v_identite_type_support )				
+	 					lnv_JsonGenerator.AddItemString ( ll_support_identite, "numero_de_justificatif", v_numero_document_justificatif )				
+						
+				end choose
+			end if
+			
+			if trim(v_prescription_de_renvoi_electronique)  <> "" then
+				lnv_JsonGenerator.AddItemString ( ll_prestation_item, "prescription_de_renvoi_electronique", v_prescription_de_renvoi_electronique )
+			end if
+
+					
+			fetch cur_ligne_efacture  into :v_cle, :v_norme_prestation, :v_code_nomenclature, :v_prestation_relative, :v_date_prestation, :v_lieu_prestation, :v_heures_non_ouvrees, 
+			:v_identification_prestataire, :v_prestataire_conventionne , :v_norme_prescripteur, :v_identification_prescripteur , :v_date_prescription ,
+			:v_derogation, :v_code_facturation_intervention_personnelle, :v_intervention_assurance, :v_intervention_personnelle ,
+			:v_numero_engagement, :v_date_engagement, :v_dent, :v_norme_dispensateur, :v_dispensateur_auxiliaire, :v_prescription_de_renvoi_electronique  ;
+
+		loop
+		close cur_ligne_efacture ;
+		 
+	 
+		// Facture suivante 
+		fetch cur_efacture  into :v_numero_facture, :v_date_facture, :v_sexe, :v_niss, :v_codes_titulaires,  :v_affiliation, :v_causes, :v_etablissement_de_sejour, :v_levee_delai_de_prescription, 
+		:v_type_facturation, :v_code_patient , :v_identite_type_saisie, :v_identite_type_support, :v_identite_raison_encodage_manuel , :v_identite_raison_utilisation_vignette, :v_identite_numero_serie_support, :v_numero_document_justificatif, 
+		:v_identite_date_heure_lecture,  :v_type_facture, :v_numero_facture_precedente, :v_numero_envoi_precedent, :v_mutualite_precedente, :v_annee_facture_precedente, :v_mois_facture_precedente ;
+
+	loop
+	close cur_efacture ;
+
+
+end if
+
+
+lnv_JsonGenerator.SaveToFile(nom_fichier_json)
+
+if FileExists(nom_fichier_json) then
+	return (nom_fichier_json)
+else
+	Messagebox("ATTENTION", "Erreur dans la génération du fichier : " + nom_fichier_json )
+	return("-1")
+end if
+
+end function
+

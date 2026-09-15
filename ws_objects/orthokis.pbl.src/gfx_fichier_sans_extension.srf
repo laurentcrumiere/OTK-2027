@@ -1,0 +1,81 @@
+﻿$PBExportHeader$gfx_fichier_sans_extension.srf
+global type gfx_fichier_sans_extension from function_object
+end type
+
+forward prototypes
+global function string fichier_sans_extension (string fichier)
+global function string gfx_fichier_sans_extension (string fichier)
+end prototypes
+
+global function string fichier_sans_extension (string fichier);// fx qui return le nom d'un fichier sans son extension
+// return param fichier si pas d'extension
+
+long	cpt
+string	returnString, aChar
+boolean	trouve
+
+
+returnString = fichier
+
+cpt = len( fichier)
+
+if cpt > 0 then
+	do 
+		aChar = mid( fichier, cpt, 1)
+		if aChar = "." then trouve = true
+		cpt = cpt - 1
+	loop while ( not trouve ) AND  cpt > 0
+	
+	if trouve then
+		returnString = right( fichier, len(fichier) - cpt -1 )
+	end if
+end if
+
+return returnString
+end function
+
+global function string gfx_fichier_sans_extension (string fichier);// fx qui return le nom d'un fichier sans son extension
+// return param fichier si pas d'extension
+
+long	lg_extension
+string	returnString, nom_et_extension, nom_seulement
+
+
+// val de retour par def
+returnString = fichier
+
+// on récup le nom + extension seulement ( utile si chemin complet passé en param )
+nom_et_extension = gfx_extraire_nom_fichier( fichier )
+
+// on récup le nbr de carac de l'extension ( le +1 c pour le . )
+lg_extension = len( gfx_extraire_extension_fichier( nom_et_extension ) ) + 1
+
+// le nom du fichier c donc ...
+nom_seulement = left( nom_et_extension, len( nom_et_extension ) - lg_extension )
+
+if nom_seulement <> ""  then
+	returnString = nom_seulement
+end if
+
+return returnString
+
+
+
+//returnString = fichier
+//cpt = len( fichier)
+//
+//if cpt > 0 then
+//	do 
+//		aChar = mid( fichier, cpt, 1)
+//		if aChar = "." then trouve = true
+//		cpt = cpt - 1
+//	loop while ( not trouve ) AND  cpt > 0
+//	
+//	if trouve then
+//		returnString = left( fichier, cpt )
+//	end if
+//end if
+//
+//return returnString
+end function
+

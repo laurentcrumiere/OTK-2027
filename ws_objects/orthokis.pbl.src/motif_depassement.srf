@@ -1,0 +1,70 @@
+﻿$PBExportHeader$motif_depassement.srf
+global type motif_depassement from function_object
+end type
+
+forward prototypes
+global function string motif_depassement (double v_code_patient, string v_code_soin)
+end prototypes
+
+global function string motif_depassement (double v_code_patient, string v_code_soin);
+
+// renvoie le motif de dépassement selon de patient => le praticien et le soin
+
+/*Sources : email de Lèbre le 18/9/2014
+
+Il existe 3 catégories pour les médecins :
+1: Conventionné : le médecin applique les tarifs fixés dans la convention nationale sans dépassement
+2: Conventionné avec dépassement : le médecin applique des dépassements d'honoraires modérés
+3: Conventionné avec honoraires libres : il fixe librement ses tarifs
+ 
+De manière résumé et simplifié :
+Lorsque le médecin applique un dépassement sur un acte d'orthodontie (TO,ORT) ou une prothèse dentaire (PRO,SPR ou code regroupement CCAM : IMP, PFM, ICO, INO, PAM, PAR, PDT, PFC, RPN), 
+vous pouvez indiquer comme motif "entente directe" (devis). Sur la feuille de soins "ED"
+ 
+Pour les autres actes (par exemple une CS), si le médecin applique un dépassement : 
+- si il est en catégorie "1: Conventionné", vous pouvez proposer le motif de dépassement "DE" dépassement d'exigence (pour exigence particulière du patient)
+- pour les 2 autres catégories :  "2: Conventionné avec dépassement " et "3: Conventionné avec honoraires libres"  : vous ne proposez pas de motif de dépassement
+
+*/
+
+
+string v_code_praticien
+string v_motif
+string v_lettre_soin
+string v_convention_secu
+
+v_motif = ""
+
+if France then
+	select code_praticien into :v_code_praticien from patient where code = :v_code_patient ;
+	select lettre into :v_lettre_soin from code_soins where code = :v_code_soin ;
+	
+	select convention_secu into :v_convention_secu from prati where code = :v_code_praticien ;
+	
+	
+	if v_lettre_soin = "TO" or v_lettre_soin = "ORT" or v_lettre_soin = "PRO" or v_lettre_soin = "SPR" then
+		if CCVITALE then
+			v_motif = "D"
+		else
+			v_motif = "ED"
+		end if
+	else
+		if (v_lettre_soin = "FDC" or v_lettre_soin = "FDO") and (CCVITALE) then
+			v_motif = "N"
+		else
+			if (v_lettre_soin = "MCS" or v_lettre_soin = "MCD" or v_lettre_soin = "MCU") and (CCVITALE) then
+				v_motif = ""
+			else
+				if v_convention_secu = "1" then 
+					v_motif = "E"
+				end if
+			end if
+		end if
+	end if
+end if
+
+return v_motif
+
+
+end function
+

@@ -1,0 +1,10 @@
+﻿$PBExportHeader$str_commande.srs
+global type str_commande from structure
+	string		code_fourn
+	string		code_prod
+	double		numero
+	string		code_livraison
+	boolean		maj
+	string		code_praticien
+end type
+

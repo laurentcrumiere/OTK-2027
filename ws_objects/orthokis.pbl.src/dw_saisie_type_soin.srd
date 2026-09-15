@@ -1,0 +1,10 @@
+﻿$PBExportHeader$dw_saisie_type_soin.srd
+release 3;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912")
+summary(height=1 color="536870912")
+footer(height=1 color="536870912")
+detail(height=73 color="536870912")
+table(column=(type=char(1) name=type dbname="soins.type" values="Semestre	S/Contention	C/Divers	D/Consultation	O/Radio	R/Hors Nomenclature	H/" )
+ retrieve="PBSELECT(TABLE(NAME=~"soins~") COLUMN(NAME=~"soins.type~") ) ORDER(NAME = ~"soins.type~" ASC =  yes) " )
+column(band=detail id=1 border="0" alignment="0" color="33554432" height="65" tabsequence=10 width="513" x="5" y="4"  name=type format="[general]" edit.name="type_soins" ddlb.limit=0 ddlb.sorted=yes ddlb.allowedit=no ddlb.case=any ddlb.vscrollbar=yes ddlb.useasborder=yes  font.face="Arial" font.height="-10" font.weight="400" font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912")

@@ -1,0 +1,15 @@
+﻿$PBExportHeader$copie_ecran_fenetre_clipboard.srf
+global type copie_ecran_fenetre_clipboard from function_object
+end type
+
+forward prototypes
+global subroutine copie_ecran_fenetre_clipboard ()
+end prototypes
+
+global subroutine copie_ecran_fenetre_clipboard ();// Copie d'écran dans le ClipBoard !!
+//keybd_event( 18, 0, 0, 0 )
+keybd_event( 44, 1, 0, 0 )
+//keybd_event( 44, 1, 0, 0 )
+
+end subroutine
+

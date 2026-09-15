@@ -1,0 +1,6 @@
+﻿$PBExportHeader$paintstruct.srs
+$PBExportComments$STRUCTURE BIDON UNIQUEMEMENT POUR COMPTATIBILITE DE DECLARTION DE FONCTIONS EXTERNES POUR u_canvas
+global type paintstruct from structure
+	string		aaa
+end type
+

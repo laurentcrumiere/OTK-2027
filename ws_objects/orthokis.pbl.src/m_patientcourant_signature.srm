@@ -1,0 +1,293 @@
+﻿$PBExportHeader$m_patientcourant_signature.srm
+forward
+global type m_patientcourant_signature from m_patientcourant
+end type
+end forward
+
+global type m_patientcourant_signature from m_patientcourant
+end type
+global m_patientcourant_signature m_patientcourant_signature
+
+on m_patientcourant_signature.create
+m_patientcourant_signature=this
+call super::create
+this.text = "m_patientcourant_signature"
+end on
+
+on m_patientcourant_signature.destroy
+call super::destroy
+end on
+
+type m_administratif from m_patientcourant`m_administratif within m_patientcourant_signature
+end type
+
+on m_administratif.create
+call super::create
+end on
+
+on m_administratif.destroy
+call super::destroy
+end on
+
+type m_commentairesadministratifs from m_patientcourant`m_commentairesadministratifs within m_patientcourant_signature
+end type
+
+on m_commentairesadministratifs.create
+call super::create
+end on
+
+on m_commentairesadministratifs.destroy
+call super::destroy
+end on
+
+type m_0 from m_patientcourant`m_0 within m_patientcourant_signature
+end type
+
+on m_0.create
+call super::create
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+type m_soinsprévisionnel from m_patientcourant`m_soinsprévisionnel within m_patientcourant_signature
+end type
+
+on m_soinsprévisionnel.create
+call super::create
+end on
+
+on m_soinsprévisionnel.destroy
+call super::destroy
+end on
+
+type m_soinsencours from m_patientcourant`m_soinsencours within m_patientcourant_signature
+end type
+
+on m_soinsencours.create
+call super::create
+end on
+
+on m_soinsencours.destroy
+call super::destroy
+end on
+
+type m_rêglement from m_patientcourant`m_rêglement within m_patientcourant_signature
+end type
+
+on m_rêglement.create
+call super::create
+end on
+
+on m_rêglement.destroy
+call super::destroy
+end on
+
+type m_télévital from m_patientcourant`m_télévital within m_patientcourant_signature
+end type
+
+on m_télévital.create
+call super::create
+end on
+
+on m_télévital.destroy
+call super::destroy
+end on
+
+type m_2 from m_patientcourant`m_2 within m_patientcourant_signature
+end type
+
+on m_2.create
+call super::create
+end on
+
+on m_2.destroy
+call super::destroy
+end on
+
+type m_commentairescliniques from m_patientcourant`m_commentairescliniques within m_patientcourant_signature
+end type
+
+on m_commentairescliniques.create
+call super::create
+end on
+
+on m_commentairescliniques.destroy
+call super::destroy
+end on
+
+type m_pagescliniques from m_patientcourant`m_pagescliniques within m_patientcourant_signature
+end type
+
+on m_pagescliniques.create
+call super::create
+end on
+
+on m_pagescliniques.destroy
+call super::destroy
+end on
+
+type m_imagerie from m_patientcourant`m_imagerie within m_patientcourant_signature
+end type
+
+on m_imagerie.create
+call super::create
+end on
+
+on m_imagerie.destroy
+call super::destroy
+end on
+
+type m_4 from m_patientcourant`m_4 within m_patientcourant_signature
+end type
+
+on m_4.create
+call super::create
+end on
+
+on m_4.destroy
+call super::destroy
+end on
+
+type m_lienodrade from m_patientcourant`m_lienodrade within m_patientcourant_signature
+end type
+
+on m_lienodrade.create
+call super::create
+end on
+
+on m_lienodrade.destroy
+call super::destroy
+end on
+
+type m_3 from m_patientcourant`m_3 within m_patientcourant_signature
+end type
+
+on m_3.create
+call super::create
+end on
+
+on m_3.destroy
+call super::destroy
+end on
+
+type m_rendez-vous from m_patientcourant`m_rendez-vous within m_patientcourant_signature
+end type
+
+on m_rendez-vous.create
+call super::create
+end on
+
+on m_rendez-vous.destroy
+call super::destroy
+end on
+
+type m_- from m_patientcourant`m_- within m_patientcourant_signature
+end type
+
+on m_-.create
+call super::create
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_envoyeremail from m_patientcourant`m_envoyeremail within m_patientcourant_signature
+end type
+
+on m_envoyeremail.create
+call super::create
+end on
+
+on m_envoyeremail.destroy
+call super::destroy
+end on
+
+type m_signatureenligne from m_patientcourant`m_signatureenligne within m_patientcourant_signature
+end type
+
+on m_signatureenligne.create
+call super::create
+this.visible = true
+end on
+
+on m_signatureenligne.destroy
+call super::destroy
+end on
+
+type m_-0 from m_patientcourant`m_-0 within m_patientcourant_signature
+end type
+
+on m_-0.create
+call super::create
+end on
+
+on m_-0.destroy
+call super::destroy
+end on
+
+type m_exporterlalistesousexcel from m_patientcourant`m_exporterlalistesousexcel within m_patientcourant_signature
+end type
+
+on m_exporterlalistesousexcel.create
+call super::create
+end on
+
+on m_exporterlalistesousexcel.destroy
+call super::destroy
+end on
+
+type m_pdf from m_patientcourant`m_pdf within m_patientcourant_signature
+end type
+
+on m_pdf.create
+call super::create
+end on
+
+on m_pdf.destroy
+call super::destroy
+end on
+
+type m_exporterlaliste from m_patientcourant`m_exporterlaliste within m_patientcourant_signature
+end type
+
+on m_exporterlaliste.create
+call super::create
+end on
+
+on m_exporterlaliste.destroy
+call super::destroy
+end on
+
+type m_etiquettes from m_patientcourant`m_etiquettes within m_patientcourant_signature
+end type
+
+on m_etiquettes.create
+call super::create
+end on
+
+on m_etiquettes.destroy
+call super::destroy
+end on
+
+on m_envoyersmsliste.create
+call super::create
+end on
+
+on m_envoyersmsliste.destroy
+call super::destroy
+end on
+
+on m_envoyersmsunitaire.create
+call super::create
+end on
+
+on m_envoyersmsunitaire.destroy
+call super::destroy
+end on
+
+type m_envoidesms from m_patientcourant`m_envoyersmsliste within m_patientcourant_signature
+end type
+

@@ -1,0 +1,52 @@
+﻿$PBExportHeader$dw_agenda_option_heures.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=356 color="536870912" )
+table(column=(type=time update=yes updatewhereclause=yes name=heure_debut dbname="agenda.heure_debut" values="00:00	00:00/00:30	00:30/01:00	01:00/01:30	01:30/02:00	02:00/02:30	02:30/03:00	03:00/03:30	03:30/04:00	04:00/04:30	04:30/05:00	05:00/05:30	05:30/06:00	06:00/06:30	06:30/07:00	07:00/07:30	07:30/08:00	08:00/08:30	08:30/09:00	09:00/09:30	09:30/10:00	10:00/10:30	10:30/11:00	11:00/11:30	11:30/12:00	12:00/12:30	12:30/13:00	13:00/13:30	13:30/14:00	14:00/14:30	14:30/15:00	15:00/15:30	15:30/16:00	16:00/16:30	16:30/17:00	17:00/17:30	17:30/18:00	18:00/18:30	18:30/19:00	19:00/19:30	19:30/20:00	20:00/20:30	20:30/21:00	21:00/21:30	21:30/22:00	22:00/22:30	22:30/23:00	23:00/23:30	23:30/" )
+ column=(type=time update=yes updatewhereclause=yes name=heure_fin dbname="agenda.heure_fin" values="00:00	00:00/00:30	00:30/01:00	01:00/01:30	01:30/02:00	02:00/02:30	02:30/03:00	03:00/03:30	03:30/04:00	04:00/04:30	04:30/05:00	05:00/05:30	05:30/06:00	06:00/06:30	06:30/07:00	07:00/07:30	07:30/08:00	08:00/08:30	08:30/09:00	09:00/09:30	09:30/10:00	10:00/10:30	10:30/11:00	11:00/11:30	11:30/12:00	12:00/12:30	12:30/13:00	13:00/13:30	13:30/14:00	14:00/14:30	14:30/15:00	15:00/15:30	15:30/16:00	16:00/16:30	16:30/17:00	17:00/17:30	17:30/18:00	18:00/18:30	18:30/19:00	19:00/19:30	19:30/20:00	20:00/20:30	20:30/21:00	21:00/21:30	21:30/22:00	22:00/22:30	22:30/23:00	23:00/23:30	23:30/" )
+ column=(type=char(1) updatewhereclause=yes name=lundi dbname="agenda.lundi" )
+ column=(type=char(1) updatewhereclause=yes name=mardi dbname="agenda.mardi" )
+ column=(type=char(1) updatewhereclause=yes name=mercredi dbname="agenda.mercredi" )
+ column=(type=char(1) updatewhereclause=yes name=jeudi dbname="agenda.jeudi" )
+ column=(type=char(1) updatewhereclause=yes name=vendredi dbname="agenda.vendredi" )
+ column=(type=char(1) updatewhereclause=yes name=samedi dbname="agenda.samedi" )
+ column=(type=char(1) updatewhereclause=yes name=dimanche dbname="agenda.dimanche" )
+ column=(type=time update=yes updatewhereclause=yes name=intervalle dbname="agenda.intervalle" values="00:01	00:01/00:02	00:02/00:03	00:03/00:05	00:05/00:10	00:10/00:15	00:15/00:20	00:20/00:30	00:30/" )
+ column=(type=real updatewhereclause=yes name=nombre_fauteuil dbname="agenda.nombre_fauteuil" )
+ column=(type=char(1) updatewhereclause=yes name=tous dbname="agenda.tous" )
+ column=(type=time update=yes updatewhereclause=yes name=pause_debut dbname="agenda.pause_debut" values="11:00	11:00/11:30	11:30/12:00	12:00/12:30	12:30/13:00	13:00/13:30	13:30/14:00	14:00/14:30	14:30/15:00	15:00/" )
+ column=(type=time update=yes updatewhereclause=yes name=pause_fin dbname="agenda.pause_fin" values="11:00	11:00/11:30	11:30/12:00	12:00/12:30	12:30/13:00	13:00/13:30	13:30/14:00	14:00/14:30	14:30/15:00	15:00/" )
+ column=(type=char(1) updatewhereclause=yes name=urgence dbname="agenda.urgence" )
+ retrieve="  SELECT ~"agenda~".~"heure_debut~",   
+         ~"agenda~".~"heure_fin~",   
+         ~"agenda~".~"lundi~",   
+         ~"agenda~".~"mardi~",   
+         ~"agenda~".~"mercredi~",   
+         ~"agenda~".~"jeudi~",   
+         ~"agenda~".~"vendredi~",   
+         ~"agenda~".~"samedi~",   
+         ~"agenda~".~"dimanche~",   
+         ~"agenda~".~"intervalle~",   
+         ~"agenda~".~"nombre_fauteuil~",   
+         ~"agenda~".~"tous~",   
+         ~"agenda~".~"pause_debut~",   
+         ~"agenda~".~"pause_fin~",   
+         ~"agenda~".~"urgence~"  
+    FROM ~"agenda~"   
+" )
+column(band=detail id=10 alignment="1" tabsequence=30 border="5" color="0" x="311" y="144" height="60" width="274" format="hh:mm"  name=intervalle ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Journée :" border="0" color="0" x="18" y="24" height="64" width="242"  name=t_1  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Pause déjeuner :" border="0" color="0" x="18" y="260" height="64" width="448"  name=t_2  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Intervalle :" border="0" color="0" x="18" y="144" height="64" width="265"  name=intervalle_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="0" tabsequence=50 border="5" color="0" x="1161" y="260" height="64" width="274" format="hh:mm"  name=pause_fin ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.vscrollbar=yes ddlb.useasborder=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="0" x="1161" y="24" height="60" width="274" format="hh:mm"  name=heure_fin ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.vscrollbar=yes ddlb.useasborder=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Fin :" border="0" color="0" x="1024" y="260" height="64" width="119"  name=t_3  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Fin :" border="0" color="0" x="1024" y="24" height="64" width="119"  name=heure_fin_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=40 border="5" color="0" x="722" y="260" height="64" width="274" format="hh:mm"  name=pause_debut ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.vscrollbar=yes ddlb.useasborder=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="0" x="722" y="24" height="60" width="274" format="hh:mm"  name=heure_debut ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.vscrollbar=yes ddlb.useasborder=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Début :" border="0" color="0" x="512" y="260" height="64" width="192"  name=t_4  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Début :" border="0" color="0" x="512" y="24" height="64" width="192"  name=heure_debut_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

@@ -1,0 +1,64 @@
+﻿$PBExportHeader$f_pbwc_rgb_to_rgba_from_file.srf
+global type f_pbwc_rgb_to_rgba_from_file from function_object
+end type
+
+forward prototypes
+global subroutine f_pbwc_rgb_to_rgba_from_file ()
+end prototypes
+
+global subroutine f_pbwc_rgb_to_rgba_from_file ();// -----------------------------------------------------------------------------
+// SCRIPT:     f_pbwc_rgb_to_rgba_from_file
+//
+// PURPOSE:    converts rbg color codes to rgba color codes from a file
+//
+// ARGUMENTS: 
+//
+// RETURN:		
+//
+// DATE        PROG/ID		DESCRIPTION OF CHANGE / REASON
+// ----------  --------		-----------------------------------------------------
+// 01/01/2018	FFasolin	Initial Coding
+// ------------------------------------------------------------------------------
+
+integer li_FileNum, li_destnum
+string ls_color,ls_rgba
+int li_ret
+string ls_path, ls_file
+IF getfileopenname("Select rbg code file",ls_path, ls_file) = 0 THEN return
+
+li_FileNum = FileOpen(ls_path, LineMode!)
+li_destnum = FileOpen(ls_path+".rgba", LineMode!, Write!, LockWrite!, replace!)
+
+li_ret=   FileReadEx(li_FileNum, ls_color)
+DO WHILE li_ret <> -100
+	int li_start, li_pos_end, li_r, li_g, li_b
+	string ls_value
+	ls_color = lower(ls_color)
+	li_start = pos(ls_color,"(")
+	//gets r
+	li_start++
+	li_pos_end = pos(ls_color,",",li_start)
+	ls_value = trim(mid(ls_color,li_start,li_pos_end - li_start ))
+	li_r = integer(ls_value)
+	
+	//gets g
+	li_start = li_pos_end +1
+	li_pos_end = pos(ls_color,",",li_start)
+	ls_value = trim(mid(ls_color,li_start,li_pos_end - li_start ))
+	li_g = integer(ls_value)
+	//gets b
+	li_start = li_pos_end +1
+	li_pos_end = pos(ls_color,")",li_start)
+	ls_value = trim(mid(ls_color,li_start,li_pos_end - li_start ))
+	li_b = integer(ls_value)	
+	ls_rgba = "rgba("+f_pbwc_rgb_to_rgba(li_r,li_g,li_b)+")"
+	filewriteex(li_destnum,ls_rgba)
+
+	li_ret=   FileReadEx(li_FileNum, ls_color)
+LOOP
+
+fileClose(li_FileNum)
+fileClose(li_destnum)
+
+end subroutine
+

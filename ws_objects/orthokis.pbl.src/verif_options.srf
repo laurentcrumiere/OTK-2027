@@ -1,0 +1,71 @@
+﻿$PBExportHeader$verif_options.srf
+global type verif_options from function_object
+end type
+
+forward prototypes
+global subroutine verif_options (character valeur, ref boolean option1, ref boolean option2, ref boolean option3)
+end prototypes
+
+global subroutine verif_options (character valeur, ref boolean option1, ref boolean option2, ref boolean option3);// Verifie les options codées dans l'indice de la clef
+// Principe :
+//	Valeur de O1	Option1	Option2	Option3
+//		0				N			N			N
+//		1				O			N			N
+//		2				N			O			N
+//		3				O			O			N
+//		4				N			N			O
+//		5				O			N			O
+//		6				N			O			O
+//		7				O			O			O
+//		8				N			N			N
+//		9				N			N			N
+//
+
+choose case valeur
+	case '0'
+		option1 = false
+		option2 = false
+		option3 = false
+	case '1'
+		option1 = true
+		option2 = false
+		option3 = false
+	case '2'
+		option1 = false
+		option2 = true
+		option3 = false
+	case '3'
+		option1 = true
+		option2 = true
+		option3 = false
+	case '4'
+		option1 = false
+		option2 = false
+		option3 = true
+	case '5'
+		option1 = true
+		option2 = false
+		option3 = true
+	case '6'
+		option1 = false
+		option2 = true
+		option3 = true
+	case '7'
+		option1 = true
+		option2 = true
+		option3 = true
+	case '8'
+		option1 = false
+		option2 = false
+		option3 = false
+	case '9'
+		option1 = false
+		option2 = false
+		option3 = false
+	case else
+		option1 = false
+		option2 = false
+		option3 = false
+end choose
+end subroutine
+

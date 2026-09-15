@@ -1,0 +1,48 @@
+﻿$PBExportHeader$ouvrir_imagerie_2013_a_part.srf
+global type ouvrir_imagerie_2013_a_part from function_object
+end type
+
+forward prototypes
+global subroutine ouvrir_imagerie_2013_a_part (double v_code)
+end prototypes
+
+global subroutine ouvrir_imagerie_2013_a_part (double v_code);// ouverture de l'imagerie A part !
+
+string		lstr_nom, lstr_prenom
+double 	v_nd
+
+string v_titre
+window v_fenetre
+
+// recup des infos ds BD
+select	nom, prenom, numero_dossier INTO		:lstr_nom, :lstr_prenom, :v_nd
+FROM		patient WHERE 	code = :VAR_CODE ;
+
+// pour éviter les bloquage si des val NULL 
+if isnull(lstr_nom) then lstr_nom = ""
+if isnull(lstr_prenom) then lstr_prenom = ""
+
+// construction barre de titre
+v_titre = "Imagerie du patient " + trim(lstr_nom + space(1) + lstr_prenom) +"  ( "+ string(v_nd) + " )"
+
+
+//Test si la fenêtre n'est pas ouverte avant
+w_explorateur_2013_a_part w2_a_part
+
+string  lpClassName
+long handle_imagerie_2013
+
+setnull(lpClassName)
+// Récupération du Handle de la fenetre pour savoir si la fenêtre est ouverte ou pas
+handle_imagerie_2013 = FindWindowA ( lpClassName, v_titre ) 
+
+
+if handle_imagerie_2013 > 0 then
+	SetForegroundWindow ( handle_imagerie_2013 )
+else
+	openWithParm( w2_a_part, var_code , w_mdi_2020)
+	w2_a_part.resize_automatique = 1
+	w2_a_part.triggerevent(resize!)
+end if
+end subroutine
+

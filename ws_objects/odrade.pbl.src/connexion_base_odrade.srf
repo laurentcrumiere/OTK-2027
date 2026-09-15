@@ -1,0 +1,22 @@
+﻿$PBExportHeader$connexion_base_odrade.srf
+global type connexion_base_odrade from function_object
+end type
+
+forward prototypes
+global function integer connexion_base_odrade ()
+end prototypes
+
+global function integer connexion_base_odrade ();
+
+CONNECT using t_Odrade ;
+
+
+if t_Odrade.sqlcode <> 0 then
+	MessageBox("ATTENTION !","Impossible de se connecter la base de données ODRADE.")
+	return -1
+else
+	return 1
+end if
+
+end function
+

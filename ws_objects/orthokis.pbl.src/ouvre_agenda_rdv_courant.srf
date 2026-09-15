@@ -1,0 +1,70 @@
+﻿$PBExportHeader$ouvre_agenda_rdv_courant.srf
+global type ouvre_agenda_rdv_courant from function_object
+end type
+
+forward prototypes
+global subroutine ouvre_agenda_rdv_courant (datawindow dw_rdv_liste)
+end prototypes
+
+global subroutine ouvre_agenda_rdv_courant (datawindow dw_rdv_liste);
+double var_code_local
+date date_rdv
+time time_rdv
+integer duree_rdv, fauteuil_rdv
+string prati_rdv, type_rdv
+
+var_code_local = dw_rdv_liste.getitemNumber(dw_rdv_liste.getrow(),"code")
+time_rdv = time(dw_rdv_liste.getitemdatetime(dw_rdv_liste.getrow(),"rdv"))
+date_rdv = date(dw_rdv_liste.getitemdatetime(dw_rdv_liste.getrow(),"rdv"))
+time_rdv = time(dw_rdv_liste.getitemdatetime(dw_rdv_liste.getrow(),"rdv"))
+duree_rdv = dw_rdv_liste.getitemnumber(dw_rdv_liste.getrow(),"duree")
+fauteuil_rdv = dw_rdv_liste.getitemnumber(dw_rdv_liste.getrow(),"fauteuil")
+prati_rdv = dw_rdv_liste.getitemstring(dw_rdv_liste.getrow(),"code_praticien")
+type_rdv = dw_rdv_liste.getitemstring(dw_rdv_liste.getrow(),"type")
+
+
+// OUvre l'agenda sur le rendez-vous en cours
+
+// On vérifie si l'agenda est déjà ouvert ... si oui, on le ferme pour le raffraichir
+window agenda
+
+if is_fenetre_2020_ouverte("Semaine N",agenda) > 0 then
+	fermer_fenetre(agenda)
+end if
+
+
+
+string chaine_passee
+// Important : format du code patient # pour les positifs ou négatifs pour laisser la place au signe -
+// Le code praticien est obligatoirement sur 6 caractères, pas le type de rdv
+chaine_passee = string(date_rdv,"yyyy/mm/dd")+"R"+string(var_code_local,'0000000000;-000000000')+string(time_rdv,'hh:mm')+string(duree_rdv,'000')+string(fauteuil_rdv,'00')+left(prati_rdv + space(6), 6) + "N"+type_rdv
+
+// fenêtre à part ?
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+
+	// lecture du dernier emplacement de la fenêtre
+	long win_x, win_y 
+	win_x = profileint(dir_ini+inifile_orthokis,"agenda","agenda_a_part_x",0)
+	win_y = profileint(dir_ini+inifile_orthokis,"agenda","agenda_a_part_y",0)
+	
+	openWithParm(w_agenda_a_part, chaine_passee)
+
+	// Possitionnement de retaillage de la fenêtre
+	
+	w_agenda_a_part.move( PixelsToUnits( win_x, xPixelsToUnits!) , PixelsToUnits( win_y, YPixelsToUnits!))
+	w_agenda_a_part.width = profileint(dir_ini+inifile_orthokis,"agenda","agenda_a_part_width", 1943)
+	w_agenda_a_part.height = profileint(dir_ini+inifile_orthokis,"agenda","agenda_a_part_height", 1240)
+	
+
+else
+	// ouverture normale
+	str_param_string param_passe  
+	param_passe.param = chaine_passee
+	w_mdi_2020.uo_powerdock.of_openDocument(w_agenda, param_passe, "Agenda", m_orthokis_2020.m_patients.m_agendagraphique.toolbarItemName)
+	// Depuis PB US 2020, faut réactualiser le titre après ouverture
+	fxg_maj_titre_fenetre(w_agenda, w_agenda.v_titre_fenetre_local)
+end if
+
+return
+end subroutine
+

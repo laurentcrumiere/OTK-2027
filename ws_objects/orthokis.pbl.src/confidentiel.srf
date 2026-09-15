@@ -1,0 +1,32 @@
+﻿$PBExportHeader$confidentiel.srf
+global type confidentiel from function_object
+end type
+
+forward prototypes
+global subroutine confidentiel (double num, picture plein, picture vide)
+end prototypes
+
+global subroutine confidentiel (double num, picture plein, picture vide);// Permet d'afficher un icode plein ou vide en fonction d'une zone de la base
+
+string v_confidentiel
+decimal l
+
+SELECT confidentiel INTO :v_confidentiel FROM patient 
+WHERE code = :num ;
+
+
+l = len(trim(v_confidentiel))
+
+zero(l)
+
+vide.visible = false
+plein.visible = false
+
+if l = 0 then
+	vide.visible = true
+else
+	plein.visible = true
+end if
+
+end subroutine
+

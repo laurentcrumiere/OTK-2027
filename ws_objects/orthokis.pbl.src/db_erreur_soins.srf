@@ -1,0 +1,47 @@
+﻿$PBExportHeader$db_erreur_soins.srf
+global type db_erreur_soins from function_object
+end type
+
+forward prototypes
+global subroutine db_erreur_soins (datawindow dw, long err_code, string err_text)
+end prototypes
+
+global subroutine db_erreur_soins (datawindow dw, long err_code, string err_text);
+son(4)
+
+CHOOSE CASE err_code
+	CASE -193
+		MessageBox("Alerte Base de Données","Vous ne pouvez pas saisir 2 fois le ~nmême soin à la même date !",Information!)
+	CASE -195
+		MessageBox("Alerte Base de Données","Le code ne peut pas être nul !",Information!)
+	CASE -196
+		MessageBox("Alerte Base de Données","Une des valeurs saisies existe déjà ! ~nHors elle doit être unique, veuillez modifier.",Information!)
+	CASE -198
+		MessageBox("Alerte Base de Données","Vous n'avez pas le droit de supprimer cette ligne (ou de modifier sa clef) !~n~nElle est liée à une autre table.",Information!)
+	CASE -3
+		MessageBox("Alerte Base de Données","Les données que vous manipulez ont été~nmodifées par un autre utilisateur~nou dans une autre fenêtre.~n~nVeuillez annuler votre opération ....",Information!)
+	CASE -1
+		MessageBox("Alerte Base de Données","Erreur de communication avec la base de données liée certainement à un problème précédent.~n~nNous allons essayer de rétablir cette communication.~n~nVeuillez ensuite vérifier vos dernières opérations.",Information!)
+		dw.settransobject(sqlca)
+	CASE -85, -308
+		MessageBox("Alerte Base de Données","Erreur de communication avec la base de données probablement dû à un problème réseau.~n~nNous allons tenter une reconnexion.",Information!)
+		// pour virer la transacion
+		disconnect ;
+		// pour réessayer
+		connect ;
+		if sqlca.sqlcode = 0 then
+			// La reconnexion 
+			Messagebox("Alerte Base de Données","La reconnexion a été réalisée. Veuillez vérifier vos dernières opérations.")
+			dw.settransobject(sqlca)
+		else
+			// La reconnect
+			Messagebox("Alerte Base de Données","La reconnexion a échouée.~n~nVous allez quitter Orthokis.")
+			Halt close
+		end if
+	CASE ELSE
+		MessageBox("Alerte Base de Données Non Référencée","N° "+String(err_code)+"~nText : "+err_text,Information!)
+END CHOOSE
+
+
+end subroutine
+

@@ -1,0 +1,454 @@
+﻿$PBExportHeader$fxg_lancer_commande_dsapi.srf
+global type fxg_lancer_commande_dsapi from function_object
+end type
+
+forward prototypes
+global subroutine fxg_envoi_commande_dsapi ()
+global function boolean fxg_lancer_commande_dsapi (string v_commande, string v_body, string v_type_data, string v_type_requete, double v_code_patient)
+end prototypes
+
+global subroutine fxg_envoi_commande_dsapi ();//
+////  EXECUTION D'UNE COMMANDE SIMPLE VERS DSAPI
+//
+//// v_type_data indique le type de données qu'on récupère ou qu'on traite
+//// U = users
+//// A = appareils de signatures 
+//// D = document d'un patient
+//// Q = questionnaires d'un patient
+//// S = Soins d'un patient
+//// R = Rendez-vous d'un patient
+//// PR = Praticien
+//// TR = Type de Rendez-vous
+//// SI = Signature
+//// SY = Synchronisation d'un patient
+//
+//// v_type_requete : G pour GET, P pour POST
+//
+//
+//boolean v_suite			// servira à savoir si on doit effectivement envoyé la commande
+//long v_cpt
+//
+//Trace (" *** ENVOI D'UNE COMMANDE A DSAPI : " + v_commande +"    ***")
+//
+//if v_code_patient <> 0 then 
+//	
+//	// La commande concerne un patient => on vérifie s'il est dans Téa sinon ça va générer une erreur 
+//	select isnull(count(*),0) into :v_cpt from patient_mon_orthodontiste 
+//	where code = :v_code_patient ;
+//	
+//	if v_cpt > 0 then 
+//		v_suite = true
+//	else
+//		v_suite = false		
+//		Trace (" *** Le patient n'est pas dans Téa => Commande non lancée  ***")
+//	end if
+//else
+//	v_suite = true
+//end if
+//
+//
+//if v_suite then 
+//	
+//	
+//	
+//	integer li_rc
+//	HttpClient lnv_HttpClient
+//	lnv_HttpClient = Create HttpClient
+//	long l_statut_reponse
+//	string ls_ReturnJson, ls_code
+//	string s_token, s_body, s_mot_passe_tea, s_sha512, s_url_application, s_commande
+//	
+//	long ll_adult, ll_child
+//	
+//	blob lblb_sha512, lblb_data
+//	
+//	
+//	boolean retour = true
+//	
+//	s_body = v_body
+//	
+//	if v_type_requete = "G" then
+//		v_type_requete = "GET"
+//	else
+//		v_type_requete = "POST"
+//	end if
+//	
+//	
+//	
+//	// Construction du token sous la forme : "87001:code_en_sha512"
+//	// Le code_en_sha512 = SHA512 (NUMSERIE::dsapi::MOT_PASSE_TEA)
+//	
+//	
+//	select top 1 mot_passe_tea, trim(isnull(url_application, '')) into :s_mot_passe_tea, :s_url_application from param ;
+//	
+//	
+//	if s_url_application <> "" then 
+//		lblb_data = Blob(SERIAL + "::dsapi::" + s_mot_passe_tea, EncodingUTF8!)
+//		
+//		trace( "- N°Série : " + SERIAL)
+//		Trace("- Mot de passe Téa : " + s_mot_passe_tea)
+//		
+//		CrypterObject lnv_CrypterObject
+//		CoderObject lnv_CoderObject
+//		lnv_CrypterObject = Create CrypterObject
+//		lnv_CoderObject = Create CoderObject
+//		
+//		lblb_sha512 = lnv_CrypterObject.SHA(SHA512!, lblb_data)
+//		
+//		s_sha512 = lnv_CoderObject.HexEncode(lblb_sha512)
+//		
+//		s_token = lower(SERIAL + ":" + s_sha512)
+//		trace( "- Token : " + s_token)
+//		
+//		// Sécurisation dans l'entete
+//		lnv_HttpClient.SetRequestHeader("Content-Type", "application/json;charset=UTF-8")
+//		lnv_HttpClient.SetRequestHeader("X-AUTH-TOKEN", s_token)
+//		
+//		s_commande = s_url_application + v_commande
+//		
+//		TRACE ( " - Body : " + v_body )
+//		trace( " - Type de Data: " + v_type_data)
+//		trace( " - Type de Requete : " + v_type_requete)
+//	
+//		TRACE ( " - Envoi de la commande : " + s_commande )
+//		
+//		// Envoi de la commande
+//		li_rc = lnv_HttpClient.SendRequest(v_type_requete, s_commande , s_body, EncodingUTF8!)
+//		
+//		TRACE ( " - Code Retour de la recherche : " + string(li_rc))
+//		
+//		if li_rc = 1 then 
+//			
+//				l_statut_reponse = lnv_HttpClient.GetResponseStatusCode()
+//				ls_message = ""
+//				li_code = 0
+//				
+//				if lnv_HttpClient.GetResponseBody(ls_ReturnJson) = 1 then
+//					
+//					JSONParser json
+//					json = CREATE JSONParser
+//				  
+//					ls_result = json.LoadString (ls_ReturnJson)
+//					ll_root = json.GetRootItem()
+//					
+//					lb_success = json.GetItemBoolean(ll_root, 'success')            
+//					
+//					if not lb_success then 
+//						
+//						// Pour la gestion du message d'erreur
+//						li_code = json.GetItemNumber(ll_root, 'errorCode') 
+//						if isnull(li_code) then
+//							li_code = -1
+//						end if
+//						ls_log = string_non_nulle(json.GetItemString(ll_root, 'log'))
+//						ls_message = string_non_nulle(json.GetItemString(ll_root, 'message'))
+//						
+//					else
+//						 
+//						 choose case v_type_data
+//							case "U"
+//								// utilisateurs .. mise en place des tables de données pour le patient
+//	 
+//								 ll_data = json.GetItemArray(ll_root, 'data')
+//								 ll_cnt_data = json.GetChildCount(ll_data)
+//								 
+//								  For i = 1 to ll_cnt_data
+//										ll_index_data = json.GetChildItem(ll_data, i)    
+//										ls_firstname[i] = json.GetItemString(ll_index_data, "firstname")
+//										ls_phoneNumber[i] = json.GetItemString(ll_index_data, "phoneNumber")
+//										ll_id[i] = json.GetItemNumber(ll_index_data, "id")
+//										ls_email[i] = json.GetItemString(ll_index_data, "email")
+//										ls_lastname[i] = json.GetItemString(ll_index_data, "lastname")
+//									next
+//								case "A"
+//									// Appareils de signature - on synchronise de suite la table
+//									ll_data = json.GetItemArray(ll_root, 'data')
+//									ll_cnt_data = json.GetChildCount(ll_data)
+//									update appareils_signatures set actif = 0 ;
+//									
+//									  For i = 1 to ll_cnt_data
+//											ll_index_data = json.GetChildItem(ll_data, i)    
+//											ls_label[i] = json.GetItemString(ll_index_data, "label")
+//											ls_notificationType[i] = json.GetItemString(ll_index_data, "notificationType")
+//											ls_id[i] = string(json.GetItemNumber(ll_index_data, "id"))
+//											ls_token[i] = json.GetItemString(ll_index_data, "token")
+//											
+//											select count(*) into :li_cpt from appareils_signatures where id_interne = :ls_id[i] ;
+//											if li_cpt = 1 then
+//												update appareils_signatures set actif = 1, tocken = :ls_token[i], notification = :ls_notificationType[i] where id_interne = :ls_id[i] ;
+//												if sqlca.sqlcode = 0 then 
+//													commit ;
+//												else
+//													Messagebox("ATTENTION", "Erreur dans la mise à jour de la table des appareils de signature.~n~nActualisation de : " + ls_label[i] +"~n~n" + sqlca.sqlerrtext )
+//													rollback ;
+//												end if
+//											else
+//												insert into appareils_signatures ("id_interne", "actif", "nom", "tocken", "notification", "ordre_trie" )
+//												values (:ls_id[i], 1, :ls_label[i], :ls_token[i], :ls_notificationType[i], 100) ;
+//												if sqlca.sqlcode = 0 then 
+//														commit ;
+//													else
+//														Messagebox("ATTENTION", "Erreur dans la mise à jour de la table des appareils de signature.~n~nAjout de : " + ls_label[i]+"~n~n" + sqlca.sqlerrtext)
+//														rollback ;
+//													end if
+//											end if
+//											
+//										next
+//										commit ;
+//				
+//								case "Q1"
+//									// Questionnaires du cabinet Adulte et Enfant
+//									ll_data = json.GetItemObject(ll_root, 'data')
+//									
+//									ll_adult = json.GetItemObject (ll_data, "adult")
+//									ii_id_questionnaire_cabinet_adulte = json.GetItemNumber (ll_adult, "id") 
+//									zeroi (ii_id_questionnaire_cabinet_adulte)
+//									
+//									ll_child = json.GetItemObject (ll_data, "child") 
+//									ii_id_questionnaire_cabinet_enfant = json.GetItemNumber (ll_child, "id") 
+//									zeroi (ii_id_questionnaire_cabinet_enfant)
+//											
+//								case "Q2"
+//									
+//									// Questionnaires du praticien Adulte et Enfant
+//									ll_data = json.GetItemArray(ll_root, 'data')
+//									
+//									ll_index_data = json.GetChildItem(ll_data, 1)  
+//									
+//									ll_adult = json.GetItemObject (ll_index_data, "adult") 
+//									ii_id_questionnaire_praticien_adulte = json.GetItemNumber (ll_adult, "id") 
+//									zeroi (ii_id_questionnaire_praticien_adulte)
+//									 
+//									ll_child = json.GetItemObject (ll_index_data, "child") 
+//									ii_id_questionnaire_praticien_enfant = json.GetItemNumber (ll_child, "id") 
+//									zeroi (ii_id_questionnaire_praticien_enfant)
+//									
+//								end choose
+//					
+//						end if
+//						
+//						destroy jSon
+//							
+//	
+//					
+//				end if 
+//				TRACE ( " - Code Statut Réponse : " + string(l_statut_reponse))
+//	
+//				if 200 <= l_statut_reponse and l_statut_reponse <= 299 then
+//					// C'est bon 
+//					
+//					TRACE ( " - Commandée exécutée avec succès !~n" + ls_ReturnJson +"~n*********************************************************" )
+//					
+//					
+//				else
+//					TRACE ( " **** Erreur GetResponseStatusCode N°" + string(l_statut_reponse) + "  dans la l'exécution de la requête : ~n" + ls_ReturnJson +"~n*********************************************************" )
+//					
+//					// Si le patient n'existe pas Pas de message d'erreur .. juste trace si besoin
+//					if ls_message <>  "Patient not found."  then
+//						MessageBox("ERREUR DE SYNCHRONISATION TEA",	"Erreur de synchronisation avec Téa !~n~nCode GetResponseStatusCode : " + string (l_statut_reponse  )+"~n~nCode Erreur : " + string(li_code) + "~n~nMessage : " + ls_message)
+//						retour = false
+//					end if
+//				end if
+//			else
+//				
+//				TRACE ( " **** Erreur SendRequest N°" + string(li_rc) + " dans la l'exécution de la requête : ~n" + ls_ReturnJson +"~n*********************************************************" )
+//				MessageBox("ERREUR DANS L'EXECUTION DE LA COMMANDE",	"Erreur de communication avec Téa !~n~nCode SendRequest : " +  string(li_rc  ) + "~n~n" + fxg_get_message_httpclient_sendrequest(li_rc))
+//				retour = false
+//		
+//		end if
+//	else
+//		Trace (" *** AUCUNE URL  : PAS D'ENVOI DE COMMANDE A DsApi ***")
+//		trace("  Commande : " + v_commande)	
+//		retour = false
+//	end if
+//end if
+//return retour
+//
+//
+end subroutine
+
+global function boolean fxg_lancer_commande_dsapi (string v_commande, string v_body, string v_type_data, string v_type_requete, double v_code_patient);
+//  EXECUTION D'UNE COMMANDE SIMPLE VERS DSAPI
+
+// v_type_data indique le type de données qu'on récupère ou qu'on traite
+// U = users
+// A = appareils de signatures 
+// D = document d'un patient
+// Q = questionnaires d'un patient
+// S = Soins d'un patient
+// R = Rendez-vous d'un patient
+// PR = Praticien
+// TR = Type de Rendez-vous
+// SI = Signature
+// SY = Synchronisation d'un patient
+
+// v_type_requete : G pour GET, P pour POST
+
+
+boolean v_suite			// servira à savoir si on doit effectivement envoyé la commande
+long v_cpt
+integer li_rc
+HttpClient lnv_HttpClient
+lnv_HttpClient = Create HttpClient
+long l_statut_reponse
+string ls_ReturnJson, ls_code
+string s_token, s_body, s_mot_passe_tea, s_sha512, s_url_application, s_commande
+string  ls_result, ls_log, ls_message
+integer li_code, i, li_cpt
+boolean lb_success
+long ll_root, ll_data, ll_index_data, ll_cnt_data
+
+long ll_adult, ll_child
+
+blob lblb_sha512, lblb_data
+
+
+boolean retour = true
+Trace (" *** ENVOI D'UNE COMMANDE A DSAPI : " + v_commande +"    ***")
+
+if v_code_patient <> 0 then 
+	
+	// La commande concerne un patient => on vérifie s'il est dans Téa sinon ça va générer une erreur 
+	select isnull(count(*),0) into :v_cpt from patient_mon_orthodontiste 
+	where code = :v_code_patient ;
+	
+	if v_cpt > 0 then 
+		v_suite = true
+	else
+		v_suite = false		
+		Trace (" *** Le patient n'est pas dans Téa => Commande non lancée  ***")
+	end if
+else
+	v_suite = true
+end if
+
+
+if v_suite then 
+	
+	
+	
+
+	
+	s_body = v_body
+	
+	if v_type_requete = "G" then
+		v_type_requete = "GET"
+	else
+		v_type_requete = "POST"
+	end if
+	
+	
+	
+	// Construction du token sous la forme : "87001:code_en_sha512"
+	// Le code_en_sha512 = SHA512 (NUMSERIE::dsapi::MOT_PASSE_TEA)
+	
+	
+	select top 1 mot_passe_tea, trim(isnull(url_application, '')) into :s_mot_passe_tea, :s_url_application from param ;
+	
+	
+	if s_url_application <> "" then 
+		lblb_data = Blob(SERIAL + "::dsapi::" + s_mot_passe_tea, EncodingUTF8!)
+		
+		//trace( "- N°Série : " + SERIAL)
+		//Trace("- Mot de passe Téa : " + s_mot_passe_tea)
+		
+		CrypterObject lnv_CrypterObject
+		CoderObject lnv_CoderObject
+		lnv_CrypterObject = Create CrypterObject
+		lnv_CoderObject = Create CoderObject
+		
+		lblb_sha512 = lnv_CrypterObject.SHA(SHA512!, lblb_data)
+		
+		s_sha512 = lnv_CoderObject.HexEncode(lblb_sha512)
+		
+		s_token = lower(SERIAL + ":" + s_sha512)
+		trace( "- Token : " + s_token)
+		
+		// Sécurisation dans l'entete
+		lnv_HttpClient.SetRequestHeader("Content-Type", "application/json;charset=UTF-8")
+		lnv_HttpClient.SetRequestHeader("X-AUTH-TOKEN", s_token)
+		
+		s_commande = s_url_application + v_commande
+		
+		TRACE ( " - Body : " + v_body )
+		trace( " - Type de Data: " + v_type_data)
+		trace( " - Type de Requete : " + v_type_requete)
+	
+		TRACE ( " - Envoi de la commande : " + s_commande )
+		
+		// Envoi de la commande
+		li_rc = lnv_HttpClient.SendRequest(v_type_requete, s_commande , s_body, EncodingUTF8!)
+		
+		TRACE ( " - Code Retour de la recherche : " + string(li_rc))
+		
+		if li_rc = 1 then 
+			
+				l_statut_reponse = lnv_HttpClient.GetResponseStatusCode()
+				ls_message = ""
+				li_code = 0
+				
+				if lnv_HttpClient.GetResponseBody(ls_ReturnJson) = 1 then
+					
+					JSONParser json
+					json = CREATE JSONParser
+				  
+					ls_result = json.LoadString (ls_ReturnJson)
+					ll_root = json.GetRootItem()
+					
+					lb_success = json.GetItemBoolean(ll_root, 'success')            
+				end if
+////					if not lb_success then 
+//						
+//						// Pour la gestion du message d'erreur
+						li_code = json.GetItemNumber(ll_root, 'errorCode') 
+//						if isnull(li_code) then
+//							li_code = -1
+//						end if
+						ls_log = string_non_nulle(json.GetItemString(ll_root, 'log'))
+						ls_message = string_non_nulle(json.GetItemString(ll_root, 'message'))
+//						
+//					else
+						 
+	
+			//	end if 
+				TRACE ( " - Code Statut Réponse : " + string(l_statut_reponse))
+				TRACE ( " - errorCode : " + string(li_code))
+				TRACE ( " - message : " + ls_message)
+				TRACE ( " - log : " + ls_log)
+	
+				if 200 <= l_statut_reponse and l_statut_reponse <= 299 then
+					// C'est bon 
+					
+					TRACE ( " - Commandée exécutée avec succès !~n" + ls_ReturnJson +"~n*********************************************************" )
+					
+					
+				else
+					TRACE ( " **** Erreur GetResponseStatusCode N°" + string(l_statut_reponse) + "  dans la l'exécution de la requête : ~n" + ls_ReturnJson +"~n*********************************************************" )
+					
+					// Si le patient n'existe pas Pas de message d'erreur .. juste trace si besoin
+					if ls_message <>  "Patient not found."  then
+						MessageBox("ERREUR DE SYNCHRONISATION TEA",	"Erreur de synchronisation avec Téa !~n~nCode GetResponseStatusCode : " + string (l_statut_reponse  )+"~n~nCode Erreur : " + string(li_code) + "~n~nMessage : " + ls_message)
+						retour = false
+					end if
+				end if
+			else
+				
+				TRACE ( " **** Erreur SendRequest N°" + string(li_rc) + " dans la l'exécution de la requête : ~n" + ls_ReturnJson +"~n*********************************************************" )
+				MessageBox("ERREUR DANS L'EXECUTION DE LA COMMANDE",	"Erreur de communication avec Téa !~n~nCode SendRequest : " +  string(li_rc  ) )
+				retour = false
+		
+		end if
+	else
+		Trace (" *** AUCUNE URL  : PAS D'ENVOI DE COMMANDE A DsApi ***")
+		trace("  Commande : " + v_commande)	
+		retour = false
+	end if
+end if
+
+
+
+return retour
+
+
+end function
+

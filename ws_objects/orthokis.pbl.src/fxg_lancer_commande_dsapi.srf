@@ -1,0 +1,27 @@
+﻿$PBExportHeader$fxg_lancer_commande_dsapi.srf
+global type fxg_lancer_commande_dsapi from function_object
+end type
+
+forward prototypes
+global function boolean fxg_lancer_commande_dsapi (string v_commande, string v_body, string v_type_data, string v_type_requete, double v_code_patient)
+end prototypes
+
+global function boolean fxg_lancer_commande_dsapi (string v_commande, string v_body, string v_type_data, string v_type_requete, double v_code_patient);// On utilise uo_patient_mon_orthondiste car tout est regroupé dedans
+
+
+
+boolean retour 
+
+uo_patient_mon_orthodontiste uo_1
+
+
+uo_1 = create uo_patient_mon_orthodontiste
+
+retour = uo_1.lancer_commande_dsapi(v_commande, v_body, v_type_data, v_type_requete, v_code_patient)
+
+destroy uo_1
+
+return retour
+
+end function
+

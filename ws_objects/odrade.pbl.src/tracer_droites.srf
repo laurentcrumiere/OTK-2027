@@ -1,0 +1,120 @@
+﻿$PBExportHeader$tracer_droites.srf
+global type tracer_droites from function_object
+end type
+
+forward prototypes
+global subroutine tracer_droites (long code_patient, long code_radio, long code_trace, picture image, real resolution_x, real resolution_y, real pourcentage)
+end prototypes
+
+global subroutine tracer_droites (long code_patient, long code_radio, long code_trace, picture image, real resolution_x, real resolution_y, real pourcentage);// Variables
+
+ulong l_handle, l_device
+double x,y
+long num_droite
+ulong hpen
+string visible, intitule
+long couleur,epaisseur
+real norme , ratio
+
+long couleur_droite
+
+
+point_type point1, point2,point_prec
+point_type pointA ,pointB
+
+// Recherche de la couleur de tracé des droites par défaut
+SELECT couleur_droite, epaisseur_droite into :couleur, :epaisseur from traces where code_trace = :code_trace and code_patient = :code_patient 
+and code_radio = :code_radio using t_Odrade  ;
+
+
+l_handle = handle(image)
+l_device = GetDC(l_handle)
+hpen = CreatePen(0, epaisseur, couleur)
+SelectObject(l_device, hpen)
+
+
+// Recherche des points dans la base ...
+
+
+// LISTE DES DROITES DU TRACE
+DECLARE cur_droite CURSOR FOR 
+Select code_droite, ratio, visible, couleur, intitule  from droites where code_patient = :code_patient and code_radio = :code_radio and code_trace = :code_trace 
+order by code_droite using t_Odrade ;
+
+open cur_droite   ;
+
+fetch cur_droite into :num_droite, :ratio,  :visible , :couleur_droite, :intitule ;
+
+// Parcours de toutes les droites du tracé
+do while t_Odrade.sqlcode = 0	
+
+    if couleur_droite = -1 then
+		hpen = CreatePen(0, epaisseur, couleur)
+	else
+		hpen = CreatePen(0, epaisseur, couleur_droite)
+	end if
+
+	SelectObject(l_device, hpen)
+
+	if visible = 'oui'  then
+
+		// Point N°1
+		Select x, y into :x,:y from points_accr_droites,points_traces where points_accr_droites.code_patient = :code_patient 
+		and points_accr_droites.code_radio = :code_radio 	and points_accr_droites.code_trace = :code_trace 
+		and points_accr_droites.code_patient = points_traces.code_patient 	and points_accr_droites.code_radio = points_traces.code_radio 
+		and points_accr_droites.code_point_trace = points_traces.code_point_trace	
+		and points_accr_droites.code_trace = points_traces.code_trace	and points_accr_droites.code_droite = :num_droite and rang = 1 using t_Odrade ;
+		point1.x = x * resolution_x * pourcentage /100
+		point1.y = y * resolution_y * pourcentage /100
+		
+		// Point N°2
+		Select x, y into :x,:y from points_accr_droites,points_traces where points_accr_droites.code_patient = :code_patient 
+		and points_accr_droites.code_radio = :code_radio 	and points_accr_droites.code_trace = :code_trace 
+		and points_accr_droites.code_patient = points_traces.code_patient 	and points_accr_droites.code_radio = points_traces.code_radio 
+		and points_accr_droites.code_point_trace = points_traces.code_point_trace	
+		and points_accr_droites.code_trace = points_traces.code_trace	and points_accr_droites.code_droite = :num_droite and rang = 2 using t_Odrade ;
+		point2.x = x * resolution_x * pourcentage / 100
+		point2.y = y * resolution_y * pourcentage /100
+		
+		
+		// On applique le ration d'alongement ou pas de la droite
+		if ratio > 0 then
+			
+			real ecartx , ecarty
+			
+			ecartx =  point2.x - point1.x
+			ecarty = point2.y - point1.y
+			
+			pointB.x = point2.x + ecartx * ratio / 100
+			pointB.y = point2.y + ecarty * ratio / 100
+
+			pointA.x = point1.x - ecartx * ratio / 100
+			pointA.y = point1.y - ecarty * ratio / 100 
+
+		else
+			
+			pointA.x = point1.x 
+			pointA.y = point1.y 
+			
+			pointB.x = point2.x 
+			pointB.y = point2.y
+
+		end if
+	
+		MoveToEx(l_device, pointA.x, pointA.y, point_prec)
+		LineTo(l_device,pointB.x, pointB.y)
+
+	end if
+	
+	fetch cur_droite into :num_droite , :ratio,  :visible,  :couleur_droite, :intitule ;
+	
+loop
+
+close cur_droite ;
+
+
+
+
+
+end subroutine
+

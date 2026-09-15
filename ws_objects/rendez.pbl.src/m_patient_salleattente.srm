@@ -1,0 +1,2078 @@
+﻿$PBExportHeader$m_patient_salleattente.srm
+forward
+global type m_patient_salleattente from m_patientcourant
+end type
+type m_agendagraphique from menu within m_patient_salleattente
+end type
+type m_6 from menu within m_patient_salleattente
+end type
+type m_heurearrivee from menu within m_patient_salleattente
+end type
+type m_annulerarrivee from menu within m_patient_salleattente
+end type
+type m_ticketderendezvous from menu within m_patient_salleattente
+end type
+type m_-1 from menu within m_patient_salleattente
+end type
+type m_annoncerensalledattente from menu within m_patient_salleattente
+end type
+type m_-2 from menu within m_patient_salleattente
+end type
+type m_historiquedesetats from menu within m_patient_salleattente
+end type
+type m_5 from menu within m_patient_salleattente
+end type
+type m_1 from menu within m_patient_salleattente
+end type
+type m_salledattenteparametrable from menu within m_patient_salleattente
+end type
+type m_miseenevidence from menu within m_salledattenteparametrable
+end type
+type m_heure from menu within m_salledattenteparametrable
+end type
+type m_patient from menu within m_salledattenteparametrable
+end type
+type m_numerodedossier from menu within m_salledattenteparametrable
+end type
+type m_praticien from menu within m_salledattenteparametrable
+end type
+type m_typederendezvous from menu within m_salledattenteparametrable
+end type
+type m_duree from menu within m_salledattenteparametrable
+end type
+type m_fauteuil from menu within m_salledattenteparametrable
+end type
+type m_etat from menu within m_salledattenteparametrable
+end type
+type m_typededossier from menu within m_salledattenteparametrable
+end type
+type m_heuredarrivee from menu within m_salledattenteparametrable
+end type
+type m_pastillederetard from menu within m_salledattenteparametrable
+end type
+type m_alertes from menu within m_salledattenteparametrable
+end type
+type m_commentairedurendezvous from menu within m_salledattenteparametrable
+end type
+type m_praticienadministratif from menu within m_salledattenteparametrable
+end type
+type m_moulage from menu within m_salledattenteparametrable
+end type
+type m_nomfauteuil from menu within m_salledattenteparametrable
+end type
+type m_tempsensalledattente from menu within m_salledattenteparametrable
+end type
+type m_pastilledecouleur2 from menu within m_salledattenteparametrable
+end type
+type m_alertefeuilledesoins from menu within m_salledattenteparametrable
+end type
+type m_suiviclinique from menu within m_salledattenteparametrable
+end type
+type m_anniversaire from menu within m_salledattenteparametrable
+end type
+type m_7 from menu within m_salledattenteparametrable
+end type
+type m_restaurer from menu within m_salledattenteparametrable
+end type
+type m_salledattenteparametrable from menu within m_patient_salleattente
+m_miseenevidence m_miseenevidence
+m_heure m_heure
+m_patient m_patient
+m_numerodedossier m_numerodedossier
+m_praticien m_praticien
+m_typederendezvous m_typederendezvous
+m_duree m_duree
+m_fauteuil m_fauteuil
+m_etat m_etat
+m_typededossier m_typededossier
+m_heuredarrivee m_heuredarrivee
+m_pastillederetard m_pastillederetard
+m_alertes m_alertes
+m_commentairedurendezvous m_commentairedurendezvous
+m_praticienadministratif m_praticienadministratif
+m_moulage m_moulage
+m_nomfauteuil m_nomfauteuil
+m_tempsensalledattente m_tempsensalledattente
+m_pastilledecouleur2 m_pastilledecouleur2
+m_alertefeuilledesoins m_alertefeuilledesoins
+m_suiviclinique m_suiviclinique
+m_anniversaire m_anniversaire
+m_7 m_7
+m_restaurer m_restaurer
+end type
+global type m_patient_salleattente from m_patientcourant
+m_agendagraphique m_agendagraphique
+m_6 m_6
+m_heurearrivee m_heurearrivee
+m_annulerarrivee m_annulerarrivee
+m_ticketderendezvous m_ticketderendezvous
+m_-1 m_-1
+m_annoncerensalledattente m_annoncerensalledattente
+m_-2 m_-2
+m_historiquedesetats m_historiquedesetats
+m_5 m_5
+m_1 m_1
+m_salledattenteparametrable m_salledattenteparametrable
+end type
+end forward
+
+global type m_patient_salleattente from m_patientcourant
+m_agendagraphique m_agendagraphique
+m_6 m_6
+m_heurearrivee m_heurearrivee
+m_annulerarrivee m_annulerarrivee
+m_ticketderendezvous m_ticketderendezvous
+m_-1 m_-1
+m_annoncerensalledattente m_annoncerensalledattente
+m_-2 m_-2
+m_historiquedesetats m_historiquedesetats
+m_5 m_5
+m_1 m_1
+m_salledattenteparametrable m_salledattenteparametrable
+end type
+global m_patient_salleattente m_patient_salleattente
+
+forward prototypes
+public function integer gestion_des_droits_salleattente ()
+end prototypes
+
+public function integer gestion_des_droits_salleattente ();//fx publique pour la Gestion suplémentaire des droits d'accés
+//prend en compte les droit du menu hérité puis ceux rajoutés
+//revoie -1 si pb
+//renvoie 1 si OK
+
+
+
+if gestion_des_droits() <> 1 then return -1
+
+
+// Gestion des icones ...
+if profilestring(dir_ini+inifile_orthokis,"UI_V2020","icones_2022","N") = "O" then
+	
+	this.m_agendagraphique.MenuImage	 =  icone_agenda_16
+
+end if
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
+//selon possession des modules
+
+//module agenda graph
+this.m_agendagraphique.enabled = rdv_graph
+
+///////////////////////////////////////////////////////////////////////////
+
+//selon droits utilisateurs
+
+// Agenda Graphique
+if droits_acces[16] = 'N'  then 
+	this.m_agendagraphique.enabled = false
+end if
+
+// Rendez-vous 
+if droits_acces[16] = 'N' then
+	this.m_heurearrivee.enabled = false
+	this.m_annulerarrivee.enabled = false
+end if
+
+
+// Annonce video en salle d'attente
+this.m_annoncerensalledattente.enabled = video
+
+//pas de gestion d'erreur
+return 1
+end function
+
+on m_patient_salleattente.create
+m_patient_salleattente=this
+call super::create
+this.text = "m_patient_salleattente"
+this.toolbarstyle = contemporarytoolbar!
+this.m_agendagraphique=create m_agendagraphique
+this.m_6=create m_6
+this.m_heurearrivee=create m_heurearrivee
+this.m_annulerarrivee=create m_annulerarrivee
+this.m_ticketderendezvous=create m_ticketderendezvous
+this.m_-1=create m_-1
+this.m_annoncerensalledattente=create m_annoncerensalledattente
+this.m_-2=create m_-2
+this.m_historiquedesetats=create m_historiquedesetats
+this.m_5=create m_5
+this.m_1=create m_1
+this.m_salledattenteparametrable=create m_salledattenteparametrable
+this.Item[UpperBound(this.Item)+1]=this.m_agendagraphique
+this.Item[UpperBound(this.Item)+1]=this.m_6
+this.Item[UpperBound(this.Item)+1]=this.m_heurearrivee
+this.Item[UpperBound(this.Item)+1]=this.m_annulerarrivee
+this.Item[UpperBound(this.Item)+1]=this.m_ticketderendezvous
+this.Item[UpperBound(this.Item)+1]=this.m_-1
+this.Item[UpperBound(this.Item)+1]=this.m_annoncerensalledattente
+this.Item[UpperBound(this.Item)+1]=this.m_-2
+this.Item[UpperBound(this.Item)+1]=this.m_historiquedesetats
+this.Item[UpperBound(this.Item)+1]=this.m_5
+this.Item[UpperBound(this.Item)+1]=this.m_1
+this.Item[UpperBound(this.Item)+1]=this.m_salledattenteparametrable
+end on
+
+on m_patient_salleattente.destroy
+call super::destroy
+destroy(this.m_agendagraphique)
+destroy(this.m_6)
+destroy(this.m_heurearrivee)
+destroy(this.m_annulerarrivee)
+destroy(this.m_ticketderendezvous)
+destroy(this.m_-1)
+destroy(this.m_annoncerensalledattente)
+destroy(this.m_-2)
+destroy(this.m_historiquedesetats)
+destroy(this.m_5)
+destroy(this.m_1)
+destroy(this.m_salledattenteparametrable)
+end on
+
+event clicked;call super::clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.nom_fauteuil.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.nom_fauteuil.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_administratif from m_patientcourant`m_administratif within m_patient_salleattente
+end type
+
+on m_administratif.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_administratif.destroy
+call super::destroy
+end on
+
+type m_courriersactionsdocuments from m_patientcourant`m_courriersactionsdocuments within m_patient_salleattente
+end type
+
+on m_courriersactionsdocuments.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_courriersactionsdocuments.destroy
+call super::destroy
+end on
+
+type m_commentairesadministratifs from m_patientcourant`m_commentairesadministratifs within m_patient_salleattente
+end type
+
+on m_commentairesadministratifs.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_commentairesadministratifs.destroy
+call super::destroy
+end on
+
+type m_0 from m_patientcourant`m_0 within m_patient_salleattente
+end type
+
+on m_0.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+type m_soinsprévisionnel from m_patientcourant`m_soinsprévisionnel within m_patient_salleattente
+end type
+
+on m_soinsprévisionnel.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_soinsprévisionnel.destroy
+call super::destroy
+end on
+
+type m_soinsencours from m_patientcourant`m_soinsencours within m_patient_salleattente
+end type
+
+on m_soinsencours.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_soinsencours.destroy
+call super::destroy
+end on
+
+type m_rêglement from m_patientcourant`m_rêglement within m_patient_salleattente
+end type
+
+on m_rêglement.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_rêglement.destroy
+call super::destroy
+end on
+
+type m_télévital from m_patientcourant`m_télévital within m_patient_salleattente
+end type
+
+on m_télévital.create
+call super::create
+this.text = "Suivi CC-Vitale"
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_télévital.destroy
+call super::destroy
+end on
+
+type m_2 from m_patientcourant`m_2 within m_patient_salleattente
+end type
+
+on m_2.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_2.destroy
+call super::destroy
+end on
+
+type m_commentairescliniques from m_patientcourant`m_commentairescliniques within m_patient_salleattente
+end type
+
+on m_commentairescliniques.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_commentairescliniques.destroy
+call super::destroy
+end on
+
+type m_pagescliniques from m_patientcourant`m_pagescliniques within m_patient_salleattente
+end type
+
+on m_pagescliniques.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_pagescliniques.destroy
+call super::destroy
+end on
+
+type m_imagerie from m_patientcourant`m_imagerie within m_patient_salleattente
+end type
+
+on m_imagerie.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_imagerie.destroy
+call super::destroy
+end on
+
+type m_4 from m_patientcourant`m_4 within m_patient_salleattente
+end type
+
+on m_4.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_4.destroy
+call super::destroy
+end on
+
+type m_lienodrade from m_patientcourant`m_lienodrade within m_patient_salleattente
+end type
+
+on m_lienodrade.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_lienodrade.destroy
+call super::destroy
+end on
+
+type m_3 from m_patientcourant`m_3 within m_patient_salleattente
+end type
+
+on m_3.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_3.destroy
+call super::destroy
+end on
+
+type m_rendez-vous from m_patientcourant`m_rendez-vous within m_patient_salleattente
+end type
+
+on m_rendez-vous.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_rendez-vous.destroy
+call super::destroy
+end on
+
+type m_- from m_patientcourant`m_- within m_patient_salleattente
+end type
+
+on m_-.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_envoyeremail from m_patientcourant`m_envoyeremail within m_patient_salleattente
+end type
+
+on m_envoyeremail.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_envoyeremail.destroy
+call super::destroy
+end on
+
+type m_signatureenligne from m_patientcourant`m_signatureenligne within m_patient_salleattente
+end type
+
+on m_signatureenligne.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_signatureenligne.destroy
+call super::destroy
+end on
+
+type m_-0 from m_patientcourant`m_-0 within m_patient_salleattente
+end type
+
+on m_-0.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_-0.destroy
+call super::destroy
+end on
+
+type m_exporterlalistesousexcel from m_patientcourant`m_exporterlalistesousexcel within m_patient_salleattente
+end type
+
+on m_exporterlalistesousexcel.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_exporterlalistesousexcel.destroy
+call super::destroy
+end on
+
+type m_exporterlalisteauformatexcelavecprésentation from m_patientcourant`m_exporterlalisteauformatexcelavecprésentation within m_patient_salleattente
+end type
+
+on m_exporterlalisteauformatexcelavecprésentation.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_exporterlalisteauformatexcelavecprésentation.destroy
+call super::destroy
+end on
+
+type m_pdf from m_patientcourant`m_pdf within m_patient_salleattente
+end type
+
+on m_pdf.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_pdf.destroy
+call super::destroy
+end on
+
+type m_exporterlaliste from m_patientcourant`m_exporterlaliste within m_patient_salleattente
+end type
+
+on m_exporterlaliste.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_exporterlaliste.destroy
+call super::destroy
+end on
+
+event m_exporterlaliste::clicked;
+// Le script parent plante sinon
+w_rdv_salle_attente.dw_liste.saveas()
+end event
+
+type m_etiquettes from m_patientcourant`m_etiquettes within m_patient_salleattente
+end type
+
+on m_etiquettes.create
+call super::create
+this.visible = false
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_etiquettes.destroy
+call super::destroy
+end on
+
+type m_envoyersmsliste from m_patientcourant`m_envoyersmsliste within m_patient_salleattente
+end type
+
+on m_envoyersmsliste.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_envoyersmsliste.destroy
+call super::destroy
+end on
+
+type m_envoyersmsunitaire from m_patientcourant`m_envoyersmsunitaire within m_patient_salleattente
+end type
+
+on m_envoyersmsunitaire.create
+call super::create
+this.text = "Envoyer SMS Unitaire"
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_envoyersmsunitaire.destroy
+call super::destroy
+end on
+
+type m_toutdeselectionner from m_patientcourant`m_toutdeselectionner within m_patient_salleattente
+end type
+
+on m_toutdeselectionner.create
+call super::create
+this.toolbarstyle = contemporarytoolbar!
+end on
+
+on m_toutdeselectionner.destroy
+call super::destroy
+end on
+
+type m_agendagraphique from menu within m_patient_salleattente
+end type
+
+on m_agendagraphique.create
+call super::create
+this.text = "Agenda Graphique"
+this.menuimage = "lc_agenda_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_agendagraphique.destroy
+call super::destroy
+end on
+
+event clicked;
+
+
+// On doit ouvrir l'agenda sur la semaine selon ce qui est mis dans les commentaires cliniques (prochain rdv)
+
+
+// On récupère le patient courant
+
+
+//Mise à jour des patients en mémoire
+MajTabPatientsCourants(CodePatientCourant)
+
+// ouverture de l'agenda
+ouvrir_agenda_salle_attente(CodePatientCourant, 0)
+
+end event
+
+type m_6 from menu within m_patient_salleattente
+end type
+
+on m_6.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_6.destroy
+call super::destroy
+end on
+
+type m_heurearrivee from menu within m_patient_salleattente
+event clicked ( )
+end type
+
+event clicked;var_code = dw_click.getitemnumber(dw_click.getrow(),"patient_code")
+var_nom = dw_click.getitemstring(dw_click.getrow(),"patient_nom_cherche")
+var_nomp = ""
+var_pay = ""
+var_moul = ""
+
+// On récupère l'heure du serveur
+datetime heure_serveur
+
+SELECT getdate() INTO :heure_serveur FROM "param" ;
+
+dw_click.Setitem(dw_click.getrow(),"rdv_arrivee",time(heure_serveur))
+
+
+// On vérifie les retards de chaque ligne pour les état de RDV automatique
+// On a le meme scrpit dans le bouton "enregistrer" de la salle d'attente
+
+// On ne vérifie le retard que si l'état est à 'N' (code par défgaut) AVANT
+
+if 	dw_click.GetitemString(dw_click.getrow(),"rdv_absent") = 'N' then
+
+
+	time heure_arrivee, heure_prevue
+	long retard
+	string etat_rdv
+	heure_arrivee = dw_click.getitemtime(dw_click.getrow(),"rdv_arrivee")
+	heure_prevue= time(dw_click.getitemDateTime(dw_click.getrow(),"rdv_rdv"))
+	
+	retard = secondsAfter(heure_prevue , heure_arrivee ) / 60
+	
+	if retard > 0 then
+		// On recherche s'il y a un état de RDV pour ce retard
+		SELECT min(code) INTO :etat_rdv FROM etat_rdv  WHERE :retard between retard_mini and retard_maxi and actif = 1;
+		if sqlca.sqlcode = 0 and not isnull(etat_rdv) then
+			// Un code trouvé ...
+			dw_click.Setitem(dw_click.getrow(),"rdv_absent",etat_rdv)
+		end if
+	end if
+end if
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+if dw_click.update() = 1 then
+	commit ;
+else
+	rollback ;
+end if
+
+end event
+
+on m_heurearrivee.create
+call super::create
+this.text = "Heure d~'Arrivée"
+this.menuimage = "lc_rdv_heure_arrivee.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_heurearrivee.destroy
+call super::destroy
+end on
+
+type m_annulerarrivee from menu within m_patient_salleattente
+event clicked ( )
+end type
+
+event clicked;time vide
+setnull(vide)
+
+dw_click.Setitem(dw_click.getrow(),"rdv_arrivee",vide)
+
+if dw_click.update() = 1 then
+	commit ;
+else
+	rollback ;
+end if
+
+end event
+
+on m_annulerarrivee.create
+call super::create
+this.text = "Annuler Arrivée"
+this.menuimage = "lc_rdv_annuler_heure_arrivee.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_annulerarrivee.destroy
+call super::destroy
+end on
+
+type m_ticketderendezvous from menu within m_patient_salleattente
+end type
+
+event clicked;if dw_click.rowcount() > 0 then
+	
+	double v_code_patient
+	datetime v_rdv
+
+	v_code_patient = dw_click.getItemNumber(dw_click.getrow(), "patient_code")
+	v_rdv = dw_click.getItemDatetime(dw_click.getrow(), "rdv_rdv")
+	
+	// Mise en place du user objet utile pour impression mais avec coordonnées pour le masquer
+	w_rdv_salle_attente.OpenUserObject(uo_edition_rtf, 30000, 30000)
+	Impression_ticket_rdv (v_code_patient, v_rdv, uo_edition_rtf, false)
+
+	
+end if
+end event
+
+on m_ticketderendezvous.create
+call super::create
+this.text = "Ticket de Rendez-vous"
+this.menuimage = "lc_ticket_rdv.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ticketderendezvous.destroy
+call super::destroy
+end on
+
+type m_-1 from menu within m_patient_salleattente
+end type
+
+on m_-1.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-1.destroy
+call super::destroy
+end on
+
+type m_annoncerensalledattente from menu within m_patient_salleattente
+end type
+
+event clicked;if not WAIT_AND_SMILE then
+	openwithparm(w_confirmation_annonce_salle, CodePatientCourant)
+else
+	
+	// Envoi du message à Neotess
+	uo_wait_and_smile uo_wait
+	
+	uo_wait = create uo_wait_and_smile
+	
+	uo_wait.appeler_patient(CodePatientCourant)
+		
+	
+end if
+end event
+
+on m_annoncerensalledattente.create
+call super::create
+this.text = "Annoncer en Salle d~'Attente"
+this.menuimage = "lc_annoncer.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_annoncerensalledattente.destroy
+call super::destroy
+end on
+
+type m_-2 from menu within m_patient_salleattente
+end type
+
+on m_-2.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-2.destroy
+call super::destroy
+end on
+
+type m_historiquedesetats from menu within m_patient_salleattente
+end type
+
+event clicked;
+openwithparm(w_rdv_histo_etat,   round(dw_click.getitemnumber(dw_click.getrow(),"rdv_code_interne") , 0) )
+
+
+end event
+
+on m_historiquedesetats.create
+call super::create
+this.text = "Historique des Etats"
+this.menuimage = "lc_historique_etat_rdv.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_historiquedesetats.destroy
+call super::destroy
+end on
+
+type m_5 from menu within m_patient_salleattente
+end type
+
+event clicked;
+	fxg_get_infos_modifs(dw_click, dw_click.getrow() )
+
+
+
+
+
+end event
+
+on m_5.create
+call super::create
+this.text = "Informations de modifications"
+this.menuimage = "lc_infos.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_5.destroy
+call super::destroy
+end on
+
+type m_1 from menu within m_patient_salleattente
+end type
+
+on m_1.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_1.destroy
+call super::destroy
+end on
+
+type m_salledattenteparametrable from menu within m_patient_salleattente
+m_miseenevidence m_miseenevidence
+m_heure m_heure
+m_patient m_patient
+m_numerodedossier m_numerodedossier
+m_praticien m_praticien
+m_typederendezvous m_typederendezvous
+m_duree m_duree
+m_fauteuil m_fauteuil
+m_etat m_etat
+m_typededossier m_typededossier
+m_heuredarrivee m_heuredarrivee
+m_pastillederetard m_pastillederetard
+m_alertes m_alertes
+m_commentairedurendezvous m_commentairedurendezvous
+m_praticienadministratif m_praticienadministratif
+m_moulage m_moulage
+m_nomfauteuil m_nomfauteuil
+m_tempsensalledattente m_tempsensalledattente
+m_pastilledecouleur2 m_pastilledecouleur2
+m_alertefeuilledesoins m_alertefeuilledesoins
+m_suiviclinique m_suiviclinique
+m_anniversaire m_anniversaire
+m_7 m_7
+m_restaurer m_restaurer
+end type
+
+on m_salledattenteparametrable.create
+call super::create
+this.text = "Salle d~'attente Paramétrable"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_miseenevidence=create m_miseenevidence
+this.m_heure=create m_heure
+this.m_patient=create m_patient
+this.m_numerodedossier=create m_numerodedossier
+this.m_praticien=create m_praticien
+this.m_typederendezvous=create m_typederendezvous
+this.m_duree=create m_duree
+this.m_fauteuil=create m_fauteuil
+this.m_etat=create m_etat
+this.m_typededossier=create m_typededossier
+this.m_heuredarrivee=create m_heuredarrivee
+this.m_pastillederetard=create m_pastillederetard
+this.m_alertes=create m_alertes
+this.m_commentairedurendezvous=create m_commentairedurendezvous
+this.m_praticienadministratif=create m_praticienadministratif
+this.m_moulage=create m_moulage
+this.m_nomfauteuil=create m_nomfauteuil
+this.m_tempsensalledattente=create m_tempsensalledattente
+this.m_pastilledecouleur2=create m_pastilledecouleur2
+this.m_alertefeuilledesoins=create m_alertefeuilledesoins
+this.m_suiviclinique=create m_suiviclinique
+this.m_anniversaire=create m_anniversaire
+this.m_7=create m_7
+this.m_restaurer=create m_restaurer
+this.Item[UpperBound(this.Item)+1]=this.m_miseenevidence
+this.Item[UpperBound(this.Item)+1]=this.m_heure
+this.Item[UpperBound(this.Item)+1]=this.m_patient
+this.Item[UpperBound(this.Item)+1]=this.m_numerodedossier
+this.Item[UpperBound(this.Item)+1]=this.m_praticien
+this.Item[UpperBound(this.Item)+1]=this.m_typederendezvous
+this.Item[UpperBound(this.Item)+1]=this.m_duree
+this.Item[UpperBound(this.Item)+1]=this.m_fauteuil
+this.Item[UpperBound(this.Item)+1]=this.m_etat
+this.Item[UpperBound(this.Item)+1]=this.m_typededossier
+this.Item[UpperBound(this.Item)+1]=this.m_heuredarrivee
+this.Item[UpperBound(this.Item)+1]=this.m_pastillederetard
+this.Item[UpperBound(this.Item)+1]=this.m_alertes
+this.Item[UpperBound(this.Item)+1]=this.m_commentairedurendezvous
+this.Item[UpperBound(this.Item)+1]=this.m_praticienadministratif
+this.Item[UpperBound(this.Item)+1]=this.m_moulage
+this.Item[UpperBound(this.Item)+1]=this.m_nomfauteuil
+this.Item[UpperBound(this.Item)+1]=this.m_tempsensalledattente
+this.Item[UpperBound(this.Item)+1]=this.m_pastilledecouleur2
+this.Item[UpperBound(this.Item)+1]=this.m_alertefeuilledesoins
+this.Item[UpperBound(this.Item)+1]=this.m_suiviclinique
+this.Item[UpperBound(this.Item)+1]=this.m_anniversaire
+this.Item[UpperBound(this.Item)+1]=this.m_7
+this.Item[UpperBound(this.Item)+1]=this.m_restaurer
+end on
+
+on m_salledattenteparametrable.destroy
+call super::destroy
+destroy(this.m_miseenevidence)
+destroy(this.m_heure)
+destroy(this.m_patient)
+destroy(this.m_numerodedossier)
+destroy(this.m_praticien)
+destroy(this.m_typederendezvous)
+destroy(this.m_duree)
+destroy(this.m_fauteuil)
+destroy(this.m_etat)
+destroy(this.m_typededossier)
+destroy(this.m_heuredarrivee)
+destroy(this.m_pastillederetard)
+destroy(this.m_alertes)
+destroy(this.m_commentairedurendezvous)
+destroy(this.m_praticienadministratif)
+destroy(this.m_moulage)
+destroy(this.m_nomfauteuil)
+destroy(this.m_tempsensalledattente)
+destroy(this.m_pastilledecouleur2)
+destroy(this.m_alertefeuilledesoins)
+destroy(this.m_suiviclinique)
+destroy(this.m_anniversaire)
+destroy(this.m_7)
+destroy(this.m_restaurer)
+end on
+
+type m_miseenevidence from menu within m_salledattenteparametrable
+end type
+
+on m_miseenevidence.create
+call super::create
+this.tag = "patient_mise_en_evidence"
+this.text = "Mise en évidence"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_miseenevidence.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.patient_mise_en_evidence.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.patient_mise_en_evidence.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_heure from menu within m_salledattenteparametrable
+end type
+
+on m_heure.create
+call super::create
+this.tag = "date"
+this.text = "Heure du Rendez-vous"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_heure.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.rdv_rdv.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.rdv_rdv.visible = 1
+	this.checked = true
+end if
+
+
+end event
+
+type m_patient from menu within m_salledattenteparametrable
+end type
+
+on m_patient.create
+call super::create
+this.tag = "patient_nom_cherche"
+this.text = "Nom du Patient"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_patient.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.patient_nom_cherche.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.patient_nom_cherche.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_numerodedossier from menu within m_salledattenteparametrable
+end type
+
+on m_numerodedossier.create
+call super::create
+this.tag = "patient_numero_dossier"
+this.text = "Numéro de Dossier"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_numerodedossier.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.patient_numero_dossier.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.patient_numero_dossier.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_praticien from menu within m_salledattenteparametrable
+end type
+
+on m_praticien.create
+call super::create
+this.tag = "rdv_code_praticien"
+this.text = "Praticien (Rdv)"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_praticien.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.rdv_code_praticien.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.rdv_code_praticien.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_typederendezvous from menu within m_salledattenteparametrable
+end type
+
+on m_typederendezvous.create
+call super::create
+this.text = "Type de Rendez-vous"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_typederendezvous.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.type_rdv_nom.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.type_rdv_nom.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_duree from menu within m_salledattenteparametrable
+end type
+
+on m_duree.create
+call super::create
+this.text = "Durée"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_duree.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.rdv_duree.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.rdv_duree.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_fauteuil from menu within m_salledattenteparametrable
+end type
+
+on m_fauteuil.create
+call super::create
+this.text = "Fauteuil"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_fauteuil.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.rdv_fauteuil.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.rdv_fauteuil.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_etat from menu within m_salledattenteparametrable
+end type
+
+on m_etat.create
+call super::create
+this.text = "Etat du Rendez-vous"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_etat.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.rdv_absent.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.rdv_absent.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_typededossier from menu within m_salledattenteparametrable
+end type
+
+on m_typededossier.create
+call super::create
+this.text = "Type de Dossier du Patient"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_typededossier.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.dossier_code.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.dossier_code.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_heuredarrivee from menu within m_salledattenteparametrable
+end type
+
+on m_heuredarrivee.create
+call super::create
+this.text = "Heure d~'arrivée"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_heuredarrivee.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.rdv_arrivee.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.rdv_arrivee.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_pastillederetard from menu within m_salledattenteparametrable
+end type
+
+on m_pastillederetard.create
+call super::create
+this.text = "Pastille de retard"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_pastillederetard.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.oval_retard.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.oval_retard.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_alertes from menu within m_salledattenteparametrable
+end type
+
+on m_alertes.create
+call super::create
+this.text = "A de Alertes"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_alertes.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.alertes.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.alertes.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_commentairedurendezvous from menu within m_salledattenteparametrable
+end type
+
+on m_commentairedurendezvous.create
+call super::create
+this.text = "Commentaire du Rendez-vous"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_commentairedurendezvous.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.rdv_commentaire.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.rdv_commentaire.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_praticienadministratif from menu within m_salledattenteparametrable
+end type
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.patient_code_praticien.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.patient_code_praticien.visible = 1
+	this.checked = true
+end if
+end event
+
+on m_praticienadministratif.create
+call super::create
+this.text = "Praticien (Administratif)"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_praticienadministratif.destroy
+call super::destroy
+end on
+
+type m_moulage from menu within m_salledattenteparametrable
+end type
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.patient_moulage.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.patient_moulage.visible = 1
+	this.checked = true
+end if
+end event
+
+on m_moulage.create
+call super::create
+this.text = "Moulage"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_moulage.destroy
+call super::destroy
+end on
+
+type m_nomfauteuil from menu within m_salledattenteparametrable
+end type
+
+on m_nomfauteuil.create
+call super::create
+this.text = "Nom des Fauteuils"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_nomfauteuil.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.nom_fauteuil.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.nom_fauteuil.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_tempsensalledattente from menu within m_salledattenteparametrable
+end type
+
+on m_tempsensalledattente.create
+call super::create
+this.text = "Temps en Salle d~'Attente"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_tempsensalledattente.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.temps_attente.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.temps_attente.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_pastilledecouleur2 from menu within m_salledattenteparametrable
+end type
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.pastille_couleur2.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.pastille_couleur2.visible = 1
+	this.checked = true
+end if
+end event
+
+on m_pastilledecouleur2.create
+call super::create
+this.text = "Pastille de Couleur N°2"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_pastilledecouleur2.destroy
+call super::destroy
+end on
+
+type m_alertefeuilledesoins from menu within m_salledattenteparametrable
+end type
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.alerte_fs.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.alerte_fs.visible = 1
+	this.checked = true
+end if
+end event
+
+on m_alertefeuilledesoins.create
+call super::create
+this.text = "Alerte Feuille de Soins"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_alertefeuilledesoins.destroy
+call super::destroy
+end on
+
+type m_suiviclinique from menu within m_salledattenteparametrable
+end type
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.rdv_user_suivi_clinique.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.rdv_user_suivi_clinique.visible = 1
+	this.checked = true
+end if
+end event
+
+on m_suiviclinique.create
+call super::create
+this.text = "Suivi Clinique"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_suiviclinique.destroy
+call super::destroy
+end on
+
+type m_anniversaire from menu within m_salledattenteparametrable
+end type
+
+on m_anniversaire.create
+call super::create
+this.text = "Anniversaire"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_anniversaire.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_rdv_salle_attente.dw_liste.object.anniversaire.visible = 0
+	this.checked = false
+else
+	w_rdv_salle_attente.dw_liste.object.anniversaire.visible = 1
+	this.checked = true
+end if
+end event
+
+type m_7 from menu within m_salledattenteparametrable
+end type
+
+on m_7.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_7.destroy
+call super::destroy
+end on
+
+type m_restaurer from menu within m_salledattenteparametrable
+end type
+
+on m_restaurer.create
+call super::create
+this.text = "Restaurer"
+this.menuimage = "lc_restaurer_colonnes.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_restaurer.destroy
+call super::destroy
+end on
+
+event clicked;// Réinitialisation des valeurs pour avoir une salle propre
+	
+	Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","ordre_colonnes_salle_attente_parametrable","patient_mise_en_evidence=101,date=215,patient_nom_cherche=859,patient_numero_dossier=425,rdv_code_praticien=443,type_rdv_nom=800,rdv_duree=142,rdv_fauteuil=96,rdv_absent=526,dossier_code=553,rdv_arrivee=192,oval_retard=114")
+	SetProfilestring(dir_ini+inifile_orthokis,"rendez-vous","largeur_colonnes_salle_attente_parametrable", " 00101 00215 00859 00425 00443 00800 00142 00096 00526 00553 00192 00114 00128 00517 00297 00247")
+	SetProfilestring(dir_ini+inifile_orthokis,"rendez-vous","visibilite_colonnes_salle_attente_parametrable", "1111111111111000")
+
+	w_rdv_salle_attente.triggerevent(open!)
+	w_rdv_salle_attente.cb_rafraichir.triggerevent(clicked!)
+end event
+

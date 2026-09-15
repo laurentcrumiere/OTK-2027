@@ -1,0 +1,28 @@
+﻿$PBExportHeader$construire_nom_fichier_vignette.srf
+global type construire_nom_fichier_vignette from function_object
+end type
+
+forward prototypes
+global function string construire_nom_fichier_vignette (string fichier_image)
+end prototypes
+
+global function string construire_nom_fichier_vignette (string fichier_image);
+// contruit le nom du fichier vignette en fonction du nom de la photos
+//     \\serveur\power\photo\12\1.jpg =>   \\serveur\power\photo\12\v1.jpg
+
+string fichier_vignette
+int i, pos_last
+
+// on recherche le dernier \
+i = 1
+do while pos(fichier_image, "\",i) > 0 
+	pos_last = pos(fichier_image, "\",i)
+	i = pos_last + 1
+loop
+
+
+fichier_vignette = left(fichier_image,pos_last)+"v"+mid(fichier_image,pos_last + 1)
+
+return  fichier_vignette
+end function
+

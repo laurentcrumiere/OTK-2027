@@ -1,0 +1,93 @@
+﻿$PBExportHeader$fxg_envoi_mail_securise_ehealth.srf
+global type fxg_envoi_mail_securise_ehealth from function_object
+end type
+
+forward prototypes
+global subroutine fxg_envoi_mail_securise_ehealth (str_email_frm_output frm_output, double var_code_local, uo_email_email email, string fichiers_a_envoyer[])
+end prototypes
+
+global subroutine fxg_envoi_mail_securise_ehealth (str_email_frm_output frm_output, double var_code_local, uo_email_email email, string fichiers_a_envoyer[]);// recherche des éléments du correspondant
+
+string v_code_correspondant
+string v_numero_id, v_numero_inami 
+integer num_fichier_ini
+string CheminDossier
+string v_objet
+string fichier_texte_envoye
+long nb_fichier_a_envoyer, lig, nb_fichier_tableau
+
+constant string fichier_texte_origine = dir_ini + "texte_email_tmp.html"
+constant string NomFichierIni = "message_securise.ini"
+
+//messagebox("attention","envoi sécu ehealth")
+
+
+CheminDossier = dir_photos + string(var_code_local) + "\"
+
+// Création du .ini 
+num_fichier_ini = FileOpen(CheminDossier + NomFichierIni , LineMode! , Write!, LockReadWrite!, Replace!)
+FileWrite(num_fichier_ini, "[destinataire]")
+FileClose(num_fichier_ini)
+
+
+v_code_correspondant =  frm_output.code_correspondant
+
+select numero_id, numero_inami
+into  :v_numero_id, :v_numero_inami 
+from correspondants where code = :v_code_correspondant ;
+
+
+setprofilestring(CheminDossier + NomFichierIni,"destinataire","SSIN", v_numero_id )
+setprofilestring(CheminDossier + NomFichierIni,"destinataire","NIHII", v_numero_inami )
+
+
+// Nous servira pour les fonctions de mise en forme
+string v_fichier_corps
+
+if not isvalid(email) then		// si l'objet pas encore instancié
+	email = create uo_email_email
+end if
+
+email.set_patient(var_code_local)
+v_objet = frm_output.objet
+email.maj_champs(v_objet)
+
+// Objet
+setprofilestring(CheminDossier +NomFichierIni,"message","Objet",v_objet )
+
+// Emplacement spéciale pour myOrthokis
+fichier_texte_envoye = "texte_email_tmp.html"
+
+//FileCopy(fichier_texte_origine, CheminDossier + fichier_texte_envoye, true)
+
+setprofilestring(CheminDossier + NomFichierIni ,"message","Corps", fichier_texte_envoye )
+
+
+nb_fichier_tableau = UpperBound(fichiers_a_envoyer[])
+
+// pour les images, il y a des cases vides dans le tableau
+nb_fichier_a_envoyer = 0
+for lig = 1 to nb_fichier_tableau
+	if fichiers_a_envoyer[lig] <> "" then
+		nb_fichier_a_envoyer = nb_fichier_a_envoyer + 1
+	end if
+next
+
+
+setprofilestring(CheminDossier + NomFichierIni,"message","Nombre_pj",string(nb_fichier_a_envoyer) )
+
+for lig = 1 to nb_fichier_a_envoyer
+	setprofilestring(CheminDossier +NomFichierIni,"message","Pj"+string(lig),fichiers_a_envoyer[lig] )
+next
+
+fxg_lancer_commande_myorthokis_simple("action?type=envoiMessageEhealth&code="+string(var_code_local)+"&user=" + utilisateur_code, true, "A" )
+
+
+if ProfileString(dir_ini + "wb.xml","0", "CodeErreur", "") =  "0" then
+	MessageBox("INFORMATION","L'email a été correctement envoyé.")
+end if
+
+
+
+end subroutine
+

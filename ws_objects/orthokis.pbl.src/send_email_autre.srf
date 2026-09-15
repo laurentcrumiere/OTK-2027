@@ -1,0 +1,16 @@
+﻿$PBExportHeader$send_email_autre.srf
+global type send_email_autre from function_object
+end type
+
+forward prototypes
+global subroutine send_email_autre (string adresse_email)
+end prototypes
+
+global subroutine send_email_autre (string adresse_email);
+
+// POur envoyer un email avec le programme de messagerie par défait de l'ordi
+
+run("rundll32 url.dll,FileProtocolHandler " +  "mailto:"+adresse_email)
+
+end subroutine
+

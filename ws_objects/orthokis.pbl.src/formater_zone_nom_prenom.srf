@@ -1,0 +1,57 @@
+﻿$PBExportHeader$formater_zone_nom_prenom.srf
+global type formater_zone_nom_prenom from function_object
+end type
+
+forward prototypes
+global subroutine formater_zone_nom_prenom (string type_zone, datawindow dw, string zone, boolean creation)
+end prototypes
+
+global subroutine formater_zone_nom_prenom (string type_zone, datawindow dw, string zone, boolean creation);
+
+// Applique un format 'edit mask' sur la ZONE en fonction du Nom ou Prenom
+string v_masque_nom, v_masque_prenom, v_masque, v_type_masque
+integer v_longueur
+select top 1 masque_nom, masque_prenom into :v_masque_nom, :v_masque_prenom from param ;
+
+choose case type_zone
+	case 'P'
+		// Prenom
+		v_longueur = 30
+		v_type_masque = v_masque_prenom
+	case 'N'
+		// Nom
+		v_longueur = 50
+		v_type_masque = v_masque_nom
+end choose
+
+
+choose case v_type_masque
+	case "L"
+		// Libre ... 
+		v_masque = ""
+	case "P"
+		// Première lettre en majuscule
+		v_masque = "!" + Fill ( "x", v_longueur - 1 )
+	case "T" 
+		// Tout en majuscule
+		v_masque = Fill ( "!", v_longueur)
+	case else
+		// On sait jamais ...
+		v_masque =""
+end choose
+
+
+if v_masque <> "" then
+	if dw.Modify (zone + ".EditMask.mask = '"+v_masque+"'") <> '' then
+		Messagebox("ATTENTION !","Erreur dans l'application d'un format de saisie :~n~nType de zone : "+type_zone+"~nFormat : "+v_masque+".")
+	else
+		// Ca s'est bien passé
+		if creation then
+			dw.Modify (zone + ".Edit.AutoSelect = 'yes'") 
+		else
+			dw.Modify (zone + ".Edit.AutoSelect = 'no'") 
+		end if
+	end if
+end if
+end subroutine
+

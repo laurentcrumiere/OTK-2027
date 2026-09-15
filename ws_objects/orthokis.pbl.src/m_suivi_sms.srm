@@ -1,0 +1,277 @@
+﻿$PBExportHeader$m_suivi_sms.srm
+forward
+global type m_suivi_sms from menu
+end type
+type m_texteenvoyé from menu within m_suivi_sms
+end type
+type m_0 from menu within m_suivi_sms
+end type
+type m_statutdusms from menu within m_suivi_sms
+end type
+type m_statutsdessmsdecettedate from menu within m_suivi_sms
+end type
+global type m_suivi_sms from menu
+m_texteenvoyé m_texteenvoyé
+m_0 m_0
+m_statutdusms m_statutdusms
+m_statutsdessmsdecettedate m_statutsdessmsdecettedate
+end type
+end forward
+
+global type m_suivi_sms from menu
+m_texteenvoyé m_texteenvoyé
+m_0 m_0
+m_statutdusms m_statutdusms
+m_statutsdessmsdecettedate m_statutsdessmsdecettedate
+end type
+global m_suivi_sms m_suivi_sms
+
+type variables
+
+
+datawindow dw_clic
+
+w_sms_histo w_clic
+end variables
+
+on m_suivi_sms.create
+m_suivi_sms=this
+call super::create
+this.text = "m_suivi_sms"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_texteenvoyé=create m_texteenvoyé
+this.m_0=create m_0
+this.m_statutdusms=create m_statutdusms
+this.m_statutsdessmsdecettedate=create m_statutsdessmsdecettedate
+this.Item[UpperBound(this.Item)+1]=this.m_texteenvoyé
+this.Item[UpperBound(this.Item)+1]=this.m_0
+this.Item[UpperBound(this.Item)+1]=this.m_statutdusms
+this.Item[UpperBound(this.Item)+1]=this.m_statutsdessmsdecettedate
+end on
+
+on m_suivi_sms.destroy
+call super::destroy
+destroy(this.m_texteenvoyé)
+destroy(this.m_0)
+destroy(this.m_statutdusms)
+destroy(this.m_statutsdessmsdecettedate)
+end on
+
+type m_texteenvoyé from menu within m_suivi_sms
+end type
+
+on m_texteenvoyé.create
+call super::create
+this.text = "Texte envoyé"
+this.menuimage = "lc_sms_texte_envoye.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_texteenvoyé.destroy
+call super::destroy
+end on
+
+event clicked;
+long row
+
+row = w_sms_histo.dw_liste.getrow()
+
+if w_sms_histo.dw_liste.getItemString(row,"historique_sms_type_sms") = "L" then
+	string v_texte
+	v_texte = gfx_tout_remplacer (w_sms_histo.dw_liste.getItemString(row,"historique_sms_texte_message"), "\n", char(13)+char(10))
+	
+	
+	Messagebox("Message envoyé", v_texte )
+else
+	Messagebox("Message envoyé","Message référencé : " +  w_sms_histo.dw_liste.getItemString(row,"historique_sms_code_message"))
+end if
+
+end event
+
+type m_0 from menu within m_suivi_sms
+end type
+
+on m_0.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+type m_statutdusms from menu within m_suivi_sms
+end type
+
+on m_statutdusms.create
+call super::create
+this.text = "Statut du SMS"
+this.menuimage = "lc_sms_statut.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_statutdusms.destroy
+call super::destroy
+end on
+
+event clicked;
+// récupération de l'id ...
+
+string v_id, v_id_resultat, v_statut_resultat
+v_id = dw_clic.GetItemString(dw_clic.getrow(), "historique_sms_id_message_pocket")
+
+
+if w_clic.uo_poc.get_message("M",  v_id , true) = 0 then
+	// Y a des résultats trouvés
+	long cpt
+	
+	for cpt = 1 to w_clic.uo_poc.nb_resultats
+		v_id_resultat =  w_clic.uo_poc.resultats[1, cpt]
+		v_statut_resultat =  w_clic.uo_poc.resultats[2, cpt]
+		if v_id_resultat = v_id then
+			dw_clic.SetItem(dw_clic.getrow(), "historique_sms_statut", left(v_statut_resultat,1))
+		end if
+	next
+	
+	if dw_clic.update() = 1 then
+		commit ;
+	else
+		Messagebox("ATTENTION","Une erreur s'est produite durant la mémorisation en base de données.")
+		rollback ;
+	end if
+end if
+
+end event
+
+type m_statutsdessmsdecettedate from menu within m_suivi_sms
+end type
+
+on m_statutsdessmsdecettedate.create
+call super::create
+this.text = "Statuts des SMS à une date d~'envoi"
+this.menuimage = "lc_sms_statut.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_statutsdessmsdecettedate.destroy
+call super::destroy
+end on
+
+event clicked;
+// récupération de la date ...
+
+string v_id, v_id_resultat, v_statut_resultat
+date v_date_check
+long lig
+
+v_date_check = dw_clic.GetItemDate(dw_clic.getrow(), "historique_sms_date")
+
+openWithParm (w_sms_saisie_date_envoi , string(v_date_check))
+
+// La date peut être mise à jour
+
+v_date_check = date(message.StringParm)
+
+if w_clic.uo_poc.get_message("D",  string(v_date_check, "yyyy-mm-dd"), true) = 0 then
+	// Y a des résultats trouvés
+	long cpt
+	
+	for cpt = 1 to w_clic.uo_poc.nb_resultats
+		v_id_resultat =  w_clic.uo_poc.resultats[1, cpt]
+		v_statut_resultat =  w_clic.uo_poc.resultats[2, cpt]
+		
+		lig = dw_clic.Find("historique_sms_id_message_pocket='"+v_id_resultat+"'", 0, 99999)
+		if lig > 0 then
+			dw_clic.SetItem(lig, "historique_sms_statut", left(v_statut_resultat,1))
+		end if
+	next
+	
+	if dw_clic.update() = 1 then
+		commit ;
+	else
+		Messagebox("ATTENTION","Une erreur s'est produite durant la mémorisation en base de données.")
+		rollback ;
+	end if
+end if
+
+end event
+

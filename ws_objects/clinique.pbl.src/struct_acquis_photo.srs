@@ -1,0 +1,7 @@
+﻿$PBExportHeader$struct_acquis_photo.srs
+global type struct_acquis_photo from structure
+	long		num_dossier_patient
+	string		ole_photo_name
+	olecontrol		controle
+end type
+

@@ -1,0 +1,781 @@
+﻿$PBExportHeader$pages_cliniques_fenetre.srf
+global type pages_cliniques_fenetre from function_object
+end type
+
+forward prototypes
+global function string pages_cliniques_fenetre ()
+end prototypes
+
+global function string pages_cliniques_fenetre ();
+// Fonction qui renvoie la fenêtre qui doit être ouvert
+// en fonction du N° de série ...
+
+w_mdi fenetre_mere
+
+//h.chp()	//vérif la présence de la clef HASP
+
+CHOOSE CASE serial
+
+//	CASE "87001"
+//		// Version ARAKIS
+//			w_diagnos_maj_arakis w0
+//			opensheet(w0,fenetre_mere,0,original!)
+	CASE "87004"
+		// Pages diagnostiques de RABERIN
+			return "w_diagnos_maj_raberin" 
+	CASE "87006"
+		// Pages diagnostiques de FOURCAULT
+			return "w_diagnos_maj_fourcault" 
+	CASE "87008"
+		// Pages diagnostiques de MALINS
+			return "w_diagnos_maj_malins"
+			
+	CASE "87009"
+		// Pages diagnostiques de AUDET - LACROIX
+			return "w_diagnos_maj_87009_"
+	CASE "87067"
+		// Pages diagnostiques de CABOT
+			return "w_diagnos_maj_cabot"
+	CASE "87013"
+		// Pages diagnostiques de CHABROLLES
+			return "w_diagnos_maj_chabrolles"
+	CASE "87015"
+		// Pages diagnostiques de Gary - Milheau et Prieur
+			return "w_diagnos_maj_87015_"
+	CASE "87023"
+		// Pages diagnostiques de RIGALDIES
+			return "w_diagnos_maj_rigaldies"
+	CASE "87024"
+		// Pages diagnostiques de FAURE LAMBREY GARNAUT
+			return "w_diagnos_maj_faure"
+	CASE "87026"
+		// Pages diagnostiques de SOUCHET (pages standard)
+		//	return "w_diagnos_maj_souchet"
+	CASE "87027"
+		// Pages diagnostiques de SICARD
+			return "w_diagnos_maj_sicard"
+	CASE "87030"
+		// Pages diagnostiques de DAVIN
+			return "w_diagnos_maj_davin"
+	CASE "87033"
+		// Pages diagnostiques de ERNOULT et CHAPOY
+			return "w_diagnos_maj_ernoult"		
+	CASE "87034"
+		// Pages diagnostiques de BARDET
+			return "w_diagnos_maj_bardet"
+	CASE "87038"
+		// Pages diagnostiques de TRAMIER et FOURNIER
+			return "w_diagnos_maj_tramier"			
+	CASE "87041"
+		// Pages diagnostiques de DELETRE
+			return "w_diagnos_maj_deletre"					
+	CASE "87044"
+		// Pages diagnostiques de HERDLY
+			return "w_diagnos_maj_herdly"
+	CASE "87046"
+		// Pages diagnostiques de PARROT
+			return "w_diagnos_maj_parrot"
+//	CASE "87050"
+//		// Pages diagnostiques de CHENEBIT
+//			w_diagnos_maj_chenebit w64
+//			opensheet(w64,fenetre_mere,0,original!)
+	CASE "87052"
+		// Pages diagnostiques de CHOUVET
+			return "w_diagnos_maj_chouvet"
+	CASE "87054"
+		// Pages diagnostiques de TROVERO
+			return "w_diagnos_maj_trovero"
+	CASE "87056"
+		// Pages diagnostiques de ETCHEVERRY => Pages cliniques standard 2009
+			return "w_diagnos_maj_std_2009_"
+	CASE "87058"
+		// Pages diagnostiques de JUZAN
+			return "w_diagnos_maj_juzan"
+	CASE "87059"
+		//	Pages diagnostiques de EHULETCHE
+			return "w_diagnos_maj_87059_"
+	CASE "87060"
+		// Pages diagnostiques de LAPIQUE
+			return "w_diagnos_maj_lapique"
+	CASE "87061"	
+		// Pages diagnostiques de PUECH
+			return "w_diagnos_maj_puech"
+	CASE "87062"
+		// Pages diagnostiques de DUBOE-TRILLAUD
+			return "w_diagnos_maj_trillaud"
+	CASE "87072"
+		// Pages diagnostiques de AUZOU
+			return "w_diagnos_maj_auzou"
+	CASE "87074", "87401"
+		// Pages diagnostiques de HASSON
+			return "w_diagnos_maj_hasson"
+	CASE "87077"
+		// Pages diagnostiques de HERNANDEZ
+			return "w_diagnos_maj_hernandez"
+	CASE "87081"
+		// Pages diagnostiques de DABADIE
+			return "w_diagnos_maj_dabadie"
+	CASE "87083"
+		// Pages diagnostiques de BANY
+			return "w_diagnos_maj_bany"
+	CASE "87084"
+		// Pages diagnostiques de MILHEAU FAURE et ALCANTARA
+			return "w_diagnos_maj_milheau1"
+	CASE "87087"
+		// Pages diagnostiques de MARIE-CATHERINE
+			return "w_diagnos_maj_marie"
+	CASE "87089"
+		// Pages diagnostiques de SAUREL
+			return "w_diagnos_maj_saurel"
+	CASE "87090"
+		// Pages diagnostiques de CHOL
+			return "w_diagnos_maj_87090_"
+	CASE "87092"
+		// Pages diagnostiques de PEYROT
+			return "w_diagnos_maj_peyrot"
+	CASE "87093"
+		// Pages diagnostiques de CHIAPELLO
+			return "w_diagnos_maj_chiapello"
+//	CASE "87095"
+//		// Pages diagnostiques de EISMAN
+//			w_diagnos_maj_eisman w29
+//			opensheet(w29,fenetre_mere,0,original!)
+//	CASE "87100"
+		// Pages diagnostiques de LORNE
+		//	return "w_diagnos_maj_lorne"
+	CASE "87101"
+		// Pages diagnostiques de OROSCO 
+			return "w_diagnos_maj_piquet"
+	CASE "87102"
+		// Pages diagnostiques de FONTANEL
+			return "w_diagnos_maj_fontanel"
+//	CASE "87103"
+//		// Pages diagnostiques de MACHAVOINE
+//			return "w_diagnos_maj_machavoine"
+	CASE "87106"
+		// Pages diagnostiques de LEIBA
+		//	return "w_diagnos_maj_leiba"
+	CASE "87107"
+		// Pages diagnostiques de SWARTBERG
+			return "w_diagnos_maj_swartberg"
+	CASE "87109"
+		// Pages diagnostiques de DEFAIS
+			return "w_diagnos_maj_defais"
+	CASE "87111"
+		// Pages diagnostiques de ROUGE, LEDIT et GUILLOT
+			return "w_diagnos_maj_rouge"
+	CASE "87112"
+		// Pages diagnostiques de FABING et HEINE
+			return "w_diagnos_maj_heine"
+	CASE "87115","87137"
+		// Pages diagnostiques de VANHILLE
+			return "w_diagnos_maj_vanhille"
+	CASE "87116"	
+		// Pages diagnostiques de LUTETIA
+			return "w_diagnos_maj_lutetia"
+			
+	CASE "87119"	
+		// Pages diagnostiques de ALEXANDRE
+			return "w_diagnos_maj_alexandre"
+	CASE "87587"	
+		// Pages diagnostiques de ALEXANDRE
+			return "w_diagnos_maj_alexandre"
+			
+//	CASE "87120"
+//		// Pages diagnostiques de DIAINE
+//			w_diagnos_maj_diaine w61
+//			opensheet(w61,fenetre_mere,0,original!)	
+//	CASE "87122"	
+		// Pages diagnostiques de BOUCHET
+		//	return "w_diagnos_maj_valero"	
+//	CASE "87123"
+//		// Pages diagnostiques de CHOLET
+//			return "w_diagnos_maj_cholet"	
+	CASE "87124"
+		// Pages diagnostiques de ASSAYAG Michel
+			return "w_diagnos_maj_assayag" 	
+//	CASE "87125"
+//		// Pages diagnostiques de HENRIET-MEUNIER
+//			w_diagnos_maj_henriet w68
+//			opensheet(w68,fenetre_mere,0,original!)	
+	CASE "87126"
+		// Pages diagnostiques de LECLERCQ FEUILLERRAT ..
+			return "w_diagnos_maj_leclercq"
+	CASE "87127"
+		// Pages diagnostiques de LEPINAY
+			return "w_diagnos_maj_lepinay"	
+	CASE "87128"
+		// Pages diagnostiques de GRISE
+			return "w_diagnos_maj_grise"	
+	CASE "87130"
+		// Pages diagnostiques de GUIGOU  - NICOLAS-MAGRE
+			return "w_diagnos_maj_duigou"	
+//	CASE "87131"
+//		// Pages diagnostiques de ROTTEMBERG
+//			return "w_diagnos_maj_rottenberg1"	
+	CASE "87132"
+		// Pages diagnostiques de BUSSON
+			return "w_diagnos_maj_busson"
+	CASE "87133"
+		// Pages diagnostiques de DUFOUR et DE WIEST
+			return "w_diagnos_maj_dufour"	
+	CASE "87134"
+		// Pages diagnostiques de BORIES
+			return "w_diagnos_maj_87134_"		
+	CASE "87135"
+		// Pages diagnostiques de COUCHAT
+			return "w_diagnos_maj_87135_"		
+//	CASE "87139"
+//		// Pages diagnostiques de POULET
+//			return "w_diagnos_maj_POULET"
+	CASE "87141"
+		// Pages diagnostiques de FILLIOT
+			return "w_diagnos_maj_filliot"
+	CASE "87144"
+		// Pages diagnostiques de BALLY
+			return "w_diagnos_maj_bally"
+	CASE "87147"
+		// Pages diagnostiques de LE GALL
+			return "w_diagnos_maj_legall"
+	CASE "87148"
+		// Pages diagnostiques de MEYER
+			return "w_diagnos_maj_meyer"
+	CASE "87150"
+		// Pages diagnostiques de VINCENTI
+			return "w_diagnos_maj_vincenti"
+	CASE "87151"
+		// Pages diagnostiques de MOINARD
+			return "w_diagnos_maj_moinard"
+//	CASE "87153"
+//		// Pages diagnostiques de KUNTZEL
+//			return "w_diagnos_maj_kuntzel"
+	CASE "87154"
+		// Pages diagnostiques de FRANCK LACAZE
+			return "w_diagnos_maj_lacaze"
+	CASE "87155"
+		// Pages diagnostiques de LAPOUYADE
+			return "w_diagnos_maj_lapouyade"
+	CASE "87157"
+		// Pages diagnostiques de CASTAGNA
+			//return "w_diagnos_maj_castagna"	
+		// Pages diagnostiques de LAMBERT
+			return "w_diagnos_maj_87157_"
+	CASE "87159"
+		// Pages diagnostiques de ADGE SANAC
+			return "w_diagnos_maj_adge"
+	CASE "87163"
+		// Pages diagnostiques de LINIERE
+			return "w_diagnos_maj_liniere"
+	CASE "87164"
+			// Pages diagnostiques MILLELIRI
+			return "w_diagnos_maj_milleliri"
+	CASE "87165"
+		// Pages diagnostiques de VIDEAU et LAMARQUE
+			return "w_diagnos_maj_videau"
+	CASE "87166"
+		// Pages diagnostiques de LE BAIL
+			return "w_diagnos_maj_lebail"
+	CASE "87167"
+		// Pages diagnostiques de RENOIR
+			return "w_diagnos_maj_renoir"
+	CASE "87169"
+		// Pages diagnostiques de VILLEMAGNE
+			return "w_diagnos_maj_villemagne"	
+	CASE "87170"
+		// Pages diagnostiques d' EILLER-CUNY & DAMERY
+			return "w_diagnos_maj_eillerdamery"
+	CASE "87171"
+		// Pages diagnostiques de PRUIT
+			return "w_diagnos_maj_pruit"			
+	//CASE "87172"
+		// Pages diagnostiques de SERFATY
+		//	return "w_diagnos_maj_serfaty"
+	CASE "87173"
+		// Pages diagnostiques de PLANTAVIN
+			return "w_diagnos_maj_plantavin"
+	CASE "87174"
+		// Pages diagnostiques de BONNEVIAL
+			return "w_diagnos_maj_87174_"
+	CASE "87175"
+		// Pages diagnostiques de GERE PONS
+			return "w_diagnos_maj_87175_"
+	CASE "87181"
+		// Pages diagnostiques de LEFEBVRE-BIZARD
+			return "w_diagnos_maj_lefebvre"					
+	CASE "87182"
+		// Pages diagnostiques HERVY
+			return "w_diagnos_maj_hervy"	
+//	CASE "87187"
+//		// Pages diagnostiques MAILLOT
+//			w_diagnos_maj_maillot w87187
+//			opensheet(w87187,fenetre_mere,0,original!)
+	CASE "87188"
+		// Pages diagnostiques COLLAS-DAULON
+			return "w_diagnos_maj_collas"
+//	CASE "87190"	
+//		// Pages diagnostiques de TAURINES
+//			w_diagnos_maj_taurines w87190
+//			opensheet(w87190,fenetre_mere,0,original!)
+	CASE "87191"
+		// Pages diagnostiques de WOLFF
+			return "w_diagnos_maj_wolff"
+	CASE "87192"
+		// Pages diagnostiques de HODIN
+			return "w_diagnos_maj_hodin"
+//	CASE "87195"
+//		// Pages diagnostiques de BACONNIER
+//			w_diagnos_maj_baconnier w87195
+//			opensheet(w87195,fenetre_mere,0,original!)
+	CASE "87196"
+		// Pages diagnostiques de LEFEBVRE Sandrine
+			return "w_diagnos_maj_lefebvre_s"
+	CASE "87197"
+		// Pages diagnostiques de RAOUX
+			return "w_diagnos_maj_raoux"
+	CASE "87198"
+		//	Pages diagnostiques de veerasami (ancien SUDRE)
+			return "w_diagnos_maj_sudre"
+	CASE "87199"
+		// Pages diagnostiques de THIERNY
+			return "w_diagnos_maj_tierny"
+	CASE "87200"
+		// Pages diagnostiques de RIBAU
+			return "w_diagnos_maj_ribau"
+	CASE "87202"
+		// Pages diagnostiques de JOULIA
+			return "w_diagnos_maj_joulia"
+	CASE "87204"
+		// Pages diagnostiques de STARCK
+			return "w_diagnos_maj_87204_"
+	CASE "87205"
+		// Pages diagnostiques de CATTELAIN
+			return "w_diagnos_maj_cattelain"
+	CASE "87206"
+		// Pages diagnostiques de De Wiest
+			return "w_diagnos_maj_dewiest" 
+	CASE "87213"
+		//	Pages diagnostiques de GHIZOLI
+			return "w_diagnos_maj_87213_"
+	CASE "87214"
+		// Pages diagnostiques d' ADJADJ-VERNET
+			return "w_diagnos_maj_adjadj"
+	CASE "87215"
+		// Pages diagnostiques de Gault et THELLIEZ
+			return "w_diagnos_maj_gault"		
+	//CASE "87218"
+		// Pages diagnostiques de PLANCHE
+		//	return "w_diagnos_maj_planche"
+	CASE "87220"
+		// Pages diagnostiques de ORTHO ORMEAU
+			return "w_diagnos_maj_orthoormeau"
+	CASE "87221"
+		//	Pages diagnostiques de THOMAS Patrice
+			return "w_diagnos_maj_thomas_p"
+	CASE "87224"
+		//	Pages diagnostiques de LE ROUX
+			return "w_diagnos_maj_leroux"
+	CASE "87226"
+		//	Pages diagnostiques de LACROIX
+			return "w_diagnos_maj_lacroix"
+	CASE "87227"
+		//	Pages diagnostiques de LE PAPE
+			return "w_diagnos_maj_lepape"
+	CASE "87228"
+		//	Pages diagnostiques de COTTON
+			return "w_diagnos_maj_cotton"
+	CASE "87229"
+		//	Pages diagnostiques de DUCOS
+		//	return "w_diagnos_maj_ducos"
+	CASE "87230"
+		//	Pages diagnostiques de FAVALI
+			return "w_diagnos_maj_87230_"
+	CASE "87235"
+		//	Pages diagnostiques de LEONARD
+			return "w_diagnos_maj_leonard"
+	CASE "87236"
+		//	Pages diagnostiques de CHADENAT
+			return "w_diagnos_maj_chadenat"
+	CASE "87239"
+		//	Pages diagnostiques de CUINET
+			return "w_diagnos_maj_cuinet"
+	CASE "87243"
+		//	Pages diagnostiques de SIMON
+			return "w_diagnos_maj_simon"
+	CASE "87248"
+		//	Pages diagnostiques de CANNAC et AIM
+			return "w_diagnos_maj_87248_"
+	CASE "87250"
+		//	Pages diagnostiques de DAMAY
+			return "w_diagnos_maj_damay"
+	CASE "87252"
+		//	Pages diagnostiques de CURIEL
+			return "w_diagnos_maj_curiel"
+	CASE "87256"
+		//	Pages diagnostiques de BETIN-CHURET .... ET MAILLET par erreur !!!
+			return "w_diagnos_maj_betin"
+	CASE "87258"
+		//	Pages diagnostiques de ROBEYNS
+			return "w_diagnos_maj_robeyns"
+	CASE "87259" 
+		//	Pages diagnostiques de SCM BERNAT + CHRETIEN
+			return "w_diagnos_maj_bernat"   // Attention, page commune à SIZAIRE & CHRETIEN - à séparer si modif
+	CASE "87260"
+		//	Pages diagnostiques de CARLE, KEBLI et MOIROUD
+			return "w_diagnos_maj_moiroud"
+	CASE "87261"
+		//	Pages diagnostiques de BECCARIA
+			return "w_diagnos_maj_beccaria"
+	CASE "87263"
+		//	Pages diagnostiques de DE BRONDEAU
+			return "w_diagnos_maj_debrondeau"
+	CASE "87265"
+		//	Pages diagnostiques de CUCCHIETTI
+			return "w_diagnos_maj_cucchietti"
+	CASE "87269"
+		//	Pages diagnostiques de FALANGA
+			return "w_diagnos_maj_falanga"
+	CASE "87276"
+		//	Pages diagnostiques de GABARRE
+			return "w_diagnos_maj_gabarre"
+	CASE "87278"
+		//	Pages diagnostiques de CHANCE
+			return "w_diagnos_maj_chance"
+	CASE "87279"
+		//	Pages diagnostiques de MICHEL NATHALIE
+			return "w_diagnos_maj_michel"
+//	CASE "87288"
+//		//	Pages diagnostiques de MERLE
+//			return "w_diagnos_maj_merle"
+	CASE "87294"
+		//	Pages diagnostiques de LARTIGAU
+			return "w_diagnos_maj_lartigau"
+	CASE "87295"
+		//	Pages diagnostiques de FORTIN
+			return "w_diagnos_maj_fortin"
+	CASE "87304"
+		//	Pages diagnostiques de HOULLIER
+			return "w_diagnos_maj_houllier"
+	CASE "87306"
+		//	Pages diagnostiques de NAHMIAS
+			return "w_diagnos_maj_nahmias"
+	CASE "87309"
+		//	Pages diagnostiques de SEBILLOTTE
+			return "w_diagnos_maj_sebillotte"
+	CASE "87310"
+		//	Pages diagnostiques de BRESCH
+			return "w_diagnos_maj_bresch"
+	CASE "87311"
+		//	Pages diagnostiques de CARON
+			return "w_diagnos_maj_87311_"
+	CASE "87312"
+		//	Pages diagnostiques de BENITAH
+			return "w_diagnos_maj_benitah"
+	CASE "87316"
+		//	Pages diagnostiques de BEALEM
+			return "w_diagnos_maj_87316_"
+	CASE "87318"
+		//	Pages diagnostiques de LORELLE
+			return "w_diagnos_maj_lorelle"
+	CASE "87324"
+		//	Pages diagnostiques de ERARD
+			return "w_diagnos_maj_erard"
+	CASE "87327"
+		//	Pages diagnostiques de CHAVRIER
+			return "w_diagnos_maj_chavrier"
+	CASE "87331"
+		//	Pages diagnostiques de JOSEPH
+			return "w_diagnos_maj_joseph"		
+	CASE "87332"
+		//	Pages diagnostiques de BENITAH
+			return "w_diagnos_maj_ouhioun"
+	CASE "87337"
+		//	Pages diagnostiques de NICOLAS
+			return "w_diagnos_maj_nicolas"
+	CASE "87338"
+		//	Pages diagnostiques de WACHTER
+		//	return "w_diagnos_maj_wachter"
+	CASE "87341"
+		//	Pages diagnostiques de GIRAULT
+			return "w_diagnos_maj_87341_"
+	CASE "87342"
+		//	Pages diagnostiques de COURVOISIER
+			return "w_diagnos_maj_courvoisier"
+	CASE "87345"
+		//	Pages diagnostiques de DELEZENNE
+			return "w_diagnos_maj_87345_"
+	CASE "87348"
+		//	Pages diagnostiques de DUCASTIN
+			return "w_diagnos_maj_87348_"
+	CASE "87351"
+		//	Pages diagnostiques de ROSE
+			return "w_diagnos_maj_87351_"
+	CASE "87353"
+		//	Pages diagnostiques de SCORTECCI
+			return "w_diagnos_maj_87353_"
+	CASE "87354"
+		//	Pages diagnostiques de GABRIEL
+			return "w_diagnos_maj_gabriel"
+	CASE "87357"
+		//	Pages diagnostiques de TRAUCHESSEC
+			return "w_diagnos_maj_trauchessec"
+	CASE "87358"
+		//	Pages diagnostiques de PRILLEUX ET HITMI
+			return "w_diagnos_maj_87358_"
+	CASE "87363"
+		//	Pages diagnostiques de LABADIE & MEHOUAS
+			return "w_diagnos_maj_87363_"
+	CASE "87370" 
+		//	Pages diagnostiques de LELLOUCHE ... et commune à DLT
+			return "w_diagnos_maj_87370_"
+	CASE "87383"
+		//	Pages diagnostiques de NARCY (depuis séparation Maillet)
+			return "w_diagnos_maj_87383_"
+	CASE "87394"
+		//	Pages diagnostiques de ENJALBERT (depuis séparation Adge)
+			return "w_diagnos_maj_87394_"
+	CASE "87397"
+		//	Pages diagnostiques de CORAZZA & LE JONCOUR
+			return "w_diagnos_maj_87397_"
+	CASE "87398"
+		//	Pages diagnostiques de Lefebvre Bertrand
+			return "w_diagnos_maj_87398_"
+	CASE "87399"
+		//	Pages diagnostiques de FRANKENNE & CORNET
+			return "w_diagnos_maj_87399_"
+	CASE "87403"
+		//	Pages diagnostiques de VUILLET
+			return "w_diagnos_maj_87403_"
+	CASE "87404"
+		//	Pages diagnostiques du Dr MASSAR Sophie
+			return "w_diagnos_maj_87404_"		
+	CASE "87407"
+		//	Pages diagnostiques du Dr CALOP
+			return "w_diagnos_maj_87407_"		
+	CASE "87411"
+		//	Pages diagnostiques des Drs Tricot-Blestel & Haggiag
+			return "w_diagnos_maj_87411_"			
+	CASE "87415"
+		//	Pages diagnostiques de Handschuh & Orrit
+			return "w_diagnos_maj_87415_"
+	CASE "87419"
+		//	Pages diagnostiques de Bernard & De Graeve 
+			return "w_diagnos_maj_87419_"
+	CASE "87434"
+		//	Pages diagnostiques de Bourdillon Scheffer
+			return "w_diagnos_maj_87434_"
+	CASE "87436"
+		//	Pages diagnostiques du Dr WOELFLE Pascale
+			return "w_diagnos_maj_87436_"
+	CASE "87439"
+		//	Pages diagnostiques du Dr BRIANCON Claire
+			return "w_diagnos_maj_87439_"
+	CASE "87444"
+		//	Pages diagnostiques du Dr El Hajjaji Mohssin
+			return "w_diagnos_maj_87444_"	
+	CASE "87446"
+		//	Pages diagnostiques du Dr Mauger Benoit
+			return "w_diagnos_maj_87446_"	
+	CASE "87457"
+		//	Pages diagnostiques du Dr Bridel
+			return "w_diagnos_maj_87457_"	
+	CASE "87457"
+		//	Pages diagnostiques du Dr Grosset
+			return "w_diagnos_maj_87458_"	
+	CASE "87465"
+		//	Pages diagnostiques du Dr Mascarelli Laurence
+			return "w_diagnos_maj_87465_"	
+	CASE "87467"
+		//	Pages diagnostiques du Dr Gallo Vincent
+			return "w_diagnos_maj_87467_"	
+	CASE "87471"
+		//	Pages diagnostiques du Dr ENJALBERT Isabelle
+			return "w_diagnos_maj_87471_"	
+	CASE "87474"
+		//	Pages diagnostiques du Dr Dao Trong Colette
+			return "w_diagnos_maj_87474_"
+	CASE "87477"
+		//	Pages diagnostiques du Dr Jonas
+			return "w_diagnos_maj_87477_"
+	CASE "87479"
+		//	Pages diagnostiques des Drs MONNET & SCHULZ
+			return "w_diagnos_maj_87479_"
+	 CASE "87486" 
+		//  Pages diagnostiques de Vanlippevelde 
+			return "w_diagnos_maj_87486_ "          
+	CASE "87487" 
+		//	Pages diagnostiques de SCM BERNAT + CHRETIEN
+			return "w_diagnos_maj_bernat"	// Attention, page commune à SIZAIRE & CHRETIEN - à séparer si modif
+	CASE "87493" 
+			//	Pages diagnostiques de RAYBAUT
+				return "w_diagnos_maj_87493_"	
+	CASE "87500" 
+			//	Pages diagnostiques de CHU de LIEGE
+				return "w_diagnos_maj_87500_"	
+
+	CASE "87504"
+			//	Pages diagnostiques du Dr ROOS
+				return "w_diagnos_maj_87504_"
+				
+	CASE "87508" 
+			//	Pages diagnostiques de DLT et .... et commune à LELLOUCHE !!!
+				return "w_diagnos_maj_87370_"
+	
+	CASE "87510" 
+			//	Pages diagnostiques de CHRISTON
+				return "w_diagnos_maj_87510_"
+	
+	CASE "87522" 
+			//	Pages diagnostiques de Ligey & Schwob
+				return "w_diagnos_maj_87522_"
+				
+	
+	CASE "87537" 
+			//	Pages diagnostiques de Raskin - Les meme que le CHU de liege
+				return "w_diagnos_maj_87537_"
+
+	CASE "87539" 
+			//	Pages diagnostiques de Deleaume
+				return "w_diagnos_maj_87539_"
+	
+	CASE "87541" 
+			//	Pages diagnostiques de De Graeve
+				return "w_diagnos_maj_87541_"
+				
+	CASE "87545" 
+			//	Pages diagnostiques de Decocq
+				return "w_diagnos_maj_87545_"
+				
+	CASE "87548" 
+			//	Pages diagnostiques de Sebbag Catherine
+				return "w_diagnos_maj_87548_"
+	
+	CASE "87552" 
+			//	Pages diagnostiques de Abehassera 
+				return "w_diagnos_maj_87552_"
+	
+	CASE "87553" 
+			//	Pages diagnostiques de Pourrat 
+				return "w_diagnos_maj_87553_"
+	
+	CASE "87554" 
+			//	Pages diagnostiques de Thiry (Ortho Do)
+				return "w_diagnos_maj_87554_"
+	
+	CASE "87555" 
+			//	Pages diagnostiques de Gerardy
+				return "w_diagnos_maj_87555_"
+	
+	CASE "87558" 
+			//	Pages diagnostiques de Bertrand - Les meme que le CHU de liege
+				return "w_diagnos_maj_87558_"
+	
+	CASE "87560" 
+			//	Pages diagnostiques de Hogge
+				return "w_diagnos_maj_87560_"
+				
+	CASE "87569" 
+			//	Pages diagnostiques de Ho Vo Tuan
+				return "w_diagnos_maj_87569_"
+	
+	CASE "87589" 
+			//	Pages diagnostiques de Van Steenberghe Philippe
+				return "w_diagnos_maj_87589_"
+	
+	
+	CASE "87591" 
+			//	Pages diagnostiques de Rivoire et Ruf
+				return "w_diagnos_maj_87591_"
+				
+	CASE "87613" 
+			//	Pages diagnostiques de Balastre
+				return "w_diagnos_maj_87613_"
+				
+	CASE "87623" 
+			//	Pages diagnostiques de Soulié et Darmon
+				return "w_diagnos_maj_87623_"
+	
+	CASE "87634" 
+			// Dr Julia-Rouquet
+				return "w_diagnos_maj_87634_"	
+
+	CASE "87637" 
+			//	Dr Le Bon Delcommune
+			// Pages diagnostiques de CHU de LIEGE
+			return "w_diagnos_maj_87500_"	
+				
+	CASE "87649" 
+			//	Dr  Sudre
+				return "w_diagnos_maj_87649_"	
+
+	CASE "87651" 
+			// De Castelli Lucie
+				return "w_diagnos_maj_87651_"	
+
+CASE "87660" 
+			// Challe
+				return "w_diagnos_maj_87660_"	
+
+	CASE "87669" 
+			// Hopital Erasme
+				return "w_diagnos_maj_87669_"	
+
+	CASE "87680" 
+			// Bailleul
+				return "w_diagnos_maj_87680_"	
+
+	CASE "87735" 
+			// Nolorgues Jean-Vincent Midi
+				return "w_diagnos_maj_87735_"	
+
+
+CASE "87769" 
+			// Fitoussi
+				return "w_diagnos_maj_87769_"	
+
+CASE "87789" 
+			// Sevrin
+				return "w_diagnos_maj_87789_"	
+
+CASE "87835" 
+			// Lamy
+				return "w_diagnos_maj_87835_"	
+
+CASE "87858" 
+			// Tuerling
+				return "w_diagnos_maj_87858_"	
+
+
+
+CASE "87874" 
+			// Hopital St Luc
+				return "w_diagnos_maj_87874_"	
+
+CASE "87930" 
+			// Kretz
+				return "w_diagnos_maj_87930_"	
+				
+CASE "87945" 
+			// Blin
+				return "w_diagnos_maj_87945_"	
+CASE "87950" 
+			// CHR Citadelle
+				return "w_diagnos_maj_87950_"	
+				
+CASE "87958" 
+			// Trojelli
+				return "w_diagnos_maj_87958_"	
+
+
+CASE ELSE
+
+		// pour tous les autres !
+		if serial < "87446" then
+			return "w_diagnos_maj_standard"
+		else
+			return "w_diagnos_maj_std_2009_"
+		end if
+
+END CHOOSE
+
+end function
+

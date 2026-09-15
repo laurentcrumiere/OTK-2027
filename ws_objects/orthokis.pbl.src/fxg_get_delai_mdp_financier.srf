@@ -1,0 +1,19 @@
+﻿$PBExportHeader$fxg_get_delai_mdp_financier.srf
+global type fxg_get_delai_mdp_financier from function_object
+end type
+
+forward prototypes
+global function integer fxg_get_delai_mdp_financier (string v_code_praticien)
+end prototypes
+
+global function integer fxg_get_delai_mdp_financier (string v_code_praticien);
+// Renvoie de delai avant déclenchement d'un mot de passe financier, selon le praticien 
+
+integer v_delai
+
+select isnull(delai_mdp_financier, 0) into :v_delai from prati where code = :v_code_praticien ;
+
+
+return v_delai
+end function
+

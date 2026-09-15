@@ -1,0 +1,43 @@
+﻿$PBExportHeader$gr_graph_tableau_bord_synthese_annee_js.srd
+release 21;
+datawindow ( units=0 timer_interval=0 processing=0 color=1073741824 brushmode=0 transparency=0 gradient.color=8421504 gradient.transparency=0 gradient.angle=0 gradient.repetition.mode=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.focus=0 gradient.scale=100 gradient.spread=100 picture.file=""  picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.clip.bottom=0 picture.blur=0 picture.transparency=0 print.printername=""  print.documentname=""  print.orientation=0 print.margin.left=110 print.margin.right=110 print.margin.top=96 print.margin.bottom=96 print.paper.size=0 print.paper.source=0 print.canusedefaultprinter=yes selected.mouse=no hidegrayline=no showbackcoloronxp=no)
+header(height=1412 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.length="100" gradient.repetition.count="0" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.length="100" gradient.repetition.count="0" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.length="100" gradient.repetition.count="0" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.length="100" gradient.repetition.count="0" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=char(256) updatewhereclause=yes name=source_name dbname="source_name"  )
+column=(type=char(32000) updatewhereclause=yes name=source_data dbname="source_data"  )
+column=(type=char(1000) updatewhereclause=yes name=source_comment dbname="source_comment"  )
+)
+bitmap(name=p_1 visible="1" band=background tooltip.enabled="0" tooltip.isbubble="0" tooltip.textcolor="134217751" tooltip.backcolor="134217752" tooltip.icon="0" tooltip.maxwidth="0" tooltip.transparency="0" tooltip.delay.visible="32000" tooltip.delay.initial="0" tooltip.hasclosebutton="0" transparency="0" filename="C:~\pbwc~\pbwc_graph.png" x="0" y="0" height="1368" width="3191" border="0"  originalsize=yes )
+text(name=t_1 visible="1" band=header font.charset="0" font.face="Tahoma" font.family="2" font.height="-16" font.pitch="2" font.weight="400" tooltip.enabled="0" tooltip.isbubble="0" tooltip.textcolor="134217751" tooltip.backcolor="134217752" tooltip.icon="0" tooltip.maxwidth="0" tooltip.transparency="0" tooltip.delay.visible="32000" tooltip.delay.initial="0" tooltip.hasclosebutton="0" transparency="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.length="100" background.gradient.repetition.count="0" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" color="8421504" alignment="2" border="0" x="585" y="44" height="292" width="2034" text="This object is a PowerBuilder Chart.js Graph. Please use the Graph Painter to edit it." html.valueishtml="0" )
+htmltable(border="0" )
+htmlgen(clientComputedFields="1" clientEvents="1" clientFormatting="0" clientScriptable="0" clientValidation="1" encodeSelfLinkArgs="1" generateDDDWFrames="1" generateJavaScript="1" netscapeLayers="0" pagingMethod=0 )
+xhtmlgen() cssgen(sessionSpecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headGroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.customPostScript="0" xslfop.print="0" nativepdf.customsize=0 nativepdf.customorientation=0 nativepdf.pdfstandard=0 nativepdf.useprintspec=no nativepdf.imageformat=0 )
+export.xhtml()
+
+data("d_pbwc_graph_configuration","0																bottom										true								PBExpression(~"~")	false																																																									top	end						true													center	function(value, context){if (value != null) {return  ''+  value.toLocaleString()+''}else {return value};}
+","","d_pbwc_charts_properties","1	12	1	C:~\power~\V2023 - Sources~\editions.pbl	d_graph_tableau_bord_synthese_annuelle_js	libelle	 ,ZZZZZZZZZZZ	line	valeur				
+","","d_pbwc_datasets_properties","1	line	1	Types de Dossiers 			rgba(248,168,0,0.69)	rgba(103,26,0,0.2);rgba(169,42,0,0.2);rgba(201,61,0,0.2);rgba(213,95,0,0.2);rgba(227,146,0,0.2);rgba(203,162,0,0.2);rgba(152,123,0,0.2);rgba(124,135,0,0.2);rgba(255,14,0,0.2);rgba(234,0,4,0.2);rgba(76,0,108,0.2);rgba(0,0,0,0.2);rgba(0,15,31,0.2);rgba(0,105,158,0.2);rgba(0,132,198,0.2);rgba(0,134,216,0.2)	rgba(227,146,0,0.67)								1		rgba(0,134,216,0.43)																								
+1	line	9	dataset 9 of chart 1			rgba(223,52,0,0.95)																																				
+1	line	7	dataset 7 of chart 1			rgba(235,0,86,0.34)																																				
+1	line	5	dataset 5 of chart 1			rgba(46,0,0,0.30)																																				
+1	line	3	dataset 3 of chart 1			rgba(230,0,70,0.44)																																				
+1	line	12	dataset 12 of chart 1																																							
+1	line	11	dataset 11 of chart 1																																							
+1	line	2	dataset 2 of chart 1			rgba(106,10,0,0.20)																																				
+1	line	4	dataset 4 of chart 1			rgba(91,173,0,0.59)																																				
+1	line	6	dataset 6 of chart 1			rgba(0,131,112,0.48)																																				
+1	line	8	dataset 8 of chart 1			rgba(123,174,0,0.49)																																				
+1	line	10	dataset 10 of chart 1			rgba(244,133,0,0.92)																																				
+","","d_pbwc_options","1	line														
+","","d_pbwc_axes_properties","1			xAxes				x															true	Temps																																																																																		
+3																																																																																																									
+2			yAxes				y															true	Valeur																																																																																		function(value, index, values) { return  ''+   value.toLocaleString()+'';}
+","",) 

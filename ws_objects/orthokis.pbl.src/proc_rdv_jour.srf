@@ -1,0 +1,74 @@
+﻿$PBExportHeader$proc_rdv_jour.srf
+global type proc_rdv_jour from function_object
+end type
+
+forward prototypes
+global function string proc_rdv_jour (double nocode, string quoi)
+end prototypes
+
+global function string proc_rdv_jour (double nocode, string quoi);// Renvoi des éléments concernant le prcochain rendez-vous, en tenant compte de l'heure courante 
+// On prendra le prochain rdv à heure + 30 min
+// Utilisée dans les commentaires cliniques : pour tenir compte d'une ouverture du dossier au mieux 30 min avant l'heure du rdv
+//--------------------------------------------------------------------------------------------------------------------------------------------------
+
+// En parametre 
+// R : renvoi le champ rdv du rdv (date et heure) 
+// T : renvoi le libellé du type_du rdv
+// D : renvoi la duree du rdv
+// L : le délai à partir d'aujourd'hui
+// P : le code du praticien réalisant le rdv
+// F : le fauteuil du prochain rdv
+
+datetime proc_rdv
+string retour, v_libelle_type_rdv, v_code_praticien
+integer v_duree, nb_jours, v_fauteuil
+
+datetime h_plus_30
+
+// pour récupérer l'heure serveur getdate()
+h_plus_30 = fxg_get_heure_serveur()
+h_plus_30 = datetime ( date(h_plus_30) , RelativeTime( time (h_plus_30) , 60 * 30 ) )
+
+
+setnull(proc_rdv)
+
+  select top 1 "rdv"."rdv", "rdv"."duree", "type_rdv"."nom", "rdv"."code_praticien", "rdv"."fauteuil"
+  INTO :proc_rdv, :v_duree, :v_libelle_type_rdv, :v_code_praticien , :v_fauteuil
+    FROM "rdv"  , "etat_rdv", "type_rdv"
+   WHERE ( "rdv"."code" = :nocode ) AND  ( "rdv"."rdv" > :h_plus_30 ) and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda <> 'O' AND "type_rdv"."code" = "rdv"."type" 
+	ORDER by rdv ;
+
+
+choose case quoi
+	case 'R'
+		retour = Left(jour(daynumber(date(proc_rdv))),2) + " " +string( proc_rdv , "dd/mm/yyyy à hh:mm") 
+	case 'D'
+		retour = string(v_duree)
+	case 'L'
+		nb_jours = daysafter (today()  , date( proc_rdv ))
+		if nb_jours < 7 then
+			// moins d'une semaine => En jours
+			retour = string(nb_jours)+ " jour" 
+			if nb_jours > 1 then
+				retour = retour + "s"
+			end if
+		else
+			retour = string(nb_jours / 7 , "0")+ " semaine" 
+			if nb_jours / 7 > 1 then
+				retour = retour + "s"
+			end if
+		end if
+	case 'T'
+		retour = v_libelle_type_rdv
+		
+	case 'P'
+		retour = v_code_praticien
+
+	case 'F'
+		retour = string(v_fauteuil)
+
+end choose
+
+return (trim(retour))
+end function
+

@@ -1,0 +1,161 @@
+﻿$PBExportHeader$fxg_verif_param_tea.srf
+global type fxg_verif_param_tea from function_object
+end type
+
+forward prototypes
+global function boolean fxg_verif_param_tea ()
+end prototypes
+
+global function boolean fxg_verif_param_tea ();// Vérification des paramèetres nécessaire au bon fonctionnement de Téa
+
+boolean v_verif_ok_param = false
+boolean v_verif_ok_prati = false
+integer nb_erreur_param , nb_erreur_prati
+string v_libelle_erreur_param , v_libelle_erreur_prati
+string v_liste_rpps_vides , v_libelle_rpps, v_liste_rpps_double
+string v_mot_de_passe_acces_table_praticiens
+
+// Faut il un mot de passe pour ouvrir les praticiens?
+select top 1 isnull(mot_de_passe_acces_table_praticiens,'N') into :v_mot_de_passe_acces_table_praticiens from param ;
+
+if France then 
+	v_libelle_rpps = "N° RPPS"
+else
+	if Belgique then
+		v_libelle_rpps = "N° INAMI"
+	else
+		if Luxembourg then
+			v_libelle_rpps = "Code eSanté"
+		else
+			v_libelle_rpps = ""
+		end if
+	end if
+end if
+
+do while not v_verif_ok_param or not v_verif_ok_prati
+	
+	v_libelle_erreur_param = ""
+	v_libelle_erreur_prati = ""
+	nb_erreur_param = 0
+	nb_erreur_prati = 0
+	
+	string v_nom_licence, v_code_postal, v_ville, v_pays, v_telephone, v_email , v_adresse1, v_mot_passe_tea, v_url_application
+	
+	select top 1 isnull(trim(nom_licence), ''), isnull(trim(code_postal), ''), isnull(trim(ville), '') , isnull(trim(pays), '') , isnull(trim(telephone), ''), isnull(trim(email), '') , isnull(trim(adresse1), '') , isnull(trim(mot_passe_tea), ''),  isnull(trim(url_application), '')
+	into :v_nom_licence, :v_code_postal, :v_ville, :v_pays, :v_telephone, :v_email  , :v_adresse1, :v_mot_passe_tea, :v_url_application
+	from param ;
+	
+	
+	if v_nom_licence = "" then 
+		v_libelle_erreur_param = v_libelle_erreur_param + "~n- Le nom du Cabinet" 
+		nb_erreur_param = nb_erreur_param + 1
+	end if
+	if v_code_postal = "" then 
+		v_libelle_erreur_param = v_libelle_erreur_param + "~n- Le code postal du Cabinet" 
+		nb_erreur_param = nb_erreur_param + 1
+	end if
+	if v_ville = "" then 
+		v_libelle_erreur_param = v_libelle_erreur_param + "~n- La ville du Cabinet" 
+		nb_erreur_param = nb_erreur_param + 1
+	end if
+	
+	if v_pays = "" then 
+		v_libelle_erreur_param = v_libelle_erreur_param + "~n- Le pays du Cabinet" 
+		nb_erreur_param = nb_erreur_param + 1
+	end if
+	
+	if v_telephone = "" and v_email = "" then 
+		v_libelle_erreur_param = v_libelle_erreur_param + "~n- Le téléphone ou l'adresse email du Cabinet" 
+		nb_erreur_param = nb_erreur_param + 1
+	end if
+
+	if v_mot_passe_tea = "" then 
+		v_libelle_erreur_param = v_libelle_erreur_param + "~n- Le mot de passe pour "  + LIBELLE_APPLICATION
+		nb_erreur_param = nb_erreur_param + 1
+	end if
+	
+	if v_url_application = "" then 
+		v_libelle_erreur_param = v_libelle_erreur_param + "~n- L'URL de DsApi"
+		nb_erreur_param = nb_erreur_param + 1
+	end if
+	
+	if nb_erreur_param > 0 then 
+		if Messagebox("ATTENTION", "Le module " + LIBELLE_APPLICATION + " est activé.~n~nCelui nécessite la saisie d'information(s) actuellemement manquante(s) :~n" + v_libelle_erreur_param +"~n~nSouhaitez-vous le(s) renseigner ?~n~n(Sinon le module sera provisoirement inactivé)", Question!, YesNo!, 1) = 1 then
+			open(w_initialisation)
+		else 
+			TEA = false
+			v_verif_ok_param = true
+		end if
+	else
+		v_verif_ok_param = true
+	end if
+	
+	
+	// Table des praticiens 
+	
+	// la vérification ne porte pas sur les même champs selon les pays
+	
+	if v_pays = "B" then
+		// Belgique => N° INAMI
+		select trim(list (' ' + nom + ' '+ isnull(prenom,'')  ))  into :v_liste_rpps_vides
+		from prati where trim(isnull(nom_carte_cps, '')) = '' and code <> 'COMMUN' ; 
+	else
+
+		// Chaque praticien doit avoir un code RRPS  
+		select trim(list (' ' + nom + ' '+ isnull(prenom,'')  ))  into :v_liste_rpps_vides
+		from prati where trim(isnull(identifiant_rpps, '')) = '' and code <> 'COMMUN' ; 
+	end if 
+	
+	if v_liste_rpps_vides <> '' then
+		nb_erreur_prati = nb_erreur_prati + 1
+		v_libelle_erreur_prati = v_libelle_erreur_prati + "~n- Tous les praticiens (y compris inactifs) doivent avoir un " + v_libelle_rpps +  " de renseigné, or ce n'est pas le cas pour : " + v_liste_rpps_vides + "~n"
+	end if
+
+	// Chaque praticien doit avoir un code RPPS / INAMI unique
+		if v_pays = "B" then
+		// Belgique => N° INAMI
+		select trim(list (' ' + nom + ' '+ isnull(prenom,'') + ' ('+ nom_carte_cps +')' ))  into :v_liste_rpps_double
+	 	from prati where actif = 1 and   trim(isnull(nom_carte_cps, '')) <> '' and code <> 'COMMUN' and identifiant_rpps in (select nom_carte_cps from prati group by nom_carte_cps having count(*) > 1 ) ;
+	else
+		select trim(list (' ' + nom + ' '+ isnull(prenom,'') + ' ('+ identifiant_rpps +')' ))  into :v_liste_rpps_double
+	 	from prati where actif = 1 and   trim(isnull(identifiant_rpps, '')) <> '' and code <> 'COMMUN' and identifiant_rpps in (select identifiant_rpps from prati group by identifiant_rpps having count(*) > 1 ) ;
+	end if
+
+	if SERIAL = "87135" or SERIAL = "87641" then
+		// le cabinet le Dr COUCHAT à 2 fiches à son nom avec le meme RPPS => faut pas vérifier
+		// Idem pour GARSANY
+	else
+		if v_liste_rpps_double <> '' then
+			nb_erreur_prati = nb_erreur_prati + 1
+			v_libelle_erreur_prati = v_libelle_erreur_prati + "~n- Tous les praticiens (y compris inactifs) doivent avoir un " + v_libelle_rpps +  " unique, or ce n'est pas le cas pour : " + v_liste_rpps_double + "~n"
+		end if
+	end if
+	
+	
+	if nb_erreur_prati > 0 then
+		
+		if Messagebox("ATTENTION", "Le module " + LIBELLE_APPLICATION + " est activé.~n~nCelui-ci nécessite certains paramétrages :~n" + v_libelle_erreur_prati +"~n~nSouhaitez-vous corriger ?~n~n(Sinon le module sera provisoirement inactivé)", Question!, YesNo!, 1) = 1 then
+			if v_mot_de_passe_acces_table_praticiens = "O" then 
+				ok_mdp = false
+				open(w_mot_passe_administrateur)
+			else
+				ok_mdp = true
+			end if
+					
+			if ok_mdp then
+				open(w_prati_modale)
+			end if
+		else 
+			TEA = false
+			v_verif_ok_prati = true
+		end if
+	else
+		v_verif_ok_prati = true
+	end if
+	
+
+loop
+
+return v_verif_ok_param and v_verif_ok_prati
+end function
+

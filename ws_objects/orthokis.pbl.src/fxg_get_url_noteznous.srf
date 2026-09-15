@@ -1,0 +1,166 @@
+﻿$PBExportHeader$fxg_get_url_noteznous.srf
+global type fxg_get_url_noteznous from function_object
+end type
+
+forward prototypes
+global function string fxg_get_url_noteznous (double db_code_patient, string s_formulaire)
+end prototypes
+
+global function string fxg_get_url_noteznous (double db_code_patient, string s_formulaire);// Interroge Notez-nous pour renvoyer l'url du formulaire du patient 
+// renvoie "" si pas besoin de formulaire pour le patient
+
+// Url qui sera renvoyée si OK
+string s_url_formulaire = ""
+
+
+// Accés internet
+string url_wb
+integer li_rc
+
+// Compte NotezNous
+string s_key 	// Mot de passe chez Notez Nous
+string url_NotezNous 
+string s_test_mode 			// 1 pour forcer l'envoi, 0 pour respecter les règles NotezNous
+
+integer  li_code
+
+
+HttpClient lnv_HttpClient
+lnv_HttpClient = Create HttpClient
+
+string ls_ReturnJson, ls_code
+string s_commande, ls_result, ls_message, ls_body
+long ll_statut_reponse, ll_root
+ls_body = ""
+
+
+if SERIAL = "87001" or SERIAL = "88005" or SERIAL = "88036" then
+	// Numéros spéciaux ARAKIS
+	
+	// pour forcer l'envoi de message
+	//s_test_mode = "1"	
+	
+	// Pour être comme les clients !
+	//s_test_mode = "0"	
+	s_test_mode = profilestring(dir_ini+inifile_orthokis,"Arakis","Notez_Nous_Test","0") 
+
+	// URL de tests
+	//url_NotezNous = "https://dev.noteznous.fr/assets/php/API/generateReviewOrthokis.php?"
+	url_NotezNous = "https://dev.noteznous.fr/api/partenaires/generateReviewOrthokis?"
+	s_key = "secureNotezNous"	// Notre mot de passe chez Notez Nous
+else
+	// respect Notez Nous
+	s_test_mode = "0"	
+	// Url de PROD
+	//url_NotezNous = "https://noteznous.fr/assets/php/API/generateReviewOrthokis.php?"
+	url_NotezNous = "https://app.noteznous.fr/api/partenaires/generateReviewOrthokis?"
+	s_key = "lEYuNAdxSuQIA5jQ"	// Notre mot de passe chez Notez Nous
+end if
+
+trace("=== DEBUT INTERROGATION NOTEZ-NOUS EN MODE HTTP ===")
+
+// Récupération du compte client Notez Nous du praticien ou du cabinet
+string s_company = ''
+string s_nom, s_prenom, s_mail, s_tel
+
+select isnull(notez_nous_id_praticien, ''), isnull(patient.nom, ''), isnull(patient.prenom, ''), isnull(patient.email_patient, isnull(patient.email,'')) , isnull(patient.portable_patient, isnull(patient.portable, '') )
+into :s_company , :s_nom, :s_prenom, :s_mail, :s_tel
+from prati, patient where patient.code_praticien = prati.code and patient.code = :db_code_patient ;
+
+if s_company = '' then 
+	select top 1 isnull(notez_nous_id_cabinet, '') into :s_company 
+	from param  ;
+end if
+
+
+// on a testé la présence de l'id cabinet dans la fonction verif_supprime_alertes_auto_rdv() pour éviter d'envoyer un mail
+// => ici c'est bon en principe 
+if s_company <> "" then
+		
+	
+	// Mise en place des paramètres
+	string s_param 
+	
+	s_param = "key=" + s_key + "&company=" + s_company +"&idPatient=" + string(db_code_patient) + "&testMode=" + s_test_mode 
+	
+	if s_formulaire <> "" then
+		// En envoi de texte libre ... on n'a pas de formulaire => Notez Nous enverra le formulaire par défaut .. on ne le passe pas en paramètre
+		s_param = s_param + "&formtypeKey=" + s_formulaire
+	end if
+
+	// ajout des nouveaux paramètres
+	s_param = s_param + "&nom=" + s_nom + "&prenom=" + s_prenom + "&mail=" + s_mail + "&tel=" + s_tel
+
+	// Lancement du webservice qui va bien
+	url_wb = url_NotezNous + s_param
+
+
+//	lnv_HttpClient.anonymousAccess = true;
+	// Envoi de la commande
+	li_rc = lnv_HttpClient.SendRequest("GET", url_wb, ls_body, EncodingUTF8!)
+
+		
+	trace(" - Commande envoyé : " + url_wb )
+	trace(" - Code retour : " + string(li_rc))
+	
+	if li_rc = 1 then
+		
+				ll_statut_reponse = lnv_HttpClient.GetResponseStatusCode()
+				li_code = 0
+				
+				if lnv_HttpClient.GetResponseBody(ls_ReturnJson) = 1 then
+					
+					JSONParser json
+					json = CREATE JSONParser
+				  
+					ls_result = json.LoadString (ls_ReturnJson)
+					ll_root = json.GetRootItem()
+				end if
+				if 200 <= ll_statut_reponse and ll_statut_reponse <= 299 then
+					// C'est bon 
+					TRACE ( " - Commandée exécutée avec succès !~n" + ls_ReturnJson +"~n*********************************************************" )
+					s_url_formulaire = json.GetItemString(ll_root, 'url') 
+					trace("s_url_formulaire : " + s_url_formulaire)
+				
+				else	
+					TRACE ( " **** Erreur GetResponseStatusCode N°" + string(ll_statut_reponse) + "  dans la l'exécution de la requête : ~n" + ls_ReturnJson +"~n*********************************************************" )
+					
+					Messagebox("ATTENTION","Erreur de communication avec Notez-Nous.~n~nCode GetResponseStatusCode : " + string (ll_statut_reponse  ) + "~n~nJson : " + ls_ReturnJson)
+
+				end if
+		
+	end if
+	
+
+//	if not FileExists(dir_ini + nom_fichier_recu_nn) then
+//		trace ("Le fichier " + dir_ini + nom_fichier_recu_nn + " n'existe pas !")
+//		Messagebox("ATTENTION","Erreur de communication avec Notez-Nous.")
+		
+//	else
+//		trace ("Décodage du fichier retour")
+//		jsonpackage lnv_pack1
+//		lnv_pack1 = create jsonpackage
+//		string ls_json
+//		integer numero_fichier_recu
+		
+//		numero_fichier_recu = fileOpen(dir_ini + nom_fichier_recu_nn, LineMode!, Read! )
+		
+//		FileRead(numero_fichier_recu, ls_json)
+		
+//		FileClose(numero_fichier_recu)
+		
+//		lnv_pack1.loadstring(ls_json)
+		
+//		s_url_formulaire = lnv_pack1.getvalue("url")
+		
+//		s_url_formulaire = string_non_nulle(s_url_formulaire)
+//		trace("s_url_formulaire : " + s_url_formulaire)
+	//end if
+
+end if
+
+trace("=== FIN INTERROGATION NOTEZ-NOUS EN MODE HTTP ===")
+
+return s_url_formulaire
+end function
+

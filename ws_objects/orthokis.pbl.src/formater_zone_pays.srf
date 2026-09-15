@@ -1,0 +1,47 @@
+﻿$PBExportHeader$formater_zone_pays.srf
+global type formater_zone_pays from function_object
+end type
+
+forward prototypes
+global subroutine formater_zone_pays (string code_pays, string type_zone, datawindow dw, string zone)
+end prototypes
+
+global subroutine formater_zone_pays (string code_pays, string type_zone, datawindow dw, string zone);
+
+// Applique un format 'edit mask' sur la ZONE en fonction du code pays
+
+
+
+string format
+//boolean v_suite 
+//v_suite = true
+
+// recherche du format dans la table
+format = format_zone_selon_pays(code_pays, type_zone)
+
+
+//choose case type_zone
+//	case 'T'
+//		// zone de téléphone
+//		select isnull(format_telephone, '## ## ## ## ##') into :format from pays where code = :code_pays ;
+//	case 'P'
+//		// zone de téléphone GSM
+//		select isnull(format_gsm,'## ## ## ## ##') into :format from pays where code = :code_pays ;
+//	case 'S'
+//		// Zone N° de sécurité sociale
+//		select isnull(format_secu, '! !! !! !! !!! !!! / !!')  into :format from pays where code = :code_pays ;
+//	case else
+//		v_suite = false
+//end choose
+
+
+if len(trim(format)) > 0 then
+	if dw.Modify (zone + ".EditMask.mask = '"+format+"'") <> '' then
+		Messagebox("ATTENTION !","Erreur dans l'application d'un format de pays :~n~nCode pays : "+code_pays+"~nFormat : "+format+"~n~nVeuillez corriger le format de ce pays~nZone : "+zone)
+	end if
+end if
+		
+		
+
+end subroutine
+

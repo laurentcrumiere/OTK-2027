@@ -1,0 +1,23 @@
+﻿$PBExportHeader$gfx_chu_signature_plan.srf
+global type gfx_chu_signature_plan from function_object
+end type
+
+forward prototypes
+global function boolean gfx_chu_signature_plan (double v_code)
+end prototypes
+
+global function boolean gfx_chu_signature_plan (double v_code);
+boolean v_sign
+string v_signer
+
+select isnull(plus1,'N') into :v_signer from diagnos where code = :v_code ;
+
+if v_signer = "O" then
+	v_sign = true
+else
+	v_sign = false
+end if
+
+return v_sign
+end function
+

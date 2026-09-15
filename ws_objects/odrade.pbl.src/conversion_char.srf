@@ -1,0 +1,116 @@
+﻿$PBExportHeader$conversion_char.srf
+global type conversion_char from function_object
+end type
+
+forward prototypes
+global function string conversion_char (string chaine, character sens)
+end prototypes
+
+global function string conversion_char (string chaine, character sens);// Coversion d'une chaine de caractères selon les codes ISO
+
+// dans les 2 sens : ODRADE <-> PWO
+// SENS = O => on lit dans Odrade pour afficher dans PWO
+// SENC = P => on lit dans PWO pour écrire dans Odrade
+
+
+string result
+long i
+char car
+
+
+
+result = ''
+
+
+for i = 1 to len(chaine)
+	
+//	messagebox ("lu",string(i)+" -> "+mid(chaine, i, 1)+" -> "+string(asc(mid(chaine, i, 1))))
+	
+	
+	
+	if sens = 'O' then
+		// Conversion Odrade -> Pwo
+		choose case asc(mid(chaine, i, 1))
+				// Attention .. depuis la V12 on lit de l'uNICODE
+			case 8218
+				car = "é"
+			case 352
+				car = "è"
+			case 710
+				car = "ê"
+			case 8240
+				car = "ë"
+			case 8230
+				car = 'à'
+			case 8222
+				car = "ä"
+			case 402
+				car = "â"
+			case 129
+				car = "ü"
+			case 8211
+				car = "û"
+			case 8212
+				car = "ù"
+			case 8249
+				//	car = " ï " - caractère insivible ???
+				car = 'i'
+			case 8221
+				car = "ö"
+			case 8220
+				car = "ô"
+			case 248
+				car = "°"
+			case 8225
+				car = "ç"
+			case else
+				car = mid(chaine, i, 1)
+		end choose
+	else
+		// Conversion de PWO vers Odrade
+		choose case mid(chaine, i, 1)
+			case "é"
+				car = char(8218) 
+			case "è"
+				car = char(352)
+			case "ê"
+				car = char(710)
+			case "ë"
+				car = char(8240)
+			case 'à'
+				car = char(8230)
+			case "ä"
+				car = char(8222)
+			case "â"
+				car = char(402)
+			case "ü"
+				car = char(129)
+			case "û"
+				car = char(8211)
+			case "ù"
+				car = char(8212)
+			case "ï"
+				car = char(8249)
+			case "ö"
+				car = char(8221)
+			case "ô"
+				car = char(8220)
+			case "°"
+				car = char(248)
+			case "ç"
+				car = char(8225)
+			case else
+				car = mid(chaine, i, 1)
+		end choose
+
+	end if
+
+	result = result + car
+	
+	
+	
+next
+
+return result
+end function
+

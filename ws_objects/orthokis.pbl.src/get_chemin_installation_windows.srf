@@ -1,0 +1,42 @@
+﻿$PBExportHeader$get_chemin_installation_windows.srf
+global type get_chemin_installation_windows from function_object
+end type
+
+forward prototypes
+global function long get_chemin_installation_windows (ref string chemin_install)
+end prototypes
+
+global function long get_chemin_installation_windows (ref string chemin_install);// fx qui recup le chemin du rep windows
+// return nbr carac récup (donc > 0) si ok et transmet le chemin par la var passée en référence (en rajoutant un "\" si besoin)
+// return -1 si pb et var passée en param = NULL
+
+string	s
+long	lg
+long	returnval
+
+s = space(250)
+lg = len(s)
+
+// Déconnectée le 20/09/2011
+//Returnval = GetWindowsDirectoryA( s, lg )
+
+s = get_variable_environnement("Windir")
+returnval = len(s)
+
+
+if returnval > 0 then 
+// si on a recup qqch
+	if right( s, 1 ) <> "\" then
+	// si la fin de la string n'est pas un "\"
+		s += "\"
+		returnval ++
+	end if
+else
+	SetNull( chemin_install)
+	returnval = -1
+end if
+
+return returnval
+
+end function
+

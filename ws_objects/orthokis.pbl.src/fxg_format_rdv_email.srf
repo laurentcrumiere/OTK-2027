@@ -1,0 +1,33 @@
+﻿$PBExportHeader$fxg_format_rdv_email.srf
+global type fxg_format_rdv_email from function_object
+end type
+
+forward prototypes
+global function string fxg_format_rdv_email (datetime v_rdv)
+end prototypes
+
+global function string fxg_format_rdv_email (datetime v_rdv);// renvoie le rendez-vous selon le format spécifié dans les param généraux
+
+string v_rdv_string = ""
+integer v_format_rdv_email
+date v_date_rdv
+time v_heure_rdv
+
+
+select top 1 format_rdv_email into :v_format_rdv_email from param ;
+
+choose case v_format_rdv_email
+	case 1
+		v_rdv_string = string(v_rdv, "le dd/mm/yyyy à hh:mm")
+	case 2, 4
+		v_date_rdv = date(v_rdv)
+		v_heure_rdv = time(v_rdv)
+		v_rdv_string = jour_francais(DayName(v_date_rdv)) + " " + string(day(v_date_rdv))+ " " + mois(month(v_date_rdv)) + " " + string(year(v_date_rdv)) + " à " + string(v_heure_rdv, "hh:mm")
+	case 3
+		v_rdv_string = string(v_rdv, "dd/mm/yyyy à hh:mm")
+end choose
+
+
+return v_rdv_string
+end function
+

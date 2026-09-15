@@ -1,0 +1,4808 @@
+﻿$PBExportHeader$m_btdroit_gearbox.srm
+forward
+global type m_btdroit_gearbox from menu
+end type
+type m_selection_matos from menu within m_btdroit_gearbox
+end type
+type m_acquerir from menu within m_btdroit_gearbox
+end type
+type m_-0 from menu within m_btdroit_gearbox
+end type
+type m_acquisitionfichier from menu within m_btdroit_gearbox
+end type
+type m_acquisitionidentitekitview from menu within m_btdroit_gearbox
+end type
+type m_acquisitionliendimaxisplanmeca from menu within m_btdroit_gearbox
+end type
+type m_acquisitionliendigorasoredex from menu within m_btdroit_gearbox
+end type
+type m_acquisitionlientrophy from menu within m_btdroit_gearbox
+end type
+type m_acquisitionlienvixwin32gendex from menu within m_btdroit_gearbox
+end type
+type m_acquisitionliensidexissirona from menu within m_btdroit_gearbox
+end type
+type m_acquisitionlienmediadentmorita from menu within m_btdroit_gearbox
+end type
+type m_acquisitionliendbswindurrdental from menu within m_btdroit_gearbox
+end type
+type m_acquisitioncliniviewinstrumentarium from menu within m_btdroit_gearbox
+end type
+type m_acquisitionlienmyray from menu within m_btdroit_gearbox
+end type
+type m_-1 from menu within m_btdroit_gearbox
+end type
+type m_copierimage from menu within m_btdroit_gearbox
+end type
+type m_collerimage from menu within m_btdroit_gearbox
+end type
+type m_déplacervers from menu within m_btdroit_gearbox
+end type
+type m_10 from menu within m_btdroit_gearbox
+end type
+type m_odrade from menu within m_btdroit_gearbox
+end type
+type m_envoyeruneradiodansodrade from menu within m_btdroit_gearbox
+end type
+type m_1 from menu within m_btdroit_gearbox
+end type
+type m_modifierdateacquisition from menu within m_btdroit_gearbox
+end type
+type m_editer from menu within m_btdroit_gearbox
+end type
+type m_editeur2021 from menu within m_btdroit_gearbox
+end type
+type m_ouvriravecxdraw from menu within m_btdroit_gearbox
+end type
+type m_etalonnerlaradioavecxdraw from menu within m_btdroit_gearbox
+end type
+type m_tridim from menu within m_btdroit_gearbox
+end type
+type m_editer_avec from menu within m_btdroit_gearbox
+end type
+type m_imprimerlimage from menu within m_btdroit_gearbox
+end type
+type m_utiliseruneresentationpowerpoint from menu within m_btdroit_gearbox
+end type
+type m_envoyerparemailpiècejointe from menu within m_btdroit_gearbox
+end type
+type m_composite from menu within m_btdroit_gearbox
+end type
+type m_composite1 from menu within m_composite
+end type
+type m_composite2 from menu within m_composite
+end type
+type m_composite3 from menu within m_composite
+end type
+type m_composite4 from menu within m_composite
+end type
+type m_composite from menu within m_btdroit_gearbox
+m_composite1 m_composite1
+m_composite2 m_composite2
+m_composite3 m_composite3
+m_composite4 m_composite4
+end type
+type m_0 from menu within m_btdroit_gearbox
+end type
+type m_sauvegardersous from menu within m_btdroit_gearbox
+end type
+type m_exportmultiples from menu within m_btdroit_gearbox
+end type
+type m_supprimerimage from menu within m_btdroit_gearbox
+end type
+type m_imprimerimage from menu within m_btdroit_gearbox
+end type
+type m_copierversunautrepatient from menu within m_btdroit_gearbox
+end type
+type m_- from menu within m_btdroit_gearbox
+end type
+type m_informationssurlimage from menu within m_btdroit_gearbox
+end type
+type m_régénérerlavignette from menu within m_btdroit_gearbox
+end type
+type m_régénérertouteslesvignettesdupatient from menu within m_btdroit_gearbox
+end type
+type m_affecterlesmotsclefs from menu within m_btdroit_gearbox
+end type
+type m_restaurerlimageoriginale from menu within m_btdroit_gearbox
+end type
+global type m_btdroit_gearbox from menu
+m_selection_matos m_selection_matos
+m_acquerir m_acquerir
+m_-0 m_-0
+m_acquisitionfichier m_acquisitionfichier
+m_acquisitionidentitekitview m_acquisitionidentitekitview
+m_acquisitionliendimaxisplanmeca m_acquisitionliendimaxisplanmeca
+m_acquisitionliendigorasoredex m_acquisitionliendigorasoredex
+m_acquisitionlientrophy m_acquisitionlientrophy
+m_acquisitionlienvixwin32gendex m_acquisitionlienvixwin32gendex
+m_acquisitionliensidexissirona m_acquisitionliensidexissirona
+m_acquisitionlienmediadentmorita m_acquisitionlienmediadentmorita
+m_acquisitionliendbswindurrdental m_acquisitionliendbswindurrdental
+m_acquisitioncliniviewinstrumentarium m_acquisitioncliniviewinstrumentarium
+m_acquisitionlienmyray m_acquisitionlienmyray
+m_-1 m_-1
+m_copierimage m_copierimage
+m_collerimage m_collerimage
+m_déplacervers m_déplacervers
+m_10 m_10
+m_odrade m_odrade
+m_envoyeruneradiodansodrade m_envoyeruneradiodansodrade
+m_1 m_1
+m_modifierdateacquisition m_modifierdateacquisition
+m_editer m_editer
+m_editeur2021 m_editeur2021
+m_ouvriravecxdraw m_ouvriravecxdraw
+m_etalonnerlaradioavecxdraw m_etalonnerlaradioavecxdraw
+m_tridim m_tridim
+m_editer_avec m_editer_avec
+m_imprimerlimage m_imprimerlimage
+m_utiliseruneresentationpowerpoint m_utiliseruneresentationpowerpoint
+m_envoyerparemailpiècejointe m_envoyerparemailpiècejointe
+m_composite m_composite
+m_0 m_0
+m_sauvegardersous m_sauvegardersous
+m_exportmultiples m_exportmultiples
+m_supprimerimage m_supprimerimage
+m_imprimerimage m_imprimerimage
+m_copierversunautrepatient m_copierversunautrepatient
+m_- m_-
+m_informationssurlimage m_informationssurlimage
+m_régénérerlavignette m_régénérerlavignette
+m_régénérertouteslesvignettesdupatient m_régénérertouteslesvignettesdupatient
+m_affecterlesmotsclefs m_affecterlesmotsclefs
+m_restaurerlimageoriginale m_restaurerlimageoriginale
+end type
+end forward
+
+global type m_btdroit_gearbox from menu
+m_selection_matos m_selection_matos
+m_acquerir m_acquerir
+m_-0 m_-0
+m_acquisitionfichier m_acquisitionfichier
+m_acquisitionidentitekitview m_acquisitionidentitekitview
+m_acquisitionliendimaxisplanmeca m_acquisitionliendimaxisplanmeca
+m_acquisitionliendigorasoredex m_acquisitionliendigorasoredex
+m_acquisitionlientrophy m_acquisitionlientrophy
+m_acquisitionlienvixwin32gendex m_acquisitionlienvixwin32gendex
+m_acquisitionliensidexissirona m_acquisitionliensidexissirona
+m_acquisitionlienmediadentmorita m_acquisitionlienmediadentmorita
+m_acquisitionliendbswindurrdental m_acquisitionliendbswindurrdental
+m_acquisitioncliniviewinstrumentarium m_acquisitioncliniviewinstrumentarium
+m_acquisitionlienmyray m_acquisitionlienmyray
+m_-1 m_-1
+m_copierimage m_copierimage
+m_collerimage m_collerimage
+m_déplacervers m_déplacervers
+m_10 m_10
+m_odrade m_odrade
+m_envoyeruneradiodansodrade m_envoyeruneradiodansodrade
+m_1 m_1
+m_modifierdateacquisition m_modifierdateacquisition
+m_editer m_editer
+m_editeur2021 m_editeur2021
+m_ouvriravecxdraw m_ouvriravecxdraw
+m_etalonnerlaradioavecxdraw m_etalonnerlaradioavecxdraw
+m_tridim m_tridim
+m_editer_avec m_editer_avec
+m_imprimerlimage m_imprimerlimage
+m_utiliseruneresentationpowerpoint m_utiliseruneresentationpowerpoint
+m_envoyerparemailpiècejointe m_envoyerparemailpiècejointe
+m_composite m_composite
+m_0 m_0
+m_sauvegardersous m_sauvegardersous
+m_exportmultiples m_exportmultiples
+m_supprimerimage m_supprimerimage
+m_imprimerimage m_imprimerimage
+m_copierversunautrepatient m_copierversunautrepatient
+m_- m_-
+m_informationssurlimage m_informationssurlimage
+m_régénérerlavignette m_régénérerlavignette
+m_régénérertouteslesvignettesdupatient m_régénérertouteslesvignettesdupatient
+m_affecterlesmotsclefs m_affecterlesmotsclefs
+m_restaurerlimageoriginale m_restaurerlimageoriginale
+end type
+global m_btdroit_gearbox m_btdroit_gearbox
+
+type variables
+gearbox gb2
+uo_image uo_image_cliquee
+
+boolean gearbox_cliquee = true		// vaudra true si on a cliquée d'un uo_gearbox, false si clic d'un uo_image
+
+// Pour la sélection des images courantes
+string photo_courante[], date_image_courante[], commentaire_image_courante[]
+constant integer nb_photos_courantes_maxi = 20
+
+// On determine la nature de la fenêtre appelante ... sera utilisée notamment dans le fonction sélectionner_images_dourantes
+w_diagnos_maj_miniatures w1
+w_explorateur_2013 w2013
+
+boolean appel_depuis_imagerie = false
+boolean appel_depuis_imagerie_2013 = false
+
+end variables
+
+forward prototypes
+public function integer gearpopmenu (integer x, integer y, gearbox gbox)
+public function integer rafraichir_expl_media ()
+public function integer uo_imagepopmenu (integer x, integer y, uo_image uoi)
+public function integer selectionner_images_courantes ()
+public subroutine ouvrir_composite (integer numero_composite)
+public subroutine utiliser_office (string type_soft, double numero)
+end prototypes
+
+public function integer gearpopmenu (integer x, integer y, gearbox gbox);string	sl, lstr_path_prg
+
+// UTILISEE LORSQUE CLIC DROIT SUR UNE GEARBOX ... ATTENTION .... Y A LA COPIE POUR LE CLIC DROIT SUR UNE AUTRE IMAGE  !!
+
+
+	
+	gb2 = gbox	// on en garde une occurence 
+	
+	// pour le "ouvrir avec ..."
+	sl = profilestring(dir_ini + inifile_orthokis, "photos", "nom_editer_avec01", "")
+	lstr_path_prg = ProfileString(dir_ini + inifile_orthokis, "photos", "editer_avec01", "")
+	if lstr_path_prg = "" then
+	// si aucun prg de retouche indiqué -> enable false
+		this.m_editer_avec.text = this.m_editer_avec.tag
+		this.m_editer_avec.enabled = false
+	else
+	// un prg de retouche est indiqué -> on rajoute la description à l'entrée du menu
+		this.m_editer_avec.text = this.m_editer_avec.tag + "[" + sl + "]"
+	end if
+	
+	// selon date sur photo visible
+	m_modifierdateacquisition.visible = not gb2.em_date_acquis.visible
+	
+	
+	// Vérification si lien Odrade et Odrade installé pour faire un tracé avec Odrade
+	if ODR and ODRADE then
+		m_odrade.enabled = true
+	else
+		m_odrade.enabled = false
+	end if
+
+	// Si lien Odrade on peut envoyer la radio vers Odrade, mais pas en autonome
+	if odr and not utilisation_distante then
+		m_envoyeruneradiodansodrade.enabled 	= true
+	else
+		m_envoyeruneradiodansodrade.enabled 	= false
+	end if
+
+	
+	// Vérification si lien Tridim
+	if TRIDIM then
+		this.m_tridim.visible = true
+	else
+		this.m_tridim.visible = false
+	end if
+	
+	if Not FileExists(gb2.fichier_photo) then
+		// si fichier photo n'existe pas encore
+		this.m_supprimerimage.enabled 			= false
+		this.m_déplacervers.enabled 				= false
+		this.m_sauvegardersous.enabled			= false
+		this.m_editer_avec.enabled 					= false
+		this.m_imprimerlimage.enabled 			= false
+		this.m_utiliseruneresentationpowerpoint.enabled 			= false
+		this.m_copierimage.enabled 				= false
+		this.m_editer.enabled 						= false
+		this.m_modifierdateacquisition.enabled 	= false
+		this.m_informationssurlimage.enabled 	= false
+		this.m_exportmultiples.enabled 			= false
+		this.m_ouvriravecxdraw.enabled			= false
+		this.m_odrade.enabled						= false
+		this.m_tridim.enabled 						= false
+		this.m_imprimerimage.enabled 			= false
+		m_envoyerparemailpiècejointe.enabled 	= false
+		m_régénérerlavignette.enabled 			= false
+		m_composite.enabled 						= false
+		m_restaurerlimageoriginale.enabled 		= false
+end if
+	
+	
+
+	// Restriction selon imagerie 2013
+	if imagerie_2013 then
+		
+		
+		this.m_acquisitionliendimaxisplanmeca.visible		= false	
+		this.m_acquisitionliendigorasoredex.visible			= false	
+		this.m_acquisitionlientrophy.visible						= false
+		this.m_acquisitionlienvixwin32gendex.visible			= false
+		this.m_acquisitionliensidexissirona.visible			= false
+		this.m_acquisitionlienmediadentmorita.visible		= false
+		this.m_acquisitionliendbswindurrdental.visible		= false
+		this.m_acquisitioncliniviewinstrumentarium.visible	= false
+		this.m_acquisitionidentitekitview.visible				= false
+		this.m_acquisitionlienmyray.visible						= false
+		
+		this.m_acquerir.visible									= false
+		this.m_acquisitionfichier.visible						= false
+		this.m_-0.visible											= false
+		this.m_selection_matos.visible							= false
+		this.m_acquisitionidentitekitview.visible				= false
+		this.m_-1.visible											= false
+		this.m_collerimage.visible								= false
+		this.m_déplacervers.visible								= false
+		this.m_10.visible											= false
+		this.m_modifierdateacquisition.visible					= false
+		this.m_affecterlesmotsclefs.visible						= false
+		
+		
+	else
+		// restriction selon modules optionnels
+		this.m_acquisitionliendimaxisplanmeca.visible		= PLANMECA	
+		this.m_acquisitionliendigorasoredex.visible			= DIGORA	
+		this.m_acquisitionlientrophy.visible						= trophy
+		this.m_acquisitionlienvixwin32gendex.visible			= VIXWIN
+		this.m_acquisitionliensidexissirona.visible			= SIDEXIS
+		this.m_acquisitionlienmediadentmorita.visible		= MEDIADENT
+		this.m_acquisitionliendbswindurrdental.visible		= DURRDENTAL
+		this.m_acquisitioncliniviewinstrumentarium.visible	= INSTRUMENTARIUM
+		this.m_acquisitionidentitekitview.visible				= KITVIEW
+		this.m_acquisitionlienmyray.visible						= MYRAY
+	end if	
+
+	// Appel depuis l'explorateur de limagerie 2013 ?
+	string v_nom_fenetre_parent = ""
+	if isvalid(gb2.GetParent()) then
+		v_nom_fenetre_parent = gb2.GetParent().className()
+		if isvalid(gb2.GetParent().GetParent()) then
+			v_nom_fenetre_parent = GetParent().GetParent().className()
+		end if
+	end if
+	
+
+	// Certaines fonctions sont désactivées si appel depuis les pages cliniques
+	if left(v_nom_fenetre_parent,9) = "w_diagnos" then
+		m_envoyerparemailpiècejointe.enabled 	= false
+		m_copierversunautrepatient.enabled = false
+		m_envoyeruneradiodansodrade.enabled 	= false
+		m_composite.enabled 						= false
+		m_restaurerlimageoriginale.enabled 		= false
+		m_régénérertouteslesvignettesdupatient.enabled = false
+		m_etalonnerlaradioavecxdraw.enabled = false
+		m_imprimerimage.enabled = false
+	end if
+
+	// Certaines fonctions sont désactivées si appel depuis la fiche administrative
+	if left(v_nom_fenetre_parent,13) = "w_patient_maj" then
+		m_envoyerparemailpiècejointe.enabled 	= false
+		m_copierversunautrepatient.enabled = false
+		m_envoyeruneradiodansodrade.enabled 	= false
+		m_composite.enabled 						= false
+		m_restaurerlimageoriginale.enabled 		= false
+		m_régénérertouteslesvignettesdupatient.enabled = false
+		m_etalonnerlaradioavecxdraw.enabled = false
+		this.m_imprimerlimage.enabled 			= false
+		this.m_utiliseruneresentationpowerpoint.enabled 			= false
+	end if
+
+
+	// Nom des composites ...
+	string v1, v2, v3, v4
+	
+	select top 1 nom_composite_1 ,  nom_composite_2 ,  nom_composite_3 ,  nom_composite_4 
+	into :v1, :v2, :v3, :v4 
+	from param ;
+	
+	this.m_composite.m_composite1.text = v1
+	this.m_composite.m_composite2.text = v2
+	this.m_composite.m_composite3.text = v3
+	this.m_composite.m_composite4.text = v4
+	
+	
+	// on affiche le menu en popup
+	this.popmenu(x,y)
+
+//end if
+
+
+// pas de gestion d'erreur
+return 1
+end function
+
+public function integer rafraichir_expl_media ();// fx qui rafraichit les thumbnails pour module expl_media
+// return 1 si ok
+//		-1 si pb
+
+int		returnval = -1
+
+if isvalid( w_expl_media ) then
+//	if w_expl_media.tab_types.control[1].rafraichir_miniature_standard( ) = 1 then returnval = 1
+//	uo_expl_media_tabpage_images
+	returnval = 1
+else
+	returnval = 1
+end if
+
+return returnval
+end function
+
+public function integer uo_imagepopmenu (integer x, integer y, uo_image uoi);string	sl, lstr_path_prg
+
+// UTILISEE PAR LE CLIC DROIT SUR UNE UO_IMAGE
+
+// Cadre image qui vient d'être cliqué !!
+uo_image_cliquee = uoi
+
+// pour le "ouvrir avec ..."
+sl = profilestring(dir_ini + inifile_orthokis, "photos", "nom_editer_avec01", "")
+lstr_path_prg = ProfileString(dir_ini + inifile_orthokis, "photos", "editer_avec01", "")
+if lstr_path_prg = "" then
+	// si aucun prg de retouche indiqué -> enable false
+	m_editer_avec.text = m_editer_avec.tag
+	m_editer_avec.enabled = false
+else
+	// un prg de retouche est indiqué -> on rajoute la description à l'entrée du menu
+	m_editer_avec.text = m_editer_avec.tag + "[" + sl + "]"
+end if
+
+// selon date sur photo visible
+//m_modifierdateacquisition.visible = not gb2.em_date_acquis.visible
+
+
+// Vérification si lien Odrade et Odrade installé pour faire un tracé avec Odrade
+if ODR and ODRADE then
+	m_odrade.enabled = true
+else
+	m_odrade.enabled = false
+end if
+
+// Si lien Odrade on peut envoyer la radio vers Odrade, mais pas en autonome
+if odr and not utilisation_distante then
+	m_envoyeruneradiodansodrade.enabled 	= true
+else
+	m_envoyeruneradiodansodrade.enabled 	= false
+end if
+
+
+// Vérification si lien Tridim
+if TRIDIM then
+	m_tridim.visible = true
+else
+	m_tridim.visible = false
+end if
+
+
+if Not FileExists(uo_image_cliquee.nom_fichier_complet) then
+	// si fichier photo n'existe pas encore
+	m_supprimerimage.enabled 			= false
+	m_déplacervers.enabled 				= false
+	m_sauvegardersous.enabled			= false
+	m_editer_avec.enabled 					= false
+	m_imprimerlimage.enabled 			= false
+	m_utiliseruneresentationpowerpoint.enabled 			= false
+	m_copierimage.enabled 				= false
+	m_editer.enabled 						= false
+	m_editeur2021.enabled 						= false
+	m_modifierdateacquisition.enabled 	= false
+	m_informationssurlimage.enabled 	= false
+	m_exportmultiples.enabled 			= false
+	m_ouvriravecxdraw.enabled			= false
+	m_odrade.enabled						= false
+	m_envoyeruneradiodansodrade.enabled 	= false
+	m_tridim.enabled 						= false
+	m_envoyerparemailpiècejointe.enabled 	= false
+	m_régénérerlavignette.enabled 			= false
+	m_envoyeruneradiodansodrade.enabled 	= false
+	m_composite.enabled 						= false
+	m_restaurerlimageoriginale.enabled 		= false
+	m_régénérertouteslesvignettesdupatient.enabled = false
+	m_etalonnerlaradioavecxdraw.enabled = false
+	m_copierversunautrepatient.enabled = false
+end if
+
+	
+m_acquisitionfichier.visible		= false	
+m_acquisitionliendimaxisplanmeca.visible		= false	
+m_acquisitionliendigorasoredex.visible			= false	
+m_acquisitionlientrophy.visible						= false
+m_acquisitionlienvixwin32gendex.visible			= false
+m_acquisitionliensidexissirona.visible			= false
+m_acquisitionlienmediadentmorita.visible		= false
+m_acquisitionliendbswindurrdental.visible		= false
+m_acquisitioncliniviewinstrumentarium.visible	= false
+m_acquisitionidentitekitview.visible	= false
+
+m_selection_matos.visible	= false
+m_acquerir.visible	= false
+m_-0.visible	= false
+m_-1.visible	= false
+
+// uniquement sur le menu Image
+m_etalonnerlaradioavecxdraw.visible = true
+m_copierversunautrepatient.visible = true
+
+//m_copierimage.visible	= false
+m_collerimage.visible	= false
+m_déplacervers.visible	= false
+//m_10.visible	= false
+
+m_modifierdateacquisition.visible	= false
+m_affecterlesmotsclefs.visible	= false
+
+
+// Appel depuis l'explorateur de limagerie 2013 ?
+string v_nom_fenetre_parent
+
+	if isvalid(gb2.GetParent()) then
+		v_nom_fenetre_parent = gb2.GetParent().className()
+		if isvalid(gb2.GetParent().GetParent()) then
+			v_nom_fenetre_parent = gb2.GetParent().GetParent().className()
+			if isvalid(gb2.GetParent().GetParent()) then
+				v_nom_fenetre_parent = gb2.GetParent().GetParent().className()
+				if isvalid(gb2.GetParent().GetParent().GetParent()) then
+					v_nom_fenetre_parent = gb2.GetParent().GetParent().GetParent().className()
+				end if
+			end if
+		end if
+	end if
+
+	string a 
+	a = left(v_nom_fenetre_parent,9)
+	
+// Certaines fonctions sont désactivées si appel depuis les pages cliniques
+if left(v_nom_fenetre_parent,9) = "w_diagnos" then
+	m_envoyerparemailpiècejointe.enabled 	= false
+	m_copierversunautrepatient.enabled = false
+	m_envoyeruneradiodansodrade.enabled 	= false
+	m_composite.enabled 						= false
+	m_restaurerlimageoriginale.enabled 		= false
+	m_régénérertouteslesvignettesdupatient.enabled = false
+	m_etalonnerlaradioavecxdraw.enabled = false
+end if
+
+// Nom des composites ...
+string v1, v2, v3, v4
+
+select top 1 nom_composite_1 ,  nom_composite_2 ,  nom_composite_3 ,  nom_composite_4 
+into :v1, :v2, :v3, :v4 
+from param ;
+
+this.m_composite.m_composite1.text = v1
+this.m_composite.m_composite2.text = v2
+this.m_composite.m_composite3.text = v3
+this.m_composite.m_composite4.text = v4
+
+
+
+// on affiche le menu en popup
+popmenu(x,y)
+
+// pas de gestion d'erreur
+return 1
+end function
+
+public function integer selectionner_images_courantes ();// Fonction qui remplit 2 tableaux (instances)
+//	photo_courante[cpt_courante]			=  nom complet des fichiers des photos sélectionnées
+//	Date_Image_Courante[cpt_courante] = dates
+
+
+// Depuis 2012 ... on peut sélectionner plusieurs images à déplacer SI ON EST DANS LA FENETRE IMAGERIE
+
+constant string crlf = char(10)
+constant string crlf2 = char(13)
+
+
+string vide = ""
+
+string chemin_fichier, nom_fichier
+string libelle_defaut
+
+boolean deplacer = true
+
+string chemin_fichier_source
+string chemin_fichier_destination, cadre_destination_depart
+long numero_cadre_destination
+string chemindossier
+
+// Fichier Word en dur
+string fichier_doc 
+
+// On écrit les 2 champs spéciaux pour le courriers
+integer cpt_courante, cpt_miniatures, tot_selection
+
+for cpt_courante = 1 to nb_photos_courantes_maxi
+	photo_courante[cpt_courante]			= ""
+	Date_Image_Courante[cpt_courante] = ""
+	Commentaire_Image_Courante[cpt_courante] = ""
+next
+
+
+
+// pour savoir les sélectionnées
+cpt_courante = 1
+
+// Appel depuis l'imagerie AVANT 2013 ?
+if not imagerie_2013 then 
+	if gb2.GetParent().className() = "w_diagnos_maj_miniatures" then
+		w1 = gb2.GetParent()
+	
+		if isValid(w1) then
+			appel_depuis_imagerie = true
+			// recherche des cochées
+			// recherche si images cochées
+			for cpt_miniatures = 1 to w1.nb_cadres
+				if w1.gb[cpt_miniatures].cbx_selection.checked then
+					if cpt_courante <= nb_photos_courantes then
+						photo_courante[cpt_courante]			= w1.gb[cpt_miniatures].fichier_photo
+						Date_Image_Courante[cpt_courante] = string(w1.gb[cpt_miniatures].date_image)
+						Commentaire_image_courante[cpt_courante]	= w1.gb[cpt_miniatures].commentaire_image_html
+						cpt_courante = cpt_courante+ 1
+					end if
+				end if
+			next
+		end if
+	end if
+		
+	if cpt_courante = 1 then
+		// aucune image cochée => on prend l'image sur laquelle on est
+		photo_courante[cpt_courante]			= gb2.fichier_photo
+		Date_Image_Courante[cpt_courante] = string(gb2.date_image)
+		cpt_courante = cpt_courante+ 1
+	end if
+
+
+else
+	// Appel depuis l'explorateur de limagerie 2013 ?
+
+	string v_nom_fenetre_parent, v_nom_fichier_court
+	
+	string v1, v2
+	
+	v1 = gb2.GetParent().className()
+	V2 = uo_image_cliquee.GetParent().className()
+	
+	if left(gb2.GetParent().className(), 12) = "w_coment_maj" then
+		
+//		// On est dans les commentaires cliniques ...  prend l'image sur laquelle on est (une gearbox)
+//		photo_courante[cpt_courante]			= gb2.fichier_photo
+//		Date_Image_Courante[cpt_courante] = string(gb2.date_image)
+//		
+//		 v_nom_fichier_court = gfx_extraire_nom_fichier(gb2.fichier_photo)
+//		 
+//		// Sur une GB on n'a pas le commentaire => recherche en base 
+//		select commentaires_html into :commentaire_image_courante[cpt_courante] from images_infos 
+//		where nom_fichier = :v_nom_fichier_court and code = :gb2.var_num_dossier ;	
+
+
+		// le tableau est vide si on appelle depuis les commentaires cliniques 
+		photo_courante[cpt_courante] = uo_image_cliquee.nom_fichier_complet
+		Date_Image_Courante[cpt_courante] = string(uo_image_cliquee.date_image)
+
+		// Traitement des saut de lignes ... pour Word
+		string s_commentaire_image
+		s_commentaire_image =  gfx_tout_remplacer(uo_image_cliquee.commentaire_image_html, crlf, crlf_parse)
+		s_commentaire_image =  gfx_tout_remplacer(s_commentaire_image, crlf2, "")
+		Commentaire_image_courante[cpt_courante] = s_commentaire_image
+			
+
+	else	
+	
+		v_nom_fenetre_parent = gb2.GetParent().GetParent().GetParent().className()
+	
+		if left(v_nom_fenetre_parent,18) = "w_explorateur_2013" then
+			w2013 = gb2.GetParent().GetParent().GetParent()
+		
+			if isValid(w2013) then
+				appel_depuis_imagerie_2013 = true
+				// recherche des cochées
+				// recherche si images cochées
+				
+				
+				long nb_images, lig
+				// pour prendre les photos selon le bon ordre !!
+			
+				nb_images = w2013.dw_tri.rowcount()
+			
+				for lig = 1 to nb_images
+					cpt_miniatures = w2013.dw_tri.GetItemNumber(lig, "index")
+					if w2013.uoi[cpt_miniatures].cbx_selection.checked then
+						if cpt_courante <= nb_photos_courantes then
+							photo_courante[cpt_courante]			= w2013.uoi[cpt_miniatures].nom_fichier_complet
+							Date_Image_Courante[cpt_courante] = string(w2013.uoi[cpt_miniatures].date_image)
+							Commentaire_image_courante[cpt_courante]	= w2013.uoi[cpt_miniatures].commentaire_image_html
+							cpt_courante = cpt_courante+ 1
+						end if
+					end if
+				next
+			end if
+		end if
+	
+		if cpt_courante = 1 then
+			// aucune image cochée => on prend l'image sur laquelle on est
+			photo_courante[cpt_courante]			= uo_image_cliquee.nom_fichier_complet
+			Date_Image_Courante[cpt_courante] = string(uo_image_cliquee.date_image)
+			commentaire_image_courante[cpt_courante]	= uo_image_cliquee.commentaire_image_html
+			cpt_courante = cpt_courante + 1
+		end if
+	end if
+end if
+
+// renvoie le nombre d'images sélectionnées
+return cpt_courante - 1
+
+
+
+
+end function
+
+public subroutine ouvrir_composite (integer numero_composite);
+
+// Recherche si X-Draw est bien dans le dossier d'installation d'Orthokis
+// Le lance pour
+// - ouvrir un composite (N° de 1 à 4)
+// - ouvir l'éditeur de composite (N° 5)
+// - étalonner une ration (N°0)
+
+string fichier_exe_xdraw , commande
+string rep_x-draw, reg_path
+
+reg_path = "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\APP Paths\X-DRAW.EXE"
+
+RegistryGet(reg_path,"path",rep_x-draw)
+
+if numero_composite = 5 then
+	fichier_exe_xdraw = rep_x-draw+  "\Editeur2Composites.exe"
+else
+	fichier_exe_xdraw = rep_x-draw+  "\x-draw.exe"
+end if
+
+if fileexists(fichier_exe_xdraw) then
+	
+	// Récupération du type d'image
+	string v_nom_fichier_seul
+	long v_temps_traitement
+	v_nom_fichier_seul = gfx_extraire_nom_fichier(gb2.fichier_photo)
+	
+	select temps_traitement into :v_temps_traitement from images_infos where code = :gb2.var_num_dossier and nom_fichier = :v_nom_fichier_seul ;
+	
+	if isnull(v_temps_traitement) then 
+		MessageBox("ATTENTION !","Cette image n'a pas d'Etape de Traitement.~n~nL'action ne peut se poursuivre.")
+	else
+		// on lance
+		commande = fichier_exe_xdraw + " ORTHOKIS#"+dir_photos+"#"+string(gb2.var_num_dossier)+"#"+string(v_temps_traitement)+"#"+string(numero_composite)+"#"
+		runwait(commande, 1)
+		faire_vignette_pour( gb2.fichier_photo, gb2.var_num_dossier )
+		gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+	end if
+else
+	Messagebox("Erreur","Le logiciel X-Draw n'est pas installé sur ce micro-ordinateur.~nVous ne pouvez donc pas utiliser cette fonction.")
+end if
+
+end subroutine
+
+public subroutine utiliser_office (string type_soft, double numero);
+
+// fonction qui mémorise les images courantes et qui lance l'interface de choix de la mise en plage ou de la présentation
+// puis qui lance Word ou Powerpoint
+
+// type_soft vaut 
+// - W pour Word 
+// - P pour powerpoint si appel depuis Imagerie
+// - S si appel depuis soins (pour échéancier)
+// - F si appel depuis soins pour Feuille de Soins 2014
+// - C si appel depuis la comparaison intelligente
+// - E si appel depuis Erasme (envoi de fichier vers Médical Viewer)
+// - A si appel depuis soins pour Attestation de Soins Belges
+// - FF si appel depuis Facture pour Facture France
+// - SN si appel depuis soins (pour échéancier) pour faire une signature numérique
+// - SL si appel depuis soins (pour échéancier) pour faire une signature en ligne
+// - J si appel depuis soins pour Justificatif de Soins Belges
+// - R si appel depuis soins pour reçu de paiement
+
+// Numéro = numéro du document (facture pour 'FF')
+
+constant string crlf = char(10)
+constant string crlf2 = char(13)
+
+w_patience w_patience_locale
+
+boolean v_suite
+
+uo_lien_word		wrd
+uo_lien_powerpoint ppt
+
+string v_vide = ""
+
+string chemin_fichier, nom_fichier
+string libelle_defaut
+integer cpt_courante
+
+str_image_impression img
+
+// Fichier Word en dur
+string fichier_doc 
+
+// pour facture Word
+double v_id_facture_word
+string nom_fichier_facture, v_publication_portail, v_publication_correspondant
+
+// pour reçu
+double v_id_recu_word
+string nom_fichier_recu 
+
+if type_soft = "J" then
+	// Pour justificatif belgique, on force Facture en PDF pour lien avec Word
+	Setprofilestring(dir_ini+inifile_orthokis,"admini","facture_pdf","O") 
+end if
+
+
+if type_soft <> "S" and type_soft <> "F" and type_soft <> "C" and type_soft <> "E" and type_soft <> "A" and type_soft <> "FF" and type_soft <> "J" and type_soft <> "R" then
+	// Appel depuis imagerie
+	selectionner_images_courantes()
+end if
+
+if type_soft <> "F" and type_soft <> "E" and type_soft <> "A" and type_soft <> "FF" and type_soft <> "J" and type_soft <> "R"   then 
+	
+	// fentre de recherche du document Word
+	openWithParm( w_img_imprimer , type_soft)
+
+	// La fenêtre renvoie 
+	// - le nom du fichier WORD qui servira ... 
+	// - le service Word à faire
+	
+	img = message.PowerObjectParm 
+else
+	if type_soft = "F" then
+		img.fichier_word = dir_ini + fxg_nom_fichier_fs2014_doc_ou_docx()
+		img.service_word = Service_MajEtImprime
+	else
+		if type_soft = "E" then
+			img.fichier_word = dir_courriers + "Pages_Cliniques_MedicalViewer.doc"
+			//img.service_word = Service_MajEtVisualise
+			img.service_word = Service_MajEtSauve
+		else
+			if type_soft = "A" then
+				img.fichier_word = dir_ini + nom_fichier_attestation
+				img.service_word = Service_MajEtImprime
+			else
+				if type_soft = "FF" or  type_soft = "J"  then
+					// recherche du nom du fichier Word pour la facture France ou Justififcatif Belgique
+			
+					select max(id_facture_word) into :v_id_facture_word from param ;
+					zerodb(v_id_facture_word)
+			
+				  SELECT trim(nom_document) + '.' + trim(extension)  , "copie_pdf", "copie_pdf_correspondant"
+					 INTO :nom_fichier_facture, :v_publication_portail, :v_publication_correspondant
+					 FROM "courriers_word"  
+					WHERE "courriers_word"."id" = :v_id_facture_word    ;
+					
+					img.fichier_word = dir_courriers + nom_fichier_facture
+					
+					if profilestring(dir_ini+inifile_orthokis,"admini","facture_pdf","N") = "O" then 
+						// Si la facture est en PDF on génère de suite 
+						img.service_word = Service_MajEtFacture
+					else
+						// Si la facture n'est pas en PDF, ou l'ouvre et on s'arrête  .... MAIS CA NE MARCHE PAS !
+						img.service_word = Service_MajEtVisualise
+					end if
+				else
+					if type_soft = "R"  then
+						// recherche du nom du fichier Word pour le reçu 
+				
+						select max(id_recu_word) into :v_id_recu_word from param ;
+						zerodb(v_id_recu_word)
+				
+					  SELECT trim(nom_document) + '.' + trim(extension)  , "copie_pdf", "copie_pdf_correspondant"
+						 INTO :nom_fichier_recu, :v_publication_portail, :v_publication_correspondant
+						 FROM "courriers_word"  
+						WHERE "courriers_word"."id" = :v_id_recu_word    ;
+						
+						img.fichier_word = dir_courriers + nom_fichier_recu
+						if profilestring(dir_ini+inifile_orthokis,"admini","recu_pdf","N") = "O" then 
+							img.service_word = Service_MajEtFacture
+						else
+							img.service_word = Service_MajEtImprime
+						end if
+					end if
+					
+				end if
+			end if
+			
+		end if
+	end if
+	
+end if
+	
+
+if isvalid(img) then
+	
+	
+	fichier_doc = img.fichier_word 
+	
+	
+	// Si retour de chaine vide, c'est que soucis avant 
+	if len(trim(fichier_doc)) > 0 then
+		
+		if type_soft <> "S" and type_soft <> "F"  and type_soft <> "C" and type_soft <> "E" and type_soft <> "A"  and type_soft <> "FF" and type_soft <> "J"  and type_soft <> "R"   then
+			// Inscription des infos des l'image en cours 
+			
+			for cpt_courante = 1 to nb_photos_courantes_maxi
+				SetProfileString(dir_ini+inifile_orthokis,"PHOTOS","Photo_Courante"+string(cpt_courante),photo_courante[cpt_courante])
+				SetProfileString(dir_ini+inifile_orthokis,"PHOTOS","Date_Image_Courante"+string(cpt_courante),Date_Image_Courante[cpt_courante])
+				
+				// Traitement des saut de lignes ... pour Word
+				Commentaire_Image_Courante[cpt_courante] =  gfx_tout_remplacer(Commentaire_Image_Courante[cpt_courante], crlf, crlf_parse)
+				Commentaire_Image_Courante[cpt_courante] =  gfx_tout_remplacer(Commentaire_Image_Courante[cpt_courante], crlf2, "")
+				SetProfileString(dir_ini+inifile_orthokis,"PHOTOS","Commentaire_Image_Courante"+string(cpt_courante),Commentaire_Image_Courante[cpt_courante])
+			next
+			
+			
+		end if
+		
+		// fichier Word à utiliser ...
+		chemin_fichier 	= 	gfx_extraire_path_fichier(fichier_doc)
+		nom_fichier 		= 	gfx_extraire_nom_fichier(fichier_doc)
+	
+		// On va utiliser les fonctions Word avec patient courant 
+		// => on récup le code du patient sur lequel on est (pas forcément le patient courant !)
+		// on permute les codes qu'on repermutera ensuite
+		
+		double var_code_courant_sauvegarde, var_code_patient_actuel
+		
+		var_code_courant_sauvegarde = var_code 
+		
+		if type_soft <> "S" and type_soft <> "F" and type_soft <> "C"  and type_soft <> "E" and type_soft <> "A" AND type_soft <> "FF" and type_soft <> "J" and type_soft <> "R"    then
+			var_code_patient_actuel = gb2.var_num_dossier
+			var_code = var_code_patient_actuel
+		end if	
+		
+
+		
+		if type_soft = "W" or type_soft = "S" or type_soft = "F"  or type_soft = "C" or type_soft = "E" or type_soft = "A"  or type_soft = "FF" or type_soft = "J" or type_soft = "R"   then
+			
+
+			// Spéciale pour signature en ligne
+			if img.service_word = Service_SigneEnLigne then
+				w_courriers_word_invisible w_cw
+				open( w_cw)
+				w_cw.hide()
+				w_cw.signature_en_ligne(true, true, false, chemin_fichier, nom_fichier ) 
+				close(w_cw)
+			else
+				
+				// Récupération du fichier pour mise dans le dossier du patient
+				string v_fichier_depart_complet
+				v_fichier_depart_complet = fxg_get_nom_fic_document_orthokis_pdf()
+				
+				v_suite = true
+				
+				if (type_soft = "FF"  and ( profilestring(dir_ini+inifile_orthokis,"admini","facture_pdf","N") = "O" or Profilestring(dir_ini+inifile_orthokis,"admini","envoi_email_direct","N") = "O") ) or  type_soft = "J"  then 
+					// facture France imprimée en PDF .. on supprime le fichier temporaire avant pour éviter les ménage .. si pas possible ... on sort
+					if FileExists(v_fichier_depart_complet) then
+						if not FileDelete(v_fichier_depart_complet) then 
+							v_suite = false
+							if type_soft = "FF"  then 
+								MessageBox("ATTENTION","Impossible de générer la facture en PDF !~n~nUn Fichier intermédiaire est probablement ouvert (visualisation de la facture).~n~nMerci de le fermer et recommencer l'opération !")
+							else
+								MessageBox("ATTENTION","Impossible de générer le justificatif en PDF !~n~nUn Fichier intermédiaire est probablement ouvert (visualisation du justificatif).~n~nMerci de le fermer et recommencer l'opération !")
+							end if
+						end if
+					end if
+			
+				end if	
+
+				
+				if type_soft = "R"  and profilestring(dir_ini+inifile_orthokis,"admini","recu_pdf","N") = "O"  then 
+					// reçu imprimé en PDF .. on supprime le fichier temporaire avant pour éviter les ménage .. si pas possible ... on sort
+					if FileExists(v_fichier_depart_complet) then
+						if not FileDelete(v_fichier_depart_complet) then 
+							v_suite = false
+							MessageBox("ATTENTION","Impossible de générer le reçu en PDF !~n~nUn Fichier intermédiaire est probablement ouvert (visualisation du reçu).~n~nMerci de le fermer et recommencer l'opération !")
+						end if
+					end if
+			
+				end if	
+				
+				
+				if v_suite then 
+					
+					// Services Word classiques ... 
+					wrd = create uo_lien_word
+					
+					open(w_patience_locale)
+					if wrd.traiter_avec_word(img.service_word, chemin_fichier, nom_fichier, true) <> 1 then
+						close(w_patience_locale)
+						// si pb sur le job WORD : msg d'erreur
+						messagebox("ERREUR","Un problème est survenu durant l'exécution, ~nImpossible de poursuivre !",StopSign!)
+					else
+						close(w_patience_locale)
+						if type_soft = "FF" or type_soft = "J" or type_soft = "R" then
+							
+							double var_code_local
+									
+							//select top 1 soins.code into :var_code_local from soins where soins.numero_facture = :numero ;
+							var_code_local	= w_click_soins_reg.var_code_local
+							
+							// Fin du traitement avec Word ... la facture / reçu est imprimée ou si PDF, dans fichier temporaire
+							if  (type_soft = "FF" and ( Profilestring(dir_ini+inifile_orthokis,"admini","envoi_email_direct","N") = "O" or profilestring(dir_ini+inifile_orthokis,"admini","facture_pdf","N") = "O")) or  (type_soft = "R" and profilestring(dir_ini+inifile_orthokis,"admini","recu_pdf","N") = "O")   or type_soft = "J"  then 
+								string rep_phot_patient, v_fichier_destination,v_fichier_destination_complet
+								rep_phot_patient = dir_photos + string( var_code_local )
+								
+								if not fileexists( rep_phot_patient ) then gfx_creer_rep( rep_phot_patient )
+								
+								choose case  type_soft 
+									case "FF" 
+									v_fichier_destination =  string(today(), "yyyy-mm-dd")+" "+string(now(), "hh-mm-ss")+ " - Facture_" + string(numero) + ".pdf"
+									case "J"
+										v_fichier_destination =  string(today(), "yyyy-mm-dd")+" "+string(now(), "hh-mm-ss")+ " - Justificatif Soins.pdf"
+									case "R"
+										v_fichier_destination =  string(today(), "yyyy-mm-dd")+" "+string(now(), "hh-mm-ss")+ " - Reçu.pdf"
+								end choose
+								
+								v_fichier_destination_complet = rep_phot_patient + win_delimiter + v_fichier_destination
+							
+								
+								// Petite tempo le temps que le fichier PDF soit généré
+								integer  cpt_attente = 0
+								do while not FileExists(v_fichier_destination_complet) and cpt_attente < 5 
+									sleep(1000)
+									cpt_attente = cpt_attente + 1
+								loop 
+								
+								trace("Mémorisation du fichier " + v_fichier_depart_complet +"    ->     " + v_fichier_destination_complet )
+								
+								if FileCopy( v_fichier_depart_complet ,v_fichier_destination_complet ) = 1 then
+									string v_libelle
+									string v_publication
+									
+									choose case  type_soft 
+										case "FF" 
+											v_libelle = "Facture N°"+string(numero)+" (Document PDF)" 
+										case "J"
+											v_libelle = "Justificatif de soins " +" (Document PDF)" 
+										case "R"
+											v_libelle = "Montant : " + param_win[3] +" € (Document PDF)" 
+									end choose
+									
+									integer categorie_nulle
+									setnull(categorie_nulle)
+									
+									if type_soft = "FF" and profilestring(dir_ini+inifile_orthokis,"admini","factures_pub_mon_ortho","N") = "O" then
+										v_publication  = "O"
+									else
+										v_publication = "N"
+									end if
+									
+									if type_soft = "R" then
+										fxg_enregcourrierhisto ( var_code_local, "RECREG" , today() ,v_libelle , v_fichier_destination_complet , 'E', v_publication, v_publication_correspondant , '', categorie_nulle)							
+									else
+										fxg_enregcourrierhisto ( var_code_local, "NOTHON" , today() ,v_libelle , v_fichier_destination_complet , 'E', v_publication, v_publication_correspondant , '', categorie_nulle)
+									end if
+									
+									// Les justificatifs n'ont pas à être envoyé par mail de manière unitaire
+									if type_soft = "J" then 
+										// On mémorise l'info dans les soins 
+										long lig, tot
+										double v_cle 
+										tot = w_click_soins_reg.dw_soins.rowcount() 
+										for lig = 1 to tot
+											if w_click_soins_reg.dw_soins.getItemString(lig, "fse")  = "O" then
+												v_cle = w_click_soins_reg.dw_soins.getItemNumber(lig, "cle")
+												update soins set fse_edite = 'J', date_fs = getdate() 
+												where code = :var_code_local and cle = :v_cle ;
+												commit ;
+											end if
+										next 
+										w_click_soins_reg.cb_rafraichir.triggerevent(clicked!)
+									else
+										string v_libelle_question 
+										if type_soft = "FF" then
+											v_libelle_question = "cette facture"
+										else
+											v_libelle_question = "ce reçu"
+										end if
+										if Messagebox("QUESTION","Souhaitez-vous envoyer " + v_libelle_question + " par email ?", Question!, YesNo!, 1) = 1 then
+											// on enchaine par l'envoi de l'email
+											long ligtot
+											m_btdroit_historique		Menu
+											Menu = CREATE m_btdroit_historique
+											
+											// pas la même fenêtre mais héritage !
+											if BELGIQUE and type_soft <> "R" then
+												
+												// Par sécurité en reprend le code de la fênetre Administrative, clic droits dans les documents !
+												w_attestation_impression.dw_courriers.retrieve(var_code_local, "E")
+												w_attestation_impression.dw_courriers.setfilter("historique_editions_nom_courrier = '" + v_fichier_destination + "'" )
+												w_attestation_impression.dw_courriers.filter()
+												ligtot = w_attestation_impression.dw_courriers.rowcount()
+												if  ligtot > 0 then
+													w_attestation_impression.dw_courriers.SetItem(1, "Selection", 'O')					
+													Menu.dw_locale = w_attestation_impression.dw_courriers
+													Menu.var_code_local = w_attestation_impression.var_code_local
+													
+													Menu.m_envoyerparemailpiècejointe.TriggerEvent(clicked!)
+													
+												end if
+												
+													
+											else
+												
+												if type_soft = "FF"  then
+													// Par sécurité en reprend le code de la fênetre Administrative, clic droits dans les documents !
+													w_facture_impression.dw_courriers.retrieve(var_code_local, "E")
+													w_facture_impression.dw_courriers.setfilter("historique_editions_nom_courrier = '" + v_fichier_destination + "'" )
+													w_facture_impression.dw_courriers.filter()
+													ligtot = w_facture_impression.dw_courriers.rowcount()
+													if  ligtot > 0 then
+														w_facture_impression.dw_courriers.SetItem(1, "Selection", 'O')					
+														Menu.dw_locale = w_facture_impression.dw_courriers
+														Menu.var_code_local = w_facture_impression.var_code_local
+														
+														Menu.m_envoyerparemailpiècejointe.TriggerEvent(clicked!)
+														
+													end if
+												else
+													if type_soft = "R" then
+														// Reçu
+														w_click_soins_reg.dw_courriers.settransobject(sqlca)
+														w_click_soins_reg.dw_courriers.retrieve(var_code_local, "E")
+														w_click_soins_reg.dw_courriers.setfilter("historique_editions_nom_courrier = '" + v_fichier_destination + "'" )
+														w_click_soins_reg.dw_courriers.filter()
+														ligtot = w_click_soins_reg.dw_courriers.rowcount()
+														if  ligtot > 0 then
+															w_click_soins_reg.dw_courriers.SetItem(1, "Selection", 'O')					
+															Menu.dw_locale = w_click_soins_reg.dw_courriers
+															Menu.var_code_local = w_click_soins_reg.var_code_local
+															
+															Menu.m_envoyerparemailpiècejointe.TriggerEvent(clicked!)
+															
+														end if
+														
+													end if
+												end if
+											end if
+										end if
+		
+									end if
+								else
+									Messagebox("ATTENTION", "Erreur dans la mémorisation du fichier PDF !")
+								end if
+							end if
+						end if
+					end if
+				end if
+			end if
+		else
+			ppt = create uo_lien_powerpoint
+			// Powerpoint
+			string v_nom_fichier_complet
+			string v_dossier
+			
+			v_nom_fichier_complet = chemin_fichier + nom_fichier
+			
+			// Mise à jour des autres variables pour passage de paramètre par le Orthokis.ini
+			
+			long v_numero_dossier_local
+			string v_nom_local
+			
+			select numero_dossier, trim(nom)+isnull(' '+trim(prenom),'')  into :v_numero_dossier_local, :v_nom_local
+			from patient where code = :var_code ;
+			
+			// On écrit le passage de paramètres à Powerpoint
+			Setprofilestring(dir_ini+inifile_orthokis,"Macros","CodDef", string(var_code))
+			Setprofilestring(dir_ini+inifile_orthokis,"Macros","DosDef", string(v_numero_dossier_local))
+			Setprofilestring(dir_ini+inifile_orthokis,"Macros","NomDef", v_nom_local)
+			Setprofilestring(dir_ini+inifile_orthokis,"Macros","Utilisateur", utilisateur_code)
+			
+			// Par sécurité ... quoiqu'on fasse dans Power Point .. on crée le dossier des phoos
+			v_dossier = dir_photos + string(var_code)
+		
+			// si fichier photo du patient n'existe pas encore
+			if not fxg_FileExists(v_dossier) then CreateDirectory(v_dossier)
+
+			if img.service_word = Service_MajEtVisualise then
+				// Juste aperçu
+				ppt.routine_powerpoint(2,v_nom_fichier_complet, var_code )
+			else
+				// Diaporama
+				ppt.routine_powerpoint(3,v_nom_fichier_complet, var_code)
+			end if
+				
+		end if
+		
+		var_code = var_code_courant_sauvegarde
+		
+	end if
+end if
+
+end subroutine
+
+on m_btdroit_gearbox.create
+m_btdroit_gearbox=this
+call super::create
+this.text = "m_btdroit_gearbox"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+this.m_selection_matos=create m_selection_matos
+this.m_acquerir=create m_acquerir
+this.m_-0=create m_-0
+this.m_acquisitionfichier=create m_acquisitionfichier
+this.m_acquisitionidentitekitview=create m_acquisitionidentitekitview
+this.m_acquisitionliendimaxisplanmeca=create m_acquisitionliendimaxisplanmeca
+this.m_acquisitionliendigorasoredex=create m_acquisitionliendigorasoredex
+this.m_acquisitionlientrophy=create m_acquisitionlientrophy
+this.m_acquisitionlienvixwin32gendex=create m_acquisitionlienvixwin32gendex
+this.m_acquisitionliensidexissirona=create m_acquisitionliensidexissirona
+this.m_acquisitionlienmediadentmorita=create m_acquisitionlienmediadentmorita
+this.m_acquisitionliendbswindurrdental=create m_acquisitionliendbswindurrdental
+this.m_acquisitioncliniviewinstrumentarium=create m_acquisitioncliniviewinstrumentarium
+this.m_acquisitionlienmyray=create m_acquisitionlienmyray
+this.m_-1=create m_-1
+this.m_copierimage=create m_copierimage
+this.m_collerimage=create m_collerimage
+this.m_déplacervers=create m_déplacervers
+this.m_10=create m_10
+this.m_odrade=create m_odrade
+this.m_envoyeruneradiodansodrade=create m_envoyeruneradiodansodrade
+this.m_1=create m_1
+this.m_modifierdateacquisition=create m_modifierdateacquisition
+this.m_editer=create m_editer
+this.m_editeur2021=create m_editeur2021
+this.m_ouvriravecxdraw=create m_ouvriravecxdraw
+this.m_etalonnerlaradioavecxdraw=create m_etalonnerlaradioavecxdraw
+this.m_tridim=create m_tridim
+this.m_editer_avec=create m_editer_avec
+this.m_imprimerlimage=create m_imprimerlimage
+this.m_utiliseruneresentationpowerpoint=create m_utiliseruneresentationpowerpoint
+this.m_envoyerparemailpiècejointe=create m_envoyerparemailpiècejointe
+this.m_composite=create m_composite
+this.m_0=create m_0
+this.m_sauvegardersous=create m_sauvegardersous
+this.m_exportmultiples=create m_exportmultiples
+this.m_supprimerimage=create m_supprimerimage
+this.m_imprimerimage=create m_imprimerimage
+this.m_copierversunautrepatient=create m_copierversunautrepatient
+this.m_-=create m_-
+this.m_informationssurlimage=create m_informationssurlimage
+this.m_régénérerlavignette=create m_régénérerlavignette
+this.m_régénérertouteslesvignettesdupatient=create m_régénérertouteslesvignettesdupatient
+this.m_affecterlesmotsclefs=create m_affecterlesmotsclefs
+this.m_restaurerlimageoriginale=create m_restaurerlimageoriginale
+this.Item[UpperBound(this.Item)+1]=this.m_selection_matos
+this.Item[UpperBound(this.Item)+1]=this.m_acquerir
+this.Item[UpperBound(this.Item)+1]=this.m_-0
+this.Item[UpperBound(this.Item)+1]=this.m_acquisitionfichier
+this.Item[UpperBound(this.Item)+1]=this.m_acquisitionidentitekitview
+this.Item[UpperBound(this.Item)+1]=this.m_acquisitionliendimaxisplanmeca
+this.Item[UpperBound(this.Item)+1]=this.m_acquisitionliendigorasoredex
+this.Item[UpperBound(this.Item)+1]=this.m_acquisitionlientrophy
+this.Item[UpperBound(this.Item)+1]=this.m_acquisitionlienvixwin32gendex
+this.Item[UpperBound(this.Item)+1]=this.m_acquisitionliensidexissirona
+this.Item[UpperBound(this.Item)+1]=this.m_acquisitionlienmediadentmorita
+this.Item[UpperBound(this.Item)+1]=this.m_acquisitionliendbswindurrdental
+this.Item[UpperBound(this.Item)+1]=this.m_acquisitioncliniviewinstrumentarium
+this.Item[UpperBound(this.Item)+1]=this.m_acquisitionlienmyray
+this.Item[UpperBound(this.Item)+1]=this.m_-1
+this.Item[UpperBound(this.Item)+1]=this.m_copierimage
+this.Item[UpperBound(this.Item)+1]=this.m_collerimage
+this.Item[UpperBound(this.Item)+1]=this.m_déplacervers
+this.Item[UpperBound(this.Item)+1]=this.m_10
+this.Item[UpperBound(this.Item)+1]=this.m_odrade
+this.Item[UpperBound(this.Item)+1]=this.m_envoyeruneradiodansodrade
+this.Item[UpperBound(this.Item)+1]=this.m_1
+this.Item[UpperBound(this.Item)+1]=this.m_modifierdateacquisition
+this.Item[UpperBound(this.Item)+1]=this.m_editer
+this.Item[UpperBound(this.Item)+1]=this.m_editeur2021
+this.Item[UpperBound(this.Item)+1]=this.m_ouvriravecxdraw
+this.Item[UpperBound(this.Item)+1]=this.m_etalonnerlaradioavecxdraw
+this.Item[UpperBound(this.Item)+1]=this.m_tridim
+this.Item[UpperBound(this.Item)+1]=this.m_editer_avec
+this.Item[UpperBound(this.Item)+1]=this.m_imprimerlimage
+this.Item[UpperBound(this.Item)+1]=this.m_utiliseruneresentationpowerpoint
+this.Item[UpperBound(this.Item)+1]=this.m_envoyerparemailpiècejointe
+this.Item[UpperBound(this.Item)+1]=this.m_composite
+this.Item[UpperBound(this.Item)+1]=this.m_0
+this.Item[UpperBound(this.Item)+1]=this.m_sauvegardersous
+this.Item[UpperBound(this.Item)+1]=this.m_exportmultiples
+this.Item[UpperBound(this.Item)+1]=this.m_supprimerimage
+this.Item[UpperBound(this.Item)+1]=this.m_imprimerimage
+this.Item[UpperBound(this.Item)+1]=this.m_copierversunautrepatient
+this.Item[UpperBound(this.Item)+1]=this.m_-
+this.Item[UpperBound(this.Item)+1]=this.m_informationssurlimage
+this.Item[UpperBound(this.Item)+1]=this.m_régénérerlavignette
+this.Item[UpperBound(this.Item)+1]=this.m_régénérertouteslesvignettesdupatient
+this.Item[UpperBound(this.Item)+1]=this.m_affecterlesmotsclefs
+this.Item[UpperBound(this.Item)+1]=this.m_restaurerlimageoriginale
+end on
+
+on m_btdroit_gearbox.destroy
+call super::destroy
+destroy(this.m_selection_matos)
+destroy(this.m_acquerir)
+destroy(this.m_-0)
+destroy(this.m_acquisitionfichier)
+destroy(this.m_acquisitionidentitekitview)
+destroy(this.m_acquisitionliendimaxisplanmeca)
+destroy(this.m_acquisitionliendigorasoredex)
+destroy(this.m_acquisitionlientrophy)
+destroy(this.m_acquisitionlienvixwin32gendex)
+destroy(this.m_acquisitionliensidexissirona)
+destroy(this.m_acquisitionlienmediadentmorita)
+destroy(this.m_acquisitionliendbswindurrdental)
+destroy(this.m_acquisitioncliniviewinstrumentarium)
+destroy(this.m_acquisitionlienmyray)
+destroy(this.m_-1)
+destroy(this.m_copierimage)
+destroy(this.m_collerimage)
+destroy(this.m_déplacervers)
+destroy(this.m_10)
+destroy(this.m_odrade)
+destroy(this.m_envoyeruneradiodansodrade)
+destroy(this.m_1)
+destroy(this.m_modifierdateacquisition)
+destroy(this.m_editer)
+destroy(this.m_editeur2021)
+destroy(this.m_ouvriravecxdraw)
+destroy(this.m_etalonnerlaradioavecxdraw)
+destroy(this.m_tridim)
+destroy(this.m_editer_avec)
+destroy(this.m_imprimerlimage)
+destroy(this.m_utiliseruneresentationpowerpoint)
+destroy(this.m_envoyerparemailpiècejointe)
+destroy(this.m_composite)
+destroy(this.m_0)
+destroy(this.m_sauvegardersous)
+destroy(this.m_exportmultiples)
+destroy(this.m_supprimerimage)
+destroy(this.m_imprimerimage)
+destroy(this.m_copierversunautrepatient)
+destroy(this.m_-)
+destroy(this.m_informationssurlimage)
+destroy(this.m_régénérerlavignette)
+destroy(this.m_régénérertouteslesvignettesdupatient)
+destroy(this.m_affecterlesmotsclefs)
+destroy(this.m_restaurerlimageoriginale)
+end on
+
+event clicked;
+
+open(w_export_photos) 
+end event
+
+type m_selection_matos from menu within m_btdroit_gearbox
+end type
+
+on m_selection_matos.create
+call super::create
+this.visible = false
+this.text = "Sélection Matériel TWAIN"
+this.toolbaritemname = "Custom071_2!"
+this.menuimage = "lc_scanner_source_petit.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_selection_matos.destroy
+call super::destroy
+end on
+
+event clicked;
+
+gb2.selec_source_twain( )
+
+
+end event
+
+type m_acquerir from menu within m_btdroit_gearbox
+end type
+
+event clicked;string		chemindossier
+security_attributes		sa
+
+	
+// init spécif
+gb2.ole_image.object.ScanShowUI = true
+
+// lance l'IU TWAIN de l'appareil
+gb2.ole_image.object.ScanAcquire = True
+
+// si bien récup un flux de données
+if gb2.ole_image.object.ErrCount <> 0 Then goto Erreur
+
+// création chemin photo patient
+chemindossier = dir_photos + string(gb2.var_num_dossier)
+if fxg_FileExists(chemindossier) then 
+	// le rep photo patient existe déjà --> on essaye de suppr l'image de ce cadre si présente
+	gb2.image_supprimer(gb2.var_num_dossier, gb2.fichier_photo)
+else
+	CreateDirectory(chemindossier)
+end if
+
+// config du format de destination
+if gb2.config_format_de_save(gb2.fichier_photo) <> 1 then goto Erreur
+
+// sauvegarde du fichier
+gb2.ole_image.object.SaveImage = gb2.fichier_photo
+
+if utilisation_distante then
+	fxg_ajout_acquis_distante ( gb2.var_num_dossier, gb2.fichier_photo ) 
+end if
+
+
+if gearbox_cliquee then 
+	// on a cliqué sur une gear box
+
+	// charge le fichier pour s'assurer que tout est ok
+	if FileExists(gb2.fichier_photo ) then gb2.charger_image(gb2.fichier_photo)
+	rafraichir_expl_media( )
+else
+	uo_image_cliquee.charger_image(true, false)
+end if
+
+
+
+
+
+
+
+goto Fin
+Erreur:
+	messagebox("Attention !","Une erreur est survenue dans l'acquisition de votre Image")
+Fin:
+end event
+
+on m_acquerir.create
+call super::create
+this.visible = false
+this.text = "Acquisition TWAIN"
+this.toolbaritemname = "Custom010_2!"
+this.menuimage = "lc_scanner_source_petit.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_acquerir.destroy
+call super::destroy
+end on
+
+type m_-0 from menu within m_btdroit_gearbox
+end type
+
+on m_-0.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_-0.destroy
+call super::destroy
+end on
+
+type m_acquisitionfichier from menu within m_btdroit_gearbox
+end type
+
+on m_acquisitionfichier.create
+call super::create
+this.text = "Acquisition Fichier"
+this.toolbaritemname = "CheckIn_2!"
+this.menuimage = "New1!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_acquisitionfichier.destroy
+call super::destroy
+end on
+
+event clicked;string	pass_parameters	//string contenant infos a passer par "OPEN" de la fenetre acquisition fichier
+string	cl_name				//pour passer le bon param suivant photos ARAKIS ou clinique
+
+
+
+cl_name = gb2.get_nom_cadre_ole()
+cl_name = left(cl_name,len(cl_name) - 3)
+
+pass_parameters = string(gb2.var_num_dossier) + gb2.get_nom_cadre_ole()
+
+if cl_name = "ole_photo" then
+	pass_parameters = "1" + pass_parameters
+else
+	pass_parameters = "2" + pass_parameters
+end if
+
+//ouvre la fenétre d'acquisition fichier
+openwithparm(w_acquisition_fichier,pass_parameters)
+
+//affiche la photo fraichement acquise
+if FileExists(gb2.fichier_photo ) then
+	faire_vignette_pour( gb2.fichier_photo, gb2.var_num_dossier )
+	if gearbox_cliquee then
+		gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+	else
+		uo_image_cliquee.charger_image(true, false)
+	end if
+end if
+
+	
+
+
+
+end event
+
+type m_acquisitionidentitekitview from menu within m_btdroit_gearbox
+end type
+
+event clicked;
+long var_code_local
+string nom_du_cadre
+string v_fichier_photo_kitview
+string vers_dossier_photo	//le rep photo\num_patient
+string key						//le nom de la photo donnée par "pwophoto.INI"
+
+boolean ok_acquis = false
+
+
+var_code_local = gb2.var_num_dossier
+nom_du_cadre = gb2.get_nom_cadre_ole()
+
+lien_kitview lien_kit
+lien_kit = create lien_kitview
+	
+lien_kit.init(var_code_local)
+	
+v_fichier_photo_kitview = lien_kit.getphotoidentite()
+
+if len(trim(v_fichier_photo_kitview)) > 0 then
+	
+	vers_dossier_photo = dir_photos + string(var_code_local)
+	if not fxg_FileExists(vers_dossier_photo) then CreateDirectory(vers_dossier_photo)
+	
+	key = ProfileString(dir_photos + inifile_photo, section, nom_du_cadre , "Oups!")
+	if key = "Oups!" then goto Fin
+	vers_dossier_photo = vers_dossier_photo + win_delimiter + key
+	
+	if FileExists(vers_dossier_photo) then
+		if messagebox("Attention ...", "Une image est déjà présente sur ce cadre. ~nPar conséquent l'acquisition entraînera la perte de cette image ! ~n~n Confirmez-vous ?", Exclamation!, OKCancel!) = 1 then
+			if fileCopy(v_fichier_photo_kitview,vers_dossier_photo, true ) = 1 then
+				ok_acquis = true
+			else
+				goto erreur
+			end if 
+		end if
+	else
+	//if ole_previsu.acquis_fichier_photo(path_fichier_image,vers_dossier_photo,ole_previsu) <> 1 then goto erreur
+		if fileCopy(v_fichier_photo_kitview,vers_dossier_photo, true ) = 1 then
+			ok_acquis = true
+		else
+			goto erreur
+		end if
+	end if
+else
+		messagebox("Attention !","Ce patient n'a pas de photo d'identité dans Kitview")
+
+end if
+goto Fin
+
+
+
+Erreur:
+	messagebox("Attention !","Une erreur est survenue dans l'acquisition de la Photo")
+
+Fin:
+	if ok_acquis then
+		gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+	end if
+	//on sort directement après l'acquisition
+
+
+
+end event
+
+on m_acquisitionidentitekitview.create
+call super::create
+this.visible = false
+this.text = "Acquisition identité Kitview"
+this.menuimage = "New1!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_acquisitionidentitekitview.destroy
+call super::destroy
+end on
+
+type m_acquisitionliendimaxisplanmeca from menu within m_btdroit_gearbox
+end type
+
+event clicked;struct_acquis_photo	lstruct_acquis
+
+
+// recup ds structure approprié les infos a passer à la fenètre d'acquis
+lstruct_acquis.num_dossier_patient	= gb2.var_num_dossier 
+lstruct_acquis.ole_photo_name		= gb2.get_nom_cadre_ole()
+
+// ouverture fenêtre avec struct en param
+openwithparm(w_import_photos_planmeca, lstruct_acquis)
+
+////affiche la photo fraichement acquise
+//if FileExists(gb2.fichier_photo ) then gb2.charger_image(gb2.fichier_photo)
+//
+//affiche la photo fraichement acquise
+if FileExists(gb2.fichier_photo ) then 
+	faire_vignette_pour( gb2.fichier_photo, gb2.var_num_dossier )
+	gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+end if
+
+
+//rafraichir_expl_media( )
+end event
+
+on m_acquisitionliendimaxisplanmeca.create
+call super::create
+this.visible = false
+this.text = "Acquisition lien Planmeca (Dimaxis/Romexis)"
+this.menuimage = "New1!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_acquisitionliendimaxisplanmeca.destroy
+call super::destroy
+end on
+
+type m_acquisitionliendigorasoredex from menu within m_btdroit_gearbox
+end type
+
+event clicked;struct_acquis_photo	lstruct_acquis
+
+
+// recup ds structure approprié les infos a passer à la fenètre d'acquis
+lstruct_acquis.num_dossier_patient	= gb2.var_num_dossier
+lstruct_acquis.ole_photo_name		= gb2.get_nom_cadre_ole()
+
+// ouverture fenêtre avec struct en param
+openwithparm(w_import_radios_digora_scanora_cliniview, lstruct_acquis)
+
+//affiche la photo fraichement acquise
+if FileExists(gb2.fichier_photo ) then 
+	faire_vignette_pour( gb2.fichier_photo, gb2.var_num_dossier )
+	gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+end if
+
+
+//rafraichir_expl_media( )
+end event
+
+on m_acquisitionliendigorasoredex.create
+call super::create
+this.visible = false
+this.text = "Acquisition lien Soredex (Digora/Scanora)"
+this.menuimage = "new1!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_acquisitionliendigorasoredex.destroy
+call super::destroy
+end on
+
+type m_acquisitionlientrophy from menu within m_btdroit_gearbox
+end type
+
+event clicked;//string					rep_radio
+//struct_acquis_photo	lstruct_acquis
+//
+//
+//// recup ds structure approprié les infos a passer à la fenètre d'acquis
+//lstruct_acquis.num_dossier_patient	= gb2.var_code_local
+//lstruct_acquis.ole_photo_name		= gb2.get_nom_cadre_ole()
+//
+//// ouverture fenêtre avec struct en param
+//openwithparm(w_import_radios_trophy , lstruct_acquis)
+//
+//uo_trophy.ouvrir_trophy( win_parent.var_code_local )
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+uo_lien_trophy	uo_trophy
+
+
+uo_trophy = create uo_lien_trophy
+
+// On place dans le clipboard le nom du fichier que l'on veut récupérer !!
+ClipBoard(gb2.fichier_photo)
+// creation du rep photo patient si besoin
+gfx_creer_rep (gb2.rep_photo_patient)
+
+if uo_trophy.ouvrir_trophy( gb2.var_num_dossier ) = 1 then
+	if messagebox( "Import " + uo_trophy.get_nom_soft_radio() + " ...", "Une fois la radio copiée sous " + uo_trophy.get_nom_soft_radio() + ", ~ncliquez sur ~n~n* 'OK' pour finaliser l'opération d'import, ~n~n* 'Annuler' pour annuler l'opération.", Exclamation!, OKCancel! ) = 1 then
+	// si on poursui l'import
+		gb2.coller()
+	end if
+end if
+
+destroy uo_trophy
+
+
+//affiche la photo fraichement acquise
+//if FileExists(gb2.fichier_photo ) then gb2.charger_image(gb2.fichier_photo)
+
+//affiche la photo fraichement acquise
+if FileExists(gb2.fichier_photo ) then 
+	faire_vignette_pour( gb2.fichier_photo, gb2.var_num_dossier )
+	gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+end if
+
+
+//rafraichir_expl_media( )
+
+end event
+
+on m_acquisitionlientrophy.create
+call super::create
+this.visible = false
+this.text = "Acquisition lien Kodak"
+this.menuimage = "New1!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_acquisitionlientrophy.destroy
+call super::destroy
+end on
+
+type m_acquisitionlienvixwin32gendex from menu within m_btdroit_gearbox
+end type
+
+event clicked;//struct_acquis_photo	lstruct_acquis
+//
+//
+//// recup ds structure approprié les infos a passer à la fenètre d'acquis
+//lstruct_acquis.num_dossier_patient	= gb2.var_code_local
+//lstruct_acquis.ole_photo_name		= gb2.get_nom_cadre_ole()
+//
+//// ouverture fenêtre avec struct en param
+//openwithparm(w_import_radios_vixwin , lstruct_acquis)
+//
+////affiche la photo fraichement acquise
+//if FileExists(gb2.fichier_photo ) then gb2.charger_image(gb2.fichier_photo)
+
+uo_lien_vixwin	uo_vixwin
+
+
+uo_vixwin = create uo_lien_vixwin
+
+
+// On place dans le clipboard le nom du fichier que l'on veut récupérer !!
+ClipBoard(gb2.fichier_photo)
+// creation du rep photo patient si besoin
+gfx_creer_rep (gb2.rep_photo_patient)
+
+if uo_vixwin.run_vixwin( gb2.var_num_dossier ) = 1 then
+	if messagebox( "Import " + uo_vixwin.get_nom_soft_radio() + " ...", "Une fois la radio copiée sous " + uo_vixwin.get_nom_soft_radio() + ", ~ncliquez sur ~n~n* 'OK' pour finaliser l'opération d'import, ~n~n* 'Annuler' pour annuler l'opération.", Exclamation!, OKCancel! ) = 1 then
+	// si on poursui l'import
+		gb2.coller()
+	end if
+end if
+
+destroy uo_vixwin
+
+//affiche la photo fraichement acquise
+//if FileExists(gb2.fichier_photo ) then gb2.charger_image(gb2.fichier_photo)
+
+//affiche la photo fraichement acquise
+if FileExists(gb2.fichier_photo ) then 
+	faire_vignette_pour( gb2.fichier_photo, gb2.var_num_dossier )
+	gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+end if
+
+
+//rafraichir_expl_media( )
+
+end event
+
+on m_acquisitionlienvixwin32gendex.create
+call super::create
+this.visible = false
+this.text = "Acquisition lien VixWin (Gendex)"
+this.menuimage = "new1!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_acquisitionlienvixwin32gendex.destroy
+call super::destroy
+end on
+
+type m_acquisitionliensidexissirona from menu within m_btdroit_gearbox
+end type
+
+on m_acquisitionliensidexissirona.create
+call super::create
+this.visible = false
+this.text = "Acquisition lien Sidexis (Sirona)"
+this.menuimage = "New1!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_acquisitionliensidexissirona.destroy
+call super::destroy
+end on
+
+event clicked;uo_lien_sidexis	uo_sidexis
+string		fichier_a_importer
+
+
+uo_sidexis = create uo_lien_sidexis
+
+if uo_sidexis.ajout_et_selection_radio(gb2.var_num_dossier) = 1 then
+// si SIDEXIS arrive à ouvrir le dossier patient + se positionner sur les choix des radios
+	if messagebox( "Import " + uo_sidexis.get_nom_soft_radio() + " ...", "Une fois la radio sélectionnée sous " + uo_sidexis.get_nom_soft_radio() + ", ~ncliquez sur ~n~n* 'OK' pour finaliser l'opération d'import, ~n~n* 'Annuler' pour annuler l'opération.", Exclamation!, OKCancel! ) = 1 then
+		// si on poursui l'import
+		// on recup un chemin complet de fichier exporté par SIDEXIS
+		fichier_a_importer = uo_sidexis.get_path_fichier_a_importer()
+	end if
+end if
+
+destroy uo_sidexis
+
+if fichier_a_importer <> "" then
+// si chemin non vide
+	gb2.visible = false
+	
+	// Mémorisation du nom de fichier destinataire dans Orthokis
+	string fichier_dans_orthokis
+	fichier_dans_orthokis = gb2.fichier_photo
+	
+	// on charge la photo ds imagear afin de la traiter
+	gb2.charger_image(fichier_a_importer)
+//	if gb2.importer_une_image( fichier_a_importer, gb2.fichier_photo) = 1 then
+	if gb2.importer_une_image( fichier_a_importer, fichier_dans_orthokis) = 1 then
+		DeleteFileA( fichier_a_importer )
+	end if
+	
+	//affiche la photo fraichement acquise
+	if FileExists(gb2.fichier_photo ) then 
+		faire_vignette_pour( gb2.fichier_photo, gb2.var_num_dossier )
+		gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+	end if
+	
+	
+	//rafraichir_expl_media( )
+	
+	gb2.visible = true
+end if
+
+end event
+
+type m_acquisitionlienmediadentmorita from menu within m_btdroit_gearbox
+end type
+
+event clicked;struct_acquis_photo	lstruct_acquis
+
+
+// recup ds structure approprié les infos a passer à la fenètre d'acquis
+lstruct_acquis.num_dossier_patient	= gb2.var_num_dossier
+lstruct_acquis.ole_photo_name		= gb2.get_nom_cadre_ole()
+
+// ouverture fenêtre avec struct en param
+openwithparm(w_import_radios_mediadent, lstruct_acquis)
+
+//affiche la photo fraichement acquise
+if FileExists(gb2.fichier_photo ) then gb2.charger_image(gb2.fichier_photo)
+//
+
+//affiche la photo fraichement acquise
+if FileExists(gb2.fichier_photo ) then 
+	faire_vignette_pour( gb2.fichier_photo, gb2.var_num_dossier )
+	gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+end if
+
+
+//rafraichir_expl_media( )
+
+
+//uo_lien_mediadent	uo_mediadent
+//string					rep_radio
+//
+//
+//uo_mediadent = create uo_lien_mediadent
+//
+//// on recup le rep radio
+//rep_radio = uo_mediadent.get_rep_radio( )
+//
+//if rep_radio <> "" then
+//// si rep bien config
+//	if uo_mediadent.connection_mediadent() = 1 then
+//		// info patient
+//		if uo_mediadent.set_info_patient_to_mediadent( gb2.var_code_local, rep_radio ) = 1 then
+//			if messagebox( "Import " + uo_mediadent.get_nom_soft_radio() + " ...", "Une fois la radio copiée sous " + uo_mediadent.get_nom_soft_radio() + ", ~ncliquez sur ~n~n* 'OK' pour finaliser l'opération d'import, ~n~n* 'Annuler' pour annuler l'opération.", Exclamation!, OKCancel! ) = 1 then
+//			// si on poursui l'import
+//				gb2.coller()
+//			end if
+//		end if
+//	end if
+//	
+//	// on ferme connection MEDIADENT
+//	uo_mediadent.deconnection_mediadent()
+//else
+//	messagebox("ATTENTION ...", "Impossible de poursuivre ! ~n~nConfiguration du lien non effectuée, ~nou répertoire photo d'orthokis mal indiqué, ~nou problème de réseaux.", Exclamation! )
+//end if
+//
+//destroy uo_mediadent
+//
+////affiche la photo fraichement acquise
+//if FileExists(gb2.fichier_photo ) then gb2.charger_image(gb2.fichier_photo)
+
+
+
+
+
+end event
+
+on m_acquisitionlienmediadentmorita.create
+call super::create
+this.visible = false
+this.text = "Acquisition lien Mediadent"
+this.menuimage = "new1!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_acquisitionlienmediadentmorita.destroy
+call super::destroy
+end on
+
+type m_acquisitionliendbswindurrdental from menu within m_btdroit_gearbox
+end type
+
+on m_acquisitionliendbswindurrdental.create
+call super::create
+this.visible = false
+this.text = "Acquisition lien DbsWin (Durr Dental)"
+this.menuimage = "new1!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_acquisitionliendbswindurrdental.destroy
+call super::destroy
+end on
+
+event clicked;uo_lien_durrdental		uo_durrdental	
+
+
+uo_durrdental	 = create uo_lien_durrdental	
+
+// On place dans le clipboard le nom du fichier que l'on veut récupérer !!
+ClipBoard(gb2.fichier_photo)
+// creation du rep photo patient si besoin
+gfx_creer_rep (gb2.rep_photo_patient)
+
+if uo_durrdental.ouvrir_dbswin( gb2.var_num_dossier ) = 1 then	
+	if messagebox( "Import " + uo_durrdental.get_nom_soft_radio() + " ...", "Une fois la radio copiée sous " + uo_durrdental.get_nom_soft_radio() + ", ~ncliquez sur ~n~n* 'OK' pour finaliser l'opération d'import, ~n~n* 'Annuler' pour annuler l'opération.", Exclamation!, OKCancel! ) = 1 then
+	// si on poursui l'import
+		gb2.coller()
+	end if
+end if
+
+destroy uo_durrdental	
+
+//affiche la photo fraichement acquise
+//if FileExists(gb2.fichier_photo ) then gb2.charger_image(gb2.fichier_photo)
+
+//affiche la photo fraichement acquise
+if FileExists(gb2.fichier_photo ) then 
+	faire_vignette_pour( gb2.fichier_photo, gb2.var_num_dossier )
+	gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+end if
+
+
+//rafraichir_expl_media( )
+
+end event
+
+type m_acquisitioncliniviewinstrumentarium from menu within m_btdroit_gearbox
+end type
+
+event clicked;struct_acquis_photo	lstruct_acquis
+
+
+// recup ds structure approprié les infos a passer à la fenètre d'acquis
+lstruct_acquis.num_dossier_patient	= gb2.var_num_dossier
+lstruct_acquis.ole_photo_name		= gb2.get_nom_cadre_ole()
+
+// ouverture fenêtre avec struct en param
+openwithparm(w_import_radios_digora_scanora_cliniview, lstruct_acquis)
+
+//affiche la photo fraichement acquise
+if FileExists(gb2.fichier_photo ) then 
+	faire_vignette_pour( gb2.fichier_photo, gb2.var_num_dossier )
+	gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+end if
+
+
+//rafraichir_expl_media( )
+end event
+
+on m_acquisitioncliniviewinstrumentarium.create
+call super::create
+this.visible = false
+this.text = "Acquisition lien Instrumentarium (CliniView)"
+this.menuimage = "new1!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_acquisitioncliniviewinstrumentarium.destroy
+call super::destroy
+end on
+
+type m_acquisitionlienmyray from menu within m_btdroit_gearbox
+end type
+
+on m_acquisitionlienmyray.create
+call super::create
+this.visible = false
+this.text = "Acquisition lien MyRay"
+this.menuimage = "new1!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_acquisitionlienmyray.destroy
+call super::destroy
+end on
+
+event clicked;struct_acquis_photo	lstruct_acquis
+
+
+// recup ds structure approprié les infos a passer à la fenètre d'acquis
+lstruct_acquis.num_dossier_patient	= gb2.var_num_dossier 
+lstruct_acquis.ole_photo_name		= gb2.get_nom_cadre_ole()
+
+// ouverture fenêtre avec struct en param
+openwithparm(w_import_photos_myray, lstruct_acquis)
+
+//affiche la photo fraichement acquise
+if FileExists(gb2.fichier_photo ) then 
+	faire_vignette_pour( gb2.fichier_photo, gb2.var_num_dossier )
+	gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+end if
+
+
+end event
+
+type m_-1 from menu within m_btdroit_gearbox
+end type
+
+on m_-1.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_-1.destroy
+call super::destroy
+end on
+
+type m_copierimage from menu within m_btdroit_gearbox
+end type
+
+on m_copierimage.create
+call super::create
+this.text = "Copier Image"
+this.menuimage = "lc_copy.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_copierimage.destroy
+call super::destroy
+end on
+
+event clicked;gb2.copier()
+end event
+
+type m_collerimage from menu within m_btdroit_gearbox
+end type
+
+on m_collerimage.create
+call super::create
+this.text = "Coller Image"
+this.toolbaritemname = "Paste_2!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_collerimage.destroy
+call super::destroy
+end on
+
+event clicked;boolean	onStope
+
+
+if fxg_FileExists( gb2.fichier_photo ) then
+// si fichier existe déjà
+	if messagebox("ATTENTION ... ", "Un fichier est déjà présent sur ce cadre photo. ~n~nVoulez-vous vraiment le remplacer ?", Exclamation!, YesNo!) = 2 then
+		// si on ne souhaite pas le remplacer
+		onStope = true
+	end if
+end if
+
+if not onStope then
+	gb2.coller()
+end if
+
+end event
+
+type m_déplacervers from menu within m_btdroit_gearbox
+end type
+
+event clicked;
+// Depuis 2012 ... on peut sélectionner plusieurs images à déplacer SI ON EST DANS LA FENETRE IMAGERIE
+
+string vide = ""
+
+string chemin_fichier, nom_fichier
+string libelle_defaut
+
+boolean deplacer = true
+
+string chemin_fichier_source
+string chemin_fichier_destination, cadre_destination_depart
+long numero_cadre_destination
+string chemindossier
+
+// Fichier Word en dur
+string fichier_doc 
+integer tot_selection, cpt_courante
+
+// On recherche les images courantes
+tot_selection = selectionner_images_courantes()
+
+// on se sert de la variable global var_suite pour dire qu'on a sélectionné ou pas plusiers images à déplacer
+if tot_selection = 1 then
+	// rien de coché ou pas page imagerie => que la photo sélectionnée
+	photo_courante[1] = gb2.fichier_photo
+	Date_Image_Courante[1] = string( gb2.date_image )
+	var_suite = false
+else
+	var_suite = true
+end if
+
+// paramètres en retour dans PARAM_WIN  1 et 2
+//ouvre la fenétre de déplacement
+openwithparm(w_deplacer_vers,gb2)
+
+
+if len(trim(param_win[1])) > 0 and  len(trim(param_win[1])) > 0 then
+	// retour de paramètres => on traite
+	
+	chemin_fichier_destination = param_win[2]
+	cadre_destination_depart = param_win[1]		// Contient ole_photoxxx
+	
+	if not var_suite then
+		// Déplacement d'un seul fichier 
+		
+		if fxg_FileExists(chemin_fichier_destination) then
+			// le fichier de destination existe dejà
+			if MessageBox("ATTENTION","Le cadre de destination contient déjà une photo.~n~nVoulez-vous la remplacer ?", Question!,YesNo!, 2) = 1 then 
+				gb2.image_supprimer(gb2.var_num_dossier, chemin_fichier_destination) 
+			else
+				// déplacement annulée ...
+				deplacer = false
+			end if
+		end if
+	else
+		// Déplacement de plusieurs fichiers			
+		if MessageBox("ATTENTION","Vous avez sélection "+string(tot_selection)+" images à déplacer.~n~nLors du déplacement, si besoin, elle remplaceront des images éventuellement présentes dans les cadres de destination.~n~nConfirmez-vous ?", Question!,YesNo!, 2) = 2 then 
+			// déplacement annulée ...
+			deplacer = false
+		end if
+	end if
+end if
+	
+if deplacer then
+	
+	boolean operation_ok = false
+	date data_acquis_fichier_source
+	
+	// Dossier photo du patient
+	chemin_fichier_source = trim(photo_courante[1])
+	chemindossier = gfx_extraire_path_fichier(chemin_fichier_source)
+
+	for cpt_courante = 1 to tot_selection
+	
+		// on copie (<=> acquis du fichier source en destination)
+
+		chemin_fichier_source = trim(photo_courante[cpt_courante])
+		
+		numero_cadre_destination = long(right(cadre_destination_depart, 3)) + cpt_courante - 1
+		chemin_fichier_destination = chemindossier + profilestring(dir_photos + inifile_photo, section, "ole_photo" + num_nom_photo(numero_cadre_destination),"")
+		
+		if gb2.charger_image(chemin_fichier_source) then 
+			// recup date acquis
+			data_acquis_fichier_source = gb2.image_info_persist_get(gb2.var_num_dossier, chemin_fichier_source)
+			if gb2.importer_une_image( chemin_fichier_source, chemin_fichier_destination) = 1 then 
+				// enreg date acquis
+				if gb2.image_info_persist_set(gb2.var_num_dossier, chemin_fichier_destination, data_acquis_fichier_source) then
+					// suppr du fichier source
+					if gb2.image_supprimer(gb2.var_num_dossier, chemin_fichier_source) then 
+						operation_ok = true
+						faire_vignette_pour( chemin_fichier_destination, gb2.var_num_dossier )
+					end if
+				end if
+			end if
+		end if
+	next
+	
+	// fin de l'opération
+	if operation_ok then
+		messagebox("INFORMATION","Opération terminée avec succés !")
+		
+		// Si on est dans l'imagerie, on raffraichit et on déselectionne tout ...
+		if appel_depuis_imagerie then
+			w_expl_media w2
+			w2 = w1.v_fenetre_parent
+			w2.tab_images.cb_raffraichir.triggerevent(clicked!)
+			w2.tab_images.pb_deselectionne.triggerevent(clicked!)
+		end if
+		
+		// Si on est dans l'imagerie, on raffraichit et on déselectionne tout ...
+		if appel_depuis_imagerie_2013 then
+			w2013.tab_controles.tabpage_accueil.cb_raffraichir.triggerevent(clicked!)
+			w2013.tab_controles.tabpage_accueil.pb_deselectionne.triggerevent(clicked!)
+		end if
+
+	else
+		messagebox("ERREUR ... ","Une erreur s'est produite. Opération annulée !", StopSign!)
+	end if 
+end if
+
+
+
+end event
+
+on m_déplacervers.create
+call super::create
+this.text = "Déplacer vers ..."
+this.menuimage = "Next1!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_déplacervers.destroy
+call super::destroy
+end on
+
+type m_10 from menu within m_btdroit_gearbox
+end type
+
+on m_10.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_10.destroy
+call super::destroy
+end on
+
+type m_odrade from menu within m_btdroit_gearbox
+end type
+
+event clicked;
+// utile pour initialiser les photos imagerie 2013
+uo_choix_image_2013 choix_image_2013
+choix_image_2013 = create uo_choix_image_2013
+
+
+constant string reg_path = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Odrade.exe"
+
+double 	version_base_odrade
+string 	dir_odrade 			// Répertoire d'installation de Odrade
+string 	exe_odrade 			// Fichier Odrade.exe
+string 	fichier_param		// Fichier paramètres
+string 	argument
+
+boolean v_suite
+
+string v_source, v_engine
+
+long 		num_file				// pour écrire dans le fichier paramètre
+
+double var_code_local, v_numero_dossier
+string v_nom_patient, v_prenom_patient, v_sexe
+date v_date_naissance
+
+
+//récup le rép d'install d'ODRADE et y ajoute odrade.exe
+RegistryGet(reg_path,"path",dir_odrade)
+fichier_param = dir_odrade +"\import.txt"
+exe_odrade = dir_odrade +"\Odrade.exe"
+
+
+// voici la syntaxe des arguments a passer en param à l'ouverture d'Odrade
+// --> LIEN#Nom_fichier_param#
+// Attention, LIEN doit être en MAJUSCULES
+
+// Ecriture dans un fichier pour passer les pramètres à ODRADE
+num_file = fileopen(fichier_param,linemode!,write!,LockWrite!,replace!)
+FileWrite(num_file,"'Fichier de liaison ORTHOkis <-> Odrade")
+FileWrite(num_file,"")
+
+long v_code_utilisateur_odrade 
+string v_mdp_odrade, v_nom_utilisateur_odrade
+long v_analyse_odrade
+
+
+// code du patient
+var_code_local = gb2.var_num_dossier
+
+
+// Récupération des infos de l'utilisateur
+select isnull(user_odrade,-1), isnull(mdp_odrade,''), isnull(analyse_odrade,-1)  
+into :v_code_utilisateur_odrade, :v_mdp_odrade, :v_analyse_odrade 
+from utilisateurs where code = :utilisateur_code ;
+
+// si l'utilisateur Odrade n'est pas renseigné, on ouvre la fenêtre de configuration
+do while v_code_utilisateur_odrade = -1 
+	
+	MessageBox("ATTENTION","Vous n'avez pas définit d'utilisateur ODRADE pour votre profil.~n~nVous allez devoir en configurer un !")
+	
+	openWithParm(w_utilisateur_fiche_odrade, utilisateur_code)
+
+	// Récupération des infos de l'utilisateur
+	select isnull(user_odrade,-1), isnull(mdp_odrade,''), isnull(analyse_odrade,-1)  
+	into :v_code_utilisateur_odrade, :v_mdp_odrade, :v_analyse_odrade 
+	from utilisateurs where code = :utilisateur_code ;
+
+loop
+
+
+if imagerie_2013 then
+	
+	double v_temps, v_type
+	string v_nom_fichier_seul
+	date v_date_image
+	
+	// recherche si l'image a un temps de traitement 
+	v_nom_fichier_seul = gfx_extraire_nom_fichier(gb2.fichier_photo )
+	select isnull(temps_traitement,0), isnull(type_image,0), date_acquis into :v_temps, :v_type , :v_date_image from images_infos where nom_fichier = :v_nom_fichier_seul and code = :var_code_local ;
+	
+	if not v_temps > 0 then
+		Messagebox("ATTENTION","Cette image n'a pas d'Etape de traitement.~n~nVous devez en affecter une pour faire un tracé avec Odrade.")
+		FileClose(num_file)
+		v_suite = false
+	else
+		if not v_type > 0 then
+			Messagebox("ATTENTION","Cette image n'a pas de Type d'image.~n~nVous devez en affecter un pour faire un tracé avec Odrade.")
+			FileClose(num_file)
+			v_suite = false
+		else
+			v_suite = true
+		end if
+	end if
+else
+	v_suite = true
+end if
+
+if v_suite then
+
+	
+	// recherche du nom du user dans Odrade
+	if connexion_base_odrade() = 1 then 
+	
+	
+		// Verification de la version de Odrade
+		
+		select max( cast (texte as double))  into :version_base_odrade  from messages where code_message = 8000 using t_odrade ;
+		
+		if version_base_odrade >= 5 then
+		
+			v_suite = true
+			
+			if imagerie_2013 then
+				if version_base_odrade < 6.1 then
+					if MessageBox("ATTENTION","Vous utilisez atuellement l'imagerie 2013 d'Orthokis. Celle-ci est pleinement fonctionnelle avec Odrade 2012 à partir de la version 6.1 (or vous être actuellement en version "+string(version_base_odrade)+".~n~nVous allez tout de même accéder à l'analyse d'Odrade mais, si vous avez paramétré l'importation automatique de tracé ou de mesures, celle-ci ne sera pas effectuée.~n~nVous devriez faire une mise à jour d'Odrade.~n~nSouhaitez-vous poursuivre ?",Question!,Yesno!,2) = 2 then
+						v_suite = false
+						deconnexion_base_odrade()
+					end if
+				end if
+			end if
+		
+			if v_suite then
+				
+				// recherche du nom du user dans Odrade
+		
+				select nom into :v_nom_utilisateur_odrade 
+				from utilisateurs where code_utilisateur = :v_code_utilisateur_odrade using t_odrade ;
+				deconnexion_base_odrade()
+			
+				if Utilisation_distante then
+					v_source = "Orthokis_local"
+				else
+					v_source = "Orthokis"
+				end if
+				
+				v_engine = fxg_get_infos_sybase("name")
+				
+				FileWrite(num_file,"[DATABASE]")
+				FileWrite(num_file,"Source=" + v_source)
+				FileWrite(num_file,"EngineName=" + v_engine)
+				if imagerie_2013 then
+					FileWrite(num_file,"Imagerie_2013=1")
+				else
+					FileWrite(num_file,"Imagerie_2013=0")
+				end if
+				FileWrite(num_file,"")
+		
+		
+				FileWrite(num_file,"[USER]")
+				FileWrite(num_file,"IdSoft=ORTHOKIS")
+				FileWrite(num_file,"IdUserOdr=" + string(v_nom_utilisateur_odrade))
+				FileWrite(num_file,"MdpUserOdr=" + v_mdp_odrade)
+				FileWrite(num_file,"")
+				
+				// Récupération des infos du patient
+				
+				select nom, prenom, numero_dossier, date_naissance, sexe
+				into :v_nom_patient, :v_prenom_patient, :v_numero_dossier, :v_date_naissance, :v_sexe 
+				from patient 
+				where code = :var_code_local ;
+				
+				if not isnull(v_date_naissance) then
+				
+					// recupération des param généraux
+					string v_odrade_import_trace, v_odrade_import_tableau, v_odrade_fermer, v_odrade_import_impression
+					integer v_odrade_cadre_import_trace, v_odrade_cadre_import_tableau, v_odrade_cadre_import_impression
+					long v_odrade_export_trace_hauteur, v_odrade_export_trace_largeur
+					
+					string cadre_import_impression, fichier_cadre_import_impression, v_imprimer_resume, v_rep_photo_patient
+		
+		
+					// Le select est coupé en 2 car ça pine sinon ... va comprendre Charles !!!
+					select odrade_import_trace, odrade_import_tableau, odrade_cadre_import_trace, odrade_cadre_import_tableau, odrade_fermer 
+					into :v_odrade_import_trace, :v_odrade_import_tableau, :v_odrade_cadre_import_trace, :v_odrade_cadre_import_tableau, :v_odrade_fermer 
+					from param ;
+		
+					select odrade_export_trace_hauteur, odrade_export_trace_largeur, odrade_import_impression, odrade_cadre_import_impression , odrade_imprimer_resume
+					into :v_odrade_export_trace_hauteur, :v_odrade_export_trace_largeur , :v_odrade_import_impression, :v_odrade_cadre_import_impression, :v_imprimer_resume 
+					from param ;
+									
+					// Recherche si photo d'identité pour le patient ou pas pour l'envoyer
+					
+					// Nom du fichier configuré pour la photo d'identité des commentaires cliniques
+					string fichier_identite_clinique, fichier_identite_clinique_nom, fichier_identite_clinique_complet
+					string fichier_identite_clinique_date
+					date date_image
+					
+					
+					v_rep_photo_patient = dir_photos + string(var_code_local) + win_delimiter
+					
+					if Imagerie_2013 then
+						fichier_identite_clinique = choix_image_2013.trouver_image ("identite_commentaires_cliniques", var_code_local)
+						
+						if len(trim(fichier_identite_clinique)) > 0 then 
+							fichier_identite_clinique_complet = v_rep_photo_patient + fichier_identite_clinique
+							
+							long v_temps_id, v_type_id
+							date v_date_id
+							string v_lib1, v_lib2
+							select isnull(temps_traitement,0), isnull(type_image,0), date_acquis into :v_temps_id, :v_type_id , :v_date_id 
+							from images_infos where nom_fichier = :v_nom_fichier_seul and code = :var_code_local ;
+							
+							select isnull(libelle,'') into :v_lib1 from temps_traitement where id = :v_temps_id ;
+							select isnull(libelle,'') into :v_lib2 from type_image where id = :v_type_id ;
+		
+							fichier_identite_clinique_nom = v_lib2 + " - " + v_lib1 
+							fichier_identite_clinique_date = string(v_date_id)
+						else
+							fichier_identite_clinique_complet = ""
+							fichier_identite_clinique_nom= ""
+							fichier_identite_clinique_date = ""
+						end if
+							
+					else
+						fichier_identite_clinique = profilestring( dir_photos + inifile_photo, "ARAKIS", "ole_photo_arakis002","")
+						fichier_identite_clinique_complet = gb2.rep_photo_patient + fichier_identite_clinique
+					
+		
+						select odrade_import_trace, odrade_import_tableau, odrade_cadre_import_trace, odrade_cadre_import_tableau, odrade_fermer 
+						into :v_odrade_import_trace, :v_odrade_import_tableau, :v_odrade_cadre_import_trace, :v_odrade_cadre_import_tableau, :v_odrade_fermer 
+						from param ;
+						
+						if FileExists(fichier_identite_clinique_complet) then
+							fichier_identite_clinique_nom = profilestring( dir_photos + inifile_photo, "ARAKIS", "ole_nom_photo_arakis002","")
+						
+							Select date_acquis into :date_image from images_infos 
+							where code = :var_code_local and nom_fichier = :fichier_identite_clinique ;
+						
+							if isnull(date_image) then
+								fichier_identite_clinique_date = ""
+							else
+								fichier_identite_clinique_date = string(date_image)
+							end if
+						else
+							fichier_identite_clinique_complet=""
+							fichier_identite_clinique_nom = ""
+							fichier_identite_clinique_date = ""
+						end if
+						
+					end if
+					
+					
+					FileWrite(num_file,"[PATIENT]")
+					FileWrite(num_file,"Nom=" + v_nom_patient )
+					FileWrite(num_file,"Prénom=" + v_prenom_patient )
+					FileWrite(num_file,"CodeInterne=" + string(var_code_local) )
+					FileWrite(num_file,"NumDossier=" + string(v_numero_dossier))
+					FileWrite(num_file,"DateNaissance=" + string(v_date_naissance))
+					FileWrite(num_file,"Sexe=" + v_sexe)
+					FileWrite(num_file,"PhotoId=" + fichier_identite_clinique_complet)
+					FileWrite(num_file,"PhotoIdDate=" + fichier_identite_clinique_date)
+					FileWrite(num_file,"PhotoIdNom=" + fichier_identite_clinique_nom)
+					FileWrite(num_file,"")
+					
+					
+					
+					FileWrite(num_file,"[IMAGE]")
+					FileWrite(num_file,"CheminImage=" + gb2.fichier_photo )
+					
+					if imagerie_2013 then
+						string v_lib 
+						select isnull(libelle,'') into :v_lib from type_image where id = :v_type ;
+						FileWrite(num_file,"NomImage=" + v_lib )
+						FileWrite(num_file,"DateImage=" + string(v_date_image) )
+						FileWrite(num_file,"TypeImage=RADIO")
+						select isnull(libelle,'') into :v_lib from temps_traitement where id = :v_temps ;
+						FileWrite(num_file,"TempsTraitement=" + v_lib )
+						FileWrite(num_file,"CodeTypeImage="+string(v_type))
+						FileWrite(num_file,"CodeTempsTraitement="+string(v_temps))
+					else
+						FileWrite(num_file,"CadreImage=" + gb2.nom_cadre_ole )
+						FileWrite(num_file,"NomImage=" + gb2.popup_help )
+						if string(gb2.date_image) <> '01/01/1900' then
+							FileWrite(num_file,"DateImage=" + string(gb2.date_image) )
+						else
+							FileWrite(num_file,"DateImage=")
+						end if
+						FileWrite(num_file,"TypeImage=RADIO")
+					end if
+					FileWrite(num_file,"")
+					
+					
+					// pour les information d'exportation d'Odrade
+					string cadre_import_trace, cadre_import_tableau
+					string fichier_cadre_import_trace, fichier_cadre_import_tableau
+					long num_cadre_depart
+					string v_insert_tableau, v_insert_trace, v_insert_impression
+					
+					num_cadre_depart = long(right(gb2.nom_cadre_ole,3))
+					
+					if imagerie_2013 then
+						if v_odrade_import_trace = "O" then
+							fichier_cadre_import_trace = v_rep_photo_patient + "ODR"+string(num_cadre_depart)+"T.jpg"
+							//v_insert_trace = "insert into images_infos (code, nom_fichier, date_acquis, type_image, temps_traitement) values ("+string(var_code_local)+",'"+ "ODR"+string(num_cadre_depart)+"T.jpg"+"', ' " +string(today(),"yyyy-mm-dd")+"', 51 ,"+string(v_temps)+") ;"  
+						else
+							fichier_cadre_import_trace = ""
+						end if
+						if v_odrade_import_tableau = "O" then
+							fichier_cadre_import_tableau = v_rep_photo_patient + "ODR"+string(num_cadre_depart)+"M.jpg"
+							//v_insert_tableau = "insert into images_infos (code, nom_fichier, date_acquis, type_image, temps_traitement) values ("+string(var_code_local)+",'"+ "ODR"+string(num_cadre_depart)+"M.jpg"+"', ' " +string(today(),"yyyy-mm-dd")+"', 50 ,"+string(v_temps)+") ;"  
+						else
+							fichier_cadre_import_tableau = ""
+							//v_insert_tableau = ""
+						end if
+						
+						if v_odrade_import_impression = "O" then
+							fichier_cadre_import_impression =  v_rep_photo_patient + "ODR"+string(num_cadre_depart)+"I.jpg"
+							//v_insert_impression = "insert into images_infos (code, nom_fichier, date_acquis, type_image, temps_traitement) values ("+string(var_code_local)+",'"+ "ODR"+string(num_cadre_depart)+"I.jpg"+"', ' " +string(today(),"yyyy-mm-dd")+"', 52 ,"+string(v_temps)+") ;"  
+						else
+							fichier_cadre_import_impression = ""
+							//v_insert_impression = ""
+						end if					
+					else
+						
+						if v_odrade_import_trace = "O" then
+							cadre_import_trace = "ole_photo" + string(num_cadre_depart + v_odrade_cadre_import_trace, "000")
+							fichier_cadre_import_trace = v_rep_photo_patient  + profilestring( dir_photos + inifile_photo, "ARAKIS", cadre_import_trace ,"")
+						else
+							cadre_import_trace = ""
+							fichier_cadre_import_trace = ""
+						end if
+						
+						if v_odrade_import_tableau = "O" then
+							cadre_import_tableau = "ole_photo" + string(num_cadre_depart + v_odrade_cadre_import_tableau, "000")
+							fichier_cadre_import_tableau = v_rep_photo_patient + profilestring( dir_photos + inifile_photo, "ARAKIS", cadre_import_tableau ,"")
+						else
+							cadre_import_tableau = ""
+							fichier_cadre_import_tableau = ""
+						end if
+						
+						if v_odrade_import_impression = "O" then
+							cadre_import_impression = "ole_photo" + string(num_cadre_depart + v_odrade_cadre_import_impression, "000")
+							fichier_cadre_import_impression = v_rep_photo_patient + profilestring( dir_photos + inifile_photo, "ARAKIS", cadre_import_impression ,"")
+						else
+							cadre_import_impression = ""
+							fichier_cadre_import_impression = ""
+						end if
+					end if
+					
+					FileWrite(num_file,"[ANALYSE]")
+					if v_analyse_odrade = -3 then
+						if v_sexe = "M" then
+							// Analyse 1 si c'est un garçon
+							v_analyse_odrade = -1
+						else
+							// Analyse 2 si c'est une fille ou autre
+							v_analyse_odrade = -2
+						end if
+					end if
+					FileWrite(num_file,"CodeAnalyse=" + string(v_analyse_odrade) )
+					FileWrite(num_file,"ExportTrace=" + fichier_cadre_import_trace )
+					FileWrite(num_file,"ExportTraceH="+ string ( v_odrade_export_trace_hauteur))
+					FileWrite(num_file,"ExportTraceL=" + string( v_odrade_export_trace_largeur ))
+					FileWrite(num_file,"ExportMesures=" + fichier_cadre_import_tableau)
+					FileWrite(num_file,"ExportImpression=" + fichier_cadre_import_impression)
+					
+	//				// Insert pour l'imagerie_2013
+	//				if Imagerie_2013 then
+	//					FileWrite(num_file,"InsertExportTrace = " +v_insert_trace )
+	//					FileWrite(num_file,"InsertExportMesures = "+ v_insert_tableau)
+	//					FileWrite(num_file,"InsertExportImpression = "+ v_insert_impression)
+	//				end if
+					
+					// Imprimer Résumé
+					string imprimerresume
+					if v_imprimer_resume = 'O' then
+						imprimerresume = "1"
+					else
+						imprimerresume = "0"
+					end if
+					FileWrite(num_file,"ImprimerImpression="+imprimerresume )
+					FileWrite(num_file,"")
+					
+					// Fermeture d'Odrade
+					string fermeture
+					if v_odrade_fermer = 'O' then
+						fermeture = "1"
+					else
+						fermeture = "0"
+					end if
+					
+					
+					FileWrite(num_file,"[OPTIONS]")
+					FileWrite(num_file,"FermerOdrade="+fermeture )
+					FileWrite(num_file,"")
+					
+					
+					FileClose(num_file)
+					
+					
+					// Lancement effectif d'Odrade
+						
+					//construit la ligne d'arguments
+					argument = "LIENS#" + fichier_param + "#"
+					
+					string ligne_commande
+					ligne_commande = exe_odrade + ' "' + argument + '"'
+					
+					//lance odrade
+						
+					if run(ligne_commande) <> 1 then
+						MessageBox("ATTENTION !","Impossible de lancer le logiciel Odrade !~n~nVeuillez vérifier son installation.")
+						FileClose(num_file)
+					end if
+				else
+					Messagebox("ATTENTION !","Vous devez renseigner une date de naissance pour le patient avant de faire un tracé dans Odrade.")
+					FileClose(num_file)
+				end if
+			end if
+		else
+			Messagebox("ATTENTION !","Vous ne pouvez utiliser cette fonctionnalité qu'à partir d'Odrade 2010 (version 5).~nOr, vous êtes en version "+string(version_base_odrade)+"~n~nVeuillez mettre votre logiciel Odrade à jour.")
+			FileClose(num_file)
+		end if
+	end if
+end if
+
+end event
+
+on m_odrade.create
+call super::create
+this.text = "Faire un tracé avec Odrade"
+this.menuimage = "lc_odrade_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_odrade.destroy
+call super::destroy
+end on
+
+type m_envoyeruneradiodansodrade from menu within m_btdroit_gearbox
+end type
+
+on m_envoyeruneradiodansodrade.create
+call super::create
+this.text = "Envoyer la radio vers Odrade"
+this.menuimage = "lc_radio_petite.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_envoyeruneradiodansodrade.destroy
+call super::destroy
+end on
+
+event clicked;
+
+// Envoi de la radio vers Odrade
+	
+double v_temps, v_type, var_code_local
+
+boolean v_suite 
+string v_nom_fichier_seul
+date v_date_image
+
+// code du patient
+var_code_local = gb2.var_num_dossier
+
+
+v_suite = true
+
+v_nom_fichier_seul = gfx_extraire_nom_fichier(gb2.fichier_photo )
+
+if imagerie_2013 then
+	// recherche si l'image a un temps de traitement 
+	select isnull(type_image,0) into :v_type  from images_infos where nom_fichier = :v_nom_fichier_seul and code = :var_code_local ;
+
+	if not (30 <= v_type and v_type <= 35) and not (40 <= v_type and v_type <= 45) then 
+		// Ce n'est pas une radio ou un moulage
+		Messagebox("ERREUR","L'image cliquée n'est pas une radio ou un moulage~n~nL'envoi de l'image ne peut se poursuivre.")
+		v_suite = false 
+	end if
+end if
+
+
+if v_suite then 
+
+	
+	string v_nom, v_prenom, v_sexe
+	date v_date_naissance
+	string v_nom_parent1, v_adr1_parent1, v_adr2_parent1, v_codep_parent1, v_ville_parent1 , v_teldom_parent1
+	string v_code_corresp, v_nom_corresp
+	string v_code_dentiste, v_nom_dentiste
+	string v_code_praticien, v_nom_praticien
+	string v_moulage, v_numero_dossier_string
+	double v_numero_dossier
+	double v_code_type_image, v_code_temps_traitement
+	string  v_nom_type_image, v_nom_temps_traitement
+	string odrade_ini, dossier_radios_odrade, v_fichier_radio_odrade
+	
+	double v_resolution, v_dpi, v_etalonnage , v_Xdpi, v_Ydpi
+	
+	integer v_sexe_int
+	
+	
+	// Est ce que le patient existe dans Odrade ?
+	integer nb_present
+	
+	v_suite = false 
+	
+	// Connexion à la base Odrade
+	
+	connect using t_odrade ;
+	
+	if t_odrade.sqlcode = 0 then
+	
+		v_suite = true 
+		
+		select isnull(count(*),0) into :nb_present from patients where code_patient = :var_code_local using T_Odrade ;
+		
+		if nb_present = 0 then 
+			// le patient n'existe pas dans Odrade, on l'ajoute
+				
+			// récupération des infos dans Orthokis
+			select nom, prenom, date_naissance,  nom_parent1, adr1_parent1, adr2_parent1, codep_parent1, ville_parent1 , teldom_parent1, code_correspondant , code_dentiste, code_praticien, moulage, numero_dossier, sexe
+			into :v_nom, :v_prenom, :v_date_naissance,  :v_nom_parent1, :v_adr1_parent1, :v_adr2_parent1, :v_codep_parent1, :v_ville_parent1, :v_teldom_parent1, :v_code_corresp, :v_code_dentiste, :v_code_praticien, :v_moulage, :v_numero_dossier, :v_sexe
+			from patient where code = :var_code_local ;
+			
+			select isnull(nom,'') + ' '+isnull(prenom,'') into :v_nom_corresp from correspondants where code = :v_code_corresp ;
+			select isnull(nom,'') + ' '+isnull(prenom,'') into :v_nom_dentiste from correspondants where code = :v_code_dentiste ;
+			select isnull(nom,'') into :v_nom_praticien from prati where code = :v_code_praticien ;
+			
+			v_numero_dossier_string = string(v_numero_dossier)
+			
+			if isnull(v_sexe) or isnull(v_date_naissance) then 
+				Messagebox("ATTENTION","Vous devez indiquer le sexe du patient et/ou sa date de naissance avant d'envoyer la radio vers Odrade.")
+				v_suite = false 
+			else
+			
+				choose case v_sexe 
+					case 'M' 
+						v_sexe_int = 0
+					case 'F'
+						v_sexe_int = 1
+					case else
+						v_sexe_int = 2
+				end choose
+				
+				// Insert effectif
+				insert into patients (actif, code_patient, nom, prenom, sexe, date_naissance, nom_parent1, adr1_parent1, adr2_parent1, codep_parent1, ville_parent1, teldom_parent1, nom_correspondant, nom_dentiste, nom_praticien, moulage, ref_patient, date_création, iti, date_dernier_acces )
+				values ('non', :var_code_local, :v_nom, :v_prenom, :v_sexe_int, :v_date_naissance, :v_nom_parent1, :v_adr1_parent1, :v_adr2_parent1, :v_codep_parent1, :v_ville_parent1, :v_teldom_parent1, :v_nom_corresp, :v_nom_dentiste, :v_nom_praticien, :v_moulage, :v_numero_dossier_string, getdate(), 'non', getdate()) 
+				using t_odrade ;
+				
+				if t_odrade.sqlcode <> 0 then
+					Messagebox("ATTENTION","Erreur dans l'ajout du patient dans Odrade.~n~n"+t_odrade.sqlerrtext)
+					v_suite = false 
+					rollback ;
+				else
+					commit using t_Odrade ;
+				end if
+			end if
+		else
+			// Le patient existe dans Odrade ... mise à jour de la date de denier acces
+			update patients  set date_dernier_acces = getdate() where code_patient = :var_code_local using T_Odrade ;
+			if t_odrade.sqlcode <> 0 then
+				Messagebox("ATTENTION","Erreur dans la mise à jour du patient dans Odrade.~n~n"+t_odrade.sqlerrtext)
+				v_suite = false 
+				rollback ;
+			else
+				commit using t_Odrade ;
+			end if
+		end if
+		
+		
+		if v_suite then
+			
+			// Recopie de l'image dans les dossiers Odrade
+			If Odrade then
+				// Odrade installé sur la machine => Lecture de son .ini
+				RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Odrade.exe","path",Odrade_ini)
+				Odrade_ini = Odrade_ini + "\Odrade.ini"
+				// Est on en mode cabinet ou en mode réplication
+				if not utilisation_distante or profilestring(dir_ini+inifile_orthokis,"odrade","base_replic","C") = "C" then 
+					dossier_radios_odrade = ProfileStringOdrade(Odrade_ini,"CheminDossierPatient")
+				else
+					dossier_radios_odrade = ProfileStringOdrade(Odrade_ini,"CheminDossierPatientIti")
+				end if
+				
+				dossier_radios_odrade = dossier_radios_odrade + win_delimiter
+			else
+				// lecture dans le .ini d'Orthokis
+				dossier_radios_odrade = profilestring(dir_ini+"orthokis.ini","odrade","dir_patient","")
+			end if	
+			
+			if isnull(dossier_radios_odrade) then
+				dossier_radios_odrade = ""
+			end if
+			
+			if not DirectoryExists(dossier_radios_odrade) then
+				Messagebox("ATTENTION","Erreur : Impossible de localiser le répertoire des patients dans Odrade.~n~n"+dossier_radios_odrade+"~n~nVeuillez vérifier son paramétrage dans l'Environnement du Poste de Travail (Menu Outils)" )
+				v_suite = false
+			else
+			
+				// Répertoire radios du patient 
+				dossier_radios_odrade = dossier_radios_odrade + string(var_code_local)+ win_delimiter
+				
+				if not DirectoryExists(dossier_radios_odrade) then
+					if CreateDirectory(dossier_radios_odrade) = 1 then
+						// Création des sous répertoires du patient
+						if CreateDirectory(dossier_radios_odrade + "Moulages") = 1 then
+							if CreateDirectory(dossier_radios_odrade + "Orthopen") = 1 then
+								if CreateDirectory(dossier_radios_odrade + "Photosid") = 1 then
+									if CreateDirectory(dossier_radios_odrade + "Radios") = 1 then
+										// Tout va bien :-)
+									else
+										Messagebox("ATTENTION","Erreur : Impossible de créer le répertoire des radios du patient dans Odrade.~n~n"+dossier_radios_odrade )
+										v_suite = false
+									end if
+								else
+									Messagebox("ATTENTION","Erreur : Impossible de créer le répertoire des photos d'identité du patient dans Odrade.~n~n"+dossier_radios_odrade )
+									v_suite = false
+								end if
+							else
+								Messagebox("ATTENTION","Erreur : Impossible de créer le répertoire des orthopentomogrammes du patient dans Odrade.~n~n"+dossier_radios_odrade )
+								v_suite = false
+							end if
+						else
+							Messagebox("ATTENTION","Erreur : Impossible de créer le répertoire des moulages du patient dans Odrade.~n~n"+dossier_radios_odrade )
+							v_suite = false
+						end if							
+					else
+						Messagebox("ATTENTION","Erreur : Impossible de créer le répertoire du patient dans Odrade.~n~n"+dossier_radios_odrade )
+						v_suite = false
+					end if
+				end if
+			end if
+			
+			if v_suite then 
+				// La structure du dossier est OK dans Odrade
+			
+				
+				// Ajout de l'image dans la base de données
+				
+				double v_code_radio
+				date v_date_radio
+				
+				// Code radio max
+				select isnull(max(code_radio),0) into :v_code_radio from radios where code_patient = :var_code_local using t_odrade ;
+				v_code_radio = v_code_radio + 1
+				
+				
+				
+				// recopie de l'image au bon endroiet
+				v_fichier_radio_odrade = string(v_code_radio)+".jpg"
+				
+				string de, a
+				de = gb2.fichier_photo
+				a = dossier_radios_odrade + "Radios\" +  v_fichier_radio_odrade
+				
+				
+			
+				
+				select type_image, temps_traitement, date_acquis into :v_code_type_image, :v_code_temps_traitement , :v_date_image
+				from images_infos where code = :var_code_local and nom_fichier = :v_nom_fichier_seul ;
+				
+				zerodb(v_code_type_image)
+				zerodb(v_code_temps_traitement)
+				v_nom_temps_traitement = ""
+				v_nom_type_image = ""
+				
+				// Type image et temps de traitement
+				if v_code_type_image > 0 then
+					select isnull(libelle,'') into  :v_nom_type_image from type_image where id = :v_code_type_image ;
+				end if
+				if v_code_temps_traitement > 0 then
+					select isnull(libelle,'') into  :v_nom_temps_traitement  from temps_traitement where id = :v_code_temps_traitement ;
+				end if
+				
+				// Calcul de l'étalonnage de la radio ...
+				select isnull(var_loc_resolution,0) into :v_resolution from parametres using t_odrade; 
+				
+				v_suite = true
+				
+				if v_resolution <= 0 then
+					// rien faire pour l'étalonnage
+					
+				else
+					
+					w_mdi_2020.uo_gearbox.ole_image.object.imageXdpi = v_resolution
+					w_mdi_2020.uo_gearbox.ole_image.object.imageYdpi = v_resolution
+					w_mdi_2020.uo_gearbox.ole_image.object.Saveimage = gb2.fichier_photo 
+					
+				end if
+				
+				
+				if not gb2.ole_image.object.imageXdpi > 0 or not gb2.ole_image.object.imageYdpi > 0 then
+					Messagebox("ATTENTION","La résolution de l'image est inutilisable.~n~nL'envoi de la radio vers Odrade n'a pas été effectué.")
+					v_suite = false
+				else
+					
+					v_etalonnage = 1
+					
+					
+				end if
+
+				if v_suite then
+					if FileCopy(gb2.fichier_photo , dossier_radios_odrade + "Radios\" +  v_fichier_radio_odrade) = 1 then
+						// Insert effectif de la radio
+						insert into radios (code_patient, code_radio, intitule, date_radio, luminosite, contraste, nom_fichier, etalonnage , id_replic, SupPhotoType, SupPhotoCode, 
+						PR1X,	PR1Y, PR2X,PR2Y, PP1X,PP1Y, PP2X,PP2Y, GROUPE, SOUS_GROUPE, SOUS_GROUPE_IMAGE,GROUPE_3D,	SOUS_GROUPE_3D,ROTATION, ratio)
+						
+						values (:var_code_local, :v_code_radio, :v_nom_temps_traitement + ' - ' + :v_nom_type_image, :v_date_image, 1 , 1, :v_fichier_radio_odrade, :v_etalonnage, 0  , 0 ,	0, 
+						0, 0,0,0,0,0,0,0,-1,-1,-1,-1,-1,0.0, 1)
+						using t_odrade ;
+						
+						if t_odrade.sqlcode <> 0 then
+							Messagebox("ATTENTION","Erreur dans l'ajout de la radio dans Odrade.~n~n"+t_odrade.sqlerrtext)
+							rollback using t_odrade ;
+							// suppression de la radio copiée
+							FileDelete( dossier_radios_odrade + "Radios\" +  v_fichier_radio_odrade)
+						else
+							commit using t_Odrade ;
+							Messagebox("ATTENTION","L'image a été correctement envoyée à Odrade")
+						end if
+					end if
+				else
+					Messagebox("ATTENTION","Erreur dans la copie du fichie image dans Odrade.~n~nFichier source : "+gb2.fichier_photo+"~nFichier de destination : " + dossier_radios_odrade + v_fichier_radio_odrade )
+				end if
+			end if
+		end if
+		
+		disconnect using t_odrade ;
+	else
+		
+		Messagebox("ATTENTION","Erreur de connexion à la base de données Odrade")
+	end if
+end if
+end event
+
+type m_1 from menu within m_btdroit_gearbox
+end type
+
+on m_1.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_1.destroy
+call super::destroy
+end on
+
+type m_modifierdateacquisition from menu within m_btdroit_gearbox
+end type
+
+on m_modifierdateacquisition.create
+call super::create
+this.text = "Modifier date d~'acquisition"
+this.menuimage = "Control DatePicker_2!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_modifierdateacquisition.destroy
+call super::destroy
+end on
+
+event clicked;// on rend visible la date
+gb2.em_date_acquis.visible =true
+// maj GUI
+gb2.resize(gb2.width,gb2.height)
+// on s'y place dessus
+gb2.em_date_acquis.SetFocus()
+end event
+
+type m_editer from menu within m_btdroit_gearbox
+end type
+
+on m_editer.create
+call super::create
+this.text = "Editer ..."
+this.menuimage = "lc_images_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_editer.destroy
+call super::destroy
+end on
+
+event clicked;
+// ouverture de l'éditeur !!!
+//fxg_ouvrir_editeur_2022( gb2.fichier_photo,gb2.var_num_dossier, gb2.w_fenetre_mere )
+fxg_ouvrir_editeur_2022( gb2.fichier_photo,gb2.var_num_dossier  )
+
+
+end event
+
+type m_editeur2021 from menu within m_btdroit_gearbox
+end type
+
+event clicked;gb2.traitement_ouvrir_editeur( )
+
+
+
+end event
+
+on m_editeur2021.create
+call super::create
+this.text = "Editeur 2013"
+this.menuimage = "lc_editeur_2013.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_editeur2021.destroy
+call super::destroy
+end on
+
+type m_ouvriravecxdraw from menu within m_btdroit_gearbox
+end type
+
+event clicked;
+
+// Recherche si X-Draw est bien dans le dossier d'installation d'Orthokis
+
+string fichier_exe_xdraw , commande
+string rep_x-draw, reg_path
+
+reg_path = "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\APP Paths\X-DRAW.EXE"
+
+RegistryGet(reg_path,"path",rep_x-draw)
+
+fichier_exe_xdraw = rep_x-draw+  "\x-draw.exe"
+
+if fileexists(fichier_exe_xdraw) then
+	// on lance
+	commande = fichier_exe_xdraw + " ORTHOKIS#"+gb2.fichier_photo+"#"
+	runwait(commande, 1)
+	faire_vignette_pour( gb2.fichier_photo, gb2.var_num_dossier )
+	gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+else
+	Messagebox("Erreur","Le logiciel X-Draw n'est pas installé sur ce micro-ordinateur.~nVous ne pouvez donc pas utiliser cette fonction.")
+end if
+
+end event
+
+on m_ouvriravecxdraw.create
+call super::create
+this.text = "Ouvrir avec X-Draw"
+this.menuimage = "icone_xdraw.bmp"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_ouvriravecxdraw.destroy
+call super::destroy
+end on
+
+type m_etalonnerlaradioavecxdraw from menu within m_btdroit_gearbox
+end type
+
+event clicked;
+
+// Recherche si X-Draw est bien dans le dossier d'installation d'Orthokis
+
+string fichier_exe_xdraw , commande
+string rep_x-draw, reg_path
+
+reg_path = "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\APP Paths\X-DRAW.EXE"
+
+RegistryGet(reg_path,"path",rep_x-draw)
+
+fichier_exe_xdraw = rep_x-draw+  "\x-draw.exe"
+
+if fileexists(fichier_exe_xdraw) then
+	// on lance
+	commande = fichier_exe_xdraw + " ORTHOKIS#"+gb2.fichier_photo+"#ETALONNER#"
+	runwait(commande, 1)
+	faire_vignette_pour( gb2.fichier_photo, gb2.var_num_dossier )
+	gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+else
+	Messagebox("Erreur","Le logiciel X-Draw n'est pas installé sur ce micro-ordinateur.~nVous ne pouvez donc pas utiliser cette fonction.")
+end if
+
+end event
+
+on m_etalonnerlaradioavecxdraw.create
+call super::create
+this.visible = false
+this.text = "Etalonner la radio avec X-Draw"
+this.menuimage = "lc_etalonner.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_etalonnerlaradioavecxdraw.destroy
+call super::destroy
+end on
+
+type m_tridim from menu within m_btdroit_gearbox
+end type
+
+event clicked;
+
+// Permet d'envoyer l'image courante dans TriDim ....
+
+// Au passage, ça crée le patient s'il n'existe pas ... si le user le souhaite
+
+
+double var_code_local 
+
+
+// récup des infos du patients
+
+// récup des infos de la dw
+string v_nom, v_prenom, v_sexe
+date v_date_naissance
+double v_numero_dossier
+long id_patient_tridim
+
+string v_fichier 
+
+v_fichier = gfx_extraire_nom_fichier (gb2.fichier_photo)
+
+var_code_local = gb2.var_num_dossier
+
+select nom, prenom, sexe, date_naissance, numero_dossier 
+into :v_nom, :v_prenom, :v_sexe, :v_date_naissance, :v_numero_dossier
+from patient where code = :var_code_local ;
+
+lien_triDim ObjetTridim_local
+
+ObjetTridim_local = create lien_triDim
+
+if ObjetTridim_local.connection_Tridim() = 1  then
+
+	if ObjetTridim_local.Delaire_ou_Tridim = "D" then
+		ObjetTridim_local.DelaireObject.minimize()
+	end if 
+		
+	// quel type de radio
+	OpenWithParm(w_delaire_type_image, ObjetTridim_local.Delaire_ou_Tridim )
+	
+	string type_radio
+	// renvoie le type de radio ...
+	type_radio = Message.StringParm
+	
+	//messagebox("type_radio", type_radio)
+	
+		
+	if ObjetTridim_local.Ouvrir_patient_tridim(var_code_local, "I") = 1 then
+		// le patient a été si besoin ajouté !!!
+		
+		date v_date_photo
+		
+		select date_acquis into :v_date_photo from images_infos where code = :var_code_local and nom_fichier =  :v_fichier ;
+		
+		if ObjetTridim_local.delaire_ou_tridim = "T" then
+			// importation de la radio ..
+			id_patient_tridim = ObjetTridim_local.TridimObject.PatientCourant.Id
+			choose case type_radio
+				case '11'
+					ObjetTridim_local.TridimObject.ImportPhoto(id_patient_tridim, 11, gb2.fichier_photo, string(v_date_photo))
+				case '12'
+					ObjetTridim_local.TridimObject.ImportPhoto(id_patient_tridim, 12, gb2.fichier_photo, string(v_date_photo))
+				case '13'
+					ObjetTridim_local.TridimObject.ImportPhoto(id_patient_tridim, 13, gb2.fichier_photo, string(v_date_photo))
+				case '14'
+					ObjetTridim_local.TridimObject.ImportPhoto(id_patient_tridim, 14, gb2.fichier_photo, string(v_date_photo))
+			end choose
+		else
+			// logicel Delaire Elements
+			string a
+			a = ObjetTridim_local.DelaireObject.Version()
+			
+			if ObjetTridim_local.DelaireObject.Version() >= "1.1.5337.17172" then
+				string numRadioExt = ""
+				
+				string t1, t2, t3, t4, t5, t6
+				t1 = string(var_code_local)
+				t2 = gb2.fichier_photo
+				t3 = type_radio
+				t4 =  string(v_date_photo, "mm/dd/yyyy")
+				t5 = numRadioExt
+				//ObjetTridim_local.DelaireObject.ImportImagePatientEx(string(var_code_local), gb2.fichier_photo, type_radio, string(v_date_photo, "mm/dd/yyyy"), numRadioExt) 
+				t6 = string(ObjetTridim_local.DelaireObject.ImportImagePatientEx(string(var_code_local), gb2.fichier_photo, type_radio, string(v_date_photo, "mm/dd/yyyy"), numRadioExt) )
+			else
+				ObjetTridim_local.DelaireObject.ImportImagePatientEx(string(var_code_local), gb2.fichier_photo, type_radio, string(v_date_photo, "mm/dd/yyyy")) 
+			end if
+
+		end if
+		ObjetTridim_local.activer_tridim()
+	end if
+end if
+	 
+end event
+
+on m_tridim.create
+call super::create
+this.text = "Envoyer vers logiciel Delaire (ou Tridim)"
+this.menuimage = "lc_icone_tridim.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_tridim.destroy
+call super::destroy
+end on
+
+type m_editer_avec from menu within m_btdroit_gearbox
+end type
+
+on m_editer_avec.create
+call super::create
+this.tag = "Ouvrir avec ... "
+this.text = "Ouvrir avec ... "
+this.toolbaritemname = "Open_2!"
+this.menuimage = "lc_explorer_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_editer_avec.destroy
+call super::destroy
+end on
+
+event clicked;string lstr_ligne_de_cmd
+
+// avec Gd faut libérer l'image => sur tous les cadres car peut être commune à plusieurs
+//if gb2.mode_ocx = 2 then
+//	// On dévérrouille ici toutes les images de l'éditeur
+//	if isvalid(fenetre_miniature_active) then
+//		fenetre_miniature_active.deverrouiller_fichiers()
+//	end if	
+//	
+//	//gb2.ole_image_gd.object.close2Picture () // pour libérer le fichier image sans virer l'image du Viewer
+//end if
+
+if gfx_generer_cmd_retouche_image(gb2.fichier_photo, lstr_ligne_de_cmd) = 1 then
+// si on a généré une ligne de commande valide -> on la lance
+	run(lstr_ligne_de_cmd,Maximized!)
+//	messagebox("Suite ...", "CLiquer sur 'OK' une fois l'édition de l'image terminée.")
+//	gb2.charger_image(gb2.fichier_photo)
+else
+	messagebox("ERREUR ...","La photo spécifiée n'existe pas.", StopSign!)
+end if
+
+end event
+
+type m_imprimerlimage from menu within m_btdroit_gearbox
+end type
+
+on m_imprimerlimage.create
+call super::create
+this.text = "Utiliser un Courrier Word"
+this.toolbaritemname = "Print_2!"
+this.menuimage = "lc_winword_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_imprimerlimage.destroy
+call super::destroy
+end on
+
+event clicked;
+// Word
+utiliser_office("W", 0)
+
+end event
+
+type m_utiliseruneresentationpowerpoint from menu within m_btdroit_gearbox
+end type
+
+on m_utiliseruneresentationpowerpoint.create
+call super::create
+this.text = "Utiliser une Présentation PowerPoint"
+this.menuimage = "lc_winppt_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_utiliseruneresentationpowerpoint.destroy
+call super::destroy
+end on
+
+event clicked;// Powerpoint
+utiliser_office("P", 0)
+
+end event
+
+type m_envoyerparemailpiècejointe from menu within m_btdroit_gearbox
+end type
+
+event clicked;
+
+
+string v_fichier_photo
+double var_code_local
+boolean v_suite = true
+
+long nb_images_selectionnees, cpt
+double taille_totale
+
+nb_images_selectionnees = selectionner_images_courantes()
+
+taille_totale = 0
+for cpt = 1 to nb_images_selectionnees
+	taille_totale = taille_totale +  FileLength(photo_courante[cpt])
+next
+
+
+if nb_images_selectionnees = 0 then
+	// Email uniquement de l'image courante
+	nb_images_selectionnees = 1
+	photo_courante[1] = gb2.fichier_photo
+else
+	// Email de plusieurs images ?
+	// on convertit en Mo
+	taille_totale = taille_totale / 1024 / 1024
+		
+	// depuis 2016, on ne mets l'alerte que si > 3 Mo
+	if nb_images_selectionnees > 1 and taille_totale > 3 then
+		if Messagebox("ATTENTION","Vous allez envoyer "+string(nb_images_selectionnees)+" images en Pièces Jointes.~nTaille des fichiers : " + string(taille_totale , "###0.00") +" Mo~n~nConfirmez-vous ?",Question!,YesNo!,2) = 2 then 
+			v_suite = false
+		end if
+	end if
+end if
+
+if v_suite then
+	
+	v_fichier_photo = photo_courante[1]
+	var_code_local =  gb2.var_num_dossier 
+
+	if len(trim(v_fichier_photo))> 0 and fileExists (v_fichier_photo) then
+
+		open(w_patience)
+
+		uo_email_compte		cpt_email
+		uo_email_email 		email
+		str_email_frm_output		frm_output
+		
+		
+		integer id_cpt
+		
+//		// recherche de l'ID du cpt mail par def du prati du patient
+//		SELECT cpt_mail INTO :id_cpt FROM prati, patient
+//		WHERE patient.code_praticien = prati.code AND patient.code = :var_code_local ;
+//		
+//		if isnull(id_cpt) then
+//			// pas de compte mail par defaut sur ce prati
+//			// --> on choisi le premier de la liste des cpt order by ordre_tri, nom
+//			select id into :id_cpt from email_comptes order by ordre_tri, nom ;
+//		end if
+		
+		id_cpt = compte_email_a_utiliser(utilisateur_code, var_code_local)
+
+		if id_cpt = -1 then
+			
+			MessageBox("ATTENTION","Vous devez définir des Comptes Emails pour chaque praticien avant d'envoyer des emails (menu 'Tables', 'Administratif').~n~nCeci ne semble pas être le cas.~n~nL'envoi de l'email ne peut avoir lieu.")
+			
+		else
+			
+			// init cpt mail et affection au mail manager
+			cpt_email = create uo_email_compte
+			cpt_email.charger(id_cpt)
+			email_manager.set_compte(cpt_email)
+			
+			// Envoi unitaire
+			email_manager.propos_objet = cpt_email.email_objet_defaut
+			email_manager.mode_choix_adr_courant = email_manager.mode_choix_adr_unitaire
+			
+			
+			// Fenetre de choix du destinataire
+	
+			// Génératon du fichier rtf pour passage en paramètre
+			string is_FileName
+			integer num_fichier_texte
+			string fichier_texte_avec_adresses
+			integer num_fichier_texte_avec_adresses
+			string texte_lu
+		
+			is_FileName = dir_ini + "texte_email_tmp.rtf"
+			num_fichier_texte = FileOpen( is_FileName, StreamMode! , Write! , LockWrite! , replace!)
+			FileWrite(num_fichier_texte, cpt_email.texte_brut_defaut)
+			FileClose(num_fichier_texte)
+	
+			
+			str_patient v_patient
+			v_patient.code = var_code_local
+			v_patient.appelant = 'I'	// image
+			
+			openwithparm(w_email_choix_adr_pat, v_patient)
+			
+			// réception des éléments de la fenêtre précédente
+			frm_output = message.PowerObjectParm
+			
+			if frm_output.a_adrs[1] <> '' then			// correspond au bouton annuler de la fenêtre de choix d'adresse
+			
+			
+				if frm_output.envoi_securise then
+					If Belgique then
+						// envoi messagerie spéciale via myOrthokis
+						// Envoi unitaire
+						fxg_envoi_mail_securise_ehealth(frm_output , var_code_local, email, photo_courante)
+					else
+						if France then 
+							fxg_envoi_mail_securise_france(frm_output , var_code_local, email, photo_courante)
+						end if
+					end if
+				
+				else
+	
+				
+				
+				
+					string fichier_texte, fichier_texte_patient 
+					
+					fichier_texte = dir_ini + "texte_email_tmp.html"
+					fichier_texte_avec_adresses = dir_ini + "texte_email_adresses_tmp.text"
+					fichier_texte_patient = dir_photos + string(var_code_local) + win_delimiter + string(today(), "yyyy-mm-dd")+" "+string(now(),"hh-mm-ss") + " - Texte email.html"
+					
+					
+					//creation et envoie email
+					email = create uo_email_email
+					email.set_patient(var_code_local)
+					email.add_destinataire_a(frm_output.a_adrs[1], false)
+					email.set_from(cpt_email.my_alias,cpt_email.my_adr)
+					email_manager.propos_objet = frm_output.objet 
+					email.set_sujet(email_manager.propos_objet)
+					email.set_body_html(fichier_texte)		
+					if frm_output.cc then 
+						email.set_cc(cpt_email.my_alias, cpt_email.my_adr)
+					end if
+					if frm_output.cci then 
+						email.set_cci(cpt_email.my_alias, cpt_email.my_adr)
+					end if
+																
+					// On envoie les fichiers en tant que Pièce jointe !!!
+					for cpt = 1 to nb_images_selectionnees
+						email.add_fichier_joint(photo_courante[cpt])
+					next
+												
+					// On ajoute les éventuelles PJ supplémentares ... 
+					for cpt = 1 to upperbound(frm_output.pj_supplementaires[])
+						email.add_fichier_joint(frm_output.pj_supplementaires[cpt])
+					next
+
+					if email_manager.envoyer_email(email.get_email()) then
+								
+						// Mise en historique de l'envoi de l'email
+						
+						// On génère un fichier texte contenant la liste des destinataires ... meme nom que le fichier en PJ avec .dest comme extension
+						int ret
+						email.generer_fichier_adresses(fichier_texte_avec_adresses, fichier_texte_patient, frm_output)
+		//				num_fichier_texte_avec_adresses = FileOpen(fichier_texte_avec_adresses, LineMode! , Write! , LockWrite! , replace!)
+		//				FileWrite(num_fichier_texte_avec_adresses, frm_output.a_adrs[1])
+		//				FileClose(num_fichier_texte_avec_adresses)
+						
+						
+						// Copy du fichier pour mémo
+						FileCopy(fichier_texte, fichier_texte_patient)
+		//				FileCopy(fichier_texte_avec_adresses, fichier_texte_patient + ".dest" )
+						
+						string v_code_interne_historique_editions
+						
+						v_code_interne_historique_editions = fxg_enregcourrierhisto ( var_code_local , "EMAIPJ" , today() , "Envoi email fichier : " + gfx_extraire_nom_fichier(v_fichier_photo) , fichier_texte_patient , 'E', 'N' ,'N', '', frm_output.categorie)
+						fxg_memorisation_pieces_jointes(var_code_local, v_code_interne_historique_editions,  email.fichiers_joints , false)
+						
+						// Le fichier est parti
+						MessageBox("INFORMATION","L'email a été correctement envoyé.")
+						
+					else
+						MessageBox("ATTENTION","Une erreur s'est produite dans l'envoi de l'email !")
+					end if
+				end if
+			end if
+			close(w_patience)
+		end if
+	end if
+end if
+end event
+
+on m_envoyerparemailpiècejointe.create
+call super::create
+this.text = "Envoyer par email (Pièce Jointe)"
+this.menuimage = "lc_envoi_message_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_envoyerparemailpiècejointe.destroy
+call super::destroy
+end on
+
+type m_composite from menu within m_btdroit_gearbox
+m_composite1 m_composite1
+m_composite2 m_composite2
+m_composite3 m_composite3
+m_composite4 m_composite4
+end type
+
+on m_composite.create
+call super::create
+this.text = "Composites"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+this.m_composite1=create m_composite1
+this.m_composite2=create m_composite2
+this.m_composite3=create m_composite3
+this.m_composite4=create m_composite4
+this.Item[UpperBound(this.Item)+1]=this.m_composite1
+this.Item[UpperBound(this.Item)+1]=this.m_composite2
+this.Item[UpperBound(this.Item)+1]=this.m_composite3
+this.Item[UpperBound(this.Item)+1]=this.m_composite4
+end on
+
+on m_composite.destroy
+call super::destroy
+destroy(this.m_composite1)
+destroy(this.m_composite2)
+destroy(this.m_composite3)
+destroy(this.m_composite4)
+end on
+
+type m_composite1 from menu within m_composite
+end type
+
+on m_composite1.create
+call super::create
+this.text = "Paysage 1"
+this.menuimage = "lc_composite.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_composite1.destroy
+call super::destroy
+end on
+
+event clicked;
+ouvrir_composite(1)
+end event
+
+type m_composite2 from menu within m_composite
+end type
+
+event clicked;
+ouvrir_composite(2)
+end event
+
+on m_composite2.create
+call super::create
+this.text = "Paysage 2"
+this.menuimage = "lc_composite.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_composite2.destroy
+call super::destroy
+end on
+
+type m_composite3 from menu within m_composite
+end type
+
+event clicked;
+ouvrir_composite(3)
+end event
+
+on m_composite3.create
+call super::create
+this.text = "Paysage - Radiographies"
+this.menuimage = "lc_composite.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_composite3.destroy
+call super::destroy
+end on
+
+type m_composite4 from menu within m_composite
+end type
+
+event clicked;ouvrir_composite(4)
+end event
+
+on m_composite4.create
+call super::create
+this.text = "Portrait"
+this.menuimage = "lc_composite.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_composite4.destroy
+call super::destroy
+end on
+
+type m_0 from menu within m_btdroit_gearbox
+end type
+
+on m_0.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+type m_sauvegardersous from menu within m_btdroit_gearbox
+end type
+
+event clicked;
+String	ls_File, ls_Path
+string v_format
+integer lc
+
+lc = GetFileSaveName ( "Enregistrer l'image sous ...",   ls_path, ls_file, "jpg",  "Fichiers Jpeg (*.jpg*),*.jpg,Fichiers Bmp (*.bmp),*.bmp,Fichiers Tiff (*.tif),*.tif,Fichiers Png (*.png),*.png")
+
+if lc = 1 then
+	// Récupération du fichier ...
+	
+	if gb2.vignette then
+		// Il faut recharger la VRAIE image, 
+		gb2.ole_image.object.Loadimage = gb2.fichier_photo 
+	end if	
+
+	v_format = right(ls_file, 3)
+	
+	choose case v_format 
+		case "bmp"
+			gb2.ole_image.object.SaveFormat = IG_SAVE_BMP
+		case "jpg"
+			gb2.ole_image.object.SaveFormat = IG_SAVE_JPG
+		case "tif"
+			gb2.ole_image.object.SaveFormat = IG_SAVE_TIF
+		case "png"
+			gb2.ole_image.object.SaveFormat = IG_SAVE_PNG
+	end choose
+
+	gb2.ole_image.object.SaveImage = 	ls_Path
+
+end if
+
+
+end event
+
+on m_sauvegardersous.create
+call super::create
+this.text = "Enregistrer sous ..."
+this.toolbaritemname = "SaveAs_2!"
+this.menuimage = "lc_imagerie_enregistrer_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_sauvegardersous.destroy
+call super::destroy
+end on
+
+type m_exportmultiples from menu within m_btdroit_gearbox
+end type
+
+event clicked;
+
+// Exportation multiples
+openWithParm(w_export_photos,gb2)
+end event
+
+on m_exportmultiples.create
+call super::create
+this.text = "Export multiples"
+this.menuimage = "lc_exporter_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_exportmultiples.destroy
+call super::destroy
+end on
+
+type m_supprimerimage from menu within m_btdroit_gearbox
+end type
+
+event clicked;if messagebox("ATTENTION ...","Suppression du fichier image, confirmez-vous ?",Exclamation!,OKCancel!) = 1 then
+	gb2.image_supprimer(gb2.var_num_dossier, gb2.fichier_photo)
+	// La vignette est déjà supprimée
+	// gb2.image_supprimer(gb2.var_num_dossier, construire_nom_fichier_vignette(gb2.fichier_photo))
+	if not gearbox_cliquee then
+		uo_image_cliquee.charger_image(false, false)
+	end if
+end if
+
+end event
+
+on m_supprimerimage.create
+call super::create
+this.text = "Supprimer Image"
+this.toolbaritemname = "Clear_2!"
+this.menuimage = "lc_supprimer.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_supprimerimage.destroy
+call super::destroy
+end on
+
+type m_imprimerimage from menu within m_btdroit_gearbox
+end type
+
+on m_imprimerimage.create
+call super::create
+this.text = "Imprimer Image"
+this.menuimage = "ACTIONS_imprimer.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_imprimerimage.destroy
+call super::destroy
+end on
+
+event clicked;
+if isvalid (uo_image_cliquee) then
+
+	// appel depuis l'explorateur
+	openWithParm(w_imprimer_image, uo_image_cliquee)
+else
+	// Appel d'ailleurs ... 
+	// w_imprimer_image_gearbox est héritée de w_imprimer_image
+	openWithParm(w_imprimer_image_gearbox, gb2)
+end if
+
+end event
+
+type m_copierversunautrepatient from menu within m_btdroit_gearbox
+end type
+
+event clicked;
+double var_code_local, var_code_destination
+string var_nom_destination, chemindossier_destination, fichier_destination, fichier_destination_complet
+string v_prochain_cadre
+string nom_fichier_origine
+
+// Appel depuis l'explorateur de limagerie 2013 ?
+string v_nom_fenetre_parent
+v_nom_fenetre_parent = gb2.GetParent().GetParent().GetParent().className()
+
+if left(v_nom_fenetre_parent,18) = "w_explorateur_2013" then
+	w2013 = gb2.GetParent().GetParent().GetParent()
+
+	if isValid(w2013) then
+		
+		integer cpt_a_copier = 0
+		boolean v_suite = false
+		string libelle_confirmation
+		long i
+		boolean erreur_de_copie = false
+
+		cpt_a_copier = w2013.compter_images_selectionnees()
+
+		if cpt_a_copier = 0 then
+			if Messagebox("ATTENTION","Vous n'avez sélectionné aucune image.~n~nVoulez-vous sélectonner l'image cliquée ?", Question!, Yesno!, 2) = 1 then
+				v_suite = true
+				uo_image_cliquee.selectionne ( true )
+				cpt_a_copier = 1
+			end if
+		else
+				v_suite = true
+		end if
+		
+		if v_suite then
+			Messagebox("DOSSIER PATIENT DE DESTINATION","Vous devez indiquer à présent le dossier du patient de destination.")
+		
+			var_code_local = w2013.var_code_local
+		
+			open(w_cherche)
+		
+			if var_suite then
+				var_code_destination = var_code
+				var_nom_destination = var_nom
+				
+				// Confirmation
+				if cpt_a_copier = 1 then
+					libelle_confirmation = "Vous avez sélectionné une image.~n~nElle va être copiée "
+				else
+					libelle_confirmation = "Vous avez sélectionné " + string(cpt_a_copier) + " images.~n~nElles vont être copiées "
+				end if
+				
+				if Messagebox("ATTENTION",libelle_confirmation + " dans le dossier de " + var_nom_destination + ".~n~nConfirmez-vous ?", Question!, Yesno!, 2) = 1 then
+	
+				open(w_patience)
+				
+				// Dossier de destination
+				chemindossier_destination = dir_photos + string(var_code_destination)
+			
+				// On le crée si besoin
+				if not fxg_FileExists(chemindossier_destination) then CreateDirectory(chemindossier_destination)
+					chemindossier_destination = chemindossier_destination + "\"
+		
+					
+					for i = 1 to w2013.nb_cadres_trouves
+						if w2013.uoi[i].cbx_selection.checked then
+							
+							// pour savoir le prochain cadre "olephoto" disponible
+							v_prochain_cadre = get_nom_prochain_cadre_image(var_code_destination)
+							fichier_destination =  profilestring(dir_photos + inifile_photo, section, v_prochain_cadre ,"")
+							fichier_destination_complet = chemindossier_destination + fichier_destination
+							
+							// Copie du fichier !!!
+//							w2013.charger_image_gearbox(i)
+//							FileCopy( 	 w2013.tab_controles.tabpage_accueil.ole_phototra.fichier_photo,  fichier_destination_complet)
+
+							FileCopy( w2013.uoi[i].nom_fichier_complet	 ,  fichier_destination_complet)
+							
+							
+							if FileExists( fichier_destination_complet ) then
+								
+								// Copie de la vignette 
+								FileCopy( 	 w2013.uoi[i].nom_fichier_vignette_complet,  chemindossier_destination + "v" + fichier_destination )
+								
+								
+								nom_fichier_origine = gfx_extraire_nom_fichier( w2013.uoi[i].nom_fichier_complet )
+								// inscrition des éléments en base de données
+								insert into images_infos (code, nom_fichier, date_acquis, type_image, temps_traitement, date_modif, commentaires_html) 
+								select :var_code_destination, :fichier_destination, date_acquis, type_image, temps_traitement, date_modif, commentaires_html 
+								from images_infos 
+								where code = :var_code_local and nom_fichier = :nom_fichier_origine ;
+								
+								commit ;
+								
+							else
+								Messagebox("ATTENTION","Une erreur s'est produite dans la copie.~n~nFichier source : " + w2013.tab_controles.tabpage_accueil.ole_phototra.fichier_photo +"~nFichier cible : " +fichier_destination_complet)
+								erreur_de_copie = true
+							end if
+						end if
+		
+					next
+
+					close(w_patience)
+					
+					if not erreur_de_copie then
+						if Messagebox("INFORMATION","La copie a été réalisée avec succès.~n~nSouhaitez-vous ouvrir l'imagerie de "+ var_nom_destination + " pour vérifier ?", Question!, YesNo!, 1) = 1 then
+							m_orthokis_2020.ouvrir_mdi(12)
+						end if
+					end if
+				end if
+			end if
+		end if
+	end if
+end if
+
+end event
+
+on m_copierversunautrepatient.create
+call super::create
+this.tag = "uniquement visible dans l~'explorateur 2013"
+this.visible = false
+this.text = "Copier vers un autre patient"
+this.menuimage = "Continue_2!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_copierversunautrepatient.destroy
+call super::destroy
+end on
+
+type m_- from menu within m_btdroit_gearbox
+end type
+
+on m_-.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_informationssurlimage from menu within m_btdroit_gearbox
+end type
+
+on m_informationssurlimage.create
+call super::create
+this.text = "Informations sur l~'image"
+this.toolbaritemname = "Information_icon_2!"
+this.menuimage = "lc_infos.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_informationssurlimage.destroy
+call super::destroy
+end on
+
+event clicked;
+// Affiche une messagebox avec les infos de l'image
+gb2.get_infos_image()
+end event
+
+type m_régénérerlavignette from menu within m_btdroit_gearbox
+end type
+
+event clicked;
+gb2.rendre_vierge()
+if FileExists(gb2.fichier_photo ) then 
+	faire_vignette_pour( gb2.fichier_photo, gb2.var_num_dossier )
+	gb2.rafraichir_var_cadre(gb2.nom_cadre_ole)
+end if
+end event
+
+on m_régénérerlavignette.create
+call super::create
+this.text = "Régénérer la Vignette"
+this.menuimage = "lc_regenerer1.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_régénérerlavignette.destroy
+call super::destroy
+end on
+
+type m_régénérertouteslesvignettesdupatient from menu within m_btdroit_gearbox
+end type
+
+event clicked;if not imagerie_2013 then
+	Messagebox("ATTENTION","Cette fonctionnalité n'est disponible qu'en Imagerie 2013.")
+else
+	
+
+	if left(gb2.GetParent().className(), 12) = "w_coment_maj" then
+		Messagebox("ATTENTION","Cette fonctionnalité n'est disponible qu'à partir du module Imagerie.")
+	
+	else
+	
+		
+		open(w_patience)
+		
+		
+		// Vignettes pour les fichiers du patient
+		DECLARE cur cursor for SELECT nom_fichier 
+		from images_infos 
+		Where code = :gb2.var_num_dossier ;
+		
+		string tab_liste_fichier[]
+		long lig, tot	
+		
+		// On construit la liste des fichiers dans un tableau car faire_vignette met à jour la base de données => ça pine avec un curseur
+		
+		string v_nom_fichier
+		
+		open cur ;
+		
+		fetch cur into :v_nom_fichier ;
+		lig = 0
+		do while sqlca.sqlcode = 0 
+			lig = lig + 1
+			tab_liste_fichier[lig] = v_nom_fichier
+			fetch cur into :v_nom_fichier ;
+		loop
+		close cur ;
+		
+		
+		tot = lig
+		for lig = 1 to tot
+			v_nom_fichier = dir_photos + string(gb2.var_num_dossier) + win_delimiter + tab_liste_fichier[lig]
+			if FileExists(v_nom_fichier ) then 
+				faire_vignette_pour( v_nom_fichier, gb2.var_num_dossier )
+			end if
+		next
+		
+		
+		// Appel depuis l'explorateur de limagerie 2013 ?
+		
+		string v_nom_fenetre_parent
+		v_nom_fenetre_parent = gb2.GetParent().GetParent().GetParent().className()
+		
+		if left(v_nom_fenetre_parent,18) = "w_explorateur_2013" then
+			w2013 = gb2.GetParent().GetParent().GetParent()
+		
+			if isValid(w2013) then
+				w2013.tab_controles.tabpage_accueil.cb_raffraichir.triggerevent(clicked!)
+			end if
+		end if
+		
+		close(w_patience)
+	end if
+end if
+end event
+
+on m_régénérertouteslesvignettesdupatient.create
+call super::create
+this.text = "Régénérer toutes les Vignettes du patient"
+this.menuimage = "lc_stepin.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_régénérertouteslesvignettesdupatient.destroy
+call super::destroy
+end on
+
+type m_affecterlesmotsclefs from menu within m_btdroit_gearbox
+end type
+
+on m_affecterlesmotsclefs.create
+call super::create
+this.visible = false
+this.text = "Mots clefs / Désignation"
+this.menuimage = "UnionReturn_2!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_affecterlesmotsclefs.destroy
+call super::destroy
+end on
+
+event clicked;
+// on est sur une gearbox => on parle des mots clefs généraux !!
+if gearbox_cliquee then
+	// on doit passer en paramètre le N° de la photos
+	
+	long numero_cadre
+	
+	numero_cadre = long(right(gb2.nom_cadre_ole, 3))
+	
+	OpenWithParm(w_affectations_mots_clefs_gear, numero_cadre)
+	
+	// Si le nom du cadre image a été modifié la fenêtre renvoie 1
+	// => Faut raffraichir l'image 
+	
+	if Message.DoubleParm = 1 then
+		gb2.init_gearbox()
+	end if
+else
+	// On est sur une cadre image 2013 .. => 
+	OpenWithParm(w_affectations_type_temps_image, uo_image_cliquee)
+	uo_image_cliquee.maj_type_temps()
+end if
+
+
+
+
+
+end event
+
+type m_restaurerlimageoriginale from menu within m_btdroit_gearbox
+end type
+
+on m_restaurerlimageoriginale.create
+call super::create
+this.text = "Restaurer l~'image originale"
+this.menuimage = "lc_restaurer_image.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.bitmapgradient = true
+end on
+
+on m_restaurerlimageoriginale.destroy
+call super::destroy
+end on
+
+event clicked;
+gb2.restaurer_originale()
+end event
+

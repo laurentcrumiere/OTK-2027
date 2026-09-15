@@ -1,0 +1,119 @@
+﻿$PBExportHeader$verif_change_dossier_auto_rdv.srf
+$PBExportComments$aa
+global type verif_change_dossier_auto_rdv from function_object
+end type
+
+forward prototypes
+global function boolean verif_change_dossier_auto_rdv (double v_code, string v_type, string v_etat)
+end prototypes
+
+global function boolean verif_change_dossier_auto_rdv (double v_code, string v_type, string v_etat);
+
+// Fonction qui vérifie et modifie si besoin le type de dossier du patient en fonction des automatismes dans les types de rendez-vous
+
+// v_code : code du patient
+// v_type : type du rdv
+// v_etat : etat du rdv qui vient d'être saisi
+
+// depuis 2014, elle mets aussi éventuellement à jour les dates qui doivent l'être
+
+// La fonction renvoit VRAIE Si une valeur est modifiée, quelle qu'elle soit, on revoit VRAI même si pas forcément utile
+
+
+string v_modif, v_etat_modif, v_dossier_modif
+string v_type_dossier
+
+string v_modif_date_moulage, v_modif_date_premiere_demande, v_modif_date_debut_traitement, v_modif_date_interruption, v_modif_date_reprise, v_modif_date_fin_traitement
+
+boolean modif_realisee
+
+modif_realisee = false
+
+// Recheche si on a un automatisme ou pas sur la modification du type de dossier
+select modif_auto_dossier, etat_modif_dossier, type_dossier  into :v_modif, :v_etat_modif, :v_dossier_modif from type_rdv where code = :v_type ;
+
+if v_modif = 'O' then
+	// modification automatique 
+	
+	// Verif de l'état déclenchant la modif
+	if v_etat = v_etat_modif and not isnull(v_etat_modif) then
+		
+		// C'est l'état déclenchant
+		
+		
+		// vérif du type de dossier actuel du patient
+		select type_dossier into :v_type_dossier from patient where code = :v_code ;
+		
+		
+		// les types sont différents, alors seulement on met à jour 
+		
+		if v_type_dossier <> v_dossier_modif and not isnull(v_dossier_modif) then
+			
+				update patient set type_dossier = :v_dossier_modif where code = :v_code ;
+				
+				// Mise à jour de l'historique des dossiers
+				INSERT INTO histo_dossier (code, date_heure, type_dossier) 
+				VALUES (:v_code, now(*), :v_dossier_modif) ;
+				COMMIT ;
+				
+				modif_realisee = true
+
+		end if		
+	end if
+		
+end if
+
+// Recheche si on a un automatisme ou pas sur la mise à jour des dates selon le type de rdv
+select modif_auto_date , modif_date_moulage, modif_date_premiere_demande, modif_date_debut_traitement, modif_date_interruption, modif_date_reprise, modif_date_fin_traitement
+into  :v_modif, :v_modif_date_moulage, :v_modif_date_premiere_demande, :v_modif_date_debut_traitement, :v_modif_date_interruption, :v_modif_date_reprise, :v_modif_date_fin_traitement
+from type_rdv where code = :v_type and etat_modif_date = :v_etat ;
+
+if v_modif = 'O' then
+
+	if v_modif_date_moulage = 'O' then 
+		update patient set date_moulage = today(*) where code = :v_code and date_moulage is null ;
+		COMMIT ;
+		modif_realisee = true
+	end if
+	
+	if v_modif_date_premiere_demande = 'O' then 
+		update patient set date_prem_demande = today(*) where code = :v_code and date_prem_demande is null ;
+		COMMIT ;
+		modif_realisee = true
+	end if
+	
+	if v_modif_date_debut_traitement = 'O' then 
+		update patient set debut_traitement = today(*) where code = :v_code and debut_traitement is null ;
+		COMMIT ;
+		modif_realisee = true
+	end if
+	
+	if v_modif_date_interruption = 'O' then 
+		update patient set date_interruption = today(*) where code = :v_code and date_interruption is null;
+		COMMIT ;
+		modif_realisee = true
+	end if
+	
+	if v_modif_date_reprise = 'O' then 
+		update patient set date_reprise = today(*) where code = :v_code and date_reprise is null  ;
+		COMMIT ;
+		modif_realisee = true
+	end if
+	
+	if v_modif_date_fin_traitement = 'O' then 
+		update patient set fin_traitement = today(*) where code = :v_code and fin_traitement is null ;
+		COMMIT ;
+		modif_realisee = true
+	end if
+	
+
+end if
+
+
+return modif_realisee
+
+
+
+
+end function
+

@@ -1,0 +1,49 @@
+﻿$PBExportHeader$f_pbwc_get_transparency_from_rgba.srf
+global type f_pbwc_get_transparency_from_rgba from function_object
+end type
+
+forward prototypes
+global function integer f_pbwc_get_transparency_from_rgba (string as_rgba)
+end prototypes
+
+global function integer f_pbwc_get_transparency_from_rgba (string as_rgba);// -----------------------------------------------------------------------------
+// SCRIPT:     f_get_transparency_from_gba
+//
+// PURPOSE:    returns transparency value from a rgba string
+//
+// ARGUMENTS: string : "rgba(r,g,b,a)"
+//
+// RETURN:		long : transparency
+//
+// DATE        PROG/ID		DESCRIPTION OF CHANGE / REASON
+// ----------  --------		-----------------------------------------------------
+// 01/01/2018	FFasolin	Initial Coding
+// ------------------------------------------------------------------------------
+IF isnull(as_rgba) THEN return  100
+IF len(as_rgba) = 0 THEN return  100
+
+int li_start, li_pos_end, li_pos_coma
+decimal ldc_a
+string ls_value
+as_rgba = lower(as_rgba)
+
+li_start = pos(as_rgba,")")
+IF li_start = 0 THEN return rgb(255,255,255)
+li_start = pos(as_rgba,",")
+li_start = pos(as_rgba,",",li_start +1)
+li_start = pos(as_rgba,",",li_start +1)
+
+//getsa
+li_start++
+li_pos_end = pos(as_rgba,")",li_start)
+ls_value = trim(mid(as_rgba,li_start,li_pos_end - li_start ))
+//check decimal point
+IF dec("1.1") = 0 THEN 
+	li_pos_coma = pos(ls_value,".")
+	IF li_pos_coma > 0 THEN ls_value = replace(ls_value,li_pos_coma,1,",")
+END IF
+
+ldc_a = dec(ls_value)
+return integer(100 -(ldc_a * 100))
+end function
+

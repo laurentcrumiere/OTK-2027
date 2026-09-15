@@ -1,0 +1,37 @@
+﻿$PBExportHeader$fxg_envoi_email_post_rdv.srf
+global type fxg_envoi_email_post_rdv from function_object
+end type
+
+forward prototypes
+global subroutine fxg_envoi_email_post_rdv (double v_code, string v_type, string v_etat)
+end prototypes
+
+global subroutine fxg_envoi_email_post_rdv (double v_code, string v_type, string v_etat);
+// pour l'envoi d'un email
+// Recherche si on a un automatisme ou pas 
+string v_envoi_auto_email , v_etat_envoi_auto_email
+double v_email_envoi_auto_email
+datawindow dw_nulle
+
+select isnull(envoi_auto_email, 'N') , etat_envoi_auto_email , email_envoi_auto_email
+into :v_envoi_auto_email , :v_etat_envoi_auto_email, :v_email_envoi_auto_email
+from type_rdv where code = :v_type ;
+
+if v_envoi_auto_email = "O" and v_etat_envoi_auto_email = v_etat  then
+
+	// sera exploité par la fonction fxg_envoi_email_libre
+	select isnull(email_patient, ''), isnull(email,'') 
+	into :param_win[8], :param_win[9]
+	from patient 
+	where code = :v_code ;
+	
+	// On envoie le mail au patient et au parent 1 
+	param_win[10] = string(v_email_envoi_auto_email)
+	param_win[1] = ""
+
+	fxg_envoi_email_libre(v_code, dw_nulle , 6)
+
+end if
+
+end subroutine
+

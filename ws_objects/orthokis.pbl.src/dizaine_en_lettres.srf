@@ -1,0 +1,90 @@
+﻿$PBExportHeader$dizaine_en_lettres.srf
+global type dizaine_en_lettres from function_object
+end type
+
+forward prototypes
+global function string dizaine_en_lettres (integer v_dizaine)
+end prototypes
+
+global function string dizaine_en_lettres (integer v_dizaine);
+// Transforme un nombre compris entre 0 et 99 en toute lettres
+// Paramètres : 
+//   - v_dizaine : nombre à convertir
+
+
+// Définition des constantes
+
+string unite[0 to 16]
+
+unite[0] = 'zéro'
+unite[1] = 'un'
+unite[2] = 'deux'
+unite[3] = 'trois'
+unite[4] = 'quatre'
+unite[5] = 'cinq'
+unite[6] = 'six'
+unite[7] = 'sept'
+unite[8] = 'huit'
+unite[9] = 'neuf'
+unite[10] = 'dix'
+unite[11] = 'onze'
+unite[12] = 'douze'
+unite[13] = 'treize'
+unite[14] = 'quatorze'
+unite[15] = 'quinze'
+unite[16] = 'seize'
+
+string dizaine[10]
+
+dizaine[1] = 'dix'
+dizaine[2] = 'vingt'
+dizaine[3] = 'trente'
+dizaine[4] = 'quarante'
+dizaine[5] = 'cinquante'
+dizaine[6] = 'soixante'
+dizaine[7] = 'soixante dix'
+dizaine[8] = 'quatre vingt'
+dizaine[9] = 'quatre vingt dix'
+dizaine[10] = 'cent'
+
+
+string resultat = ""
+
+
+if not isnull(v_dizaine) then
+	// On traite les dizaines
+	if v_dizaine <= 16 then
+		resultat = unite[v_dizaine]
+	else
+		if (v_dizaine <= 70) or ( 77 <= v_dizaine and v_dizaine <=90) or (97 <= v_dizaine) then
+			if mod(v_dizaine,10) = 0 then
+				// Dizaine ronde
+				resultat = dizaine[int(v_dizaine / 10)]
+				if int(v_dizaine / 10) = 8 then
+					// c'est quatre vingt => faut un S
+					resultat = resultat + "s"
+				end if
+			else
+				// Dizaine pas ronde
+				
+				// On traite ici les cas de "et un"
+				if mod(v_dizaine,10) = 1 and 20 < v_dizaine and v_dizaine < 80  then
+					resultat = dizaine[int(v_dizaine / 10)]+" et "+unite[mod(v_dizaine,10)]
+				else
+					resultat = dizaine[int(v_dizaine / 10)]+" "+unite[mod(v_dizaine,10)]
+				end if
+			end if
+		else
+			// Ne reste que les 71 -> 76 et 91 -> 96
+				if v_dizaine = 71 then
+					// on ajoute le "et"
+					resultat = dizaine[int(v_dizaine / 10) - 1]+" et "+unite[mod(v_dizaine,10) +10 ]
+				else
+					resultat = dizaine[int(v_dizaine / 10) - 1]+" "+unite[mod(v_dizaine,10) +10 ]
+				end if
+		end if
+	end if	
+end if
+return resultat 
+end function
+

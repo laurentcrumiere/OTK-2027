@@ -1,0 +1,14 @@
+﻿$PBExportHeader$zerol.srf
+global type zerol from function_object
+end type
+
+forward prototypes
+global subroutine zerol (ref long para)
+end prototypes
+
+global subroutine zerol (ref long para);if isnull(para) then
+	para = 0
+end if
+
+end subroutine
+

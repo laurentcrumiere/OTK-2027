@@ -1,0 +1,18 @@
+﻿$PBExportHeader$valeur_ini_valide.srf
+global type valeur_ini_valide from function_object
+end type
+
+forward prototypes
+global function string valeur_ini_valide (string valeur)
+end prototypes
+
+global function string valeur_ini_valide (string valeur);// Depuis MAI 2009, on trouve des ? à la place de largeurs dans le .INI
+// => en cas de valeur bizarre, on met 100 !!!
+
+If valeur = '?' or long(valeur) <= 0 then 
+	valeur = "100"
+end if
+
+return valeur
+end function
+

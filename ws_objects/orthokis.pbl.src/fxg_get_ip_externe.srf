@@ -1,0 +1,32 @@
+﻿$PBExportHeader$fxg_get_ip_externe.srf
+global type fxg_get_ip_externe from function_object
+end type
+
+forward prototypes
+global function string fxg_get_ip_externe ()
+end prototypes
+
+global function string fxg_get_ip_externe ();// Fonction qui renvoie l'ip externe du site
+httpClient lo_client
+integer li_ret, li_StatusCode
+long ll_ret
+string ls_url
+string ls_data
+string ls_ret
+
+ls_url = 'http://ipinfo.io/ip'
+
+lo_client = Create httpClient
+ll_ret = lo_client.sendrequest('get',ls_url)
+li_StatusCode = lo_client.GetResponseStatusCode()
+
+ls_ret = lo_client.GetResponseStatusText( )
+li_ret = lo_client.getresponsebody(  ls_data)
+destroy lo_client
+
+//messagebox("", ls_ret)
+//messagebox("", ls_data)
+
+return ls_data
+end function
+

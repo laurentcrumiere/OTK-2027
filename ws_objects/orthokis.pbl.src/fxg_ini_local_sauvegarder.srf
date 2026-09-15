@@ -1,0 +1,24 @@
+﻿$PBExportHeader$fxg_ini_local_sauvegarder.srf
+global type fxg_ini_local_sauvegarder from function_object
+end type
+
+forward prototypes
+global function integer fxg_ini_local_sauvegarder (string section, string clef, any valeur)
+end prototypes
+
+global function integer fxg_ini_local_sauvegarder (string section, string clef, any valeur);// fx qui sauvegarde une valeur ds le ini local, càd orthokis.ini
+// return 1 si ok
+//		-1 si pb
+
+int			returnval = -1
+
+
+if SetProfileString ( DIR_INI + inifile_orthokis, section, clef, string( valeur ) ) = 1 then
+	returnval = 1
+else
+	messagebox("ERREUR ...", "Sauvegarde dans le fichier '" + inifile_orthokis + "' impossible ; ~nce dernier est inexistant ou inaccessible. ~n~nOpération annulée !", StopSign! )
+end if
+
+return returnval 
+end function
+

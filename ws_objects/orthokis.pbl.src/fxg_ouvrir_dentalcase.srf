@@ -1,0 +1,49 @@
+﻿$PBExportHeader$fxg_ouvrir_dentalcase.srf
+global type fxg_ouvrir_dentalcase from function_object
+end type
+
+forward prototypes
+global subroutine fxg_ouvrir_dentalcase ()
+end prototypes
+
+global subroutine fxg_ouvrir_dentalcase ();/*
+
+url production : https://dentalcase.dentalsoft.fr
+
+L’accès direct aux sections de l’interface d’administration Dental Case se fait via la construction de l’url.
+
+
+Exemple d’adresse complète : https://pdc.arakis.fr/#licence/xxx?cle=a0lmo59aec
+
+Cette adresse permet de se connecter à l’interface en sans passer par la saisie du numéro du cabinet et du code pin (avec le paramètre « cle »), et l’affichage est positionné dans la section « Trace » de l’activité avec le numéro de téléphone pré-rempli.
+
+
+
+*/
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+string url_dental_case 
+url_dental_case = "https://dentalcase.dentalsoft.fr"
+
+
+string v_licence_url
+
+
+v_licence_url = fxg_string_to_url(licence)
+
+
+// Url complète 
+url_dental_case = url_dental_case + "?cle=" + fxg_generer_clef_connexion() + "&nom=" + v_licence_url
+
+
+//run('cmd /C start "Dental SMS" "' + url_dental_case +'"')
+
+openurl ( url_dental_case )
+
+
+return
+end subroutine
+

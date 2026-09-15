@@ -1,0 +1,40 @@
+﻿$PBExportHeader$fxg_notifications_taches.srf
+global type fxg_notifications_taches from function_object
+end type
+
+forward prototypes
+global subroutine fxg_notifications_taches ()
+end prototypes
+
+global subroutine fxg_notifications_taches ();// Analyse des notification des taches ...
+
+// Si la fenetre n'est pas déjà visible à l'écran 
+if not isvalid(w_taches_notifications) then
+	long v_cpt
+	string sqlstatement
+		
+
+	sqlstatement = "select isnull(count(*),0) from taches where dateadd (minute, - minutes_notification, date_echeance) <= getdate() and notification = 'O' and statut <> 'O' and " + fxg_filtre_taches_utilisateur(utilisateur_code)
+
+	PREPARE SQLSA FROM :sqlstatement ;
+	
+	DECLARE my_cursor DYNAMIC CURSOR FOR SQLSA ;
+
+	OPEN DYNAMIC my_cursor ;
+	
+	FETCH my_cursor INTO :v_cpt ;
+	
+	CLOSE my_cursor 		;
+	
+		
+
+	if v_cpt > 0 then
+		// Faut afficher !
+		open(w_taches_notifications)
+	end if
+
+end if
+
+
+end subroutine
+

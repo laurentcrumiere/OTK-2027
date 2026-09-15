@@ -1,0 +1,250 @@
+﻿$PBExportHeader$fxg_envoi_questionnaire_medical.srf
+global type fxg_envoi_questionnaire_medical from function_object
+end type
+
+forward prototypes
+global function boolean fxg_envoi_questionnaire_medical (double var_code_local)
+end prototypes
+
+global function boolean fxg_envoi_questionnaire_medical (double var_code_local);// Envoi d'un email spécifique de questionnaire médical
+// renvoie true si l'envoi a été fait
+
+boolean v_retour
+
+open(w_patience)
+
+uo_email_compte		cpt_email
+uo_email_email 		email
+str_email_frm_output		frm_output
+boolean avec_pj
+
+integer id_cpt, v_cpt, cpt_pj
+string v_code_praticien, v_adulte, v_code_interne_historique_editions
+
+// recherche  du prati du patient et de adulte
+SELECT prati.code, patient.adulte INTO :v_code_praticien, :v_adulte FROM prati, patient
+WHERE patient.code_praticien = prati.code AND patient.code = :var_code_local ;
+
+if QUESTIONNAIRE_MEDICAL or MON_ORTHODONTISTE then
+	id_cpt = compte_email_a_utiliser(utilisateur_code, var_code_local)
+	
+	if id_cpt = -1 then
+		
+		MessageBox("ATTENTION","Vous devez définir des Comptes Emails pour chaque praticien avant d'envoyer des emails (menu 'Tables', 'Administratif').~n~nCeci ne semble pas être le cas.~n~nL'envoi de l'email ne peut avoir lieu.")
+		v_retour = false
+		
+	else
+		// init cpt mail et affection au mail manager
+		cpt_email = create uo_email_compte
+		cpt_email.charger(id_cpt)
+		email_manager.set_compte(cpt_email)
+		
+		// Envoi unitaire
+		email_manager.propos_objet = cpt_email.email_objet_defaut
+		email_manager.mode_choix_adr_courant = email_manager.mode_choix_adr_unitaire
+		
+		
+		// Texte spécial QM
+		string v_texte_QM, v_objet_qm
+		integer id_QM
+		
+		if v_adulte = "O" then
+			select isnull(texte2_email_questionnaire_medical, ''),  id2_questionnaire_medical, isnull(objet_email_qm_adulte, '') into :v_texte_QM, :id_QM, :v_objet_qm from prati where prati.code = :v_code_praticien ;
+		else
+			select isnull(texte1_email_questionnaire_medical, ''), id1_questionnaire_medical, isnull(objet_email_qm, '') into :v_texte_QM, :id_QM, :v_objet_qm from prati where prati.code = :v_code_praticien ;
+		end if
+		zeroi(id_QM)
+		
+		if id_QM = 0 and QUESTIONNAIRE_MEDICAL then 
+			Messagebox("ATTENTION", "Vous devez définir un questionnaire enfant et un questionnaire adulte pour ce praticien !~n~nPour cela, vous devez aller dans le menu 'Tables', 'Administratif', 'Praticiens', puis dans la fiche du praticien !")
+		else
+			
+			// On remplace l'ojet par défaut SI NON VIDE
+			if  v_objet_qm <> "" then
+				email_manager.propos_objet = v_objet_qm
+			end if
+			
+			// Fenetre de choix du destinataire
+			
+			// Génératon du fichier rtf pour passage en paramètre
+			string is_FileName, fichier_pdf
+			integer num_fichier_texte
+			
+			is_FileName = dir_ini + "texte_email_tmp.rtf"
+			num_fichier_texte = FileOpen( is_FileName, StreamMode! , Write! , LockWrite! , replace!)
+			FileWrite(num_fichier_texte, v_texte_QM)
+			FileClose(num_fichier_texte)
+			
+			str_patient v_patient
+			v_patient.code = var_code_local
+			v_patient.appelant = 'Q'	// Questionnaire Médical
+			
+			
+			openwithparm(w_email_choix_adr_pat, v_patient)
+			
+			
+			//cpt_email.texte_brut_defaut = param_win[1]
+			
+			// réception des éléments de la fenêtre précédente
+			frm_output = message.PowerObjectParm
+									
+			if frm_output.a_adrs[1] <> '' then			// correspond au bouton annuler de la fenêtre de choix d'adresse
+				string fichier_texte, fichier_texte_patient
+				integer num_fichier_texte_avec_adresses
+				string fichier_texte_avec_adresses
+				
+				fichier_texte = dir_ini + "texte_email_tmp.html"
+				fichier_texte_avec_adresses = dir_ini + "texte_email_adresses_tmp.text"
+				fichier_texte_patient = dir_photos + string(var_code_local) + win_delimiter + string(today(), "yyyy-mm-dd")+" "+string(now(),"hh-mm-ss") + " - Texte email.html"
+				
+				//creation et envoie email
+				email = create uo_email_email
+				email.set_patient(var_code_local)
+				email.add_destinataire_a(frm_output.a_adrs[1], false)
+				email.set_from(cpt_email.my_alias,cpt_email.my_adr)
+				email_manager.propos_objet = frm_output.objet 
+				email.set_sujet(email_manager.propos_objet)
+				if frm_output.cc then 
+					email.set_cc(cpt_email.my_alias, cpt_email.my_adr)
+				end if
+				if frm_output.cci then 
+					email.set_cci(cpt_email.my_alias, cpt_email.my_adr)
+				end if
+				
+				
+				// Y a t il un fichier en PJ
+				if upperbound(frm_output.pj[]) = 1 then
+					if FileExists(frm_output.pj[1]) then
+						avec_pj = true
+						email.add_fichier_joint(frm_output.pj[1])
+					end if
+				end if
+				
+				// On ajoute les éventuelles PJ supplémentares ... 
+				for cpt_pj = 1 to upperbound(frm_output.pj_supplementaires[])
+					avec_pj = true
+					email.add_fichier_joint(frm_output.pj_supplementaires[cpt_pj])
+				next
+
+				
+				
+				boolean v_suite 
+				// On teste les erreurs .. surtout pour criptage et dispo du site www.arakis.fr
+				v_suite = email.set_body_html(fichier_texte)
+				if v_suite then
+					// Envoi de l'email
+					v_suite =	 email_manager.envoyer_email(email.get_email())	
+				end if
+											
+				if  v_suite then
+					
+					
+					// On génère un fichier texte contenant la liste des destinataires ... meme nom que le fichier en PJ avec .dest comme extension
+					email.generer_fichier_adresses(fichier_texte_avec_adresses, fichier_texte_patient, frm_output)
+						
+					// Copy du fichier pour mémo
+					FileCopy(fichier_texte, fichier_texte_patient)
+			
+			
+					// Historique des courriers
+//					integer categorie_nulle
+//					setnull(categorie_nulle)
+			
+
+					if avec_pj then 
+						v_code_interne_historique_editions = fxg_enregcourrierhisto ( var_code_local , "QM" , today() , "Envoi Questionnaire Médical" , fichier_texte_patient , 'E', 'N' , 'N', '', frm_output.categorie)
+						fxg_memorisation_pieces_jointes(var_code_local, v_code_interne_historique_editions,  email.fichiers_joints , false)
+					else
+						fxg_enregcourrierhisto ( var_code_local , "QM" , today() , "Envoi Questionnaire Médical" , fichier_texte_patient , 'E', 'N' , 'N', '', frm_output.categorie)
+					end if
+
+					
+					
+					// Historique des questionnaires médicaux
+					
+					// Si Mon Orthodontiste, l'id du questionnaire est mis à jour dans le texte de l'email
+					if email.questionnaire_monorthodontiste then
+						id_QM = integer ( email.id_questionnaire_monorthodontiste) 
+						double id_cloud
+						string s_nom_questionnaire
+						id_cloud = double ( email.id_cloud_questionnaire_monorthodontiste) 
+						s_nom_questionnaire = email.nom_questionnaire_monorthodontiste
+						
+						// Est que le modèle de quesionnaire existe ?
+						select count(*) into :v_cpt from questonnaires_medicaux where id = :id_QM ;
+						if v_cpt = 0  then
+							// On l'ajoute
+							insert into questonnaires_medicaux (id, nom) values (:id_qm, :s_nom_questionnaire) ; 
+							if sqlca.sqlcode <> 0 then 
+								MessageBox("ATTENTION","Erreur dans la consignation du modèle de questionnaire.~n~n" + sqlca.sqlerrtext)
+								rollback ; 
+							else
+								commit ;
+							end if
+						end if
+						
+						
+						// On fait l'ajout effectif
+						insert into patient_questionnaires_medicaux  ("code", "id_questionnaire", "envoi", "email", "id_questionnaire_cloud") 
+						values (:var_code_local, :id_QM, getdate(), :frm_output.a_adrs[1], :id_cloud ) ;
+						
+					else
+						// Insert plus simple
+						insert into patient_questionnaires_medicaux  ("code", "id_questionnaire", "envoi", "email") 
+						values (:var_code_local, :id_QM, getdate(), :frm_output.a_adrs[1]) ;
+						
+					end if
+					
+					
+					if sqlca.sqlcode <> 0 then 
+						MessageBox("ATTENTION","Erreur dans la consignation du questionnaire dans l'historique.~n~n" + sqlca.sqlerrtext)
+						rollback ; 
+					else
+						commit ;
+					end if
+		
+					
+					// envoi de l'info à mon orthodontiste si besoin
+					if email.questionnaire_monorthodontiste then 
+						// Pas de gestion d'erreur
+						fxg_lancer_commande_myorthokis_simple("action?type=setQuestionnaireEnvoye&id=" + email.id_cloud_questionnaire_monorthodontiste , true , "A" )
+					end if
+				
+					// Le fichier est parti
+					MessageBox("INFORMATION","L'email a été correctement envoyé.")
+					v_retour = true
+					
+					
+				else
+					MessageBox("ATTENTION","Une erreur s'est produite dans l'envoi de l'email !")
+					v_retour = false
+				end if
+				
+				if frm_output.pdf then
+					// on efface de suite le temporaire !
+					FileDelete(fichier_pdf)
+				end if
+			end if
+		end if
+	end if
+	
+else
+	// TEA
+	
+	param_win[1] = 'Q'
+	param_win[2] = ''
+	param_win[3] = ''
+	Param_win[4]  = ""
+	
+	openWithParm(w_signature_en_ligne, var_code_local)
+	
+	v_retour = true
+	
+end if
+
+close(w_patience)
+
+
+return v_retour
+end function
+

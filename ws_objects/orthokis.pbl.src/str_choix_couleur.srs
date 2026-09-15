@@ -1,0 +1,13 @@
+﻿$PBExportHeader$str_choix_couleur.srs
+global type str_choix_couleur from structure
+	long		taille_structure
+	unsignedlong		proprietaire
+	unsignedlong		instance
+	long		resultat_rgb
+	unsignedlong		couleur_personnalise
+	long		flag
+	long		donnee_personnalise
+	long		hook
+	long		nom_modele
+end type
+

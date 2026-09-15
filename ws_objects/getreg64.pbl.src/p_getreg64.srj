@@ -1,0 +1,14 @@
+﻿$PBExportHeader$p_getreg64.srj
+EXE:getreg64.exe,,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 21.0.0.1506
+CMP:0,0,0,3,0,0,1
+COM:Appeon
+DES:Appeon Product File
+CPY:
+PRD:PowerBuilder Enterprise Series
+PVS:1.0.0.1
+PVN:1,0,0,1
+FVS:1.0.0.1
+FVN:1,0,0,1
+MAN:0,asInvoker,0
+PBD:getreg64.pbl,,0
+OBJ:c:\power\V2022 - Sources\getreg64.pbl,getreg64,a

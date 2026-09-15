@@ -1,0 +1,26 @@
+﻿$PBExportHeader$of_keystroke.srf
+global type of_keystroke from function_object
+end type
+
+forward prototypes
+global function integer of_keystroke (integer key1, integer key2, integer key3)
+end prototypes
+
+global function integer of_keystroke (integer key1, integer key2, integer key3);// Simuler l'appui de 1 ou plusieurs touches simultanément
+if key1 > 0 then 
+	of_presskey(key1)
+	if key2 > 0 then 
+		of_presskey(key2)
+		if key3 > 0 then 
+			of_presskey(key3)
+			of_releasekey(key3)
+		end if
+		of_releasekey(key2)
+	end if
+	of_releasekey(key1)
+	yield()
+end if
+
+return 1
+end function
+

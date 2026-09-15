@@ -1,0 +1,26 @@
+﻿$PBExportHeader$fxg_set_position_palette_windows.srf
+global type fxg_set_position_palette_windows from function_object
+end type
+
+forward prototypes
+global subroutine fxg_set_position_palette_windows (window a_window, integer a_new_x, integer a_new_y)
+end prototypes
+
+global subroutine fxg_set_position_palette_windows (window a_window, integer a_new_x, integer a_new_y);// repositionne la fenetre de choix que couleurs
+
+long ll_hwnd
+
+
+// La classe système de la boîte de dialogue de couleur Windows est "#32770"
+string s1, s2 
+s1 = "#32770"
+s2 = "Couleurs"
+ll_hwnd = FindWindowA(s1, s2) // "Color" si Windows est en anglais
+
+If ll_hwnd > 0 Then
+
+	 // a_new_x et a_new_y doivent être en pixel
+	 SetWindowPos(ll_hwnd, 0, a_new_x , a_new_y , 0, 0, 5)
+End If
+end subroutine
+

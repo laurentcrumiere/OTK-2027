@@ -1,0 +1,29 @@
+﻿$PBExportHeader$get_max_code_integer_datawindow.srf
+global type get_max_code_integer_datawindow from function_object
+end type
+
+forward prototypes
+global function integer get_max_code_integer_datawindow (datawindow dw, string colonne)
+end prototypes
+
+global function integer get_max_code_integer_datawindow (datawindow dw, string colonne);
+
+// Renvoie, en numérique, la valeur maximale trouver dans la colonne qui est en string
+
+long nb_lig, cpt_lig
+integer valeur_max = 0
+
+nb_lig = dw.rowcount()
+
+for cpt_lig= 1 to nb_lig
+	
+	if not isnull (dw.getitemNumber(cpt_lig,colonne)) then
+		valeur_max = max ( valeur_max, dw.getitemNumber(cpt_lig,colonne)) 
+	end if
+	
+next
+
+return valeur_max
+
+end function
+

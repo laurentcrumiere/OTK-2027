@@ -1,0 +1,73 @@
+﻿$PBExportHeader$fxg_memorisation_pieces_jointes.srf
+global type fxg_memorisation_pieces_jointes from function_object
+end type
+
+forward prototypes
+global subroutine fxg_memorisation_pieces_jointes (double v_code_patient, string v_code_interne_historique_editions, string v_tab_nom_document[], boolean v_historiser_pj)
+end prototypes
+
+global subroutine fxg_memorisation_pieces_jointes (double v_code_patient, string v_code_interne_historique_editions, string v_tab_nom_document[], boolean v_historiser_pj);// Mémorisation des Pièces jointes d'un email
+
+integer nb_pj, cpt_pj
+string v_nom_document
+string v_commentaire = ""
+string v_type_image, v_temps_traitement
+date v_date_acquis
+
+
+nb_pj = upperbound(v_tab_nom_document)
+
+for cpt_pj = 1 to nb_pj
+	
+	v_nom_document = gfx_extraire_nom_fichier(v_tab_nom_document[cpt_pj])
+	
+	if cpt_pj = 1 and v_historiser_pj	then 
+		// C'est un fichier externe qu'il faut historiser => recopier dans le dossier du patient
+		string v_nom_document_destination, v_nom_document_depart
+		
+		v_nom_document_depart = v_tab_nom_document[cpt_pj]
+		
+		v_nom_document = string(today(), "yyyy-mm-dd")+" "+string(now(),"hh-mm-ss") + " - " + v_nom_document
+		
+		v_nom_document_destination = dir_photos + string(v_code_patient ) + win_delimiter + v_nom_document
+		
+		if Filecopy(v_nom_document_depart, v_nom_document_destination , true ) <> 1 then 
+			Messagebox("ATTENTION", "Erreur dans l'historisation de la Pièce Jointe !~n~nFichier : " + v_nom_document_depart)
+		end if
+	else
+		
+		v_commentaire = ""
+		
+		// si image, on regarde si on a infos en BD
+		if right(v_nom_document, 3) = "jpg" or  right(v_nom_document, 4) = "jpeg" or  right(v_nom_document, 3) = "png" then
+		
+		
+		  SELECT isnull("temps_traitement"."libelle", '??'),   
+	        			isnull( "type_image"."libelle", '??') , isnull(date_acquis, cast('1900-01-01' as date))
+			 INTO :v_temps_traitement,   
+					:v_type_image  ,
+					:v_date_acquis
+			 FROM {oj "temps_traitement" RIGHT OUTER JOIN "images_infos" ON "temps_traitement"."id" = "images_infos"."temps_traitement"}, {oj "type_image" RIGHT OUTER JOIN "images_infos" ON "type_image"."id" = "images_infos"."type_image"}  
+			WHERE ( "images_infos"."code" = :v_code_patient ) AND  
+					( "images_infos"."nom_fichier" = :v_nom_document )   ;
+			 
+			v_commentaire = v_type_image + " - " + v_temps_traitement+" ("+ string(v_date_acquis) +")"
+		end if
+
+
+	end if
+	
+	
+	insert into "historique_editions_pieces_jointes" ("code_patient", "code_interne_historique_editions", "nom_document", "commentaires")
+	values ( :v_code_patient, :v_code_interne_historique_editions, :v_nom_document , :v_commentaire  ) ;
+	
+	if sqlca.sqlcode <> 0 then 
+		messagebox("ATTENTION", "Erreur dans la mémorition de la pièce jointe : " + v_nom_document + "~n~n"+sqlca.sqlerrtext)
+		rollback ;
+	else
+		commit ;
+	end if
+next								
+
+end subroutine
+

@@ -1,0 +1,23 @@
+﻿$PBExportHeader$fxg_kill_process.srf
+global type fxg_kill_process from function_object
+end type
+
+forward prototypes
+global subroutine fxg_kill_process (string s_nom_fenetre)
+end prototypes
+
+global subroutine fxg_kill_process (string s_nom_fenetre);// Fille le process d'un prog ayant un nol de fenetre donné
+
+Ulong lul_handle
+string lul_class
+UInt lui_quit = 18
+
+setnull(lul_class)
+lul_handle = FindWindowA(lul_class, s_nom_fenetre)
+
+//to kill
+if lul_handle > 0 then 
+	PostMessageA(lul_handle, lui_quit, 0, 0);
+end if
+end subroutine
+

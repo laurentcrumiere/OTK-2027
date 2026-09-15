@@ -1,0 +1,47 @@
+﻿$PBExportHeader$fxg_get_rep_courriers.srf
+global type fxg_get_rep_courriers from function_object
+end type
+
+forward prototypes
+global function any fxg_get_rep_courriers ()
+end prototypes
+
+global function any fxg_get_rep_courriers ();// fx qui return le répertoire courrier si tout va bien
+// (càd : on a réussi à le récup et il existe)
+// renvoie une chaine vide si pb
+
+string	l_repcourriers = ""
+//string	en_local
+//
+//
+//if FileExists(dir_ini + inifile_orthokis) then
+//// si le fichier inifile_orthokis existe
+//	// on regarde si indiqué en local ou ds la base
+//	en_local = ProfileString(dir_ini + inifile_orthokis, "courriers", "local", "")
+//	
+//	if en_local = oui then
+//	// si en local
+//		// -> on continu de lire inifile_orthokis pour récup le rep des courriers
+//		l_repcourriers = profilestring(dir_ini + inifile_orthokis, "courriers", "dir", "")
+//		
+//	else
+//	// pas en local
+//		// -> on regarde dans la base pour récup le rep des courriers
+//		select rep_courriers into :l_repcourriers from param ;
+//		
+//		// si le champ récup est nul -> transfo en string vide
+//		if isnull(l_repcourriers) then l_repcourriers = ""
+//		
+//	end if
+//end if
+//
+
+l_repcourriers = dir_courriers
+
+// si ce rep est invalide -> on le remet à string vierge
+if not fxg_FileExists(l_repcourriers) then l_repcourriers = ""
+
+return l_repcourriers
+
+end function
+

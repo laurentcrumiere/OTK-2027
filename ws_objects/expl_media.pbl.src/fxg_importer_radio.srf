@@ -1,0 +1,110 @@
+﻿$PBExportHeader$fxg_importer_radio.srf
+global type fxg_importer_radio from function_object
+end type
+
+forward prototypes
+global function boolean fxg_importer_radio (double var_code_local, boolean vdds, string nom_vdds)
+end prototypes
+
+global function boolean fxg_importer_radio (double var_code_local, boolean vdds, string nom_vdds);
+boolean v_suite = true
+
+
+if VATECH or OWANDY or (TROPHY and ( serial = "87001" or serial = "87475" or serial = "87620"  or serial = "87595"  or serial = "87612" or serial = "87004" or serial = "87701" or serial = "87346" or &
+serial = "87674" or serial = "87330" or serial = "87531" or serial = "87105" or serial = "87265" or serial = "87256" or serial = "87259" or serial = "87591" or serial = "87405" or serial = "87701" or &
+serial = "87682" or serial = "87266" or serial = "87585"  or serial = "87165" or serial = "87132" or serial = "87319" or serial = "87621" or serial = "87215" or serial = "87292" or serial = "87476" or serial = "87619" or   &
+serial = "87239" or serial = "87655" or serial = "87641"  or serial = "87166"  or serial = "87643" or serial = "87548" or serial = "87687" or serial = "87140"  or serial = "87058"  or serial = "87639" or &
+serial = "87401" or serial = "87328" or serial = "87467" or serial = "87374" or serial = "87227" or serial = "87273"  or serial = "87407" or serial = "87647" or serial = "87736" or &
+serial = "87146" or serial = "87159" or serial = "87518" or serial = "87226" or serial = "87342" or serial = "87310" or serial = "87479" or serial = "87228" or serial = "87090" or serial = "87313" or serial = "87142" or &
+serial = "87254" or serial = "87606" or serial = "87354" or serial = "87096" or serial = "87403" or serial = "87115" or serial = "87543" or  serial >= "87715" )) or &
+(INSTRUMENTARIUM and VDDS) or (MYRAY and VDDS) or DTX or (MEDIADENT and VDDS) or (DURRDENTAL  and VDDS) then
+ 
+	
+	// nouveau lien radio 2015
+	uo_lien_radios lien_radios
+	lien_radios = create uo_lien_radios
+
+	
+	if trophy then
+		// lien CareStream
+		if lien_radios.init(1) = 1 then
+			lien_radios.prepa_fichier_ini_carestream("Importer")
+			lien_radios.lancer_lien( var_code_local )
+		end if
+	elseif Owandy then
+		// lien Owandy
+		if lien_radios.init(2) = 1 then
+			lien_radios.prepa_fichier_ini_owandy("Importer")
+			lien_radios.lancer_lien( var_code_local )
+		end if
+	elseif Vatech then
+		// lien Vatech
+		if lien_radios.init(3) = 1 then
+			lien_radios.prepa_fichier_ini_vatech("Importer")
+			lien_radios.lancer_lien( var_code_local )
+		end if
+	elseif Instrumentarium or Myray or DTX or MEDIADENT or DURRDENTAL then
+		// lien Cliniview ou Myray en mode vdds ou DTX ou I-Dixel (mediadent) ou VistaSoft (DurrDental en VDDS)
+		if lien_radios.init(5) = 1 then
+			lien_radios.prepa_fichier_ini_vdds("Importer" , nom_vdds)
+			lien_radios.lancer_lien( var_code_local )
+		end if
+	end if
+	
+else
+
+	if PLANMECA or DIGORA or TROPHY or VIXWIN or MEDIADENT or SIDEXIS or DURRDENTAL or INSTRUMENTARIUM or MYRAY then
+		
+		// Acquisition ensuite
+	
+				
+		// Cas particulier du lien MyRay
+		if Myray then
+			
+			lien_myray v_lien_myray
+			string v_exe
+			v_lien_myray = create lien_myray
+			
+			v_lien_myray.init(var_code_local)
+			v_exe = upper(v_lien_myray.get_programme_exe_path())
+			
+			if gfx_extraire_nom_fichier(v_exe) = "NNTBRIDGE.EXE" then
+				// Si NNT ... c'est pas pareil
+				v_lien_myray.cb_utiliser.triggerevent(clicked!)
+				v_suite = false
+			end if
+	
+		end if
+		
+			
+		if v_suite then 
+			
+			param_win[1]	= "" // utilisé pour dire si acquisition radio (vide) ou si acquisition d'une image venant d'un email 
+			
+			openWithParm(w_acquisition_radios_2013, var_code_local)
+		
+		end if
+	else
+		
+		if Rayscan then
+			// Juste lancement d'un viewer
+			
+			lien_rayscan v_lien_rayscan
+			v_lien_rayscan = create lien_rayscan
+			v_lien_rayscan.var_code_local = var_code_local
+			
+			v_lien_rayscan.cb_smart.triggerEvent(clicked!)
+
+		
+		else
+			
+			Messagebox("ATTENTION","Ce bouton permet l'acquisition d'une radio numérique, en lien direct avec votre équipement radio. Vous devez pour cela acquérir un module spécifique (selon la marque de votre équipement).~n~nPour tout rensignement, vous pouvez contacter notre service commercial au 04 75 78 50 70.") 
+			v_suite = false
+		end if
+	end if
+end if
+	
+return v_suite
+	
+end function
+

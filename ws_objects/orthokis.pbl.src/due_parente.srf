@@ -1,0 +1,55 @@
+﻿$PBExportHeader$due_parente.srf
+global type due_parente from function_object
+end type
+
+forward prototypes
+global function decimal due_parente (double v_code, date date_ref)
+end prototypes
+
+global function decimal due_parente (double v_code, date date_ref);
+// verifie la somme due de tous les membres de la famille d'un patient mais ... pas celle du patient
+
+
+decimal {2} somme_due_famille, v_due
+
+declare cur cursor for 
+SELECT isnull(sum(dba.somme_due_patient ("patient"."code", :date_ref, 'N')),0) as due
+    FROM "lien_parente",   
+         "patient",   
+         "patient_lien_parente"  
+   WHERE ( "patient_lien_parente"."code_patient2" = "patient"."code" ) and  
+         ( "patient_lien_parente"."code_lien_parente" = "lien_parente"."code" ) and     ( "patient_lien_parente"."liaison_financiere" in ('O', 'D') ) and
+         ( ( "patient_lien_parente"."code_patient1" = :v_code ) )    
+
+UNION
+
+  SELECT isnull(sum( dba.somme_due_patient ("patient"."code", :date_ref, 'N')),0) as due
+        FROM "lien_parente",   
+         "patient",   
+         "patient_lien_parente"  
+   WHERE ( "patient_lien_parente"."code_patient1" = "patient"."code" ) and  
+         ( "patient_lien_parente"."code_lien_parente" = "lien_parente"."code" ) and   ( "patient_lien_parente"."liaison_financiere" in ('O', 'D') ) and
+         ( ( "patient_lien_parente"."code_patient2" = :v_code ) )    ;
+
+
+
+open cur ;
+somme_due_famille = 0
+fetch cur into :v_due ;
+
+do while sqlca.sqlcode = 0
+	if not isnull(v_due) then
+		somme_due_famille = somme_due_famille + v_due
+	end if
+	fetch cur into :v_due ;
+loop
+
+close cur ;
+
+
+// faudra ajouter la somme due par le patient si besoin mais en dehors ... car là on n'en tient pas compte !!
+//somme_due_famille = somme_due_famille + due(v_code, today())
+
+return (somme_due_famille )
+end function
+

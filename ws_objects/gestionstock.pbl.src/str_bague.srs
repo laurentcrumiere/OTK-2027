@@ -1,0 +1,7 @@
+﻿$PBExportHeader$str_bague.srs
+global type str_bague from structure
+	string		code_produit
+	string		code_praticien
+	string		code_fournisseur
+end type
+

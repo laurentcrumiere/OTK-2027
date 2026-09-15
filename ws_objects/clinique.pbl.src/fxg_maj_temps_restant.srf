@@ -1,0 +1,30 @@
+﻿$PBExportHeader$fxg_maj_temps_restant.srf
+global type fxg_maj_temps_restant from function_object
+end type
+
+forward prototypes
+global subroutine fxg_maj_temps_restant (datawindow dw_suivi)
+end prototypes
+
+global subroutine fxg_maj_temps_restant (datawindow dw_suivi);	if dw_suivi.rowcount() > 0 then
+		
+		// mise à jour des information de retard ??
+		time heure_courante, heure_fin_prevue
+		long minutes_restantes
+	
+		heure_fin_prevue = relativeTime (time(dw_suivi.GetItemDateTime(1, "rdv")) , dw_suivi.GetItemNumber(1, "duree") * 60)
+		heure_courante = now()
+		
+		minutes_restantes = round( secondsAfter(heure_fin_prevue, heure_courante ) / 60,  0)
+		
+		dw_suivi.object.t_retard.text = string(minutes_restantes)+"'"
+		if minutes_restantes < 0 then 
+			dw_suivi.object.t_retard.background.color = couleur_verte
+		else
+			dw_suivi.object.t_retard.background.color = couleur_rouge
+		end if
+		
+	end if
+
+end subroutine
+

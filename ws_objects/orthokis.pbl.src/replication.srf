@@ -1,0 +1,154 @@
+﻿$PBExportHeader$replication.srf
+global type replication from function_object
+end type
+
+forward prototypes
+global subroutine replication ()
+end prototypes
+
+global subroutine replication ();//Test si l'utilisateur est en mode itinerant
+// (logiquement superflu mais ....)
+//-----------------------------------------------
+
+string v_fichier_temporaire, date_derniere
+boolean ok_suite = true
+
+if Utilisation_distante then
+
+	// On teste le bon accès au lecteur Y: 
+	// Si besoin, le lecteur peut être modifier dans le .INI 
+	
+	string lrep_replic
+	lrep_replic = ProfileString(dir_ini+inifile_orthokis, "replication", "lecteur", "Y:") + win_delimiter
+	
+	v_fichier_temporaire = fxg_generer_fichier_temporaire()
+	
+	FileCopy (dir_ini+v_fichier_temporaire , lrep_replic + v_fichier_temporaire, true ) 
+	if FileExists(lrep_replic+v_fichier_temporaire) then						
+		// ça a marché => on l'efface et on ne dit rien 
+		FileDelete (lrep_replic+v_fichier_temporaire)	
+
+		//Recherche de la ligne de commande 
+		//--------------------------------------------
+		string Commande_replication
+		integer resultat
+		
+		Commande_replication = profilestring(dir_ini+inifile_orthokis,"replication","Commande","")
+	
+		//Execution de la commande
+		//-------------------------------
+		if Commande_replication <> '' then 
+			
+			date_derniere = profilestring(dir_ini+inifile_orthokis,"replication","derniere","")
+			
+			if len(trim(date_derniere)) > 0 then
+				if messagebox("ATTENTION","La dernière réplication a été effectuée le "+date_derniere + ".~n~nConfirmez-vous ?", Question!, YesNo!, 1) = 2 then
+					ok_suite = false
+				end if
+			end if
+
+			
+			if ok_suite then
+			
+			
+				//resultat = run(Commande_replication)
+				resultat = RunWait(Commande_replication,1)
+				if resultat = -1 then 
+					messagebox ("Attention", "Une erreur s'est produite durant la réplication")
+				else
+					
+					
+					// Mémorisation de la date de dernière réplication
+					Setprofilestring(dir_ini+inifile_orthokis,"replication","derniere",string(today(), "dd/mm/yyyy") +" à "+string(now(), "hh:mm"))
+					
+					var_suite = false 
+					
+					// On teste le bon accès au répertoire des photos sur le réseau
+					string v_rep_photo_reseau
+					v_fichier_temporaire = fxg_generer_fichier_temporaire()
+					
+					v_rep_photo_reseau = trim(profilestring(dir_ini+inifile_orthokis,"photos","dir",""))
+					if len(v_rep_photo_reseau) > 0 and DirectoryExists(v_rep_photo_reseau) then
+						FileCopy (dir_ini+v_fichier_temporaire, v_rep_photo_reseau+v_fichier_temporaire, true ) 
+						if FileExists(v_rep_photo_reseau+v_fichier_temporaire) then						
+							// ça a marché => on l'efface et on ne dit rien 
+							FileDelete (v_rep_photo_reseau+v_fichier_temporaire)	
+							var_suite = true
+						end if
+					end if
+	
+					if not var_suite then
+						
+						MessageBox("ATTENTION","Impossible d'accéder au répertoire des photos du cabinet.~n~nLa recopie des documents en réplication ne peut avoir lieu.")
+						
+					else
+						
+						open(w_patience)
+						
+						// recopie des documents faits en distant ....
+						
+						// on ne prend que celle de notre engine_name .. au cas ou plusieurs postes en replic
+						string v_engine_name
+						
+						v_engine_name = fxg_get_infos_sybase('name')
+						
+						declare cur_distant CURSOR FOR select code_patient, nom_fichier FROM acquis_distant WHERE engine_name = :v_engine_name ORDER BY code_patient ;
+						
+						string v_nom_fichier
+						double v_code, v_code_prec
+						string v_dossier_destination, v_fichier_destination, v_nom_fichier_seul
+						boolean rep_exists
+						open cur_distant ;
+						
+						
+						fetch cur_distant into :v_code, :v_nom_fichier ;
+						
+						do while sqlca.sqlcode = 0 
+						
+							v_code_prec = v_code 
+							
+							// Travail sur le même patient
+							
+							// est-ce que le dossier de destination existe ???
+							
+							v_dossier_destination = v_rep_photo_reseau  + string(v_code) + win_Delimiter
+							
+							rep_exists = true
+							
+							if not DirectoryExists(v_dossier_destination) then
+								if gfx_creer_rep( v_dossier_destination ) <> 1 then rep_exists = false
+							end if
+							
+							do while sqlca.sqlcode = 0 and v_code_prec = v_code 
+								if rep_exists then
+									// Recopie effective du fichier ....
+									v_nom_fichier_seul = gfx_extraire_nom_fichier( v_nom_fichier )
+									v_fichier_destination = v_dossier_destination + v_nom_fichier_seul
+									FileCopy ( v_nom_fichier, v_fichier_destination, true)
+								end if
+								fetch cur_distant into :v_code, :v_nom_fichier ;
+							loop
+					
+						loop
+							
+						close cur_distant ;
+						
+						// Effacement de la liste des fichiers à transferer ...
+						delete from acquis_distant ;
+						commit ;
+						
+						close (w_patience)
+					end if
+				end if
+			end if
+		end if
+	else
+		messagebox("ATTENTION !", "Orthokis n'arrive pas à accéder au lecteur Y: nécessaire à la réplication.,~n~nLa réplication ne peut se poursuivre." )
+	end if
+
+else
+	Messagebox("Attention","Vous n'êtes pas connecté en mode itinérant, vous ne pouvez pas repliquer")
+end if
+
+end subroutine
+

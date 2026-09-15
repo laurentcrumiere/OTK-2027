@@ -1,0 +1,28 @@
+﻿$PBExportHeader$get_date_exif.srf
+global type get_date_exif from function_object
+end type
+
+forward prototypes
+global function date get_date_exif (string chemin_img)
+end prototypes
+
+global function date get_date_exif (string chemin_img);// tente de recup l'info EXIF de l'image si existante,
+// ou la date de dernière modification du fichier sinon
+// param chemin_img : le chemin complet de l'image
+// renvoie la date EXIF du cliché ou la date de dernière modification du fichier si ok
+// renvoie 1900-01-01 si pb
+
+date val_retour = 1900-01-01
+
+if not fileexists(chemin_img) then return val_retour
+
+uo_exif_jhead exif
+exif = create uo_exif_jhead
+date recup_exif
+recup_exif = exif.get_champ_date(chemin_img, exif.exif_date)
+if not recup_exif > 1900-01-01 then recup_exif = exif.get_champ_date(chemin_img, exif.exif_date_fichier)
+destroy exif
+val_retour = recup_exif
+return val_retour
+end function
+

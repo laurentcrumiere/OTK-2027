@@ -1,0 +1,249 @@
+﻿$PBExportHeader$ajout_histo_connexion.srf
+global type ajout_histo_connexion from function_object
+end type
+
+forward prototypes
+global subroutine ajout_histo_connexion (string type_action)
+end prototypes
+
+global subroutine ajout_histo_connexion (string type_action);
+
+// Ajoute ou met à jour une info dans l'historique des connexions
+
+// Paramètre : type_action .. 
+//		- "E" pour une entrée dans le soft
+//		- "S" pour une Sortie
+//		- "SAVE" pour une Sauvegarde de la base
+
+uo_infos_systeme  uo_infos
+uo_infos = create uo_infos_systeme
+
+
+// Récup des infos systemes utiles
+
+string v_adresse_ip, v_user_name, v_adresse_mac, v_computer_name
+integer v_cpt
+string v_numero_clef_hasp
+string v_infos_os
+string v_type_machine =""
+
+v_adresse_ip = uo_infos.of_get_my_ip()
+v_adresse_mac = uo_infos.of_getmac( v_adresse_ip )
+v_computer_name = uo_infos.of_get_my_computername()
+v_user_name = uo_infos.of_get_username()
+v_numero_clef_hasp = uo_infos.of_get_numero_clef_hasp()
+
+
+
+v_infos_os = fxg_get_infos_os()
+
+
+
+if upper(trim(fxg_get_infos_sybase('IsNetworkServer'))) = 'YES' then
+	v_type_machine = "SERVEUR"
+end if
+
+
+// infos de conexion, à l'entrée
+
+if type_action = "E" then
+	
+	// Est ce un ajout ou une modif ???
+	
+	select isnull(count(*),0) into :v_cpt from connexions where adresse_mac = :v_adresse_mac ;
+	
+	if v_cpt = 0 then
+		// première connexion du poste
+		
+	  INSERT INTO "connexions"  
+				( "adresse_mac",   
+				  "nom_poste",   
+				  "adresse_ip",   
+				  "premiere_connexion",   
+				  "derniere_connexion",   
+				  "user_windows",   
+				  "user_orthokis",   
+				  "version_orthokis",
+				  "numero_clef_hasp",
+				  "infos_os",
+				  "type_machine")  
+	  VALUES ( :v_adresse_mac,   
+				  :v_computer_name,   
+				  :v_adresse_ip,   
+				  getdate(),   
+				  getdate(),   
+				  :v_user_name,   
+				  :utilisateur_nom,   
+				  :version,
+				  :v_numero_clef_hasp,
+				  :v_infos_os,
+				  :v_type_machine)  ;
+		
+		commit ;
+		
+	else
+		// Mise à jour 
+		
+		  UPDATE "connexions"  
+			SET   "derniere_connexion" = getdate() ,  "user_windows" = :v_user_name,   "user_orthokis" = :utilisateur_nom,      
+			"version_orthokis" = :version ,	"adresse_ip" = :v_adresse_ip, "nom_poste" = :v_computer_name , "numero_clef_hasp" = :v_numero_clef_hasp , "infos_os" = :v_infos_os ,
+			"type_machine" = :v_type_machine 
+		  WHERE adresse_mac = :v_adresse_mac ;
+	
+		
+		commit ;
+	
+		
+	end if
+
+end if
+
+
+// Pour toutes les actions, MAJ des infos
+
+//instancie les uo
+sauvegarde_base save_base 
+save_base = create sauvegarde_base
+
+
+string v_dir_installation, v_dir_photos, v_dir_photos_itinerant, v_dir_courriers, v_dir_sauvegarde_base, v_sauvegarde_base_auto
+string v_odrade_installe, v_dir_odrade_patients, v_ccvitale_installe
+string v_page_clinique_commentaires_cliniques
+
+// Odrade est il installée ?
+string 	dir_odrade = "" // Répertoire d'installation de Odrade
+//récup le rép d'install d'ODRADE et y ajoute odrade.exe
+RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Odrade.exe","path",dir_odrade)
+
+if len(trim(dir_odrade)) > 0 then
+	v_odrade_installe = "O"
+	v_dir_odrade_patients = ""
+else
+	v_odrade_installe = "N"
+	v_dir_odrade_patients = profilestring(dir_ini+inifile_orthokis,"odrade","dir_patient","??")
+end if 
+
+// CC Vitale est il installé ??
+if fxg_get_version_ccvitale() <> ""  then
+	v_ccvitale_installe = "O"
+else
+	v_ccvitale_installe = "N"
+end if
+
+
+v_dir_sauvegarde_base = save_base.get_chemin_sauvegarde()
+v_dir_installation = dir_ini
+v_dir_photos = profilestring(dir_ini+inifile_orthokis,"photos","dir","??")
+v_dir_photos_itinerant = profilestring(dir_ini+inifile_orthokis,"photos","dir_replic","??")
+v_dir_courriers = profilestring(dir_ini+inifile_orthokis,"courriers","dir","??")
+v_dir_sauvegarde_base = profilestring(dir_ini+inifile_orthokis,"Sauvegarde_bd","chemin_sauvegarde_base","??")
+v_page_clinique_commentaires_cliniques =  profilestring(dir_ini+inifile_orthokis,"photos","page_clinique","??")
+
+if profilestring(dir_ini+inifile_orthokis,"Sauvegarde_bd","sauvegarde_base_auto","??") = "true" then
+	v_sauvegarde_base_auto = "O"
+else
+	v_sauvegarde_base_auto = "N"
+end if
+
+
+// mise à jour des répertoires en mémoire sur le poste ....
+UPDATE "connexions"  
+set    	dir_installation = :v_dir_installation , 
+		odrade_installe = :v_odrade_installe , 
+		dir_odrade_patients = :v_dir_odrade_patients , 
+		 televitale_installe = :v_ccvitale_installe ,
+		 dir_photos = :v_dir_photos,
+		 dir_photos_itinerant = :v_dir_photos_itinerant,
+		 dir_courriers = :v_dir_courriers,
+		 dir_sauvegarde_base = :v_dir_sauvegarde_base,
+		 sauvegarde_base_auto = :v_sauvegarde_base_auto,
+		 page_clinique_commentaires_cliniques = :v_page_clinique_commentaires_cliniques
+
+WHERE adresse_mac = :v_adresse_mac ;
+  
+if sqlca.sqlcode <> 0 then
+	MessageBox("ATTENTION","Erreur dans la mise à jour des connexions : ~n~n"+sqlca.sqlerrtext)
+	rollback  ;
+else
+  commit ;
+end if
+
+
+ //------------------------------------------------------------------------------------------------------------- ENTREE -> VERIFICATION DU NOMBRE DE CONNEXION 
+if type_action = "E" then
+	
+	// nombre de postes différents qui se sont connecté depuis 7 jours ... sans compter les postes installés récemment
+	date v_date_limite
+	long v_con7
+	v_date_limite = relativedate(today(), -7)
+	
+	//select isnull(count(*),0) into :v_con7 from connexions 
+	//where derniere_connexion >= :v_date_limite and premiere_connexion < :v_date_limite ;
+	
+	// Pour éviter les postes qui sont plusieurs fois dans la liste
+	SELECT  count(1) into :v_con7  FROM (     SELECT       count(1) AS cpt 
+      FROM connexions  where derniere_connexion >= :v_date_limite and premiere_connexion < :v_date_limite 
+      GROUP BY nom_poste) table_bidon ;
+	
+	
+	if v_con7 > NOMBRE_POSTES_AUTORISES then
+		
+		Messagebox("ATTENTION","Il semblerait que vous utilisiez Orthokis avec plus de postes ("+string(v_con7)+") que prévu ("+string(NOMBRE_POSTES_AUTORISES)+").~n~nVeuillez contacter ARAKIS." )
+		
+		//Disconnect ;
+		//Halt Close 
+		
+	end if
+	
+	
+end if
+
+
+
+ //------------------------------------------------------------------------------------------------------------- SORTIE 
+if type_action = "S" then
+	// Sortie du soft
+	// Mise à des infos de déconnexion
+	
+	  UPDATE "connexions"  
+	  set    	"derniere_deconnexion" = getdate()
+	 
+  WHERE adresse_mac = :v_adresse_mac ;
+  
+	if sqlca.sqlcode <> 0 then
+		MessageBox("ATTENTION","Erreur dans la mise à jour de la déconnexion : ~n~n"+sqlca.sqlerrtext)
+		rollback  ;
+	else
+	  commit ;
+	end if
+
+end if
+
+ //------------------------------------------------------------------------------------------------------------- SAUVEGARDE DE LA BASE 
+if type_action = "SAVE" then
+	// SAUVEDB
+	// Mise à des infos de sauvegarde de la base
+	
+	  UPDATE "connexions"  
+	  set    	"derniere_savedb" = getdate()
+	  WHERE adresse_mac = :v_adresse_mac ;
+  
+	if sqlca.sqlcode <> 0 then
+		MessageBox("ATTENTION","Erreur dans la mise à jour de la sauvegarde de la base : ~n~n"+sqlca.sqlerrtext)
+		rollback  ;
+	else
+	  commit ;
+	end if
+
+end if
+
+
+
+
+
+  
+ 
+
+
+end subroutine
+

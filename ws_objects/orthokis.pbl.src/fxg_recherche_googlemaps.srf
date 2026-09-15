@@ -1,0 +1,46 @@
+﻿$PBExportHeader$fxg_recherche_googlemaps.srf
+global type fxg_recherche_googlemaps from function_object
+end type
+
+forward prototypes
+global subroutine fxg_recherche_googlemaps (string v_adresse1, string v_code_postal, string v_ville, string v_pays)
+end prototypes
+
+global subroutine fxg_recherche_googlemaps (string v_adresse1, string v_code_postal, string v_ville, string v_pays);String        ls_url
+
+string_non_nulle(v_adresse1)
+string_non_nulle(v_code_postal)
+string_non_nulle(v_ville)
+string_non_nulle(v_pays)
+		
+		
+string v_recherche, v_suite
+		
+v_recherche = ""
+
+if v_adresse1 <> "" then 
+	v_recherche = v_adresse1
+end if
+
+if v_code_postal <> "" then 
+	v_recherche = v_recherche + "," + v_code_postal
+end if
+
+if v_ville <> "" then 
+	v_recherche = v_recherche + "," + v_ville
+end if
+
+select isnull(nom,'') into :v_suite from pays where code = :v_pays ;
+if v_suite <> '' then
+	v_recherche = v_recherche + "," + v_suite
+end if
+
+v_recherche = gfx_tout_remplacer(v_recherche, " ", "%20")
+
+ls_url = "https://maps.google.com/maps?saddr=" + v_recherche
+
+//run('cmd /C start "Maps" "' + ls_url  +'"')
+
+openurl ( ls_url)
+end subroutine
+

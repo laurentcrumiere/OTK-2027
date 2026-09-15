@@ -1,0 +1,83 @@
+﻿$PBExportHeader$ajout_soin.srf
+global type ajout_soin from function_object
+end type
+
+forward prototypes
+global subroutine ajout_soin (double v_code_patient, string v_code_soin, date v_date_soin_ajout)
+end prototypes
+
+global subroutine ajout_soin (double v_code_patient, string v_code_soin, date v_date_soin_ajout);
+// Ajout d'un soin à la date du jour pour le patient (utile par exemple pour les belges mais pas que)
+
+decimal {2} v_nb_lettre
+decimal {2} v_depasse, v_total
+decimal {6} v_valeur
+long cle_max
+string v_motif, v_lettre
+
+
+select nb_lettre, valeur, depasse , lettre
+into  :v_nb_lettre, :v_valeur, :v_depasse , :v_lettre
+from code_soins where code = :v_code_soin ;
+
+if sqlca.sqlcode = 0 then
+	select isnull(max(cle),0) into :cle_max from "soins" where code = :v_code_patient ;
+	
+	cle_max = cle_max + 1
+	
+	v_total = v_depasse + v_nb_lettre * v_valeur
+	zero(v_total)
+	
+	if v_depasse > 0 then 
+		v_motif = motif_depassement(v_code_patient, v_code_soin)
+	else
+		v_motif = ""
+	end if 
+	
+	if CCVITALE and v_nb_lettre = 45 and (v_lettre = 'ORT' or v_lettre = 'TO') then
+		
+		// gestion du code exo 3 pour les TO 45
+		
+	
+		  INSERT INTO "soins"  
+			( "cle", 	"code",   	  "type",     "numero",     "date_demande",     "scp_demande",   
+			  "date_accord",     "scp_accord",     "hn",     "total",     "tp",     "date_cara",   
+			  "date_impr",     "date_donne",     "date_rapport",     "comment",     "date_exe",
+			  "user_modif",	  "date_modif" , "motif_depassement", "exo")  
+		VALUES ( :cle_max,   	  :v_code_patient,     :v_code_soin ,     null,   	  :v_date_soin_ajout,   
+			  :v_nb_lettre,     null,     :v_nb_lettre,     :v_depasse,     :v_total ,    null,     null,   
+			  null,     null,     null,     null,     :v_date_soin_ajout,	  :utilisateur_code,	  getdate(), :v_motif , '3')  ;		
+		
+	else
+		
+		
+		  INSERT INTO "soins"  
+			( "cle", 	"code",   	  "type",     "numero",     "date_demande",     "scp_demande",   
+			  "date_accord",     "scp_accord",     "hn",     "total",     "tp",     "date_cara",   
+			  "date_impr",     "date_donne",     "date_rapport",     "comment",     "date_exe",
+			  "user_modif",	  "date_modif" , "motif_depassement")  
+		VALUES ( :cle_max,   	  :v_code_patient,     :v_code_soin ,     null,   	  :v_date_soin_ajout,   
+			  :v_nb_lettre,     null,     :v_nb_lettre,     :v_depasse,     :v_total ,    null,     null,   
+			  null,     null,     null,     null,     :v_date_soin_ajout,	  :utilisateur_code,	  getdate(), :v_motif )  ;
+	
+	end if
+		
+		
+	// Ajout des lignes de soins
+	  INSERT INTO "ligne_soins"  ( "cle",    "code",    "date",    "montant",     "tp",   	  "origine_tp" )  
+	  values( :cle_max,  :v_code_patient, :v_date_soin_ajout , :v_total,  	'N',   	' '  ); 
+  
+	commit ;
+	
+	if sqlca.sqlcode = 0 then
+		if TEA then 
+			fxg_lancer_commande_dsapi("payment/create/" + string(v_code_patient) + "-" + string(cle_max) , "",  "S", "G", v_code_patient )
+		end if
+	end if
+	
+else
+	Messagebox("ATTENTION","Impossible d'ajouter un soin '" + v_code_soin + "'.~n~nVous devez le créer dans la table des Types de Soins.")
+end if
+
+end subroutine
+

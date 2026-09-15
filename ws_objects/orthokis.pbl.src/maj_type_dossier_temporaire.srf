@@ -1,0 +1,29 @@
+﻿$PBExportHeader$maj_type_dossier_temporaire.srf
+global type maj_type_dossier_temporaire from function_object
+end type
+
+forward prototypes
+global subroutine maj_type_dossier_temporaire (date var_date)
+end prototypes
+
+global subroutine maj_type_dossier_temporaire (date var_date);
+
+
+// Met à jour la table patient, champ type_dossier_temporaire
+// en fonction de la date passée en argument
+// en regardant dans l'historique des changements de dossier
+
+if var_date < today() then
+	// moulinette de mise  à jour du type de dossier à la bonne date
+	
+	update patient set type_dossier_temporaire = (select min(type_dossier) from histo_dossier as histo1 where histo1.code = patient.code 
+	and date_heure = (select max(date_heure) from histo_dossier as histo2 where histo1.code = histo2.code and cast(date_heure as date) <= :var_date and histo2.code = patient.code) )  ;
+	commit ;	
+	
+else
+	update patient set type_dossier_temporaire = type_dossier ;
+	commit ;
+end if
+
+end subroutine
+

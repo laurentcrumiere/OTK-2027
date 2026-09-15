@@ -1,0 +1,462 @@
+﻿$PBExportHeader$dw_dumu_export_patients.srd
+release 25;
+datawindow(units=0 data.export.format=1 timer_interval=0 color=16777215 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=0 gradient.spread=0 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=0 HTMLDW=no print.printername="" print.documentname="Liste Patients" print.orientation = 2 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" )
+header(height=332 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=76 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=204 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=char(1) updatewhereclause=yes name=numero_serie dbname="numero_serie" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=nom dbname="patient.nom" dbalias=".nom" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=nom_parent1 dbname="patient.nom_parent1" dbalias=".nom_parent1" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=ville_parent1 dbname="patient.ville_parent1" dbalias=".ville_parent1" )
+ column=(type=char(25) update=yes updatewhereclause=yes name=teldom_parent1 dbname="patient.teldom_parent1" dbalias=".teldom_parent1" )
+ column=(type=char(25) update=yes updatewhereclause=yes name=teltra_parent1 dbname="patient.teltra_parent1" dbalias=".teltra_parent1" )
+ column=(type=char(6) update=yes updatewhereclause=yes name=code_praticien dbname="patient.code_praticien" dbalias=".code_praticien" validation="len ( trim ( gettext() )) > 0" validationmsg="~"Ce code doit être obligatoirement saisi~"" )
+ column=(type=char(2) update=yes updatewhereclause=yes name=type_dossier dbname="patient.type_dossier" dbalias=".type_dossier" validation="len ( trim ( gettext() )) > 0" validationmsg="~"Ce code doit être obligatoirement saisi~"" )
+ column=(type=char(6) update=yes updatewhereclause=yes name=code_correspondant dbname="patient.code_correspondant" dbalias=".code_correspondant" validation="len ( trim ( gettext() )) > 0" validationmsg="~"Ce code doit être obligatoirement saisi~"" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=moulage dbname="patient.moulage" dbalias=".moulage" )
+ column=(type=date update=yes updatewhereclause=yes name=relance dbname="patient.relance" dbalias=".relance" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=prati_nom dbname="prati.nom" dbalias=".nom" )
+ column=(type=number updatewhereclause=yes identity=yes name=code dbname="patient.code" dbalias=".code" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=patient_prenom dbname="patient.prenom" dbalias=".prenom" )
+ column=(type=char(30) updatewhereclause=yes name=correspondants_nom dbname="correspondants.nom" dbalias=".nom" )
+ column=(type=char(20) updatewhereclause=yes name=dossier_nom dbname="dossier.nom" dbalias=".nom" )
+ column=(type=char(1) updatewhereclause=yes name=cmu dbname="patient.cmu" dbalias=".cmu" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=type dbname="patient.type" dbalias=".type" )
+ column=(type=char(35) updatewhereclause=yes name=adr1_parent1 dbname="patient.adr1_parent1" dbalias=".adr1_parent1" )
+ column=(type=char(35) updatewhereclause=yes name=adr2_parent1 dbname="patient.adr2_parent1" dbalias=".adr2_parent1" )
+ column=(type=char(5) updatewhereclause=yes name=codep_parent1 dbname="patient.codep_parent1" dbalias=".codep_parent1" )
+ column=(type=char(30) updatewhereclause=yes name=pays_nom dbname="pays.nom" dbalias=".nom" )
+ column=(type=decimal(0) updatewhereclause=yes name=numero_dossier dbname="patient.numero_dossier" dbalias=".numero_dossier" )
+ column=(type=char(200) updatewhereclause=yes name=patient_com_parent1 dbname="patient.com_parent1" dbalias=".com_parent1" )
+ column=(type=char(50) updatewhereclause=yes name=patient_nom_parent2 dbname="patient.nom_parent2" dbalias=".nom_parent2" )
+ column=(type=char(35) updatewhereclause=yes name=patient_adr1_parent2 dbname="patient.adr1_parent2" dbalias=".adr1_parent2" )
+ column=(type=char(35) updatewhereclause=yes name=patient_adr2_parent2 dbname="patient.adr2_parent2" dbalias=".adr2_parent2" )
+ column=(type=char(5) updatewhereclause=yes name=patient_codep_parent2 dbname="patient.codep_parent2" dbalias=".codep_parent2" )
+ column=(type=char(30) updatewhereclause=yes name=patient_ville_parent2 dbname="patient.ville_parent2" dbalias=".ville_parent2" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teldom_parent2 dbname="patient.teldom_parent2" dbalias=".teldom_parent2" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teltra_parent2 dbname="patient.teltra_parent2" dbalias=".teltra_parent2" )
+ column=(type=char(200) updatewhereclause=yes name=patient_com_parent2 dbname="patient.com_parent2" dbalias=".com_parent2" )
+ column=(type=char(50) updatewhereclause=yes name=patient_nom_payeur dbname="patient.nom_payeur" dbalias=".nom_payeur" )
+ column=(type=char(35) updatewhereclause=yes name=patient_adr1_payeur dbname="patient.adr1_payeur" dbalias=".adr1_payeur" )
+ column=(type=char(35) updatewhereclause=yes name=patient_adr2_payeur dbname="patient.adr2_payeur" dbalias=".adr2_payeur" )
+ column=(type=char(5) updatewhereclause=yes name=patient_codep_payeur dbname="patient.codep_payeur" dbalias=".codep_payeur" )
+ column=(type=char(30) updatewhereclause=yes name=patient_ville_payeur dbname="patient.ville_payeur" dbalias=".ville_payeur" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teldom_payeur dbname="patient.teldom_payeur" dbalias=".teldom_payeur" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teltra_payeur dbname="patient.teltra_payeur" dbalias=".teltra_payeur" )
+ column=(type=char(200) updatewhereclause=yes name=patient_com_payeur dbname="patient.com_payeur" dbalias=".com_payeur" )
+ column=(type=date updatewhereclause=yes name=patient_date_naissance dbname="patient.date_naissance" dbalias=".date_naissance" )
+ column=(type=date updatewhereclause=yes name=patient_date_prem_demande dbname="patient.date_prem_demande" dbalias=".date_prem_demande" )
+ column=(type=date update=yes updatewhereclause=yes name=debut_traitement dbname="patient.debut_traitement" dbalias=".debut_traitement" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=classe dbname="patient.classe" dbalias=".classe" )
+ column=(type=char(6) updatewhereclause=yes name=patient_code_caisse dbname="patient.code_caisse" dbalias=".code_caisse" )
+ column=(type=char(6) updatewhereclause=yes name=patient_code_dentiste dbname="patient.code_dentiste" dbalias=".code_dentiste" )
+ column=(type=char(6) updatewhereclause=yes name=patient_code_mutuelle dbname="patient.code_mutuelle" dbalias=".code_mutuelle" )
+ column=(type=date update=yes updatewhereclause=yes name=premiere_visite dbname="patient.premiere_visite" dbalias=".premiere_visite" )
+ column=(type=char(1) updatewhereclause=yes name=patient_sexe dbname="patient.sexe" dbalias=".sexe" values="Masculin	M/Féminin	F/" )
+ column=(type=char(30) updatewhereclause=yes name=patient_prof_parent1 dbname="patient.prof_parent1" dbalias=".prof_parent1" )
+ column=(type=char(30) updatewhereclause=yes name=patient_prof_parent2 dbname="patient.prof_parent2" dbalias=".prof_parent2" )
+ column=(type=char(30) updatewhereclause=yes name=patient_prof_payeur dbname="patient.prof_payeur" dbalias=".prof_payeur" )
+ column=(type=decimal(2) updatewhereclause=yes name=patient_hn dbname="patient.hn" dbalias=".hn" )
+ column=(type=decimal(0) updatewhereclause=yes name=patient_tp dbname="patient.tp" dbalias=".tp" )
+ column=(type=char(6) updatewhereclause=yes name=patient_prochain_rdv dbname="patient.prochain_rdv" dbalias=".prochain_rdv" )
+ column=(type=decimal(0) updatewhereclause=yes name=patient_titre_parent1 dbname="patient.titre_parent1" dbalias=".titre_parent1" )
+ column=(type=decimal(0) updatewhereclause=yes name=patient_titre_parent2 dbname="patient.titre_parent2" dbalias=".titre_parent2" )
+ column=(type=decimal(0) updatewhereclause=yes name=patient_titre_payeur dbname="patient.titre_payeur" dbalias=".titre_payeur" )
+ column=(type=char(30) updatewhereclause=yes name=patient_prof2_parent1 dbname="patient.prof2_parent1" dbalias=".prof2_parent1" )
+ column=(type=char(30) updatewhereclause=yes name=patient_prof2_parent2 dbname="patient.prof2_parent2" dbalias=".prof2_parent2" )
+ column=(type=char(30) updatewhereclause=yes name=patient_prof2_payeur dbname="patient.prof2_payeur" dbalias=".prof2_payeur" )
+ column=(type=char(100) updatewhereclause=yes name=patient_email dbname="patient.email" dbalias=".email" )
+ column=(type=char(20) updatewhereclause=yes name=patient_archivage dbname="patient.archivage" dbalias=".archivage" )
+ column=(type=date updatewhereclause=yes name=patient_date_contact dbname="patient.date_contact" dbalias=".date_contact" )
+ column=(type=char(25) updatewhereclause=yes name=portable dbname="patient.portable" dbalias=".portable" )
+ column=(type=char(35) updatewhereclause=yes name=patient_nom_assure dbname="patient.nom_assure" dbalias=".nom_assure" )
+ column=(type=char(1) updatewhereclause=yes name=patient_assure dbname="patient.assure" dbalias=".assure" )
+ column=(type=date updatewhereclause=yes name=patient_date_moulage dbname="patient.date_moulage" dbalias=".date_moulage" )
+ column=(type=char(1) updatewhereclause=yes name=patient_adulte dbname="patient.adulte" dbalias=".adulte" )
+ column=(type=char(20) updatewhereclause=yes name=patient_categorie_statistique dbname="patient.categorie_statistique" dbalias=".categorie_statistique" )
+ column=(type=date updatewhereclause=yes name=patient_date_statistique dbname="patient.date_statistique" dbalias=".date_statistique" )
+ column=(type=decimal(1) updatewhereclause=yes name=patient_duree_traitement dbname="patient.duree_traitement" dbalias=".duree_traitement" )
+ column=(type=char(6) updatewhereclause=yes name=patient_code_medecin dbname="patient.code_medecin" dbalias=".code_medecin" )
+ column=(type=char(6) updatewhereclause=yes name=patient_pays_parent1 dbname="patient.pays_parent1" dbalias=".pays_parent1" )
+ column=(type=char(6) updatewhereclause=yes name=patient_pays_parent2 dbname="patient.pays_parent2" dbalias=".pays_parent2" )
+ column=(type=char(6) updatewhereclause=yes name=patient_pays_payeur dbname="patient.pays_payeur" dbalias=".pays_payeur" )
+ column=(type=decimal(0) updatewhereclause=yes name=patient_titre_patient dbname="patient.titre_patient" dbalias=".titre_patient" )
+ column=(type=date updatewhereclause=yes name=patient_date_interruption dbname="patient.date_interruption" dbalias=".date_interruption" )
+ column=(type=date updatewhereclause=yes name=patient_date_reprise dbname="patient.date_reprise" dbalias=".date_reprise" )
+ column=(type=date updatewhereclause=yes name=patient_fin_traitement dbname="patient.fin_traitement" dbalias=".fin_traitement" )
+ column=(type=date updatewhereclause=yes name=patient_date_relance_admini dbname="patient.date_relance_admini" dbalias=".date_relance_admini" )
+ column=(type=char(1000) updatewhereclause=yes name=patient_motif_relance_admini dbname="patient.motif_relance_admini" dbalias=".motif_relance_admini" )
+ column=(type=number updatewhereclause=yes name=patient_couleur1 dbname="patient.couleur1" dbalias=".couleur1" )
+ column=(type=char(1) updatewhereclause=yes name=patient_dep_imprime dbname="patient.dep_imprime" dbalias=".dep_imprime" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teldom2_parent1 dbname="patient.teldom2_parent1" dbalias=".teldom2_parent1" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teltra2_parent1 dbname="patient.teltra2_parent1" dbalias=".teltra2_parent1" )
+ column=(type=char(25) updatewhereclause=yes name=patient_portable2_parent1 dbname="patient.portable2_parent1" dbalias=".portable2_parent1" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teldom2_parent2 dbname="patient.teldom2_parent2" dbalias=".teldom2_parent2" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teltra2_parent2 dbname="patient.teltra2_parent2" dbalias=".teltra2_parent2" )
+ column=(type=char(25) updatewhereclause=yes name=patient_portable1_parent2 dbname="patient.portable1_parent2" dbalias=".portable1_parent2" )
+ column=(type=char(25) updatewhereclause=yes name=patient_portable2_parent2 dbname="patient.portable2_parent2" dbalias=".portable2_parent2" )
+ column=(type=char(25) updatewhereclause=yes name=patient_portable_patient dbname="patient.portable_patient" dbalias=".portable_patient" )
+ column=(type=char(100) updatewhereclause=yes name=patient_email_patient dbname="patient.email_patient" dbalias=".email_patient" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teldom2_payeur dbname="patient.teldom2_payeur" dbalias=".teldom2_payeur" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teltra2_payeur dbname="patient.teltra2_payeur" dbalias=".teltra2_payeur" )
+ column=(type=char(25) updatewhereclause=yes name=patient_portable1_payeur dbname="patient.portable1_payeur" dbalias=".portable1_payeur" )
+ column=(type=char(25) updatewhereclause=yes name=patient_portable2_payeur dbname="patient.portable2_payeur" dbalias=".portable2_payeur" )
+ column=(type=char(100) updatewhereclause=yes name=patient_email_parent2 dbname="patient.email_parent2" dbalias=".email_parent2" )
+ column=(type=char(100) updatewhereclause=yes name=patient_email_payeur dbname="patient.email_payeur" dbalias=".email_payeur" )
+ column=(type=char(6) updatewhereclause=yes name=patient_user_modif dbname="patient.user_modif" dbalias=".user_modif" )
+ column=(type=datetime updatewhereclause=yes name=patient_date_modif dbname="patient.date_modif" dbalias=".date_modif" )
+ column=(type=char(1) updatewhereclause=yes name=patient_envoi_sms dbname="patient.envoi_sms" dbalias=".envoi_sms" )
+ column=(type=decimal(0) updatewhereclause=yes name=patient_duree_traitement_surveillance dbname="patient.duree_traitement_surveillance" dbalias=".duree_traitement_surveillance" )
+ column=(type=decimal(0) updatewhereclause=yes name=patient_duree_traitement_apres dbname="patient.duree_traitement_apres" dbalias=".duree_traitement_apres" )
+ column=(type=date updatewhereclause=yes name=patient_fin_traitement_estimee dbname="patient.fin_traitement_estimee" dbalias=".fin_traitement_estimee" )
+ column=(type=number updatewhereclause=yes name=patient_qualite_traitement dbname="patient.qualite_traitement" dbalias=".qualite_traitement" )
+ column=(type=number updatewhereclause=yes name=patient_motif_fin_traitement dbname="patient.motif_fin_traitement" dbalias=".motif_fin_traitement" )
+ column=(type=char(1000) updatewhereclause=yes name=patient_commentaire_traitement dbname="patient.commentaire_traitement" dbalias=".commentaire_traitement" )
+ column=(type=number updatewhereclause=yes name=patient_couleur3 dbname="patient.couleur3" dbalias=".couleur3" )
+ column=(type=number updatewhereclause=yes name=patient_couleur2 dbname="patient.couleur2" dbalias=".couleur2" )
+ column=(type=number updatewhereclause=yes name=patient_couleur4 dbname="patient.couleur4" dbalias=".couleur4" )
+ column=(type=number updatewhereclause=yes name=patient_couleur5 dbname="patient.couleur5" dbalias=".couleur5" )
+ column=(type=char(6) updatewhereclause=yes name=patient_ecole dbname="patient.ecole" dbalias=".ecole" )
+ column=(type=char(40) updatewhereclause=yes name=patient_classe_scolaire dbname="patient.classe_scolaire" dbalias=".classe_scolaire" )
+ column=(type=date updatewhereclause=yes name=patient_date_naissance_assure dbname="patient.date_naissance_assure" dbalias=".date_naissance_assure" )
+ column=(type=char(6) updatewhereclause=yes name=patient_mdp_patient dbname="patient.mdp_patient" dbalias=".mdp_patient" )
+ column=(type=char(6) updatewhereclause=yes name=patient_mdp_parent1 dbname="patient.mdp_parent1" dbalias=".mdp_parent1" )
+ column=(type=char(6) updatewhereclause=yes name=patient_mdp_parent2 dbname="patient.mdp_parent2" dbalias=".mdp_parent2" )
+ column=(type=char(6) updatewhereclause=yes name=patient_mdp_payeur dbname="patient.mdp_payeur" dbalias=".mdp_payeur" )
+ column=(type=char(40) updatewhereclause=yes name=patient_comtel1_parent1 dbname="patient.comtel1_parent1" dbalias=".comtel1_parent1" )
+ column=(type=char(40) updatewhereclause=yes name=patient_comtel2_parent1 dbname="patient.comtel2_parent1" dbalias=".comtel2_parent1" )
+ column=(type=char(40) updatewhereclause=yes name=patient_comtel1_parent2 dbname="patient.comtel1_parent2" dbalias=".comtel1_parent2" )
+ column=(type=char(40) updatewhereclause=yes name=patient_comtel2_parent2 dbname="patient.comtel2_parent2" dbalias=".comtel2_parent2" )
+ column=(type=char(40) updatewhereclause=yes name=patient_comtel1_payeur dbname="patient.comtel1_payeur" dbalias=".comtel1_payeur" )
+ column=(type=char(40) updatewhereclause=yes name=patient_comtel2_payeur dbname="patient.comtel2_payeur" dbalias=".comtel2_payeur" )
+ column=(type=char(2) updatewhereclause=yes name=patient_mise_en_evidence dbname="patient.mise_en_evidence" dbalias=".mise_en_evidence" )
+ column=(type=char(1) updatewhereclause=yes name=patient_basal_max_pro dbname="patient.basal_max_pro" dbalias=".basal_max_pro" )
+ column=(type=char(1) updatewhereclause=yes name=patient_basal_max_retro dbname="patient.basal_max_retro" dbalias=".basal_max_retro" )
+ column=(type=char(1) updatewhereclause=yes name=patient_basal_mand_pro dbname="patient.basal_mand_pro" dbalias=".basal_mand_pro" )
+ column=(type=char(1) updatewhereclause=yes name=patient_basal_mand_retro dbname="patient.basal_mand_retro" dbalias=".basal_mand_retro" )
+ column=(type=char(1) updatewhereclause=yes name=patient_basal_max_endo dbname="patient.basal_max_endo" dbalias=".basal_max_endo" )
+ column=(type=char(1) updatewhereclause=yes name=patient_basal_max_exo dbname="patient.basal_max_exo" dbalias=".basal_max_exo" )
+ column=(type=char(1) updatewhereclause=yes name=patient_basal_mand_endo dbname="patient.basal_mand_endo" dbalias=".basal_mand_endo" )
+ column=(type=char(1) updatewhereclause=yes name=patient_basal_mand_exo dbname="patient.basal_mand_exo" dbalias=".basal_mand_exo" )
+ column=(type=char(1) updatewhereclause=yes name=patient_hypodivergence dbname="patient.hypodivergence" dbalias=".hypodivergence" )
+ column=(type=char(1) updatewhereclause=yes name=patient_hyperdivergence dbname="patient.hyperdivergence" dbalias=".hyperdivergence" )
+ column=(type=char(1) updatewhereclause=yes name=patient_alveo_max_pro dbname="patient.alveo_max_pro" dbalias=".alveo_max_pro" )
+ column=(type=char(1) updatewhereclause=yes name=patient_alveo_max_retro dbname="patient.alveo_max_retro" dbalias=".alveo_max_retro" )
+ column=(type=char(1) updatewhereclause=yes name=patient_alveo_mand_pro dbname="patient.alveo_mand_pro" dbalias=".alveo_mand_pro" )
+ column=(type=char(1) updatewhereclause=yes name=patient_alveo_mand_retro dbname="patient.alveo_mand_retro" dbalias=".alveo_mand_retro" )
+ column=(type=char(1) updatewhereclause=yes name=patient_alveo_max_endo dbname="patient.alveo_max_endo" dbalias=".alveo_max_endo" )
+ column=(type=char(1) updatewhereclause=yes name=patient_alveo_max_exo dbname="patient.alveo_max_exo" dbalias=".alveo_max_exo" )
+ column=(type=char(1) updatewhereclause=yes name=patient_alveo_mand_endo dbname="patient.alveo_mand_endo" dbalias=".alveo_mand_endo" )
+ column=(type=char(1) updatewhereclause=yes name=patient_alveo_mand_exo dbname="patient.alveo_mand_exo" dbalias=".alveo_mand_exo" )
+ column=(type=char(1) updatewhereclause=yes name=patient_supraclusion dbname="patient.supraclusion" dbalias=".supraclusion" )
+ column=(type=char(1) updatewhereclause=yes name=patient_infraclusion dbname="patient.infraclusion" dbalias=".infraclusion" )
+ column=(type=char(1) updatewhereclause=yes name=patient_mol_cl1 dbname="patient.mol_cl1" dbalias=".mol_cl1" )
+ column=(type=char(1) updatewhereclause=yes name=patient_mol_cl2 dbname="patient.mol_cl2" dbalias=".mol_cl2" )
+ column=(type=char(1) updatewhereclause=yes name=patient_mol_cl3 dbname="patient.mol_cl3" dbalias=".mol_cl3" )
+ column=(type=char(1) updatewhereclause=yes name=patient_can_cl1 dbname="patient.can_cl1" dbalias=".can_cl1" )
+ column=(type=char(1) updatewhereclause=yes name=patient_can_cl2 dbname="patient.can_cl2" dbalias=".can_cl2" )
+ column=(type=char(1) updatewhereclause=yes name=patient_can_cl3 dbname="patient.can_cl3" dbalias=".can_cl3" )
+ column=(type=char(10) updatewhereclause=yes name=patient_molaire dbname="patient.molaire" dbalias=".molaire" )
+ column=(type=char(10) updatewhereclause=yes name=patient_canine dbname="patient.canine" dbalias=".canine" )
+ column=(type=char(1) updatewhereclause=yes name=patient_dento_max dbname="patient.dento_max" dbalias=".dento_max" )
+ column=(type=char(1) updatewhereclause=yes name=patient_dento_dent dbname="patient.dento_dent" dbalias=".dento_dent" )
+ column=(type=char(100) updatewhereclause=yes name=patient_agenesie dbname="patient.agenesie" dbalias=".agenesie" )
+ column=(type=char(100) updatewhereclause=yes name=patient_surnum dbname="patient.surnum" dbalias=".surnum" )
+ column=(type=char(100) updatewhereclause=yes name=patient_malposition dbname="patient.malposition" dbalias=".malposition" )
+ column=(type=char(1) updatewhereclause=yes name=patient_occl_dte dbname="patient.occl_dte" dbalias=".occl_dte" )
+ column=(type=char(1) updatewhereclause=yes name=patient_occl_gche dbname="patient.occl_gche" dbalias=".occl_gche" )
+ column=(type=char(1) updatewhereclause=yes name=patient_occl_ant dbname="patient.occl_ant" dbalias=".occl_ant" )
+ column=(type=char(100) updatewhereclause=yes name=patient_facteur dbname="patient.facteur" dbalias=".facteur" )
+ column=(type=char(200) updatewhereclause=yes name=patient_extraction dbname="patient.extraction" dbalias=".extraction" )
+ column=(type=date updatewhereclause=yes name=patient_date_fin_tpi dbname="patient.date_fin_tpi" dbalias=".date_fin_tpi" )
+ column=(type=char(1) updatewhereclause=yes name=patient_duree_traitement_unite dbname="patient.duree_traitement_unite" dbalias=".duree_traitement_unite" )
+ column=(type=char(1) updatewhereclause=yes name=patient_barre_avancement dbname="patient.barre_avancement" dbalias=".barre_avancement" )
+ column=(type=char(20) updatewhereclause=yes name=patient_code_comptable dbname="patient.code_comptable" dbalias=".code_comptable" )
+ column=(type=char(61) updatewhereclause=yes name=nom_correspondant dbname="nom_correspondant" )
+ column=(type=char(61) updatewhereclause=yes name=nom_dentiste dbname="nom_dentiste" )
+ column=(type=char(61) updatewhereclause=yes name=nom_autre1 dbname="nom_autre1" )
+ column=(type=char(20) updatewhereclause=yes name=nom_type_dossier dbname="nom_type_dossier" )
+ column=(type=char(30) updatewhereclause=yes name=nom_praticien dbname="nom_praticien" )
+ column=(type=char(30) updatewhereclause=yes name=nom_caisse dbname="nom_caisse" )
+ column=(type=char(30) updatewhereclause=yes name=nom_mutuelle dbname="nom_mutuelle" )
+ column=(type=char(30) updatewhereclause=yes name=nom_ecole dbname="nom_ecole" )
+ column=(type=char(50) updatewhereclause=yes name=nom_motif_fin_traitement dbname="nom_motif_fin_traitement" )
+ column=(type=char(50) updatewhereclause=yes name=nom_qualite_traitement dbname="nom_qualite_traitement" )
+ column=(type=char(30) updatewhereclause=yes name=nom_utilisateur_dernier_modif dbname="nom_utilisateur_dernier_modif" )
+ column=(type=char(61) updatewhereclause=yes name=nom_autre2 dbname="nom_autre2" )
+ column=(type=char(61) updatewhereclause=yes name=nom_autre3 dbname="nom_autre3" )
+ column=(type=char(61) updatewhereclause=yes name=nom_autre4 dbname="nom_autre4" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_rdv_portail_patient dbname="patient.autor_rdv_portail_patient" dbalias=".autor_rdv_portail_patient" )
+ column=(type=char(500) updatewhereclause=yes name=patient_message_borne dbname="patient.message_borne" dbalias=".message_borne" )
+ column=(type=char(25) updatewhereclause=yes name=patient_rum dbname="patient.rum" dbalias=".rum" )
+ column=(type=char(6) updatewhereclause=yes name=patient_code_mutuelle2 dbname="patient.code_mutuelle2" dbalias=".code_mutuelle2" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_cloud dbname="patient.autor_cloud" dbalias=".autor_cloud" )
+ column=(type=char(1) updatewhereclause=yes name=patient_alerte_confidentiel_img dbname="patient.alerte_confidentiel_img" dbalias=".alerte_confidentiel_img" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_appli_patient dbname="patient.autor_appli_patient" dbalias=".autor_appli_patient" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_appli_parent11 dbname="patient.autor_appli_parent11" dbalias=".autor_appli_parent11" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_appli_parent12 dbname="patient.autor_appli_parent12" dbalias=".autor_appli_parent12" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_appli_parent21 dbname="patient.autor_appli_parent21" dbalias=".autor_appli_parent21" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_appli_parent22 dbname="patient.autor_appli_parent22" dbalias=".autor_appli_parent22" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_appli_payeur1 dbname="patient.autor_appli_payeur1" dbalias=".autor_appli_payeur1" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_appli_payeur2 dbname="patient.autor_appli_payeur2" dbalias=".autor_appli_payeur2" )
+ column=(type=char(1) updatewhereclause=yes name=patient_message_borne_conserver dbname="patient.message_borne_conserver" dbalias=".message_borne_conserver" )
+ column=(type=char(1000) updatewhereclause=yes name=patient_message_portail dbname="patient.message_portail" dbalias=".message_portail" )
+ column=(type=char(20) updatewhereclause=yes name=patient_id_invisalign dbname="patient.id_invisalign" dbalias=".id_invisalign" )
+ retrieve="  SELECT (select first V1 from ~"table_vide~") as numero_serie, 
+  			~"patient~".~"nom~",   
+         ~"patient~".~"nom_parent1~",   
+         ~"patient~".~"ville_parent1~",   
+         ~"patient~".~"teldom_parent1~",   
+         ~"patient~".~"teltra_parent1~",   
+         ~"patient~".~"code_praticien~",   
+         ~"patient~".~"type_dossier~",   
+         ~"patient~".~"code_correspondant~",   
+         ~"patient~".~"moulage~",   
+         ~"patient~".~"relance~",   
+         ~"prati~".~"nom~",   
+         ~"patient~".~"code~",   
+         ~"patient~".~"prenom~",   
+         ~"correspondants~".~"nom~",   
+         ~"dossier~".~"nom~",   
+         ~"patient~".~"cmu~",   
+         ~"patient~".~"type~",   
+         ~"patient~".~"adr1_parent1~",   
+         ~"patient~".~"adr2_parent1~",   
+         ~"patient~".~"codep_parent1~",   
+         ~"pays~".~"nom~",   
+         ~"patient~".~"numero_dossier~",   
+         ~"patient~".~"com_parent1~",   
+         ~"patient~".~"nom_parent2~",   
+         ~"patient~".~"adr1_parent2~",   
+         ~"patient~".~"adr2_parent2~",   
+         ~"patient~".~"codep_parent2~",   
+         ~"patient~".~"ville_parent2~",   
+         ~"patient~".~"teldom_parent2~",   
+         ~"patient~".~"teltra_parent2~",   
+         ~"patient~".~"com_parent2~",   
+         ~"patient~".~"nom_payeur~",   
+         ~"patient~".~"adr1_payeur~",   
+         ~"patient~".~"adr2_payeur~",   
+         ~"patient~".~"codep_payeur~",   
+         ~"patient~".~"ville_payeur~",   
+         ~"patient~".~"teldom_payeur~",   
+         ~"patient~".~"teltra_payeur~",   
+         ~"patient~".~"com_payeur~",   
+         ~"patient~".~"date_naissance~",   
+         ~"patient~".~"date_prem_demande~",   
+         ~"patient~".~"debut_traitement~",   
+         ~"patient~".~"classe~",   
+         ~"patient~".~"code_caisse~",   
+         ~"patient~".~"code_dentiste~",   
+         ~"patient~".~"code_mutuelle~",   
+         ~"patient~".~"premiere_visite~",   
+         ~"patient~".~"sexe~",   
+         ~"patient~".~"prof_parent1~",   
+         ~"patient~".~"prof_parent2~",   
+         ~"patient~".~"prof_payeur~",   
+         ~"patient~".~"hn~",   
+         ~"patient~".~"tp~",   
+         ~"patient~".~"prochain_rdv~",   
+         ~"patient~".~"titre_parent1~",   
+         ~"patient~".~"titre_parent2~",   
+         ~"patient~".~"titre_payeur~",   
+         ~"patient~".~"prof2_parent1~",   
+         ~"patient~".~"prof2_parent2~",   
+         ~"patient~".~"prof2_payeur~",   
+         ~"patient~".~"email~",   
+         ~"patient~".~"archivage~",   
+         ~"patient~".~"date_contact~",   
+         ~"patient~".~"portable~",   
+         ~"patient~".~"nom_assure~",   
+         ~"patient~".~"assure~",   
+         ~"patient~".~"date_moulage~",   
+         ~"patient~".~"adulte~",   
+         ~"patient~".~"categorie_statistique~",   
+         ~"patient~".~"date_statistique~",   
+         ~"patient~".~"duree_traitement~",   
+         ~"patient~".~"code_medecin~",   
+         ~"patient~".~"pays_parent1~",   
+         ~"patient~".~"pays_parent2~",   
+         ~"patient~".~"pays_payeur~",   
+         ~"patient~".~"titre_patient~",   
+         ~"patient~".~"date_interruption~",   
+         ~"patient~".~"date_reprise~",   
+         ~"patient~".~"fin_traitement~",   
+         ~"patient~".~"date_relance_admini~",   
+         ~"patient~".~"motif_relance_admini~",   
+         ~"patient~".~"couleur1~",   
+         ~"patient~".~"dep_imprime~",   
+         ~"patient~".~"teldom2_parent1~",   
+         ~"patient~".~"teltra2_parent1~",   
+         ~"patient~".~"portable2_parent1~",   
+         ~"patient~".~"teldom2_parent2~",   
+         ~"patient~".~"teltra2_parent2~",   
+         ~"patient~".~"portable1_parent2~",   
+         ~"patient~".~"portable2_parent2~",   
+         ~"patient~".~"portable_patient~",   
+         ~"patient~".~"email_patient~",   
+         ~"patient~".~"teldom2_payeur~",   
+         ~"patient~".~"teltra2_payeur~",   
+         ~"patient~".~"portable1_payeur~",   
+         ~"patient~".~"portable2_payeur~",   
+         ~"patient~".~"email_parent2~",   
+         ~"patient~".~"email_payeur~",   
+         ~"patient~".~"user_modif~",   
+         ~"patient~".~"date_modif~",   
+         ~"patient~".~"envoi_sms~",   
+         ~"patient~".~"duree_traitement_surveillance~",   
+         ~"patient~".~"duree_traitement_apres~",   
+         ~"patient~".~"fin_traitement_estimee~",   
+         ~"patient~".~"qualite_traitement~",   
+         ~"patient~".~"motif_fin_traitement~",   
+         ~"patient~".~"commentaire_traitement~",   
+         ~"patient~".~"couleur3~",   
+         ~"patient~".~"couleur2~",   
+         ~"patient~".~"couleur4~",   
+         ~"patient~".~"couleur5~",   
+         ~"patient~".~"ecole~",   
+         ~"patient~".~"classe_scolaire~",   
+         ~"patient~".~"date_naissance_assure~",   
+         ~"patient~".~"mdp_patient~",   
+         ~"patient~".~"mdp_parent1~",   
+         ~"patient~".~"mdp_parent2~",   
+         ~"patient~".~"mdp_payeur~",   
+         ~"patient~".~"comtel1_parent1~",   
+         ~"patient~".~"comtel2_parent1~",   
+         ~"patient~".~"comtel1_parent2~",   
+         ~"patient~".~"comtel2_parent2~",   
+         ~"patient~".~"comtel1_payeur~",   
+         ~"patient~".~"comtel2_payeur~",   
+         ~"patient~".~"mise_en_evidence~",   
+         ~"patient~".~"basal_max_pro~",   
+         ~"patient~".~"basal_max_retro~",   
+         ~"patient~".~"basal_mand_pro~",   
+         ~"patient~".~"basal_mand_retro~",   
+         ~"patient~".~"basal_max_endo~",   
+         ~"patient~".~"basal_max_exo~",   
+         ~"patient~".~"basal_mand_endo~",   
+         ~"patient~".~"basal_mand_exo~",   
+         ~"patient~".~"hypodivergence~",   
+         ~"patient~".~"hyperdivergence~",   
+         ~"patient~".~"alveo_max_pro~",   
+         ~"patient~".~"alveo_max_retro~",   
+         ~"patient~".~"alveo_mand_pro~",   
+         ~"patient~".~"alveo_mand_retro~",   
+         ~"patient~".~"alveo_max_endo~",   
+         ~"patient~".~"alveo_max_exo~",   
+         ~"patient~".~"alveo_mand_endo~",   
+         ~"patient~".~"alveo_mand_exo~",   
+         ~"patient~".~"supraclusion~",   
+         ~"patient~".~"infraclusion~",   
+         ~"patient~".~"mol_cl1~",   
+         ~"patient~".~"mol_cl2~",   
+         ~"patient~".~"mol_cl3~",   
+         ~"patient~".~"can_cl1~",   
+         ~"patient~".~"can_cl2~",   
+         ~"patient~".~"can_cl3~",   
+         ~"patient~".~"molaire~",   
+         ~"patient~".~"canine~",   
+         ~"patient~".~"dento_max~",   
+         ~"patient~".~"dento_dent~",   
+         ~"patient~".~"agenesie~",   
+         ~"patient~".~"surnum~",   
+         ~"patient~".~"malposition~",   
+         ~"patient~".~"occl_dte~",   
+         ~"patient~".~"occl_gche~",   
+         ~"patient~".~"occl_ant~",   
+         ~"patient~".~"facteur~",   
+         ~"patient~".~"extraction~",   
+         ~"patient~".~"date_fin_tpi~",   
+         ~"patient~".~"duree_traitement_unite~",   
+         ~"patient~".~"barre_avancement~",   
+         ~"patient~".~"code_comptable~",   
+         (select nom+ ' '+ isnull(prenom, '') from correspondants where correspondants.code = patient.code_correspondant) as nom_correspondant,   
+         (select nom+ ' '+ isnull(prenom, '') from correspondants where correspondants.code = patient.code_dentiste) as nom_dentiste,   
+         (select nom+ ' '+ isnull(prenom, '') from correspondants where correspondants.code = patient.code_medecin) as nom_autre1,   
+         (select nom from dossier where dossier.code = patient.type_dossier) as nom_type_dossier,   
+         (select nom from prati where prati.code = patient.code_praticien) as nom_praticien,   
+         (select nom from caisse where caisse.code = patient.code_caisse) as nom_caisse,   
+         (select nom from mutuelle where mutuelle.code = patient.code_mutuelle) as nom_mutuelle,   
+         (select nom from ecole where ecole.code = patient.ecole) as nom_ecole,   
+         (select nom from motif_fin_traitement where motif_fin_traitement.code = patient.motif_fin_traitement) as nom_motif_fin_traitement,   
+         (select nom from qualite_traitement where qualite_traitement.code = patient.qualite_traitement) as nom_qualite_traitement,   
+         (select nom from utilisateurs where utilisateurs.code = patient.user_modif) as nom_utilisateur_dernier_modif,   
+         (select nom+ ' '+ isnull(prenom, '') from correspondants where correspondants.code = patient.code_medecin2) as nom_autre2,   
+         (select nom+ ' '+ isnull(prenom, '') from correspondants where correspondants.code = patient.code_medecin3) as nom_autre3,   
+         (select nom+ ' '+ isnull(prenom, '') from correspondants where correspondants.code = patient.code_medecin4) as nom_autre4,   
+         ~"patient~".~"autor_rdv_portail_patient~",   
+         ~"patient~".~"message_borne~",   
+         ~"patient~".~"rum~",   
+         ~"patient~".~"code_mutuelle2~",   
+         ~"patient~".~"autor_cloud~",   
+         ~"patient~".~"alerte_confidentiel_img~",   
+         ~"patient~".~"autor_appli_patient~",   
+         ~"patient~".~"autor_appli_parent11~",   
+         ~"patient~".~"autor_appli_parent12~",   
+         ~"patient~".~"autor_appli_parent21~",   
+         ~"patient~".~"autor_appli_parent22~",   
+         ~"patient~".~"autor_appli_payeur1~",   
+         ~"patient~".~"autor_appli_payeur2~",   
+         ~"patient~".~"message_borne_conserver~",   
+         ~"patient~".~"message_portail~",   
+         ~"patient~".~"id_invisalign~"  
+    FROM {oj ~"pays~" RIGHT OUTER JOIN ~"patient~" ON ~"pays~".~"code~" = ~"patient~".~"pays_parent1~"},   
+         ~"prati~",   
+         ~"correspondants~",   
+         ~"dossier~"  
+   WHERE ( ~"prati~".~"code~" = ~"patient~".~"code_praticien~" ) and  
+         ( ~"correspondants~".~"code~" = ~"patient~".~"code_correspondant~" ) and  
+         ( ~"dossier~".~"code~" = ~"patient~".~"type_dossier~" ) and  
+         ( ( ~"patient~".~"date_modif~" >= :date_modif_limite ) )    
+" arguments=(("date_modif_limite", date))  sort="nom A patient_prenom A " )
+line(band=header x1="18" y1="228" x2="3310" y2="228"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" )
+text(band=header alignment="2" text="Liste des Patients" border="0" color="0" x="18" y="36" height="88" width="3291" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-14" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="" border="0" color="0" x="18" y="136" height="56" width="3291" html.valueishtml="0"  name=sous_titre visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+line(band=header x1="18" y1="324" x2="3310" y2="324"  name=l_2 visible="1" pen.style="0" pen.width="9" pen.color="33554432"  background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" )
+text(band=header alignment="0" text="Nom du Patient" border="0" color="33554432" x="37" y="244" height="56" width="389" html.valueishtml="0"  name=nom_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="0" text="Nom des Parents" border="0" color="33554432" x="677" y="244" height="56" width="530" html.valueishtml="0"  name=nom_parent1_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="0" text="Téléphone" border="0" color="33554432" x="1317" y="244" height="56" width="352" html.valueishtml="0"  name=teldom_parent1_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="1" text="Classe /" border="0" color="33554432" x="1696" y="244" height="56" width="224" html.valueishtml="0"  name=classe_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="0" text="Type" border="0" color="33554432" x="1938" y="244" height="56" width="165" html.valueishtml="0"  name=type_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="0" text="Début Trait." border="0" color="33554432" x="2112" y="244" height="56" width="325" html.valueishtml="0"  name=debut_traitement_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="0" text="Correspondant" border="0" color="33554432" x="2450" y="244" height="56" width="517" html.valueishtml="0"  name=correspondants_nom_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="0" text="N°" border="0" color="33554432" x="530" y="244" height="56" width="69" html.valueishtml="0"  name=numero_dossier_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="0" text="Prat   " border="0" color="33554432" x="3195" y="244" height="56" width="110" html.valueishtml="0"  name=code_praticien_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="1" text="Doss" border="0" color="33554432" x="2949" y="244" height="56" width="165" html.valueishtml="0"  name=dossier_nom_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="672" y="68" height="64" width="603" format="[general]" html.valueishtml="0"  name=ville_parent1 visible="1" edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=43 alignment="0" tabsequence=32766 border="0" color="33554432" x="2103" y="4" height="64" width="329" format="[general]" html.valueishtml="0"  name=debut_traitement visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="672" y="4" height="64" width="603" format="[general]" html.valueishtml="0"  name=nom_parent1 visible="1" edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="0" expression=" nom  + ' '  + if(isNull(  patient_prenom  ), '',  patient_prenom   )"border="0" color="33554432" x="14" y="4" height="64" width="645" format="[general]" html.valueishtml="0"  name=nom visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="0" color="33554432" x="2446" y="4" height="64" width="576" format="[general]" html.valueishtml="0"  name=correspondants_nom visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="33554432" x="3035" y="4" height="64" width="256" format="[general]" html.valueishtml="0"  name=code_praticien visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=16 alignment="1" tabsequence=32766 border="0" color="33554432" x="2405" y="80" height="56" width="709" format="[general]" html.valueishtml="0"  name=dossier_nom visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=44 alignment="0" tabsequence=32766 border="0" color="33554432" x="1755" y="4" height="56" width="334" format="[general]" html.valueishtml="0"  name=classe visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=18 alignment="0" tabsequence=32766 border="0" color="33554432" x="1755" y="68" height="56" width="334" format="[general]" html.valueishtml="0"  name=type visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="1358" y="4" height="64" width="384" format="[general]" html.valueishtml="0"  name=teldom_parent1 visible="1" edit.name="telephone" editmask.mask="## ## ## ## ## ## ## ## " editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="0" text="(D)" border="0" color="33554432" x="1285" y="4" height="56" width="69" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="0" text="(T)" border="0" color="33554432" x="1285" y="68" height="56" width="69" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="0" text="(P)" border="0" color="33554432" x="1285" y="132" height="56" width="69" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="1358" y="68" height="64" width="384" format="[general]" html.valueishtml="0"  name=teltra_parent1 visible="1" edit.name="telephone" editmask.mask="## ## ## ## ## ## ## ## " editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=65 alignment="0" tabsequence=32766 border="0" color="33554432" x="1358" y="132" height="64" width="384" format="[general]" html.valueishtml="0"  name=portable visible="1" editmask.mask="## ## ## ## ##" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=23 alignment="0" tabsequence=32766 border="0" color="33554432" x="279" y="72" height="56" width="558" format="[general]" html.valueishtml="0"  name=numero_dossier visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="0" text="Interne :" border="0" color="0" x="32" y="136" height="56" width="183" html.valueishtml="0"  name=code_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="33554432" x="229" y="140" height="56" width="389" format="[general]" html.valueishtml="0"  name=code visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="2" text="ePat" border="2" color="0" x="718" y="144" height="56" width="137" html.valueishtml="0"  name=t_epat visible="1~tif ( patient_email_patient <> '', 1, 0)"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65280" background.transparency="0" background.gradient.color="12639424" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="2" text="ePar1" border="2" color="0" x="896" y="144" height="56" width="142" html.valueishtml="0"  name=t_epar visible="1~tif ( patient_email <> '', 1, 0)"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65280" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="2" text="ePar2" border="2" color="0" x="1074" y="144" height="56" width="142" html.valueishtml="0"  name=t_epar2 visible="1~tif ( patient_email_parent2 <> '', 1, 0)"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65280" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=1 alignment="0" tabsequence=0 border="0" color="33554432" x="3310" y="0" height="56" width="23" html.valueishtml="0"  name=numero_serie visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=footer alignment="0" expression="'Page ' + page() + ' sur ' + pageCount()"border="0" color="0" x="55" y="4" height="64" width="727" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=footer alignment="0" expression="today()"border="0" color="0" x="3045" y="4" height="60" width="247" format="[general]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=footer alignment="2" expression="string( rowcount() ) +  if ( rowcount() > 1 , ~" Eléments listés~",  ~" Elément listé~")"border="0" color="0" x="1179" y="8" height="52" width="1079" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0  template=(comment="" encoding="UTF-16LE" name="a" xml="<?xml version=~"1.0~" encoding=~"UTF-16LE~" standalone=~"no~"?><dw_liste_tous_patients_edition><dw_liste_tous_patients_edition_row __pbband=~"detail~"><nom>nom</nom><nom_parent1>nom_parent1</nom_parent1><ville_parent1>ville_parent1</ville_parent1><teldom_parent1>teldom_parent1</teldom_parent1><teltra_parent1>teltra_parent1</teltra_parent1><debut_traitement>debut_traitement</debut_traitement><code_praticien>code_praticien</code_praticien><type_dossier>type_dossier</type_dossier><code_correspondant>code_correspondant</code_correspondant><premiere_visite>premiere_visite</premiere_visite><moulage>moulage</moulage><relance>relance</relance><prati_nom>prati_nom</prati_nom><code/><patient_prenom>patient_prenom</patient_prenom><correspondants_nom>correspondants_nom</correspondants_nom><dossier_nom>dossier_nom</dossier_nom><cmu>cmu</cmu><classe>classe</classe><type>type</type><adr1_parent1>adr1_parent1</adr1_parent1><adr2_parent1>adr2_parent1</adr2_parent1><codep_parent1>codep_parent1</codep_parent1><pays_nom>pays_nom</pays_nom><portable>portable</portable></dw_liste_tous_patients_edition_row></dw_liste_tous_patients_edition>"))
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" nativepdf.customsize=0 nativepdf.customorientation=0 nativepdf.pdfstandard=0 nativepdf.useprintspec=no )
+export.xhtml( template=(comment="" name="a" xhtml="﻿<form name=~"dw_liste_tous_patients_edition_dataForm~"><div class=~"dw_liste_tous_patients_edition_band_0~"><div class=~"dw_liste_tous_patients_edition_nom_t~">nom_t</div><div class=~"dw_liste_tous_patients_edition_nom_parent1_t~">nom_parent1_t</div><div class=~"dw_liste_tous_patients_edition_teldom_parent1_t~">teldom_parent1_t</div><hr/><hr/><div class=~"dw_liste_tous_patients_edition_classe_t~">classe_t</div><div class=~"dw_liste_tous_patients_edition_type_t~">type_t</div><div class=~"dw_liste_tous_patients_edition_debut_traitement_t~">debut_traitement_t</div><div class=~"dw_liste_tous_patients_edition_correspondants_nom_t~">correspondants_nom_t</div><div class=~"dw_liste_tous_patients_edition_numero_dossier_t~">numero_dossier_t</div><div class=~"dw_liste_tous_patients_edition_code_praticien_t~">code_praticien_t</div><div class=~"dw_liste_tous_patients_edition_dossier_nom_t~">dossier_nom_t</div><div class=~"dw_liste_tous_patients_edition_t_1~">t_1</div><div class=~"dw_liste_tous_patients_edition_titre~">titre</div></div><div class=~"dw_liste_tous_patients_edition_detail_0~" __pbband=~"detail~"><input name=~"dw_liste_tous_patients_edition_ville_parent1~" type=~"text~" value=~"ville_parent1~"/><input name=~"dw_liste_tous_patients_edition_debut_traitement~" type=~"text~" value=~"debut_traitement~"/><input name=~"dw_liste_tous_patients_edition_nom_parent1~" type=~"text~" value=~"nom_parent1~"/><div class=~"dw_liste_tous_patients_edition_nom~">nom</div><input name=~"dw_liste_tous_patients_edition_correspondants_nom~" type=~"text~" value=~"correspondants_nom~"/><input name=~"dw_liste_tous_patients_edition_code_praticien~" type=~"text~" value=~"code_praticien~"/><input name=~"dw_liste_tous_patients_edition_dossier_nom~" type=~"text~" value=~"dossier_nom~"/><input name=~"dw_liste_tous_patients_edition_classe~" type=~"text~" value=~"classe~"/><input name=~"dw_liste_tous_patients_edition_type~" type=~"text~" value=~"type~"/><input name=~"dw_liste_tous_patients_edition_teldom_parent1~" type=~"text~" value=~"teldom_parent1~"/><div class=~"dw_liste_tous_patients_edition_t_6~">t_6</div><div class=~"dw_liste_tous_patients_edition_t_7~">t_7</div><div class=~"dw_liste_tous_patients_edition_t_2~">t_2</div><input name=~"dw_liste_tous_patients_edition_teltra_parent1~" type=~"text~" value=~"teltra_parent1~"/><input name=~"dw_liste_tous_patients_edition_portable~" type=~"text~" value=~"portable~"/><input name=~"dw_liste_tous_patients_edition_numero_dossier~" type=~"text~" value=~"numero_dossier~"/></div><div class=~"dw_liste_tous_patients_edition_band_1~"><div class=~"dw_liste_tous_patients_edition_compute_1~">compute_1</div></div><div class=~"dw_liste_tous_patients_edition_band_2~"><div class=~"dw_liste_tous_patients_edition_compute_2~">compute_2</div><div class=~"dw_liste_tous_patients_edition_compute_3~">compute_3</div></div></form>"))
+ 

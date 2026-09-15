@@ -1,0 +1,14 @@
+﻿$PBExportHeader$get_imprimante_code_barre.srf
+global type get_imprimante_code_barre from function_object
+end type
+
+forward prototypes
+global function string get_imprimante_code_barre ()
+end prototypes
+
+global function string get_imprimante_code_barre ();
+
+
+return profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","code_barre","EaserCoder C4 (203 dpi)")
+end function
+

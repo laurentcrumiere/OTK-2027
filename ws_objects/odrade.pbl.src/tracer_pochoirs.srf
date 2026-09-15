@@ -1,0 +1,93 @@
+﻿$PBExportHeader$tracer_pochoirs.srf
+global type tracer_pochoirs from function_object
+end type
+
+forward prototypes
+global subroutine tracer_pochoirs (long code_patient, long code_radio, long code_trace, picture image, real resolution_x, real resolution_y, real pourcentage)
+end prototypes
+
+global subroutine tracer_pochoirs (long code_patient, long code_radio, long code_trace, picture image, real resolution_x, real resolution_y, real pourcentage);// Variables
+
+ulong l_handle, l_device
+double x,y
+long num_droite
+ulong hpen
+string visible
+long couleur,epaisseur, couleur_pochoir
+long num_pochoir,index_points
+point_type points[1000]
+
+
+point_type point1, point2,point_prec
+
+
+// Recherche de la couleur de tracé des pochoirs
+SELECT couleur_pochoir, epaisseur_pochoir into :couleur, :epaisseur from traces where code_trace = :code_trace and code_patient = :code_patient 
+and code_radio = :code_radio using t_Odrade  ;
+
+
+l_handle = handle(image)
+l_device = GetDC(l_handle)
+hpen = CreatePen(0, epaisseur, couleur)
+SelectObject(l_device, hpen)
+
+
+// Recherche des points dans la base ...
+
+
+// LISTE DES POCHOIRS DU TRACE
+DECLARE cur_pochoir CURSOR FOR 
+Select code_pochoir, couleur   from pochoirs where code_patient = :code_patient and code_radio = :code_radio and code_trace = :code_trace 
+order by code_pochoir using t_Odrade ;
+
+
+// POINTS DE CHAQUE POCHOIR
+declare cur_points_pochoir CURSOR FOR 
+Select x, y from liste_points_pochoirs where code_patient = :code_patient and code_radio = :code_radio and code_trace = :code_trace 
+and (code_pochoir = :num_pochoir ) order by code_point using t_Odrade ;
+
+
+open cur_pochoir   ;
+
+fetch cur_pochoir into :num_pochoir, :couleur_pochoir ;
+
+// Parcours de toutes les formes du tracé
+do while t_Odrade.sqlcode = 0	
+
+	open cur_points_pochoir ;
+	fetch cur_points_pochoir into :x, :y;
+	
+	index_points = 0
+	// Parcours de tous les points de la forme
+	do while t_Odrade.sqlcode = 0
+		
+		index_points = index_points + 1
+		points[index_points].x= x * resolution_x * pourcentage /100
+		points[index_points].y = y * resolution_y * pourcentage / 100
+		
+		fetch cur_points_pochoir into :x, :y;
+	loop
+	
+	close cur_points_pochoir ;
+	
+	
+	if couleur_pochoir = -1 then
+		hpen = CreatePen(0, epaisseur, couleur)
+	else
+		hpen = CreatePen(0, epaisseur, couleur_pochoir)
+	end if
+	
+	SelectObject(l_device, hpen)
+	PolyBezier(l_device, points, index_points)
+
+	fetch cur_pochoir into :num_pochoir, :couleur_pochoir ;
+loop
+
+close cur_pochoir ;
+
+
+
+
+
+end subroutine
+

@@ -1,0 +1,21 @@
+﻿$PBExportHeader$zerodb.srf
+global type zerodb from function_object
+end type
+
+forward prototypes
+global subroutine zerodb (ref decimal para)
+global subroutine zerodb (ref double para)
+end prototypes
+
+global subroutine zerodb (ref decimal para);if isnull(para) then
+	para = 0
+end if
+
+end subroutine
+
+global subroutine zerodb (ref double para);if isnull(para) then
+	para = 0
+end if
+
+end subroutine
+

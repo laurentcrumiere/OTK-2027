@@ -1,0 +1,73 @@
+﻿$PBExportHeader$fxg_maj_dental_sms.srf
+global type fxg_maj_dental_sms from function_object
+end type
+
+forward prototypes
+global subroutine fxg_maj_dental_sms (double code_interne, string etat, string host_dental_sms, character type_maj)
+end prototypes
+
+global subroutine fxg_maj_dental_sms (double code_interne, string etat, string host_dental_sms, character type_maj);// mise à jour des infos de Dental SMS en cas de mise à jour / suppression du rendez-vous
+// type_maj = 'M' pour mise à jour ... 'S' pour suppression
+
+
+datetime dt_rdv
+string s_body, s_token, s_elimine_agenda, s_state_rdv, s_commande
+
+integer li_rc
+HttpClient lnv_HttpClient
+lnv_HttpClient = Create HttpClient
+string ls_ReturnJson
+long l_statut_reponse
+
+// recherche de la date et l'heure du rdv
+select rdv into :dt_rdv from rdv where round(code_interne, 0) = :code_interne ;
+
+if type_maj = "S" then
+	// Suppression
+	s_state_rdv = 'cancelled'
+else
+	// Modification
+	// L'état est il un état nomal ou éliminer de l'agenda ?
+	select isnull(elimine_agenda, 'N') into :s_elimine_agenda 
+	from etat_rdv where code = :etat ;
+	
+	if s_elimine_agenda = 'O' then 
+		s_state_rdv = 'cancelled'
+	else
+		s_state_rdv = 'moved'
+	end if
+end if
+
+//	s_body = '{"rdv_new_date": "' + string(dt_rdv,"yyyy-mm-dd hh:mm:ss" ) + '", "rdv_new_state": "' + s_state_rdv + '", "rdv_id": "' + string (code_interne) +  '" }'
+s_body = ' {"update": [   {"rdv_new_date": "' + string(dt_rdv,"yyyy-mm-dd hh:mm:ss" ) + '", "rdv_new_state": "'+ s_state_rdv + '", "rdv_id": "' + string (code_interne) +  '" }]}'
+s_token = fxg_crypter_md5(serial+":Orthokis")
+
+// Sécurisation dans l'entete
+lnv_HttpClient.SetRequestHeader("Content-Type", "application/json;charset=UTF-8")
+lnv_HttpClient.SetRequestHeader("account-id", serial)
+lnv_HttpClient.SetRequestHeader("X-AUTH-TOKEN", s_token)
+
+
+s_commande = host_dental_sms + "/orthokis/updateRdv" 	
+
+// Envoi de la commande à Dental SMS
+li_rc = lnv_HttpClient.SendRequest("POST", s_commande, s_body, EncodingUTF8!)
+
+
+l_statut_reponse = lnv_HttpClient.GetResponseStatusCode()
+
+if li_rc = 1 and 200 <= l_statut_reponse and l_statut_reponse <= 299 then
+	
+	// tout est OK !!!
+	
+else
+	
+	if s_elimine_agenda = 'O' then 
+		// Si le rdv est éliminé de l'agenda et qu'on a pas réussi à mettre à jour , on prévient ...
+		lnv_HttpClient.GetResponseBody(ls_ReturnJson)
+		messagebox("ATTENTION !", "Une erreur N°" + string(l_statut_reponse) + " s'est produite dans la mise à jour de Dental SMS.~n~n" + ls_ReturnJson)
+	end if
+end if
+
+end subroutine
+

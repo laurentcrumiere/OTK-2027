@@ -1,0 +1,34 @@
+﻿$PBExportHeader$get_nom_cadre_image.srf
+global type get_nom_cadre_image from function_object
+end type
+
+forward prototypes
+global function string get_nom_cadre_image (string v_nom_fichier)
+end prototypes
+
+global function string get_nom_cadre_image (string v_nom_fichier);
+// Fonction qui donne un nom de cadre image compatible 2012 pour l'imagerie 2013
+// On regarde la table .. mais si on trouve pas, on nomme arbitrairement en numérique
+
+// Renvoie le nom sur la forme ole_photo004
+
+string v_nom_cadre = ""
+long v_numero_cadre
+
+select max(nom_cadre)  into  :v_nom_cadre from expl_media_cadres_images where nom_fichier + '.' + codage = :v_nom_fichier ;
+
+v_numero_cadre= long(right(v_nom_cadre,3))
+
+if isnull(v_numero_cadre) then
+	// pas de N° de cadre dans la base ... on prend le N° du fichier ...
+	v_numero_cadre = long(gfx_fichier_sans_extension(v_nom_fichier))
+	if v_numero_cadre > 0 then
+		v_nom_cadre = "ole_photo"+string(v_numero_cadre, "000")
+		//v_nom_cadre_humain = "Cadre clinique N°"+string(v_numero_cadre)
+	end if
+end if
+
+return v_nom_cadre
+
+end function
+

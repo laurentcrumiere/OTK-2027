@@ -1,0 +1,76 @@
+﻿$PBExportHeader$init_fonds_et_boutons.srf
+global type init_fonds_et_boutons from function_object
+end type
+
+forward prototypes
+global subroutine init_fonds_et_boutons ()
+end prototypes
+
+global subroutine init_fonds_et_boutons ();
+
+string v_fond, v_bouton
+v_fond = profilestring(dir_ini+inifile_orthokis,"COULEURS","image_fond_fenetres","Aucune")
+
+if trim(v_fond) <> "Aucune" and v_fond <> "" then
+	image_fond_fenetre = dir_ini + dir_fonds + v_fond + ".jpg"
+else
+	image_fond_fenetre = ""
+end if
+
+
+// Suite désactivée en V2023
+//v_bouton = profilestring(dir_ini+inifile_orthokis,"COULEURS","image_boutons","bleu")
+//
+//pb_250_120			= dir_ini + dir_fonds + v_bouton + "_pb_250_120.jpg"
+//pb_390_120			= dir_ini + dir_fonds + v_bouton + "_pb_390_120.jpg"
+//pb_780_120			= dir_ini + dir_fonds + v_bouton + "_pb_780_120.jpg"
+//
+//if trim(v_bouton) <> "Aucune" and v_bouton <> "" then
+//	if left(v_bouton,4) = "2009" then
+//		
+//		pb_250_120_not 	= dir_ini + dir_fonds + "2009_pb_250_120_not.jpg"
+//		pb_250_120_yes 	= dir_ini + dir_fonds + "2009_pb_250_120_yes.jpg"
+//		pb_390_120_not	= dir_ini + dir_fonds + "2009_pb_390_120_not.jpg"
+//		pb_390_120_yes	= dir_ini + dir_fonds + "2009_pb_390_120_yes.jpg"
+//		pb_780_120_not	= dir_ini + dir_fonds + "2009_pb_780_120_not.jpg"
+//		pb_780_120_yes	= dir_ini + dir_fonds + "2009_pb_780_120_yes.jpg"
+//	
+//	else
+//		pb_250_120_not 	= dir_ini + dir_fonds + "pb_250_120_not.jpg"
+//		pb_250_120_yes 	= dir_ini + dir_fonds + "pb_250_120_yes.jpg"
+//		pb_390_120_not	= dir_ini + dir_fonds + "pb_390_120_not.jpg"
+//		pb_390_120_yes	= dir_ini + dir_fonds + "pb_390_120_yes.jpg"
+//		pb_780_120_not	= dir_ini + dir_fonds + "pb_780_120_not.jpg"
+//		pb_780_120_yes	= dir_ini + dir_fonds + "pb_780_120_yes.jpg"
+//	
+//		
+//	end if
+//else
+//		pb_250_120_not 	= ""
+//		pb_250_120_yes 	= ""
+//		pb_390_120_not	= ""
+//		pb_390_120_yes	= ""
+//		pb_780_120_not	= ""
+//		pb_780_120_yes	= ""
+//end if
+//
+//
+//image_fond_barre_outils_3 = dir_ini + dir_fonds + profilestring(dir_ini+inifile_orthokis,"COULEURS","image_fond_barre_icones","Violet")+".jpg"
+//couleur_textes_barre_outils_3 = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","textes_barre_3",string(rgb(255,255,0))))
+//
+//// pour la gestion des soins notamment
+//pb_barre							=  dir_ini + dir_fonds + "2009_pb_barre.jpg"
+
+
+
+//if profilestring(dir_ini+inifile_orthokis,"COULEURS","animation_boutons", "O") = "O" then
+//	animation_boutons = true
+//else
+//	animation_boutons = false
+//end if
+
+
+
+
+end subroutine
+

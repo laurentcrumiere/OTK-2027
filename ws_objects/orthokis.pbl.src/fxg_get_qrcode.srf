@@ -1,0 +1,53 @@
+﻿$PBExportHeader$fxg_get_qrcode.srf
+global type fxg_get_qrcode from function_object
+end type
+
+forward prototypes
+global function integer fxg_get_qrcode (string v_chaine_a_coder, string v_fichier_qrcode)
+end prototypes
+
+global function integer fxg_get_qrcode (string v_chaine_a_coder, string v_fichier_qrcode);// Génération d'un QR code 
+// Le QR code est généré dans un fichier passé en paramètre au format PNG
+
+HttpClient lnv_HttpClient
+lnv_HttpClient = Create HttpClient
+integer li_fichier, v_retour
+
+string s_commande
+
+long  ll_statut_reponse
+
+blob blb_png_retour
+
+boolean retour = true
+integer li_rc, li_code
+
+v_retour = 0
+
+trace("REQUETE DE GENERATION DE QR CODE")
+
+s_commande = "http://api.qrserver.com/v1/create-qr-code/?data=" + v_chaine_a_coder +"&size=200x200&format=png"
+
+li_rc = lnv_HttpClient.SendRequest("GET", s_commande )
+
+if li_rc =1 then 
+	ll_statut_reponse = lnv_HttpClient.GetResponseStatusCode()
+	
+	if ll_statut_reponse = 200 then
+		
+		li_code= lnv_HttpClient.GetResponseBody(blb_png_retour) 
+
+		if li_code = 1 then
+			FileDelete(v_fichier_qrcode)
+			li_fichier = FileOpen(v_fichier_qrcode , StreamMode! , write!, LockWrite!, replace!)
+			fileWriteex(li_fichier,blb_png_retour )
+			fileclose(li_fichier)
+			v_retour = 1
+		end if
+	end if
+end if 
+					
+		
+return v_retour
+end function
+

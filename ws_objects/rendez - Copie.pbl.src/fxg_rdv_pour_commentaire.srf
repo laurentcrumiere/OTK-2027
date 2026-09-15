@@ -1,0 +1,63 @@
+﻿$PBExportHeader$fxg_rdv_pour_commentaire.srf
+global type fxg_rdv_pour_commentaire from function_object
+end type
+
+forward prototypes
+global function double fxg_rdv_pour_commentaire (double db_code_patient, datetime dt_reference)
+end prototypes
+
+global function double fxg_rdv_pour_commentaire (double db_code_patient, datetime dt_reference);// recherche du rdv du jour pour le patient !!
+// ATTENTION, Le patient peut avoir plusieurs RDV dans la journée !!!!!!!
+
+
+// Par défaut on travail sur le jour et l'heure courannte mais ... 
+double v_code_interne_local
+
+integer cpt = 0
+
+// on ne compte que les rdv non éliminé de l'agenda ... et non éliminé de la salle d'attente et de l'agenda
+select count(*) , min(code_interne) into :cpt, :v_code_interne_local from rdv, etat_rdv 
+where rdv.code = :db_code_patient and cast(rdv as date) = cast(:dt_reference as date) and rdv.absent = etat_rdv.code 
+and etat_rdv.elimine_agenda <> 'O' and  etat_rdv.elimine <> 'O' ;
+
+if cpt > 1 then
+	// y a plusieurs rdv !!
+	cpt = 0
+	datetime rdv_a_prendre
+	
+	// on prend le prend le plus récent par rapport à l'heure actuelle
+	select count(*) , max(rdv.rdv) into :cpt, :rdv_a_prendre from rdv, etat_rdv 
+	where rdv.code = :db_code_patient and cast(rdv as date) = cast(:dt_reference as date) and rdv.absent = etat_rdv.code 
+	and etat_rdv.elimine_agenda <> 'O' and  etat_rdv.elimine <> 'O' and rdv <= :dt_reference ;
+	
+	if cpt >= 1 then
+		// On prend son code interne
+		select min(code_interne) into :v_code_interne_local from rdv 
+		where rdv.code = :db_code_patient and rdv = :rdv_a_prendre ;
+	else
+		if cpt = 0 then
+			// y a pas de rdv passé ... on doit donc être en avance ... on prend le rdv prochain  !!
+			select count(*) , min(rdv.rdv) into :cpt, :rdv_a_prendre from rdv, etat_rdv 
+			where rdv.code = :db_code_patient and cast(rdv as date) = cast(:dt_reference as date) and rdv.absent = etat_rdv.code 
+			and etat_rdv.elimine_agenda <> 'O' and  etat_rdv.elimine <> 'O' and rdv >= :dt_reference ;
+
+			// On prend son code interne
+			select min(code_interne) into :v_code_interne_local from rdv 
+			where rdv.code = :db_code_patient and rdv = :rdv_a_prendre ;
+		end if
+	end if
+else
+	if cpt = 1 then
+		// y en a qu'un
+		//v_code_interne_local contient le bon !!
+	else
+		// Cpt = 0
+		setnull(v_code_interne_local)
+	end if
+end if
+
+
+return v_code_interne_local
+
+end function
+

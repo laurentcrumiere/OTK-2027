@@ -1,0 +1,30 @@
+﻿$PBExportHeader$fxg_ajout_acquis_distante.srf
+global type fxg_ajout_acquis_distante from function_object
+end type
+
+forward prototypes
+global subroutine fxg_ajout_acquis_distante (double v_code_patient, string v_nom_fichier)
+end prototypes
+
+global subroutine fxg_ajout_acquis_distante (double v_code_patient, string v_nom_fichier);
+
+// Ajout un renregistrement dans la table d'acquisition_disante
+
+// Recup du nom du moteur de base .. pour différencier les répliquant
+string v_engine_name 
+v_engine_name = fxg_get_infos_sybase("name")
+
+
+insert into acquis_distant ("nom_fichier", "code_patient" , "engine_name") values (:v_nom_fichier, :v_code_patient, :v_engine_name) ;
+
+if sqlca.sqlcode = 0 then
+	commit ;
+else
+	Messagebox("ERREUR","Problème dans la mémorisation de la réplication du fichier : " + v_nom_fichier+"~n~n"+sqlca.sqlerrtext)
+	rollback ;
+end if
+
+
+return 
+end subroutine
+

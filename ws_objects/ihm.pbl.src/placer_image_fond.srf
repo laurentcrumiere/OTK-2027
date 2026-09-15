@@ -1,0 +1,28 @@
+﻿$PBExportHeader$placer_image_fond.srf
+global type placer_image_fond from function_object
+end type
+
+forward prototypes
+global subroutine placer_image_fond (window fenetre, picture image, string fichier_image)
+end prototypes
+
+global subroutine placer_image_fond (window fenetre, picture image, string fichier_image);
+if image_fond_fenetre = "" or not fileexists(image_fond_fenetre) or ui_v2020 then
+	fenetre.backcolor = couleur_fond_fenetre
+else
+	//image.visible = true
+end if
+
+//// Place une image de fond ... en fond de fenêtre
+//if fichier_image <> "" and not ui_v2020 then
+//	image.visible = true
+//	image.pictureName = ""		// pour etre sur qu'il raffraichisse
+//	image.pictureName = fichier_image
+//	image.x = 0
+//	image.y = 0
+//	image.width = fenetre.width
+//	image.height = fenetre.height
+//	image.setposition(ToBottom! )
+//end if 
+end subroutine
+

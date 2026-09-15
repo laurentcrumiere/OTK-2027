@@ -1,0 +1,78 @@
+﻿$PBExportHeader$nombre_rdv_meme_famille_a_la_suite.srf
+global type nombre_rdv_meme_famille_a_la_suite from function_object
+end type
+
+forward prototypes
+global function integer nombre_rdv_meme_famille_a_la_suite (double code_patient, datetime date_rdv, double db_code_interne_depart, ref double db_codes_internes_fratrie[], integer v_fauteuil)
+end prototypes
+
+global function integer nombre_rdv_meme_famille_a_la_suite (double code_patient, datetime date_rdv, double db_code_interne_depart, ref double db_codes_internes_fratrie[], integer v_fauteuil);
+ 
+// recherche si la fratrie a plusieurs rdv qui se suivent afin de pouvoir les reporter an même temps
+// renvoie le nombre de rendez-vous de la fratrie à la suite et rempli le tableau passé en paramètres avec les codes internes des rendez-vous (y compris de celui de départ)
+
+// on regarde tous les rdv de la fratie qui débute à partir de l'heure du rdv clique et au dela du rdv + 1 heure
+
+integer i_tableau, i_duree
+double db_code_interne_lu
+
+datetime dt_debut_min, dt_debut_max
+
+db_codes_internes_fratrie[1] =  db_code_interne_depart
+i_tableau = 1
+
+// 2 Recherches : 1 pour chaque coté du lien ...
+// On compte à partir du moment ou une case a été coché dans les liens de parenté, pas forcément la synchronisation adiministrative
+
+dt_debut_min = date_rdv
+
+// Durée du rdv de départ
+select duree into :i_duree from rdv where round(code_interne,0) = :db_code_interne_depart ;
+
+dt_debut_max = datetime( date ( date_rdv ) , RelativeTime ( time( date_rdv)  , i_duree * 60 + 3600 ) )
+
+DECLARE cur1 CURSOR FOR
+SELECT  round(rdv.code_interne, 0)
+FROM "rdv"  ,  etat_rdv, "patient_lien_parente",  "patient",   
+WHERE   rdv.code <> :code_patient and "rdv"."rdv" between  :dt_debut_min and :dt_debut_max  and fauteuil = :v_fauteuil and   
+			etat_rdv.code = rdv.absent and etat_rdv.elimine_agenda <> 'O' and   
+			"patient_lien_parente"."code_patient2" = "patient"."code"  and  (  "patient_lien_parente"."code_patient2" = :code_patient  ) and 
+			(  "patient_lien_parente"."code_patient1" = rdv.code  )    and 
+			( "patient_lien_parente"."liaison_financiere" = 'O' or  "patient_lien_parente"."synchroniser" = 'O' or  "patient_lien_parente"."meme_assure" = 'O'  )  ;
+			
+
+open cur1 ;
+fetch cur1 into :db_code_interne_lu ;
+
+do while sqlca.sqlcode = 0 
+	i_tableau = i_tableau + 1
+	db_codes_internes_fratrie[i_tableau] = db_code_interne_lu
+	fetch cur1 into :db_code_interne_lu ;
+loop
+
+close cur1 ;
+
+DECLARE cur2 CURSOR FOR
+SELECT  round(rdv.code_interne,0)
+FROM "rdv"  ,  etat_rdv, "patient_lien_parente",  "patient",   
+WHERE   rdv.code <> :code_patient and "rdv"."rdv" between  :dt_debut_min and :dt_debut_max   and fauteuil = :v_fauteuil and   
+			etat_rdv.code = rdv.absent and etat_rdv.elimine_agenda <> 'O' and   
+			"patient_lien_parente"."code_patient1" = "patient"."code"  and   (  "patient_lien_parente"."code_patient1" = :code_patient  ) and 
+			(  "patient_lien_parente"."code_patient2" = rdv.code  )    and 
+			( "patient_lien_parente"."liaison_financiere" = 'O' or  "patient_lien_parente"."synchroniser" = 'O' or  "patient_lien_parente"."meme_assure" = 'O'  )  ;
+
+open cur2 ;
+fetch cur2 into :db_code_interne_lu ;
+
+do while sqlca.sqlcode = 0 
+	i_tableau = i_tableau + 1
+	db_codes_internes_fratrie[i_tableau] = db_code_interne_lu
+	fetch cur2 into :db_code_interne_lu ;
+loop
+
+close cur2 ;
+
+
+return i_tableau 
+end function
+

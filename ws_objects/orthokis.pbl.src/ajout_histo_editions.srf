@@ -1,0 +1,32 @@
+﻿$PBExportHeader$ajout_histo_editions.srf
+global type ajout_histo_editions from function_object
+end type
+
+forward prototypes
+global subroutine ajout_histo_editions (double code_patient, string code_edition, date date_histo, string libelle)
+end prototypes
+
+global subroutine ajout_histo_editions (double code_patient, string code_edition, date date_histo, string libelle);// Mise en historique des éditions
+// Automatiquement nom de l'utilisateur
+
+	
+	string v_code_interne
+	v_code_interne = fxg_get_clef_historique_editions()
+	
+	INSERT INTO "historique_editions"  
+				( "code",              "code_courrier",              "date_document",              "libelle",			  "date_modif" , 			  "user_modif",			  "nature", "code_interne"   )
+	  VALUES ( :code_patient,   :code_edition,              :date_histo,              :libelle,				 getdate(),						 :utilisateur_code			,'E' , :v_code_interne)  ;
+
+		
+		
+	if sqlca.sqlcode <> 0 then
+		MessageBox("Problème d'ajout dans l'Historique des Editions",Sqlca.sqlerrtext)
+		rollback ;
+	else
+		commit ;
+		// On n'historise rien dans Téa pour cela
+	end if
+
+
+end subroutine
+

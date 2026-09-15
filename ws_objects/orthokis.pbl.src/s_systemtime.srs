@@ -1,0 +1,12 @@
+﻿$PBExportHeader$s_systemtime.srs
+global type s_systemtime from structure
+	integer		year
+	integer		month
+	integer		dayofweek
+	integer		day
+	integer		hour
+	integer		minute
+	integer		second
+	integer		millisecond
+end type
+

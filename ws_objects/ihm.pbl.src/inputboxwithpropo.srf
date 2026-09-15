@@ -1,0 +1,34 @@
+﻿$PBExportHeader$inputboxwithpropo.srf
+global type inputboxwithpropo from function_object
+end type
+
+forward prototypes
+global function string inputboxwithpropo (string ltitre, string lquestion, string proposition, boolean is_fichier)
+end prototypes
+
+global function string inputboxwithpropo (string ltitre, string lquestion, string proposition, boolean is_fichier);// fx qui ouvre une fenêtre w_inputbox
+// et la configue selon les éléments passés en param
+
+string			lstr, lstrparam
+str_inputbox	str_ib
+
+
+// Is fichier sert à savoir si on doit tester la présence de certains caractères
+
+// on charge la structure
+str_ib.w_titre		= ltitre
+str_ib.w_question	= lquestion
+str_ib.w_reponse	= proposition
+str_ib.is_fichier	= is_fichier
+
+// construction 
+if OpenWithParm(w_inputbox, str_ib) = 1 then
+// pas de pb, la fenêtre s'est bien ouverte
+	// on récup alors la réponse
+	// dès que l'utilisateur ferme la fenêtre -> car elle est en Response!
+	lstr = message.StringParm
+end if
+
+return lstr
+end function
+

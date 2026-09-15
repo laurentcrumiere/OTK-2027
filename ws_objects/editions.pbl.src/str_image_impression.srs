@@ -1,0 +1,6 @@
+﻿$PBExportHeader$str_image_impression.srs
+global type str_image_impression from structure
+	string		fichier_word
+	integer		service_word
+end type
+

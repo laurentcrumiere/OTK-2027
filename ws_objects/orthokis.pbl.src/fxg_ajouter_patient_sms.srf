@@ -1,0 +1,199 @@
+﻿$PBExportHeader$fxg_ajouter_patient_sms.srf
+global type fxg_ajouter_patient_sms from function_object
+end type
+
+forward prototypes
+global subroutine fxg_ajouter_patient_sms (double v_code_patient, string v_type_code, string v_type_nom, datetime v_rdv, string v_code_message, string v_prati_code, double v_code_interne_rdv, string v_type_sms, ref datawindow dw_liste, datawindow dw_maj_histo, string v_mode_sms)
+end prototypes
+
+global subroutine fxg_ajouter_patient_sms (double v_code_patient, string v_type_code, string v_type_nom, datetime v_rdv, string v_code_message, string v_prati_code, double v_code_interne_rdv, string v_type_sms, ref datawindow dw_liste, datawindow dw_maj_histo, string v_mode_sms);// On va ajouter autant de ligne que nécessaire, selon la configuration de la fiche patient
+//--------------------------------------------------------------------------------------------------------
+
+string v_nom, v_prenom, v_parent, v_prati_nom, v_titre_patient
+date v_date_naissance
+long lig, lig2
+
+
+// pour les SMS
+string v_portable_patient_sms ,   v_portable_sms ,   v_portable2_parent1_sms , 	v_portable1_parent2_sms , 	v_portable2_parent2_sms ,  v_portable1_payeur_sms ,  v_portable2_payeur_sms 
+string v_portable_patient,   v_portable ,   v_portable2_parent1 , 	v_portable1_parent2 , 	v_portable2_parent2 ,  v_portable1_payeur ,  v_portable2_payeur 
+
+integer cpt_sms, nb_sms
+
+string numeros_sms[]
+
+string nature_numero[]	// servira à compléter le code du rdv pour éviter les doublons
+// p : patient - p11, P12 : portables 1 et 2 du parent1, p21, P22 : idem pour parent2, p31, p32 : idem pour payeur
+
+string v_id_new_message, v_id_unique_message
+		  
+
+uo_pocket uo_poc
+uo_poc = create uo_pocket
+
+
+// Recherche des éléments fixes de la fiche patient 
+
+select nom, prenom, date_naissance, nom_parent1 into :v_nom, :v_prenom, :v_date_naissance, :v_parent 
+from patient where code = :v_code_patient ;
+
+select nom into :v_prati_nom from prati where code = :v_prati_code ;
+
+select isnull(titre_personnes.nom,'') into :v_titre_patient from titre_personnes, patient 
+where patient.code = :v_code_patient and patient.titre_patient = titre_personnes.code ;
+
+// Recherche des éléments liés à la config des SMS ...
+select 	 isnull(portable_patient_sms, '') ,   		 isnull(portable_sms, '') ,   			 isnull(portable2_parent1_sms, '') , 	 isnull(portable1_parent2_sms, '') , 
+  			 isnull(portable2_parent2_sms, '') ,  	 isnull(portable1_payeur_sms, '') ,   isnull(portable2_payeur_sms, '') , 
+			 isnull(portable_patient, ''),    isnull(portable, '') ,    isnull(portable2_parent1, '') , 	 isnull(portable1_parent2, '') , 	
+			 isnull(portable2_parent2, '') ,   isnull(portable1_payeur, '') ,   isnull(portable2_payeur, '')
+
+into  :v_portable_patient_sms ,   :v_portable_sms ,   :v_portable2_parent1_sms , 	:v_portable1_parent2_sms , 
+	:v_portable2_parent2_sms ,  :v_portable1_payeur_sms ,  :v_portable2_payeur_sms ,
+	:v_portable_patient,   :v_portable ,   :v_portable2_parent1 , 	:v_portable1_parent2 , 	
+	:v_portable2_parent2 ,  :v_portable1_payeur ,  :v_portable2_payeur 
+
+from patient where code = :v_code_patient ;
+
+nb_sms = 0
+
+choose case v_mode_sms
+	case "A"
+		// Mode Automatique
+		
+		// Depuis 32.00c on ne prend en compte que les N° de puis de 6 chiffres !
+		
+		// Le portable de l'enfant ?
+		if len(trim(v_portable_patient)) > 6 and (v_portable_patient_sms = 'O' or v_portable_patient_sms = '?') then
+			nb_sms = nb_sms + 1
+			numeros_sms[nb_sms] = v_portable_patient
+			nature_numero[nb_sms] = 'P'
+		end if
+		
+		// Le portable du parent1 ?
+		if len(trim(v_portable)) > 6 and (v_portable_sms = 'O' or (v_portable_sms = '?' and nb_sms = 0)) then
+			nb_sms = nb_sms + 1
+			numeros_sms[nb_sms] = v_portable
+			nature_numero[nb_sms] = 'P11'
+		end if
+		
+		// Le portable 2 du parent1 ?
+		if len(trim(v_portable2_parent1)) > 6 and (v_portable2_parent1_sms = 'O' or (v_portable2_parent1_sms = '?' and nb_sms = 0)) then
+			nb_sms = nb_sms + 1
+			numeros_sms[nb_sms] = v_portable2_parent1
+			nature_numero[nb_sms] = 'P12'
+		end if
+
+		// Plus de mode automatique à partir de là
+		//--------------------------------------------------
+		
+		// Le portable 1 du parent2 ?
+		if len(trim(v_portable1_parent2)) > 6 and v_portable1_parent2_sms = 'O'  then
+			nb_sms = nb_sms + 1
+			numeros_sms[nb_sms] = v_portable1_parent2
+			nature_numero[nb_sms] = 'P21'
+		end if
+		// Le portable 2 du parent2 ?
+		if len(trim(v_portable2_parent2)) > 6 and v_portable2_parent2_sms = 'O'  then
+			nb_sms = nb_sms + 1
+			numeros_sms[nb_sms] = v_portable2_parent2
+			nature_numero[nb_sms] = 'P22'
+		end if
+		
+		// Le portable 1 du payeur ?
+		if len(trim(v_portable1_payeur)) > 6 and v_portable1_payeur_sms = 'O'  then
+			nb_sms = nb_sms + 1
+			numeros_sms[nb_sms] = v_portable1_payeur
+			nature_numero[nb_sms] = 'P31'
+		end if
+		// Le portable 2 du parent2 ?
+		if len(trim(v_portable2_payeur)) > 6 and v_portable2_payeur_sms = 'O'  then
+			nb_sms = nb_sms + 1
+			numeros_sms[nb_sms] = v_portable2_payeur
+			nature_numero[nb_sms] = 'P32'
+		end if
+
+	case "P"
+		// Uniquement pour le patient
+		if len(trim(v_portable_patient)) > 6  then
+			nb_sms = nb_sms + 1
+			numeros_sms[nb_sms] = v_portable_patient
+			nature_numero[nb_sms] = 'P'
+		end if
+		
+	case "R"
+		// uniquement pour le parent1
+		
+		if len(trim(v_portable)) > 6  then
+			nb_sms = nb_sms + 1
+			numeros_sms[nb_sms] = v_portable
+			nature_numero[nb_sms] = 'P11'
+		else
+		
+			// Le portable 2 du parent1 ?
+			if len(trim(v_portable2_parent1)) > 6  then
+				nb_sms = nb_sms + 1
+				numeros_sms[nb_sms] = v_portable2_parent1
+				nature_numero[nb_sms] = 'P12'
+			end if
+		end if
+
+end choose
+
+
+
+// Génération de la liste
+
+for cpt_sms = 1 to nb_sms
+
+	dw_liste.insertrow(0)
+	lig = dw_liste.rowcount()
+	dw_liste.setitem(lig, "nom_patient", v_nom)
+	dw_liste.setitem(lig, "prenom_patient", v_prenom)
+	dw_liste.setitem(lig, "date_naissance", v_date_naissance)
+	dw_liste.setitem(lig, "nom_parent", v_parent)
+	dw_liste.setitem(lig, "portable", numeros_sms[cpt_sms])
+	dw_liste.setitem(lig, "type_rdv_code", v_type_code)
+	dw_liste.setitem(lig, "type_rdv_nom", v_type_nom)
+	dw_liste.setitem(lig, "rdv", v_rdv)
+	dw_liste.setitem(lig, "code_praticien", v_prati_code)
+	dw_liste.setitem(lig, "nom_praticien", v_prati_nom)
+	dw_liste.setitem(lig, "code_message", v_code_message)
+	dw_liste.setitem(lig, "dms_id", string(v_code_patient))
+	dw_liste.setitem(lig, "civilite_patient", v_titre_patient)
+	dw_liste.SetItem(lig, "cle_rdv", string(v_code_interne_rdv ))
+
+
+	// ajout dans l'historique au cas ou envoi automatique !!!
+	dw_maj_histo.insertrow(0)
+	lig2 = dw_maj_histo.rowcount()
+	dw_maj_histo.SetItem(lig2, "code_patient", v_code_patient)
+	dw_maj_histo.SetItem(lig2, "numero_envoi", numeros_sms[cpt_sms])
+	dw_maj_histo.SetItem(lig2, "type_sms", v_type_sms)
+	dw_maj_histo.SetItem(lig2, "date_envoi", datetime(today(), now()))
+	dw_maj_histo.SetItem(lig2, "code_praticien", v_prati_code)
+	dw_maj_histo.SetItem(lig2, "code_message", v_code_message)
+
+	v_id_new_message = uo_poc.get_id_new_message()+string(lig)
+
+	if v_type_sms = "R" or v_type_sms = "B" or (v_type_sms = "T" and v_code_interne_rdv <> 0) then
+		// rappel de rendez-vous et rendez vous absent => on prend le code interne de RDV pour ne garder qu'une 
+		v_id_unique_message =  v_type_sms + string(v_code_interne_rdv ) + nature_numero[cpt_sms]
+		
+		dw_liste.setitem(lig, "rdv_id", v_id_unique_message)
+		dw_maj_histo.SetItem(lig2, "id_message_pocket",v_id_unique_message)
+		dw_maj_histo.SetItem(lig2, "date", date(v_rdv))
+	else
+		v_id_unique_message = v_id_new_message + nature_numero[cpt_sms]
+		dw_liste.setitem(lig, "rdv_id", v_id_unique_message)
+		dw_maj_histo.SetItem(lig2, "id_message_pocket", v_id_unique_message)
+	end if
+	
+next	
+
+destroy uo_poc
+
+
+return
+end subroutine
+

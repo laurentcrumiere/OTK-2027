@@ -1,0 +1,4 @@
+20/11/2018 15:28:43 - Patient: 16340 - Action: CreatePatient
+20/11/2018 15:28:44 - https://192.168.3.198:5484/DentalDesktop/WebService/RequestProcessPatient
+20/11/2018 15:28:44 - <ProcessPatientRequest><Patient><DateOfBirth>2004-05-19</DateOfBirth><FirstName>Victor</FirstName><LastName>DELEZE</LastName><PatientId>16340</PatientId><SSN>274046311328481</SSN></Patient><RequestType>CreatePatient</RequestType></ProcessPatientRequest>
+20/11/2018 15:28:44 - Code: OK - 

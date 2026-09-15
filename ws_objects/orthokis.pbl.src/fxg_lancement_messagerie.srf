@@ -1,0 +1,29 @@
+﻿$PBExportHeader$fxg_lancement_messagerie.srf
+global type fxg_lancement_messagerie from function_object
+end type
+
+forward prototypes
+global subroutine fxg_lancement_messagerie ()
+end prototypes
+
+global subroutine fxg_lancement_messagerie ();// Depuis 2019 on a notre propre messagerie !!
+string v_prog = "messagerie.exe"
+string v_nom_fenetre = "Messagerie Orthokis"
+ulong handle
+
+string  lpClassName
+
+setnull(lpClassName)
+
+// Récupération du Handle de la fenetre pour savoir si le soft est lancé ou pas
+handle = FindWindowA ( lpClassName, v_nom_fenetre) 
+
+if handle > 0 then
+//	 Le soft est lancé 
+//	 On touche pas !
+else
+//	 on le lance 
+	run (dir_ini + v_prog)
+end if
+end subroutine
+

@@ -1,0 +1,81 @@
+﻿$PBExportHeader$numero_semaine.srf
+$PBExportComments$Renvoie le n° de semaine pour un jour passé en param
+global type numero_semaine from function_object
+end type
+
+forward prototypes
+global function integer numero_semaine (date date_donnee)
+end prototypes
+
+global function integer numero_semaine (date date_donnee);
+// Paramètre DA : Date pour laquelle on cherche la semaine
+
+integer sem
+string v_d
+
+if SQL_Server then 
+	SELECT TOP 1 DATEPART(week, :date_donnee) into :sem from param;
+else
+	// SQL Anywhere
+
+	// aux US, le dimanche est sur la semaine suivante 
+	// => si la date est un dimanche, on prend le n° de la semaine du samedi
+	
+	if daynumber(date_donnee) = 1 then 
+		date_donnee = relativedate(date_donnee , -1)
+	end if
+	
+	v_d = string(date_donnee, 'yyyymmdd')
+	
+	SELECT DATEPART(Calweekofyear , :v_d) into :sem from param ;
+
+end if
+
+//Renvoi du numero de semaine
+//------------------------
+return sem
+
+
+
+////Declaration des variables globales
+////---------------------------
+//constant int   lci_thursday = 4
+//date           ld_firstdate, ld_lastdate
+//int            li_firstday,  li_lastday
+//int            li_weeknumber
+//string         ls_year
+//
+////Conversion en chaine de l'année de la date passe en param
+////-----------------------------------------------
+//ls_year = String(date_donnee, "yyyy")
+//
+////Recherche du premier jour (de 1 a 7) de l'année de la date passe en param
+////-----------------------------------------------------------
+//ld_firstdate = Date("1/1/" + ls_year)
+//li_firstday = numero_jour(ld_firstdate) // Mon = 1, Sun = 7
+//
+////Recherche du numero de semaine de la date passe en param
+////------------------------------------------------
+//
+
+//
+//
+//if li_firstday>4 then
+//	if(DaysAfter(ld_firstdate, date_donnee) + 1 - (8 - li_firstday)) <=0 then
+//		li_weeknumber=0
+//	else
+//		li_weeknumber = abs((DaysAfter(ld_firstdate, date_donnee) +1 - (8 - li_firstday))/7)+1 	
+//	end if
+//else
+//	li_weeknumber = ceiling((DaysAfter(ld_firstdate, date_donnee)+1 + ( li_firstday - 1))/7) 
+//END IF
+//
+
+////Renvoi du numero de semaine
+////------------------------
+//return li_weeknumber
+//
+//
+//
+end function
+

@@ -1,0 +1,37 @@
+﻿$PBExportHeader$fxg_couper.srf
+global type fxg_couper from function_object
+end type
+
+forward prototypes
+global subroutine fxg_couper ()
+end prototypes
+
+global subroutine fxg_couper ();GraphicObject  Which
+
+SingleLineEdit Refsle
+MultiLineEdit Refmle
+Editmask Refem
+Datawindow Refdw
+
+which = getfocus()
+CHOOSE CASE typeof(Which)
+	CASE SingleLineEdit!
+		refsle = which
+		refsle.cut()
+	CASE MultiLineEdit!
+		refmle = which
+		refmle.cut()
+	CASE Editmask!
+		refem = which
+		refem.cut()
+	CASE Datawindow!
+		refdw = which
+		refdw.cut()
+CASE ELSE
+//Messagebox("","Other")
+		beep(1)
+END CHOOSE
+
+
+end subroutine
+

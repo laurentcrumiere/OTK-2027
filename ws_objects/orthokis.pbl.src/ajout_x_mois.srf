@@ -1,0 +1,82 @@
+﻿$PBExportHeader$ajout_x_mois.srf
+global type ajout_x_mois from function_object
+end type
+
+forward prototypes
+global function date ajout_x_mois (date date_dem, integer nb_mois)
+end prototypes
+
+global function date ajout_x_mois (date date_dem, integer nb_mois);// Rajoute x mois à une date et renvoie la date en question
+
+	date 		date_eche
+
+if nb_mois <> 0 and not isnull(date_dem) then
+
+//	integer v_mois , annee , annee_bisex , i, jour_mois, mois_cal
+//	integer tab[12], j
+//	Long calcul
+//	
+//	tab[1] = 31
+//	tab[2] = 28
+//	tab[3] = 31
+//	tab[4] = 30
+//	tab[5] = 31
+//	tab[6] = 30
+//	tab[7] = 31
+//	tab[8] = 31
+//	tab[9] = 30
+//	tab[10] = 31
+//	tab[11] = 30
+//	tab[12] = 31
+//	
+//	v_mois = Month (date_dem)
+//	annee = Year (date_dem)
+//	jour_mois = Day (date_dem)
+//	
+//	
+//	
+//	
+//	annee_bisex = 0
+//	
+//	IF v_mois = 1 THEN
+//		IF mod(annee,4) = 0 and mod(annee,100) <> 0 THEN
+//			// années multiples de 4 sauf les siècles
+//			annee_bisex = 1
+//		END IF
+//	ELSE
+//		IF v_mois >= 8 THEN
+//			IF mod((annee + 1) ,4) = 0 THEN
+//				annee_bisex = 1
+//			END IF
+//		END IF
+//	END IF	
+//	
+//	
+//	calcul = annee_bisex
+//	IF jour_mois > 28 THEN 
+//		j = 1
+//	ELSE
+//		j = 0
+//	END IF	
+//	
+//	FOR i = j TO (nb_mois - 1 ) + j
+//		mois_cal = v_mois + i
+//		
+//		do while mois_cal > 12 
+//			// si nb mois > 1 an ?....
+//			mois_cal = mois_cal - 12 
+//		loop
+//		calcul += tab[mois_cal]
+//	NEXT
+//	
+//	
+//	date_eche = RelativeDate(date_dem,calcul)		
+
+	select top 1 dateadd (month, :nb_mois, :date_dem) into :date_eche from param ;
+else
+	date_eche = date_dem
+end if
+
+return date_eche
+end function
+

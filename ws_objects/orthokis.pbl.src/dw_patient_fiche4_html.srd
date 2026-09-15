@@ -1,0 +1,473 @@
+﻿$PBExportHeader$dw_patient_fiche4_html.srd
+release 25;
+datawindow(units=0 data.export.format=1 timer_interval=0 color=553648127 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" ole.client.class="DataWindow" ole.client.name="Photo du Patient" )
+header(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=4 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=1592 color="-1" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=char(50) update=yes updatewhereclause=yes name=nom dbname="patient.nom" dbalias=".nom" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=nom_parent1 dbname="patient.nom_parent1" dbalias=".nom_parent1" )
+ column=(type=char(35) updatewhereclause=yes name=adr1_parent1 dbname="patient.adr1_parent1" dbalias=".adr1_parent1" )
+ column=(type=char(35) updatewhereclause=yes name=adr2_parent1 dbname="patient.adr2_parent1" dbalias=".adr2_parent1" )
+ column=(type=char(5) updatewhereclause=yes name=codep_parent1 dbname="patient.codep_parent1" dbalias=".codep_parent1" )
+ column=(type=char(30) updatewhereclause=yes name=ville_parent1 dbname="patient.ville_parent1" dbalias=".ville_parent1" )
+ column=(type=char(25) updatewhereclause=yes name=teldom_parent1 dbname="patient.teldom_parent1" dbalias=".teldom_parent1" )
+ column=(type=char(25) updatewhereclause=yes name=teltra_parent1 dbname="patient.teltra_parent1" dbalias=".teltra_parent1" )
+ column=(type=char(20) updatewhereclause=yes name=secu_parent1 dbname="patient.secu_parent1" dbalias=".secu_parent1" validation="97 - mod(double(left(gettext(),13)),97) = double(right(gettext(),2))" validationmsg="~"Ce numéro de Sécurité Sociale n'est pas correct. La clé doit être : ~"+string(97 - mod(double(left(gettext(),13)),97))" )
+ column=(type=char(50) updatewhereclause=yes name=nom_parent2 dbname="patient.nom_parent2" dbalias=".nom_parent2" )
+ column=(type=char(35) updatewhereclause=yes name=adr1_parent2 dbname="patient.adr1_parent2" dbalias=".adr1_parent2" )
+ column=(type=char(35) updatewhereclause=yes name=adr2_parent2 dbname="patient.adr2_parent2" dbalias=".adr2_parent2" )
+ column=(type=char(5) updatewhereclause=yes name=codep_parent2 dbname="patient.codep_parent2" dbalias=".codep_parent2" )
+ column=(type=char(30) updatewhereclause=yes name=ville_parent2 dbname="patient.ville_parent2" dbalias=".ville_parent2" )
+ column=(type=char(25) updatewhereclause=yes name=teldom_parent2 dbname="patient.teldom_parent2" dbalias=".teldom_parent2" )
+ column=(type=char(25) updatewhereclause=yes name=teltra_parent2 dbname="patient.teltra_parent2" dbalias=".teltra_parent2" )
+ column=(type=char(20) updatewhereclause=yes name=secu_parent2 dbname="patient.secu_parent2" dbalias=".secu_parent2" )
+ column=(type=char(50) updatewhereclause=yes name=nom_payeur dbname="patient.nom_payeur" dbalias=".nom_payeur" )
+ column=(type=char(35) updatewhereclause=yes name=adr1_payeur dbname="patient.adr1_payeur" dbalias=".adr1_payeur" )
+ column=(type=char(35) updatewhereclause=yes name=adr2_payeur dbname="patient.adr2_payeur" dbalias=".adr2_payeur" )
+ column=(type=char(5) updatewhereclause=yes name=codep_payeur dbname="patient.codep_payeur" dbalias=".codep_payeur" )
+ column=(type=char(30) updatewhereclause=yes name=ville_payeur dbname="patient.ville_payeur" dbalias=".ville_payeur" )
+ column=(type=char(25) updatewhereclause=yes name=teldom_payeur dbname="patient.teldom_payeur" dbalias=".teldom_payeur" )
+ column=(type=char(20) updatewhereclause=yes name=secu_payeur dbname="patient.secu_payeur" dbalias=".secu_payeur" )
+ column=(type=date updatewhereclause=yes name=date_naissance dbname="patient.date_naissance" dbalias=".date_naissance" )
+ column=(type=date updatewhereclause=yes name=debut_traitement dbname="patient.debut_traitement" dbalias=".debut_traitement" )
+ column=(type=date updatewhereclause=yes name=date_prem_demande dbname="patient.date_prem_demande" dbalias=".date_prem_demande" )
+ column=(type=char(6) updatewhereclause=yes name=code_praticien dbname="patient.code_praticien" dbalias=".code_praticien" validation="len ( trim ( gettext() )) > 0" validationmsg="~"Ce code doit être obligatoirement saisi~"" )
+ column=(type=char(2) updatewhereclause=yes name=type_dossier dbname="patient.type_dossier" dbalias=".type_dossier" validation="len ( trim ( gettext() )) > 0" validationmsg="~"Ce code doit être obligatoirement saisi~"" )
+ column=(type=char(6) updatewhereclause=yes name=code_correspondant dbname="patient.code_correspondant" dbalias=".code_correspondant" validation="len ( trim ( gettext() )) > 0" validationmsg="~"Ce code doit être obligatoirement saisi~"" )
+ column=(type=char(6) updatewhereclause=yes name=code_dentiste dbname="patient.code_dentiste" dbalias=".code_dentiste" validation="len ( trim ( gettext() )) > 0" validationmsg="~"Ce code doit être obligatoirement saisi~"" )
+ column=(type=char(6) updatewhereclause=yes name=code_caisse dbname="patient.code_caisse" dbalias=".code_caisse" validation="len ( trim ( gettext() )) > 0" validationmsg="~"Ce code doit être obligatoirement saisi~"" )
+ column=(type=char(6) updatewhereclause=yes name=code_mutuelle dbname="patient.code_mutuelle" dbalias=".code_mutuelle" validation="len ( trim ( gettext() )) > 0" validationmsg="~"Ce code doit être obligatoirement saisi~"" )
+ column=(type=date updatewhereclause=yes name=premiere_visite dbname="patient.premiere_visite" dbalias=".premiere_visite" initial="today()" )
+ column=(type=date updatewhereclause=yes name=relance dbname="patient.relance" dbalias=".relance" )
+ column=(type=char(1) updatewhereclause=yes name=sexe dbname="patient.sexe" dbalias=".sexe" values="Masculin	M/Féminin	F/" )
+ column=(type=char(30) updatewhereclause=yes name=prof_parent1 dbname="patient.prof_parent1" dbalias=".prof_parent1" )
+ column=(type=char(30) updatewhereclause=yes name=prof_parent2 dbname="patient.prof_parent2" dbalias=".prof_parent2" )
+ column=(type=char(30) updatewhereclause=yes name=prof_payeur dbname="patient.prof_payeur" dbalias=".prof_payeur" )
+ column=(type=decimal(2) updatewhereclause=yes name=hn dbname="patient.hn" dbalias=".hn" )
+ column=(type=decimal(0) updatewhereclause=yes name=tp dbname="patient.tp" dbalias=".tp" )
+ column=(type=char(30000) update=yes updatewhereclause=yes name=traitement_effectue dbname="patient.traitement_effectue" dbalias=".traitement_effectue" )
+ column=(type=char(30000) update=yes updatewhereclause=yes name=plan_traitement dbname="patient.plan_traitement" dbalias=".plan_traitement" )
+ column=(type=decimal(0) updatewhereclause=yes name=titre_parent1 dbname="patient.titre_parent1" dbalias=".titre_parent1" )
+ column=(type=decimal(0) updatewhereclause=yes name=titre_parent2 dbname="patient.titre_parent2" dbalias=".titre_parent2" )
+ column=(type=decimal(0) updatewhereclause=yes name=titre_payeur dbname="patient.titre_payeur" dbalias=".titre_payeur" )
+ column=(type=char(30) updatewhereclause=yes name=prof2_parent1 dbname="patient.prof2_parent1" dbalias=".prof2_parent1" )
+ column=(type=char(30) updatewhereclause=yes name=prof2_parent2 dbname="patient.prof2_parent2" dbalias=".prof2_parent2" )
+ column=(type=char(30) updatewhereclause=yes name=prof2_payeur dbname="patient.prof2_payeur" dbalias=".prof2_payeur" )
+ column=(type=number update=yes updatewhereclause=yes key=yes identity=yes name=code dbname="patient.code" dbalias=".code" )
+ column=(type=char(30) updatewhereclause=yes name=prenom dbname="patient.prenom" dbalias=".prenom" )
+ column=(type=char(1) updatewhereclause=yes name=basal_max_pro dbname="patient.basal_max_pro" dbalias=".basal_max_pro" )
+ column=(type=char(1) updatewhereclause=yes name=basal_max_retro dbname="patient.basal_max_retro" dbalias=".basal_max_retro" )
+ column=(type=char(1) updatewhereclause=yes name=basal_mand_pro dbname="patient.basal_mand_pro" dbalias=".basal_mand_pro" )
+ column=(type=char(1) updatewhereclause=yes name=basal_mand_retro dbname="patient.basal_mand_retro" dbalias=".basal_mand_retro" )
+ column=(type=char(1) updatewhereclause=yes name=basal_max_endo dbname="patient.basal_max_endo" dbalias=".basal_max_endo" )
+ column=(type=char(1) updatewhereclause=yes name=basal_max_exo dbname="patient.basal_max_exo" dbalias=".basal_max_exo" )
+ column=(type=char(1) updatewhereclause=yes name=basal_mand_endo dbname="patient.basal_mand_endo" dbalias=".basal_mand_endo" )
+ column=(type=char(1) updatewhereclause=yes name=basal_mand_exo dbname="patient.basal_mand_exo" dbalias=".basal_mand_exo" )
+ column=(type=char(1) updatewhereclause=yes name=hypodivergence dbname="patient.hypodivergence" dbalias=".hypodivergence" )
+ column=(type=char(1) updatewhereclause=yes name=hyperdivergence dbname="patient.hyperdivergence" dbalias=".hyperdivergence" )
+ column=(type=char(1) updatewhereclause=yes name=alveo_max_pro dbname="patient.alveo_max_pro" dbalias=".alveo_max_pro" )
+ column=(type=char(1) updatewhereclause=yes name=alveo_max_retro dbname="patient.alveo_max_retro" dbalias=".alveo_max_retro" )
+ column=(type=char(1) updatewhereclause=yes name=alveo_mand_pro dbname="patient.alveo_mand_pro" dbalias=".alveo_mand_pro" )
+ column=(type=char(1) updatewhereclause=yes name=alveo_mand_retro dbname="patient.alveo_mand_retro" dbalias=".alveo_mand_retro" )
+ column=(type=char(1) updatewhereclause=yes name=alveo_max_endo dbname="patient.alveo_max_endo" dbalias=".alveo_max_endo" )
+ column=(type=char(1) updatewhereclause=yes name=alveo_max_exo dbname="patient.alveo_max_exo" dbalias=".alveo_max_exo" )
+ column=(type=char(1) updatewhereclause=yes name=alveo_mand_endo dbname="patient.alveo_mand_endo" dbalias=".alveo_mand_endo" )
+ column=(type=char(1) updatewhereclause=yes name=alveo_mand_exo dbname="patient.alveo_mand_exo" dbalias=".alveo_mand_exo" )
+ column=(type=char(1) updatewhereclause=yes name=supraclusion dbname="patient.supraclusion" dbalias=".supraclusion" )
+ column=(type=char(1) updatewhereclause=yes name=infraclusion dbname="patient.infraclusion" dbalias=".infraclusion" )
+ column=(type=char(1) updatewhereclause=yes name=mol_cl1 dbname="patient.mol_cl1" dbalias=".mol_cl1" )
+ column=(type=char(1) updatewhereclause=yes name=mol_cl2 dbname="patient.mol_cl2" dbalias=".mol_cl2" )
+ column=(type=char(1) updatewhereclause=yes name=mol_cl3 dbname="patient.mol_cl3" dbalias=".mol_cl3" )
+ column=(type=char(1) updatewhereclause=yes name=can_cl1 dbname="patient.can_cl1" dbalias=".can_cl1" )
+ column=(type=char(1) updatewhereclause=yes name=can_cl2 dbname="patient.can_cl2" dbalias=".can_cl2" )
+ column=(type=char(1) updatewhereclause=yes name=can_cl3 dbname="patient.can_cl3" dbalias=".can_cl3" )
+ column=(type=char(10) updatewhereclause=yes name=molaire dbname="patient.molaire" dbalias=".molaire" )
+ column=(type=char(10) updatewhereclause=yes name=canine dbname="patient.canine" dbalias=".canine" )
+ column=(type=char(1) updatewhereclause=yes name=dento_max dbname="patient.dento_max" dbalias=".dento_max" )
+ column=(type=char(1) updatewhereclause=yes name=dento_dent dbname="patient.dento_dent" dbalias=".dento_dent" )
+ column=(type=char(100) updatewhereclause=yes name=agenesie dbname="patient.agenesie" dbalias=".agenesie" )
+ column=(type=char(100) updatewhereclause=yes name=surnum dbname="patient.surnum" dbalias=".surnum" )
+ column=(type=char(100) updatewhereclause=yes name=malposition dbname="patient.malposition" dbalias=".malposition" )
+ column=(type=char(1) updatewhereclause=yes name=occl_dte dbname="patient.occl_dte" dbalias=".occl_dte" )
+ column=(type=char(1) updatewhereclause=yes name=occl_gche dbname="patient.occl_gche" dbalias=".occl_gche" )
+ column=(type=char(1) updatewhereclause=yes name=occl_ant dbname="patient.occl_ant" dbalias=".occl_ant" )
+ column=(type=char(100) updatewhereclause=yes name=facteur dbname="patient.facteur" dbalias=".facteur" )
+ column=(type=char(30000) updatewhereclause=yes name=commentaire dbname="patient.commentaire" dbalias=".commentaire" )
+ column=(type=char(25) updatewhereclause=yes name=portable dbname="patient.portable" dbalias=".portable" )
+ column=(type=char(20) updatewhereclause=yes name=archivage dbname="patient.archivage" dbalias=".archivage" )
+ column=(type=date updatewhereclause=yes name=date_contact dbname="patient.date_contact" dbalias=".date_contact" )
+ column=(type=char(1) updatewhereclause=yes name=assure dbname="patient.assure" dbalias=".assure" )
+ column=(type=char(35) updatewhereclause=yes name=nom_assure dbname="patient.nom_assure" dbalias=".nom_assure" )
+ column=(type=char(1) updatewhereclause=yes name=devis_remis dbname="patient.devis_remis" dbalias=".devis_remis" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=plan_imprime dbname="patient.plan_imprime" dbalias=".plan_imprime" values="Plan de traitement imprimé (semestre 2 et +)	O/Plan de traitement imprimé (semestre 2 et +)	N" )
+ column=(type=number updatewhereclause=yes name=identifiant_televitale dbname="patient.identifiant_televitale" dbalias=".identifiant_televitale" )
+ column=(type=char(10) updatewhereclause=yes name=date_naissance_vitale dbname="patient.date_naissance_vitale" dbalias=".date_naissance_vitale" )
+ column=(type=char(10) updatewhereclause=yes name=moulage dbname="patient.moulage" dbalias=".moulage" )
+ column=(type=char(1) updatewhereclause=yes name=adulte dbname="patient.adulte" dbalias=".adulte" )
+ column=(type=char(20) updatewhereclause=yes name=categorie_statistique dbname="patient.categorie_statistique" dbalias=".categorie_statistique" )
+ column=(type=date updatewhereclause=yes name=date_statistique dbname="patient.date_statistique" dbalias=".date_statistique" )
+ column=(type=char(50) updatewhereclause=yes name=categories_nom dbname="categories.nom" dbalias="categories_a.nom" )
+ column=(type=char(50) updatewhereclause=yes name=categories_nom dbname="categories.nom" dbalias="categories_b.nom" )
+ column=(type=char(6) updatewhereclause=yes name=patient_code_medecin dbname="patient.code_medecin" dbalias=".code_medecin" )
+ column=(type=char(50) updatewhereclause=yes name=categories_nom dbname="categories.nom" dbalias="categories_c.nom" )
+ column=(type=decimal(1) update=yes updatewhereclause=yes name=patient_duree_traitement dbname="patient.duree_traitement" dbalias=".duree_traitement" )
+ column=(type=date updatewhereclause=yes name=patient_date_moulage dbname="patient.date_moulage" dbalias=".date_moulage" )
+ column=(type=char(1) updatewhereclause=yes name=patient_cmu dbname="patient.cmu" dbalias=".cmu" )
+ column=(type=date updatewhereclause=yes name=patient_date_naissance_assure dbname="patient.date_naissance_assure" dbalias=".date_naissance_assure" )
+ column=(type=decimal(0) updatewhereclause=yes name=patient_identifiant_odrade dbname="patient.identifiant_odrade" dbalias=".identifiant_odrade" )
+ column=(type=decimal(0) updatewhereclause=yes name=patient_titre_patient dbname="patient.titre_patient" dbalias=".titre_patient" )
+ column=(type=char(6) updatewhereclause=yes name=patient_pays_parent1 dbname="patient.pays_parent1" dbalias=".pays_parent1" )
+ column=(type=char(200) updatewhereclause=yes name=com_parent1 dbname="patient.com_parent1" dbalias=".com_parent1" )
+ column=(type=char(200) updatewhereclause=yes name=com_parent2 dbname="patient.com_parent2" dbalias=".com_parent2" )
+ column=(type=char(30000) updatewhereclause=yes name=remarques dbname="patient.remarques" dbalias=".remarques" )
+ column=(type=char(20) updatewhereclause=yes name=classe dbname="patient.classe" dbalias=".classe" )
+ column=(type=char(20) updatewhereclause=yes name=type dbname="patient.type" dbalias=".type" )
+ column=(type=char(25) updatewhereclause=yes name=teltra_payeur dbname="patient.teltra_payeur" dbalias=".teltra_payeur" )
+ column=(type=char(200) updatewhereclause=yes name=com_payeur dbname="patient.com_payeur" dbalias=".com_payeur" )
+ column=(type=char(6) updatewhereclause=yes name=patient_pays_parent2 dbname="patient.pays_parent2" dbalias=".pays_parent2" )
+ column=(type=char(6) updatewhereclause=yes name=patient_pays_payeur dbname="patient.pays_payeur" dbalias=".pays_payeur" )
+ column=(type=date updatewhereclause=yes name=patient_date_interruption dbname="patient.date_interruption" dbalias=".date_interruption" )
+ column=(type=date updatewhereclause=yes name=patient_date_reprise dbname="patient.date_reprise" dbalias=".date_reprise" )
+ column=(type=date updatewhereclause=yes name=patient_fin_traitement dbname="patient.fin_traitement" dbalias=".fin_traitement" )
+ column=(type=date updatewhereclause=yes name=patient_date_relance_admini dbname="patient.date_relance_admini" dbalias=".date_relance_admini" )
+ column=(type=char(1000) updatewhereclause=yes name=patient_motif_relance_admini dbname="patient.motif_relance_admini" dbalias=".motif_relance_admini" )
+ column=(type=number updatewhereclause=yes name=patient_couleur1 dbname="patient.couleur1" dbalias=".couleur1" )
+ column=(type=char(25) updatewhereclause=yes name=patient_portable_patient dbname="patient.portable_patient" dbalias=".portable_patient" )
+ column=(type=char(100) updatewhereclause=yes name=patient_email_patient dbname="patient.email_patient" dbalias=".email_patient" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teldom2_parent1 dbname="patient.teldom2_parent1" dbalias=".teldom2_parent1" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teltra2_parent1 dbname="patient.teltra2_parent1" dbalias=".teltra2_parent1" )
+ column=(type=char(25) updatewhereclause=yes name=patient_portable2_parent1 dbname="patient.portable2_parent1" dbalias=".portable2_parent1" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teldom2_parent2 dbname="patient.teldom2_parent2" dbalias=".teldom2_parent2" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teltra2_parent2 dbname="patient.teltra2_parent2" dbalias=".teltra2_parent2" )
+ column=(type=char(25) updatewhereclause=yes name=patient_portable1_parent2 dbname="patient.portable1_parent2" dbalias=".portable1_parent2" )
+ column=(type=char(25) updatewhereclause=yes name=patient_portable2_parent2 dbname="patient.portable2_parent2" dbalias=".portable2_parent2" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teldom2_payeur dbname="patient.teldom2_payeur" dbalias=".teldom2_payeur" )
+ column=(type=char(25) updatewhereclause=yes name=patient_teltra2_payeur dbname="patient.teltra2_payeur" dbalias=".teltra2_payeur" )
+ column=(type=char(25) updatewhereclause=yes name=patient_portable1_payeur dbname="patient.portable1_payeur" dbalias=".portable1_payeur" )
+ column=(type=char(25) updatewhereclause=yes name=patient_portable2_payeur dbname="patient.portable2_payeur" dbalias=".portable2_payeur" )
+ column=(type=char(100) updatewhereclause=yes name=patient_email_parent2 dbname="patient.email_parent2" dbalias=".email_parent2" )
+ column=(type=char(100) updatewhereclause=yes name=patient_email_payeur dbname="patient.email_payeur" dbalias=".email_payeur" )
+ column=(type=char(100) updatewhereclause=yes name=email dbname="patient.email" dbalias=".email" )
+ column=(type=char(1) updatewhereclause=yes name=patient_dep_imprime dbname="patient.dep_imprime" dbalias=".dep_imprime" )
+ column=(type=char(30) updatewhereclause=yes name=patient_identifiant_bibliocast dbname="patient.identifiant_bibliocast" dbalias=".identifiant_bibliocast" )
+ column=(type=char(6) updatewhereclause=yes name=user_modif dbname="patient.user_modif" dbalias=".user_modif" )
+ column=(type=datetime updatewhereclause=yes name=date_modif dbname="patient.date_modif" dbalias=".date_modif" )
+ column=(type=char(1) updatewhereclause=yes name=patient_envoi_sms dbname="patient.envoi_sms" dbalias=".envoi_sms" )
+ column=(type=decimal(0) updatewhereclause=yes name=patient_numero_dossier dbname="patient.numero_dossier" dbalias=".numero_dossier" )
+ column=(type=number updatewhereclause=yes name=patient_couleur2 dbname="patient.couleur2" dbalias=".couleur2" )
+ column=(type=number updatewhereclause=yes name=patient_couleur3 dbname="patient.couleur3" dbalias=".couleur3" )
+ column=(type=number updatewhereclause=yes name=patient_couleur4 dbname="patient.couleur4" dbalias=".couleur4" )
+ column=(type=number updatewhereclause=yes name=patient_couleur5 dbname="patient.couleur5" dbalias=".couleur5" )
+ column=(type=char(6) updatewhereclause=yes name=patient_ecole dbname="patient.ecole" dbalias=".ecole" )
+ column=(type=char(40) updatewhereclause=yes name=patient_classe_scolaire dbname="patient.classe_scolaire" dbalias=".classe_scolaire" )
+ column=(type=date updatewhereclause=yes name=patient_date_validite_cmu dbname="patient.date_validite_cmu" dbalias=".date_validite_cmu" )
+ column=(type=char(6) updatewhereclause=yes name=patient_mdp_patient dbname="patient.mdp_patient" dbalias=".mdp_patient" )
+ column=(type=char(6) updatewhereclause=yes name=patient_mdp_parent1 dbname="patient.mdp_parent1" dbalias=".mdp_parent1" )
+ column=(type=char(6) updatewhereclause=yes name=patient_mdp_parent2 dbname="patient.mdp_parent2" dbalias=".mdp_parent2" )
+ column=(type=char(6) updatewhereclause=yes name=patient_mdp_payeur dbname="patient.mdp_payeur" dbalias=".mdp_payeur" )
+ column=(type=char(1) updatewhereclause=yes name=patient_portable_patient_sms dbname="patient.portable_patient_sms" dbalias=".portable_patient_sms" )
+ column=(type=char(1) updatewhereclause=yes name=patient_portable_sms dbname="patient.portable_sms" dbalias=".portable_sms" )
+ column=(type=char(1) updatewhereclause=yes name=patient_portable2_parent1_sms dbname="patient.portable2_parent1_sms" dbalias=".portable2_parent1_sms" )
+ column=(type=char(1) updatewhereclause=yes name=patient_portable1_parent2_sms dbname="patient.portable1_parent2_sms" dbalias=".portable1_parent2_sms" )
+ column=(type=char(1) updatewhereclause=yes name=patient_portable2_parent2_sms dbname="patient.portable2_parent2_sms" dbalias=".portable2_parent2_sms" )
+ column=(type=char(1) updatewhereclause=yes name=patient_portable1_payeur_sms dbname="patient.portable1_payeur_sms" dbalias=".portable1_payeur_sms" )
+ column=(type=char(1) updatewhereclause=yes name=patient_portable2_payeur_sms dbname="patient.portable2_payeur_sms" dbalias=".portable2_payeur_sms" )
+ column=(type=char(30000) updatewhereclause=yes name=patient_remarques_html dbname="patient.remarques_html" dbalias=".remarques_html" )
+ column=(type=char(30000) update=yes updatewhereclause=yes name=patient_traitement_effectue_html dbname="patient.traitement_effectue_html" dbalias=".traitement_effectue_html" )
+ column=(type=char(30000) update=yes updatewhereclause=yes name=patient_plan_traitement_html dbname="patient.plan_traitement_html" dbalias=".plan_traitement_html" )
+ column=(type=char(30000) updatewhereclause=yes name=patient_commentaire_html dbname="patient.commentaire_html" dbalias=".commentaire_html" )
+ column=(type=char(40) updatewhereclause=yes name=patient_comtel1_parent1 dbname="patient.comtel1_parent1" dbalias=".comtel1_parent1" )
+ column=(type=char(40) updatewhereclause=yes name=patient_comtel2_parent1 dbname="patient.comtel2_parent1" dbalias=".comtel2_parent1" )
+ column=(type=char(40) updatewhereclause=yes name=patient_comtel1_parent2 dbname="patient.comtel1_parent2" dbalias=".comtel1_parent2" )
+ column=(type=char(40) updatewhereclause=yes name=patient_comtel2_parent2 dbname="patient.comtel2_parent2" dbalias=".comtel2_parent2" )
+ column=(type=char(40) updatewhereclause=yes name=patient_comtel1_payeur dbname="patient.comtel1_payeur" dbalias=".comtel1_payeur" )
+ column=(type=char(40) updatewhereclause=yes name=patient_comtel2_payeur dbname="patient.comtel2_payeur" dbalias=".comtel2_payeur" )
+ column=(type=char(2) updatewhereclause=yes name=patient_mise_en_evidence dbname="patient.mise_en_evidence" dbalias=".mise_en_evidence" )
+ column=(type=char(20) updatewhereclause=yes name=patient_id_invisalign dbname="patient.id_invisalign" dbalias=".id_invisalign" )
+ column=(type=char(30000) updatewhereclause=yes name=patient_diag_dentaire_html dbname="patient.diag_dentaire_html" dbalias=".diag_dentaire_html" )
+ column=(type=char(30000) updatewhereclause=yes name=patient_diag_fonctionnel_html dbname="patient.diag_fonctionnel_html" dbalias=".diag_fonctionnel_html" )
+ column=(type=char(30000) updatewhereclause=yes name=patient_plan_complement_html dbname="patient.plan_complement_html" dbalias=".plan_complement_html" )
+ column=(type=char(200) update=yes updatewhereclause=yes name=patient_extraction dbname="patient.extraction" dbalias=".extraction" )
+ column=(type=date updatewhereclause=yes name=patient_date_fin_tpi dbname="patient.date_fin_tpi" dbalias=".date_fin_tpi" )
+ column=(type=char(1000) updatewhereclause=yes name=patient_champ_reprise1 dbname="patient.champ_reprise1" dbalias=".champ_reprise1" )
+ column=(type=char(1) updatewhereclause=yes name=patient_mode_reglement_habituel dbname="patient.mode_reglement_habituel" dbalias=".mode_reglement_habituel" )
+ column=(type=char(6) updatewhereclause=yes name=patient_code_banque dbname="patient.code_banque" dbalias=".code_banque" )
+ column=(type=char(40) updatewhereclause=yes name=patient_iban dbname="patient.iban" dbalias=".iban" )
+ column=(type=char(20) updatewhereclause=yes name=patient_bic dbname="patient.bic" dbalias=".bic" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=patient_duree_traitement_unite dbname="patient.duree_traitement_unite" dbalias=".duree_traitement_unite" values="Semestres	S/Mois	M/Trimestres	T/" )
+ column=(type=char(30000) updatewhereclause=yes name=patient_diag_alveolaire_html dbname="patient.diag_alveolaire_html" dbalias=".diag_alveolaire_html" )
+ column=(type=char(20) updatewhereclause=yes name=patient_code_comptable dbname="patient.code_comptable" dbalias=".code_comptable" )
+ column=(type=char(6) updatewhereclause=yes name=patient_code_medecin2 dbname="patient.code_medecin2" dbalias=".code_medecin2" )
+ column=(type=char(6) updatewhereclause=yes name=patient_code_medecin3 dbname="patient.code_medecin3" dbalias=".code_medecin3" )
+ column=(type=char(6) updatewhereclause=yes name=patient_code_medecin4 dbname="patient.code_medecin4" dbalias=".code_medecin4" )
+ column=(type=char(20) updatewhereclause=yes name=patient_secu_patient dbname="patient.secu_patient" dbalias=".secu_patient" )
+ column=(type=char(50) updatewhereclause=yes name=categories_nom_4 dbname="categories_nom_4" )
+ column=(type=char(50) updatewhereclause=yes name=categories_nom_5 dbname="categories_nom_5" )
+ column=(type=char(50) updatewhereclause=yes name=categories_nom_6 dbname="categories_nom_6" )
+ column=(type=char(1) updatewhereclause=yes name=patient_barre_avancement dbname="patient.barre_avancement" dbalias=".barre_avancement" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_rdv_portail_patient dbname="patient.autor_rdv_portail_patient" dbalias=".autor_rdv_portail_patient" )
+ column=(type=char(25) updatewhereclause=yes name=patient_rum dbname="patient.rum" dbalias=".rum" )
+ column=(type=date updatewhereclause=yes name=patient_date_mandat dbname="patient.date_mandat" dbalias=".date_mandat" )
+ column=(type=char(6) updatewhereclause=yes name=patient_code_mutuelle2 dbname="patient.code_mutuelle2" dbalias=".code_mutuelle2" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_cloud dbname="patient.autor_cloud" dbalias=".autor_cloud" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_appli_patient dbname="patient.autor_appli_patient" dbalias=".autor_appli_patient" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_appli_parent11 dbname="patient.autor_appli_parent11" dbalias=".autor_appli_parent11" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_appli_parent12 dbname="patient.autor_appli_parent12" dbalias=".autor_appli_parent12" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_appli_parent21 dbname="patient.autor_appli_parent21" dbalias=".autor_appli_parent21" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_appli_parent22 dbname="patient.autor_appli_parent22" dbalias=".autor_appli_parent22" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_appli_payeur1 dbname="patient.autor_appli_payeur1" dbalias=".autor_appli_payeur1" )
+ column=(type=char(1) updatewhereclause=yes name=patient_autor_appli_payeur2 dbname="patient.autor_appli_payeur2" dbalias=".autor_appli_payeur2" )
+ column=(type=char(30) updatewhereclause=yes name=patient_numero_piece_identite dbname="patient.numero_piece_identite" dbalias=".numero_piece_identite" )
+ column=(type=char(1) updatewhereclause=yes name=fichier_photo_identite dbname="fichier_photo_identite" )
+ column=(type=char(200) update=yes updatewhereclause=yes name=patient_dents_soins dbname="patient.dents_soins" dbalias=".dents_soins" )
+ retrieve="  SELECT ~"patient~".~"nom~",    
+         ~"patient~".~"nom_parent1~",   
+         ~"patient~".~"adr1_parent1~",   
+         ~"patient~".~"adr2_parent1~",   
+         ~"patient~".~"codep_parent1~",   
+         ~"patient~".~"ville_parent1~",   
+         ~"patient~".~"teldom_parent1~",   
+         ~"patient~".~"teltra_parent1~",   
+         ~"patient~".~"secu_parent1~",   
+         ~"patient~".~"nom_parent2~",   
+         ~"patient~".~"adr1_parent2~",   
+         ~"patient~".~"adr2_parent2~",   
+         ~"patient~".~"codep_parent2~",   
+         ~"patient~".~"ville_parent2~",   
+         ~"patient~".~"teldom_parent2~",   
+         ~"patient~".~"teltra_parent2~",   
+         ~"patient~".~"secu_parent2~",   
+         ~"patient~".~"nom_payeur~",   
+         ~"patient~".~"adr1_payeur~",   
+         ~"patient~".~"adr2_payeur~",   
+         ~"patient~".~"codep_payeur~",    
+         ~"patient~".~"ville_payeur~",   
+         ~"patient~".~"teldom_payeur~",   
+         ~"patient~".~"secu_payeur~",   
+         ~"patient~".~"date_naissance~",   
+         ~"patient~".~"debut_traitement~",   
+         ~"patient~".~"date_prem_demande~",   
+         ~"patient~".~"code_praticien~",   
+         ~"patient~".~"type_dossier~",   
+         ~"patient~".~"code_correspondant~",   
+         ~"patient~".~"code_dentiste~",   
+         ~"patient~".~"code_caisse~",   
+         ~"patient~".~"code_mutuelle~",   
+         ~"patient~".~"premiere_visite~",   
+         ~"patient~".~"relance~",   
+         ~"patient~".~"sexe~",   
+         ~"patient~".~"prof_parent1~",   
+         ~"patient~".~"prof_parent2~",   
+         ~"patient~".~"prof_payeur~",   
+         ~"patient~".~"hn~",   
+         ~"patient~".~"tp~",   
+         ~"patient~".~"traitement_effectue~",   
+         ~"patient~".~"plan_traitement~",   
+         ~"patient~".~"titre_parent1~",   
+         ~"patient~".~"titre_parent2~",   
+         ~"patient~".~"titre_payeur~",   
+         ~"patient~".~"prof2_parent1~",   
+         ~"patient~".~"prof2_parent2~",   
+         ~"patient~".~"prof2_payeur~",   
+         ~"patient~".~"code~",   
+         ~"patient~".~"prenom~",   
+         ~"patient~".~"basal_max_pro~",   
+         ~"patient~".~"basal_max_retro~",   
+         ~"patient~".~"basal_mand_pro~",   
+         ~"patient~".~"basal_mand_retro~",   
+         ~"patient~".~"basal_max_endo~",   
+         ~"patient~".~"basal_max_exo~",   
+         ~"patient~".~"basal_mand_endo~",   
+         ~"patient~".~"basal_mand_exo~",   
+         ~"patient~".~"hypodivergence~",   
+         ~"patient~".~"hyperdivergence~",   
+         ~"patient~".~"alveo_max_pro~",   
+         ~"patient~".~"alveo_max_retro~",   
+         ~"patient~".~"alveo_mand_pro~",   
+         ~"patient~".~"alveo_mand_retro~",   
+         ~"patient~".~"alveo_max_endo~",   
+         ~"patient~".~"alveo_max_exo~",   
+         ~"patient~".~"alveo_mand_endo~",   
+         ~"patient~".~"alveo_mand_exo~",   
+         ~"patient~".~"supraclusion~",   
+         ~"patient~".~"infraclusion~",   
+         ~"patient~".~"mol_cl1~",   
+         ~"patient~".~"mol_cl2~",   
+         ~"patient~".~"mol_cl3~",   
+         ~"patient~".~"can_cl1~",   
+         ~"patient~".~"can_cl2~",   
+         ~"patient~".~"can_cl3~",   
+         ~"patient~".~"molaire~",   
+         ~"patient~".~"canine~",   
+         ~"patient~".~"dento_max~",   
+         ~"patient~".~"dento_dent~",   
+         ~"patient~".~"agenesie~",   
+         ~"patient~".~"surnum~",   
+         ~"patient~".~"malposition~",   
+         ~"patient~".~"occl_dte~",   
+         ~"patient~".~"occl_gche~",   
+         ~"patient~".~"occl_ant~",   
+         ~"patient~".~"facteur~",   
+         ~"patient~".~"commentaire~",   
+         ~"patient~".~"portable~",   
+         ~"patient~".~"archivage~",   
+         ~"patient~".~"date_contact~",   
+         ~"patient~".~"assure~",   
+         ~"patient~".~"nom_assure~",   
+         ~"patient~".~"devis_remis~",   
+         ~"patient~".~"plan_imprime~",   
+         ~"patient~".~"identifiant_televitale~",   
+         ~"patient~".~"date_naissance_vitale~",   
+         ~"patient~".~"moulage~",   
+         ~"patient~".~"adulte~",   
+         ~"patient~".~"categorie_statistique~",   
+         ~"patient~".~"date_statistique~",   
+         ~"categories_a~".~"nom~",   
+         ~"categories_b~".~"nom~",   
+         ~"patient~".~"code_medecin~",   
+         ~"categories_c~".~"nom~",   
+         ~"patient~".~"duree_traitement~",   
+         ~"patient~".~"date_moulage~",   
+         ~"patient~".~"cmu~",   
+         ~"patient~".~"date_naissance_assure~",   
+         ~"patient~".~"identifiant_odrade~",   
+         ~"patient~".~"titre_patient~",   
+         ~"patient~".~"pays_parent1~",   
+         ~"patient~".~"com_parent1~",   
+         ~"patient~".~"com_parent2~",   
+         ~"patient~".~"remarques~",   
+         ~"patient~".~"classe~",   
+         ~"patient~".~"type~",   
+         ~"patient~".~"teltra_payeur~",   
+         ~"patient~".~"com_payeur~",   
+         ~"patient~".~"pays_parent2~",   
+         ~"patient~".~"pays_payeur~",   
+         ~"patient~".~"date_interruption~",   
+         ~"patient~".~"date_reprise~",   
+         ~"patient~".~"fin_traitement~",   
+         ~"patient~".~"date_relance_admini~",   
+         ~"patient~".~"motif_relance_admini~",   
+         ~"patient~".~"couleur1~",   
+         ~"patient~".~"portable_patient~",   
+         ~"patient~".~"email_patient~",   
+         ~"patient~".~"teldom2_parent1~",   
+         ~"patient~".~"teltra2_parent1~",   
+         ~"patient~".~"portable2_parent1~",   
+         ~"patient~".~"teldom2_parent2~",   
+         ~"patient~".~"teltra2_parent2~",   
+         ~"patient~".~"portable1_parent2~",   
+         ~"patient~".~"portable2_parent2~",   
+         ~"patient~".~"teldom2_payeur~",   
+         ~"patient~".~"teltra2_payeur~",   
+         ~"patient~".~"portable1_payeur~",   
+         ~"patient~".~"portable2_payeur~",   
+         ~"patient~".~"email_parent2~",   
+         ~"patient~".~"email_payeur~",   
+         ~"patient~".~"email~",   
+         ~"patient~".~"dep_imprime~",   
+         ~"patient~".~"identifiant_bibliocast~",   
+         ~"patient~".~"user_modif~",   
+         ~"patient~".~"date_modif~",   
+         ~"patient~".~"envoi_sms~",   
+         ~"patient~".~"numero_dossier~",   
+         ~"patient~".~"couleur2~",   
+         ~"patient~".~"couleur3~",   
+         ~"patient~".~"couleur4~",   
+         ~"patient~".~"couleur5~",   
+         ~"patient~".~"ecole~",   
+         ~"patient~".~"classe_scolaire~",   
+         ~"patient~".~"date_validite_cmu~",   
+         ~"patient~".~"mdp_patient~",   
+         ~"patient~".~"mdp_parent1~",   
+         ~"patient~".~"mdp_parent2~",   
+         ~"patient~".~"mdp_payeur~",   
+         ~"patient~".~"portable_patient_sms~",   
+         ~"patient~".~"portable_sms~",   
+         ~"patient~".~"portable2_parent1_sms~",   
+         ~"patient~".~"portable1_parent2_sms~",   
+         ~"patient~".~"portable2_parent2_sms~",   
+         ~"patient~".~"portable1_payeur_sms~",   
+         ~"patient~".~"portable2_payeur_sms~",   
+         ~"patient~".~"remarques_html~",   
+         ~"patient~".~"traitement_effectue_html~",   
+         ~"patient~".~"plan_traitement_html~",   
+         ~"patient~".~"commentaire_html~",   
+         ~"patient~".~"comtel1_parent1~",   
+         ~"patient~".~"comtel2_parent1~",   
+         ~"patient~".~"comtel1_parent2~",   
+         ~"patient~".~"comtel2_parent2~",   
+         ~"patient~".~"comtel1_payeur~",   
+         ~"patient~".~"comtel2_payeur~",   
+         ~"patient~".~"mise_en_evidence~",   
+         ~"patient~".~"id_invisalign~",   
+         ~"patient~".~"diag_dentaire_html~",   
+         ~"patient~".~"diag_fonctionnel_html~",   
+         ~"patient~".~"plan_complement_html~",   
+         ~"patient~".~"extraction~",   
+         ~"patient~".~"date_fin_tpi~",   
+         ~"patient~".~"champ_reprise1~",   
+         ~"patient~".~"mode_reglement_habituel~",   
+         ~"patient~".~"code_banque~",   
+         ~"patient~".~"iban~",   
+         ~"patient~".~"bic~",   
+         ~"patient~".~"duree_traitement_unite~",   
+         ~"patient~".~"diag_alveolaire_html~",   
+         ~"patient~".~"code_comptable~",   
+         ~"patient~".~"code_medecin2~",   
+         ~"patient~".~"code_medecin3~",   
+         ~"patient~".~"code_medecin4~",   
+		~"patient~".~"secu_patient~",
+         (select isnull(categories.nom, '') as categories_nom_4 from categories, correspondants where code_medecin2 = correspondants.code and correspondants.categorie = categories.code),   
+         (select isnull(categories.nom, '') as categories_nom_5 from categories, correspondants where code_medecin3 = correspondants.code and correspondants.categorie = categories.code),   
+         (select isnull(categories.nom, '') as categories_nom_6 from categories, correspondants where code_medecin4 = correspondants.code and correspondants.categorie = categories.code),
+		~"patient~".~"barre_avancement~" ,
+		~"patient~".~"autor_rdv_portail_patient~",
+		~"patient~".~"rum~",
+		~"patient~".~"date_mandat~",
+		~"patient~".~"code_mutuelle2~",
+		~"patient~".~"autor_cloud~",
+		~"patient~".~"autor_appli_patient~",
+		~"patient~".~"autor_appli_parent11~", 
+		~"patient~".~"autor_appli_parent12~",
+		~"patient~".~"autor_appli_parent21~",
+		~"patient~".~"autor_appli_parent22~",
+		~"patient~".~"autor_appli_payeur1~",
+		~"patient~".~"autor_appli_payeur2~", 
+		~"patient~".~"numero_piece_identite~" ,
+(SELECT v1 from table_vide) as fichier_photo_identite ,
+		~"patient~".~"dents_soins~" 
+
+    FROM {oj ~"correspondants~" ~"correspondants_a~" LEFT OUTER JOIN ~"categories~" ~"categories_a~" ON ~"correspondants_a~".~"categorie~" = ~"categories_a~".~"code~"}, {oj ~"correspondants~" ~"correspondants_b~" LEFT OUTER JOIN ~"categories~" ~"categories_b~" ON ~"correspondants_b~".~"categorie~" = ~"categories_b~".~"code~"}, {oj ~"correspondants~" ~"correspondants_c~" LEFT OUTER JOIN ~"categories~" ~"categories_c~" ON ~"correspondants_c~".~"categorie~" = ~"categories_c~".~"code~"},   
+         ~"patient~"  
+   WHERE ( ~"patient~".~"code_correspondant~" = ~"correspondants_a~".~"code~" ) and  
+         ( ~"patient~".~"code_dentiste~" = ~"correspondants_b~".~"code~" ) and  
+         ( ~"patient~".~"code_medecin~" = ~"correspondants_c~".~"code~" ) and  
+         ( (  ~"patient~".~"code~" = :var_code  ) )    
+" update="patient" updatewhere=2 updatekeyinplace=no arguments=(("var_code", number)) )
+groupbox(band=detail text=""border="2" color="0" x="14" y="16" height="1544" width="3831"  name=gb_1 visible="1"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15780518" background.transparency="100" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=170 alignment="0" tabsequence=10 border="5" color="0" x="251" y="128" height="480" width="3397" format="[general]" html.valueishtml="0"  name=patient_traitement_effectue_html visible="1" edit.limit=30000 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.vscrollbar=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="0" text="Diagnostic :" border="0" color="0" x="251" y="36" height="64" width="338" html.valueishtml="0"  name=nom_parent1_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="100" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=171 alignment="0" tabsequence=20 border="5" color="0" x="251" y="764" height="480" width="3397" format="[general]" html.valueishtml="0"  name=patient_plan_traitement_html visible="1" edit.limit=30000 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.vscrollbar=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="0" text="Plan de Traitement :" border="0" color="0" x="251" y="672" height="80" width="617" html.valueishtml="0"  name=adr2_parent1_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="100" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=107 alignment="0" tabsequence=40 border="5" color="0" x="1001" y="1284" height="64" width="142" format="[General]" html.valueishtml="0"  name=patient_duree_traitement visible="1" editmask.mask="##.0" editmask.focusrectangle=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=191 alignment="0" tabsequence=50 border="5" color="0" x="1170" y="1284" height="64" width="581" format="[general]" html.valueishtml="0"  name=patient_duree_traitement_unite visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.validation=no ddlb.autocompletemode=none ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=96 alignment="0" tabsequence=30 border="0" color="0" x="2057" y="1284" height="64" width="1394" format="[general]" html.valueishtml="0"  name=plan_imprime visible="1" checkbox.text="Plan de traitement imprimé (semestre 2 et +)" checkbox.on="O" checkbox.off="N" checkbox.lefttext=yes checkbox.scale=yes checkbox.threed=yes  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15780518" background.transparency="100" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+button(band=detail text="" filename="lc_dent.png" enabled=yes action="0" border="0" color="0" x="3497" y="1360" height="92" width="101" vtextalign="0" htextalign="0"  name=b_schema visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="0" text="Durée du Traitement : " border="0" color="0" x="325" y="1284" height="64" width="667" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="100" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="0" text="Extractions :" border="0" color="0" x="325" y="1372" height="64" width="393" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="100" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=184 alignment="0" tabsequence=60 border="5" color="0" x="745" y="1372" height="64" width="2706" format="[general]" html.valueishtml="0"  name=patient_extraction visible="1" edit.limit=200 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="0" text="Dents Soins :" border="0" color="0" x="325" y="1460" height="64" width="393" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="100" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=216 alignment="0" tabsequence=70 border="5" color="0" x="745" y="1460" height="64" width="2706" format="[general]" html.valueishtml="0"  name=patient_dents_soins visible="1" edit.limit=200 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+button(band=detail text="" filename="lc_dent.png" enabled=yes action="0" border="0" color="0" x="3497" y="1448" height="92" width="101" vtextalign="0" htextalign="0"  name=b_schema_dents_soins visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0  template=(comment="" encoding="UTF-16LE" name="a" xml="<?xml version=~"1.0~" encoding=~"UTF-16LE~" standalone=~"no~"?><dw_patient_fiche4><dw_patient_fiche4_row __pbband=~"detail~"><nom>nom</nom><nom_parent1>nom_parent1</nom_parent1><adr1_parent1>adr1_parent1</adr1_parent1><adr2_parent1>adr2_parent1</adr2_parent1><codep_parent1>codep_parent1</codep_parent1><ville_parent1>ville_parent1</ville_parent1><teldom_parent1>teldom_parent1</teldom_parent1><teltra_parent1>teltra_parent1</teltra_parent1><secu_parent1>secu_parent1</secu_parent1><nom_parent2>nom_parent2</nom_parent2><adr1_parent2>adr1_parent2</adr1_parent2><adr2_parent2>adr2_parent2</adr2_parent2><codep_parent2>codep_parent2</codep_parent2><ville_parent2>ville_parent2</ville_parent2><teldom_parent2>teldom_parent2</teldom_parent2><teltra_parent2>teltra_parent2</teltra_parent2><secu_parent2>secu_parent2</secu_parent2><nom_payeur>nom_payeur</nom_payeur><adr1_payeur>adr1_payeur</adr1_payeur><adr2_payeur>adr2_payeur</adr2_payeur><codep_payeur>codep_payeur</codep_payeur><ville_payeur>ville_payeur</ville_payeur><teldom_payeur>teldom_payeur</teldom_payeur><secu_payeur>secu_payeur</secu_payeur><date_naissance>date_naissance</date_naissance><debut_traitement>debut_traitement</debut_traitement><date_prem_demande>date_prem_demande</date_prem_demande><code_praticien>code_praticien</code_praticien><type_dossier>type_dossier</type_dossier><code_correspondant>code_correspondant</code_correspondant><code_dentiste>code_dentiste</code_dentiste><code_caisse>code_caisse</code_caisse><code_mutuelle>code_mutuelle</code_mutuelle><premiere_visite>premiere_visite</premiere_visite><relance>relance</relance><sexe>sexe</sexe><prof_parent1>prof_parent1</prof_parent1><prof_parent2>prof_parent2</prof_parent2><prof_payeur>prof_payeur</prof_payeur><hn>hn</hn><tp>tp</tp><traitement_effectue/><plan_traitement/><titre_parent1>titre_parent1</titre_parent1><titre_parent2>titre_parent2</titre_parent2><titre_payeur>titre_payeur</titre_payeur><prof2_parent1>prof2_parent1</prof2_parent1><prof2_parent2>prof2_parent2</prof2_parent2><prof2_payeur>prof2_payeur</prof2_payeur><code>code</code><prenom>prenom</prenom><basal_max_pro>basal_max_pro</basal_max_pro><basal_max_retro>basal_max_retro</basal_max_retro><basal_mand_pro>basal_mand_pro</basal_mand_pro><basal_mand_retro>basal_mand_retro</basal_mand_retro><basal_max_endo>basal_max_endo</basal_max_endo><basal_max_exo>basal_max_exo</basal_max_exo><basal_mand_endo>basal_mand_endo</basal_mand_endo><basal_mand_exo>basal_mand_exo</basal_mand_exo><hypodivergence>hypodivergence</hypodivergence><hyperdivergence>hyperdivergence</hyperdivergence><alveo_max_pro>alveo_max_pro</alveo_max_pro><alveo_max_retro>alveo_max_retro</alveo_max_retro><alveo_mand_pro>alveo_mand_pro</alveo_mand_pro><alveo_mand_retro>alveo_mand_retro</alveo_mand_retro><alveo_max_endo>alveo_max_endo</alveo_max_endo><alveo_max_exo>alveo_max_exo</alveo_max_exo><alveo_mand_endo>alveo_mand_endo</alveo_mand_endo><alveo_mand_exo>alveo_mand_exo</alveo_mand_exo><supraclusion>supraclusion</supraclusion><infraclusion>infraclusion</infraclusion><mol_cl1>mol_cl1</mol_cl1><mol_cl2>mol_cl2</mol_cl2><mol_cl3>mol_cl3</mol_cl3><can_cl1>can_cl1</can_cl1><can_cl2>can_cl2</can_cl2><can_cl3>can_cl3</can_cl3><molaire>molaire</molaire><canine>canine</canine><dento_max>dento_max</dento_max><dento_dent>dento_dent</dento_dent><agenesie>agenesie</agenesie><surnum>surnum</surnum><malposition>malposition</malposition><occl_dte>occl_dte</occl_dte><occl_gche>occl_gche</occl_gche><occl_ant>occl_ant</occl_ant><facteur>facteur</facteur><commentaire>commentaire</commentaire><portable>portable</portable><archivage>archivage</archivage><date_contact>date_contact</date_contact><assure>assure</assure><nom_assure>nom_assure</nom_assure><devis_remis>devis_remis</devis_remis><plan_imprime>plan_imprime</plan_imprime><identifiant_televitale>identifiant_televitale</identifiant_televitale><date_naissance_vitale>date_naissance_vitale</date_naissance_vitale><moulage>moulage</moulage><adulte>adulte</adulte><categorie_statistique>categorie_statistique</categorie_statistique><date_statistique>date_statistique</date_statistique><categories_nom>categories_nom</categories_nom><categories_nom>categories_nom</categories_nom><patient_code_medecin>patient_code_medecin</patient_code_medecin><categories_nom>categories_nom</categories_nom><patient_duree_traitement>patient_duree_traitement</patient_duree_traitement><patient_date_moulage>patient_date_moulage</patient_date_moulage><patient_cmu>patient_cmu</patient_cmu><patient_date_naissance_assure>patient_date_naissance_assure</patient_date_naissance_assure><patient_identifiant_odrade>patient_identifiant_odrade</patient_identifiant_odrade><patient_titre_patient>patient_titre_patient</patient_titre_patient><patient_pays_parent1>patient_pays_parent1</patient_pays_parent1><com_parent1>com_parent1</com_parent1><com_parent2>com_parent2</com_parent2><remarques>remarques</remarques><classe>classe</classe><type>type</type><teltra_payeur>teltra_payeur</teltra_payeur><com_payeur>com_payeur</com_payeur><patient_pays_parent2>patient_pays_parent2</patient_pays_parent2><patient_pays_payeur>patient_pays_payeur</patient_pays_payeur><patient_date_interruption>patient_date_interruption</patient_date_interruption><patient_date_reprise>patient_date_reprise</patient_date_reprise><patient_fin_traitement>patient_fin_traitement</patient_fin_traitement><patient_date_relance_admini>patient_date_relance_admini</patient_date_relance_admini><patient_motif_relance_admini>patient_motif_relance_admini</patient_motif_relance_admini><patient_couleur1>patient_couleur1</patient_couleur1><patient_portable_patient>patient_portable_patient</patient_portable_patient><patient_email_patient>patient_email_patient</patient_email_patient><patient_teldom2_parent1>patient_teldom2_parent1</patient_teldom2_parent1><patient_teltra2_parent1>patient_teltra2_parent1</patient_teltra2_parent1><patient_portable2_parent1>patient_portable2_parent1</patient_portable2_parent1><patient_teldom2_parent2>patient_teldom2_parent2</patient_teldom2_parent2><patient_teltra2_parent2>patient_teltra2_parent2</patient_teltra2_parent2><patient_portable1_parent2>patient_portable1_parent2</patient_portable1_parent2><patient_portable2_parent2>patient_portable2_parent2</patient_portable2_parent2><patient_teldom2_payeur>patient_teldom2_payeur</patient_teldom2_payeur><patient_teltra2_payeur>patient_teltra2_payeur</patient_teltra2_payeur><patient_portable1_payeur>patient_portable1_payeur</patient_portable1_payeur><patient_portable2_payeur>patient_portable2_payeur</patient_portable2_payeur><patient_email_parent2>patient_email_parent2</patient_email_parent2><patient_email_payeur>patient_email_payeur</patient_email_payeur><email>email</email><patient_dep_imprime>patient_dep_imprime</patient_dep_imprime><patient_identifiant_bibliocast>patient_identifiant_bibliocast</patient_identifiant_bibliocast><user_modif>user_modif</user_modif><date_modif>date_modif</date_modif><patient_envoi_sms>patient_envoi_sms</patient_envoi_sms><patient_numero_dossier>patient_numero_dossier</patient_numero_dossier><patient_couleur2>patient_couleur2</patient_couleur2><patient_couleur3>patient_couleur3</patient_couleur3><patient_couleur4>patient_couleur4</patient_couleur4><patient_couleur5>patient_couleur5</patient_couleur5><patient_ecole>patient_ecole</patient_ecole><patient_classe_scolaire>patient_classe_scolaire</patient_classe_scolaire><patient_date_validite_cmu>patient_date_validite_cmu</patient_date_validite_cmu><patient_mdp_patient>patient_mdp_patient</patient_mdp_patient><patient_mdp_parent1>patient_mdp_parent1</patient_mdp_parent1><patient_mdp_parent2>patient_mdp_parent2</patient_mdp_parent2><patient_mdp_payeur>patient_mdp_payeur</patient_mdp_payeur><patient_portable_patient_sms>patient_portable_patient_sms</patient_portable_patient_sms><patient_portable_sms>patient_portable_sms</patient_portable_sms><patient_portable2_parent1_sms>patient_portable2_parent1_sms</patient_portable2_parent1_sms><patient_portable1_parent2_sms>patient_portable1_parent2_sms</patient_portable1_parent2_sms><patient_portable2_parent2_sms>patient_portable2_parent2_sms</patient_portable2_parent2_sms><patient_portable1_payeur_sms>patient_portable1_payeur_sms</patient_portable1_payeur_sms><patient_portable2_payeur_sms>patient_portable2_payeur_sms</patient_portable2_payeur_sms><patient_remarques_html>patient_remarques_html</patient_remarques_html><patient_traitement_effectue_html>patient_traitement_effectue_html</patient_traitement_effectue_html><patient_plan_traitement_html>patient_plan_traitement_html</patient_plan_traitement_html><patient_commentaire_html>patient_commentaire_html</patient_commentaire_html><patient_comtel1_parent1>patient_comtel1_parent1</patient_comtel1_parent1><patient_comtel2_parent1>patient_comtel2_parent1</patient_comtel2_parent1><patient_comtel1_parent2>patient_comtel1_parent2</patient_comtel1_parent2><patient_comtel2_parent2>patient_comtel2_parent2</patient_comtel2_parent2><patient_comtel1_payeur>patient_comtel1_payeur</patient_comtel1_payeur><patient_comtel2_payeur>patient_comtel2_payeur</patient_comtel2_payeur><patient_mise_en_evidence>patient_mise_en_evidence</patient_mise_en_evidence><patient_id_invisalign>patient_id_invisalign</patient_id_invisalign><patient_diag_dentaire_html>patient_diag_dentaire_html</patient_diag_dentaire_html><patient_diag_fonctionnel_html>patient_diag_fonctionnel_html</patient_diag_fonctionnel_html><patient_plan_complement_html>patient_plan_complement_html</patient_plan_complement_html><patient_extraction>patient_extraction</patient_extraction><patient_date_fin_tpi>patient_date_fin_tpi</patient_date_fin_tpi><patient_champ_reprise1>patient_champ_reprise1</patient_champ_reprise1><patient_mode_reglement_habituel>patient_mode_reglement_habituel</patient_mode_reglement_habituel><patient_code_banque>patient_code_banque</patient_code_banque><patient_iban>patient_iban</patient_iban><patient_bic>patient_bic</patient_bic><patient_duree_traitement_unite>patient_duree_traitement_unite</patient_duree_traitement_unite><patient_diag_alveolaire_html>patient_diag_alveolaire_html</patient_diag_alveolaire_html><patient_code_comptable>patient_code_comptable</patient_code_comptable></dw_patient_fiche4_row></dw_patient_fiche4>"))
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" nativepdf.customsize=0 nativepdf.customorientation=0 nativepdf.pdfstandard=0 nativepdf.useprintspec=no )
+export.xhtml( template=(comment="" name="dw_patient4" xhtml="﻿<form name=~"dw_patient_fiche4_dataForm~"><div class=~"dw_patient_fiche4_detail_0~" __pbband=~"detail~"><div class=~"dw_patient_fiche4_gb_1_0~"/><div class=~"dw_patient_fiche4_gb_1~">gb_1</div><div class=~"dw_patient_fiche4_adr2_parent1_t~">adr2_parent1_t</div><div class=~"dw_patient_fiche4_nom_parent1_t~">nom_parent1_t</div><textarea name=~"dw_patient_fiche4_traitement_effectue~">traitement_effectue</textarea><textarea name=~"dw_patient_fiche4_plan_traitement~">plan_traitement</textarea><div class=~"dw_patient_fiche4_t_1~">t_1</div><input name=~"dw_patient_fiche4_patient_duree_traitement~" type=~"text~" value=~"patient_duree_traitement~"/><div class=~"dw_patient_fiche4_plan_imprime~">Plan de traitement imprimé (semestre 2 et +)<input name=~"dw_patient_fiche4_plan_imprime~" type=~"checkbox~" value=~"plan_imprime~"/></div></div></form>"))
+ 

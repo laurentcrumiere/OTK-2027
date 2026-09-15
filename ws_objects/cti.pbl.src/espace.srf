@@ -1,0 +1,40 @@
+﻿$PBExportHeader$espace.srf
+$PBExportComments$SAGE
+global type espace from function_object
+end type
+
+forward prototypes
+global function string espace (string chaine)
+end prototypes
+
+global function string espace (string chaine);// En entrée : une chaîne de caractères quelconque
+// En sortie : la chaîne de caractères en majuscule sans espace et alphanumérique
+
+// Declaration des variables locales
+//----------------------------------------
+integer p, l, i
+char c
+
+// Elimination des espaces devant et derriere
+//-----------------------------------------------------
+chaine=TRIM(chaine)
+// Transformation en majuscule
+//----------------------------------------
+chaine=UPPER(chaine)
+l=len(chaine)
+i=1
+// Enleve tous ce qui n'est pas alphanumerique
+//--------------------------------------------------------
+Do While i<=l 
+	c=mid(chaine,i,1)
+	if Match(c, "^[A-Z0-9]")=false then
+		chaine=Replace(chaine, i, 1,'')
+		l=l - 1
+	else
+		i=i+1
+	end if
+Loop
+		
+Return (chaine)
+end function
+

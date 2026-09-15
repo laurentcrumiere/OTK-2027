@@ -1,0 +1,183 @@
+﻿$PBExportHeader$fxg_initialisation_modules.srf
+global type fxg_initialisation_modules from function_object
+end type
+
+forward prototypes
+global subroutine fxg_initialisation_modules ()
+end prototypes
+
+global subroutine fxg_initialisation_modules ();// Mais à jour les variables globales contenant les droits d'accès aux différentes modules
+
+
+TRACE ( " ===  Début de : fxg_initialisation_modules ===")
+
+multi = h.checkoption(1)				// opt1  : Multipraticiens oui/non
+replication  = h.checkoption(6)			// opt6  : Module Réplication
+
+Orthomoov = h.checkoption(2)					// opt2  : Orthomoov
+
+// Désactivé depuis la v2016
+PDA = h.checkoption(8)					// opt8  : Module PDA
+
+
+ciel = h.checkoption(5)					// opt5  : Module Lien vers Ciel
+rdv_graph = h.checkoption(3)			// opt3  : Module Agenda Graphique
+ODR = h.checkoption(7)					// opt7  : lien ODRADE
+//TELEVITALE = FALSE			// opt4  : Module Lien avec Télévitale
+money = h.checkoption(9)					// opt9  : Module Lien vers money
+KITVIEW = h.checkoption(10)		// opt10 : KITVIEW ex Module Lien DOCILE ORTHO (Imavox)
+
+
+
+//suite initialisation des vars globales
+mon_orthodontiste = h.checkoption(12)		// opt12 : Mon Orthodontiste
+module_rdv = h.checkoption(13)				// opt13 : Module RDV
+reg_avec_mode = h.checkoption(16)		// opt16 : Les modes de règlements sont affichés
+										//         Principe : en visualisation et modification de règlements,
+										//         les modes sont masqués
+										//         => Le but est de masquer les "blacks" ... demande de PARROT
+
+
+// Module désactivé en V 2024
+// Loum = h.checkoption(17)				// opt17 : Module lien Loum
+
+
+// plus utilisé depuis 2020 : caraibes = h.tm1o(5)				// opt15 : Soins avec Date Caraïbes
+deepsmile = h.checkoption(15)				// opt15 : Deepsmile
+trophy =  h.checkoption(20)				// opt20 : module lien TROPHY
+module_clinique = h.checkoption(14)	// opt14 : Module Clinique (pages et commentaires)
+planmeca = h.checkoption(11)				// opt11 : Module lien Dimaxis de PLanmeca (w_patient_maj)
+DIGORA = h.checkoption(18)				// opt18 : Module lien DIGORA de SOREDEX
+stock = h.checkoption(19)					// opt19 : sTOCK / tracabilite
+
+
+taux_euro = 6.55957	// Gestion de l'Euro
+
+//suite initialisation des vars globales
+vixwin = h.checkoption(21)				// opt21 : module lien VixWin de GENDEX
+SIDEXIS = h.checkoption(22)				// opt22 : lien radio SIDEXIS ( SIRONA )
+centre_sante = h.checkoption(23)			// opt23 : Centre de Santé
+BORNE = h.checkoption(24)			// opt24 : BORNE SALLE D'ATTENTE
+MEDIADENT = h.checkoption(25)		// opt25 : lien radio MEDIADENT ( MORITA )
+DURRDENTAL = h.checkoption(26)		// opt26 : lien radio DBSWIN ( DUR DENTAL )
+INSTRUMENTARIUM = h.checkoption(27)		// opt27 : lien radio CLINIVIEW ( INSTRUMENTARIUM )
+CTI = h.checkoption(28)		// opt28 : lien mocule CTI
+DOLPHIN = h.checkoption(29)		// opt29 : lien Dolphin
+
+SUISSE =  h.checkoption(30)				// opt30 : personnalisation Suisse
+APPEL_VISIODENT =  h.checkoption(31)				// opt31 : Passerelle Visiodent : avant 2019, codage en dur // Pour Visiodent limité : codage en dur
+VIDEO =  h.checkoption(32)				// opt32 : Vidéo Salle d'attente
+BELGIQUE =  h.checkoption(33)				// opt33 : Belgique
+
+//BELGIQUE = true
+
+CCVITALE =  h.checkoption(34)   // opt34 : CC Vitale
+ORTHOCONCEPT=  h.checkoption(35)   // opt35 : Lien Orthoconcept
+LUXEMBOURG =  h.checkoption(36)   // opt36 : Luxembourg
+WEBCOMMUNICATION =  h.checkoption(37)   // opt37 : WebCommunication
+TRIDIM =  h.checkoption(38)   // opt38 : tridim
+SHAPE =  h.checkoption(39)   // opt39 : 3SHAPE
+
+if SHAPE then
+	// Si présence du fichier 3shape.ini dans le dossier photos on bascule de suite en mode SHAPE_2026
+	if FileExists(dir_photos + "3Shape.ini") then
+		SHAPE_2026 = true
+		SHAPE = false
+	end if
+end if
+SIGNATURE_NUMERIQUE =  h.checkoption(40)   // opt40 : Signature Numérique
+
+// Nouvelles options après 2014
+
+INVISALIGN = h.options_41_50(41)			// Options 41 => Invisalign
+INSIGNIA = h.options_41_50(42)			// Options 42 => Insignia
+QUESTIONNAIRE_MEDICAL = h.options_41_50(43)			// Options 43 => Questionnaire Medical
+VATECH= h.options_41_50(44) // Options 44 => Vatech
+OWANDY= h.options_41_50(45) // Options 45 => Owandy
+MYRAY= h.options_41_50(46) // Options 46 => MyRay
+DOCTOLIB = h.options_41_50(49) // Options 49 => DOCTOLIB
+
+ECONNECTOR= h.options_51_60(52) // Options 52 => eConnector Luxembourg
+DTX = h.options_51_60(53) // Options 53 => Logiciel Radio DTX
+
+
+string s_modules_dynamiques = "O"
+if serial = "87001" or  serial = "88005" or SERIAL = "88036" then
+	// Si besoin on peu désactiver l'interrogation des lien qui peut faire planter PB
+	 s_modules_dynamiques = upper(profilestring(dir_ini+inifile_orthokis,"ARAKIS","modules_dynamiques","O") )
+end if
+
+// Modules dynamiques
+//-------------------------
+NOTEZNOUS = false
+SIGNATURE_DENTALSIGN = false
+PHOTO_LIGHT = false
+//TELEVITALE_DYN = false
+	
+
+// Blocage d'Orthokis			
+ORTHOKIS_OK					= false
+
+if s_modules_dynamiques = "N" then
+	
+	messagebox("ATTENTION","MODULES DYNAMIQUES DESACTIVES POUR LES TESTS")
+	ORTHOKIS_OK = true
+	
+else
+	
+	// A leur demande, on exclus certains clients (centre VYV car pas de myOrthokis externe chez eux) - idem Fac de Montpellier
+	
+	string tab_serie[]
+	integer i_retour_modules
+	
+	tab_serie = {"87611","87610","87962","87827","87609","87973","87863","87572","87980","87865","87900","87928","87929","87955","87846","87989","87507","87969" ,"87777","87788","87713", "87644"}
+
+	if fxg_cherche_string_dans_tableau(SERIAL , tab_serie) then
+		
+		trace ("***** MODULES DYNAMIQUES DESACTIVES POUR CENTRES VYV ou MGEN ou FAC de MONTPELLIER *****")
+		ORTHOKIS_OK = true
+		VERIF_CONNEXIONS_BD = false
+	else
+	
+		//**********************************************************************************************************
+		// OPTIONS LUES EN DYNAMIQUE 
+		//**********************************************************************************************************
+		
+		open(w_initialisation_modules_dynamiques)
+		
+	end if
+end if
+
+// Localisation France
+if Luxembourg or Suisse or Belgique then
+	France = false
+else
+	France = True
+end if
+
+if TEA and MON_ORTHODONTISTE then
+	Messagebox("ATTENTION", "Les modules TEA et MON ORTHODONTISTE sont tous les 2 activés !~n~nCeci n'est pas normal !~n~nMerci de contacter la hotline d'Arakis au +33 4 75 78 50 70.~n~n(MON ORTHODONTISTE a été désactivé !)")
+	MON_ORTHODONTISTE = FALSE
+end if
+
+If TEA then
+	// Vérification des informations requises 
+	fxg_verif_param_tea() 
+end if
+
+
+
+if TEA then 
+	LIBELLE_APPLICATION  = "Téa" 
+else
+	if MON_ORTHODONTISTE then 
+		LIBELLE_APPLICATION  = "Mon Orthodontiste" 
+	else
+		LIBELLE_APPLICATION  = "" 
+	end if
+end if
+
+TRACE ( " ===  Fin de : fxg_initialisation_modules ===")
+
+end subroutine
+

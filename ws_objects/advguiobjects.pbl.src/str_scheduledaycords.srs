@@ -1,0 +1,6 @@
+﻿$PBExportHeader$str_scheduledaycords.srs
+global type str_scheduledaycords from structure
+	long		dayx
+	Date		day
+end type
+

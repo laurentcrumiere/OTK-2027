@@ -1,0 +1,20 @@
+﻿$PBExportHeader$f_pbus_set_global_theme.srf
+global type f_pbus_set_global_theme from function_object
+end type
+
+forward prototypes
+global function integer f_pbus_set_global_theme (string as_theme)
+global function integer f_pbus_set_global_theme (boolean ab_switch)
+end prototypes
+
+global function integer f_pbus_set_global_theme (string as_theme);n_cst_ui_imagelist lnv_theme
+lnv_theme.of_SetGlobalTheme(as_theme)
+RETURN 1
+end function
+
+global function integer f_pbus_set_global_theme (boolean ab_switch);IF NOT ab_switch AND IsValid(w_imagelist) THEN
+	Close(w_imagelist)
+END IF
+RETURN 1
+end function
+

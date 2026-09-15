@@ -1,0 +1,12 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "..\\power\\V2021\\cti.pbl" "";
+@end;
+@begin Objects
+ "..\\power\\V2021\\espace.srf" "..\\power\\V2021\\cti.pbl";
+ "..\\power\\V2021\\w_cti.srw" "..\\power\\V2021\\cti.pbl";
+ "..\\power\\V2021\\uo_appeler.sru" "..\\power\\V2021\\cti.pbl";
+ "..\\power\\V2021\\w_gestion_appel_entrant.srw" "..\\power\\V2021\\cti.pbl";
+ "..\\power\\V2021\\dw_liste_appels.srd" "..\\power\\V2021\\cti.pbl";
+ "..\\power\\V2021\\uo_phonepc.sru" "..\\power\\V2021\\cti.pbl";
+@end;

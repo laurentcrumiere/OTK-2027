@@ -1,0 +1,167 @@
+﻿$PBExportHeader$rechercher_libre.srf
+global type rechercher_libre from function_object
+end type
+
+forward prototypes
+global subroutine rechercher_libre (boolean interactif)
+end prototypes
+
+global subroutine rechercher_libre (boolean interactif);// Recherche d'une période libre ....
+// On utilise les variables globales pour faire la recherche
+
+// Paramètre :
+//  Interactif : permet de savoir le mode d'affichage
+
+date dt_cour			/* date courante de l'examen */
+time h_cour				/* heure courante de l'examen */
+time h_fin				/* heure finale de l'examen */
+integer f_cour 			/* fauteuil courant */
+datetime rdv_cour		/* rdv courant */
+datetime rdv1,rdv2		/* pour la recherche dans une fourchette */
+integer dur_cour 			/* durée du rdv courant */
+boolean	fin				/* Fin de la recherche générale */
+boolean	fin2				/* Fin de la recherche dans une plage*/
+
+
+// La variable globale de sortie est : rdv_libre_ok
+// Elle permet de savoir une plage libre est EFFECTIVEMENT trouvée
+
+rdv_libre_ok = false
+
+
+open(w_patience)
+
+
+DECLARE cur_rdv CURSOR FOR
+				SELECT "rdv" , "duree" FROM "rdv" 
+				WHERE ((rdv between :rdv1 and :rdv2) or 
+				(dateadd (minute,duree, rdv) between :rdv1 and :rdv2)) and
+				fauteuil = :f_cour and code_praticien between :p1_libre and :p2_libre  
+				ORDER by rdv Asc ;
+
+
+fin = false
+
+dt_cour = dt_libre
+
+Do while not fin
+
+		// On vérifie si le jour de la date est à examiner ou non ....
+		if j_libre[1, daynumber(dt_cour)] = 1 then
+			// C'est un jour à examiner
+			f_cour = f1_libre
+			Do While f_cour <=  f2_libre
+				// J_libre correspond à une plage de 7h00 ... de 30min en 30min
+				h_cour = relativetime(time('07:00'), (j_libre[2, daynumber(dt_cour)] - 1) * 30 *  60)
+				h_fin = relativetime(time('07:00'), (j_libre[3, daynumber(dt_cour)] - 1) * 30 *  60)
+
+				rdv1 = datetime(dt_cour,h_cour)
+				rdv2 = datetime(dt_cour,h_fin)
+	
+				Open Cur_rdv ;
+				
+				FETCH Cur_rdv INTO :rdv_cour, :dur_cour ;
+				
+				if sqlca.sqlcode <> 0 then
+					// Aucun RDV de trouvé .... la plage est libre
+					rdv_libre_trouve = rdv1
+					f_libre_trouve = f_cour
+					if interactif then
+						if MessageBox("Plage trouvée ! (1)","Plage trouvée le "+string(rdv_libre_trouve,'dd/mm/yyyy à hh:mm')+"~nFauteuil : "+string(f_libre_trouve)+"~n~nVoulez-vous poursuivre la recherche ?",Question!,YesNo!,2) = 2 then
+							// Arrêt de la recherche
+							fin = true
+							f_cour = f2_libre
+							rdv_libre_ok = true
+						end if
+					else
+						// Non interactif => Arret immédiat
+						fin = true
+						f_cour = f2_libre
+						rdv_libre_ok = true
+					end if
+				else
+					// Rdv trouvé ... on examine toute la plage .....	
+					fin2 = false
+					
+					// Si le rendez-vous commence AVANT la plage et déborde ... on décale l'heure courante d'autant
+					if h_cour < relativetime( time(rdv_cour) ,dur_cour * 60 ) then
+						h_cour = relativetime(time(rdv_cour) , dur_cour * 60)
+					end if
+					
+					DO WHILE not fin2 
+						// Peut on case le RDV là ?
+						if relativetime(h_cour , (d_libre  - 1) * 60) < time(rdv_cour) then
+							rdv_libre_trouve = rdv1
+							f_libre_trouve = f_cour
+							if interactif then
+								if MessageBox("Plage trouvée ! (2)","Plage trouvée le "+string(rdv_libre_trouve,'dd/mm/yyyy à hh:mm')+"~nFauteuil : "+string(f_libre_trouve)+"~n~nVoulez-vous poursuivre la recherche ?",Question!,YesNo!,2) = 2  then
+									// Arrêt de la recherche
+									fin = true
+									fin2 = true
+									f_cour = f2_libre + 1
+									rdv_libre_ok = true
+								else
+									// On continuer mais on va changer de fauteuil !!
+									fin2 = true
+								end if
+							else
+								// Non interactif => Arret immédiat
+								fin = true
+								fin2 = true
+								f_cour = f2_libre + 1
+								rdv_libre_ok = true
+							end if
+						else
+							// On continue
+							// Attention ! On fait un max pour éviter de réculer
+							if h_cour < relativetime(time(rdv_cour) , dur_cour * 60) then
+								h_cour = relativetime(time(rdv_cour) , dur_cour * 60)
+							end if
+							rdv1 = datetime(dt_cour,h_cour)
+							FETCH Cur_rdv INTO :rdv_cour, :dur_cour ;
+							if sqlca.sqlcode <> 0 then
+								// Plus de RDV dans la plage ....
+								// Peut on caser le RDV là ?
+								if relativetime(h_cour , (d_libre  - 1) * 60) < h_fin then
+									rdv_libre_trouve = rdv1
+									f_libre_trouve = f_cour
+									if interactif then
+										if MessageBox("Plage trouvée ! (3)","Plage trouvée le "+string(rdv_libre_trouve,'dd/mm/yyyy à hh:mm')+"~nFauteuil : "+string(f_libre_trouve)+"~n~nVoulez-vous poursuivre la recherche ?",Question!,YesNo!,2) = 2  then
+											fin = true
+											f_cour = f2_libre + 1
+											rdv_libre_ok = true
+										end if
+									else
+										// Non interactif => arrêt immédiat
+										fin = true
+										f_cour = f2_libre + 1
+										rdv_libre_ok = true
+									end if
+								end if
+								fin2 = true
+							end if
+						end if
+					loop
+				end if
+				CLOSE cur_rdv ;
+				F_cour = f_cour + 1
+			Loop
+		end if
+		dt_cour = relativedate(dt_cour,1)
+		
+		if daysafter(dt_libre,dt_cour) > 365 Then
+			// pour éviter de boucler indéfiniment
+			fin = true
+			MessageBox("SORTIE DE LA RECHERCHE","Vous avez examiner un an ... la recherche va se terminer !")
+		end if		
+Loop
+
+close(w_patience)
+
+
+
+
+
+
+end subroutine
+

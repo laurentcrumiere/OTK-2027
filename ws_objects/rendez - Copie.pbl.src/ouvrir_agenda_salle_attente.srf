@@ -1,0 +1,265 @@
+﻿$PBExportHeader$ouvrir_agenda_salle_attente.srf
+global type ouvrir_agenda_salle_attente from function_object
+end type
+
+forward prototypes
+global subroutine ouvrir_agenda_salle_attente (double v_code_patient, long v_ordre_si_serie)
+end prototypes
+
+global subroutine ouvrir_agenda_salle_attente (double v_code_patient, long v_ordre_si_serie);
+// Pour ouvrir l'agenda graphique pour un patient donné en fonction
+// des éléments saisis dans les commentaires cliniques (prochain rendez-vous)
+
+// Le paramètre v_ordre_si_serie ne sert que lors du pilotage de l'agenda pas la saisie d'une série de rdv 
+//  
+
+// On recherche les élements de prochain rdv
+string v_code_praticien
+string v_proc_tps, v_lib_rdv, libelle_next_rdv, v_proc_t_ou_s, v_proc_rdv_type, v_proc_type_delai, libelle_next_rdv2
+long v_proc_nb, v_duree_next_rdv
+double v_proc_serie
+string 	v_serie_rdv  // Vaudra O ou N
+integer nb_rdv_dans_serie
+integer nb_rdv_today
+str_param_string param_passe  
+
+date date_par_defaut, v_date_debut_traitement, v_date_dernier_rdv
+
+// Pour les informations de prochain rdv
+select prochain_rdv_tps, prochain_rdv_nb, isnull(prochain_rdv,'') , isnull(prochain_rdv_t_ou_s,'T'), prochain_rdv_serie , debut_traitement 
+into :v_proc_tps, :v_proc_nb , :v_proc_rdv_type, :v_proc_t_ou_s, :v_proc_serie , :v_date_debut_traitement
+from patient  
+where patient.code = :v_code_patient  ;
+
+// v_proc_type_delai va contenir le mode de calcul de la date proposée
+// D : délai par rapport à la date de début de traitement
+// P : par rapport au rendez-vous précédent
+// J : par rapport à la date du jour (si on passe un type de rdv et non une série)
+
+if v_proc_t_ou_s = 'T' and v_ordre_si_serie = 0 then
+	
+	// Le prochain rdv est un symple rdv ... 
+	
+	// Délai forcément par rapport à la date du jour ... 
+	// Non, depuis version 2017 ... on affine ....
+	
+	
+	// Si le patient à un rdv honoré le jour même ... c'est qu'il est là => par rapport à la date du jour .. sinon, par rapport au dernier rdv-vous !!
+	select isnull(count(*),0) into :nb_rdv_today from rdv, etat_rdv  where rdv.code = :v_code_patient and cast (rdv.rdv as date)  = cast(getdate() as date) and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda <> 'O' ;
+	
+	if nb_rdv_today > 0 then 
+		v_proc_type_delai = "J"
+	else
+		v_proc_type_delai = "P"
+	end if
+	
+	// Pas de série !
+	v_serie_rdv = "N"
+	
+else
+	
+	if not isnull(v_proc_serie) then 
+		// C'est une série de rendez-vous
+		v_serie_rdv = "O"
+		
+		// On recherche le premier , sauf s'il est passé en paramètre (pilotage de l'agenda en saisie de série de rdv)
+		double v_ordre_premier
+	
+		if v_ordre_si_serie = 0 then
+			select min(ordre), count(*) into :v_ordre_premier, :nb_rdv_dans_serie from rdv_serie_detail where code_serie = :v_proc_serie ;
+		else
+			v_ordre_premier = v_ordre_si_serie
+		end if
+		select min(type_rdv) into :v_proc_rdv_type from rdv_serie_detail where code_serie = :v_proc_serie and ordre = :v_ordre_premier ;
+		select unite_delai, nb_delai, type_delai into :v_proc_tps, :v_proc_nb, :v_proc_type_delai  from rdv_serie_detail 
+		where code_serie = :v_proc_serie and ordre = :v_ordre_premier and type_rdv =  :v_proc_rdv_type ;
+		
+		if v_proc_type_delai = "J" then
+			// Si le patient à un rdv honoré le jour même ... c'est qu'il est là => par rapport à la date du jour .. sinon, par rapport au dernier rdv-vous !!
+			select isnull(count(*),0) into :nb_rdv_today from rdv, etat_rdv  where rdv.code = :v_code_patient and cast (rdv.rdv as date)  = cast(getdate() as date) and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda <> 'O' ;
+			if nb_rdv_today = 0 then 
+				v_proc_type_delai = "P"
+			end if
+		end if
+	else
+			v_serie_rdv = "N"
+
+	end if
+					
+end if 
+
+
+// Libellé du type de rendez-vous
+select type_rdv.nom  , duree
+into :v_lib_rdv 	, :v_duree_next_rdv
+from  type_rdv 
+where type_rdv.code = :v_proc_rdv_type ;
+
+
+
+if not isnull(v_lib_rdv) and len(v_lib_rdv) > 0 then
+	libelle_next_rdv = v_lib_rdv + " ("+string(v_duree_next_rdv)+"') "
+else
+	// Si pas de type de prochain rdv, on ne passe pas en mode série de rdv
+	v_serie_rdv = "N"
+end if
+
+
+//if v_proc_nb <> 0 then
+	
+	if not isnull(v_lib_rdv) and len(v_lib_rdv) > 0 then
+		libelle_next_rdv = v_lib_rdv + " ("+string(v_duree_next_rdv)+"') "
+	end if
+		
+	date date_relative
+	
+	// On est en relatif mais selon quoi 
+	
+	choose case v_proc_type_delai
+			
+		case 'J'
+			// Date du jour
+			date_relative = today()
+			libelle_next_rdv2 = " % date du jour"
+			
+		case 'D'
+			// Debut de traitement
+			date_relative = v_date_debut_traitement
+			libelle_next_rdv2 = " % date de début de traitement ("+string(v_date_debut_traitement)+")"
+			
+		case 'P'
+			// Rendez-vous précédent (non absent)
+			  SELECT isnull(max(cast("rdv"."rdv" as date)), getdate())
+			    INTO :v_date_dernier_rdv 
+			    FROM "rdv"  , "etat_rdv"
+			   WHERE ( "rdv"."code" = :v_code_patient )  and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda <> 'O' ;
+
+			date_relative = v_date_dernier_rdv
+			libelle_next_rdv2 = " % date de dernier rendez-vous ("+string(v_date_dernier_rdv)+")"
+	end choose
+
+	libelle_next_rdv = libelle_next_rdv + " dans "+string(v_proc_nb)+" "
+		
+	// Calcul de la nouvelle date
+
+	choose case v_proc_tps
+		case 'J' 
+			// jours
+			date_par_defaut = relativedate(date_relative, v_proc_nb)
+			libelle_next_rdv = libelle_next_rdv + "Jour(s)"
+		case 'E'
+			// semaine
+			date_par_defaut = relativedate(date_relative, v_proc_nb * 7)
+			libelle_next_rdv = libelle_next_rdv + "Semaine(s)"
+		case 'M'
+			// mois
+			date_par_defaut = relativedate(date_relative, v_proc_nb * 30)
+			libelle_next_rdv = libelle_next_rdv + "Mois"
+		case 'T'
+			// trimestre
+			date_par_defaut = relativedate(date_relative, v_proc_nb * 91)
+			libelle_next_rdv = libelle_next_rdv + "Trimestre(s)"
+		case 'S'
+			// Semestre
+			date_par_defaut = relativedate(date_relative, v_proc_nb * 182)
+			libelle_next_rdv = libelle_next_rdv + "Semestre(s)"
+		case 'A'
+			// année
+			date_par_defaut = relativedate(date_relative, v_proc_nb * 365)
+			libelle_next_rdv = libelle_next_rdv + "Année(s)"
+	end choose		
+
+	// pour le libellé complémentaire
+	libelle_next_rdv = libelle_next_rdv + " (" + libelle_next_rdv2 + ")"
+//else
+//	// date du jour par défaut	
+//	date_par_defaut = today()
+//end if
+
+
+// Pour la gestion du praticien ...
+string v_tous 
+string v_prati
+select tous into :v_tous from agenda where clef = 1 ;
+
+if v_tous <> "O" then
+	// Agenda par praticien 
+	// => Recherche du praticien du patien
+	select isnull(code_praticien,'') into :v_code_praticien from patient where code = :v_code_patient ;
+else
+	v_code_praticien = space(6)
+end if
+
+
+
+
+// On vérifie si l'agenda est déjà ouvert ... si oui, on le ferme pour le raffraichir
+window agenda
+
+
+if v_ordre_si_serie = 0 then
+	// Appel normal !!
+	
+	// On teste et on fermera APRES l'ouverture (à cause des liens de parentés et ouverture en cascade)
+	if is_fenetre_2020_ouverte("Semaine N",agenda) > 0 then
+		fermer_fenetre(agenda)
+	end if
+	
+	// Libelle qui apparait en bas de l'agenda pour expliquer le rdv
+	param_win[1] = libelle_next_rdv
+	
+	string v_param_agenda
+	v_param_agenda = string(date_par_defaut,"YYYY/MM/DD")+"S"+string(v_code_patient,'0000000000') +space(10) + 	left(v_code_praticien + space(6), 6) + v_serie_rdv + v_proc_rdv_type
+	
+	
+	// fenêtre à part ?
+	if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	
+		// lecture du dernier emplacement de la fenêtre
+		long win_x, win_y 
+		win_x = profileint(dir_ini+inifile_orthokis,"agenda","agenda_a_part_x",0)
+		win_y = profileint(dir_ini+inifile_orthokis,"agenda","agenda_a_part_y",0)
+		
+		openWithParm(w_agenda_a_part, v_param_agenda)
+	
+		// Possitionnement de retaillage de la fenêtre
+		
+		w_agenda_a_part.move( PixelsToUnits( win_x, xPixelsToUnits!) , PixelsToUnits( win_y, YPixelsToUnits!))
+		w_agenda_a_part.width = profileint(dir_ini+inifile_orthokis,"agenda","agenda_a_part_width", 1943)
+		w_agenda_a_part.height = profileint(dir_ini+inifile_orthokis,"agenda","agenda_a_part_height", 1240)
+		
+	
+	else
+		// ouverture normale
+		param_passe.param = v_param_agenda
+		w_mdi_2020.uo_powerdock.of_openDocument(w_agenda, param_passe, "Agenda", m_orthokis_2020.m_patients.m_agendagraphique.toolbarItemName)
+		// Depuis PB US 2020, faut réactualiser le titre après ouverture
+		fxg_maj_titre_fenetre(w_agenda, w_agenda.v_titre_fenetre_local)
+
+	end if
+	
+	if v_serie_rdv = "O" then
+		// On ouvre la fenetre de pilotage que si la série comporte + de 1 rdv 
+		if nb_rdv_dans_serie > 1 then 
+			// Fenetre de pilotage de la série
+			OpenWithParm(w_saisie_serie_rdv, v_code_patient)
+			w_saisie_serie_rdv.setPosition(TopMost!)
+		end if
+	end if
+	
+else
+	
+	// appel en mode piloté => on reste sur le meme agenda ouvert pour gagner du temps 
+	// => juste actualisaiton
+	
+	w_agenda.st_next_rdv.text = libelle_next_rdv
+	time cal_time
+	//w_agenda.st_next_rdv.visible = false
+	cal_time = now()
+	w_agenda.cal.Setvalue (date_par_defaut , cal_time)
+	w_agenda.actualiser()
+	
+end if
+
+end subroutine
+

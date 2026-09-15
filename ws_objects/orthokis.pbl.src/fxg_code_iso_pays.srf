@@ -1,0 +1,53 @@
+﻿$PBExportHeader$fxg_code_iso_pays.srf
+global type fxg_code_iso_pays from function_object
+end type
+
+forward prototypes
+global function string fxg_code_iso_pays (string v_code_pays_orthokis)
+end prototypes
+
+global function string fxg_code_iso_pays (string v_code_pays_orthokis);// Code Pays au format ISO
+string v_code_pays_iso
+
+v_code_pays_orthokis = upper(string_non_nulle(v_code_pays_orthokis ))
+choose case v_code_pays_orthokis
+	case "L", "LU"
+		// Luxembourg
+		v_code_pays_iso = "LU"
+	case "F", "FR"
+		// France
+		v_code_pays_iso = "FR"
+	case "B", "BE"
+		// Belgique
+		v_code_pays_iso = "BE"
+	case "H", "NL", "PB"
+		// Pays Bas
+		v_code_pays_iso = "NL"
+	case "A", "DE", "D"
+		// Allemagne
+		v_code_pays_iso = "DE"
+	case "E", "ES" 
+		// Espagne
+		v_code_pays_iso = "ES"
+	case "M", "MC" 
+		// Monaco
+		v_code_pays_iso = "MC"
+	case "S", "CH" 
+		// Suisse
+		v_code_pays_iso = "MC"
+	case else
+		// valeur par défaut selon le pays d'orthokis
+		if LUXEMBOURG then
+			v_code_pays_iso = "LU"
+		else
+			if BELGIQUE then 
+				v_code_pays_iso = "BE"
+			else
+				v_code_pays_iso = "FR"
+			end if
+		end if
+end choose
+
+return v_code_pays_iso
+end function
+

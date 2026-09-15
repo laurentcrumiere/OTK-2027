@@ -1,0 +1,19 @@
+﻿$PBExportHeader$fxg_fac_montpellier_numero_sejour.srf
+global type fxg_fac_montpellier_numero_sejour from function_object
+end type
+
+forward prototypes
+global function string fxg_fac_montpellier_numero_sejour (double v_code_patient, date v_date_exe)
+end prototypes
+
+global function string fxg_fac_montpellier_numero_sejour (double v_code_patient, date v_date_exe);string v_code_sejour
+
+// renvoie le N° de sejour d'un soin ... N° de séjour le plus récent par rapport à la date d'exécution du soin
+select top 1 isnull(code_sejour, '') into :v_code_sejour 
+from fac_montpellier_sejour 
+where code_patient = :v_code_patient and "date" <= :v_date_exe
+order by "date" desc ;
+
+return v_code_sejour
+end function
+

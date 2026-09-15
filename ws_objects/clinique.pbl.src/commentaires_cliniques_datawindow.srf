@@ -1,0 +1,22 @@
+﻿$PBExportHeader$commentaires_cliniques_datawindow.srf
+global type commentaires_cliniques_datawindow from function_object
+end type
+
+forward prototypes
+global function string commentaire_clinique_datawindow (string numero_serie)
+global function string commentaires_cliniques_datawindow (string numero_serie)
+end prototypes
+
+global function string commentaires_cliniques_datawindow (string numero_serie);
+// Pour gerer les datawindows spécifiques
+// depuis 2014 il n'y en a plus
+
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","commentaires_2010","N") = "O" then
+	return "dw_coment_maj_2010"
+else
+	return "dw_coment_maj"
+end if
+
+
+end function
+

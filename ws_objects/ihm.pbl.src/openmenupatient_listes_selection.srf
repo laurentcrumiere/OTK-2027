@@ -1,0 +1,76 @@
+﻿$PBExportHeader$openmenupatient_listes_selection.srf
+global type openmenupatient_listes_selection from function_object
+end type
+
+forward prototypes
+global function integer openmenupatient_listes_selection (datawindow dw_clic, w_liste_patients w_clic, string nom_colonne_selection)
+end prototypes
+
+global function integer openmenupatient_listes_selection (datawindow dw_clic, w_liste_patients w_clic, string nom_colonne_selection);
+// FONCTION IDENTIQUE A OpenMenuPatient sauf qu'on prend le code du patient dans une DataWindows ( liste)
+
+//fx globale qui crée un popup menu de type "m_patientcourant"
+//renvoie 1 si ok
+double v_code
+
+v_code = dw_clic.getitemnumber(dw_clic.getrow(),"code")
+
+if v_code > 0 then 
+//renvoie -1 si un pb ds la gestion des droits
+
+	m_patientcourant m
+	
+	
+	//création du menu en mémoire
+	m = create m_patientcourant
+	
+	//maj des droits
+	if m.gestion_des_droits() <> 1 then return -1
+	
+	//passe le code du patient qui nous interresse et lance le menu en popup
+	m.CodePatientCourant = v_code 
+	m.dw_clic = dw_clic
+	dw_click = dw_clic	// en glocal pour export sous Excel
+
+		if OPERATEUR_SMS = 2 then
+			m.m_envoyersmsunitaire.visible = true
+		else
+			m.m_envoyersmsunitaire.visible = false
+		end if
+
+		// selon les liste, on va pouvoir tout sélectionner ou tou désléectionner 
+		m.m_toutdeselectionner.visible = true
+		
+		m.w_clic = w_clic
+		m.nom_colonne_selection = nom_colonne_selection
+		
+		if w_clic.tout_selectionne then 
+			m.m_toutdeselectionner.text = "Tout désélectionner"
+			m.m_toutdeselectionner.checked  = false
+		else
+			m.m_toutdeselectionner.text = "Tout sélectionner"
+			m.m_toutdeselectionner.checked  = true
+		end if
+		
+
+		
+	
+	
+	
+	
+	m.PopMenu(dw_clic.pointerX(),dw_clic.pointerY())
+	
+		
+	
+	//supression du menu de la mémoire
+	destroy m
+else
+	MessageBox("ATTENTION !","Ce patient est un patient provisoire non validé dans Orthokis !~n~nVous allez accéder à la fenêtre de validation.")
+	openwithparm(w_patient_fusion_doctolib,  v_code )
+end if
+
+//si ok
+return 1
+
+end function
+

@@ -1,0 +1,46 @@
+﻿$PBExportHeader$formater_zone_pays_datastore.srf
+global type formater_zone_pays_datastore from function_object
+end type
+
+forward prototypes
+global function string formater_zone_pays_datastore (string code_pays, string type_zone, string zone)
+end prototypes
+
+global function string formater_zone_pays_datastore (string code_pays, string type_zone, string zone);
+
+// Retourne la zone formatée comme demandé
+
+
+string format = ""
+boolean v_suite 
+
+v_suite = true
+
+// recherche du format dans la table
+
+choose case type_zone
+	case 'T'
+		// zone de téléphone
+		select isnull(format_telephone, '## ## ## ## ##') into :format from pays where code = :code_pays ;
+		// faut remplacer par format d'affichage 
+		format = gfx_tout_remplacer( format, "#", "@")
+	case 'P'
+		// zone de téléphone GSM
+		select isnull(format_gsm,'## ## ## ## ##') into :format from pays where code = :code_pays ;
+		// faut remplacer par format d'affichage 
+		format = gfx_tout_remplacer( format, "#", "@")
+	case 'S'
+		// Zone N° de sécurité sociale
+		select isnull(format_secu, '! !! !! !! !!! !!! / !!')  into :format from pays where code = :code_pays ;
+		// faut remplacer par format d'affichage 
+		format = gfx_tout_remplacer( format, "!", "@")
+	case else
+		v_suite = false
+end choose
+
+return string(zone, format)
+
+
+
+end function
+

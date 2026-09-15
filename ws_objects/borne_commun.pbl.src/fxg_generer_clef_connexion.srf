@@ -1,0 +1,61 @@
+﻿$PBExportHeader$fxg_generer_clef_connexion.srf
+global type fxg_generer_clef_connexion from function_object
+end type
+
+forward prototypes
+global function string fxg_generer_clef_connexion ()
+end prototypes
+
+global function string fxg_generer_clef_connexion ();// Renvoie une clef de connexion pour l'url de Mon Orthodontiste ou de Dental SMS par exemple
+
+
+// Codage de la clef
+long v_numero_serie
+long v_date_jour
+char c1, c2, c3, c4
+char d1, d2, d3, d4, d5
+integer v_entiere
+string v_clef
+
+// pour la conversion en base 36
+hasp v_hasp
+
+v_hasp = create hasp
+
+v_numero_serie = long(SERIAL)
+v_date_jour = long(string(year(today()))+string(month(today()),"00")+string(day(today()), "00"))
+
+v_entiere = int( v_numero_serie / (36 * 36 * 36))
+c1 = v_hasp.d2b361dan( v_entiere ) 
+
+v_entiere = int( mod(v_numero_serie , (36 * 36 * 36)) / (36 *36))
+c2 = v_hasp.d2b361dan( v_entiere ) 
+
+v_entiere = int( mod ( mod(v_numero_serie , (36 * 36 * 36)) , (36 *36)) / (36)  )
+c3 = v_hasp.d2b361dan( v_entiere ) 
+
+v_entiere = mod ( mod ( mod(v_numero_serie , (36 * 36 * 36)) , (36 *36)) ,  (36)  )
+c4 = v_hasp.d2b361dan( v_entiere ) 
+
+
+
+v_entiere = int( v_date_jour / (36 * 36 * 36 * 36))
+d1 = v_hasp.d2b361dan( v_entiere )  
+
+v_entiere = int( mod(v_date_jour , (36 * 36 * 36 * 36)) / (36 *36 * 36))
+d2 = v_hasp.d2b361dan( v_entiere )  
+
+v_entiere = int( mod ( mod(v_date_jour , (36 * 36 * 36 * 36)) , (36 * 36 * 36)) / (36 * 36)  )
+d3 = v_hasp.d2b361dan( v_entiere )  
+
+v_entiere = int( mod ( mod ( mod(v_date_jour , (36 * 36 * 36 * 36)) , (36 * 36 * 36)) , (36 * 36)) / 36  )
+d4 = v_hasp.d2b361dan( v_entiere ) 
+
+v_entiere = mod ( mod ( mod ( mod(v_date_jour , (36 * 36 * 36 * 36)) , (36 *36 * 36)) ,  36 * 36) , 36  )
+d5 = v_hasp.d2b361dan( v_entiere ) 
+
+v_clef = d2 + c4 + d5 + d1 + 'k' + c3 + d3 + c1 + d4 + c2
+
+return v_clef
+end function
+

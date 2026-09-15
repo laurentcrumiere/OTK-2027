@@ -1,0 +1,48 @@
+﻿$PBExportHeader$fxg_utf8_to_ansi.srf
+global type fxg_utf8_to_ansi from function_object
+end type
+
+forward prototypes
+global function string fxg_utf8_to_ansi (string as_utf8)
+end prototypes
+
+global function string fxg_utf8_to_ansi (string as_utf8);////convert utf-8 -> ansi
+////use a wide-char native string as pivot
+//
+//Constant ULong CP_ACP = 0
+//Constant ULong CP_UTF8 = 65001
+//
+//String ls_wide, ls_ansi, ls_null
+//Blob lbl_wide
+//ULong ul_len
+//Boolean lb_flag
+//
+//SetNull(ls_null)
+//lb_flag = False
+//
+////get utf-8 string length converted as wide-char
+//SetNull(lbl_wide)
+//ul_len = multibytetowidechar(CP_UTF8, 0, as_utf8, -1, lbl_wide, 0)
+////allocate buffer to let windows write into
+//ls_wide = Space(ul_len * 2)
+//lbl_wide = Blob(ls_wide)
+////convert utf-8 -> wide char
+//ul_len = multibytetowidechar(CP_UTF8, 0, as_utf8, -1, lbl_wide, ul_len)
+////get the final ansi string length
+//SetNull(ls_ansi)
+//ul_len = widechartomultibyte(CP_ACP, 0, lbl_wide, -1, ls_ansi, 0, ls_null, lb_flag)
+////allocate buffer to let windows write into
+//ls_ansi = Space(ul_len)
+////convert wide-char -> ansi
+//ul_len = widechartomultibyte(CP_ACP, 0, lbl_wide, -1, ls_ansi, ul_len, ls_null, lb_flag)
+//
+//Return ls_ansi
+
+Blob lbl_data
+string ls_ansi
+
+lbl_data = Blob(as_utf8, EncodingUTF8!)
+ls_ansi = String(lbl_data, EncodingANSI!)
+Return ls_ansi
+end function
+

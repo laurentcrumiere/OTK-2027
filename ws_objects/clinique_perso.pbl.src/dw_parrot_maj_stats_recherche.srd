@@ -1,0 +1,76 @@
+﻿$PBExportHeader$dw_parrot_maj_stats_recherche.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=yes print.buttons=no print.preview.buttons=no )
+header(height=344 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=72 color="536870912" )
+detail(height=80 color="536870912" )
+table(column=(type=char(30) update=yes updatewhereclause=yes name=nom dbname="patient.nom" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=nom_parent1 dbname="patient.nom_parent1" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=ville_parent1 dbname="patient.ville_parent1" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=teldom_parent1 dbname="patient.teldom_parent1" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=teltra_parent1 dbname="patient.teltra_parent1" )
+ column=(type=date update=yes updatewhereclause=yes name=debut_traitement dbname="patient.debut_traitement" )
+ column=(type=char(6) update=yes updatewhereclause=yes name=code_praticien dbname="patient.code_praticien" validation="len ( trim ( gettext() )) > 0" validationmsg="~"Ce code doit être obligatoirement saisi~"" )
+ column=(type=char(2) update=yes updatewhereclause=yes name=type_dossier dbname="patient.type_dossier" validation="len ( trim ( gettext() )) > 0" validationmsg="~"Ce code doit être obligatoirement saisi~"" )
+ column=(type=char(6) update=yes updatewhereclause=yes name=code_correspondant dbname="patient.code_correspondant" validation="len ( trim ( gettext() )) > 0" validationmsg="~"Ce code doit être obligatoirement saisi~"" )
+ column=(type=date update=yes updatewhereclause=yes name=premiere_visite dbname="patient.premiere_visite" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=moulage dbname="patient.moulage" )
+ column=(type=date update=yes updatewhereclause=yes name=relance dbname="patient.relance" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=classe dbname="patient.classe" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=type dbname="patient.type" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=prati_nom dbname="prati.nom" )
+ column=(type=decimal(0) updatewhereclause=yes name=code dbname="patient.code" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=patient_prenom dbname="patient.prenom" )
+ column=(type=date updatewhereclause=yes name=patient_date_naissance dbname="patient.date_naissance" )
+ retrieve="  SELECT ~"patient~".~"nom~",   
+         ~"patient~".~"nom_parent1~",   
+         ~"patient~".~"ville_parent1~",   
+         ~"patient~".~"teldom_parent1~",   
+         ~"patient~".~"teltra_parent1~",   
+         ~"patient~".~"debut_traitement~",   
+         ~"patient~".~"code_praticien~",   
+         ~"patient~".~"type_dossier~",   
+         ~"patient~".~"code_correspondant~",   
+         ~"patient~".~"premiere_visite~",   
+         ~"patient~".~"moulage~",   
+         ~"patient~".~"relance~",   
+         ~"patient~".~"classe~",   
+         ~"patient~".~"type~",   
+         ~"prati~".~"nom~",   
+         ~"patient~".~"code~",   
+         ~"patient~".~"prenom~",   
+         ~"patient~".~"date_naissance~"  
+    FROM ~"patient~",   
+         ~"prati~",   
+         ~"diagnos~"  
+   WHERE ( ~"prati~".~"code~" = ~"patient~".~"code_praticien~" ) and  
+         ( ~"diagnos~".~"code~" = ~"patient~".~"code~" ) and  
+         ( ~"patient~".~"code~" between :code_min and :code_max ) AND  
+         (  ~"diagnos~".~"but1~" = 1)
+ 
+" arguments=(("code_min", number),("code_max", number),("rubriques", string))  sort="nom A patient_prenom A " )
+line(band=header x1="18" y1="228" x2="3310" y2="228"  name=l_1 pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Liste des Patients pour des Rubriques Statistiques" border="0" color="0" x="443" y="20" height="92" width="2135"  name=t_1  font.face="Arial" font.height="-14" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="2" expression="~"Rubriques recherchées : ~"+rubriques"border="0" color="0" x="439" y="140" height="60" width="2153" format="[general]"  name=compute_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="2" background.color="16777215" )
+line(band=header x1="18" y1="324" x2="3310" y2="324"  name=l_2 pen.style="0" pen.width="9" pen.color="33554432"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Correspondant" border="0" color="33554432" x="2194" y="244" height="56" width="384"  name=t_2  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Classe" border="0" color="33554432" x="1486" y="244" height="56" width="174"  name=t_3  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Type" border="0" color="33554432" x="1673" y="244" height="56" width="123"  name=t_4  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Début Trait." border="0" color="33554432" x="1861" y="244" height="56" width="288"  name=t_5  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Dossier" border="0" color="33554432" x="3049" y="244" height="56" width="197"  name=t_6  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Nom du Patient" border="0" color="33554432" x="37" y="244" height="56" width="379"  name=nom_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="N° Dossier" border="0" color="33554432" x="745" y="244" height="56" width="261"  name=nom_parent1_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Date Naissance" border="0" color="33554432" x="1051" y="244" height="56" width="379"  name=t_7  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="33554432" x="2784" y="8" height="64" width="485" format="[general]"  name=type_dossier dddw.name=dw_dossier_ddlb dddw.displaycolumn=nom dddw.datacolumn=code dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression=" nom  + ' '  + if(isNull(  patient_prenom  ), '',  patient_prenom   )"border="0" color="33554432" x="46" y="8" height="64" width="603" format="[general]"  name=nom  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="1847" y="8" height="64" width="329" format="[general]"  name=debut_traitement edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="0" color="33554432" x="1669" y="8" height="56" width="142" format="[general]"  name=type edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="33554432" x="2194" y="8" height="64" width="567" format="[general]"  name=code_correspondant dddw.name=dw_corresp_ddlb dddw.displaycolumn=nom dddw.datacolumn=code dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any dddw.required=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="33554432" x="1504" y="8" height="56" width="142" format="[general]"  name=classe edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=16 alignment="1" tabsequence=32766 border="0" color="33554432" x="672" y="8" height="64" width="334" format="[general]"  name=code edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="2" tabsequence=32766 border="0" color="33554432" x="1065" y="8" height="64" width="357" format="[general]"  name=patient_date_naissance edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=footer alignment="0" expression="'Page ' + page() + ' sur ' + pageCount()"border="0" color="0" x="55" y="4" height="64" width="727" format="[general]"  name=compute_2  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="2" background.color="16777215" )
+compute(band=footer alignment="0" expression="today()"border="0" color="0" x="2432" y="4" height="60" width="247" format="[general]"  name=compute_3  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

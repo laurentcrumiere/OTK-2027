@@ -1,0 +1,99 @@
+﻿$PBExportHeader$m_btdroit_etat_rdv.srm
+forward
+global type m_btdroit_etat_rdv from menu
+end type
+type m_informationsdemodifications from menu within m_btdroit_etat_rdv
+end type
+global type m_btdroit_etat_rdv from menu
+m_informationsdemodifications m_informationsdemodifications
+end type
+end forward
+
+global type m_btdroit_etat_rdv from menu
+m_informationsdemodifications m_informationsdemodifications
+end type
+global m_btdroit_etat_rdv m_btdroit_etat_rdv
+
+on m_btdroit_etat_rdv.create
+m_btdroit_etat_rdv=this
+call super::create
+this.text = "m_btdroit_etat_rdv"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_informationsdemodifications=create m_informationsdemodifications
+this.Item[UpperBound(this.Item)+1]=this.m_informationsdemodifications
+end on
+
+on m_btdroit_etat_rdv.destroy
+call super::destroy
+destroy(this.m_informationsdemodifications)
+end on
+
+type m_informationsdemodifications from menu within m_btdroit_etat_rdv
+end type
+
+on m_informationsdemodifications.create
+call super::create
+this.text = "Informations de modifications"
+this.menuimage = "lc_infos.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_informationsdemodifications.destroy
+call super::destroy
+end on
+
+event clicked;
+long l, k
+l = w_etat_rdv.dw_liste.getcolumn() 
+
+
+if w_etat_rdv.dw_liste.rowcount()  > 0 then
+	// Affichage des infomormations de modif de elimine_agenda
+	
+	string v_user_code, v_user_nom
+	datetime v_dt
+	v_user_code = w_etat_rdv.dw_liste.getitemstring(w_etat_rdv.dw_liste.getrow(), "user_modif_elimine_agenda")
+	v_dt = w_etat_rdv.dw_liste.getitemdatetime(w_etat_rdv.dw_liste.getrow(), "date_modif_elimine_agenda")
+	
+	if not isnull(v_user_code) then 
+		select nom into :v_user_nom from utilisateurs where code = :v_user_code ;
+		Messagebox("Informations de modifications",'La zone  "Eliminer de l'+"'"+'Agenda" a été modifiée par : ~n~n' + "Utilisateur : " + v_user_nom +"~nLe "+string( v_dt , 'dd/mm/yyyy') + " à "+string( v_dt , 'hh:mm') )
+	else
+		Messagebox("Attention","Pas d'information de modification de la zone " + '"Eliminer de l'+"'"+'Agenda"'   + " disponible pour cette ligne." )
+	end if
+	
+end if
+
+end event
+

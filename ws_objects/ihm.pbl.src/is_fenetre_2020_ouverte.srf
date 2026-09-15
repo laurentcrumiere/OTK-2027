@@ -1,0 +1,41 @@
+﻿$PBExportHeader$is_fenetre_2020_ouverte.srf
+global type is_fenetre_2020_ouverte from function_object
+end type
+
+forward prototypes
+global function integer is_fenetre_2020_ouverte (string titre, ref window sheet)
+end prototypes
+
+global function integer is_fenetre_2020_ouverte (string titre, ref window sheet);
+// Sert à savoir si une fenetre dépendant de W_MDI_2020 ayant un certain TITRE est ouverte ou pas (on teste en fait le début du titre)
+// Si oui, elle est placée dans la fenetre SHEET
+
+
+// Check si une fenetre est ouverte dans le dock de w_mdi_2020 ... 
+// Si oui, renvoie l'index de la fenêtre (pour l'activer si besoin) 
+// Si non, renvoie 0
+
+integer trouve
+string sheet_titre
+powerdockdocument tab_ouverts[]
+long tot, i
+window sheet_prec, sheet_temp
+
+tot = w_mdi_2020.uo_powerdock.of_getdocumentcollection (tab_ouverts)
+
+trouve = 0
+i = 1
+
+do while i <= tot and trouve = 0
+	if left(tab_ouverts[i].text, len(titre)) = titre then
+		trouve = i
+		sheet = tab_ouverts[i].window
+	end if
+	i = i + 1
+loop
+
+
+
+return trouve
+end function
+

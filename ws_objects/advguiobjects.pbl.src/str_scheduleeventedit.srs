@@ -1,0 +1,13 @@
+﻿$PBExportHeader$str_scheduleeventedit.srs
+global type str_scheduleeventedit from structure
+	scheduleevent		eventobject
+	integer		increment
+	boolean		timeformat24hour
+	string		theme
+	boolean		newevent
+	boolean		deleteevent
+	scheduleeventguest		availableguests[]
+	integer		eventtype
+	boolean		isreadonly
+end type
+

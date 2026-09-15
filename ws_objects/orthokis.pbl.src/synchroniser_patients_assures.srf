@@ -1,0 +1,69 @@
+﻿$PBExportHeader$synchroniser_patients_assures.srf
+global type synchroniser_patients_assures from function_object
+end type
+
+forward prototypes
+global function integer synchroniser_patients_assures (double code_patient1, double code_patient2)
+end prototypes
+
+global function integer synchroniser_patients_assures (double code_patient1, double code_patient2);
+// Permet de synchroniser les infos qui doivent être identiques entre 2 fiches ... 
+
+// Principe ...
+// Le patient code_patient1 a été mis à jour ... on met à jour code_parent2 avec ses infos
+
+// La fonction peut être appelé en directe pour par synchroniser_parente
+
+// renvoie 1 si succés, 0 sinon
+
+
+string v_nom
+
+// élements à récupérer
+string v_code_caisse, v_code_mutuelle, v_nom_assure
+integer v_assure
+string v_secu_parent1, v_secu_parent2, v_secu_payeur
+
+
+
+
+// Récup des éléments mettre à jour ....
+	
+select "code_caisse", "code_mutuelle", "nom_assure", "assure", "secu_parent1", "secu_parent2", "secu_payeur" 
+into 	:v_code_caisse, :v_code_mutuelle, :v_nom_assure, :v_assure, :v_secu_parent1, :v_secu_parent2, :v_secu_payeur 
+from patient
+where code = :code_patient1 ;
+
+choose case v_assure
+	case 1
+		update patient 	set  "code_caisse" = :v_code_caisse, "code_mutuelle" = :v_code_mutuelle, "nom_assure" = :v_nom_assure, "assure" = :v_assure, "secu_parent1" = :v_secu_parent1 where code = :code_patient2 ; 
+	case 2
+		update patient 	set  "code_caisse" = :v_code_caisse, "code_mutuelle" = :v_code_mutuelle, "nom_assure" = :v_nom_assure, "assure" = :v_assure, "secu_parent2" = :v_secu_parent2 where code = :code_patient2 ; 
+	case 3
+		update patient 	set  "code_caisse" = :v_code_caisse, "code_mutuelle" = :v_code_mutuelle, "nom_assure" = :v_nom_assure, "assure" = :v_assure, "secu_payeur" = :v_secu_payeur where code = :code_patient2 ; 
+	case 4
+		// le patient est l'assuré => on touche à rien
+end choose
+
+
+
+if sqlca.sqlcode = 0 then
+	commit ;
+	return 1
+else
+	
+	string texte_erreur
+	
+	texte_erreur = sqlca.sqlerrtext
+	
+	select nom + ' '+ isnull(prenom,'') into :v_nom from patient where code = :code_patient2 ;
+	Messagebox("ATTENTION","Erreur dans la mise à jour Même Assuré de "+v_nom+".~n~n" + texte_erreur)
+	rollback ;
+	return 0
+end if
+
+
+
+
+end function
+

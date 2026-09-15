@@ -1,0 +1,44 @@
+﻿$PBExportHeader$fxg_positions_sauvegarder.srf
+global type fxg_positions_sauvegarder from function_object
+end type
+
+forward prototypes
+global function integer fxg_positions_sauvegarder (string clef_prefixe, long win_x, long win_y, long win_w, long win_h)
+end prototypes
+
+global function integer fxg_positions_sauvegarder (string clef_prefixe, long win_x, long win_y, long win_w, long win_h);// fx qui sauvegarde les coordonées de l'élément dont le nom est passé en param (simple string)
+// la sauvegarde se fait ds le fichier orthokis.ini
+// return 1 si ok
+//		-1 si pb
+
+int			returnval = -1
+boolean	ok = false
+string		filename
+
+
+// pour être sur, on oblige des valeurs > 0 pour x, y et > 150 pour w et h pour 
+//win_x = max(0,win_x)
+//win_y = max(0,win_y)
+// depuis 2025 on accepte les négatifs pour multi écrans
+win_w = max(150,win_w)
+win_h = max(150,win_h)
+ 
+
+if fxg_ini_local_sauvegarder( win_positions, clef_prefixe + "_x", win_x ) = 1 then
+	trace(" - " + win_positions + " : " + clef_prefixe + "_x   => " + string(win_x))
+	
+	if fxg_ini_local_sauvegarder( win_positions, clef_prefixe + "_y", win_y ) = 1 then
+		trace(" - " + win_positions + " : " + clef_prefixe + "_y   => " + string(win_y))
+		if fxg_ini_local_sauvegarder( win_positions, clef_prefixe + "_w", win_w ) = 1 then
+			trace(" - " + win_positions + " : " + clef_prefixe + "_w   => " + string(win_w))
+			if fxg_ini_local_sauvegarder( win_positions, clef_prefixe + "_h", win_h ) = 1 then
+				trace(" - " + win_positions + " : " + clef_prefixe + "_h   => " + string(win_h))
+				returnval = 1
+			end if
+		end if
+	end if
+end if
+
+return returnval 
+end function
+

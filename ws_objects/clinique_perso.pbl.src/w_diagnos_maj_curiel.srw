@@ -1,0 +1,362 @@
+﻿$PBExportHeader$w_diagnos_maj_curiel.srw
+$PBExportComments$gearbox
+forward
+global type w_diagnos_maj_curiel from window
+end type
+type cb_page8 from commandbutton within w_diagnos_maj_curiel
+end type
+type cb_page7 from commandbutton within w_diagnos_maj_curiel
+end type
+type cb_page6 from commandbutton within w_diagnos_maj_curiel
+end type
+type cb_page5 from commandbutton within w_diagnos_maj_curiel
+end type
+type cb_page4 from commandbutton within w_diagnos_maj_curiel
+end type
+type cb_page3 from commandbutton within w_diagnos_maj_curiel
+end type
+type cb_page2 from commandbutton within w_diagnos_maj_curiel
+end type
+type cb_autre from commandbutton within w_diagnos_maj_curiel
+end type
+type cb_page1 from commandbutton within w_diagnos_maj_curiel
+end type
+type cb_fermer from commandbutton within w_diagnos_maj_curiel
+end type
+end forward
+
+global type w_diagnos_maj_curiel from window
+integer x = 425
+integer y = 832
+integer width = 2007
+integer height = 968
+boolean titlebar = true
+boolean controlmenu = true
+windowtype windowtype = child!
+long backcolor = 12632256
+cb_page8 cb_page8
+cb_page7 cb_page7
+cb_page6 cb_page6
+cb_page5 cb_page5
+cb_page4 cb_page4
+cb_page3 cb_page3
+cb_page2 cb_page2
+cb_autre cb_autre
+cb_page1 cb_page1
+cb_fermer cb_fermer
+end type
+global w_diagnos_maj_curiel w_diagnos_maj_curiel
+
+type variables
+constant integer	NbrCaracPerso = 6000
+
+double var_code_local 
+string var_nom_local
+window w_me
+end variables
+
+forward prototypes
+public subroutine init_win ()
+public subroutine veriflgperso (integer lgperso)
+end prototypes
+
+public subroutine init_win ();var_code_local = var_code
+var_nom_local = var_nom
+
+w_me.title = "Pages Cliniques : " + var_nom_local + " (" + string(var_code_local) + ")"
+
+double tot
+string vide
+
+vide = space(NbrCaracPerso)
+
+tot = 0
+SELECT count(*) INTO :tot FROM diagnos WHERE code = :var_code_local ;
+
+if not (tot > 0) then
+	INSERT INTO "dba"."diagnos"	( "code", "perso" ) VALUES ( :var_code_local, :vide )  ;
+	IF	Sqlca.Sqlcode = 0 then
+		commit ;
+	else
+		rollback ;
+		close(w_me)
+	end if
+end if
+
+end subroutine
+
+public subroutine veriflgperso (integer lgperso);string	SqlLine, Temp
+integer	TableId, ColumnWidth
+
+
+SELECT table_id INTO :TableId FROM sys.systable WHERE table_name = 'diagnos' ;
+Temp = string(TableID)
+SELECT width INTO :ColumnWidth FROM sys.syscolumn WHERE table_id = :Temp AND column_name = 'perso' ;
+
+if ColumnWidth <> LgPerso then
+	SqlLine = "ALTER TABLE diagnos MODIFY perso CHAR(" + string(lgperso) + ")"
+	Execute immediate :SqlLine ;
+	if sqlca.sqlcode = 0 then
+		MessageBox("INFORMATION utilisateur", &
+						"Power ORTHOkis a détecté une modification à réaliser dans votre Base de Données.~n~nAfin que cette modification prenne effet, veuillez relancer le logiciel, merci.")
+	else
+		MessageBox("ERREUR dans 'diagnos.perso' ",sqlca.sqlerrtext)
+	end if
+end if
+
+end subroutine
+
+event open;w_me = this
+
+VerifLgPerso(NbrCaracPerso)
+init_win()
+mep_win_mdi(this,1)
+end event
+
+on w_diagnos_maj_curiel.create
+this.cb_page8=create cb_page8
+this.cb_page7=create cb_page7
+this.cb_page6=create cb_page6
+this.cb_page5=create cb_page5
+this.cb_page4=create cb_page4
+this.cb_page3=create cb_page3
+this.cb_page2=create cb_page2
+this.cb_autre=create cb_autre
+this.cb_page1=create cb_page1
+this.cb_fermer=create cb_fermer
+this.Control[]={this.cb_page8,&
+this.cb_page7,&
+this.cb_page6,&
+this.cb_page5,&
+this.cb_page4,&
+this.cb_page3,&
+this.cb_page2,&
+this.cb_autre,&
+this.cb_page1,&
+this.cb_fermer}
+end on
+
+on w_diagnos_maj_curiel.destroy
+destroy(this.cb_page8)
+destroy(this.cb_page7)
+destroy(this.cb_page6)
+destroy(this.cb_page5)
+destroy(this.cb_page4)
+destroy(this.cb_page3)
+destroy(this.cb_page2)
+destroy(this.cb_autre)
+destroy(this.cb_page1)
+destroy(this.cb_fermer)
+end on
+
+type cb_page8 from commandbutton within w_diagnos_maj_curiel
+integer x = 23
+integer y = 740
+integer width = 914
+integer height = 108
+integer taborder = 80
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "&TMJ"
+end type
+
+event clicked;if ui_v2020 then
+	OpenWithParm(w_diagnos_maj_curiel8, var_code_local, w_mdi_2020)
+else
+	OpenSheetWithParm(w_diagnos_maj_curiel8,var_code_local,w_mdi,1,Original!)
+end if
+end event
+
+type cb_page7 from commandbutton within w_diagnos_maj_curiel
+integer x = 23
+integer y = 620
+integer width = 914
+integer height = 108
+integer taborder = 70
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "&Occlusion"
+end type
+
+event clicked;if ui_v2020 then
+	OpenWithParm( w_diagnos_maj_curiel7, var_code_local, w_mdi_2020)
+else
+	OpenSheetWithParm(w_diagnos_maj_curiel7,var_code_local,w_mdi,1,Original!)
+end if
+end event
+
+type cb_page6 from commandbutton within w_diagnos_maj_curiel
+integer x = 23
+integer y = 500
+integer width = 914
+integer height = 108
+integer taborder = 60
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "Pe&riodontium"
+end type
+
+event clicked;if ui_v2020 then
+	OpenWithParm(w_diagnos_maj_curiel6, var_code_local, w_mdi_2020)
+else
+	OpenSheetWithParm(w_diagnos_maj_curiel6,var_code_local,w_mdi,1,Original!)
+end if
+end event
+
+type cb_page5 from commandbutton within w_diagnos_maj_curiel
+integer x = 23
+integer y = 380
+integer width = 914
+integer height = 108
+integer taborder = 50
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "Dental &Evaluation"
+end type
+
+event clicked;if ui_v2020 then
+	OpenWithParm( w_diagnos_maj_curiel5, var_code_local, w_mdi_2020)
+else
+	OpenSheetWithParm(w_diagnos_maj_curiel5,var_code_local,w_mdi,1,Original!)
+end if
+end event
+
+type cb_page4 from commandbutton within w_diagnos_maj_curiel
+integer x = 23
+integer y = 260
+integer width = 914
+integer height = 108
+integer taborder = 40
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "F&acial Features"
+end type
+
+event clicked;if ui_v2020 then
+	OpenWithParm( w_diagnos_maj_curiel4, var_code_local, w_mdi_2020)
+else
+	OpenSheetWithParm(w_diagnos_maj_curiel4,var_code_local,w_mdi,1,Original!)
+end if
+end event
+
+type cb_page3 from commandbutton within w_diagnos_maj_curiel
+integer x = 503
+integer y = 140
+integer width = 434
+integer height = 108
+integer taborder = 30
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "Photo &2"
+end type
+
+event clicked;if ui_v2020 then
+	OpenWithParm( w_diagnos_maj_curiel3, var_code_local, w_mdi_2020)
+else
+	OpenSheetWithParm(w_diagnos_maj_curiel3,var_code_local,w_mdi,1,Original!)
+end if
+end event
+
+type cb_page2 from commandbutton within w_diagnos_maj_curiel
+integer x = 23
+integer y = 140
+integer width = 434
+integer height = 108
+integer taborder = 20
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "Photo &1"
+end type
+
+event clicked;if ui_v2020 then
+	OpenWithParm( w_diagnos_maj_curiel2, var_code_local, w_mdi_2020)
+else
+	OpenSheetWithParm(w_diagnos_maj_curiel2,var_code_local,w_mdi,1,Original!)
+end if
+end event
+
+type cb_autre from commandbutton within w_diagnos_maj_curiel
+integer x = 1152
+integer y = 20
+integer width = 384
+integer height = 108
+integer taborder = 40
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "A&utre"
+end type
+
+event clicked;var_suite = false
+open(w_cherche)
+
+if var_suite then
+	init_win()
+end if
+
+end event
+
+type cb_page1 from commandbutton within w_diagnos_maj_curiel
+integer x = 23
+integer y = 20
+integer width = 914
+integer height = 108
+integer taborder = 10
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "&Diagnosis And Treatment Plan"
+end type
+
+event clicked;if ui_v2020 then
+	OpenWithParm( w_diagnos_maj_curiel1, var_code_local, w_mdi_2020)
+else
+	OpenSheetWithParm(w_diagnos_maj_curiel1,var_code_local,w_mdi,1,Original!)
+end if
+
+end event
+
+type cb_fermer from commandbutton within w_diagnos_maj_curiel
+integer x = 1559
+integer y = 20
+integer width = 384
+integer height = 108
+integer taborder = 50
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "&Fermer"
+boolean default = true
+end type
+
+event clicked;Close(parent)
+
+end event
+

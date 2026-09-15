@@ -1,0 +1,2 @@
+PBAutoBuild250.exe /pbc /d "C:\Power\V2025-Evolution\orthokis.pbt" /o "C:\Power\V2025-Evolution\orthokis.exe" /r "C:\Power\V2025-Evolution\orthokis.pbr" /w n /i /m n /x 32 /bg y /p "Orthokis 2025 Evolution" /cp "ARAKIS - Groupe Dentalsoft" /de "Orthokis 2025 Evolution- Gestion de Cabinet d'Orthodontie" /cr "(c) ARAKIS 1987-2025" /v "2025 Evolution" /vn "2025.0.0.0" /fv "35" /fvn "2025.0.0.0" /ge 0 /pd yyyyyyyyyyyyyyyyyny /rt 25.0.0.3711
+pause

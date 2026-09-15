@@ -1,0 +1,22 @@
+﻿$PBExportHeader$p_signature.srj
+EXE:signature.exe,,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.0.0.3726
+CMP:0,0,0,2,0,0,1
+COM:ARAKIS - Groupe Dentalsoft
+DES:Signature Electronique pour Orthokis
+CPY:(c) 1985-2025 ARAKIS
+PRD:Signature Electronique pour Orthokis
+PVS:2025
+PVN:2025,0,0,1
+FVS:33
+FVN:2025,0,0,1
+MAN:0,asInvoker,0
+PBD:signature.pbl,,0
+OBJ:C:\Power\V2026\signature.pbl,trace,f
+OBJ:C:\Power\V2026\signature.pbl,gfx_extraire_nom_fichier,f
+OBJ:C:\Power\V2026\signature.pbl,gfx_fichier_sans_extension,f
+OBJ:C:\Power\V2026\signature.pbl,gfx_extraire_extension_fichier,f
+OBJ:C:\Power\V2026\signature.pbl,fxg_enregcourrierhisto,f
+OBJ:C:\Power\V2026\signature.pbl,gfx_extraire_path_fichier,f
+OBJ:C:\Power\V2026\signature.pbl,get_nom_ordinateur,f
+OBJ:C:\Power\V2026\signature.pbl,fxg_get_clef_historique_editions,f
+OBJ:C:\Power\V2026\signature.pbl,signature,a

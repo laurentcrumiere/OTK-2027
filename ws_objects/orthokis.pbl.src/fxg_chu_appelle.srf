@@ -1,0 +1,1002 @@
+﻿$PBExportHeader$fxg_chu_appelle.srf
+global type fxg_chu_appelle from function_object
+end type
+
+forward prototypes
+global subroutine fxg_chu_appelle ()
+end prototypes
+
+global subroutine fxg_chu_appelle ();// Correspondant à l'event 1093 - appel du Launcher Orthokis
+//----------------------------------------------------------------------
+
+
+
+// IMPORTANT : LE CODE EST FAIT POUR ETRE COPIE / COLLER ENTRE LES FENETRES W_MDI et W_MDI_2020
+
+
+// pour Orthokis
+string v_nom_patient
+double v_code_patient
+double v_numero_dossier_patient
+long v_ordre
+string var_praticien, var_dossier, var_corresp, var_dentiste, var_medecin
+string var_caisse, var_mutuelle
+string v_code_utilisateur
+ulong handle_application
+string v_numero_patient_mutuelle
+long v_cpt
+
+security_attributes sa
+string chemindossier
+
+
+Trace ( "====== Début de fxg_chu_appelle() ====== ")
+
+
+// on ne traite qui si c'est le CHU
+
+if CHU_LIEGE then
+	Trace ( "Début de CHU_LIEGE")
+
+	// Appel venant de l'extérieur
+	
+
+	// Lecture des éléments passés en paramètres dans Orthokis.ini pour charger un patient...
+	
+	
+	string v_chu_identification_patient, v_chu_matricule
+	
+	v_chu_identification_patient = upper(profileString(dir_ini + "Orthokis.ini" , "Communication" , "chu_identification_patient" , "*******"))
+	v_chu_matricule = upper(profileString(dir_ini + "Orthokis.ini" , "Communication" , "chu_matricule" , "*******"))
+	
+	// recherche du code patient correspondant
+	
+	select chu_patient.code_patient , patient.nom, patient.numero_dossier 
+	into :v_code_patient , :v_nom_patient, :v_numero_dossier_patient
+	from chu_patient, patient
+		where identifiant_chu = :v_chu_identification_patient and patient.code = chu_patient.code_patient ;
+	
+	// depuis 18.02c
+	// Si pas trouvé, faudra le créer, si trouvé, faudra le mettre à jour
+	// => dans les 2 cas, lectures des éléments Oracle
+	
+	DECLARE cur_patient_chu CURSOR FOR 
+	//	SELECT npp, nom, prenom, dtenai, sexe, rue, numcp, localite, pays, tel, numnat, langue, nummedtrt, dtedeces, titre, numpat_act
+	//	from chl_sel_patient_by_pat_id where npp = :v_chu_identification_patient using T_CHU_LIEGE ;
+	SELECT npp, nom, prenom, dtenai, sexe, rue, numcp, localite, pays, tel, numnat, langue, nummedtrt, dtedeces, titre, numpat_act, mutuality, pat_mut_id 
+	from chl_sel_patient_by_pat_id where npp = :v_chu_identification_patient using T_CHU_LIEGE ;
+
+
+	CONNECT using T_CHU_LIEGE ;	//connection
+		
+	if T_CHU_LIEGE.sqlcode <> 0 then
+		messageBox("Problème de connexion base Oracle","Code : "+string(T_CHU_LIEGE.sqlcode)+"~n~nTexte : "+T_CHU_LIEGE.sqlerrtext)
+	else
+			
+			
+		//********************************************************************************
+		string v_npp, v_nom, v_prenom, v_sexe, v_rue, v_numcp, v_localite, v_pays, v_tel, v_numnat
+		string v_langue, v_nummedtrt, v_titre, v_numpat_act
+		string v_dtenai, v_dtedeces
+		
+		// recherche des infos patients dans ORACLE	
+		open cur_patient_chu  ;
+	
+		fetch cur_patient_chu into :v_npp, :v_nom, :v_prenom, :v_dtenai, :v_sexe, :v_rue, :v_numcp, :v_localite, :v_pays, 
+		:v_tel, :v_numnat, :v_langue, :v_nummedtrt, :v_dtedeces, :v_titre, :v_numpat_act, :var_mutuelle, :v_numero_patient_mutuelle ;
+
+		
+		if T_CHU_LIEGE.sqlcode <> 0 and not isnull(v_npp) then
+			messageBox("Problème de recherche dans la base Oracle","Code : "+string(T_CHU_LIEGE.sqlcode)+"~n~nTexte : "+T_CHU_LIEGE.sqlerrtext+"~n~nImpossible de trouver le patient demandé (N°"+v_chu_identification_patient+")")
+		else
+
+			// Traitement des datas lues dans Oracle !
+			double v_numero_dossier 
+			string v_nom_parent1, v_adr1_parent1,v_adr2_parent1
+			date v_date_naissance
+			string v_tedom_parent1
+			integer v_titre_patient, v_titre_parent1
+
+			
+			// Gestion du N° de sécu
+			if isnull(v_numero_patient_mutuelle) or len(trim(v_numero_patient_mutuelle)) = 0 then
+				// si pas de N° de mut, on prend le N° immat national
+				v_numero_patient_mutuelle = v_numnat
+			end if
+				
+			
+			v_numero_dossier = double(left(v_npp,7))
+			
+			v_localite = trim(v_localite)
+			v_numcp = trim(v_numcp)
+			
+			if isnull(v_nom) then
+				v_nom = "???"
+			else
+				v_nom = trim(v_nom)
+			end if
+			if isnull(v_prenom) then
+				v_prenom = ""
+			else
+				v_prenom = trim(v_prenom)
+			end if
+			
+			v_nom_parent1= v_nom + ' '+ v_prenom
+			
+			// date de naissance 
+			if not isnull(v_dtenai) then
+				v_dtenai = trim(v_dtenai)
+				// La date lue dans oracle est sous la forme JJMMAAAA
+				v_date_naissance = date( right(v_dtenai, 4) +'-'+ mid(v_dtenai,3,2) + '-'+ left(v_dtenai,2)  )
+			else
+				setnull(v_date_naissance)
+			end if
+			
+			// Sexe
+			v_sexe = upper(v_sexe)
+			if v_sexe <> 'M' and v_sexe <> 'F' then
+				setnull(v_sexe)
+			end if
+			
+			
+			// Adresse
+			v_rue = trim(v_rue)
+			if len(v_rue) > 35 then
+				v_adr1_parent1 = trim(left(v_rue,35))
+				v_adr2_parent1 = trim(mid(v_rue, 36, len(v_rue) - 35))
+			else
+				v_adr1_parent1 = trim(v_rue)
+				v_adr2_parent1 = ""
+			end if
+			
+			// Telephone
+			v_tedom_parent1 = que_chiffres(v_tel)
+			
+			
+			// Pays
+			integer v_cpt_pays = 0
+			// est il dans Orthokis
+			select count(*) into :v_cpt_pays from pays where code = :v_pays ;
+			
+			if v_cpt_pays = 0 then
+				// Création du pays
+				INSERT INTO pays ("code","nom","actif","ordre_trie","prefixe","format_telephone","format_secu")
+				values (:v_pays, :v_pays, 1, 100, '', '### ## ## ##',' !!!!!!!!!!!!!!!!!!!!!!!!') ;
+				
+				if sqlca.sqlcode <> 0 then
+					// Problème dans l'ajout du pays
+					Messagebox("ERREUR DANS L'AJOUT DU PAYS","Le code pays '"+ v_pays+ "' n'a pas pu être ajouté.~n~nLe patient sera créé en Belgique.")
+					rollback ;
+				else
+					v_pays = "BE"
+				end if
+			end if
+			
+			
+			// Titre ....
+			v_titre = upper(v_titre)
+			choose case v_titre
+				case "MR."
+					v_titre_patient = 1
+					v_titre_parent1 = 1
+				case "MME."
+					v_titre_patient = 2
+					v_titre_parent1 = 2
+				case "MLLE."
+					v_titre_patient = 3
+					v_titre_parent1 = 3
+				case else
+					setnull(v_titre_patient)
+					setnull(v_titre_parent1)
+			end choose
+			
+
+			// Mutuelle
+			if isnull(var_mutuelle) then
+				var_mutuelle = 'AR'
+			end if
+			
+			SELECT isnull(count(*),0) into :v_cpt FROM MUTUELLE where code = :var_mutuelle ;
+			
+			if v_cpt = 0 then
+				// Ajout automatique de la mutuelle
+				 INSERT INTO "mutuelle"           ( "code",              "nom",              "actif",              "ordre_trie" )  
+			  	VALUES ( :var_mutuelle,       'MUTUELLE '+ :var_mutuelle,              1,              100 )  ;
+			end if
+
+			
+		
+		// Selon si patient existe ou pas ...
+		
+		if not isnull(v_code_patient) and v_code_patient <> 0 then
+			// on a trouvé le patient
+			var_suite  = true
+			
+			// Mise à jour des infos 
+			UPDATE "patient"  set "numero_dossier" = :v_numero_dossier, 
+			 "nom" = :v_nom, 
+			 "prenom" = :v_prenom,
+			  "code_mutuelle" = :var_mutuelle,
+			  "date_naissance"= :v_date_naissance,
+			  "sexe" = :v_sexe, 
+			  "nom_parent1" = :v_nom_parent1, 
+			  "adr1_parent1" = :v_adr1_parent1,
+			  "adr2_parent1" = :v_adr2_parent1, 
+			  "codep_parent1" = :v_numcp, 
+			  "ville_parent1" = :v_localite,
+			  "teldom_parent1" = :v_tedom_parent1, 
+			  "secu_parent1" = :v_numero_patient_mutuelle, 
+			  "titre_patient" = :v_titre_patient,
+			  "titre_parent1" = :v_titre_parent1 ,
+			  "pays_parent1" = :v_pays 
+			 where code = :v_code_patient ;
+	
+			if sqlca.sqlcode = 0 then
+				commit ;
+			else
+				Messagebox("ATTENTION !","Erreur dans la mise à jour des informations du patient.~n~n"+sqlca.sqlerrtext)
+				rollback ;
+			end if 
+		else
+		
+			var_suite = false
+		
+			// On a pas trouvé le patient => Il faut le créer !!!
+			
+				
+			//-----------------------------------------------------------------------------
+			// VALEURS PAR DEFAUT
+			//
+			
+			// PRATICIEN
+			SELECT code INTO :var_praticien FROM prati where prati_defaut = '1';
+			if isnull(var_praticien) then
+				SELECT min(ordre_trie) INTO :v_ordre FROM prati ;
+				SELECT min(code)  INTO :var_praticien FROM prati where ordre_trie = :v_ordre ;
+			end if
+			
+			
+			// TYPE DE DOSSIER 
+			SELECT min(ordre_trie) INTO :v_ordre FROM dossier ;
+			SELECT min(code)  INTO :var_dossier FROM dossier where ordre_trie = :v_ordre ;
+			
+			
+			// CORRESPONDANTS 
+			SELECT min(ordre_trie) INTO :v_ordre FROM correspondants ;
+			SELECT min(code)  INTO :var_corresp FROM correspondants where ordre_trie = :v_ordre ;
+	
+			// DENTISTE 
+			// Si le code AR existe, on le prend pour dentiste et autre
+			v_ordre = 0
+			SELECT min(ordre_trie) INTO :v_ordre FROM correspondants WHERE code = 'AR' ;
+			if v_ordre > 0 then
+				var_dentiste = 'AR'
+				var_medecin = 'AR'
+			else
+				var_dentiste = var_corresp
+				var_medecin = var_corresp
+			end if
+			
+			// CAISSE 
+			SELECT min(ordre_trie) INTO :v_ordre FROM CAISSE ;
+			SELECT min(code)  INTO :var_caisse FROM CAISSE where ordre_trie = :v_ordre ;
+			
+			// MUTUELLE 
+			//	depuis 18.02c, traité dans Oracle
+//			SELECT min(ordre_trie) INTO :v_ordre FROM MUTUELLE ;
+//			SELECT min(code)  INTO :var_mutuelle FROM MUTUELLE where ordre_trie = :v_ordre ;
+			
+			
+			// En création de fiche, met la date du jour pour la date premier contact : "date_contact"
+			// et met adulte à  Non
+			 INSERT INTO "patient"  
+				( "numero_dossier",              "nom", "prenom",        "code_praticien",              "type_dossier",  
+				"code_correspondant",       "code_dentiste",              "code_caisse",              
+				"code_mutuelle",		  "type",		  "classe",		  "assure",		  "devis_remis",
+				  "plan_imprime",		  "date_contact",		  "adulte",		  "code_medecin",
+				  "dep_imprime", "envoi_sms",
+				  "portable_patient_sms" ,  "portable_sms" ,  "portable2_parent1_sms" , 
+				  "portable1_parent2_sms" , "portable2_parent2_sms" ,  "portable1_payeur_sms" ,  
+				  "portable2_payeur_sms"  ,
+				  "date_naissance", "sexe", "nom_parent1", "adr1_parent1" , "adr2_parent1", "codep_parent1", "ville_parent1",
+				  "teldom_parent1", "secu_parent1", "titre_patient","titre_parent1" , "pays_parent1"
+				  )
+		  VALUES ( :v_numero_dossier, :v_nom, :v_prenom, :var_praticien,   :var_dossier, 
+					:var_corresp ,    :var_dentiste,    :var_caisse, :var_mutuelle,	
+						  '',	'',	1,'O','N',cast(getdate() as date),'N',:var_medecin,'N','O',
+						  '?','?','?','N','N','N','N',
+						  :v_date_naissance, :v_sexe, :v_nom_parent1, :v_adr1_parent1 , :v_adr2_parent1,  :v_numcp, :v_localite ,
+						  :v_tedom_parent1 , :v_numero_patient_mutuelle , :v_titre_patient , 	:v_titre_parent1 , :v_pays            )  ;
+	
+			if SQLCA.SQLcode = -1 Then
+			// Problème dans le INSERT
+				CHOOSE CASE SQLCA.SQLdbCode
+				CASE -193
+				// Problème de clé 
+						Messagebox("ATTENTION !","Problème dans la génération du code interne du nouveau patient.~n~nAjout impossible.~n~nVeuillez contacter ARAKIS.")
+				CASE -196
+				// Problème d'unicité d'index -> numero de dossier du patient
+						Messagebox("ATTENTION !","Problème dans l'ajout du Patient.~n~nIl est probable que le N° de dossier que vous avez saisi (" + string(v_numero_dossier) + ") existe déjà.~n~nVous devez indiquer un nouveau numéro.~n~nL'ajout n'a pas été effectué.")
+					CASE ELSE
+						Messagebox("Erreur SQL dans Ajout de Patient N°"+string(SQLCA.SQLdbCode),SQLCA.SQLErrText)
+					END CHOOSE
+					rollback ;
+			else
+			// Le insert s'est bien passé
+				
+				// récupération du CODE généré automatiquement par la base de données en autoincrément
+				SELECT code into :v_code_patient from patient where numero_dossier = :v_numero_dossier ;
+				
+			
+				// Mise à jour de l'historique des dossiers
+				INSERT INTO histo_dossier (code, date_heure, type_dossier) 
+				VALUES (:v_code_patient, getdate(), 'R') ;
+				
+				// Mémorisation de la création du dossier
+			//	ajout_histo_actions(v_code_patient,"AJOPAT",today(),"Création normale du dossier" )
+	
+				// Mise à jour de l'identifiant Odrade pour assurer compatibilité avec Odrade
+				update patient set identifiant_odrade = code where code = :v_code_patient ;
+				
+				insert into chu_patient ("code_patient","identifiant_chu") values (:v_code_patient, :v_npp) ;
+				
+				//Messagebox("AJOUT DE PATIENT","Le patient vient d'être ajouté à Orthokis !")
+				commit ;
+				
+				// Depuis 2019 on crée au aussi le dossier photos !!!
+				chemindossier = dir_photos + string(v_code_patient) 
+				if not fxg_FileExists(chemindossier) then CreateDirectoryA(chemindossier,sa)
+
+				var_suite = true
+			end if
+		end if
+
+
+	//*******************************************************************************
+		end if
+
+		DISCONNECT using T_CHU_LIEGE ;	//connection
+		
+	end if
+	
+	if var_suite then
+		// Gestion de l'utilisateur
+		select code_utilisateur into :v_code_utilisateur from chu_utilisateur where identifiant_chu = :v_chu_matricule ;
+		
+		if not isnull(v_code_utilisateur) and trim(v_code_utilisateur) <> '' then
+			// on a trouvé l'utilisateur
+		
+			select code, nom into :utilisateur_code, :utilisateur_nom from utilisateurs where code = :v_code_utilisateur ;
+
+			 // mise à jour du titre de la fenêtre
+			w_mdi_2020.maj_titre_mdi()
+				
+	
+			// Faut ouvrir le module choisi par l'utilisateur
+				var_code 				= 	v_code_patient
+				var_numero_dossier 	= 	v_numero_dossier_patient
+				var_nom 				= 	v_nom_patient
+				var_nomp 				= 	""
+				var_pay 					=	""
+				var_moul 				= 	""
+			
+	
+	
+			// Droits du nouveau user !!
+			w_mdi_2020.droitsUtilisateurs()
+			initialisation_droits(utilisateur_code)
+
+	
+			//Mise à jour de la gestion des 10 patients en mémoire
+			//et de latoolbar principale de la w_mdi - ok ausi pour ui_2020
+			MajTabPatientsCourants(v_code_patient)
+			
+			// pour mettre Orthokis au premier plan !!!
+			handle_application = long (ProfileString(dir_ini + "orthokis.ini" ,"Communication","handle", ""))
+
+			// pour mettre de manière SUR orthokis au premier plan
+			w_mdi_2020.setPosition(TopMost!)
+
+			
+			// ouverture de ce qu'on doit ouvrir
+			ouverture_salle_attente()
+			
+			// pour pas qu'Orthokis soit forcé au premier plan
+			w_mdi_2020.setPosition(NoTopMost!)
+	
+
+
+		else
+			Messagebox("ATTENTION","Impossible de trouver l'utilisateur : "+v_chu_matricule)	
+		end if
+	else
+		
+		Messagebox("ATTENTION","Impossible de trouver le patient : "+v_chu_identification_patient)
+	end if
+
+end if
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------- FIN DU CHU DE LIEGE
+
+// on ne traite qui si c'est le un APPEL ODS ou VISIODENT
+
+if APPEL_ODS OR APPEL_VISIODENT then
+	
+	Trace ("Début de ODS ou VISIONDENT" )
+	
+	// Champ supplémentaire dans la table Patient : identifiant_ods
+	// ALTER TABLE patient ADD identifiant_ods double ;
+	// CREATE UNIQUE INDEX "identifiant_ods" ON "patient" ("identifiant_ods" ) ;
+	
+	string v_fichier_ods 
+	integer v_lig
+	datawindow  v_dw_patient_ods
+	
+	v_fichier_ods = dir_ini + "orthokis_Complet.xml"
+	
+	if FileExists (v_fichier_ods) then
+		
+		v_dw_patient_ods = w_mdi_2020.dw_patient_ods
+		
+		v_dw_patient_ods.reset()
+		v_lig = v_dw_patient_ods.importFile(XML!, v_fichier_ods)
+		
+		If not trace then
+			// On ne supprime le fichier d'import qu'en mode normal
+			FileDelete(v_fichier_ods)
+		end if
+	else
+		v_lig = 0
+		var_suite = FALSE
+		Messagebox ("ATTENTION", "Fichier de liaison introuvable !~n~n" + v_fichier_ods)
+	end if
+	
+	
+	if v_lig > 0 then
+		
+
+		
+		// récupération des infos du fichier XML
+		string v_utilisateur_code
+		string v_patient_nom, v_patient_prenom
+		date v_Patient_Date_Naissance
+		double v_Patient_Num_Dossier
+		string v_Patient_Titre, v_parent_titre
+		string v_Patient_Sexe
+		string v_Patient_Num_Secu, v_Patient_Tel_Portable, v_Patient_Email
+		
+		string v_Parent_Nom, v_Parent_Prenom, V_Parent_Adresse_1, v_Parent_Adresse_2, v_Parent_Code_Postal, v_Parent_Ville
+		string v_Parent_Tel_Domicile, v_Parent_Tel_Travail, v_Parent_Tel_Portable
+		string v_Parent_Email, v_Praticien_Ref_Omni, v_Praticien_Ref_ODF
+		date v_Assure_Date_Naissance
+		
+		v_utilisateur_code = string_non_nulle(v_dw_patient_ods.GetItemString(1, "Utilisateur_code"))
+		v_Patient_Num_Dossier = v_dw_patient_ods.GetItemNumber(1, "Patient_Num_Dossier")
+		v_Patient_Titre = string(v_dw_patient_ods.GetItemNumber(1, "Patient_Titre"))
+	
+		v_patient_nom = v_dw_patient_ods.GetItemString(1, "Patient_Nom")
+		v_patient_prenom = v_dw_patient_ods.GetItemString(1, "Patient_Prenom")
+		
+		v_Patient_Date_Naissance = v_dw_patient_ods.GetItemDate(1, "Patient_Date_Naissance")
+		v_Patient_Sexe = v_dw_patient_ods.GetItemString(1, "Patient_Sexe")
+		v_Patient_Num_Secu = v_dw_patient_ods.GetItemString(1, "Patient_Num_Secu")
+		v_Patient_Tel_Portable = que_chiffres(v_dw_patient_ods.GetItemString(1, "Patient_Tel_Portable"))
+		v_Patient_Email = v_dw_patient_ods.GetItemString(1, "Patient_Email")
+		
+		v_Parent_Titre = string(v_dw_patient_ods.GetItemNumber(1, "Patient_Titre"))
+		v_Parent_Nom = v_dw_patient_ods.GetItemString(1, "Parent_Nom")
+		v_Parent_Prenom = v_dw_patient_ods.GetItemString(1, "Parent_Prenom")
+		
+		v_Parent_Nom = string_non_nulle(v_Parent_Nom)
+		v_Parent_Prenom = string_non_nulle(v_Parent_Prenom)
+		
+		v_Parent_Adresse_1 = v_dw_patient_ods.GetItemString(1, "Parent_Adresse_1")
+		v_Parent_Adresse_2 = v_dw_patient_ods.GetItemString(1, "Parent_Adresse_2")
+		v_Parent_Code_Postal = v_dw_patient_ods.GetItemString(1, "Parent_Code_Postal")
+		v_Parent_Ville = v_dw_patient_ods.GetItemString(1, "Parent_Ville")
+		
+		v_Parent_Tel_Domicile = que_chiffres(v_dw_patient_ods.GetItemString(1, "Parent_Tel_Domicile"))
+		v_Parent_Tel_Travail = que_chiffres(v_dw_patient_ods.GetItemString(1, "Parent_Tel_Travail"))
+		v_Parent_Tel_Portable = que_chiffres(v_dw_patient_ods.GetItemString(1, "Parent_Tel_Portable"))
+		v_Parent_Email = v_dw_patient_ods.GetItemString(1, "Parent_Email")
+		
+		v_Praticien_Ref_Omni = string_non_nulle(v_dw_patient_ods.GetItemString(1, "Praticien_Ref_Omni"))
+		v_Praticien_Ref_ODF = string_non_nulle(v_dw_patient_ods.GetItemString(1, "Praticien_Ref_ODF"))
+		
+		v_Assure_Date_Naissance = v_dw_patient_ods.GetItemDate(1, "Assure_Date_Naissance")
+		
+		Trace ("Code utilisateur : " + v_utilisateur_code )
+		Trace ("Nom patient : " + v_patient_nom )
+		Trace ("Prénom patient : " + v_patient_prenom )
+		Trace ("Date de Naissance  : " + string( v_Patient_Date_Naissance ) )
+		Trace ("Numéro de dossier : " + string(v_Patient_Num_Dossier ))
+		
+		// Recherche du patient !!!
+		var_suite = true
+		
+		// Gestion de l'utilisateur
+		select isnull(code,'')  into :v_code_utilisateur from "utilisateurs" where code = :v_utilisateur_code ;
+		
+		if trim(v_code_utilisateur) = '' then
+			// l'utilisateur n'est pas dans Orthokis
+			Messagebox("ATTENTION","Impossible de trouver l'utilisateur : "+v_utilisateur_code)	
+			var_suite = FALSE
+		end if
+			
+
+		
+		if var_suite then
+		
+			// Correspondant par défaut
+			SELECT min(ordre_trie) INTO :v_ordre FROM correspondants ;
+			SELECT min(code)  INTO :var_corresp FROM correspondants where ordre_trie = :v_ordre ;
+			
+		
+			select isnull(min(code),0), min(numero_dossier), min(trim(nom)+' '+isnull(trim(prenom),'')) into :v_code_patient , :v_numero_dossier_patient, :v_nom_patient from patient where identifiant_ods = :v_Patient_Num_Dossier ;
+			
+			if v_code_patient <> 0 then 
+				// Le patient existe !
+				
+				
+				// Recherche du patient sur le nom + prénom + date de naissance ...
+				//select isnull(min(code),0)  into :v_code_patient  from patient where nom = :v_patient_nom and prenom = :v_patient_prenom and date_naissance = :v_Patient_Date_Naissance ;
+				
+				//if v_code_patient <> 0 then 
+					// Le patient existe .... On le mets à jour ?
+					
+					//If Messagebox("ATTENTION","Le patient "+v_patient_nom+" "+v_patient_prenom +" Né(e) le "+string(v_Patient_Date_Naissance) + " ayant dans ODS le N°"+v_Praticien_Ref_ODF+" existe déjà dans Orthokis.~n~nVoulez-vous le mettre à jour ?",Question!, Yesno!, 2) = 1 then
+					
+					// depuis le 16/7/2014 on met à jour systématiquement
+					if true then 
+						// Mise à jour des infos ODS dans Orthokis
+						
+						// Vérification si le praticien existe
+						select isnull(count(*),0) into :v_cpt from prati where code =  :v_Praticien_Ref_ODF ; 
+						
+						if v_cpt = 0 then
+							var_suite = false
+							Messagebox("ATTENTION","Impossible de modifier le patient " + v_patient_nom + " "+v_patient_prenom+" car le praticien ODF de code " + v_Praticien_Ref_ODF + " n'existe pas !")
+						else
+							// Vérification si le dentiste traitant existe
+							select isnull(count(*),0) into :v_cpt from correspondants where code =  :v_Praticien_Ref_Omni ; 
+							
+							if v_cpt = 0 then
+								// depuis 25.00d, si n'existe pas on prends le correspondant par défaut
+								v_Praticien_Ref_Omni = var_corresp
+								//var_suite = false
+								//Messagebox("ATTENTION","Impossible de modifier le patient " + v_patient_nom + " "+v_patient_prenom+" car le dentiste traitant de code " + v_Praticien_Ref_Omni + " n'existe pas !")
+							end if
+//							else
+				
+								// Vérification si le titre du patient existe
+								select isnull(count(*),0) into :v_cpt from titre_personnes where code =  :v_Patient_Titre ; 
+								
+								if v_cpt = 0 then
+									var_suite = false
+									Messagebox("ATTENTION","Impossible de modifier le patient " + v_patient_nom + " "+v_patient_prenom+" car le titre du patient de code " + string(v_Patient_Titre) + " n'existe pas !")
+								else
+							
+							
+									// Vérification si le titre du parent  existe
+									select isnull(count(*),0) into :v_cpt from titre_personnes where code =  :v_Parent_Titre ; 
+									
+									if v_cpt = 0 then
+										var_suite = false
+										Messagebox("ATTENTION","Impossible de modifier le patient " + v_patient_nom + " "+v_patient_prenom+" car le titre du parent de code " + string(v_Parent_Titre) + " n'existe pas !")
+									else	
+									
+										v_patient_nom = string_non_nulle(v_patient_nom)
+										v_patient_prenom = string_non_nulle(v_patient_prenom)
+										v_nom_patient = trim(v_patient_nom)+' '+v_patient_prenom
+									
+										Update "patient"  set 	"identifiant_ods" = :v_Patient_Num_Dossier,
+														"code_praticien" = :v_Praticien_Ref_ODF,
+														"code_dentiste" = :v_Praticien_Ref_Omni,
+														"titre_patient" = :v_Patient_Titre,
+														"nom" = :v_patient_nom ,
+														"prenom" = :v_patient_prenom ,
+														"sexe" = :v_Patient_Sexe,
+														"secu_parent1" = :v_Patient_Num_Secu,
+														"portable_patient" = :v_Patient_Tel_Portable,
+														"email_patient" = :v_Patient_Email,
+														"titre_parent1" = :v_Parent_Titre,
+														"nom_parent1" = :v_Parent_Nom + ' '+:v_Parent_Prenom,
+														 "adr1_parent1" = :v_Parent_Adresse_1,
+														 "adr2_parent1" = :v_Parent_Adresse_2,
+														 "codep_parent1" = :v_Parent_Code_Postal,
+														 "ville_parent1" = :v_Parent_Ville,
+														 "teldom_parent1" = :v_Parent_Tel_Domicile,
+														  "teltra_parent1" = :v_Parent_Tel_Travail,
+														  "portable" = :v_Parent_Tel_Portable,
+														  "email" = :v_Parent_Email, 
+														  "date_naissance_assure" = :v_Assure_Date_Naissance
+										where code = :v_code_patient 	 ;
+									
+										if sqlca.sqlcode = 0 then
+												commit ;
+											else
+												MessageBox("ATTENTION","Erreur dans la mise à jour du patient "+ v_patient_nom + " "+v_patient_prenom+".~n~n"+sqlca.sqlerrtext)
+												rollback ;
+												var_suite = false
+										end if
+							
+							
+									end if
+								end if
+//							end if
+						end if
+					end if
+					
+				else
+					
+					// Création du patient dans Orthokis avec les infos d'ODS ... si 
+					
+					
+					// Vérification si le praticien existe
+					select isnull(count(*),0) into :v_cpt from prati where code =  :v_Praticien_Ref_ODF ; 
+					
+					if v_cpt = 0 then
+						var_suite = false
+						Messagebox("ATTENTION","Impossible d'ajouter le patient " + v_patient_nom + " "+v_patient_prenom+" car le praticien ODF de code " + v_Praticien_Ref_ODF + " n'existe pas !")
+					else
+						// Vérification si le dentiste traitant existe
+						select isnull(count(*),0) into :v_cpt from correspondants where code =  :v_Praticien_Ref_Omni ; 
+						
+						if v_cpt = 0 then
+							// depuis 25.00d, si n'existe pas on prends le correspondant par défaut
+							v_Praticien_Ref_Omni = var_corresp
+							//var_suite = false
+							//Messagebox("ATTENTION","Impossible d'ajouter le patient " + v_patient_nom + " "+v_patient_prenom+" car le dentiste traitant de code " + v_Praticien_Ref_Omni + " n'existe pas !")
+						end if
+//						else
+			
+							// Vérification si le titre du patient existe
+							select isnull(count(*),0) into :v_cpt from titre_personnes where code =  :v_Patient_Titre ; 
+							
+							if v_cpt = 0 then
+								var_suite = false
+								Messagebox("ATTENTION","Impossible d'ajouter le patient " + v_patient_nom + " "+v_patient_prenom+" car le titre du patient de code " + string(v_Patient_Titre) + " n'existe pas !")
+							else
+						
+						
+								// Vérification si le titre du parent  existe
+								select isnull(count(*),0) into :v_cpt from titre_personnes where code =  :v_Parent_Titre ; 
+								
+								if v_cpt = 0 then
+									var_suite = false
+									Messagebox("ATTENTION","Impossible d'ajouter le patient " + v_patient_nom + " "+v_patient_prenom+" car le titre du parent de code " + string(v_Parent_Titre) + " n'existe pas !")
+								else
+								
+								
+									// Quel N° de dossier prend on ?
+									integer propo_auto
+									double v_min, v_max , v_nouveau_numero
+									select num_patient_auto_normale into :propo_auto from param ;
+									
+									select min(numero_dossier), max(numero_dossier) into :v_min, :v_max from patient where numero_dossier < 100000000 ;
+									
+									//rappel : si 1 => le plus grand +1 ; si 2 => le plus petit -1
+									choose case propo_auto
+										case 1
+											v_nouveau_numero = v_max +1
+										case 2
+											v_nouveau_numero = v_min -1
+									end choose
+									
+	
+	
+									
+									// type de dossier par défaut
+									SELECT min(ordre_trie) INTO :v_ordre FROM dossier ;
+									SELECT min(code)  INTO :var_dossier FROM dossier where ordre_trie = :v_ordre ;
+							
+									// AUTRE MEDECIN 
+									// Si le code AR existe, on le prend pour dentiste et autre
+									v_ordre = 0
+									SELECT min(ordre_trie) INTO :v_ordre FROM correspondants WHERE code = 'AR' ;
+									if v_ordre > 0 then
+										var_medecin = 'AR'
+									else
+										var_medecin = var_corresp
+									end if
+		
+									// CAISSE 
+									SELECT min(ordre_trie) INTO :v_ordre FROM CAISSE ;
+									SELECT min(code)  INTO :var_caisse FROM CAISSE where ordre_trie = :v_ordre ;
+									
+									// MUTUELLE 
+									SELECT min(ordre_trie) INTO :v_ordre FROM MUTUELLE ;
+									SELECT min(code)  INTO :var_mutuelle FROM MUTUELLE where ordre_trie = :v_ordre ;
+									
+									INSERT INTO "patient"  
+											( 	"numero_dossier",              "nom",              				"code_praticien",    		    	"type_dossier",   				"code_correspondant",   
+												"code_dentiste",              	"code_caisse",					"code_mutuelle",			  	"type", 			  				"classe",
+												"assure", 			  			"devis_remis",					"plan_imprime",				"date_contact",					"adulte",
+												"code_medecin",			  	"dep_imprime", 				"envoi_sms", 	  				"portable_patient_sms" ,  	"portable_sms",  
+												 "portable2_parent1_sms" ,	"portable1_parent2_sms" , 	"portable2_parent2_sms" ,	"portable1_payeur_sms" ,    "portable2_payeur_sms", 
+												 "prenom", 						"identifiant_ods",				"titre_patient" ,					"date_naissance",				"sexe",   
+												 "secu_parent1",				"portable_patient",				"email_patient",				"titre_parent1", 				"nom_parent1",
+												 "adr1_parent1",				"adr2_parent1", 				"codep_parent1",				"ville_parent1", 				"teldom_parent1",
+												 "teltra_parent1",				"portable",						"email",							"date_naissance_assure"
+												 )
+							
+									 VALUES
+											( 	:v_nouveau_numero, 			:v_Patient_Nom, 				:v_Praticien_Ref_ODF,   		:var_dossier, 					:var_corresp ,    
+												:v_Praticien_Ref_Omni,    	:var_caisse, 					:var_mutuelle,					'',									'',							
+												  1,								'O',								'N',								cast(getdate() as date),							'N',
+												  :var_medecin,				'N',								'O',								 '?',								'?',
+												  '?',								'N',								'N',								'N',								'N' , 
+												  :v_Patient_Prenom, 			:v_Patient_Num_Dossier, 	:v_Patient_Titre, 				:v_Patient_Date_Naissance,	:v_Patient_Sexe, 
+												  :v_Patient_Num_Secu, 		:v_Patient_Tel_Portable,		:v_Patient_Email,				:v_Parent_Titre, 				:v_Parent_Nom + ' '+:v_Parent_Prenom,
+												  :v_Parent_Adresse_1, 		:v_Parent_Adresse_2, 		:v_Parent_Code_Postal, 		:v_Parent_Ville,				:v_Parent_Tel_Domicile,
+												  :v_Parent_Tel_Travail,		:v_Parent_Tel_Portable,		:v_Parent_Email, 				:v_Assure_Date_Naissance
+												  );
+												  
+										if sqlca.sqlcode = 0 then
+											commit ;
+											
+											// Recherche du code interne du patient qu'on vient d'ajouter pour ouverture ensuite
+											select isnull(min(code),0) into :v_code_patient from patient where numero_dossier = :v_nouveau_numero ;
+											
+											
+											// Depuis 2019 on crée au aussi le dossier photos !!!
+											chemindossier = dir_photos + string(v_code_patient) 
+											if not fxg_FileExists(chemindossier) then CreateDirectoryA(chemindossier,sa)
+	
+		
+										else
+											MessageBox("ATTENTION","Erreur dans l'ajout du patient "+ v_patient_nom + " "+v_patient_prenom+".~n~n"+sqlca.sqlerrtext)
+											rollback ;
+											var_suite = false
+										end if
+						
+								end if
+							end if
+						//end if
+					end if
+				end if
+			end if	
+		end if
+		
+		if var_suite then
+			
+// 	LA VERIFICATION DU USER EST FAITES PLUS HAUT DEPUIS 25.00d			
+//			// Gestion de l'utilisateur
+//			select code  into :v_code_utilisateur from "utilisateurs" where code = :v_utilisateur_code ;
+//			
+//			if not isnull(v_code_utilisateur) and trim(v_code_utilisateur) <> '' then
+//				// on a trouvé l'utilisateur
+				select code, nom into :utilisateur_code, :utilisateur_nom from "utilisateurs" where code = :v_utilisateur_code ;
+				
+				 // mise à jour du titre de la fenêtre
+				w_mdi_2020.maj_titre_mdi()
+		
+				// Faut ouvrir le module choisi par l'utilisateur
+					var_code 				= 	v_code_patient
+					var_numero_dossier 	= 	v_numero_dossier_patient
+					var_nom 				= 	v_nom_patient
+					var_nomp 				= 	""
+					var_pay 					=	""
+					var_moul 				= 	""
+				
+		
+		
+				// Droits du nouveau user !!
+				w_mdi_2020.droitsUtilisateurs()
+				initialisation_droits(utilisateur_code)
+	
+		
+				//Mise à jour de la gestion des 10 patients en mémoire
+				//et de latoolbar principale de la w_mdi ok aussi pour ui_2020
+				MajTabPatientsCourants(v_code_patient)
+				
+				// pour mettre Orthokis au premier plan !!!
+
+				handle_application = long (ProfileString(dir_ini + "orthokis.ini" ,"Communication","handle", ""))
+	
+				// pour mettre de manière SUR orthokis au premier plan
+				w_mdi_2020.setPosition(TopMost!)
+	
+				
+				// ouverture de ce qu'on doit ouvrir
+				ouverture_salle_attente()
+				
+				// pour pas qu'Orthokis soit forcé au premier plan
+				w_mdi_2020.setPosition(NoTopMost!)
+	
+	
+//			else
+//				Messagebox("ATTENTION","Impossible de trouver l'utilisateur : "+v_utilisateur_code)	
+//			end if
+		end if
+		
+	//end if
+
+
+	
+end if
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------- FIN DE L'APPEL ODS
+
+// on ne traite qui si c'est le un APPEL MACDENT
+
+if APPEL_MACDENT then
+	
+	
+	
+	
+
+end if
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------- FIN DE L'APPEL macdent
+
+
+// on ne traite qui si c'est le l'HOPITAL D'ERASME
+
+if HOPITAL_ERASME then
+	
+	// Appel venant de l'extérieur
+	
+
+	// Lecture des éléments passés en paramètres dans Orthokis.ini pour charger un patient...
+	
+	
+	string v_erasme_identification_patient, v_erasme_matricule
+	
+	v_erasme_identification_patient = upper(profileString(dir_ini + "Orthokis.ini" , "Communication" , "chu_identification_patient" , "*******"))
+	v_erasme_matricule = upper(profileString(dir_ini + "Orthokis.ini" , "Communication" , "chu_matricule" , "*******"))
+	
+	// recherche du code patient correspondant
+	
+	select erasme_patient.code_patient , patient.nom, patient.numero_dossier 
+	into :v_code_patient , :v_nom_patient, :v_numero_dossier_patient
+	from erasme_patient, patient
+		where identifiant_erasme = :v_erasme_identification_patient and patient.code = chu_patient.code_patient ;
+		
+	if sqlca.sqlcode = 0 then
+
+		// Gestion de l'utilisateur
+		select code_utilisateur into :v_code_utilisateur from erasme_utilisateur where identifiant_erasme = :v_erasme_matricule ;
+		
+		if not isnull(v_code_utilisateur) and trim(v_code_utilisateur) <> '' then
+			// on a trouvé l'utilisateur
+		
+			select code, nom into :utilisateur_code, :utilisateur_nom from utilisateurs where code = :v_code_utilisateur ;
+
+			 // mise à jour du titre de la fenêtre
+			w_mdi_2020.maj_titre_mdi()
+				
+	
+			// Faut ouvrir le module choisi par l'utilisateur
+				var_code 				= 	v_code_patient
+				var_numero_dossier 	= 	v_numero_dossier_patient
+				var_nom 				= 	v_nom_patient
+				var_nomp 				= 	""
+				var_pay 					=	""
+				var_moul 				= 	""
+			
+	
+	
+			// Droits du nouveau user !!
+			w_mdi_2020.droitsUtilisateurs()
+			initialisation_droits(utilisateur_code)
+
+	
+			//Mise à jour de la gestion des 10 patients en mémoire
+			//et de latoolbar principale de la w_mdi - ok ausi pour ui_2020
+			MajTabPatientsCourants(v_code_patient)
+
+			// pour mettre de manière SUR orthokis au premier plan
+			w_mdi_2020.setPosition(NoTopMost!)
+
+			
+			// ouverture de ce qu'on doit ouvrir
+			ouverture_salle_attente()
+			
+			// pour pas qu'Orthokis soit forcé au premier plan
+			w_mdi_2020.setPosition(NoTopMost!)
+
+		else
+			Messagebox("ATTENTION","Impossible de trouver l'utilisateur : "+v_erasme_matricule)	
+		end if
+	else
+		
+		Messagebox("ATTENTION","Impossible de trouver le patient : "+v_erasme_identification_patient)
+	end if
+
+end if
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------- FIN DE L'APPEL ERASME
+
+
+
+
+// on ne traite qui si c'est le lien DOCTOLIB
+
+if DOCTOLIB then
+	
+		//Messagebox("trace", "doctolib")
+		
+
+		fxg_premier_plan("orthokis")
+	
+		v_code_patient = double(profileString(dir_ini + "Orthokis.ini" , "Communication" , "chu_identification_patient" , "0"))
+		
+		integer v_suite
+		// si code négatif, faut fusionner et ne pas ouvrir ... c'est un temporaire
+		
+		if v_code_patient < 0 then 
+		
+			openwithparm(w_patient_fusion_doctolib, v_code_patient )
+			
+			// il renvoie un code positif si OK 
+			if message.doubleparm > 0 then 
+				v_suite = 1
+				v_code_patient = message.doubleparm
+			else
+				v_suite = 0
+			end if
+			
+		else
+			
+			v_suite = 2
+			
+			
+		end if
+		
+		if v_suite > 0 then
+	
+			select numero_dossier, trim(isnull(nom, ''))+' '+ trim(isnull(prenom,''))  
+			into :v_numero_dossier_patient, :v_nom_patient 
+			from patient
+			where code = :v_code_patient ; 
+	
+			
+			if sqlca.sqlcode = 0 then
+				// Faut ouvrir le module choisi par l'utilisateur
+				var_code 				= 	v_code_patient
+				var_numero_dossier 	= 	v_numero_dossier_patient
+				var_nom 				= 	v_nom_patient
+				var_nomp 				= 	""
+				var_pay 					=	""
+				var_moul 				= 	""
+				
+				// pour mettre Orthokis au premier plan !!!
+				handle_application = long (ProfileString(dir_ini + "orthokis.ini" ,"Communication","handle", ""))
+		
+				if v_suite = 1 then
+					// c''était un patient provisoire ... on ouvre la fiche administative obligatoirement
+					
+					// Idem à ouverture_salle_attente 
+					
+					
+					// On vérifie les droits d'accès à la fiche admini
+					if droits_acces[10] <> 'N' then
+						// Ouvre la fenêtre administrative
+						m_orthokis_2020.ouvrir_mdi(2)
+					end if
+
+				else
+					ouverture_salle_attente()
+				end if
+			else
+				
+				MessageBox("ATTENTION ! ","Impossible d'ouvrir le patient de code interne : " + string(v_code_patient))
+				
+			end if
+		else
+			
+				MessageBox("ATTENTION", "Fonction non autorisée !~n~nRendez-vous Doctolib pour un patient non validé par Orthokis !")
+
+		end if
+
+
+
+
+end if
+
+Trace ( "====== Fin de fxg_chu_appelle() ====== ")
+end subroutine
+

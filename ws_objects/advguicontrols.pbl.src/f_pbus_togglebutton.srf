@@ -1,0 +1,133 @@
+﻿$PBExportHeader$f_pbus_togglebutton.srf
+global type f_pbus_togglebutton from function_object
+end type
+
+forward prototypes
+global function boolean f_pbus_togglebutton (ulong ahdc, long ax, long ay, long awidth, long aheight, string atoggle, string atheme)
+end prototypes
+
+global function boolean f_pbus_togglebutton (ulong ahdc, long ax, long ay, long awidth, long aheight, string atoggle, string atheme);GdiplusStartupInput  lstr_input
+GdiplusStartupOutput lstr_output
+LongPtr lul_GdiToken, lul_Graphic, lul_Pen
+Long ll_width, ll_height, ll_x, ll_y
+ULong lul_color
+Int li_red, li_green, li_blue
+LongPtr hRPen, hRgn, ull_BrushColor
+Decimal pixelHeight
+Long ll_circleheight, ll_circlewidth
+LongPtr lul_path, lul_null
+int d
+Long ll_rtn
+Boolean ab_value
+
+n_cst_pbus_lic iu_lic
+IF NOT iu_lic.of_Registered() AND &
+   iu_lic.of_Key() = "38017E06-84A2-4B73-9CE5-87C0BD9A39A8" THEN
+	RETURN FALSE
+END IF
+
+n_cst_win32 inv_win32
+
+inv_win32 = CREATE n_cst_win32
+
+awidth = awidth - 2
+aheight = aheight - 2
+
+atoggle = Upper(atoggle)
+
+CHOOSE CASE atoggle
+	CASE "1", "TRUE", "YES", "Y", "ON"
+		ab_value = TRUE
+END CHOOSE
+
+//Default color
+n_uspb_colors lnv_colors
+lnv_colors.of_GetColor(atheme, li_red, li_green, li_blue)
+
+lstr_input.GdiplusVersion = 1
+ll_rtn = inv_win32.GdiplusStartup(lul_GdiToken, lstr_input, lstr_output)
+
+If ll_rtn = 0 Then
+
+	inv_win32.GdipCreateFromHDC(ahdc, lul_Graphic)
+	inv_win32.GdipSetSmoothingMode(lul_Graphic, 4)
+	inv_win32.GdipSetPageUnit(lul_Graphic, 2)
+
+	IF NOT ab_value THEN
+		li_red = 192
+		li_green = 192
+		li_blue = 192
+	END IF
+	
+	d = aHeight 
+	ll_height = aheight
+	pixelHeight = aheight - 1
+	ll_circleheight = (pixelHeight * .9)
+	
+	ll_width = ll_height
+	ll_y = (pixelHeight - ll_circleheight) / 2 + 1
+	
+	ll_circleheight = pixelHeight - (ll_y * 2) + 1
+	ll_circlewidth = ll_circleheight
+	
+	//Main back ground
+	lul_color = inv_win32.PBUSMakeARGB (255, li_Red, li_Green, li_Blue)
+	inv_win32.GdipCreateSolidFill(lul_color, ull_BrushColor)
+	inv_win32.GdipCreatePen1(lul_color, 1, 2, lul_pen)
+	
+	inv_win32.GdipCreatePath(0, lul_path)
+	
+	inv_win32.GdipAddPathArcI(lul_path, ax, ay, d, d, 180, 90);
+	inv_win32.GdipAddPathArcI(lul_path, ax + awidth - d, ay, d, d, 270, 90);
+	inv_win32.GdipAddPathArcI(lul_path, ax + awidth - d, ay + aHeight - d, d, d, 0, 90);
+	inv_win32.GdipAddPathArcI(lul_path, ax, ay + aHeight - d, d, d, 90, 90);
+	inv_win32.GdipClosePathFigure(lul_path)
+	
+	inv_win32.GdipDrawPath(lul_graphic, lul_pen, lul_path);
+	inv_win32.GdipFillPath(lul_graphic,ull_BrushColor,lul_path)
+	
+	inv_win32.GdipDeleteBrush(ull_BrushColor)
+	inv_win32.GdipDeletePen(lul_pen)
+	inv_win32.GdipDeletePath(lul_path)
+
+	
+	IF ab_value THEN
+		ll_x = awidth - ll_circlewidth - ll_y //- 1
+	ELSE
+		ll_x = ll_y
+	END IF
+
+	//Shadow circle
+	lul_color = inv_win32.PBUSMakeARGB (50, 30, 30, 30)
+	
+	inv_win32.GdipCreatePen1(lul_color, 1, 2, lul_Pen)
+	inv_win32.GdipCreateSolidFill(lul_color, ull_BrushColor)
+
+	inv_win32.GdipDrawEllipseI(lul_Graphic, lul_Pen, ll_x + ax - 1, ll_y + ay + 1,ll_circlewidth, ll_circleheight)
+	ll_rtn = inv_win32.GdipFillEllipseI(lul_Graphic, ull_BrushColor, ll_x + ax - 1, ll_y + ay + 1,ll_circlewidth, ll_circleheight)
+
+	inv_win32.GdipDeletePen(lul_Pen)
+	inv_win32.GdipDeleteBrush(ull_BrushColor)	
+
+	//Toggle Circle
+	lul_color = inv_win32.PBUSMakeARGB (255, 255, 255, 255)
+	
+	inv_win32.GdipCreatePen1(lul_color, 1, 2, lul_Pen)
+	inv_win32.GdipCreateSolidFill(lul_color, ull_BrushColor)
+
+	inv_win32.GdipDrawEllipseI(lul_Graphic, lul_Pen, ll_x + ax, ll_y + ay,ll_circlewidth, ll_circleheight)
+	ll_rtn = inv_win32.GdipFillEllipseI(lul_Graphic, ull_BrushColor, ll_x + ax, ll_y + ay,ll_circlewidth, ll_circleheight)
+
+	inv_win32.GdipDeletePen(lul_Pen)
+	inv_win32.GdipDeleteBrush(ull_BrushColor)	
+	inv_win32.GdipDeleteGraphics(lul_Graphic)
+	inv_win32.GdiplusShutdown(lul_GdiToken)
+	
+	inv_win32.SelectClipRgn(ahdc, 0)
+END IF
+
+DESTROY inv_win32
+
+RETURN TRUE
+end function
+

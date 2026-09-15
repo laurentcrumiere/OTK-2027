@@ -1,0 +1,22 @@
+﻿$PBExportHeader$duree_en_heure_minute.srf
+global type duree_en_heure_minute from function_object
+end type
+
+forward prototypes
+global function string duree_en_heure_minute (double duree)
+end prototypes
+
+global function string duree_en_heure_minute (double duree);// Convertie une duree exprimée en minutes en chaine sous la forme 1 h 30
+
+
+integer nb_heure,nb_minute
+
+
+nb_heure = int(duree / 60)
+
+nb_minute = duree - (nb_heure * 60)
+
+return string(nb_heure)+" h "+string(nb_minute)
+
+end function
+

@@ -1,0 +1,36 @@
+﻿$PBExportHeader$verif_x_rdv_meme_jour.srf
+global type verif_x_rdv_meme_jour from function_object
+end type
+
+forward prototypes
+global function boolean verif_x_rdv_meme_jour (datetime rdv_saisi, double var_code_local)
+end prototypes
+
+global function boolean verif_x_rdv_meme_jour (datetime rdv_saisi, double var_code_local);// Vérifie si un patient à plusieurs rdv le meme jour
+
+//retourne : Ok ou 
+
+boolean ok_enregistrer = true
+integer nb1 = 0
+datetime rdv_autre
+
+// On vérifie si pas déjà un rdv pour le patient le jour même
+select isnull(count(*),0), min(rdv) into :nb1, :rdv_autre from rdv, etat_rdv
+where rdv <> :rdv_saisi and cast(rdv as date) = cast(:rdv_saisi as date)  and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda = 'N' and rdv.code = :var_code_local  ;
+
+if nb1 > 0 then
+	if nb1 = 1 then
+		if Messagebox("ATTENTION", "Ce patient a déjà un rendez-vous à " + string(time(rdv_autre), "hh:mm") + " ce jour-là.~n~nConfirmez-vous ?", Question!, YesNo!, 2) = 2 then
+			ok_enregistrer = false
+		end if
+	else
+		if Messagebox("ATTENTION", "Ce patient a déjà "+ string(nb1) + " rendez-vous ce jour-là.~nLe premier à " + string(time(rdv_autre), "hh:mm")   + "  ~n~nConfirmez-vous ?", Question!, YesNo!, 2) = 2 then
+			ok_enregistrer = false
+		end if
+	end if
+end if
+
+return ok_enregistrer
+
+end function
+

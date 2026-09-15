@@ -1,0 +1,6 @@
+﻿$PBExportHeader$str_stringnumber.srs
+global type str_stringnumber from structure
+	string		code
+	double		nb_code
+end type
+

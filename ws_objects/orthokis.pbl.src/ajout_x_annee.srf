@@ -1,0 +1,34 @@
+﻿$PBExportHeader$ajout_x_annee.srf
+global type ajout_x_annee from function_object
+end type
+
+forward prototypes
+global function date ajout_x_annee (date v_date_locale, integer v_annee)
+end prototypes
+
+global function date ajout_x_annee (date v_date_locale, integer v_annee);// Rajoute x années à une date
+//-------------------------------------
+//
+// si x est négatif, ça diminue ... forcément !!!!!!!!!!
+//
+
+date v_date_retour
+//integer nb_annee
+	
+if v_annee <> 0 and not isnull(v_date_locale) then
+
+	
+	// Cas du 29/2
+	if month(v_date_locale) = 2 and  day(v_date_locale) = 29 and mod (v_annee, 4) <> 0 then
+		v_date_locale = date(year(v_date_locale), 28, 2)
+	end if
+	
+	v_date_retour = date( year(v_date_locale) +  v_annee , month(v_date_locale) , day(v_date_locale))
+
+else
+	v_date_retour = v_date_locale
+end if
+
+return v_date_retour
+end function
+

@@ -1,0 +1,188 @@
+﻿$PBExportHeader$dw_utilisateur_fiche_stock.srd
+release 25;
+datawindow(units=0 data.export.format=1 timer_interval=0 color=16777215 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" )
+header(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=616 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=char(6) update=yes updatewhereclause=yes key=yes name=code dbname="utilisateurs.code" dbalias=".code" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=nom dbname="utilisateurs.nom" dbalias=".nom" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=passe dbname="utilisateurs.passe" dbalias=".passe" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=patient_admini dbname="utilisateurs.patient_admini" dbalias=".patient_admini" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=patient_soin dbname="utilisateurs.patient_soin" dbalias=".patient_soin" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=patient_reglement dbname="utilisateurs.patient_reglement" dbalias=".patient_reglement" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=patient_suivi dbname="utilisateurs.patient_suivi" dbalias=".patient_suivi" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=patient_commentaire dbname="utilisateurs.patient_commentaire" dbalias=".patient_commentaire" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=patient_page dbname="utilisateurs.patient_page" dbalias=".patient_page" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=patient_rendez dbname="utilisateurs.patient_rendez" dbalias=".patient_rendez" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=liste_soin dbname="utilisateurs.liste_soin" dbalias=".liste_soin" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=liste_secu dbname="utilisateurs.liste_secu" dbalias=".liste_secu" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=liste_patient dbname="utilisateurs.liste_patient" dbalias=".liste_patient" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=liste_financier dbname="utilisateurs.liste_financier" dbalias=".liste_financier" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=liste_previsionnel dbname="utilisateurs.liste_previsionnel" dbalias=".liste_previsionnel" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=liste_divers dbname="utilisateurs.liste_divers" dbalias=".liste_divers" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=liste_tp dbname="utilisateurs.liste_tp" dbalias=".liste_tp" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=liste_clinique dbname="utilisateurs.liste_clinique" dbalias=".liste_clinique" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=liste_rendez dbname="utilisateurs.liste_rendez" dbalias=".liste_rendez" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=liste_historique dbname="utilisateurs.liste_historique" dbalias=".liste_historique" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=table_adresse dbname="utilisateurs.table_adresse" dbalias=".table_adresse" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=table_soin dbname="utilisateurs.table_soin" dbalias=".table_soin" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=table_caisse dbname="utilisateurs.table_caisse" dbalias=".table_caisse" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=table_rendez dbname="utilisateurs.table_rendez" dbalias=".table_rendez" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=outils_partie1 dbname="utilisateurs.outils_partie1" dbalias=".outils_partie1" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=outils_param dbname="utilisateurs.outils_param" dbalias=".outils_param" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=outils_envoi dbname="utilisateurs.outils_envoi" dbalias=".outils_envoi" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=double_clic_salle_attente dbname="utilisateurs.double_clic_salle_attente" dbalias=".double_clic_salle_attente" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=table_graphique dbname="utilisateurs.table_graphique" dbalias=".table_graphique" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=patient_soin_prevu dbname="utilisateurs.patient_soin_prevu" dbalias=".patient_soin_prevu" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=finance_devant dbname="utilisateurs.finance_devant" dbalias=".finance_devant" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=finance_relance dbname="utilisateurs.finance_relance" dbalias=".finance_relance" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=finance_remise dbname="utilisateurs.finance_remise" dbalias=".finance_remise" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=finance_recettes dbname="utilisateurs.finance_recettes" dbalias=".finance_recettes" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=finance_reg_type dbname="utilisateurs.finance_reg_type" dbalias=".finance_reg_type" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=finance_reg_remis dbname="utilisateurs.finance_reg_remis" dbalias=".finance_reg_remis" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=finance_payeur dbname="utilisateurs.finance_payeur" dbalias=".finance_payeur" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=patient_commentaire_admini dbname="utilisateurs.patient_commentaire_admini" dbalias=".patient_commentaire_admini" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=table_stock dbname="utilisateurs.table_stock" dbalias=".table_stock" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=stock_commande dbname="utilisateurs.stock_commande" dbalias=".stock_commande" values="Pas d'accès	N/Accès	T/" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=stock_maj_produit dbname="utilisateurs.stock_maj_produit" dbalias=".stock_maj_produit" values="Pas d'accès	N/Accès	T/" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=stock_sortie dbname="utilisateurs.stock_sortie" dbalias=".stock_sortie" values="Pas d'accès	N/Accès	T/" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=stock_liste dbname="utilisateurs.stock_liste" dbalias=".stock_liste" values="Pas d'accès	N/Accès	T/" )
+ column=(type=char(1) updatewhereclause=yes name=stock_impr_etiq dbname="utilisateurs.stock_impr_etiq" dbalias=".stock_impr_etiq" values="Pas d'accès	N/Accès	T/" )
+ column=(type=char(1) updatewhereclause=yes name=reglt_saisie_jour dbname="utilisateurs.reglt_saisie_jour" dbalias=".reglt_saisie_jour" )
+ column=(type=char(1) updatewhereclause=yes name=reglt_modif_mdp dbname="utilisateurs.reglt_modif_mdp" dbalias=".reglt_modif_mdp" )
+ column=(type=long updatewhereclause=yes name=actif dbname="utilisateurs.actif" dbalias=".actif" )
+ column=(type=char(1) updatewhereclause=yes name=une_fenetre_par_patient dbname="utilisateurs.une_fenetre_par_patient" dbalias=".une_fenetre_par_patient" )
+ column=(type=char(1) updatewhereclause=yes name=telecommande_mdi_patient dbname="utilisateurs.telecommande_mdi_patient" dbalias=".telecommande_mdi_patient" )
+ column=(type=char(1) updatewhereclause=yes name=enregistrement_automatique dbname="utilisateurs.enregistrement_automatique" dbalias=".enregistrement_automatique" )
+ column=(type=char(1) updatewhereclause=yes name=suivi_clinique dbname="utilisateurs.suivi_clinique" dbalias=".suivi_clinique" )
+ column=(type=char(1) updatewhereclause=yes name=soins_gratuits dbname="utilisateurs.soins_gratuits" dbalias=".soins_gratuits" )
+ column=(type=char(1) updatewhereclause=yes name=barre_mdi_patient dbname="utilisateurs.barre_mdi_patient" dbalias=".barre_mdi_patient" )
+ column=(type=char(1) updatewhereclause=yes name=maj_word dbname="utilisateurs.maj_word" dbalias=".maj_word" )
+ column=(type=char(1) updatewhereclause=yes name=taches_par_defaut dbname="utilisateurs.taches_par_defaut" dbalias=".taches_par_defaut" )
+ column=(type=char(1) updatewhereclause=yes name=reglt_multi_fs dbname="utilisateurs.reglt_multi_fs" dbalias=".reglt_multi_fs" )
+ column=(type=char(1) updatewhereclause=yes name=suppression_historique_editions dbname="utilisateurs.suppression_historique_editions" dbalias=".suppression_historique_editions" )
+ column=(type=char(1) updatewhereclause=yes name=secu_remise dbname="utilisateurs.secu_remise" dbalias=".secu_remise" )
+ column=(type=char(1) updatewhereclause=yes name=sup_soin_fs dbname="utilisateurs.sup_soin_fs" dbalias=".sup_soin_fs" )
+ column=(type=char(1) updatewhereclause=yes name=super_user dbname="utilisateurs.super_user" dbalias=".super_user" )
+ column=(type=char(1) updatewhereclause=yes name=double_clic_word dbname="utilisateurs.double_clic_word" dbalias=".double_clic_word" )
+ column=(type=char(1) updatewhereclause=yes name=utiliser_compte_mail_perso dbname="utilisateurs.utiliser_compte_mail_perso" dbalias=".utiliser_compte_mail_perso" )
+ column=(type=long updatewhereclause=yes name=cpt_mail dbname="utilisateurs.cpt_mail" dbalias=".cpt_mail" )
+ column=(type=char(1) updatewhereclause=yes name=autor_relances_sans_mdp dbname="utilisateurs.autor_relances_sans_mdp" dbalias=".autor_relances_sans_mdp" )
+ column=(type=char(1) updatewhereclause=yes name=lecture_son_email dbname="utilisateurs.lecture_son_email" dbalias=".lecture_son_email" )
+ column=(type=char(1) updatewhereclause=yes name=lecture_autre_email dbname="utilisateurs.lecture_autre_email" dbalias=".lecture_autre_email" )
+ column=(type=long updatewhereclause=yes name=lecture_autre_compte_email dbname="utilisateurs.lecture_autre_compte_email" dbalias=".lecture_autre_compte_email" )
+ column=(type=decimal(0) updatewhereclause=yes name=reglt_saisie_jour_limite dbname="utilisateurs.reglt_saisie_jour_limite" dbalias=".reglt_saisie_jour_limite" )
+ column=(type=char(1) updatewhereclause=yes name=autor_jours_interdits dbname="utilisateurs.autor_jours_interdits" dbalias=".autor_jours_interdits" )
+ column=(type=char(1) updatewhereclause=yes name=autor_myorthokis dbname="utilisateurs.autor_myorthokis" dbalias=".autor_myorthokis" )
+ column=(type=char(1) updatewhereclause=yes name=autor_monorthodontiste dbname="utilisateurs.autor_monorthodontiste" dbalias=".autor_monorthodontiste" )
+ column=(type=char(1) updatewhereclause=yes name=autor_suppression_facture dbname="utilisateurs.autor_suppression_facture" dbalias=".autor_suppression_facture" )
+ column=(type=char(6) updatewhereclause=yes name=praticien_par_defaut dbname="utilisateurs.praticien_par_defaut" dbalias=".praticien_par_defaut" )
+ column=(type=char(1) updatewhereclause=yes name=autor_report_journee_rdv dbname="utilisateurs.autor_report_journee_rdv" dbalias=".autor_report_journee_rdv" )
+ column=(type=long updatewhereclause=yes name=scanner_3shape dbname="utilisateurs.scanner_3shape" dbalias=".scanner_3shape" )
+ column=(type=char(1) updatewhereclause=yes name=autor_forcage_blocage_rdv dbname="utilisateurs.autor_forcage_blocage_rdv" dbalias=".autor_forcage_blocage_rdv" )
+ column=(type=char(1) updatewhereclause=yes name=autor_agregation_finaniere dbname="utilisateurs.autor_agregation_finaniere" dbalias=".autor_agregation_finaniere" )
+ column=(type=char(1) updatewhereclause=yes name=autor_modif_tarif_soin dbname="utilisateurs.autor_modif_tarif_soin" dbalias=".autor_modif_tarif_soin" )
+ retrieve="  SELECT ~"utilisateurs~".~"code~",   
+         ~"utilisateurs~".~"nom~",   
+         ~"utilisateurs~".~"passe~",   
+         ~"utilisateurs~".~"patient_admini~",   
+         ~"utilisateurs~".~"patient_soin~",   
+         ~"utilisateurs~".~"patient_reglement~",   
+         ~"utilisateurs~".~"patient_suivi~",   
+         ~"utilisateurs~".~"patient_commentaire~",   
+         ~"utilisateurs~".~"patient_page~",   
+         ~"utilisateurs~".~"patient_rendez~",   
+         ~"utilisateurs~".~"liste_soin~",   
+         ~"utilisateurs~".~"liste_secu~",   
+         ~"utilisateurs~".~"liste_patient~",   
+         ~"utilisateurs~".~"liste_financier~",   
+         ~"utilisateurs~".~"liste_previsionnel~",   
+         ~"utilisateurs~".~"liste_divers~",   
+         ~"utilisateurs~".~"liste_tp~",   
+         ~"utilisateurs~".~"liste_clinique~",   
+         ~"utilisateurs~".~"liste_rendez~",   
+         ~"utilisateurs~".~"liste_historique~",   
+         ~"utilisateurs~".~"table_adresse~",   
+         ~"utilisateurs~".~"table_soin~",   
+         ~"utilisateurs~".~"table_caisse~",   
+         ~"utilisateurs~".~"table_rendez~",   
+         ~"utilisateurs~".~"outils_partie1~",   
+         ~"utilisateurs~".~"outils_param~",   
+         ~"utilisateurs~".~"outils_envoi~",   
+         ~"utilisateurs~".~"double_clic_salle_attente~",   
+         ~"utilisateurs~".~"table_graphique~",   
+         ~"utilisateurs~".~"patient_soin_prevu~",   
+         ~"utilisateurs~".~"finance_devant~",   
+         ~"utilisateurs~".~"finance_relance~",   
+         ~"utilisateurs~".~"finance_remise~",   
+         ~"utilisateurs~".~"finance_recettes~",   
+         ~"utilisateurs~".~"finance_reg_type~",   
+         ~"utilisateurs~".~"finance_reg_remis~",   
+         ~"utilisateurs~".~"finance_payeur~",   
+         ~"utilisateurs~".~"patient_commentaire_admini~",   
+         ~"utilisateurs~".~"table_stock~",   
+         ~"utilisateurs~".~"stock_commande~",   
+         ~"utilisateurs~".~"stock_maj_produit~",   
+         ~"utilisateurs~".~"stock_sortie~",   
+         ~"utilisateurs~".~"stock_liste~",   
+         ~"utilisateurs~".~"stock_impr_etiq~",   
+         ~"utilisateurs~".~"reglt_saisie_jour~",   
+         ~"utilisateurs~".~"reglt_modif_mdp~",   
+         ~"utilisateurs~".~"actif~",   
+         ~"utilisateurs~".~"une_fenetre_par_patient~",   
+         ~"utilisateurs~".~"telecommande_mdi_patient~",   
+         ~"utilisateurs~".~"enregistrement_automatique~",   
+         ~"utilisateurs~".~"suivi_clinique~",   
+         ~"utilisateurs~".~"soins_gratuits~",   
+         ~"utilisateurs~".~"barre_mdi_patient~",   
+         ~"utilisateurs~".~"maj_word~",   
+         ~"utilisateurs~".~"taches_par_defaut~",   
+         ~"utilisateurs~".~"reglt_multi_fs~",   
+         ~"utilisateurs~".~"suppression_historique_editions~",   
+         ~"utilisateurs~".~"secu_remise~",   
+         ~"utilisateurs~".~"sup_soin_fs~",   
+         ~"utilisateurs~".~"super_user~",   
+         ~"utilisateurs~".~"double_clic_word~",   
+         ~"utilisateurs~".~"utiliser_compte_mail_perso~",   
+         ~"utilisateurs~".~"cpt_mail~",   
+         ~"utilisateurs~".~"autor_relances_sans_mdp~",   
+         ~"utilisateurs~".~"lecture_son_email~",   
+         ~"utilisateurs~".~"lecture_autre_email~",   
+         ~"utilisateurs~".~"lecture_autre_compte_email~",   
+         ~"utilisateurs~".~"reglt_saisie_jour_limite~",   
+         ~"utilisateurs~".~"autor_jours_interdits~",   
+         ~"utilisateurs~".~"autor_myorthokis~",   
+         ~"utilisateurs~".~"autor_monorthodontiste~",   
+         ~"utilisateurs~".~"autor_suppression_facture~",   
+         ~"utilisateurs~".~"praticien_par_defaut~",   
+         ~"utilisateurs~".~"autor_report_journee_rdv~",   
+         ~"utilisateurs~".~"scanner_3shape~",   
+         ~"utilisateurs~".~"autor_forcage_blocage_rdv~",   
+         ~"utilisateurs~".~"autor_agregation_finaniere~" ,
+         ~"utilisateurs~".~"autor_modif_tarif_soin~"
+			 
+    FROM ~"utilisateurs~"  
+   WHERE ( ~"utilisateurs~".~"code~" = :cherche )    
+" update="utilisateurs" updatewhere=0 updatekeyinplace=yes arguments=(("cherche", string)) )
+column(band=detail id=42 alignment="0" tabsequence=20 border="5" color="0" x="599" y="164" height="64" width="699" format="[general]" html.valueishtml="0"  name=stock_sortie visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.validation=no ddlb.autocompletemode=none ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=41 alignment="0" tabsequence=30 border="5" color="0" x="599" y="288" height="64" width="699" format="[general]" html.valueishtml="0"  name=stock_maj_produit visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.validation=no ddlb.autocompletemode=none ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=43 alignment="0" tabsequence=40 border="5" color="0" x="599" y="412" height="64" width="699" format="[general]" html.valueishtml="0"  name=stock_liste visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.validation=no ddlb.autocompletemode=none ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=44 alignment="0" tabsequence=50 border="5" color="0" x="599" y="536" height="64" width="699" format="[general]" html.valueishtml="0"  name=stock_impr_etiq visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.validation=no ddlb.autocompletemode=none ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="1" text="Commande:" border="0" color="0" x="64" y="36" height="64" width="498" html.valueishtml="0"  name=stock_commande_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="100" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="1" text="Sortie de Stock:" border="0" color="0" x="64" y="160" height="64" width="498" html.valueishtml="0"  name=stock_sortie_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="100" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="1" text="Maj Produit:" border="0" color="0" x="64" y="284" height="64" width="498" html.valueishtml="0"  name=stock_maj_produit_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="100" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="1" text="Liste:" border="0" color="0" x="64" y="408" height="64" width="498" html.valueishtml="0"  name=stock_liste_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="100" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="1" text="Impression Etiq:" border="0" color="0" x="64" y="532" height="76" width="498" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="100" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=40 alignment="0" tabsequence=10 border="5" color="0" x="599" y="40" height="64" width="699" format="[general]" html.valueishtml="0"  name=stock_commande visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.validation=no ddlb.autocompletemode=none ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" nativepdf.customsize=0 nativepdf.customorientation=0 nativepdf.pdfstandard=0 nativepdf.useprintspec=no )
+export.xhtml( template=(comment="" name="a" xhtml="﻿<form name=~"dw_utilisateur_fiche_stock_dataForm~"><div class=~"dw_utilisateur_fiche_stock_detail_0~" __pbband=~"detail~"><select name=~"dw_utilisateur_fiche_stock_stock_commande~"><option value=~"stock_commande~">stock_commande</option></select><select name=~"dw_utilisateur_fiche_stock_stock_sortie~"><option value=~"stock_sortie~">stock_sortie</option></select><select name=~"dw_utilisateur_fiche_stock_stock_maj_produit~"><option value=~"stock_maj_produit~">stock_maj_produit</option></select><div class=~"dw_utilisateur_fiche_stock_stock_commande_t~">stock_commande_t</div><div class=~"dw_utilisateur_fiche_stock_stock_sortie_t~">stock_sortie_t</div><div class=~"dw_utilisateur_fiche_stock_stock_maj_produit_t~">stock_maj_produit_t</div><div class=~"dw_utilisateur_fiche_stock_stock_liste_t~">stock_liste_t</div><div class=~"dw_utilisateur_fiche_stock_t_1~">t_1</div><select name=~"dw_utilisateur_fiche_stock_stock_liste~"><option value=~"stock_liste~">stock_liste</option></select><select name=~"dw_utilisateur_fiche_stock_stock_impr_etiq~"><option value=~"stock_impr_etiq~">stock_impr_etiq</option></select></div></form>"))
+ 

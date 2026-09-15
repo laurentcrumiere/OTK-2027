@@ -1,0 +1,35 @@
+﻿$PBExportHeader$fxg_ods_envoi_soins_date.srf
+global type fxg_ods_envoi_soins_date from function_object
+end type
+
+forward prototypes
+global subroutine fxg_ods_envoi_soins_date (double v_code, date v_date_depart)
+end prototypes
+
+global subroutine fxg_ods_envoi_soins_date (double v_code, date v_date_depart);
+
+// Envoi de tous les soins d'un patient à partir d'une date
+// Pas de synchronisation
+
+
+string v_action 
+double v_clef
+
+declare  cur_soins cursor for select cle from soins where code = :v_code and date_demande >= :v_date_depart ; 
+
+open cur_soins ;
+
+fetch cur_soins into :v_clef ;
+
+do while sqlca.sqlcode = 0
+	v_action =  "action?type=hsim_den_acte_sync&code=" + string(v_code) + "&clef=" + string(v_clef)+"&synchro=0"
+	fxg_lancer_commande_myorthokis(v_action,  false, 4)
+	fetch cur_soins into :v_clef ;
+loop
+
+
+close cur_soins ;
+
+return
+end subroutine
+

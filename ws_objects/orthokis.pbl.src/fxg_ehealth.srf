@@ -1,0 +1,127 @@
+﻿$PBExportHeader$fxg_ehealth.srf
+global type fxg_ehealth from function_object
+end type
+
+forward prototypes
+global subroutine fxg_ehealth (string action_demandee, double var_code_local, datawindow dw_soins)
+end prototypes
+
+global subroutine fxg_ehealth (string action_demandee, double var_code_local, datawindow dw_soins);// Appel aux fonctionnalités de eHealth
+
+// Paramètres en entrée
+
+// action_demandee : 
+// - A pour attestation
+// - T pour tarification
+// - D pour duplication de l'eAttest (plus utilisée)
+// - S pour assurabilité 
+// - P pour prescription
+// - C pour configuration
+
+// var_code_local = code  interne patient
+
+// dw_soins : utile pour A, T, D 
+
+long lig, tot
+string s_input_reference
+
+string url_wb, url_myo
+
+// myo ?
+select top 1 url_my_orthokis into :url_myo from param ;
+
+choose case action_demandee
+	case "A", "T", "D" 
+		tot =  dw_soins.rowcount()
+		if tot > 0 then
+			string v_liste_soins = ""
+			
+			// pour la duplicatio de l'eAttest, on n'a besoin que de la ligne courant pour récupérer le N° stocké dans numero_fse 
+			
+			if action_demandee  ="D" then
+				
+				// On se position sur la 1ère ligne sélectionnée
+				if dw_soins.find("fse = 'O'",0,tot) = 0 then
+					// pas de soins coché => On coche la ligne courante
+					dw_soins.setItem(dw_soins.getrow(), "fse", "O")
+				end if
+				
+				s_input_reference = dw_soins.GetItemString(dw_soins.getrow(), "soins_numero_fse")
+				
+			else
+				
+				// recherche des lignes de soins
+				if dw_soins.find("fse = 'O'",0,tot) = 0 then
+					// pas de soins coché => On coche la ligne courante
+					dw_soins.setItem(dw_soins.getrow(), "fse", "O")
+				end if
+				
+				for lig = 1 to tot
+					if trim(v_liste_soins) <> "" then 
+						v_liste_soins = v_liste_soins + ","
+					end if
+					
+					if dw_soins.GetItemString(lig, "fse") = "O" then
+						v_liste_soins = v_liste_soins + string(dw_soins.GetItemNumber(lig, "cle"))
+					end if
+					
+				next
+			end if
+			
+			
+			// Construction de l'URL complète
+			
+			choose case action_demandee
+				case "T" 
+					url_wb = url_myo + "myorthokis/app/tarif/index.html?code="+string(var_code_local) + "&soins="  + v_liste_soins
+				case "A"
+					url_wb = url_myo + "myorthokis/app/attest/index.html?code="+string(var_code_local) + "&soins="  + v_liste_soins + "&user="  + utilisateur_code
+				case "D"
+					url_wb = url_myo + "myorthokis/app/attest/index.html?code="+string(var_code_local) + "&soins=1&user="  + utilisateur_code+"&inputReference=" + s_input_reference
+			end choose
+			
+			
+			//run('cmd /C start "e-Attest" "' + url_wb +'"')
+			openurl ( url_wb )
+			
+			//close(w_patience_locale)
+		end if
+		
+	case "S"
+		// Assurabilité 
+		
+		url_wb = url_myo +  "myorthokis/app/memberdata/index.html?codePatient="+string(var_code_local)
+		
+		//run('cmd /C start "eHealth" "' +url_wb +'"')
+		
+		openurl ( url_wb )
+
+	case "P"
+		// Prescription 
+		
+		url_wb = url_myo + "myorthokis/app/prescription/be/index.html?codePatient="+string(var_code_local) + "&user=" +utilisateur_code
+
+		// run('cmd /C start "eHealth" "' + url_wb +'"')
+		
+		openurl ( url_wb )
+
+	case "C"
+		// Configuration 
+		
+		ok_mdp = false
+	
+		guo_fenetre_modale.wf_ouvrir(w_mot_passe_administrateur)
+		
+		if ok_mdp then
+
+			url_wb = url_myo + "myorthokis/app/adminehealth/index.html"
+	
+			//run('cmd /C start "eHealth" "' + url_wb +'"')
+			
+			openurl ( url_wb )
+			
+		end if
+		
+end choose
+end subroutine
+

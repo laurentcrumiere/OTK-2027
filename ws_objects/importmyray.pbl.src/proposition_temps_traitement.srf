@@ -1,0 +1,24 @@
+﻿$PBExportHeader$proposition_temps_traitement.srf
+global type proposition_temps_traitement from function_object
+end type
+
+forward prototypes
+global function long proposition_temps_traitement (double var_code_local)
+end prototypes
+
+global function long proposition_temps_traitement (double var_code_local);// renvoie le dernier temps de traitement utilisé sur un patient donné
+// utile pour proposition par défait dans l'imagerie 2013
+
+date v_last_date
+long v_temps_traitement
+
+// temps de traitement saisi le + récent
+select first temps_traitement into :v_temps_traitement from images_infos  where code = :var_code_local order by date_acquis desc ;
+
+if isnull(v_temps_traitement) or  v_temps_traitement = 0 then
+	select first id into :v_temps_traitement from temps_traitement where actif = 1 order by ordre_trie asc, libelle asc ;
+end if
+
+return v_temps_traitement
+end function
+

@@ -1,0 +1,245 @@
+﻿$PBExportHeader$m_interdit.srm
+forward
+global type m_interdit from menu
+end type
+type m_modificationduninterdit from menu within m_interdit
+end type
+type m_copierlinterdit from menu within m_interdit
+end type
+type m_couperlinterdit from menu within m_interdit
+end type
+global type m_interdit from menu
+m_modificationduninterdit m_modificationduninterdit
+m_copierlinterdit m_copierlinterdit
+m_couperlinterdit m_couperlinterdit
+end type
+end forward
+
+global type m_interdit from menu
+m_modificationduninterdit m_modificationduninterdit
+m_copierlinterdit m_copierlinterdit
+m_couperlinterdit m_couperlinterdit
+end type
+global m_interdit m_interdit
+
+on m_interdit.create
+m_interdit=this
+call super::create
+this.text = "m_interdit"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_modificationduninterdit=create m_modificationduninterdit
+this.m_copierlinterdit=create m_copierlinterdit
+this.m_couperlinterdit=create m_couperlinterdit
+this.Item[UpperBound(this.Item)+1]=this.m_modificationduninterdit
+this.Item[UpperBound(this.Item)+1]=this.m_copierlinterdit
+this.Item[UpperBound(this.Item)+1]=this.m_couperlinterdit
+end on
+
+on m_interdit.destroy
+call super::destroy
+destroy(this.m_modificationduninterdit)
+destroy(this.m_copierlinterdit)
+destroy(this.m_couperlinterdit)
+end on
+
+type m_modificationduninterdit from menu within m_interdit
+end type
+
+on m_modificationduninterdit.create
+call super::create
+this.text = "Modifier l~'Interdit"
+this.menuimage = "lc_modifier_interdit.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_modificationduninterdit.destroy
+call super::destroy
+end on
+
+event clicked;
+
+// Recherche dans la table des jours interdits ... 
+//--------------------------------------------------------
+w_agenda w_agenda_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agenda_ouvert = w_agenda_a_part
+else
+	w_agenda_ouvert = w_agenda
+end if
+
+openwithparm(w_jours_interdits_suppression_agenda,w_agenda_ouvert.param_rdv)
+
+//Bloque l'affichage
+//--------------
+w_agenda_ouvert.tab.object.redraw=FALSE
+
+//Rafraichit les RDV
+//---------------
+w_agenda_ouvert.Actualiser()
+
+//Recherche de la pause dejeuner et affiche des heures dans la colonne fixe
+// Utile surout pour matérialiser les heures fixes si besoin
+//-----------------------------------------------------------
+w_agenda_ouvert.recherche_pause_dejeuner(w_agenda_ouvert.pause_debut,w_agenda_ouvert.pause_fin,w_agenda_ouvert.nombre_intervalle)
+
+
+//Autorise l'affichage
+//----------------
+w_agenda_ouvert.tab.object.redraw=TRUE
+
+end event
+
+type m_copierlinterdit from menu within m_interdit
+end type
+
+on m_copierlinterdit.create
+call super::create
+this.text = "Copier l~'Interdit"
+this.menuimage = "lc_Copy.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_copierlinterdit.destroy
+call super::destroy
+end on
+
+event clicked;// Recherche dans la table des jours interdits ... 
+//--------------------------------------------------------
+w_agenda w_agenda_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agenda_ouvert = w_agenda_a_part
+else
+	w_agenda_ouvert = w_agenda
+end if
+
+// recherche de la période interdite la plus proche en terme d'horaire et de fauteuil pour prendre l'heure et le fauteuil de début
+datetime v_debut_recherche
+integer v_fauteuil_cherche
+
+select isnull(max(date_debut), :w_agenda_ouvert.param_rdv.date_debut)  into :v_debut_recherche from jours_interdits 
+where date_debut < :w_agenda_ouvert.param_rdv.date_debut and code_praticien between :w_agenda_ouvert.param_rdv.praticien_de and :w_agenda_ouvert.param_rdv.praticien_a ;
+
+// recherche du premier fauteuil ...
+select isnull(min(fauteuil_debut), :w_agenda_ouvert.param_rdv.numero_fauteuil)  into :v_fauteuil_cherche from jours_interdits 
+where date_debut = :v_debut_recherche and code_praticien between :w_agenda_ouvert.param_rdv.praticien_de and :w_agenda_ouvert.param_rdv.praticien_a ;
+
+w_agenda_ouvert.date_interdit_copier = v_debut_recherche
+w_agenda_ouvert.fauteuil_interdit_copier = v_fauteuil_cherche
+w_agenda_ouvert.code_praticien_interdit_de_copier = w_agenda_ouvert.param_rdv.praticien_de
+w_agenda_ouvert.code_praticien_interdit_a_copier = w_agenda_ouvert.param_rdv.praticien_a
+w_agenda_ouvert.copier_interdit = true
+w_agenda_ouvert.couper_interdit = false
+
+
+end event
+
+type m_couperlinterdit from menu within m_interdit
+end type
+
+on m_couperlinterdit.create
+call super::create
+this.text = "Couper l~'Interdit"
+this.menuimage = "lc_cut.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_couperlinterdit.destroy
+call super::destroy
+end on
+
+event clicked;// Recherche dans la table des jours interdits ... 
+//--------------------------------------------------------
+w_agenda w_agenda_ouvert
+
+if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	// Agenda à part
+	w_agenda_ouvert = w_agenda_a_part
+else
+	w_agenda_ouvert = w_agenda
+end if
+
+// recherche de la période interdite la plus proche en terme d'horaire et de fauteuil pour prendre l'heure et le fauteuil de début
+datetime v_debut_recherche
+integer v_fauteuil_cherche
+
+select isnull(max(date_debut), :w_agenda_ouvert.param_rdv.date_debut)  into :v_debut_recherche from jours_interdits 
+where date_debut < :w_agenda_ouvert.param_rdv.date_debut and code_praticien between :w_agenda_ouvert.param_rdv.praticien_de and :w_agenda_ouvert.param_rdv.praticien_a ;
+
+// recherche du premier fauteuil ...
+select isnull(min(fauteuil_debut), :w_agenda_ouvert.param_rdv.numero_fauteuil)  into :v_fauteuil_cherche from jours_interdits 
+where date_debut = :v_debut_recherche and code_praticien between :w_agenda_ouvert.param_rdv.praticien_de and :w_agenda_ouvert.param_rdv.praticien_a ;
+
+w_agenda_ouvert.date_interdit_copier = v_debut_recherche
+w_agenda_ouvert.fauteuil_interdit_copier = v_fauteuil_cherche
+w_agenda_ouvert.code_praticien_interdit_de_copier = w_agenda_ouvert.param_rdv.praticien_de
+w_agenda_ouvert.code_praticien_interdit_a_copier = w_agenda_ouvert.param_rdv.praticien_a
+w_agenda_ouvert.copier_interdit = false
+w_agenda_ouvert.couper_interdit = true
+
+
+end event
+

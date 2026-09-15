@@ -1,0 +1,733 @@
+﻿$PBExportHeader$m_cherche.srm
+forward
+global type m_cherche from menu
+end type
+type m_numero_dossier from menu within m_cherche
+end type
+type m_nom_prenom_patient from menu within m_cherche
+end type
+type m_date_naissance from menu within m_cherche
+end type
+type m_code_praticien from menu within m_cherche
+end type
+type m_nom_parent1 from menu within m_cherche
+end type
+type m_adr1_parent1 from menu within m_cherche
+end type
+type m_codep_parent1 from menu within m_cherche
+end type
+type m_ville_parent1 from menu within m_cherche
+end type
+type m_nom_dossier from menu within m_cherche
+end type
+type m_moulage from menu within m_cherche
+end type
+type m_portable from menu within m_cherche
+end type
+type m_teldom_parent1 from menu within m_cherche
+end type
+type m_teltra_parent1 from menu within m_cherche
+end type
+type m_0 from menu within m_cherche
+end type
+type m_restaurationdescolonnes from menu within m_cherche
+end type
+global type m_cherche from menu
+m_numero_dossier m_numero_dossier
+m_nom_prenom_patient m_nom_prenom_patient
+m_date_naissance m_date_naissance
+m_code_praticien m_code_praticien
+m_nom_parent1 m_nom_parent1
+m_adr1_parent1 m_adr1_parent1
+m_codep_parent1 m_codep_parent1
+m_ville_parent1 m_ville_parent1
+m_nom_dossier m_nom_dossier
+m_moulage m_moulage
+m_portable m_portable
+m_teldom_parent1 m_teldom_parent1
+m_teltra_parent1 m_teltra_parent1
+m_0 m_0
+m_restaurationdescolonnes m_restaurationdescolonnes
+end type
+end forward
+
+global type m_cherche from menu
+m_numero_dossier m_numero_dossier
+m_nom_prenom_patient m_nom_prenom_patient
+m_date_naissance m_date_naissance
+m_code_praticien m_code_praticien
+m_nom_parent1 m_nom_parent1
+m_adr1_parent1 m_adr1_parent1
+m_codep_parent1 m_codep_parent1
+m_ville_parent1 m_ville_parent1
+m_nom_dossier m_nom_dossier
+m_moulage m_moulage
+m_portable m_portable
+m_teldom_parent1 m_teldom_parent1
+m_teltra_parent1 m_teltra_parent1
+m_0 m_0
+m_restaurationdescolonnes m_restaurationdescolonnes
+end type
+global m_cherche m_cherche
+
+on m_cherche.create
+m_cherche=this
+call super::create
+this.text = "m_cherche"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_numero_dossier=create m_numero_dossier
+this.m_nom_prenom_patient=create m_nom_prenom_patient
+this.m_date_naissance=create m_date_naissance
+this.m_code_praticien=create m_code_praticien
+this.m_nom_parent1=create m_nom_parent1
+this.m_adr1_parent1=create m_adr1_parent1
+this.m_codep_parent1=create m_codep_parent1
+this.m_ville_parent1=create m_ville_parent1
+this.m_nom_dossier=create m_nom_dossier
+this.m_moulage=create m_moulage
+this.m_portable=create m_portable
+this.m_teldom_parent1=create m_teldom_parent1
+this.m_teltra_parent1=create m_teltra_parent1
+this.m_0=create m_0
+this.m_restaurationdescolonnes=create m_restaurationdescolonnes
+this.Item[UpperBound(this.Item)+1]=this.m_numero_dossier
+this.Item[UpperBound(this.Item)+1]=this.m_nom_prenom_patient
+this.Item[UpperBound(this.Item)+1]=this.m_date_naissance
+this.Item[UpperBound(this.Item)+1]=this.m_code_praticien
+this.Item[UpperBound(this.Item)+1]=this.m_nom_parent1
+this.Item[UpperBound(this.Item)+1]=this.m_adr1_parent1
+this.Item[UpperBound(this.Item)+1]=this.m_codep_parent1
+this.Item[UpperBound(this.Item)+1]=this.m_ville_parent1
+this.Item[UpperBound(this.Item)+1]=this.m_nom_dossier
+this.Item[UpperBound(this.Item)+1]=this.m_moulage
+this.Item[UpperBound(this.Item)+1]=this.m_portable
+this.Item[UpperBound(this.Item)+1]=this.m_teldom_parent1
+this.Item[UpperBound(this.Item)+1]=this.m_teltra_parent1
+this.Item[UpperBound(this.Item)+1]=this.m_0
+this.Item[UpperBound(this.Item)+1]=this.m_restaurationdescolonnes
+end on
+
+on m_cherche.destroy
+call super::destroy
+destroy(this.m_numero_dossier)
+destroy(this.m_nom_prenom_patient)
+destroy(this.m_date_naissance)
+destroy(this.m_code_praticien)
+destroy(this.m_nom_parent1)
+destroy(this.m_adr1_parent1)
+destroy(this.m_codep_parent1)
+destroy(this.m_ville_parent1)
+destroy(this.m_nom_dossier)
+destroy(this.m_moulage)
+destroy(this.m_portable)
+destroy(this.m_teldom_parent1)
+destroy(this.m_teltra_parent1)
+destroy(this.m_0)
+destroy(this.m_restaurationdescolonnes)
+end on
+
+type m_numero_dossier from menu within m_cherche
+end type
+
+on m_numero_dossier.create
+call super::create
+this.text = "N° Dossier"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_numero_dossier.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_cherche.dw_liste.object.numero_dossier.visible = 0
+	this.checked = false
+else
+	w_cherche.dw_liste.object.numero_dossier.visible = 1
+	this.checked = true
+end if
+
+end event
+
+type m_nom_prenom_patient from menu within m_cherche
+end type
+
+on m_nom_prenom_patient.create
+call super::create
+this.text = "Nom / Prénom du patient"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_nom_prenom_patient.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_cherche.dw_liste.object.nouv_nom.visible = 0
+	this.checked = false
+else
+	w_cherche.dw_liste.object.nouv_nom.visible = 1
+	this.checked = true
+end if
+
+
+
+
+end event
+
+type m_date_naissance from menu within m_cherche
+end type
+
+on m_date_naissance.create
+call super::create
+this.text = "Date de naissance"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_date_naissance.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_cherche.dw_liste.object.date_naissance.visible = 0
+	this.checked = false
+else
+	w_cherche.dw_liste.object.date_naissance.visible = 1
+	this.checked = true
+end if
+
+
+
+end event
+
+type m_code_praticien from menu within m_cherche
+end type
+
+on m_code_praticien.create
+call super::create
+this.text = "Code Praticien"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_code_praticien.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_cherche.dw_liste.object.code_praticien.visible = 0
+	this.checked = false
+else
+	w_cherche.dw_liste.object.code_praticien.visible = 1
+	this.checked = true
+end if
+
+
+
+end event
+
+type m_nom_parent1 from menu within m_cherche
+end type
+
+on m_nom_parent1.create
+call super::create
+this.text = "Nom Parent 1"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_nom_parent1.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_cherche.dw_liste.object.nom_parent1.visible = 0
+	this.checked = false
+else
+	w_cherche.dw_liste.object.nom_parent1.visible = 1
+	this.checked = true
+end if
+
+
+
+end event
+
+type m_adr1_parent1 from menu within m_cherche
+end type
+
+on m_adr1_parent1.create
+call super::create
+this.text = "Adresse Parent 1"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_adr1_parent1.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_cherche.dw_liste.object.adr1_parent1.visible = 0
+	this.checked = false
+else
+	w_cherche.dw_liste.object.adr1_parent1.visible = 1
+	this.checked = true
+end if
+
+
+
+end event
+
+type m_codep_parent1 from menu within m_cherche
+end type
+
+on m_codep_parent1.create
+call super::create
+this.text = "Code Postal Parent 1"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_codep_parent1.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_cherche.dw_liste.object.codep_parent1.visible = 0
+	this.checked = false
+else
+	w_cherche.dw_liste.object.codep_parent1.visible = 1
+	this.checked = true
+end if
+
+
+
+end event
+
+type m_ville_parent1 from menu within m_cherche
+end type
+
+on m_ville_parent1.create
+call super::create
+this.text = "Ville Parent 1"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ville_parent1.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_cherche.dw_liste.object.ville_parent1.visible = 0
+	this.checked = false
+else
+	w_cherche.dw_liste.object.ville_parent1.visible = 1
+	this.checked = true
+end if
+
+
+
+end event
+
+type m_nom_dossier from menu within m_cherche
+end type
+
+on m_nom_dossier.create
+call super::create
+this.text = "Type de Dossier"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_nom_dossier.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_cherche.dw_liste.object.nom_dossier.visible = 0
+	this.checked = false
+else
+	w_cherche.dw_liste.object.nom_dossier.visible = 1
+	this.checked = true
+end if
+
+
+
+end event
+
+type m_moulage from menu within m_cherche
+end type
+
+on m_moulage.create
+call super::create
+this.text = "Moulage"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_moulage.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_cherche.dw_liste.object.moulage.visible = 0
+	this.checked = false
+else
+	w_cherche.dw_liste.object.moulage.visible = 1
+	this.checked = true
+end if
+
+
+
+end event
+
+type m_portable from menu within m_cherche
+end type
+
+on m_portable.create
+call super::create
+this.text = "Téléphone Portable Parent 1"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_portable.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_cherche.dw_liste.object.portable.visible = 0
+	this.checked = false
+else
+	w_cherche.dw_liste.object.portable.visible = 1
+	this.checked = true
+end if
+
+
+
+end event
+
+type m_teldom_parent1 from menu within m_cherche
+end type
+
+on m_teldom_parent1.create
+call super::create
+this.text = "Téléphone Domicile Parent 1"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_teldom_parent1.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_cherche.dw_liste.object.teldom_parent1.visible = 0
+	this.checked = false
+else
+	w_cherche.dw_liste.object.teldom_parent1.visible = 1
+	this.checked = true
+end if
+
+
+
+end event
+
+type m_teltra_parent1 from menu within m_cherche
+end type
+
+on m_teltra_parent1.create
+call super::create
+this.text = "Téléphone Travail Parent 1"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_teltra_parent1.destroy
+call super::destroy
+end on
+
+event clicked;if this.checked then 
+	w_cherche.dw_liste.object.teltra_parent1.visible = 0
+	this.checked = false
+else
+	w_cherche.dw_liste.object.teltra_parent1.visible = 1
+	this.checked = true
+end if
+
+
+
+end event
+
+type m_0 from menu within m_cherche
+end type
+
+on m_0.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+type m_restaurationdescolonnes from menu within m_cherche
+end type
+
+on m_restaurationdescolonnes.create
+call super::create
+this.text = "Restauration des colonnes"
+this.menuimage = "lc_restaurer_colonnes.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_restaurationdescolonnes.destroy
+call super::destroy
+end on
+
+event clicked;// Visibilité et largeur
+for w_cherche.cpt_colonnes = 1 to upperbound(w_cherche.tab_colonnes)
+	w_cherche.dw_liste.modify(w_cherche.tab_colonnes[w_cherche.cpt_colonnes]+".visible=1")
+	w_cherche.dw_liste.modify(w_cherche.tab_colonnes[w_cherche.cpt_colonnes]+".width=" + string( w_cherche.tab_largeur_defaut[w_cherche.cpt_colonnes]))
+next
+
+
+// RAZ de l'ordre des colonnes
+Setprofilestring(dir_ini+inifile_orthokis,"Recherche","ordre_colonnes","RAZ")
+// On met la valeur "RAZ" pour que le RAZ se fasse au moment du close de la fenetre mère
+
+Messagebox("ATTENTION","Les colonnes ont été remises avec leur largeur et leur ordre par défaut ! Nous vous conseillons de fermer cette fenêtre puis la rouvrir pour retrouver une apparence normale !")
+end event
+

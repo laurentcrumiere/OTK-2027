@@ -1,0 +1,291 @@
+﻿$PBExportHeader$uov_chart_js_datawindow.sru
+$PBExportComments$Chart.js datawindow control
+forward
+global type uov_chart_js_datawindow from userobject
+end type
+type mle_1 from multilineedit within uov_chart_js_datawindow
+end type
+type wb_graph from uov_pbwc_wv_graph within uov_chart_js_datawindow
+end type
+type ole_graph from uov_pbwc_ie_graph within uov_chart_js_datawindow
+end type
+type dw_default_image from datawindow within uov_chart_js_datawindow
+end type
+end forward
+
+global type uov_chart_js_datawindow from userobject
+integer width = 2619
+integer height = 1540
+long backcolor = 16777215
+string text = "none"
+long tabtextcolor = 33554432
+long picturemaskcolor = 536870912
+event ue_size pbm_size
+event ue_init ( )
+event clicked ( string label,  string value,  string series )
+event doubleclicked ( string label,  string value,  string series )
+event data_loaded ( datastore datastore_datasource,  integer datasource_index )
+event displayed ( )
+event type string javascript_preview ( string as_code )
+mle_1 mle_1
+wb_graph wb_graph
+ole_graph ole_graph
+dw_default_image dw_default_image
+end type
+global uov_chart_js_datawindow uov_chart_js_datawindow
+
+type variables
+n_cst_pbwc_graph_service inv_graph_srv
+string graphobject
+boolean ib_use_webview_control
+dec ii_chartjs_version = 4.5
+string is_last_action
+end variables
+
+forward prototypes
+public function integer settransobject (transaction atr)
+public function long retrieve ()
+public function long retrieve (string as_parameters)
+public function long retrieve (string as_parameters, integer ai_datasource_index)
+public subroutine refresh ()
+public function integer setfilter (integer ai_datasource_index, string as_filter)
+public function integer setfilter (string as_filter)
+public function integer filter ()
+public function string modify (string as_object, string as_value)
+public function string describe (string as_expression)
+public function integer print ()
+public function string getpngfilename ()
+end prototypes
+
+event ue_size;
+//IF this.height < (this.width/2) THEN 
+//	ole_graph.resize(this.height *2, this.height)
+//ELSE
+IF ib_use_webview_control THEN
+	wb_graph.resize(this.width, this.height)
+	ole_graph.hide()
+ELSE
+	ole_graph.resize(this.width, this.height)
+	wb_graph.hide()
+END IF
+	
+//END IF
+//ole_graph.object.width = unitstopixels(ole_graph.width, xunitstopixels!)
+//ole_graph.object.height = unitstopixels(ole_graph.height, yunitstopixels!)
+end event
+
+event ue_init();n_cst_pbus_lic lu_lic
+IF NOT lu_lic.of_Registered() THEN
+	RETURN
+END IF
+
+IF ib_use_webview_control = FALSE THEN
+	ole_graph.object.width = unitstopixels(ole_graph.width, xunitstopixels!)
+	ole_graph.object.height = unitstopixels(ole_graph.height, yunitstopixels!)
+END IF
+IF graphobject <> "" THEN 
+	IF this.inv_graph_srv.of_open(graphobject,"") = "" THEN
+		this.inv_graph_srv.of_display_graph()
+	END IF
+END IF
+end event
+
+event type string javascript_preview(string as_code);return as_code
+end event
+
+public function integer settransobject (transaction atr);return this.inv_graph_srv.of_settransobject(atr)
+end function
+
+public function long retrieve ();
+return this.retrieve("")
+end function
+
+public function long retrieve (string as_parameters);long ii,ll_nb_rows,ll_ret
+FOR ii = 1 to  this.inv_graph_srv.li_chart_index_max
+	ll_nb_rows = retrieve(as_parameters,ii)
+	IF ii = 1 then ll_ret = ll_nb_rows
+NEXT
+return ll_ret
+end function
+
+public function long retrieve (string as_parameters, integer ai_datasource_index);long ll_ret
+inv_graph_srv.modify("Chart("+string(ai_datasource_index)+").dw_retrieval_arguments",as_parameters)
+ll_ret = this.inv_graph_srv.of_retrieve_chart_sample_data(ai_datasource_index,FALSE)
+this.event data_loaded( this.inv_graph_srv.ids_chart_datasource[ai_datasource_index],ai_datasource_index)
+IF ai_datasource_index = this.inv_graph_srv.li_chart_index_max THEN this.inv_graph_srv.of_display_graph()
+return ll_ret
+
+
+
+end function
+
+public subroutine refresh ();this.inv_graph_srv.of_display_graph()
+end subroutine
+
+public function integer setfilter (integer ai_datasource_index, string as_filter);long ll_ret
+ll_ret = this.inv_graph_srv.ids_chart_datasource[ai_datasource_index].setfilter(as_filter)
+return ll_ret
+end function
+
+public function integer setfilter (string as_filter);return this.setfilter(1, as_filter)
+end function
+
+public function integer filter ();int li_ret,ii
+FOR ii = 1 to upperbound(this.inv_graph_srv.ids_chart_datasource)
+	li_ret += this.inv_graph_srv.ids_chart_datasource[ii].filter() 
+NEXT
+this.inv_graph_srv.of_display_graph()
+return li_ret
+
+end function
+
+public function string modify (string as_object, string as_value);return inv_graph_srv.modify(as_object,as_value)
+end function
+
+public function string describe (string as_expression);return inv_graph_srv.describe(as_expression)
+end function
+
+public function integer print ();return inv_graph_srv.of_print(this)
+
+end function
+
+public function string getpngfilename ();return inv_graph_srv.of_export_for_printing(this)
+end function
+
+event constructor;dw_default_image.hide()
+
+ib_use_webview_control = gnv_pbwc_core_engine.ib_use_webview_control
+
+IF ib_use_webview_control THEN
+	wb_graph.resize(this.width,this.height)
+	ole_graph.hide()
+	inv_graph_srv.of_register_wb_object(wb_graph)
+ELSE
+	ole_graph.resize(this.width,this.height)
+	wb_graph.hide()
+	inv_graph_srv.of_register_ole_object(ole_graph.object)
+END IF
+
+
+inv_graph_srv.of_register_chart_js_datawindow(this)
+
+inv_graph_srv.ii_chartjs_version = this.ii_chartjs_version //sets chartjs version to use for chart rendering
+
+inv_graph_srv.of_init_document()
+
+
+end event
+
+on uov_chart_js_datawindow.create
+this.mle_1=create mle_1
+this.wb_graph=create wb_graph
+this.ole_graph=create ole_graph
+this.dw_default_image=create dw_default_image
+this.Control[]={this.mle_1,&
+this.wb_graph,&
+this.ole_graph,&
+this.dw_default_image}
+end on
+
+on uov_chart_js_datawindow.destroy
+destroy(this.mle_1)
+destroy(this.wb_graph)
+destroy(this.ole_graph)
+destroy(this.dw_default_image)
+end on
+
+type mle_1 from multilineedit within uov_chart_js_datawindow
+boolean visible = false
+integer y = 888
+integer width = 2601
+integer height = 576
+integer taborder = 20
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Tahoma"
+long textcolor = 33554432
+boolean border = false
+boolean vscrollbar = true
+boolean autovscroll = true
+borderstyle borderstyle = stylelowered!
+end type
+
+type wb_graph from uov_pbwc_wv_graph within uov_chart_js_datawindow
+integer width = 119
+integer height = 72
+end type
+
+event ue_pbwc_graph;call super::ue_pbwc_graph;event ue_init()
+end event
+
+event clickedongraph;call super::clickedongraph;
+parent.event clicked(as_label, as_value, as_series)
+end event
+
+event displayed;call super::displayed;//parent.event displayed()
+end event
+
+event doubleclickedongraph;call super::doubleclickedongraph;parent.event doubleclicked(as_label, as_value, as_series)
+end event
+
+event titletextchanged;call super::titletextchanged;IF pos(titletext,'displayed')= 0 THEN mle_1.text += string(now())+" " +titletext+"~r~n"
+end event
+
+on wb_graph.destroy
+call uov_pbwc_wv_graph::destroy
+end on
+
+event ue_pbwc_graph45;call super::ue_pbwc_graph45;//FF 01/01/2026 Added suport for chart.js 4.5
+event ue_init()
+end event
+
+event evaluatejavascriptfinished;call super::evaluatejavascriptfinished;IF is_last_action = "displayed" THEN 
+	parent.post event displayed()
+	is_last_action = ""
+END IF
+end event
+
+type ole_graph from uov_pbwc_ie_graph within uov_chart_js_datawindow
+integer y = 4
+integer width = 32
+integer height = 32
+integer taborder = 10
+boolean border = false
+string binarykey = "uov_chart_js_datawindow.udo"
+end type
+
+event ue_pbwc_graph;call super::ue_pbwc_graph;event ue_init()
+end event
+
+event clickedongraph;call super::clickedongraph;parent.event clicked(as_label, as_value, as_series)
+end event
+
+event doubleclickedongraph;call super::doubleclickedongraph;parent.event doubleclicked(as_label, as_value, as_series)
+end event
+
+event displayed;call super::displayed;parent.event displayed()
+end event
+
+type dw_default_image from datawindow within uov_chart_js_datawindow
+integer width = 2583
+integer height = 1456
+integer taborder = 20
+boolean bringtotop = true
+boolean enabled = false
+string title = "none"
+string dataobject = "d_pbwc_default_image"
+boolean border = false
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
+end type
+
+
+Start of PowerBuilder Binary Data Section : Do NOT Edit
+0Fuov_chart_js_datawindow.bin 
+2900000a00e011cfd0e11ab1a1000000000000000000000000000000000003003e0009fffe000000060000000000000000000000010000000100000000000010000000000200000001fffffffe0000000000000000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdfffffffefffffffefffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff006f00520074006f004500200074006e00790072000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050016ffffffffffffffff0000000100000000000000000000000000000000000000000000000000000000cbbd97a001dd063b00000003000001800000000000500003004f0042005800430054005300450052004d0041000000000000000000000000000000000000000000000000000000000000000000000000000000000102001affffffff00000002ffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000009c00000000004200500043004f00530058004f00540041005200450047000000000000000000000000000000000000000000000000000000000000000000000000000000000001001affffffffffffffff000000038856f96111d0340ac0006ba9a205d74f00000000cbbd97a001dd063bcbbd97a001dd063b000000000000000000000000004f00430054004e004e00450053005400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001020012ffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000030000009c000000000000000100000002fffffffe0000000400000005fffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+22ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000004c000000b9000000d40000000000000000000000000000000000000000000000000000004c0000000000000000000000010057d0e011cf3573000869ae62122e2b00000008000000000000004c0002140100000000000000c0460000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004c000000b9000000d40000000000000000000000000000000000000000000000000000004c0000000000000000000000010057d0e011cf3573000869ae62122e2b00000008000000000000004c0002140100000000000000c0460000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+1Fuov_chart_js_datawindow.bin 
+End of PowerBuilder Binary Data Section : No Source Expected After This Point

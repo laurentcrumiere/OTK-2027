@@ -1,0 +1,12 @@
+﻿$PBExportHeader$format_secu.srf
+global type format_secu from function_object
+end type
+
+forward prototypes
+global function string format_secu (string secu)
+end prototypes
+
+global function string format_secu (string secu);Return (mid(secu,1,1)+" "+mid(secu,2,2)+" "+mid(secu,4,2)+" "+mid(secu,6,2)+" "+mid(secu,8,3)+" "+mid(secu,11,3)+" / "+mid(secu,14,2))
+
+end function
+

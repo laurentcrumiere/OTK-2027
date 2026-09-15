@@ -1,0 +1,45 @@
+﻿$PBExportHeader$set_date_image.srf
+global type set_date_image from function_object
+end type
+
+forward prototypes
+global function boolean set_date_image (double code_patient, string fichier_image, date date_acquis)
+end prototypes
+
+global function boolean set_date_image (double code_patient, string fichier_image, date date_acquis);// rajoute une ligne pour le fichier image du patient OU modifie si dejà existante
+// param code_patient : le num du patient
+// param image : le chemin complet OU le nom du fichier image (ex : 3.jpg) --> sera converti en nom de fichier uniquement
+// param date_acquis : la date à enreg
+// renvoie true si pas de pb
+
+boolean val_retour = false
+
+if isnull(code_patient) then return val_retour
+
+if not len(fichier_image) > 0 then return val_retour
+
+// recup uniquement le nom de l'image
+string nom_image
+nom_image = gfx_extraire_nom_fichier(fichier_image)
+
+// verif si une ligne existe
+int nbr_ligne
+select count(*) into :nbr_ligne from images_infos where code = :code_patient and nom_fichier = :nom_image ;
+if nbr_ligne = 1 then 
+	// la ligne existe --> il faut la modifier
+	update images_infos set date_acquis = :date_acquis where code = :code_patient and nom_fichier = :nom_image ;
+else
+	// on doit créer une nouvelle ligne
+	insert into images_infos("code","nom_fichier","date_acquis") values (:code_patient, :nom_image, :date_acquis) ;
+end if
+
+// cmd SQL = OK --> maj val retour
+if sqlca.sqlcode = 0 then 
+	val_retour = true
+	commit ;
+else
+	rollback ;
+end if
+return val_retour
+end function
+

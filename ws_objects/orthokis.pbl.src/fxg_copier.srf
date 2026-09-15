@@ -1,0 +1,36 @@
+﻿$PBExportHeader$fxg_copier.srf
+global type fxg_copier from function_object
+end type
+
+forward prototypes
+global subroutine fxg_copier ()
+end prototypes
+
+global subroutine fxg_copier ();GraphicObject  Which
+
+SingleLineEdit Refsle
+Editmask Refem
+Datawindow Refdw
+MultiLineEdit Refmle
+
+which = getfocus()
+CHOOSE CASE typeof(Which)
+	CASE SingleLineEdit!
+		refsle = which
+		refsle.copy()
+	CASE Editmask!
+		refem = which
+		refem.copy()
+	CASE Datawindow!
+		refdw = which
+		refdw.copy()
+	case MultiLineEdit!
+		refmle = which
+		refmle.copy()
+CASE ELSE
+		beep(1)
+END CHOOSE
+
+
+end subroutine
+

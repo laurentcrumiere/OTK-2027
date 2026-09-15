@@ -1,0 +1,42 @@
+﻿$PBExportHeader$verif_presence_rendez_vous.srf
+global type verif_presence_rendez_vous from function_object
+end type
+
+forward prototypes
+global function integer verif_presence_rendez_vous (double patient_saisi, datetime rdv_saisi, integer duree_saisie, string prat_saisi, integer fauteuil_saisi, boolean meme_fauteuil)
+end prototypes
+
+global function integer verif_presence_rendez_vous (double patient_saisi, datetime rdv_saisi, integer duree_saisie, string prat_saisi, integer fauteuil_saisi, boolean meme_fauteuil);
+// renvoie le nombre de rendez-vous selon le critère
+
+integer nb_rdv 
+string v_agenda_tous
+
+select top 1 tous into :v_agenda_tous from agenda ;
+
+if meme_fauteuil then
+	if v_agenda_tous = "O" then
+		//sur le meme fauteuil => on tient pas compte du praticien
+		select count(*) into :nb_rdv from rdv, etat_rdv
+		where (rdv between :rdv_saisi and dateadd(mi,:duree_saisie - 1,:rdv_saisi)
+		or (:rdv_saisi between rdv and dateadd (minute,duree -1, rdv)) ) and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda = 'N' 
+		and rdv.code <> :patient_saisi and fauteuil = :fauteuil_saisi ;
+	else
+		// Agenda séparé ... 
+		select count(*) into :nb_rdv from rdv, etat_rdv
+		where (rdv between :rdv_saisi and dateadd(mi,:duree_saisie - 1,:rdv_saisi)
+		or (:rdv_saisi between rdv and dateadd (minute,duree -1, rdv)) ) and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda = 'N' 
+		and rdv.code <> :patient_saisi and fauteuil = :fauteuil_saisi and code_praticien=:prat_saisi ;
+	end if
+else
+	//sur  fauteuil different pour le même praticien
+	select count(*) into :nb_rdv from rdv, etat_rdv
+	where (rdv between :rdv_saisi and dateadd(mi,:duree_saisie - 1,:rdv_saisi)
+	or (:rdv_saisi between rdv and dateadd (minute,duree -1, rdv)) ) and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda = 'N' 
+	and rdv.code <> :patient_saisi and fauteuil <>  :fauteuil_saisi and code_praticien=:prat_saisi ;
+	
+end if
+
+return nb_rdv
+end function
+

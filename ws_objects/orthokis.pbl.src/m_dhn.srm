@@ -1,0 +1,210 @@
+﻿$PBExportHeader$m_dhn.srm
+forward
+global type m_dhn from menu
+end type
+type m_check from menu within m_dhn
+end type
+type m_créerdansesanté from menu within m_dhn
+end type
+type m_mettreàjour from menu within m_dhn
+end type
+type m_imprimer from menu within m_dhn
+end type
+global type m_dhn from menu
+m_check m_check
+m_créerdansesanté m_créerdansesanté
+m_mettreàjour m_mettreàjour
+m_imprimer m_imprimer
+end type
+end forward
+
+global type m_dhn from menu
+m_check m_check
+m_créerdansesanté m_créerdansesanté
+m_mettreàjour m_mettreàjour
+m_imprimer m_imprimer
+end type
+global m_dhn m_dhn
+
+on m_dhn.create
+m_dhn=this
+call super::create
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_check=create m_check
+this.m_créerdansesanté=create m_créerdansesanté
+this.m_mettreàjour=create m_mettreàjour
+this.m_imprimer=create m_imprimer
+this.Item[UpperBound(this.Item)+1]=this.m_check
+this.Item[UpperBound(this.Item)+1]=this.m_créerdansesanté
+this.Item[UpperBound(this.Item)+1]=this.m_mettreàjour
+this.Item[UpperBound(this.Item)+1]=this.m_imprimer
+end on
+
+on m_dhn.destroy
+call super::destroy
+destroy(this.m_check)
+destroy(this.m_créerdansesanté)
+destroy(this.m_mettreàjour)
+destroy(this.m_imprimer)
+end on
+
+type m_check from menu within m_dhn
+end type
+
+event clicked;// uo_esante_luxembourg contient l'uo qui vient d'être cliqué pour afficher le menu
+
+
+uo_esante_luxembourg.check()
+end event
+
+on m_check.create
+call super::create
+this.text = "Vérifier le statut du patient"
+this.menuimage = "ACTIONS_verifier_rdv.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_check.destroy
+call super::destroy
+end on
+
+type m_créerdansesanté from menu within m_dhn
+end type
+
+on m_créerdansesanté.create
+call super::create
+this.text = "Créer le patient dans eSanté"
+this.menuimage = "ACTIONS_ajouter.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_créerdansesanté.destroy
+call super::destroy
+end on
+
+event clicked;// uo_esante_luxembourg contient l'uo qui vient d'être cliqué pour afficher le menu
+
+
+uo_esante_luxembourg.creer()
+end event
+
+type m_mettreàjour from menu within m_dhn
+end type
+
+on m_mettreàjour.create
+call super::create
+this.text = "Mettre le patient à jour dans eSanté"
+this.menuimage = "ACTIONS_memoriser.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_mettreàjour.destroy
+call super::destroy
+end on
+
+event clicked;// uo_esante_luxembourg contient l'uo qui vient d'être cliqué pour afficher le menu
+
+
+uo_esante_luxembourg.mettre_a_jour()
+
+end event
+
+type m_imprimer from menu within m_dhn
+end type
+
+on m_imprimer.create
+call super::create
+this.text = "Imprimer la fiche d~'incription du patient pour eSanté"
+this.menuimage = "ACTIONS_imprimer.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_imprimer.destroy
+call super::destroy
+end on
+
+event clicked;
+// uo_esante_luxembourg contient l'uo qui vient d'être cliqué pour afficher le menu
+
+
+uo_esante_luxembourg.imprimer()
+
+
+
+end event
+

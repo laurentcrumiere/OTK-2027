@@ -1,0 +1,89 @@
+﻿$PBExportHeader$fxg_ouvrir_monorthodontiste.srf
+global type fxg_ouvrir_monorthodontiste from function_object
+end type
+
+forward prototypes
+global subroutine fxg_ouvrir_monorthodontiste (string partie_a_ouvrir, double v_code_patient)
+end prototypes
+
+global subroutine fxg_ouvrir_monorthodontiste (string partie_a_ouvrir, double v_code_patient);/*
+
+L’accès direct aux sections de l’interface d’administration Mon Orthodontiste se fait via la construction de l’url.
+-	/#cabinet : ouverture sur la section Cabinet (positionnement par défaut).
+-	/#parametres : ouverture sur la section Paramètres.
+-	/#patient : ouverture sur la section Patients.
+o	/#patient/<code_soft> : ouverture sur la section patient et sélection du patient ayant le code spécifié.
+o	/#patient/<code_soft>/rdv : ouverture sur la section patient et sélection du patient ayant le code spécifié, et dans la partie rdv (partie par défaut pour la section Patients).
+o	/#patient/<code_soft>/liens : ouverture sur la section patient et sélection du patient ayant le code spécifié, et dans la partie liens.
+o	/#patient/<code_soft>/messagerie : ouverture sur la section patient et sélection du patient ayant le code spécifié, et dans la partie messagerie.
+o	/#patient/<code_soft>/paiements : ouverture sur la section patient et sélection du patient ayant le code spécifié, et dans la partie paiements.
+o	/#patient/<code_soft>/documents : ouverture sur la section patient et sélection du patient ayant le code spécifié, et dans la partie documents.
+-	/#paiements : ouverture sur la section Paiements.
+-	/#messagerie : ouverture sur la section Messagerie.
+-	/#documents : ouverture sur la section Documents.
+o	/#patient/<code_soft>/questionnaires : ouverture sur la section patient et sélection du patient ayant le code spécifié, et dans la partie questionnaires. 
+
+Exemple d’adresse complète :
+https://cabinet-dev.monorthodontiste.eu/#patient/11894/messagerie?cle=a0lmo59aec
+Cette adresse permet de se connecter à l’interface en sans passer par la saisie du numéro du cabinet et du code pin (avec le paramètre « cle »), et l’affichage est positionné dans la section « Patients » sur la messagerie correspondant au patient 11894.
+
+
+*/
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+// Param en entrée : partie_a_ouvrir avec pour valeur
+// C = section cabinet
+
+
+// au cas où
+partie_a_ouvrir = upper(partie_a_ouvrir)
+
+
+string url_wb, url_hec
+
+string v_commande_partie_a_ouvrir
+
+
+
+// pourles tests : 
+//SERIAL = "87001"
+
+
+// Construction de l'URL complète
+if (serial = "87001" or serial = "88005" or SERIAL = "88036") and profilestring(dir_ini+inifile_orthokis,"ARAKIS","environnement_monorthodontiste","P") = "D" then
+	url_wb = "https://cabinet-dev.monorthodontiste.eu/"
+else
+	url_wb = "https://cabinet.monorthodontiste.eu/"
+end if
+
+// partie à ouvrir
+choose case partie_a_ouvrir
+	case "C"
+		v_commande_partie_a_ouvrir = "#cabinet"
+	case "PR", "SA"
+		v_commande_partie_a_ouvrir = "#patient/"+string(v_code_patient)+"/rdv"
+	case "PL"
+		v_commande_partie_a_ouvrir = "#patient/"+string(v_code_patient)+"/liens"
+	case "PM"
+		v_commande_partie_a_ouvrir = "#patient/"+string(v_code_patient)+"/messagerie"
+	case "PP"
+		v_commande_partie_a_ouvrir = "#patient/"+string(v_code_patient)+"/paiements"
+	case "PD"
+		v_commande_partie_a_ouvrir = "#patient/"+string(v_code_patient)+"/documents"
+	case "PQ"
+		v_commande_partie_a_ouvrir = "#patient/"+string(v_code_patient)+"/questionnaires"
+	case else
+		v_commande_partie_a_ouvrir = ""
+end choose
+		
+
+// Url complète 
+url_wb = url_wb + v_commande_partie_a_ouvrir + "?cle=" + fxg_generer_clef_connexion()
+
+openurl ( url_wb)
+
+return
+end subroutine
+

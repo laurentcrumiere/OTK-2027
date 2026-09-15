@@ -1,0 +1,153 @@
+﻿$PBExportHeader$fxg_init_jchart.srf
+global type fxg_init_jchart from function_object
+end type
+
+forward prototypes
+global subroutine fxg_init_jchart ()
+global subroutine fxg_init_jchart (uov_chart_js_datawindow uo_chart, string s_type)
+end prototypes
+
+global subroutine fxg_init_jchart ();//
+//
+//// Mise à jour des J Chart afin d'uniformiser les couleurs et les styles
+//
+//
+//string s_type
+//integer i_i, i_nb_dataset
+//
+//i_nb_dataset = 12
+//
+//s_type = this.text
+//
+//uo_chart.Modify("chart(1).Chart_Type", s_type)
+//
+//// Mise à jour des couleurs pour les graphs complexes
+//
+//choose case s_type
+//	case "doughnut", "radar", "pie" , "polarArea"
+//		for i_i = 1 to i_nb_dataset
+//			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor_multi","rgba(0,134,216,0.43);rgba(0,132,198,0.70);rgba(0,105,158,0.88);rgba(0,15,31,0.25);rgba(0,0,0,0.45);rgba(76,0,108,0.38);rgba(234,0,4,0.71);rgba(255,14,0,0.50);rgba(124,135,0,0.79);rgba(152,123,0,0.61);rgba(203,162,0,0.56);rgba(227,146,0,0.67);rgba(213,95,0,0.80);rgba(201,61,0,0.84);rgba(169,42,0,0.85);rgba(103,26,0,0.85)")
+//		next
+//		// on vire aussi les axes
+//		uo_chart.modify("axes(1).display", "0")
+//		uo_chart.modify("axes(2).display", "0")
+//	case else
+//		for i_i = 1 to i_nb_dataset
+//			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor_multi","")
+//		next
+//		// On remet les axes
+//		uo_chart.modify("axes(1).display", "1")
+//		uo_chart.modify("axes(2).display", "1")
+//end choose
+//
+//uo_chart.refresh()
+end subroutine
+
+global subroutine fxg_init_jchart (uov_chart_js_datawindow uo_chart, string s_type);
+
+// Mise à jour des J Chart afin d'uniformiser les couleurs et les styles
+
+integer i_i, i_nb_dataset
+
+i_nb_dataset = 12
+
+
+string s_backgroundcolor_multi
+
+s_backgroundcolor_multi = "rgba(238,106,0,0.5);rgba(235,130,0,0.5);rgba(230,184,0,0.5);rgba(156,171,0,0.5);rgba(126,137,0,0.5);rgba(93,69,0,0.5);rgba(105,17,0,0.5);rgba(197,33,0,0.5);rgba(0,114,198,0.5);rgba(0,113,51,0.5);rgba(221,88,0,0.5);rgba(0,23,143,0.5);rgba(82,0,102,0.5);rgba(134,3,0,0.5);rgba(0,114,100,0.5);rgba(0,145,218,0.5)"
+
+
+uo_chart.Modify("chart(1).Chart_Type", s_type)
+
+// Mise à jour des couleurs pour les graphs complexes
+
+choose case s_type
+	case "doughnut", "radar", "pie" , "polarArea"
+		for i_i = 1 to i_nb_dataset
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor_multi",s_backgroundcolor_multi)
+			//uo_chart.modify("chart(1).dataset(" + string(i_i) + ").fill","false")
+		next
+		// on vire aussi les axes
+		uo_chart.modify("axes(1).display", "0")
+		uo_chart.modify("axes(2).display", "0")
+	case else
+		for i_i = 1 to i_nb_dataset
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor_multi","")
+			// Pas de remplissage (si lignes)
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").fill","false")
+		next
+		// On remet les axes
+		uo_chart.modify("axes(1).display", "1")
+		uo_chart.modify("axes(2).display", "1")
+end choose
+
+// pour tous les graph ..
+for i_i = 1 to i_nb_dataset
+	// Couleur des datas
+	choose case i_i
+		case 1
+			// Orange
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor" , "rgba(248,168,0,0.69)")
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").bordercolor" , "rgba(248,168,0,0.69)")
+			//uo_chart.modify("chart(1).dataset(" + string(i_i) + ").pointbackgroundcolor" , "rgba(213,95,0,0.80)")
+		case 2
+			// beige clair
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor" , "rgba(106,10,0,0.20)")
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").bordercolor" , "rgba(106,10,0,0.20)")
+			//uo_chart.modify("chart(1).dataset(" + string(i_i) + ").pointbackgroundcolor" , "rgba(0,132,198,0.70)")
+		case 3
+			// Rose
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor" , "rgba(230,0,70,0.44)")
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").bordercolor" , "rgba(230,0,70,0.44)")
+			//uo_chart.modify("chart(1).dataset(" + string(i_i) + ").pointbackgroundcolor" , "rgba(234,0,4,0.71)")
+		case 4
+			// Vert
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor" , "rgba(112,193,0,0.67)")
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").bordercolor" , "rgba(112,193,0,0.67)")
+			//uo_chart.modify("chart(1).dataset(" + string(i_i) + ").pointbackgroundcolor" , "rgba(124,135,0,0.79)")
+		case 5
+			// Bordeaux
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor" , "rgba(164,0,67,1.00)")
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").bordercolor" , "rgba(164,0,67,1.00)")
+			//uo_chart.modify("chart(1).dataset(" + string(i_i) + ").pointbackgroundcolor" , "rgba(76,0,108,0.38)")
+		case 6
+			// vert bleu
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor" , "rgba(0,131,112,0.48)")
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").bordercolor" , "rgba(0,131,112,0.48)")
+		case 7
+			// violet
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor" , "rgba(21,0,130,0.67)")
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").bordercolor" , "rgba(21,0,130,0.67)")
+			//uo_chart.modify("chart(1).dataset(" + string(i_i) + ").pointbackgroundcolor" , "rgba(76,0,108,0.38)")
+		case 8
+			// vert foncé
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor" , "rgba(0,97,48,0.96)")
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").bordercolor" , "rgba(0,97,48,0.96)")
+			//uo_chart.modify("chart(1).dataset(" + string(i_i) + ").pointbackgroundcolor" , "rgba(76,0,108,0.38)")
+		case 9
+			// Rouge
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor" , "rgba(221,42,0,0.98)")
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").bordercolor" , "rgba(221,42,0,0.98)")
+			//uo_chart.modify("chart(1).dataset(" + string(i_i) + ").pointbackgroundcolor" , "rgba(76,0,108,0.38)")
+		case 10
+			// beu clair
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor" , "rgba(0,134,216,0.43)")
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").bordercolor" , "rgba(0,134,216,0.43)")
+			//uo_chart.modify("chart(1).dataset(" + string(i_i) + ").pointbackgroundcolor" , "rgba(76,0,108,0.38)")
+		case 11
+			// Orange
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor" , "rgba(250,104,0,1.00)")
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").bordercolor" , "rgba(250,104,0,1.00)")
+			//uo_chart.modify("chart(1).dataset(" + string(i_i) + ").pointbackgroundcolor" , "rgba(76,0,108,0.38)")
+		case 12
+			// Gris foncé
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").backgroundcolor" , "rgba(0,0,0,0.47)")
+			uo_chart.modify("chart(1).dataset(" + string(i_i) + ").bordercolor" , "rgba(0,0,0,0.47)")
+			//uo_chart.modify("chart(1).dataset(" + string(i_i) + ").pointbackgroundcolor" , "rgba(76,0,108,0.38)")
+	end choose
+next
+
+
+uo_chart.refresh()
+end subroutine
+

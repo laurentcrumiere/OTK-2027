@@ -1,0 +1,29 @@
+﻿$PBExportHeader$fxg_ouverture_onglet_possible.srf
+global type fxg_ouverture_onglet_possible from function_object
+end type
+
+forward prototypes
+global function boolean fxg_ouverture_onglet_possible ()
+end prototypes
+
+global function boolean fxg_ouverture_onglet_possible ();
+// Vérifie le nombre d'onglet possible à ouvrir
+
+integer v_nb_onglets_autorises
+boolean v_retour 
+
+v_nb_onglets_autorises= integer( profilestring(dir_ini+inifile_orthokis,"UI_V2020","nb_onglets_autorises","10"))
+
+if w_mdi_2020.uo_powerdock.of_getdocumentcount () < v_nb_onglets_autorises then
+	v_retour = true
+else
+	if fxg_power_message_question("ATTENTION","Vous ne devez pas ouvrir plus de " + string(v_nb_onglets_autorises) + " onglets.~n~nConfirmez-vous tout de même l'ouverture d'un autre ?", "Oui", "Non", 2) = 2 then
+		v_retour = false
+	else
+		v_retour = true
+	end if
+end if
+
+return v_retour
+end function
+

@@ -1,0 +1,176 @@
+﻿$PBExportHeader$maj_code_postal.srf
+global type maj_code_postal from function_object
+end type
+
+forward prototypes
+global subroutine maj_code_postal (datawindow dw, string ch_cp, string ch_ville, string ch_tel, string ch_fax, ref listbox lb_ville, ref listbox lb_code, ref datawindow dw_maj, ref string ch_maj, ref string pref[100])
+end prototypes
+
+global subroutine maj_code_postal (datawindow dw, string ch_cp, string ch_ville, string ch_tel, string ch_fax, ref listbox lb_ville, ref listbox lb_code, ref datawindow dw_maj, ref string ch_maj, ref string pref[100]);// But de la fonction :
+// Mettre à jour la ville lors de la saisie du code postal
+
+
+// Explications des variables : dw
+//    Dw : Datawindow à mettre à jour
+//		ch_cp : N° du champ contenant le code postal
+//		ch_ville,ch_tel,ch_fax : nom des champs contenant ville,téléphone 
+// 									 et fax (ou 2ème téléphone)
+
+//    lb_ville : liste box qui contiendra les villes en cas de 
+//               plusieurs possibilités
+//    lb_code : liste box qui contiendra les codes postaux en cas de 
+//               plusieurs possibilités
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                            A T T E N T I O N     HYPER IMPORTANT	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// POUR QUE LE CODE POSTAL SE METTE A JOUR APRES LA SAISIE DE LA VILLE, LE TAB ORDER DU CHAMP TELEPHONE DOIT ETRE
+// IMMEDIATEMENT APRES CELUI DE LA VILLE
+//
+// NE PAS METTRE LE PAYS JUSTE APRES LA VILLE SINON CA MERDE !!§
+//
+
+string v_ville,v_pref,dep,dep2,v_ville2
+double v_row
+string v_tel,v_fax
+
+integer cpt
+boolean good
+
+
+// On met tous les champs à jour lorsqu'on passe sur la ville
+
+// Depuis la version 8, on modifie la ville même si 
+// elle est déjà renseignée
+
+if dw.getcolumnname() = ch_ville then
+// On vient de saisir le code postal => on va mettre à jour la ville
+	v_row = dw.getrow()
+	v_ville = trim(dw.getitemstring(v_row,ch_ville))
+	v_tel = trim(dw.getitemstring(v_row,ch_tel))
+	v_fax = trim(dw.getitemstring(v_row,ch_fax))
+	
+		dep = dw.getitemstring(v_row,ch_cp) 
+
+		DECLARE cv CURSOR FOR 
+			SELECT ville,prefixe FROM code_postaux WHERE code = :dep 
+			ORDER by Ville ;
+			
+			OPEN cv ;
+			
+			FETCH cv INTO :v_ville2,:v_pref ;
+			
+			lb_ville.reset()
+			cpt = 0
+			
+			good = true
+			
+			DO WHILE sqlca.SQLCODE = 0 and good
+				cpt = cpt + 1
+				if upper(v_ville) = upper(v_ville2) then
+					// La ville saisie est OK par rapport au code postal
+					// => On arrête tout
+					good = false
+					cpt = 0
+				else
+					lb_ville.additem(v_ville2)
+					pref[cpt] = v_pref
+				end if
+				FETCH cv INTO :v_ville2,:v_pref ;
+			LOOP
+			CLOSE cv ;
+
+		if cpt > 0 then 
+			// On a trouvé qq chose
+			
+			if cpt > 1 then 
+				lb_ville.visible = true
+				lb_ville.SetPosition ( ToTop!)
+				dw_maj = dw
+				ch_maj = ch_ville
+			else
+				// On en a trouvé qu'un 
+				dw.setitem(v_row,ch_ville,v_ville2)
+
+				// Si le téléphone et le fax n'ont pas été saisi
+				if (v_tel = '' or isnull(v_tel)) and 	(v_fax = '' or isnull(v_fax)) then
+					dw.setitem(v_row,ch_tel,v_pref)
+					dw.setitem(v_row,ch_fax,v_pref)
+				end if
+			end if
+		end if
+end if
+
+
+if dw.getcolumnname() = ch_tel then
+// On vient de saisir la ville => on va mettre à jour le code postal
+	v_row = dw.getrow()
+	v_ville = trim(dw.getitemstring(v_row,ch_ville))
+	v_tel = trim(dw.getitemstring(v_row,ch_tel))
+	v_fax = trim(dw.getitemstring(v_row,ch_fax))
+	
+		dep = dw.getitemstring(v_row,ch_cp) 
+
+//ajout : toutes les villes qui commencent par v_ville
+	v_ville += '%'
+	
+			DECLARE cc CURSOR FOR 
+			SELECT code,prefixe,ville 
+			FROM code_postaux WHERE ville like :v_ville  
+			ORDER by code ;
+			
+			OPEN cc ;
+			
+			FETCH cc INTO :dep2,:v_pref,:v_ville2 ;
+			
+			lb_code.reset()
+			cpt = 0
+			
+			good = true
+			
+			DO WHILE sqlca.SQLCODE = 0 and good
+				IF cpt >= 100 THEN
+					good = false
+					MessageBox("ATTENTION","Pour avoir tous les codes postaux correspondants, Vous devez saisir plus de lettres pour la Ville")
+				ELSE					
+					cpt = cpt + 1
+					if dep = dep2 then
+						// Le code postal saisi est OK par rapport à la ville
+						// => On arrête tout
+						good = false
+						cpt = 0
+					else
+						lb_code.additem(dep2+" "+v_ville2)
+						pref[cpt] = v_pref					
+					end if
+					FETCH cc INTO :dep2,:v_pref,:v_ville2 ;
+				END IF					
+			LOOP
+			CLOSE cc ;
+
+		if cpt > 0 then 
+			// On a trouvé qq chose
+			
+			if cpt > 1 then 
+				lb_code.visible = true
+				lb_code.SetPosition ( ToTop!)
+				dw_maj = dw
+				ch_maj = ch_cp
+			else
+				// On en a trouvé qu'un 
+				dw.setitem(v_row,ch_cp,dep2)
+
+				// Si le téléphone et le fax n'ont pas été saisi
+				if (v_tel = '' or isnull(v_tel)) and 	(v_fax = '' or isnull(v_fax)) then
+					dw.setitem(v_row,ch_tel,v_pref)
+					dw.setitem(v_row,ch_fax,v_pref)
+				end if
+			end if
+		end if
+end if
+
+
+end subroutine
+

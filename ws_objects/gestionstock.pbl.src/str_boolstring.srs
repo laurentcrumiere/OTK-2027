@@ -1,0 +1,10 @@
+﻿$PBExportHeader$str_boolstring.srs
+global type str_boolstring from structure
+	string		code_produit
+	boolean		ajout
+	boolean		archive
+	string		code_praticien
+	string		code_fournisseur
+	boolean		fermer_cherche
+end type
+

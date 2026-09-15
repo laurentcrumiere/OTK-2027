@@ -1,0 +1,34 @@
+﻿$PBExportHeader$fin_mois_suivant.srf
+global type fin_mois_suivant from function_object
+end type
+
+forward prototypes
+global function date fin_mois_suivant (date date_reference)
+end prototypes
+
+global function date fin_mois_suivant (date date_reference);// Retourne le dernier jour du du mois suivant 
+date d
+integer mtd
+
+mtd = month(date_reference)
+
+d = date_reference
+
+// Recherche du premier jour du mois 
+DO WHILE month(d) = mtd
+	d = relativedate(d,1)
+LOOP
+
+mtd = month(d)
+
+// Recherche du dernier jour du mois 
+DO WHILE month(d) = mtd
+	d = relativedate(d,1)
+LOOP
+
+d = relativedate(d,-1)
+
+return d
+
+end function
+

@@ -1,0 +1,38 @@
+﻿$PBExportHeader$alerte_post_it.srf
+global type alerte_post_it from function_object
+end type
+
+forward prototypes
+global subroutine alerte_post_it (string v_code_praticien, date v_date_rdv)
+end prototypes
+
+global subroutine alerte_post_it (string v_code_praticien, date v_date_rdv);
+
+// Affichage ou non du Post It selon le patient et le jour 
+
+string v_tous , v_alerte, v_praticien 
+
+select top 1 isnull("tous", 'O') into :v_tous from agenda ;
+
+if v_tous = "O" then 
+	v_code_praticien = 'TOUS'
+end if
+
+select alerte_prise_de_rdv into :v_alerte from rdv_post_it where code_praticien = :v_code_praticien and "date" = :v_date_rdv  ;
+
+if v_alerte = "O" then
+	
+	post_it post_it
+
+	// Recherche dans la table des post-it
+	post_it.date = v_date_rdv
+	post_it.code_praticien = v_code_praticien
+	post_it.couleur = 65535
+	post_it.modif_autorisee = false
+	
+	// Post it renviendra avec les valeur ... notamment la couleur de fond !!
+	openwithparm(w_saisie_post_it,ref post_it)
+	
+end if
+end subroutine
+

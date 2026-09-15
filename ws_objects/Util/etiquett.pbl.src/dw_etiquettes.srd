@@ -1,0 +1,12 @@
+﻿$PBExportHeader$dw_etiquettes.srd
+release 5;
+datawindow(units=2 timer_interval=0 color=1073741824 processing=2 print.documentname="" print.orientation = 2 print.margin.left = 188 print.margin.right = 187 print.margin.top = 0 print.margin.bottom = 300 print.paper.source = 0 print.paper.size = 9 print.prompt=yes label.name="Laser Address 1.00 x 2.63 5160,5260" label.width=1500 label.height=525 label.rows=9 label.rows.spacing=0 label.columns=3 label.columns.spacing=150 label.topdown=no label.sheet=yes label.shape=roundrectangle label.ellipse_height=176 label.ellipse_width=176 )
+detail(height=520 color="536870912" )
+table(column=(type=char(30) update=yes updatewhereclause=yes name=nom dbname="patient.nom" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=code dbname="patient.code" )
+ column=(type=char(40) updatewhereclause=yes name=age dbname="etiquettes.zone1" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"etiquettes~" ) COLUMN(NAME=~"etiquettes.nom~") COLUMN(NAME=~"etiquettes.code~") COLUMN(NAME=~"etiquettes.zone1~")) " )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="52" y="343" height="135" width="1489" format="[general]"  name=age edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="31" y="31" height="135" width="1468" format="[general]"  name=nom edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="if( isnull(nom), ~"~", string(today()) )"border="0" color="0" x="72" y="208" height="114" width="739" format="[GENERAL]"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="843" y="197" height="135" width="687" format="0"  name=code edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

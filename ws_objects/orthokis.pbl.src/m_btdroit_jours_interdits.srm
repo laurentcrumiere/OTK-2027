@@ -1,0 +1,82 @@
+﻿$PBExportHeader$m_btdroit_jours_interdits.srm
+forward
+global type m_btdroit_jours_interdits from menu
+end type
+type m_informationsdemodifications from menu within m_btdroit_jours_interdits
+end type
+global type m_btdroit_jours_interdits from menu
+m_informationsdemodifications m_informationsdemodifications
+end type
+end forward
+
+global type m_btdroit_jours_interdits from menu
+m_informationsdemodifications m_informationsdemodifications
+end type
+global m_btdroit_jours_interdits m_btdroit_jours_interdits
+
+on m_btdroit_jours_interdits.create
+m_btdroit_jours_interdits=this
+call super::create
+this.text = "m_btdroit_jours_interdits"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_informationsdemodifications=create m_informationsdemodifications
+this.Item[UpperBound(this.Item)+1]=this.m_informationsdemodifications
+end on
+
+on m_btdroit_jours_interdits.destroy
+call super::destroy
+destroy(this.m_informationsdemodifications)
+end on
+
+type m_informationsdemodifications from menu within m_btdroit_jours_interdits
+end type
+
+on m_informationsdemodifications.create
+call super::create
+this.text = "Informations de modifications"
+this.menuimage = "lc_infos.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_informationsdemodifications.destroy
+call super::destroy
+end on
+
+event clicked;
+fxg_get_infos_modifs(w_jours_interdits.dw_liste, w_jours_interdits.dw_liste.getrow() )
+
+
+
+end event
+

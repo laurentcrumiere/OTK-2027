@@ -1,0 +1,39 @@
+﻿$PBExportHeader$findexactement.srf
+global type FindExactement from function_object
+end type
+
+forward prototypes
+global function integer findexactement (dropdownlistbox ddlb, string item_cherche)
+end prototypes
+
+global function integer findexactement (dropdownlistbox ddlb, string item_cherche);
+// La fonction renvoie le N° de l'index de la liste correspondant EXACTEMENT à itemcherche
+// la fonction find() cherche uniquement sur le début du nom !!!
+
+integer item_trouve = 0
+
+boolean trouve
+integer index_courant, maxi
+string text_courant
+
+index_courant  = 0
+maxi = ddlb.TotalItems ( )
+trouve = false
+
+
+do while not trouve and index_courant <= maxi
+	
+	ddlb.selectitem(index_courant)
+	if ddlb.text  = item_cherche then
+		trouve = true
+		item_trouve = index_courant
+	else
+		index_courant = index_courant + 1
+	end if
+loop
+
+
+return item_trouve
+
+end function
+

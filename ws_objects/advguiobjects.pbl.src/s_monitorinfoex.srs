@@ -1,0 +1,10 @@
+﻿$PBExportHeader$s_monitorinfoex.srs
+$PBExportComments$The WinAPI MONITORINFOEX structure.
+global type s_monitorinfoex from structure
+	unsignedlong		ul_structsize		descriptor "comment" = "The size of this structure, in bytes (always 40)"
+	rect		str_monitor		descriptor "comment" = "The display monitor rectangle, in virtual screen coordinates"
+	rect		str_workarea		descriptor "comment" = "The work area rectangle of the display monitor, in virtual screen coordinates"
+	unsignedlong		ul_flags		descriptor "comment" = "Bit flags. Bit 1 (xxxx xxx1) = 1 when this is the primary monitor"
+	character		c_device[32]		descriptor "comment" = "Monitor name. 31 chars max plus the terminating null char."
+end type
+

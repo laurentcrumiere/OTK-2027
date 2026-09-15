@@ -1,0 +1,9 @@
+﻿$PBExportHeader$str_acqui_gear_param.srs
+global type str_acqui_gear_param from structure
+	string		code_fournisseur
+	string		code_contact
+	boolean		ajout_contact
+	boolean		ajout_produit
+	string		code_produit
+end type
+

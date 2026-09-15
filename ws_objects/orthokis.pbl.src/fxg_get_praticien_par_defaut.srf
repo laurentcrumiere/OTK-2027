@@ -1,0 +1,35 @@
+﻿$PBExportHeader$fxg_get_praticien_par_defaut.srf
+global type fxg_get_praticien_par_defaut from function_object
+end type
+
+forward prototypes
+global function string fxg_get_praticien_par_defaut ()
+end prototypes
+
+global function string fxg_get_praticien_par_defaut ();// Renvoie le code du praticien par defaut, selon l'utilisateur ou pas
+
+string s_code_praticien
+integer i_ordre
+
+// Y a t il code spécial pour cette utilisateur ?
+select isnull(praticien_par_defaut, '') into :s_code_praticien 
+from utilisateurs where code = :utilisateur_code ;
+
+// Ce code est il toujour actif ?
+select isnull(code, '') into :s_code_praticien 
+from prati where code = :s_code_praticien and actif = 1 ;
+
+if s_code_praticien = '' then 
+	// on prend le code par défaut du cabinet
+	select isnull(code, '') into :s_code_praticien 
+	from prati where  prati_defaut = '1';
+	
+	if s_code_praticien = '' then 
+		SELECT min(ordre_trie) INTO :i_ordre FROM prati where actif = 1;
+		SELECT min(code)  INTO :s_code_praticien FROM prati where ordre_trie = :i_ordre and  actif = 1 ;
+	end if
+end if
+
+return s_code_praticien
+end function
+

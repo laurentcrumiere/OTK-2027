@@ -1,0 +1,50 @@
+﻿$PBExportHeader$f_pbwc_get_color_from_rgba.srf
+global type f_pbwc_get_color_from_rgba from function_object
+end type
+
+forward prototypes
+global function long f_pbwc_get_color_from_rgba (string as_rgba)
+end prototypes
+
+global function long f_pbwc_get_color_from_rgba (string as_rgba);// -----------------------------------------------------------------------------
+// SCRIPT:     f_get_color_from_gba
+//
+// PURPOSE:    returns rgb value from a rgba string
+//
+// ARGUMENTS: string : "rgba(r,g,b,a)"
+//
+// RETURN:		long : rgv value
+//
+// DATE        PROG/ID		DESCRIPTION OF CHANGE / REASON
+// ----------  --------		-----------------------------------------------------
+// 01/01/2018	FFasolin	Initial Coding
+// ------------------------------------------------------------------------------
+IF isnull(as_rgba) THEN return  rgb(255,255,255)
+IF len(as_rgba) = 0 THEN return  rgb(255,255,255)
+
+
+int li_start, li_pos_end, li_r, li_g, li_b
+string ls_value
+as_rgba = lower(as_rgba)
+
+li_start = pos(as_rgba,"(")
+IF li_start = 0 THEN return rgb(255,255,255)
+//gets r
+li_start++
+li_pos_end = pos(as_rgba,",",li_start)
+ls_value = trim(mid(as_rgba,li_start,li_pos_end - li_start ))
+li_r = integer(ls_value)
+
+//gets g
+li_start = li_pos_end +1
+li_pos_end = pos(as_rgba,",",li_start)
+ls_value = trim(mid(as_rgba,li_start,li_pos_end - li_start ))
+li_g = integer(ls_value)
+//gets b
+li_start = li_pos_end +1
+li_pos_end = pos(as_rgba,",",li_start)
+ls_value = trim(mid(as_rgba,li_start,li_pos_end - li_start ))
+li_b = integer(ls_value)
+return rgb(li_r, li_g,li_b)
+end function
+

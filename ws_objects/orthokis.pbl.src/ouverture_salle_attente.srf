@@ -1,0 +1,100 @@
+﻿$PBExportHeader$ouverture_salle_attente.srf
+global type ouverture_salle_attente from function_object
+end type
+
+forward prototypes
+global subroutine ouverture_salle_attente ()
+end prototypes
+
+global subroutine ouverture_salle_attente ();//if row > 0 then
+//
+//	var_code = 	dw.getitemnumber(row,"patient_code")
+//	var_nom = dw.getitemstring(row,"patient_nom_cherche")
+//	var_nomp = ""
+//	var_pay = ""
+//	var_moul = ""
+//
+
+	// met à jour des patients en mémoire 
+	MajTabPatientsCourants(var_code)
+
+	// On regarde le droit d'accès de l'utilisateur : soit aux commentaires cliniques soit à la feuille de synthèse soit un autre module
+	// C -> Commentaires cliniques
+	// A -> Fiche administrative
+	// I  -> Imagerie
+	// S -> Soins
+	// O -> Soins Prévus
+	// R -> Règlements
+	// V -> RDV
+	// P -> Pages cliniques
+	// F -> Fiche de Synthèse 
+	// D -> Commentaires Administratifs
+	
+	Choose Case droits_acces[50]
+		Case 'C'
+			// On vérifie les droits d'accès aux commentaires...
+			if droits_acces[14] <> 'N' then
+				// Ouvre la fenêtre des commentaires cliniques
+				m_orthokis_2020.ouvrir_mdi(9)
+			end if
+		Case 'A'
+			// On vérifie les droits d'accès à la fiche admini
+			if droits_acces[10] <> 'N' then
+				// Ouvre la fenêtre administrative
+				m_orthokis_2020.ouvrir_mdi(2)
+			end if
+		case 'S'
+			// On vérifie les droits d'accès aux Soins
+			if droits_acces[11] <> 'N' then
+				// Ouvre la fenêtre des soins
+				m_orthokis_2020.ouvrir_mdi(5)
+			end if
+		case 'O'
+			// On vérifie les droits d'accès aux Soins Prévus
+			if droits_acces[17] <> 'N' then
+				// Ouvre la fenêtre des soins
+				m_orthokis_2020.ouvrir_mdi(4)
+			end if
+		case 'R'
+			// On vérifie les droits d'accès aux règlements
+			if droits_acces[12] <> 'N' then
+				// Ouvre la fenêtre des règlements
+				m_orthokis_2020.ouvrir_mdi(6)
+			end if
+		case 'V'
+			// On vérifie les droits d'accès aux rdv
+			if droits_acces[16] <> 'N' then
+				// Ouvre la fenêtre des rendez-vous
+				m_orthokis_2020.ouvrir_mdi(8)
+			end if
+		case 'P'
+			// On vérifie les droits d'accès aux pages cliniques
+			if droits_acces[15] <> 'N' then
+				// Ouvre la fenêtre des rendez-vous
+				m_orthokis_2020.ouvrir_mdi(10)
+			end if
+		Case 'F'
+			// Désacrivée en 2023
+		Case 'I' 
+			// Imagerie
+			if ui_v2020 then
+				if m_orthokis_2020.m_patients.m_imagerie.enabled then
+					m_orthokis_2020.ouvrir_mdi(12)
+				end if
+			end if
+		Case 'D'
+			// On vérifie les droits d'accès aux commentaires administratifs
+			if droits_acces[18] <> 'N' then
+				// Ouvre la fenêtre des commentaires administratifs
+				m_orthokis_2020.ouvrir_mdi(3)
+			end if
+		Case Else
+			// Ouvre la feuille de détails
+			// openWithParm (w_patient_detail,var_code)
+			//maj_detail(var_code,	dw.getitemstring(row,"patient_nom_cherche"))
+			//dw_detail_patient.visible = true
+	end Choose
+
+
+end subroutine
+

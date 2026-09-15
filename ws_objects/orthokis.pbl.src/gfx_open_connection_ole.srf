@@ -1,0 +1,41 @@
+﻿$PBExportHeader$gfx_open_connection_ole.srf
+global type gfx_open_connection_ole from function_object
+end type
+
+forward prototypes
+global function integer gfx_open_connection_ole (ref oleobject ole_obj, string ole_class_name)
+end prototypes
+
+global function integer gfx_open_connection_ole (ref oleobject ole_obj, string ole_class_name);// fx générale qui permet la connection à un object ole
+// dont variable oleoject + la classe de l'object sont passé en param
+// return 1 si OK, -1 si pb
+
+int	lint_returnval = -1
+
+
+// allocation de mémoire sous power builder
+ole_obj = CREATE OLEObject
+
+if ole_obj.ConnectToObject("", ole_class_name) <> 0 then
+// si on arrive pas à se connecter à un object OLE de même type existant
+	// -> on en ouvre un
+	if ole_obj.connecttoNEWobject(ole_class_name) <> 0 then
+	// si on arrive pas a en ouvrir un -> pb sur l'installation de l'application ole sans doute
+		destroy ole_obj	// on désalloue la mémoire
+		
+	else
+	// on se connect à un nouveau object ole
+		// maj var de retour
+		lint_returnval = 1
+	end if
+	
+else
+// on arrive à se connecter à un object existant
+	// maj return val
+	lint_returnval = 1
+end if
+
+return lint_returnval
+
+end function
+

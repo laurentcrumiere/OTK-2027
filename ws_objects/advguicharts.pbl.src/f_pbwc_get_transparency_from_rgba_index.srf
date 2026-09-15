@@ -1,0 +1,36 @@
+﻿$PBExportHeader$f_pbwc_get_transparency_from_rgba_index.srf
+global type f_pbwc_get_transparency_from_rgba_index from function_object
+end type
+
+forward prototypes
+global function integer f_pbwc_get_transparency_from_rgba_index (string as_rgba, integer ai_index)
+end prototypes
+
+global function integer f_pbwc_get_transparency_from_rgba_index (string as_rgba, integer ai_index);// -----------------------------------------------------------------------------
+// SCRIPT:     f_get_color_from_gba_index
+//
+// PURPOSE:    returns rgb value from a rgba value list
+//
+// ARGUMENTS: string : "rgba(r,g,b,a);rgba(r,g,b,a);rgba(r,g,b,a)"
+//
+// RETURN:		long : rgv value
+//
+// DATE        PROG/ID		DESCRIPTION OF CHANGE / REASON
+// ----------  --------		-----------------------------------------------------
+// 01/01/2018	FFasolin	Initial Coding
+// ------------------------------------------------------------------------------
+//gets the rgba string specified at index
+IF isnull(as_rgba) THEN return  100
+IF len(as_rgba) = 0 THEN return 100
+int li_pos_start, li_pos_end,ii
+string ls_rgba
+as_rgba=";"+as_rgba+";"
+FOR ii = 1 TO ai_index
+	li_pos_start = pos(as_rgba,";",li_pos_start +1)
+	li_pos_end = pos(as_rgba,";",li_pos_start +1)
+	IF li_pos_end = 0 THEN return 100
+NEXT
+ls_rgba = mid(as_rgba,li_pos_start +1 ,li_pos_end - li_pos_start -1)
+return f_pbwc_get_transparency_from_rgba(ls_rgba)
+end function
+

@@ -1,0 +1,46 @@
+﻿$PBExportHeader$effacement_fichiers_temporaires_orthokis.srf
+global type effacement_fichiers_temporaires_orthokis from function_object
+end type
+
+forward prototypes
+global subroutine effacement_fichiers_temporaires_orthokis ()
+end prototypes
+
+global subroutine effacement_fichiers_temporaires_orthokis ();
+// Pour effacer les fichiers temporaires
+uo_listbox lb_files
+
+w_mdi_2020.OpenUserObject(lb_files)
+
+// Effacement des fichiers temporaires des courriers Word qui sont dans le dossier Orthokis
+// ou des scanners temporaires
+
+
+fxg_supprimer_liste_fichiers(dir_ini,  "*export.dat", lb_files)
+fxg_supprimer_liste_fichiers(dir_ini,  "tempgen_*.doc", lb_files)
+fxg_supprimer_liste_fichiers(dir_ini,  "tempgen_*.docx", lb_files)
+fxg_supprimer_liste_fichiers(dir_ini,  "scan_*.jpg", lb_files)
+fxg_supprimer_liste_fichiers(dir_ini,  "*_tmp.*", lb_files)
+fxg_supprimer_liste_fichiers(dir_ini,  "bcf*.pdf", lb_files)
+fxg_supprimer_liste_fichiers(dir_ini,  "*.tmp", lb_files)
+fxg_supprimer_liste_fichiers(dir_ini,  "*.json", lb_files)
+FileDelete(dir_ini + "echeancier.ini")
+FileDelete(dir_ini + "Document_Orthokis.pdf")
+FileDelete(dir_ini + "3shape.png")
+fxg_supprimer_liste_fichiers(dir_ini,  "facture_*.pdf", lb_files)
+fxg_supprimer_liste_fichiers(dir_ini,  "eml_*.mht", lb_files)
+fxg_supprimer_liste_fichiers(dir_ini,  "wb.hec", lb_files)
+fxg_supprimer_liste_fichiers(dir_ini,  "wb.xml", lb_files)
+fxg_supprimer_liste_fichiers(dir_ini,  "orthokis-maj-*.exe", lb_files)
+fxg_supprimer_liste_fichiers(dir_ini,  "scan_dm*.jpg", lb_files)
+
+// dossier temp .. on le supprime même si pas vide ...
+string rep_temp
+long cpt, tot
+rep_temp = dir_ini + "\temp\" 
+gfx_suppr_rep_bis (rep_temp)
+
+
+
+end subroutine
+

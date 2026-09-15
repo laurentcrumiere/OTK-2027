@@ -1,0 +1,25 @@
+﻿$PBExportHeader$proc_rdv.srf
+global type proc_rdv from function_object
+end type
+
+forward prototypes
+global function datetime proc_rdv (double nocode)
+end prototypes
+
+global function datetime proc_rdv (double nocode);// Renvoi la date et l'heure prochain rendez-vous à partir de maintenant + 1 heure (depuis 2020)
+//--------------------------------------------------------------
+
+datetime proc_rdv
+
+setnull(proc_rdv)
+
+  SELECT min("rdv"."rdv")
+    INTO :proc_rdv
+    FROM "rdv"  , "etat_rdv"
+   WHERE ( "rdv"."code" = :nocode ) AND  ( "rdv"."rdv" > dateadd (minute, 60, getdate()) ) and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda <> 'O' ;
+
+return(proc_rdv)
+
+
+end function
+

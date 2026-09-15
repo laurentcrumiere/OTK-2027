@@ -1,0 +1,24 @@
+﻿$PBExportHeader$fxg_ajout_journal_planification.srf
+global type fxg_ajout_journal_planification from function_object
+end type
+
+forward prototypes
+global subroutine fxg_ajout_journal_planification (string v_code_planification, string v_commentaire)
+end prototypes
+
+global subroutine fxg_ajout_journal_planification (string v_code_planification, string v_commentaire);// mémorisation dans le journal 
+
+// Nom du poste
+string v_poste
+v_poste = get_nom_ordinateur()
+
+insert into planification_journal (code_planification, debut, commentaire, code_user, nom_poste) 
+values (:v_code_planification, now(*), :v_commentaire, :utilisateur_code , :v_poste ) ;
+
+if sqlca.sqlcode = 0 then
+	commit ;
+else
+	rollback ;
+end if
+end subroutine
+

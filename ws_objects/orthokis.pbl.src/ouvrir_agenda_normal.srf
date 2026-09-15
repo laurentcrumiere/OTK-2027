@@ -1,0 +1,75 @@
+﻿$PBExportHeader$ouvrir_agenda_normal.srf
+global type ouvrir_agenda_normal from function_object
+end type
+
+forward prototypes
+global subroutine ouvrir_agenda_normal ()
+end prototypes
+
+global subroutine ouvrir_agenda_normal ();if fxg_ouverture_onglet_possible() then
+
+
+	
+	// pour passage de paramètre en ui_2020
+	str_param_string param_passe  
+	
+	
+	// fenêtre à part ?
+	if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_fenetre_a_part","N") = "O" then
+	
+		// lecture du dernier emplacement de la fenêtre
+		long win_x, win_y 
+		win_x = profileint(dir_ini+inifile_orthokis,"agenda","agenda_a_part_x",0)
+		win_y = profileint(dir_ini+inifile_orthokis,"agenda","agenda_a_part_y",0)
+		
+		Trace ("======================== AVANT OUVERTURE AGENDA A PART ============================")
+		// Le param pour ouvrir par défaut
+		// On passe un paramètre pour compatibilité
+		param_passe.param = "APART"
+		openWithParm(w_agenda_a_part, param_passe)
+	
+		// Possitionnement de retaillage de la fenêtre
+		
+		w_agenda_a_part.move( PixelsToUnits( win_x, xPixelsToUnits!) , PixelsToUnits( win_y, YPixelsToUnits!))
+		w_agenda_a_part.width = profileint(dir_ini+inifile_orthokis,"agenda","agenda_a_part_width", 1943)
+		w_agenda_a_part.height = profileint(dir_ini+inifile_orthokis,"agenda","agenda_a_part_height", 1240)
+		
+	
+	else
+		// ouverture normale
+		
+		Trace ("======================== AVANT OUVERTURE AGENDA  ============================")
+
+		
+		w_agenda w_fenetre_a_ouvrir, fenetre_ouverte
+		integer  trouve
+	
+		string titre_cherche,titre
+		
+		titre_cherche = "Semaine N°"
+		
+		// ui_2020
+		trouve = is_fenetre_2020_ouverte(titre_cherche, w_fenetre_a_ouvrir) 
+		
+		if trouve = 0 then
+			// faut ouvrir une new fenetre
+	
+			// Le param pour ouvrir par défaut
+			param_passe.param = ""
+			trace("before  of_openDocument " + string(now() ))
+			w_mdi_2020.uo_powerdock.of_openDocument(w_agenda, param_passe, "Agenda", m_orthokis_2020.m_patients.m_agendagraphique.toolbarItemName)
+			// Depuis PB US 2020, faut réactualiser le titre après ouverture
+			fxg_maj_titre_fenetre(w_agenda, w_agenda.v_titre_fenetre_local)
+	
+			
+		else
+			w_mdi_2020.uo_powerdock.of_activatedocument (trouve)
+		end if
+	
+	
+	end if
+	
+end if
+
+end subroutine
+

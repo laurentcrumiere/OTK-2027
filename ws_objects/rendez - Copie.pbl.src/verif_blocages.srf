@@ -1,0 +1,83 @@
+﻿$PBExportHeader$verif_blocages.srf
+global type verif_blocages from function_object
+end type
+
+forward prototypes
+global function integer verif_blocages (integer code_verif, double patient_saisi, datetime rdv_saisi, integer duree_saisie, string prat_saisi, integer fauteuil_saisi, string typ_saisi)
+end prototypes
+
+global function integer verif_blocages (integer code_verif, double patient_saisi, datetime rdv_saisi, integer duree_saisie, string prat_saisi, integer fauteuil_saisi, string typ_saisi);
+// Vérification selon les blocage de fauteuil
+
+// Selon code_verif
+// 1 : vérifie si le fauteuil voulu est bloqué -> Renvoie 0 si OK, > 0 si blocages
+// 2 : vérifie si les blocages prévus par le rdv sont possibles ou pas -> renvoie 0 si OK, renvoie le premier fauteuil qui bloque sinon
+
+string v_agenda_tous
+integer nb_blocages
+string v_blocages
+integer v_fauteuil_pris, v_cpt_fauteuil
+boolean v_deja_rdv
+
+
+
+select top 1 tous into :v_agenda_tous from agenda ;
+
+choose case code_verif
+	case 1
+		if v_agenda_tous = "O" then
+			// Agenda commun à tous 
+			// On ne regarde que les rdv du praticien
+			select isnull(count(*),0) into :nb_blocages from rdv, etat_rdv, rdv_blocages
+			where (rdv between :rdv_saisi and dateadd(mi,:duree_saisie - 1,:rdv_saisi)
+			or (:rdv_saisi between rdv and dateadd (minute,duree -1, rdv)) ) and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda = 'N' 
+			and rdv.code <> :patient_saisi 
+			and rdv_blocages.code_interne_rdv = rdv.code_interne and rdv_blocages.fauteuil = :fauteuil_saisi ;
+			
+			
+		else
+			// On ne regarde que les rdv du praticien
+			select isnull(count(*),0) into :nb_blocages from rdv, etat_rdv, rdv_blocages
+			where (rdv between :rdv_saisi and dateadd(mi,:duree_saisie - 1,:rdv_saisi)
+			or (:rdv_saisi between rdv and dateadd (minute,duree -1, rdv)) ) and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda = 'N' 
+			and rdv.code <> :patient_saisi and code_praticien=:prat_saisi 
+			and rdv_blocages.code_interne_rdv = rdv.code_interne and rdv_blocages.fauteuil = :fauteuil_saisi ;
+		end if
+
+		return nb_blocages
+		
+	case 2
+		
+		// Parcours de tous les blocages prévue
+		// En cas de modif, ce rdv peut avoir DEJA des blocages saisis, on n'en tient pas compte
+		
+		
+		// recherche des blocages prévus ...
+		select blocages into  :v_blocages 
+		from type_rdv 
+		where code = :typ_saisi ;
+	
+		if v_blocages <> fill("N",30)  then 
+			v_fauteuil_pris = 0
+			for v_cpt_fauteuil = 1 to 30 
+				if mid(v_blocages, v_cpt_fauteuil, 1) = "O" and v_fauteuil_pris = 0 then
+					// On souhaite bloquer le fauteuil n° v_cpt_fauteuil
+					//insert into rdv_blocages (code_interne_rdv, fauteuil) values ( :code_interne_saisi, :i) ;
+					 if verif_presence_rendez_vous(patient_saisi, rdv_saisi, duree_saisie, prat_saisi, v_cpt_fauteuil, true) > 0 then
+						v_fauteuil_pris = v_cpt_fauteuil
+						v_cpt_fauteuil = 31
+					end if
+				end if
+			next
+			// Après vérif des blocages
+			return v_fauteuil_pris
+		else
+			// pas de blocage prévu !!
+			return 0
+		end if
+		
+end choose
+
+
+end function
+

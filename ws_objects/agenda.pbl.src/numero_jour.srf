@@ -1,0 +1,22 @@
+﻿$PBExportHeader$numero_jour.srf
+global type numero_jour from function_object
+end type
+
+forward prototypes
+global function integer numero_jour (date date_donnee)
+end prototypes
+
+global function integer numero_jour (date date_donnee);// Renvoie le numéro du jour de la semaine "à la française"
+// A mettre en fonction globale car à utiliser dans d'autres fonctionnaliés
+
+//Declaration des variables globales
+//----------------------------
+integer   numero_jour
+
+numero_jour = DayNumber(date_donnee) - 1       // Sun = 0, Sat = 6
+IF numero_jour = 0 THEN numero_jour = 7   // Mon = 1, Sun = 7
+
+RETURN numero_jour
+
+end function
+

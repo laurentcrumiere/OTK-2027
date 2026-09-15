@@ -1,0 +1,43 @@
+﻿$PBExportHeader$fxg_em_setdata.srf
+global type fxg_em_setdata from function_object
+end type
+
+forward prototypes
+global function boolean fxg_em_setdata (ref editmask em_date, date d)
+end prototypes
+
+global function boolean fxg_em_setdata (ref editmask em_date, date d);// insere une date ds un EditMask en respectant la regle suivante
+// si date "d" est null ou = 1900-01-01 --> affiche 00/00/0000 ds le ctrl
+// renvoie true si ok
+
+boolean val_retour = false
+
+if isnull(em_date) then return val_retour
+if em_date.MaskDataType <> DateMask! then return val_retour
+
+string d_str
+d_str = string(d, em_date.mask)
+
+if not d > 1900-01-01 then
+	// soit d = null, soit d = 1900-01-01
+	long nbr_carac
+	nbr_carac = len(d_str)
+	if not nbr_carac > 0 then return val_retour
+	long num_carac
+	string carac
+	for num_carac = 1 to nbr_carac
+		// on remplace chaque chiffre par un zéro
+		carac = mid(d_str, num_carac, 1)
+		choose case AscA(carac)
+			case 49 to 57// plage des chiffres en carac ASCII (à l'exception du zéro)
+				d_str = replace(d_str, num_carac, 1, "0")
+		end choose
+	next 
+end if
+
+em_date.text = d_str
+
+val_retour = true
+return val_retour
+end function
+

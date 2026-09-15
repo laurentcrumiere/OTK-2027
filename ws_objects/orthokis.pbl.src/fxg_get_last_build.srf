@@ -1,0 +1,62 @@
+﻿$PBExportHeader$fxg_get_last_build.srf
+global type fxg_get_last_build from function_object
+end type
+
+forward prototypes
+global function string fxg_get_last_build (boolean avec_messge)
+end prototypes
+
+global function string fxg_get_last_build (boolean avec_messge);// Accées internet
+Inet iinet_base
+
+// Retour XML
+n_inetresult in_irdata
+
+string url_arakis , url_complete
+string nom_fichier_last_build = "last_build"
+string last_build
+integer numero_fichier_last_build
+
+// Version_base_autorisee peut avoir des décimales
+url_arakis = "https://www.arakis.fr/fr/telecha/Orthokis_" + string(integer(Version_base_autorisee))+ "/"
+
+if pos(version, "Evolution") > 0 then
+	url_arakis = url_arakis + "Evolution/"
+end if
+
+
+
+string nom_fichier_attendu 
+
+
+GetContextService("Internet", iinet_base)
+in_irdata = CREATE n_inetresult
+
+// Récupération de la dernière version dispo
+
+url_complete = url_arakis + nom_fichier_last_build
+
+iinet_base.GetURL(url_complete, in_irdata)
+
+in_irdata.of_WriteFile(dir_ini + nom_fichier_last_build, in_irdata.iblob_data)
+
+if FileExists(dir_ini + nom_fichier_last_build) then
+	
+	numero_fichier_last_build = FileOpen(dir_ini + nom_fichier_last_build, LineMode!)
+	fileRead( numero_fichier_last_build , last_build)
+	Fileclose(numero_fichier_last_build)
+	
+	
+	
+else
+	last_build = ""
+	if avec_messge then 
+		MessageBox("ATTENTION","Erreur dans la récupération des informations de mise à jour !")
+	end if
+end if
+
+
+return last_build
+
+end function
+

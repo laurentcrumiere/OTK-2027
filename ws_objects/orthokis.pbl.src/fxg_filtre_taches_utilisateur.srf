@@ -1,0 +1,47 @@
+﻿$PBExportHeader$fxg_filtre_taches_utilisateur.srf
+global type fxg_filtre_taches_utilisateur from function_object
+end type
+
+forward prototypes
+global function string fxg_filtre_taches_utilisateur (string v_utilisateur_code)
+end prototypes
+
+global function string fxg_filtre_taches_utilisateur (string v_utilisateur_code);// Renvoie une chaine pour filtre ou requete sur la table w_tache en fonction de l'utilisateur et des groupe auxquels il appartient
+
+string v_filtre
+double v_id_groupe
+
+v_filtre = ""
+
+// recherche des groupes de l'utlisateur
+declare cur_groupe cursor for select id_groupe from groupes_membres where code_utilisateur = :v_utilisateur_code ;
+
+open cur_groupe ;
+
+fetch cur_groupe into :v_id_groupe ;
+
+do while sqlca.sqlcode = 0
+	
+	if v_filtre <> "" then 
+		v_filtre = v_filtre + " or "
+	end if
+	
+	v_filtre = v_filtre + "groupe_destinataire = " + string(v_id_groupe)
+	
+	fetch cur_groupe into :v_id_groupe ;
+loop
+
+close cur_groupe ;
+
+if v_filtre <> "" then
+	// y a eu des groupes
+	v_filtre = "( type_destinataire = 'G' and ( " + v_filtre + " ) ) " 
+	v_filtre = " ( " +   v_filtre + " or ( type_destinataire = 'U' and utilisateur_destinataire = '" + v_utilisateur_code + "' )  )"
+else
+	// pas de groupe => que taches perso
+	v_filtre = " ( type_destinataire = 'U' and utilisateur_destinataire = '" + v_utilisateur_code + "' ) "
+end if
+
+return v_filtre
+end function
+

@@ -1,0 +1,57 @@
+﻿$PBExportHeader$fxg_mutualite_destination.srf
+global type fxg_mutualite_destination from function_object
+end type
+
+forward prototypes
+global function string fxg_mutualite_destination (string mutualite_affiliation)
+end prototypes
+
+global function string fxg_mutualite_destination (string mutualite_affiliation);
+// renvoie le numéro de la mutualité de destinantion d'une facture en fonction de la mutualité d'affiliation d'un patient
+
+string v_premier_chiffre_affilisation, v_mutualite_destination
+
+v_premier_chiffre_affilisation = left(mutualite_affiliation, 1)
+
+choose case v_premier_chiffre_affilisation
+	case '1'
+		choose case mutualite_affiliation
+			case '109', '128', '129', '130', '132', '134', '135', '137', '199'
+				v_mutualite_destination = "134"
+			case '101', '105', '108', '110', '111', '112', '113', '120', '121', '126', '131'
+				v_mutualite_destination = "120"
+			case else
+				v_mutualite_destination = mutualite_affiliation
+		end choose
+	case '2'
+		v_mutualite_destination = mutualite_affiliation
+	case '3'
+		choose case mutualite_affiliation
+			case '306'
+				v_mutualite_destination = "306"
+			case else
+				v_mutualite_destination = "300"
+//			case '305', '315', '317', '319', '323', '325'
+//				v_mutualite_destination = "319"
+//			case '304','306', '309', '311', '322'
+//				v_mutualite_destination = mutualite_affiliation
+//			case else
+//				v_mutualite_destination = mutualite_affiliation
+		end choose
+	case '4'
+		v_mutualite_destination = '400'
+	case '5'
+		v_mutualite_destination = mutualite_affiliation
+	case '6'
+		v_mutualite_destination = mutualite_affiliation
+	case '9'
+		v_mutualite_destination = mutualite_affiliation
+	case else
+		v_mutualite_destination = mutualite_affiliation
+end choose
+
+return v_mutualite_destination
+
+
+end function
+

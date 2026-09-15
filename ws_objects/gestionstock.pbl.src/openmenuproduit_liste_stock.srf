@@ -1,0 +1,70 @@
+﻿$PBExportHeader$openmenuproduit_liste_stock.srf
+global type openmenuproduit_liste_stock from function_object
+end type
+
+forward prototypes
+global function integer openmenuproduit_liste_stock (datawindow dw_clic)
+end prototypes
+
+global function integer openmenuproduit_liste_stock (datawindow dw_clic);// FONCTION IDENTIQUE A OpenMenuPatient sauf qu'on prend le code du patient dans une DataWindows ( liste)
+
+//fx globale qui crée un popup menu de type "m_patientcourant"
+//renvoie 1 si ok
+//renvoie -1 si un pb ds la gestion des droits
+
+//sert pour les windows suivantes
+//		w_liste_produit_stock
+//		w_liste_produit_stock_insuffisant
+//		w_liste_produit_valorisation
+
+
+
+m_btdroit_liste_produit m
+string code_produit, code_categorie_produit,code_praticien
+int compteur
+
+//création du menu en mémoire
+m = create m_btdroit_liste_produit
+
+//maj des droits
+//pas encore effectue
+
+//passe le code du patient qui nous interresse et lance le menu en popup
+code_produit = dw_clic.getitemstring(dw_clic.getrow(),"param_stock_fournisseur_code_produit")
+code_praticien = dw_clic.getitemstring(dw_clic.getrow(),"param_stock_fournisseur_code_praticien")
+
+m.struct_ref.code = code_produit
+  SELECT "type_produit"."code_categorie_produit"  
+    INTO :code_categorie_produit  
+    FROM "produit",   
+         "type_produit"  
+   WHERE ( "type_produit"."code" = "produit"."code_type_produit" ) and  
+         ( ( "produit"."code_interne" = :code_produit ) )   ;
+
+m.struct_ref.message = code_categorie_produit
+m.struct_maj.code_produit = code_produit
+m.struct_maj.code_praticien = code_praticien
+m.struct_maj.archive = false
+m.struct_maj.fermer_cherche = false
+
+select count(*)
+	into :compteur
+	from "param_stock_fournisseur"
+	where code_produit = :code_produit and code_praticien = :code_praticien;
+	
+if compteur = 0 then
+	m.struct_maj.ajout = true
+else
+	m.struct_maj.ajout = false
+end if
+
+m.PopMenu(w_mdi_2020.pointerx(), w_mdi_2020.pointery())
+
+
+//supression du menu de la mémoire
+destroy m
+
+//si ok
+return 1
+end function
+

@@ -1,0 +1,83 @@
+﻿$PBExportHeader$fxg_ouvrir_tea.srf
+global type fxg_ouvrir_tea from function_object
+end type
+
+forward prototypes
+global subroutine fxg_ouvrir_tea (string partie_a_ouvrir, double v_code_patient)
+end prototypes
+
+global subroutine fxg_ouvrir_tea (string partie_a_ouvrir, double v_code_patient);/*
+
+
+
+*/
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+// Param en entrée : partie_a_ouvrir avec pour valeur
+// C = section cabinet
+
+
+// au cas où
+partie_a_ouvrir = upper(partie_a_ouvrir)
+
+
+string url_wb, url_hec
+
+string v_commande_partie_a_ouvrir
+
+
+
+// pourles tests : 
+//SERIAL = "87001"
+
+
+// Construction de l'URL complète
+if (serial = "87001" or serial = "88005" or SERIAL = "88036") and profilestring(dir_ini+inifile_orthokis,"ARAKIS","environnement_tea","P") = "D" then
+	url_wb = "https://api-dev.xn--ta-bja.eu/console/"
+else
+	url_wb = "https://api.téa.eu/console/"
+end if
+
+// partie à ouvrir
+choose case partie_a_ouvrir
+	case "C"
+		// Cabinet
+		v_commande_partie_a_ouvrir = "office/edit"
+	case "S"
+		// Depuis la GED -> documents à signer
+		v_commande_partie_a_ouvrir = "documents-to-sign"
+	case "P"
+		// Depuis la fiche administative  -> Patients 
+		v_commande_partie_a_ouvrir = "patients"
+	case "R"
+		// Depuis les soins / règlement 
+		v_commande_partie_a_ouvrir = "payments"
+	case "T"
+		// Tableau de bord
+		v_commande_partie_a_ouvrir = "dashboard"
+	case "SA"
+		// Depuis la salle d'attente
+		v_commande_partie_a_ouvrir = "patients"
+	case "PR"
+		// Depuis rendez-vous
+		v_commande_partie_a_ouvrir = "patients"
+	case "M"
+		// Depuis commentaires cliniqiue : messagerie
+		v_commande_partie_a_ouvrir = "messages-view"
+
+	case else
+		v_commande_partie_a_ouvrir = "patients"
+end choose
+		
+
+// Url complète 
+url_wb = url_wb + v_commande_partie_a_ouvrir 
+
+trace("Ouverture de la console Téa : " + url_wb)
+openUrl ( url_wb)
+
+return
+end subroutine
+

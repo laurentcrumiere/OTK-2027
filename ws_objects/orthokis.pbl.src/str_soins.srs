@@ -1,0 +1,8 @@
+﻿$PBExportHeader$str_soins.srs
+global type str_soins from structure
+	double		nombre_lettre
+	string		lettre
+	date		date
+	string		appareil_radio
+end type
+

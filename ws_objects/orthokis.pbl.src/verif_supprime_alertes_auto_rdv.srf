@@ -1,0 +1,236 @@
+﻿$PBExportHeader$verif_supprime_alertes_auto_rdv.srf
+global type verif_supprime_alertes_auto_rdv from function_object
+end type
+
+forward prototypes
+global subroutine verif_supprime_alertes_auto_rdv (double v_code, string v_type, string v_etat, datetime v_date_heure_rdv)
+end prototypes
+
+global subroutine verif_supprime_alertes_auto_rdv (double v_code, string v_type, string v_etat, datetime v_date_heure_rdv);
+
+// Fonction qui supprime les alertes du patient selon le type de rdv .. si automatisme ou pas
+// depuis 2018, elle ajoute aussi une alerte si automatisme 
+
+// depuis 2021 elle envoi aussi un email si automatisme ou pas
+
+// depuis 2023 elle gère aussi les envois à Notez Nous
+
+// depuis 2024 elle envoie aussi un SMS si besoins pour arrivée départ d'un patient
+
+
+// v_code : code du patient
+// v_type : type du rdv
+// v_etat : etat du rdv 
+
+
+string v_supprime, v_etat_supprime, v_nom_rdv
+string v_ajoute, v_etat_ajoute
+double v_alerte
+integer v_nb_jour, v_cpt
+string v_commentaire
+
+
+
+
+
+// Recherche si on a un automatisme ou pas sur la suppresion d'une alerte 
+select isnull(supprime_auto_alerte, 'N'), etat_supprime_alerte, alerte , nom 
+into :v_supprime, :v_etat_supprime, :v_alerte, :v_nom_rdv
+from type_rdv where code = :v_type ;
+ 
+if v_supprime = 'O' then
+	//  suppression automatique 
+	
+	// Verif de l'état déclenchant la modif
+	if v_etat = v_etat_supprime and not isnull(v_etat_supprime) then
+		
+		// C'est l'état déclenchant
+		
+		// Mise à jour de suite de l'historique ...
+		INSERT INTO "historique_alertes"  
+					( "code_patient",              "code_alerte",       "date",        "date_action",            "type_action",		  "user",			  "automatique")  
+		  Select   "code_patient",   "code_alerte",              "date",    getdate(),           'M',				 :utilisateur_code			,'O' 
+			  where code_patient = :v_code and code_alerte = :v_alerte and "date" <= cast(getdate() as date) and realisee <> 'O' ; 
+		
+		// Mise à jour du réalisé 
+		v_commentaire = 'Rendez-vous '+ v_nom_rdv   + ' du ' +string(date(v_date_heure_rdv), "dd/mm/yyyy")
+		
+		// Mise à jour des alertes du patient ...
+		update patient_alertes 
+		set realisee = 'O' , commentaire = commentaire + char(10)+char(13) + :v_commentaire
+		where code_patient = :v_code and code_alerte = :v_alerte and "date" <= cast(getdate() as date) and realisee <> 'O' ; 
+		
+		if sqlca.sqlcode <> 0 then
+			Messagebox("Erreur dans la suppression des alertes",sqlca.sqlerrtext)
+			rollback ;
+		else
+			commit ;
+		end if
+		
+		
+	
+	end if
+		
+end if
+
+// pour l'ajout d'une alerte ??
+// Recherche si on a un automatisme ou pas sur l'ajout d'une alerte 
+select isnull(ajoute_auto_alerte, 'N'), etat_ajoute_auto_alerte, alerte_ajoute , isnull(nb_jour_alerte_ajoute , 0), nom
+into :v_ajoute, :v_etat_ajoute, :v_alerte, :v_nb_jour, :v_nom_rdv
+from type_rdv where code = :v_type ;
+
+
+if v_ajoute = 'O' and v_etat_ajoute = v_etat then
+	// Faut ajouter une alerte
+	date v_date_alerte
+	v_date_alerte = relativedate(date(v_date_heure_rdv), v_nb_jour)
+	v_commentaire = 'Rendez-vous '+ v_nom_rdv   + ' du '+string(date(v_date_heure_rdv), "dd/mm/yyyy")
+	
+	// On vérifie qu'elle n'y est pas déjà ...
+	select count(*) into :v_cpt from patient_alertes where code_patient = :v_code and code_alerte = :v_alerte and "date" = :v_date_alerte ;
+	
+	if v_cpt = 0 then
+	
+		insert into patient_alertes ("code_patient", "code_alerte", "date", "commentaire", "realisee")
+		values (:v_code, :v_alerte, :v_date_alerte, :v_commentaire  , 'N') ;
+		
+		if sqlca.sqlcode <> 0 then
+			Messagebox("Erreur dans l'ajoute d'une alerte",sqlca.sqlerrtext)
+			rollback ;
+		else
+			commit ;
+			ajout_histo_alertes(v_code, v_alerte, v_date_alerte, 'A', 'O' )
+
+		end if
+	end if
+
+	
+end if
+
+
+datawindow dw_nulle
+
+// pour l'envoi d'un email
+// Recherche si on a un automatisme ou pas 
+fxg_envoi_email_post_rdv(v_code, v_type, v_etat)
+
+//// pour l'envoi d'un email
+//// Recherche si on a un automatisme ou pas 
+//string v_envoi_auto_email , v_etat_envoi_auto_email
+//double v_email_envoi_auto_email
+//datawindow dw_nulle
+//
+//select isnull(envoi_auto_email, 'N') , etat_envoi_auto_email , email_envoi_auto_email
+//into :v_envoi_auto_email , :v_etat_envoi_auto_email, :v_email_envoi_auto_email
+//from type_rdv where code = :v_type ;
+//
+//if v_envoi_auto_email = "O" and v_etat_envoi_auto_email = v_etat  then
+//
+//	// sera exploité par la fonction fxg_envoi_email_libre
+//	select isnull(email_patient, ''), isnull(email,'') 
+//	into :param_win[8], :param_win[9]
+//	from patient 
+//	where code = :v_code ;
+//	
+//	// On envoie le mail au patient et au parent 1 
+//	param_win[10] = string(v_email_envoi_auto_email)
+//	param_win[1] = ""
+//
+//	fxg_envoi_email_libre(v_code, dw_nulle , 6)
+//
+//end if
+
+
+// Pour noteznous ... même principe que mécanisme ci dessus avec en plus le code du formlaire Noteznous dans param_win[1]
+
+// On doit tester ici si le lien est toujours actif pour le praticien ou pas
+
+if NOTEZNOUS then
+	
+	// Quel est le praticien du rdv ?
+	// On ne tient pas compte de l'état sinon ça pose problème en mise à jour depuis commentaires
+	string v_code_praticien
+	select min( code_praticien )
+	into :v_code_praticien 
+	from rdv 
+	where rdv.code = :v_code and rdv.rdv = :v_date_heure_rdv and rdv."type" = :v_type  ;
+//	where rdv.code = :v_code and rdv.rdv = :v_date_heure_rdv and rdv."type" = :v_type and absent = :v_etat ;
+
+	if fxg_demande_droits_modules(v_code_praticien , LIBELLE_MODULE_NOTEZNOUS) = 1 then
+
+		// y a t il un formulaire ?
+		string v_notez_nous_id_formulaire, v_notez_nous_etat
+		double v_notez_nous_texte_email
+		string v_notez_nous_actif
+		
+		select isnull(notez_nous_id_formulaire , '') , notez_nous_texte_email, notez_nous_etat, isnull(notez_nous_actif , 'N')
+		into :v_notez_nous_id_formulaire , :v_notez_nous_texte_email, :v_notez_nous_etat, :v_notez_nous_actif
+		from type_rdv where code = :v_type ;
+
+		
+		// Si formulaire et état .. on envoie et actif 
+		if v_notez_nous_id_formulaire <> "" and v_notez_nous_etat = v_etat and v_notez_nous_actif = "O" then 
+			
+			// Verification que le code client est bien renseigné
+			// Récupération du compte client Notez Nous du praticien ou du cabinet
+			string s_company = ''
+			
+			select isnull(notez_nous_id_praticien, '') into :s_company 
+			from prati, patient where patient.code_praticien = prati.code and patient.code = :v_code ;
+			
+			if s_company = '' then 
+				select top 1 isnull(notez_nous_id_cabinet, '') into :s_company 
+				from param  ;
+			end if
+			
+			if s_company = '' then
+				Messagebox("ATTENTION !","Vous devez saisir votre code client Notez-Nous dans les paramètres généraux !~n~nEnvoi du Formulaire Notez-Nous impossible !")
+			else
+				
+				// On vérifie si dans la logique de Notez Nous on a un formulaire à envoyer
+				string v_lien
+				v_lien = fxg_get_url_noteznous(v_code, v_notez_nous_id_formulaire)
+				
+				if v_lien <> "" then
+				
+					// sera exploité par la fonction fxg_envoi_email_libre
+					select isnull(email_patient, ''), isnull(email,'') 
+					into :param_win[8], :param_win[9]
+					from patient 
+					where code = :v_code ;
+					
+					// On envoie le mail au patient et au parent 1 
+					url_formulaire_notez_nous = v_lien								// URL du lien déjà calculé ... on le refera pas dans l'envoi du mail son on perd les automatismes
+					param_win[10] = string(v_notez_nous_texte_email)			// Code du texte email
+					param_win[1] = v_notez_nous_id_formulaire					// Code du formulaire chez Notez Nous
+					fxg_envoi_email_libre(v_code, dw_nulle , 6)
+					
+					// RAZ de la variable globae pour usage exclusif dans cette fonction
+					url_formulaire_notez_nous = ""
+				end if
+			end if
+		end if
+	end if
+end if
+
+
+if OPERATEUR_SMS = 2 then
+	// Gestion des alertes par SMS sur les arrivées / départs de patient ... si Dental SMS
+	st_rdv2 st_rdv
+	
+	st_rdv.code_patient = v_code
+	st_rdv.etat = v_etat
+	st_rdv.rdv = v_date_heure_rdv
+	st_rdv.afficher_message_confirmation = true
+	
+	openwithparm( w_sms_alertes_depart_arrivee , st_rdv)
+
+end if
+
+return 
+
+
+
+
+end subroutine
+

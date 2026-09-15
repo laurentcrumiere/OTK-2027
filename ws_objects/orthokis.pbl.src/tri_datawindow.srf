@@ -1,0 +1,44 @@
+﻿$PBExportHeader$tri_datawindow.srf
+global type tri_datawindow from function_object
+end type
+
+forward prototypes
+global subroutine tri_datawindow (dwobject dwo, datawindow dw, string ordre_sup)
+end prototypes
+
+global subroutine tri_datawindow (dwobject dwo, datawindow dw, string ordre_sup);// Principe : 
+// En double-cliquant sur le nom d'une colonne, la Dw est trié dessus
+
+// Nom de la zone cliquée est sous la forme   xxxxxxx_t où xxxxxxx est le nom de la colonne
+// => exemple  "nom_t"  correspond à la colonne "nom" 
+// => left - 2
+
+// Paramètres :
+// ----------------
+//    dw = datawindow à trier
+//    ordre_sup = critère de tri supplémentaire 
+	
+	string col_name, lib,mo
+	
+	// Si on double-clique sur une zone texte ...
+	// C'est que c'est un libellé de colonne .....
+	IF dwo.Type = "text" THEN
+		col_name = dwo.Name
+		col_name = Left(col_name, Len(col_name) - 2)
+		dw.SetSort(col_name+" A" + ordre_sup)
+		dw.Sort()
+
+		// On isole le libellé de la colonne
+		lib = dw.describe(dwo.Name + ".text") + " *"
+		// Chaine de modificaion
+		mo = dwo.Name + ".text = '"+lib+"'" 
+		// Modifycation
+		dw.modify(mo)
+	END IF
+
+
+
+
+
+end subroutine
+

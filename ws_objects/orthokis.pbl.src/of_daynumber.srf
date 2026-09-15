@@ -1,0 +1,43 @@
+﻿$PBExportHeader$of_daynumber.srf
+global type of_daynumber from function_object
+end type
+
+forward prototypes
+global function integer of_daynumber (date ad_date)
+end prototypes
+
+global function integer of_daynumber (date ad_date);//***************************************
+// Method: of_daynumber
+// Author: B. Gasin
+// Date  : 11/10/99
+//
+// Arg  :
+// Return: integer
+//
+// Desc  : Function returns number of the day in the week ... for FRANCE (not US)
+//	    ISO    US	
+//    Mon = 1	    2
+//    Tue = 2	    3
+//    Wed = 3	    4
+//    Thu = 4	    5
+//    Fri = 5	    6
+//    Sat = 6	    7
+//    Sun = 7	    1
+//
+//***************************************
+// Modifications:
+// Date     Author              Comments
+//---------------------------------------
+//
+//*************************************** 
+integer li_rc
+li_rc = DayNumber( ad_date )
+ 
+// Convert to ISO
+li_rc = li_rc - 1
+IF li_rc = 0 THEN li_rc = 7
+
+ 
+RETURN li_rc
+end function
+

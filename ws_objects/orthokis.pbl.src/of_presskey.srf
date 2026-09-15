@@ -1,0 +1,14 @@
+﻿$PBExportHeader$of_presskey.srf
+global type of_presskey from function_object
+end type
+
+forward prototypes
+global function integer of_presskey (integer ai_key)
+end prototypes
+
+global function integer of_presskey (integer ai_key);//Calls an API function to simulate a key press
+keybd_event(ai_key,0,0,0)   
+return 1
+
+end function
+

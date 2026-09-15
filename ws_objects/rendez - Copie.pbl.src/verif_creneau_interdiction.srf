@@ -1,0 +1,110 @@
+﻿$PBExportHeader$verif_creneau_interdiction.srf
+global type verif_creneau_interdiction from function_object
+end type
+
+forward prototypes
+global function boolean verif_creneau_interdiction (string type_rdv, datetime rdv, integer duree)
+end prototypes
+
+global function boolean verif_creneau_interdiction (string type_rdv, datetime rdv, integer duree);// Vérificiation si le type de RDV est autorisé à l'heure en question
+
+boolean retour = true
+
+integer v_num_jour
+time  v_heure_debut, v_heure_fin
+time v_limite_debut, v_limite_fin
+integer cpt = 0
+
+v_num_jour = daynumber(date(rdv))
+v_heure_debut = time(rdv)
+v_heure_fin = RelativeTime ( v_heure_debut, duree * 60 - 1 )
+
+
+choose case v_num_jour
+	Case 2
+		// 1er créneau
+		select count(*), min(interdit_1_lundi_de), min(interdit_1_lundi_a)  into :cpt, :v_limite_debut, :v_limite_fin from type_rdv 
+		where :type_rdv = code and (:v_heure_debut between interdit_1_lundi_de and interdit_1_lundi_a or  :v_heure_fin between interdit_1_lundi_de and interdit_1_lundi_a ) ;
+		if cpt = 0 then 
+			// 2ème créneau
+			select count(*), min(interdit_2_lundi_de), min(interdit_2_lundi_a)  into :cpt, :v_limite_debut, :v_limite_fin from type_rdv 
+			where :type_rdv = code and (:v_heure_debut between interdit_2_lundi_de and interdit_2_lundi_a or  :v_heure_fin between interdit_2_lundi_de and interdit_2_lundi_a ) ;
+		end if
+	Case 3
+		// 1er créneau
+		select count(*), min(interdit_1_mardi_de), min(interdit_1_mardi_a)  into :cpt, :v_limite_debut, :v_limite_fin from type_rdv 
+		where :type_rdv = code and (:v_heure_debut between interdit_1_mardi_de and interdit_1_mardi_a or  :v_heure_fin between interdit_1_mardi_de and interdit_1_mardi_a ) ;
+		if cpt = 0 then 
+			// 2ème créneau
+			select count(*), min(interdit_2_mardi_de), min(interdit_2_mardi_a)  into :cpt, :v_limite_debut, :v_limite_fin from type_rdv 
+			where :type_rdv = code and (:v_heure_debut between interdit_2_mardi_de and interdit_2_mardi_a or  :v_heure_fin between interdit_2_mardi_de and interdit_2_mardi_a ) ;
+		end if
+	Case 4
+		// 1er créneau
+		select count(*), min(interdit_1_mercredi_de), min(interdit_1_mercredi_a)  into :cpt, :v_limite_debut, :v_limite_fin from type_rdv 
+		where :type_rdv = code and (:v_heure_debut between interdit_1_mercredi_de and interdit_1_mercredi_a or  :v_heure_fin between interdit_1_mercredi_de and interdit_1_mercredi_a ) ;
+		if cpt = 0 then 
+			// 2ème créneau
+			select count(*), min(interdit_2_mercredi_de), min(interdit_2_mercredi_a)  into :cpt, :v_limite_debut, :v_limite_fin from type_rdv 
+			where :type_rdv = code and (:v_heure_debut between interdit_2_mercredi_de and interdit_2_mercredi_a or  :v_heure_fin between interdit_2_mercredi_de and interdit_2_mercredi_a ) ;
+		end if
+	Case 5
+		// 1er créneau
+		select count(*), min(interdit_1_jeudi_de), min(interdit_1_jeudi_a)  into :cpt, :v_limite_debut, :v_limite_fin from type_rdv 
+		where :type_rdv = code and (:v_heure_debut between interdit_1_jeudi_de and interdit_1_jeudi_a or  :v_heure_fin between interdit_1_jeudi_de and interdit_1_jeudi_a ) ;
+		if cpt = 0 then 
+			// 2ème créneau
+			select count(*), min(interdit_2_jeudi_de), min(interdit_2_jeudi_a)  into :cpt, :v_limite_debut, :v_limite_fin from type_rdv 
+			where :type_rdv = code and (:v_heure_debut between interdit_2_jeudi_de and interdit_2_jeudi_a or  :v_heure_fin between interdit_2_jeudi_de and interdit_2_jeudi_a ) ;
+		end if
+	Case 6
+		// 1er créneau
+		select count(*), min(interdit_1_vendredi_de), min(interdit_1_vendredi_a)  into :cpt, :v_limite_debut, :v_limite_fin from type_rdv 
+		where :type_rdv = code and (:v_heure_debut between interdit_1_vendredi_de and interdit_1_vendredi_a or  :v_heure_fin between interdit_1_vendredi_de and interdit_1_vendredi_a ) ;
+		if cpt = 0 then 
+			// 2ème créneau
+			select count(*), min(interdit_2_vendredi_de), min(interdit_2_vendredi_a)  into :cpt, :v_limite_debut, :v_limite_fin from type_rdv 
+			where :type_rdv = code and (:v_heure_debut between interdit_2_vendredi_de and interdit_2_vendredi_a or  :v_heure_fin between interdit_2_vendredi_de and interdit_2_vendredi_a ) ;
+		end if
+	Case 7
+		// 1er créneau
+		select count(*), min(interdit_1_samedi_de), min(interdit_1_samedi_a)  into :cpt, :v_limite_debut, :v_limite_fin from type_rdv 
+		where :type_rdv = code and (:v_heure_debut between interdit_1_samedi_de and interdit_1_samedi_a or  :v_heure_fin between interdit_1_samedi_de and interdit_1_samedi_a ) ;
+		if cpt = 0 then 
+			// 2ème créneau
+			select count(*), min(interdit_2_samedi_de), min(interdit_2_samedi_a)  into :cpt, :v_limite_debut, :v_limite_fin from type_rdv 
+			where :type_rdv = code and (:v_heure_debut between interdit_2_samedi_de and interdit_2_samedi_a or  :v_heure_fin between interdit_2_samedi_de and interdit_2_samedi_a ) ;
+		end if
+
+
+end choose
+
+if cpt > 0 then
+	
+	// vérification si l'utilisateur est autorisé à passer outre les interiction
+	string v_autor_forcage_blocage_rdv
+	
+	  SELECT isnull("utilisateurs"."autor_forcage_blocage_rdv" , 'N')  
+		 INTO :v_autor_forcage_blocage_rdv
+		 FROM "utilisateurs"  
+		WHERE "utilisateurs"."code" = :utilisateur_code    ; 
+		
+		if v_autor_forcage_blocage_rdv = "N" then
+	
+			Messagebox("ATTENTION", "Vous ne pouvez pas mettre ce type de rendez-vous dans ce créneau :~n~nJour : " + jour[v_num_jour] + "~nCréneau : de " + string(v_limite_debut, "hh:mm")  +" à " +   string(v_limite_fin, "hh:mm"))
+			retour = false
+		else
+			if Messagebox("ATTENTION", "Ce créneau est habituellement interdit pour ce type rendez-vous :~n~nJour : " + jour[v_num_jour] + "~nCréneau : de " + string(v_limite_debut, "hh:mm")  +" à " +   string(v_limite_fin, "hh:mm") + "~n~nVoulez-vous tout de même saisir le rendez-vous ?", Question!, YesNo!, 2) = 1 then
+				retour = true
+			else
+				retour = false
+			end if
+		end if
+end if
+
+return retour
+
+
+
+end function
+

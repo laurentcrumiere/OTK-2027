@@ -1,0 +1,15 @@
+﻿$PBExportHeader$dw_recherche_prod_traca.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=82042848 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=272 color="536870912" )
+table(column=(type=char(6) updatewhereclause=yes name=type_produit_code_categorie_produit dbname="type_produit.code_categorie_produit" )
+ column=(type=char(6) updatewhereclause=yes name=produit_code_type_produit dbname="produit.code_type_produit" )
+ column=(type=char(6) updatewhereclause=yes name=reference_produit_code_fournisseur dbname="reference_produit.code_fournisseur" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"produit~" )  TABLE(NAME=~"reference_produit~" )  TABLE(NAME=~"type_produit~" ) COLUMN(NAME=~"type_produit.code_categorie_produit~") COLUMN(NAME=~"produit.code_type_produit~") COLUMN(NAME=~"reference_produit.code_fournisseur~")    JOIN (LEFT=~"reference_produit.code_produit~"    OP =~"=~"RIGHT=~"produit.code_interne~" )    JOIN (LEFT=~"type_produit.code~"    OP =~"=~"RIGHT=~"produit.code_type_produit~" )) " )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="5" color="0" x="9" y="4" height="64" width="800" format="[general]"  name=type_produit_code_categorie_produit dddw.name=dw_categorie_produit_blanc_ddlb dddw.displaycolumn=categorie_produit dddw.datacolumn=code dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="5" color="0" x="9" y="100" height="64" width="800" format="[general]"  name=produit_code_type_produit dddw.name=dw_type_produit_ddlb dddw.displaycolumn=type_produit dddw.datacolumn=code dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="0" x="5" y="196" height="64" width="800" format="[general]"  name=reference_produit_code_fournisseur dddw.name=dw_fournisseur_blanc_ddlb dddw.displaycolumn=nom dddw.datacolumn=code dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

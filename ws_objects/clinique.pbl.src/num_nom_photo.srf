@@ -1,0 +1,29 @@
+﻿$PBExportHeader$num_nom_photo.srf
+global type num_nom_photo from function_object
+end type
+
+forward prototypes
+global function string num_nom_photo (integer n)
+end prototypes
+
+global function string num_nom_photo (integer n);// on lui donne en param un nbr
+// et il rend une string sur 3 chiffres
+// exemple  : 1 --> 001
+// exemple2 : 12 --> 012 ...
+
+string nbr
+
+nbr = string(n)
+CHOOSE CASE len(nbr) //vérif sur combien de chiffre
+	CASE 1	//si n est sur 1 chiffre
+		nbr = "00" + nbr
+	CASE 2	//si n est sur 2 chiffre
+		nbr = "0" + nbr
+	Case 3  //si n est sur 3 chiffre
+		//on fait rien
+	CASE ELSE
+		messagebox("ATTENTION","Erreur lors de l'execution")	//si autre = message d'erreur
+END CHOOSE
+return nbr
+end function
+

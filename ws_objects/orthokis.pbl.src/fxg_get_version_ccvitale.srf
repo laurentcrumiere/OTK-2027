@@ -1,0 +1,67 @@
+﻿$PBExportHeader$fxg_get_version_ccvitale.srf
+global type fxg_get_version_ccvitale from function_object
+end type
+
+forward prototypes
+global function string fxg_get_version_ccvitale ()
+end prototypes
+
+global function string fxg_get_version_ccvitale ();string CCVITALE_exe,  dir_cc_vitale_data, version_cc_vitale, dir_cc_vitale
+
+
+version_cc_vitale = ""
+
+// En V4.10 CC Vitale met l'info en base de registre
+RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Couleur et Connection\CC-Vitale","Version",version_cc_vitale)
+
+if version_cc_vitale = "" then
+	
+	// Compatibilité pour anciennes versions 
+
+	//// Recherche dans base de registre 64 bits
+	//SetProfileString(inifile_orthokis, "Registre", "valeur", "")
+	//runwait ( dir_ini + 'getreg64.exe  "HKEY_LOCAL_MACHINE\SOFTWARE\Couleur et Connection\CC-Vitale#DossierFichiers#' +inifile_orthokis + '"'  , 1)
+	//dir_cc_vitale_data = ProfileString(inifile_orthokis, "Registre", "valeur", "")
+	//dir_cc_vitale_data = trim(dir_cc_vitale_data)
+	//
+	//
+	//if dir_cc_vitale_data = "" then
+		// Recherche en 32 bits
+		RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Couleur et Connection\CC-Vitale","DossierFichiers",dir_cc_vitale_data)
+		dir_cc_vitale_data = trim(dir_cc_vitale_data)
+	//end if
+	
+	if dir_cc_vitale_data = "" then
+		
+		// pas de clef de registre, recherche à l'ancienne 
+	
+	//	// Recherche dans base de registre 64 bits
+	//	SetProfileString(inifile_orthokis, "Registre", "valeur", "")
+	//	runwait ( dir_ini + 'getreg64.exe  "HKEY_LOCAL_MACHINE\SOFTWARE\Couleur et Connection\CC-Vitale#exe#' +inifile_orthokis + '"'  , 1)
+	//	CCVITALE_exe = ProfileString(inifile_orthokis, "Registre", "valeur", "")
+	//	// l'exe est dans un sous dossier \programme ... nous on veut le dossier au dessus
+	//	
+	//	if not FileExists(CCVITALE_exe) then
+			// Recherche en 32 bits
+			RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Couleur et Connection\CC-Vitale","exe",CCVITALE_exe)
+	//	end if	
+			
+		if FileExists(CCVITALE_exe) then
+			dir_cc_vitale = gfx_extraire_path_fichier(CCVITALE_exe)
+			dir_cc_vitale = left(dir_cc_vitale, len(dir_cc_vitale) - 10)
+			dir_cc_vitale_data = ProfileString(dir_cc_vitale + "programme.ini", "DONNEES", "racine", "C:\Couleur et Connection\CC-VITALE\")
+			
+			version_cc_vitale = ProfileString(dir_cc_vitale_data + "Fichiers\_InfoProgramme.ini", "PRINCIPAL", "Version", "")
+			
+		else
+			version_cc_vitale = ""
+		end if
+	else
+		version_cc_vitale = ProfileString(dir_cc_vitale_data + "_InfoProgramme.ini", "PRINCIPAL", "Version", "")
+	end if
+end if
+
+//return ""
+return version_cc_vitale
+end function
+

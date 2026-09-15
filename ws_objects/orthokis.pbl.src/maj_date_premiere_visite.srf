@@ -1,0 +1,18 @@
+﻿$PBExportHeader$maj_date_premiere_visite.srf
+global type maj_date_premiere_visite from function_object
+end type
+
+forward prototypes
+global subroutine maj_date_premiere_visite ()
+end prototypes
+
+global subroutine maj_date_premiere_visite ();
+
+// Met à jour la date de première visite de la fiche patient avec la vraie date de premiere visite (en fonction des rendez-vous)
+
+update patient set premiere_visite = (select  min(cast(rdv as date)) from rdv, etat_rdv  where patient.code = rdv.code 
+and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda <> 'O'  ) ;
+
+commit ;
+end subroutine
+

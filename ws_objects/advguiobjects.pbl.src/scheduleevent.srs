@@ -1,0 +1,23 @@
+﻿$PBExportHeader$scheduleevent.srs
+global type scheduleevent from structure
+	long		eventid		descriptor "comment" = "Unique ID for your event"
+	long		resourceid		descriptor "comment" = "A resource ID linked to the event. This can be an employee id, customer id, venue id, etc."
+	boolean		alldayevent		descriptor "comment" = "Indicates that the event is an all day event"
+	datetime		startdatetime		descriptor "comment" = "The Date(time) that the event starts. Required value"
+	datetime		enddatetime		descriptor "comment" = "The Date(time) that the event ends. Required value"
+	string		title		descriptor "comment" = "Title or subject displayed in the event"
+	string		description		descriptor "comment" = "Description of the event."
+	string		location		descriptor "comment" = "Location of the event."
+	unsignedlong		textcolor		descriptor "comment" = "Represents an RGB color value that's used when displaying the event."
+	unsignedlong		color		descriptor "comment" = "Represents an RGB color value that's used when displaying event text."
+	scheduleeventguest		guests[]		descriptor "comment" = "A collection of ScheduleEventGuest data."
+	integer		status		descriptor "comment" = "1 - Busy, 2 - Free, 3 - Tentative, 4 - Away"
+	boolean		isrecurring		descriptor "comment" = "Indicates that the event is declared as recurring. When TRUE, a recurring icon will display on the event."
+	boolean		isprivate		descriptor "comment" = "Indicates whether the event is a private event. When TRUE, a private icon will display on the event."
+	boolean		ismeeting		descriptor "comment" = "Indicates that the event is a meeting. When TRUE, a meeting icon will display on the event."
+	boolean		isreadonly		descriptor "comment" = "Indicates that the event is read only. When TRUE, the user can not modify the event."
+	integer		eventtype		descriptor "comment" = "1 - Appointment, 2 - Meeting, 3 - Task"
+	any		anydata		descriptor "comment" = "Stores any additional data you may need for the event."
+	string		stringdata		descriptor "comment" = "Stores any additional string data you may need for the event."
+end type
+

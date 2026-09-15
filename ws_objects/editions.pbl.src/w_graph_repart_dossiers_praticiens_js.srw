@@ -1,0 +1,99 @@
+﻿$PBExportHeader$w_graph_repart_dossiers_praticiens_js.srw
+$PBExportComments$Héritée de liste_patients
+forward
+global type w_graph_repart_dossiers_praticiens_js from w_graph_dossiers_praticiens_js
+end type
+end forward
+
+global type w_graph_repart_dossiers_praticiens_js from w_graph_dossiers_praticiens_js
+end type
+global w_graph_repart_dossiers_praticiens_js w_graph_repart_dossiers_praticiens_js
+
+on w_graph_repart_dossiers_praticiens_js.create
+int iCurrent
+call super::create
+end on
+
+on w_graph_repart_dossiers_praticiens_js.destroy
+call super::destroy
+end on
+
+type p_fond from w_graph_dossiers_praticiens_js`p_fond within w_graph_repart_dossiers_praticiens_js
+end type
+
+type cb_imprimer from w_graph_dossiers_praticiens_js`cb_imprimer within w_graph_repart_dossiers_praticiens_js
+end type
+
+type cb_autre from w_graph_dossiers_praticiens_js`cb_autre within w_graph_repart_dossiers_praticiens_js
+end type
+
+type cb_fermer from w_graph_dossiers_praticiens_js`cb_fermer within w_graph_repart_dossiers_praticiens_js
+end type
+
+type cb_ecran from w_graph_dossiers_praticiens_js`cb_ecran within w_graph_repart_dossiers_praticiens_js
+end type
+
+type cb_lien_word from w_graph_dossiers_praticiens_js`cb_lien_word within w_graph_repart_dossiers_praticiens_js
+end type
+
+type uo_size from w_graph_dossiers_praticiens_js`uo_size within w_graph_repart_dossiers_praticiens_js
+end type
+
+type rb_un from w_graph_dossiers_praticiens_js`rb_un within w_graph_repart_dossiers_praticiens_js
+end type
+
+type rb_tous from w_graph_dossiers_praticiens_js`rb_tous within w_graph_repart_dossiers_praticiens_js
+end type
+
+type em_nb from w_graph_dossiers_praticiens_js`em_nb within w_graph_repart_dossiers_praticiens_js
+end type
+
+type em_max from w_graph_dossiers_praticiens_js`em_max within w_graph_repart_dossiers_praticiens_js
+end type
+
+type em_min from w_graph_dossiers_praticiens_js`em_min within w_graph_repart_dossiers_praticiens_js
+end type
+
+type dw_1 from w_graph_dossiers_praticiens_js`dw_1 within w_graph_repart_dossiers_praticiens_js
+end type
+
+type gb_1 from w_graph_dossiers_praticiens_js`gb_1 within w_graph_repart_dossiers_praticiens_js
+end type
+
+type dw_prati from w_graph_dossiers_praticiens_js`dw_prati within w_graph_repart_dossiers_praticiens_js
+end type
+
+type cbx_filtre from w_graph_dossiers_praticiens_js`cbx_filtre within w_graph_repart_dossiers_praticiens_js
+end type
+
+type st_min from w_graph_dossiers_praticiens_js`st_min within w_graph_repart_dossiers_praticiens_js
+end type
+
+type st_max from w_graph_dossiers_praticiens_js`st_max within w_graph_repart_dossiers_praticiens_js
+end type
+
+type dw_liste from w_graph_dossiers_praticiens_js`dw_liste within w_graph_repart_dossiers_praticiens_js
+end type
+
+type em_date1 from w_graph_dossiers_praticiens_js`em_date1 within w_graph_repart_dossiers_praticiens_js
+end type
+
+type st_2 from w_graph_dossiers_praticiens_js`st_2 within w_graph_repart_dossiers_praticiens_js
+end type
+
+type dw_tableau from w_graph_dossiers_praticiens_js`dw_tableau within w_graph_repart_dossiers_praticiens_js
+end type
+
+type cb_tableau from w_graph_dossiers_praticiens_js`cb_tableau within w_graph_repart_dossiers_praticiens_js
+end type
+
+type cb_exporter from w_graph_dossiers_praticiens_js`cb_exporter within w_graph_repart_dossiers_praticiens_js
+end type
+
+type uo_chart from w_graph_dossiers_praticiens_js`uo_chart within w_graph_repart_dossiers_praticiens_js
+string graphobject = "gr_graph_repart_dossiers_praticiens_js"
+end type
+
+type st_type_graphique from w_graph_dossiers_praticiens_js`st_type_graphique within w_graph_repart_dossiers_praticiens_js
+end type
+

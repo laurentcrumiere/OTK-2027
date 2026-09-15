@@ -1,0 +1,39 @@
+﻿$PBExportHeader$verif_obligation_fauteuil.srf
+global type verif_obligation_fauteuil from function_object
+end type
+
+forward prototypes
+global function integer verif_obligation_fauteuil (integer v_fauteuil, string v_type_rdv)
+end prototypes
+
+global function integer verif_obligation_fauteuil (integer v_fauteuil, string v_type_rdv);
+// renvoie 1 si fauteuil conforme aux obligations de fauteuil du type de rdv / 0 sinon
+
+integer v_retour 
+integer  v_fauteuil_min, v_fauteuil_max
+
+if version_ce_logiciel < "36.90" then 
+	v_retour = 1
+else
+	select isnull(fauteuil_min, 0) , isnull(fauteuil_max, 0) 
+	into :v_fauteuil_min, :v_fauteuil_max 
+	from type_rdv 
+	where code = :v_type_rdv ;
+	
+	if v_fauteuil_max > 0 then 
+		// Contrainte fauteuil
+		if v_fauteuil_min <= v_fauteuil and v_fauteuil <= v_fauteuil_max then 
+			v_retour = 1
+		else
+			Messagebox("ATTENTION", "Ce type de rendez-vous doit obligatoirement est pris sur un fauteuil compris entre " + string(v_fauteuil_min) + " et " + string(v_fauteuil_max) + " or vous l'avez saisi sur le fauteuil N°" + string(v_fauteuil)+".")
+			v_retour = 0
+		end if
+	else
+		// pas de contrainte sur les fauteuils
+		v_retour = 1
+	end if
+end if
+
+return v_retour
+end function
+

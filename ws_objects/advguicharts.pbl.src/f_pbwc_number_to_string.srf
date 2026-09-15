@@ -1,0 +1,34 @@
+﻿$PBExportHeader$f_pbwc_number_to_string.srf
+global type f_pbwc_number_to_string from function_object
+end type
+
+forward prototypes
+global function string f_pbwc_number_to_string (double ad_value)
+end prototypes
+
+global function string f_pbwc_number_to_string (double ad_value);// -----------------------------------------------------------------------------
+// SCRIPT:     f_number_to_string
+//
+// PURPOSE:    returns a number as a string, putting a dot for decimal point
+//					no matter the computer's regional settings
+//
+// ARGUMENTS: 
+//
+// RETURN:		String - value as a string
+//
+// DATE        PROG/ID		DESCRIPTION OF CHANGE / REASON
+// ----------  --------		-----------------------------------------------------
+// 01/01/2018	FFasolin	Initial Coding
+// ------------------------------------------------------------------------------
+
+int li_pos_coma
+string ls_return
+ls_return = string(ad_value)
+//check decimal point
+IF dec("1.1") = 0 THEN 
+	li_pos_coma = pos(ls_return,",")
+	IF li_pos_coma > 0 THEN ls_return = replace(ls_return,li_pos_coma,1,".")
+END IF
+return ls_return
+end function
+

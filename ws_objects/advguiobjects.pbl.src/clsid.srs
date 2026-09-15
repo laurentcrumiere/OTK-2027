@@ -1,0 +1,8 @@
+﻿$PBExportHeader$clsid.srs
+global type clsid from structure
+	ulong		Data1
+	uint		Data2
+	uint		Data3
+	byte		Data4[8]
+end type
+

@@ -1,0 +1,9 @@
+﻿$PBExportHeader$rdv_outlook.srs
+global type rdv_outlook from structure
+	datetime		rdv
+	long		duree
+	string		corps
+	string		objet
+	string		location
+end type
+

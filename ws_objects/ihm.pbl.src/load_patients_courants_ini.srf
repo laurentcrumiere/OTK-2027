@@ -1,0 +1,53 @@
+﻿$PBExportHeader$load_patients_courants_ini.srf
+global type load_patients_courants_ini from function_object
+end type
+
+forward prototypes
+global function integer load_patients_courants_ini ()
+end prototypes
+
+global function integer load_patients_courants_ini ();// Chargement des 10 derniers patients courants
+// Pour la sortie du soft
+
+integer i
+double v_code_patient
+
+if MaxPatientsCourants < 1 or MaxPatientsCourants > 10 then
+	return -1
+end if
+
+SetProfileString(dir_ini+inifile_orthokis,"Patients_Courants","MaxPatientsCourants"  , string(MaxPatientsCourants))
+
+if not ui_v2020 then
+	// Faut les charger dans l'ordre inverse pour respecter les priorités
+	for i = MaxPatientsCourants to 1 step -1
+		v_code_patient = double(ProfileString(dir_ini+inifile_orthokis,"Patients_Courants","Tab_PatientsCourants_" + string(i) , "0"))
+		if v_code_patient <> 0 then
+			majtabpatientscourants(v_code_patient)
+		end if
+	next
+	
+else
+	// 2020 télécommande permanente !
+	if isvalid(uo_volet_patients) then 
+		uo_volet_patients.dw_liste.reset()
+		integer ordre
+		ordre = MaxPatientsCourants
+		for i = MaxPatientsCourants to 1 step - 1
+			v_code_patient = double(ProfileString(dir_ini+inifile_orthokis,"Patients_Courants","Tab_PatientsCourants_" + string(i) , "0"))
+			if v_code_patient <> 0 then
+				ordre = ordre + 1
+				uo_volet_patients.ajouter_patient(v_code_patient, ordre)
+				memo_patient_courant(v_code_patient)
+			end if
+		next
+	end if
+end if
+
+
+
+
+//si tout bien déroulé
+return 1
+end function
+

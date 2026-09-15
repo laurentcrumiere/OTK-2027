@@ -1,0 +1,64 @@
+﻿$PBExportHeader$gfx_creer_chemin_complet.srf
+global type gfx_creer_chemin_complet from function_object
+end type
+
+forward prototypes
+global function integer gfx_creer_chemin_complet (string v_chemin_complet)
+end prototypes
+
+global function integer gfx_creer_chemin_complet (string v_chemin_complet);
+// Permet de créer un chemin complet, en décomposant et en créeant chacun des dossiers les uns la suite des autres
+// renvoi 1 si ok, 0 sinon
+integer v_retour = 1
+
+boolean v_fin = false
+string dossier_courant, dossier_a_creer
+integer slash1, slash2
+
+v_chemin_complet = trim(v_chemin_complet)
+slash1 = 1
+slash2 = pos(v_chemin_complet, "\", slash1)
+dossier_courant = left (v_chemin_complet, slash2)
+
+// on est au niveau du disque
+If FileExists(dossier_courant) then
+	ChangeDirectory ( dossier_courant )
+else
+	v_retour = 0
+end if
+
+
+Security_Attributes sa
+boolean ex
+
+if v_retour = 1 then 
+	do while not v_fin 
+		// on décale
+		slash1 = slash2
+		slash2 = pos(v_chemin_complet, "\", slash1 + 1)
+		dossier_courant = left(v_chemin_complet, slash2 - 1)
+		If not FileExists(dossier_courant) then
+			dossier_a_creer = mid(v_chemin_complet, slash1 + 1, slash2 - slash1 - 1)
+			if CreateDirectory(dossier_a_creer ) = 1 then 
+				ex = FileExists(dossier_courant)
+				ChangeDirectory ( dossier_courant )
+			else
+				v_fin = true
+				v_retour = 0
+			end if
+		else
+			// Il existe
+			ChangeDirectory ( dossier_courant )
+		end if
+		
+		if slash2 >= len(v_chemin_complet) then
+			v_fin = true
+			v_retour = 1
+		end if
+	loop
+end if
+
+return v_retour
+
+end function
+

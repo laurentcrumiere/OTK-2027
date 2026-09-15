@@ -1,0 +1,26 @@
+﻿$PBExportHeader$fxg_get_pays.srf
+global type fxg_get_pays from function_object
+end type
+
+forward prototypes
+global function string fxg_get_pays ()
+end prototypes
+
+global function string fxg_get_pays ();// Renvoie le code du pays du logiciel en fonction des options 
+
+if BELGIQUE then 
+	return "B"
+else
+	if LUXEMBOURG then
+		return "L"
+	else
+		if SUISSE then 
+			return "S"
+		else
+			return "F"
+		end if
+	end if
+end if
+
+end function
+

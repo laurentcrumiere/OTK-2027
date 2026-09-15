@@ -1,0 +1,30 @@
+﻿$PBExportHeader$sup_espaces.srf
+$PBExportComments$Supprime les espaces dans une chaîne de caractères
+global type sup_espaces from function_object
+end type
+
+forward prototypes
+global function string sup_espaces (string chaine)
+end prototypes
+
+global function string sup_espaces (string chaine);// Retourne une chaine qui enclève les espaces
+// Utile pour les recherche
+
+// Exemple : 12 45 45 devient 124545
+
+
+integer l,i
+string retour
+
+l = len(trim(chaine))
+
+for i = 1 to l
+
+	if mid(chaine,i,1) <> " " then
+		retour = retour + mid(chaine,i,1)
+	end if
+next
+
+return retour
+end function
+

@@ -1,0 +1,85 @@
+﻿$PBExportHeader$fxg_formater_telephone_e164.srf
+global type fxg_formater_telephone_e164 from function_object
+end type
+
+forward prototypes
+global function string fxg_formater_telephone_e164 (string as_phone, string as_country_code_lettre)
+end prototypes
+
+global function string fxg_formater_telephone_e164 (string as_phone, string as_country_code_lettre);/******************************************************************************
+    Fonction : f_format_e164_universal
+    Arguments : as_phone (string) - Le numéro brut
+                as_country_code (string) - Le code pays (ex: "33", "32", "41")
+    Retour    : string - Le numéro au format +[CodePays][Numero]
+******************************************************************************/
+string ls_cleaned, ls_char, ls_result
+integer li_i
+string ls_country_code, ls_country_default
+
+as_phone = trim(as_phone)
+
+if isnull(as_phone) or as_phone= "" then
+	return ""
+else
+
+	choose case as_country_code_lettre
+		case "F", "FR"
+			// France
+			ls_country_code = "33"
+		case "B", "BE"
+			// Belgique
+			ls_country_code = "32"
+		case "L", "LU"
+			// Luxembourg
+			ls_country_code = "352"
+		case "D"
+			// Allemagne
+			ls_country_code = "49"
+		case "I"
+			// Italie
+			ls_country_code = "39"
+		case else
+			if belgique then 
+				ls_country_code = "32"
+			else
+				if luxembourg then 
+					ls_country_code = "352"
+				else
+					ls_country_code = "33"
+				end if
+			end if
+	end choose
+		
+	
+	
+	// 1. Nettoyage : On ne garde que les chiffres (et le + s'il existe déjà)
+	for li_i = 1 to Len(as_phone)
+	    ls_char = Mid(as_phone, li_i, 1)
+	    if IsNumber(ls_char) or ls_char = "+" then
+	        ls_cleaned += ls_char
+	    end if
+	next
+	
+	// 2. Si le numéro commence déjà par "+", il est déjà international
+	if Left(ls_cleaned, 1) = "+" then
+	    return ls_cleaned
+	end if
+	
+	// 3. Gestion du préfixe national (le "0" en Europe)
+	// Si le numéro commence par 0, on retire ce 0 avant d'ajouter le code pays
+	if Left(ls_cleaned, 1) = "0" then
+	    ls_result = "+" + ls_country_code + Mid(ls_cleaned, 2)
+	    
+	// 4. Si le numéro commence déjà par le code pays (ex: "336...") mais sans le +
+	elseif Left(ls_cleaned, Len(ls_country_code)) = ls_country_code then
+	    ls_result = "+" + ls_cleaned
+	
+	// 5. Cas par défaut : on ajoute le + et le code pays
+	else
+	    ls_result = "+" + ls_country_code + ls_cleaned
+	end if
+	
+	return ls_result
+end if
+end function
+

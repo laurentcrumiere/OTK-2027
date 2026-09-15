@@ -1,0 +1,54 @@
+﻿$PBExportHeader$calcul_age_titre.srf
+global type calcul_age_titre from function_object
+end type
+
+forward prototypes
+global function string calcul_age_titre (date naissance)
+end prototypes
+
+global function string calcul_age_titre (date naissance);// But de la fonction :
+// Calculer l'age d'une personne sous la form  12a 3m
+
+// Explications des variables : 
+//				 naissance_string : date de naissance sous forme de string (jj/mm/aaaa)
+//				 age : retourne l'age sous la forme 12a 3m
+
+
+string age
+long  an_naissance, mois_naissance
+
+IF naissance = date('00/00/0000') OR IsNull(naissance)  THEN
+	
+	age = "0a 0m"
+	
+ELSE	
+	
+	// Calcul de l'an
+	IF month(today()) * 100 +  day(today()) < month( naissance ) * 100 + day( naissance ) THEN
+		an_naissance = year(today()) - year( naissance ) - 1
+	ELSE
+		an_naissance = year(today()) - year( naissance )
+	END IF
+	
+	// Calcul du mois
+	IF month(today()) < month( naissance ) THEN
+		mois_naissance = month(today()) - month( naissance ) +12
+	ELSE
+		IF month(today()) = month( naissance ) THEN
+			if day(today()) < day( naissance ) then
+				mois_naissance = 11
+			else
+				mois_naissance = 0
+			end if
+		else
+			mois_naissance = month(today()) - month( naissance )
+		end if
+	END IF
+	
+	age = string(an_naissance) + "a " + string(mois_naissance) + "m"
+	
+END IF
+return age
+
+end function
+

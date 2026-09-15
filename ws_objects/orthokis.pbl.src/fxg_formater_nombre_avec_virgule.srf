@@ -1,0 +1,19 @@
+﻿$PBExportHeader$fxg_formater_nombre_avec_virgule.srf
+global type fxg_formater_nombre_avec_virgule from function_object
+end type
+
+forward prototypes
+global function string fxg_formater_nombre_avec_virgule (decimal v_nombre)
+end prototypes
+
+global function string fxg_formater_nombre_avec_virgule (decimal v_nombre);// renvoie une string avec la virgule comme décimale
+// utilisée notamment pour l'edition des eMémoire d'honoraire de PID
+
+//return left(string(v_nombre, '0.00'),pos(string(v_nombre, '0.00'),'.') - 1) + ',' + right(string(v_nombre, '0.00'),len(string(v_nombre, '0.00')) - pos(string(v_nombre, '0.00'),'.'))
+if v_nombre = 0 then
+	return "0,00"
+else
+	return left(string(v_nombre),pos(string(v_nombre),'.') - 1) + ',' + right(string(v_nombre),len(string(v_nombre)) - pos(string(v_nombre),'.'))
+end if
+end function
+

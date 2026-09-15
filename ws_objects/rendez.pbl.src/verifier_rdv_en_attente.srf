@@ -1,0 +1,50 @@
+﻿$PBExportHeader$verifier_rdv_en_attente.srf
+global type verifier_rdv_en_attente from function_object
+end type
+
+forward prototypes
+global function boolean verifier_rdv_en_attente (double v_code, ref string v_type, ref string v_praticien, ref string v_commentaire)
+end prototypes
+
+global function boolean verifier_rdv_en_attente (double v_code, ref string v_type, ref string v_praticien, ref string v_commentaire);// Avanat saisie, vérifie si le patient a un rdv en attente pour proposer (ou pas) les éléments en attente
+// Si oui , les variable passée en paramètre sont mises à jour
+//   - type de rdv
+//   - praticien
+//   - commentaire
+
+// renvoie VRAI si mise à jour à faire ou pos
+
+
+
+integer i_cpt
+date ld_a_partir
+string s_libelle, s_nom_praticien
+
+boolean lb_retour = false
+
+
+select isnull(count(*), 0) into :i_cpt from rdv_en_attente where code = :v_code ;
+
+if i_cpt > 0 then 
+	
+	// Il y a un rdv en attente => on affiche les infos pour demander confirmation
+	select first type_rdv, a_partir, rdv_en_attente.code_praticien, isnull(commentaire,'') , type_rdv.nom , prati.nom + ' ' + isnull(prati.prenom, '')
+	into :v_type, :ld_a_partir, :v_praticien, :v_commentaire , :s_libelle, :s_nom_praticien 
+	from rdv_en_attente , type_rdv , prati 
+	where rdv_en_attente.code = :v_code and rdv_en_attente.type_rdv = type_rdv.code and rdv_en_attente.code_praticien = prati.code 
+	order by a_partir ;
+	
+	if Messagebox("INFORMATION", "Ce patient a un rendez-vous en attente :~n~nType de rendez-vous : " + s_libelle + "~n~nPraticien : " +  s_nom_praticien + "~n~nA partir de : " + string(ld_a_partir) + "~n~nCommentaire : " + v_commentaire + "~n~nVoulez-vous reprendre ces éléments et supprimer le rendez-vous en attente ?", Question!, YesNo!, 2) = 1 then 
+		
+		// Oui ... on supprime le rdv en attente 
+		delete from rdv_en_attente where code = :v_code and type_rdv = :v_type  ;
+		commit ;
+		
+		lb_retour =  true
+	end if
+	
+end if
+
+return lb_retour
+end function
+

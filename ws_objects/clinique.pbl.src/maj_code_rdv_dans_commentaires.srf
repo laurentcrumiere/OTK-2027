@@ -1,0 +1,38 @@
+﻿$PBExportHeader$maj_code_rdv_dans_commentaires.srf
+global type maj_code_rdv_dans_commentaires from function_object
+end type
+
+forward prototypes
+global subroutine maj_code_rdv_dans_commentaires (double v_code_patient)
+end prototypes
+
+global subroutine maj_code_rdv_dans_commentaires (double v_code_patient);
+
+// Mise à jour des code internes de rapprochement si possible 
+// on se sert d'id_soft5 pur savoir si la mise à jour était faite our pas
+
+string deja_fait
+select isnull(synchro_coment_rdv , 'N') into :deja_fait from patient where code = :v_code_patient ;
+
+if deja_fait = 'N' then
+	
+	// Rendez-vous dans l'heure de la saisie du commentaire
+	update  coment set code_interne_rdv = 
+	(select top 1 code_interne from rdv, etat_rdv where rdv.code = coment.code and  coment.dat = cast (rdv.rdv as date)  and abs(Seconds(rdv.rdv, coment.date_modif)) <= 3600 
+	and etat_rdv.elimine_agenda <> 'O' and rdv.absent = etat_rdv.code order by date_modif )
+	where code_interne_rdv is null and code = :v_code_patient ;
+
+
+	
+	// Commentaires saisis le même jour que le renndez-vous
+	update  coment set code_interne_rdv =  (select top 1 code_interne from rdv, etat_rdv where rdv.code = coment.code and  coment.dat = cast (rdv.rdv as date)  
+	and etat_rdv.elimine_agenda <> 'O' and rdv.absent = etat_rdv.code order by date_modif )
+	where code_interne_rdv is null and code = :v_code_patient ;
+	
+	update patient set synchro_coment_rdv  = 'O' where code = :v_code_patient  ;
+	commit ;	
+end if
+
+
+end subroutine
+

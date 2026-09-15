@@ -1,0 +1,16 @@
+﻿$PBExportHeader$dw_diagnos_1_lepinay.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=5 color="536870912" )
+detail(height=93 color="536870912" )
+table(column=(type=date update=yes updatewhereclause=yes name=date_naissance dbname="patient.date_naissance" )
+ column=(type=char(6) updatewhereclause=yes name=code_praticien dbname="patient.code_praticien" )
+ column=(type=char(6) update=yes updatewhereclause=yes name=moulage dbname="patient.moulage" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"patient~" ) COLUMN(NAME=~"patient.date_naissance~") COLUMN(NAME=~"patient.code_praticien~") COLUMN(NAME=~"patient.moulage~")WHERE(    EXP1 =~"( ~~~"patient~~~".~~~"code~~~"~"   OP =~"=~"    EXP2 =~":nocode )~" ) ) ARG(NAME = ~"nocode~" TYPE = number) " arguments=(("nocode", number)) )
+text(band=detail alignment="0" text="Age :"border="0" color="0" x="28" y="16" height="57" width="129"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="0" expression="if (month(today()) < month( date_naissance ),year(today()) - year( date_naissance ) - 1, year(today()) - year( date_naissance ))"border="0" color="0" x="211" y="16" height="57" width="78" format="#0"  name=ans  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Ans"border="0" color="0" x="302" y="16" height="57" width="92"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="1" expression="if (month(today()) < month( date_naissance ),month(today()) - month( date_naissance ) +12, month(today()) - month( date_naissance ))"border="0" color="0" x="421" y="16" height="57" width="60" format="#0"  name=mois  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127"  height.autosize=yes)
+text(band=detail alignment="0" text="mois"border="0" color="0" x="494" y="16" height="57" width="101"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )

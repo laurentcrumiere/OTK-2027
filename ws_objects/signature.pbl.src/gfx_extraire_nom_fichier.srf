@@ -1,0 +1,63 @@
+﻿$PBExportHeader$gfx_extraire_nom_fichier.srf
+global type gfx_extraire_nom_fichier from function_object
+end type
+
+forward prototypes
+global function string extraire_nom_fichier (string path_complet)
+global function string gfx_extraire_nom_fichier (string path_complet)
+end prototypes
+
+global function string extraire_nom_fichier (string path_complet);// fx qui return le nom d'un fichier avec son extension
+// return param path_complet sinon
+
+long	cpt
+string	returnString, aChar
+boolean	trouve
+
+
+returnString = path_complet
+
+cpt = len( path_complet)
+
+if cpt > 0 then
+	do 
+		aChar = mid( path_complet, cpt, 1)
+		if aChar = "\" then trouve = true
+		cpt = cpt - 1
+	loop while ( not trouve ) AND  cpt > 0
+	
+	if trouve then
+		returnString = right( path_complet, len(path_complet) - cpt -1 )
+	end if
+end if
+
+return returnString
+end function
+
+global function string gfx_extraire_nom_fichier (string path_complet);// fx qui return le nom d'un fichier avec son extension
+// return param path_complet sinon
+
+long	cpt
+string	returnString, aChar
+boolean	trouve
+
+
+returnString = path_complet
+
+cpt = len( path_complet)
+
+if cpt > 0 then
+	do 
+		aChar = mid( path_complet, cpt, 1)
+		if aChar = win_delimiter then trouve = true
+		cpt = cpt - 1
+	loop while ( not trouve ) AND  cpt > 0
+	
+	if trouve then
+		returnString = right( path_complet, len(path_complet) - cpt -1 )
+	end if
+end if
+
+return returnString
+end function
+

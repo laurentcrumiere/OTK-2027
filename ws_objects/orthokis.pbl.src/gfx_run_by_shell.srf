@@ -1,0 +1,19 @@
+﻿$PBExportHeader$gfx_run_by_shell.srf
+global type gfx_run_by_shell from function_object
+end type
+
+forward prototypes
+global function integer gfx_run_by_shell (string cmd)
+end prototypes
+
+global function integer gfx_run_by_shell (string cmd);// exécute le fichier passé en param par "cmd"
+// pour plus de détail, voir l'objet "uo_shell"
+
+uo_shell	shell
+shell = create uo_shell
+int val_retour
+val_retour = shell.run(cmd)
+destroy shell
+return val_retour
+end function
+

@@ -1,0 +1,31 @@
+﻿$PBExportHeader$lance_url_avec_ie.srf
+global type lance_url_avec_ie from function_object
+end type
+
+forward prototypes
+global subroutine lance_url_avec_ie (string url)
+end prototypes
+
+global subroutine lance_url_avec_ie (string url);
+
+
+// Lance une URL donnée avec Internet Explorer
+
+string dir_ie
+RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\iexplore.exe","path",dir_ie)
+
+// Il faut prendre le premier chemin, avant le ";"
+if pos(dir_ie,";") > 0 then
+	dir_ie = left(dir_ie, pos(dir_ie,";") - 1)
+end if
+dir_ie = dir_ie + "\"
+
+string commande 
+commande = dir_ie + "iexplore.exe " +url
+
+run (commande)
+
+
+
+end subroutine
+

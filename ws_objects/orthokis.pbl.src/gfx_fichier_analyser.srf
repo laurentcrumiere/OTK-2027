@@ -1,0 +1,26 @@
+﻿$PBExportHeader$gfx_fichier_analyser.srf
+global type gfx_fichier_analyser from function_object
+end type
+
+forward prototypes
+global function integer gfx_fichier_analyser (string nom_complet, ref string nom, ref string extension)
+end prototypes
+
+global function integer gfx_fichier_analyser (string nom_complet, ref string nom, ref string extension);// fx générale qui sépare le nom et l'extension du fichier passé en param
+// gère aussi si le chemin complet + nom fichier est passé en param
+// return 1 si ok + nom et extension ds param en ref
+//		-1 si pb
+
+int		returnval = -1
+string	nom_fichier
+
+nom_fichier = gfx_extraire_nom_fichier( nom_complet )
+if nom_fichier <> "" then
+	nom = gfx_fichier_sans_extension( nom_fichier )
+	extension = gfx_extraire_extension_fichier( nom_fichier )
+	if nom <> "" AND extension <> "" then returnval = 1
+end if
+
+return returnval
+end function
+

@@ -1,0 +1,29 @@
+﻿$PBExportHeader$analyse_num_tel.srf
+global type analyse_num_tel from function_object
+end type
+
+forward prototypes
+global function long analyse_num_tel (ref string st)
+end prototypes
+
+global function long analyse_num_tel (ref string st);// Sert à placer le curseur en saisie de zone de téléphone
+
+long resultat
+
+resultat = len(trim(st))
+choose case resultat
+	case 2,5
+		resultat = resultat + 2
+	case 3
+		resultat = resultat + 1
+	case 4,7
+		resultat = resultat + 3
+	case 6,9,10
+		resultat = resultat + 4
+	case 8
+		resultat = resultat + 5
+end choose
+
+return resultat
+end function
+

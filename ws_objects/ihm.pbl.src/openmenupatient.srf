@@ -1,0 +1,78 @@
+﻿$PBExportHeader$openmenupatient.srf
+global type openmenupatient from function_object
+end type
+
+forward prototypes
+global function integer openmenupatient (integer index)
+end prototypes
+
+global function integer openmenupatient (integer index);//fx globale qui crée un popup menu de type "m_patientcourant"
+//renvoie 1 si ok
+//renvoie -1 si un pb ds la gestion des droits
+
+m_patientcourant m
+string	lstr_nom, lstr_prenom, lstr_nom_prenom
+double v_numero_dossier
+
+
+// recup info patient ds base
+select	nom, prenom, numero_dossier
+into		:lstr_nom, :lstr_prenom, :v_numero_dossier
+from		patient
+where		code = :Tab_PatientsCourants[index] ;
+
+// traitement des val NULL
+if isnull(lstr_nom) then lstr_nom = ""
+if isnull(lstr_prenom) then lstr_prenom = ""
+
+// traitement chaine vide
+if lstr_prenom = "" OR lstr_nom = "" then
+	lstr_nom_prenom = trim(lstr_nom) + trim(lstr_prenom)
+else
+	lstr_nom_prenom = trim(lstr_nom) + space(1) + trim(lstr_prenom)
+end if
+
+// comparaison pour savoir si patient en mémoire tjrs présent ds base
+if trim(trim(lstr_nom_prenom) + "  (" + string(v_numero_dossier) + ")") = Tab_PatientsCourantsToolbar[index] then
+// si on est bien avec le même patient (même nom prenom et num dssier)
+	
+	if Tab_PatientsCourants[index] > 0 then 
+		//création du menu en mémoire
+		m = create m_patientcourant
+			
+			//maj des droits
+			if m.gestion_des_droits() <> 1 then return -1
+			
+			// on vire le "exporter la liste"
+			m.m_exporterlaliste.visible = false
+			m.m_-0.visible = false
+			//passe le code du patient qui nous interresse et lance le menu en popup
+			m.CodePatientCourant = Tab_PatientsCourants[index]
+			
+			m.PopMenu(w_mdi_2020.pointerX(),w_mdi_2020.pointerY())
+			
+		//supression du menu de la mémoire
+		destroy m
+	else
+		MessageBox("ATTENTION !","Ce patient est un patient provisoire non validé dans Orthokis !~n~nVous allez accéder à la fenêtre de validation.")
+		openwithparm(w_patient_fusion_doctolib,  Tab_PatientsCourants[index] )
+	end if
+	
+else
+	
+	// pas le même patient 
+	// message utilisateur
+	messagebox("INFORMATION ...", "Le patient sélectionné a été supprimé / modifié ~npar un utilisateur. ~n~nImpossible de poursuivre.")
+	
+	// supression de la ligne ds menu patient en mémoire
+	fxg_suppr1patientcourant (Tab_PatientsCourants[index])
+	
+end if
+
+
+
+//si ok
+return 1
+
+end function
+

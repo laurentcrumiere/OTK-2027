@@ -1,0 +1,17 @@
+﻿$PBExportHeader$st_rdv.srs
+global type st_rdv from structure
+	datetime		date_debut
+	datetime		date_fin
+	integer		numero_fauteuil
+	string		praticien_de
+	string		praticien_a
+	boolean		nouveau
+	boolean		recherche
+	string		type_rdv
+	boolean		patient_courant
+	double		code_patient_courant
+	string		nom_patient_courant
+	boolean		ouverture_urgence		descriptor "comment" = "si ouverture pour urgence, on n'est pas forcément dans l'agenda"
+	boolean		rdv_en_attente		descriptor "comment" = "vrai si on saisit un rdv à partir de la liste d'attente"
+end type
+

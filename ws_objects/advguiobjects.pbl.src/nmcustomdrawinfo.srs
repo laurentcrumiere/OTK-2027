@@ -1,0 +1,11 @@
+﻿$PBExportHeader$nmcustomdrawinfo.srs
+global type nmcustomdrawinfo from structure
+	nmhdr		hdr
+	unsignedlong		dwdrawstage
+	longptr		hdc
+	rect		rc
+	longptr		dwitemspec
+	unsignedlong		uitemstate
+	unsignedlong		litemlparam
+end type
+

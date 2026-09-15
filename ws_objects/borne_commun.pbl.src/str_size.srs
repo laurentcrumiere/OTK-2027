@@ -1,0 +1,12 @@
+﻿$PBExportHeader$str_size.srs
+$PBExportComments$Shani 1.0 / Utilisé par le UO "resize fenetre"
+global type str_size from structure
+	integer		x
+	integer		y
+	integer		width
+	integer		height
+	integer		fontsize
+	string		tag
+	boolean		visible
+end type
+

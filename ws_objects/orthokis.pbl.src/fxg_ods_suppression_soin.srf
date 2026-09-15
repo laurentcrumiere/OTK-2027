@@ -1,0 +1,25 @@
+﻿$PBExportHeader$fxg_ods_suppression_soin.srf
+global type fxg_ods_suppression_soin from function_object
+end type
+
+forward prototypes
+global function boolean fxg_ods_suppression_soin (double v_code, long v_clef)
+end prototypes
+
+global function boolean fxg_ods_suppression_soin (double v_code, long v_clef);
+
+// envoi d'un soin dans ODS - Ajout ou modification
+// Toujours en synchro
+
+
+string v_action 
+boolean retour
+
+v_action =  "action?type=hsim_den_acte_supp&code=" + string(v_code) + "&clef=" + string(v_clef)
+
+retour = fxg_lancer_commande_myorthokis(v_action,  true , 5)
+
+
+return retour
+end function
+

@@ -1,0 +1,36 @@
+﻿$PBExportHeader$fxg_ouvrir_fichier_shell.srf
+global type fxg_ouvrir_fichier_shell from function_object
+end type
+
+forward prototypes
+global subroutine fxg_ouvrir_fichier_shell (string chemin_complet_courrier)
+end prototypes
+
+global subroutine fxg_ouvrir_fichier_shell (string chemin_complet_courrier);
+
+// pour ouvrir un fichier .. comme si double clic sous Windows
+ 
+// utilisation techno de scripting windows (WSH)
+oleobject WshShell
+if gfx_open_connection_ole(WshShell, "WScript.Shell") = 1 then
+	
+	
+	Try 
+		WshShell.Run('"'+chemin_complet_courrier+'"', 1)
+		
+	Catch (RuntimeError er)
+		
+		string extension
+		
+		extension = gfx_extraire_extension_fichier(chemin_complet_courrier)
+		
+		Messagebox("ERREUR INATTENDUE","Une erreur inattendue s'est produite à l'ouverture du fichier '"+ chemin_complet_courrier+"'.~n~nUne des causes possibles est que vous ne disposez pas de logiciel pour ouvrir les fichiers ayant pour extension '"+ extension + "'.~n~nVeuillez vérifier votre configuration.")
+		
+		
+	End Try					
+	
+	gfx_close_connection_ole(WshShell)
+	
+end if
+end subroutine
+

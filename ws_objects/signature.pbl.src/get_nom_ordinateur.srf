@@ -1,0 +1,25 @@
+﻿$PBExportHeader$get_nom_ordinateur.srf
+global type get_nom_ordinateur from function_object
+end type
+
+forward prototypes
+global function string get_nom_ordinateur ()
+end prototypes
+
+global function string get_nom_ordinateur ();// fx qui récup et renvoie le nom de l'ordinateur,
+// renvoie string vide si pb
+
+string	s
+long	lg
+boolean	b
+
+
+s = space(250) 
+lg = len(s)
+
+if not GetComputerNameA( s, lg ) then s = ""
+s = string(blob(s, EncodingANSI!), EncodingANSI!)
+return s
+
+end function
+

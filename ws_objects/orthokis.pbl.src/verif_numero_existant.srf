@@ -1,0 +1,152 @@
+﻿$PBExportHeader$verif_numero_existant.srf
+global type verif_numero_existant from function_object
+end type
+
+forward prototypes
+global function boolean verif_numero_existant (string numero_a_chercher, double v_code_patient_saisi)
+end prototypes
+
+global function boolean verif_numero_existant (string numero_a_chercher, double v_code_patient_saisi);// Fonction qui vérifie si un n° de tél saisi n'est pas sur un autre patient
+
+// Arguments : 
+// numéro à chercher : n° de téléphone 
+// v_code_patient_saisi : code du patient qu'on est en train de créer
+
+// renvoie : true si on a modifié le patient , false si non
+
+
+string v_nom, v_prenom, v_code_postal, v_ville, v_type, v_contact
+string v_type_contact
+date v_date_naissance
+long lig
+double v_code, v_code_patient_a_recup
+
+//str_patient tab_patients[]
+long nb_patients = 0
+
+datastore dw_liste				
+dw_liste = CREATE DataStore
+dw_liste.DataObject = "dw_patient_liste_numero"
+
+// Recherche dans les patients
+declare cur1 cursor for select code, nom, prenom, date_naissance, codep_parent1, ville_parent1, nom_parent1, '1'
+		from patient 
+		where  (code <> :v_code_patient_saisi )  and (trim(teldom_parent1) = trim(:numero_a_chercher) or trim(teldom2_parent1) = trim(:numero_a_chercher) 
+		or 	 trim(teltra_parent1) = trim(:numero_a_chercher) or  trim(teltra2_parent1) = trim(:numero_a_chercher) or trim(portable) = trim(:numero_a_chercher) or trim(portable2_parent1) = trim(:numero_a_chercher) 
+		or  trim(portable_patient) = trim(:numero_a_chercher)) ;
+
+declare cur2 cursor for select code, nom, prenom, date_naissance, codep_parent2, ville_parent2, nom_parent2, '2' 
+		from patient 
+		where (code <> :v_code_patient_saisi )  and (trim(teldom_parent2) = trim(:numero_a_chercher) or trim(teltra_parent2) = trim(:numero_a_chercher) or trim(portable1_parent2) = trim(:numero_a_chercher) 
+		or trim(teldom2_parent2) = trim(:numero_a_chercher) or trim(teltra2_parent2) = trim(:numero_a_chercher) or trim(portable2_parent2) = trim(:numero_a_chercher)) ;
+
+declare cur3 cursor for select code, nom, prenom, date_naissance, codep_payeur, ville_payeur, nom_payeur, 'P' 
+		from patient 
+		where  (code <> :v_code_patient_saisi )  and (trim(teldom_payeur) = trim(:numero_a_chercher) or trim(teltra_payeur) = trim(:numero_a_chercher) or trim(portable1_payeur) = trim(:numero_a_chercher) 
+		or trim(teldom2_payeur) = trim(:numero_a_chercher) or trim(teltra2_payeur) = trim(:numero_a_chercher) or trim(portable2_payeur) = trim(:numero_a_chercher)) ;
+
+
+	
+	integer nb_passe , cpt
+	
+	
+	nb_passe = 3
+	
+	cpt = 1
+	do while cpt <= nb_passe
+	
+	choose case cpt
+		case 1
+			open cur1 ;
+			fetch cur1 into :v_code, :v_nom, :v_prenom, :v_date_naissance, :v_code_postal, :v_ville, :v_contact, :v_type_contact ;
+		case 2
+			open cur2 ;
+			fetch cur2 into :v_code, :v_nom, :v_prenom, :v_date_naissance, :v_code_postal, :v_ville, :v_contact, :v_type_contact ;
+		case 3
+			open cur3 ;
+			fetch cur3 into :v_code, :v_nom, :v_prenom, :v_date_naissance, :v_code_postal, :v_ville, :v_contact, :v_type_contact ;
+
+	end choose
+	
+		do while sqlca.sqlcode = 0
+			
+			nb_patients = nb_patients + 1
+			dw_liste.insertrow(0)
+			dw_liste.setItem(nb_patients, "code", v_code)
+			dw_liste.setItem(nb_patients, "nom", v_nom)
+			dw_liste.setItem(nb_patients, "prenom", v_prenom)
+			dw_liste.setItem(nb_patients, "date_naissance", v_date_naissance)
+			dw_liste.setItem(nb_patients, "code_postal", v_code_postal)
+			dw_liste.setItem(nb_patients, "ville", v_ville)
+			dw_liste.setItem(nb_patients, "contact", v_contact)
+			dw_liste.setItem(nb_patients, "type_contact", v_type_contact)
+
+			choose case cpt
+				case 1
+					fetch cur1 into :v_code, :v_nom, :v_prenom, :v_date_naissance, :v_code_postal, :v_ville, :v_contact, :v_type_contact ;
+				case 2
+					fetch cur2 into :v_code, :v_nom, :v_prenom, :v_date_naissance, :v_code_postal, :v_ville, :v_contact, :v_type_contact ;
+				case 3
+					fetch cur3 into :v_code, :v_nom, :v_prenom, :v_date_naissance, :v_code_postal, :v_ville, :v_contact, :v_type_contact ;
+			end choose
+		
+		loop
+		
+		choose case cpt
+			case 1
+				close cur1 ;	
+			case 2
+				close cur2 ;
+			case 3
+				close cur3 ;	
+		end choose
+		
+		cpt = cpt + 1
+	
+	loop 
+	
+	if nb_patients > 0 then 
+		
+		// On a trouvé des patients avec le même numéro
+		openWithParm(w_patient_liste_numero, dw_liste) 
+		v_code_patient_a_recup = Message.DoubleParm
+		
+		if v_code_patient_a_recup <> 0 then
+			
+			synchroniser_patients(v_code_patient_a_recup, v_code_patient_saisi)
+			
+			// Vérification des liens de parenté
+			uo_lien_parente uo_parente
+			uo_parente = create uo_lien_parente
+			
+			if uo_parente.is_lien_parente(v_code_patient_a_recup) then
+
+					if Messagebox("ATTENTION","Voulez-vous également récopier les liens de parenté de ce patient ?",Question!, YesNo!, 2) = 1 then
+					
+						// duplication des liens de parentés et affichage de la fenêtre de mise à jour pour les mettre à jour !!!
+						
+						insert into patient_lien_parente ("code_patient1", "code_patient2", "code_lien_parente")
+						(select :v_code_patient_saisi,  "code_patient2", "code_lien_parente" from  patient_lien_parente where "code_patient1" = :v_code_patient_a_recup) ;
+	
+						insert into patient_lien_parente ("code_patient1", "code_patient2", "code_lien_parente")
+						(select "code_patient1", :v_code_patient_saisi,  "code_lien_parente"  from  patient_lien_parente where "code_patient2" = :v_code_patient_a_recup) ;
+						
+						commit ;
+	
+						OpenWithParm(w_patient_lien_parente, v_code_patient_saisi)	
+				end if
+			end if
+			
+			// on a modifié le patient courant
+			return true
+		else
+			// pas de modif
+			return false
+		end if
+	else
+		return false
+	end if
+	
+
+end function
+

@@ -1,0 +1,408 @@
+﻿$PBExportHeader$m_orthup.srm
+forward
+global type m_orthup from menu
+end type
+type m_démarrerunnouveaucas from menu within m_orthup
+end type
+type m_reprendreuncasexistantsoclage from menu within m_orthup
+end type
+type m_reprendreuncasexistanttraitement from menu within m_orthup
+end type
+type m_importerlesvues from menu within m_orthup
+end type
+global type m_orthup from menu
+m_démarrerunnouveaucas m_démarrerunnouveaucas
+m_reprendreuncasexistantsoclage m_reprendreuncasexistantsoclage
+m_reprendreuncasexistanttraitement m_reprendreuncasexistanttraitement
+m_importerlesvues m_importerlesvues
+end type
+end forward
+
+global type m_orthup from menu
+m_démarrerunnouveaucas m_démarrerunnouveaucas
+m_reprendreuncasexistantsoclage m_reprendreuncasexistantsoclage
+m_reprendreuncasexistanttraitement m_reprendreuncasexistanttraitement
+m_importerlesvues m_importerlesvues
+end type
+global m_orthup m_orthup
+
+type variables
+
+// Orth'Up
+string s_exe_model_builder, s_path_model_builder
+string s_exe_treatment , s_path_treatment , s_echanges 
+string s_dossier_json =  "c:\temp\Orthup\"
+
+// Patient
+double v_code_local
+string v_nom_local, v_prenom_local
+string v_sexe_local , v_email_local, v_portable_local
+date v_date_naissance_local
+
+// Praticien
+string v_nom_praticien_local, v_prenom_praticien_local
+string v_email_praticien_local
+
+end variables
+
+forward prototypes
+public subroutine lancer_orthup (integer type_lancement)
+end prototypes
+
+public subroutine lancer_orthup (integer type_lancement);
+// Orth'Up
+s_exe_model_builder = profilestring(dir_ini+inifile_orthokis,"ORTHUP", "exe_model_builder", "") 
+s_path_model_builder = profilestring(dir_ini+inifile_orthokis,"ORTHUP", "path_model_builder", "") 
+s_echanges = profilestring(dir_ini+inifile_orthokis,"ORTHUP", "path_echanges", "\\serveur\power\Orthup\") 
+s_exe_treatment = profilestring(dir_ini+inifile_orthokis,"ORTHUP", "exe_treatment", "") 
+s_path_treatment = profilestring(dir_ini+inifile_orthokis,"ORTHUP", "path_treatment", "") 
+
+boolean v_suite
+
+string s_path, s_exe
+
+trace("*** Lancement Orthup ***")
+
+trace("- s_exe_model_builder : " + s_exe_model_builder)
+trace("- s_path_model_builder : " + s_path_model_builder)
+trace("- s_echanges : " + s_echanges)
+trace("- s_exe_treatment : " + s_exe_treatment)
+trace("- s_path_treatment : " + s_path_treatment)
+
+
+
+
+
+choose case type_lancement
+	case 1 , 2
+		if not fileExists (s_path_model_builder + s_exe_model_builder) then
+			Messagebox("ATTENTION", "Impossible de localiser le logiciel Dental Design - Model Builder sur cet ordinateur.~n~nVeuillez corriger !")
+			v_suite = false
+			trace("- Erreur : impossible de localiser le logiciel Dental Design - Model Builder sur cet ordinateur.")
+		else
+			v_suite = true
+			 s_path = s_path_model_builder
+			 s_exe = s_exe_model_builder
+		end if
+
+	case 3 
+		if not fileExists (s_path_treatment + s_exe_treatment) then
+			Messagebox("ATTENTION", "Impossible de localiser le logiciel Dental Design - Treatment Planning sur cet ordinateur.~n~nVeuillez corriger !")
+			trace("- Erreur : Impossible de localiser le logiciel Dental Design - Treatment Planning sur cet ordinateur.")
+			v_suite = false
+		else
+			v_suite = true
+			 s_path = s_path_treatment
+			 s_exe = s_exe_treatment
+		end if
+end choose
+
+if v_suite then
+	trace("- s_dossier_json : " + s_dossier_json)
+
+	if not FileExists(s_dossier_json) then 
+		if CreateDirectory(s_dossier_json) = 1 then
+			v_suite = true
+		else
+			Messagebox("ATTENTION", "Impossible de créer le dossier " + s_dossier_json+ " !")
+			v_suite = false
+		end if
+			
+	end if
+end if
+
+if v_suite then
+	
+	// Ecriture du fichier Json qui va bien et lancement ...
+
+	// Données du patient 
+	v_code_local = w_import_myray_as.v_code_local
+	v_nom_local = w_import_myray_as.v_nom_local
+	v_prenom_local = w_import_myray_as.v_prenom_local
+	v_sexe_local = w_import_myray_as.v_sexe_local
+	v_date_naissance_local = w_import_myray_as.v_date_naissance_local
+	v_email_local = w_import_myray_as.v_email_local
+	v_portable_local = w_import_myray_as.v_portable_local
+
+	// Données du praticien 
+	v_nom_praticien_local = w_import_myray_as.v_nom_praticien_local
+	v_prenom_praticien_local = w_import_myray_as.v_prenom_praticien_local
+	v_email_praticien_local = w_import_myray_as.v_email_praticien_local
+
+		
+	string s_nom_fichier_json
+	integer i_fichier_json
+	string v_fichier_image
+	
+	s_echanges = s_echanges + string(v_code_local) + win_delimiter
+	
+	trace("- s_echanges : " + s_echanges)
+
+	s_nom_fichier_json = s_dossier_json + "LiaisonPatientOrthup.json"
+
+	trace("- s_nom_fichier_json : " + s_nom_fichier_json)
+
+	i_fichier_json = fileOpen(s_nom_fichier_json, LineMode! , write!, LockReadWrite! , Replace!, EncodingAnsi!)
+
+	FileWrite(i_fichier_json, "{")
+	
+	if type_lancement = 1  then
+		FileWrite(i_fichier_json, '"PATIENT":')
+		FileWrite(i_fichier_json, "{")
+		FileWrite(i_fichier_json, '"IDPATIENT":"' + string(v_code_local) + '",')
+		FileWrite(i_fichier_json, '"FIRSTNAME":"' + v_prenom_local + '",')
+		FileWrite(i_fichier_json, '"LASTNAME":"' + v_nom_local + '",')
+		FileWrite(i_fichier_json, '"GENDER":"' + v_sexe_local + '",')
+		FileWrite(i_fichier_json, '"BIRTHDATE":"' + string(v_date_naissance_local, "yyyy-mm-dd") +'",')
+		FileWrite(i_fichier_json, '"EMAIL":"' + v_email_local + '",')
+		FileWrite(i_fichier_json, '"PHONENUMBER":"' + v_portable_local + '"')
+		FileWrite(i_fichier_json, '},')
+		FileWrite(i_fichier_json, '')
+	
+		FileWrite(i_fichier_json, '"PRACTITIONER":')
+		FileWrite(i_fichier_json, "{")
+		FileWrite(i_fichier_json, '"FIRSTNAME":"' + v_prenom_praticien_local + '",')
+		FileWrite(i_fichier_json, '"LASTNAME":"' + v_nom_praticien_local + '",')
+		FileWrite(i_fichier_json, '"EMAIL":"' + v_email_praticien_local + '"')
+		FileWrite(i_fichier_json, '},')
+		FileWrite(i_fichier_json, '')
+	else
+		
+		FileWrite(i_fichier_json, '"ORTHUPCASE":')
+		FileWrite(i_fichier_json, "{")
+		FileWrite(i_fichier_json, '"WORKINGFOLDER":"' + gfx_tout_remplacer(s_echanges , "\", "/") + '"')
+		FileWrite(i_fichier_json, '},')
+		FileWrite(i_fichier_json, '')
+
+end if
+	
+	FileWrite(i_fichier_json, '"IMPORTFOLDER":')
+	FileWrite(i_fichier_json, "{")
+	FileWrite(i_fichier_json, '"3DIMAGEPATH":"' + gfx_tout_remplacer(dir_photos + string(v_code_local) +"\" , "\", "/") + '",')
+	FileWrite(i_fichier_json, '"3DIMAGEFORMAT":"' + 'STL' + '",')
+	FileWrite(i_fichier_json, '"2DIMAGEPATH":"' + gfx_tout_remplacer(dir_photos + string(v_code_local)  +"\" , "\", "/") + '",')
+	
+	// Photo d'idetnité
+	// utilie pour la gestion des images 2013
+	uo_choix_image_2013 choix_image_2013
+	choix_image_2013 = create uo_choix_image_2013
+	v_fichier_image = choix_image_2013.trouver_image ("identite_commentaires_cliniques", v_code_local)
+	FileWrite(i_fichier_json, '"2DIMAGENAME":"' + gfx_fichier_sans_extension(v_fichier_image) + '",')
+	FileWrite(i_fichier_json, '"2DIMAGEFORMAT":"' + 'JPG' + '"')
+	FileWrite(i_fichier_json, '},')
+	FileWrite(i_fichier_json, '')
+
+	
+	
+	FileWrite(i_fichier_json, '"EXPORTFOLDER":')
+	FileWrite(i_fichier_json, "{")
+	FileWrite(i_fichier_json, '"WORKINGFOLDERBUILD":"' + gfx_tout_remplacer(s_echanges , "\", "/") + '",')
+	FileWrite(i_fichier_json, '"WORKINGFOLDERTREAT":"' +  gfx_tout_remplacer(s_echanges , "\", "/") + '",')
+	FileWrite(i_fichier_json, '"WORKINGFOLDERBOARD":"' +  gfx_tout_remplacer(s_echanges , "\", "/") + '"')
+	FileWrite(i_fichier_json, '}')
+	FileWrite(i_fichier_json, '')
+
+	
+	FileWrite(i_fichier_json, '}')
+
+	
+//	FileWrite(i_fichier_json, fic )
+	
+	fileClose(i_fichier_json)
+	
+	yield()
+	
+	
+	// Copy du fichier de liaison pour facilité de le dbug
+	if FileCopy(s_nom_fichier_json , s_nom_fichier_json + ".old", true) = 1 then
+		trace(" Copie du fichier " + s_nom_fichier_json + " vers " + s_nom_fichier_json + ".old" )
+	else
+		trace(" ERREUR dans la copie du fichier " + s_nom_fichier_json + " vers " + s_nom_fichier_json + ".old" )
+	end if
+
+	
+	// Lancement de la commande
+	string s_commande
+	
+	s_commande = '"' + s_path + s_exe + '"' 
+	
+	trace("Appel Orth'up - Type de lancement " + string(type_lancement) +   " : " + s_commande)
+
+	run ( s_commande )
+
+
+end if
+end subroutine
+
+on m_orthup.create
+m_orthup=this
+call super::create
+this.text = "m_orthup"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_démarrerunnouveaucas=create m_démarrerunnouveaucas
+this.m_reprendreuncasexistantsoclage=create m_reprendreuncasexistantsoclage
+this.m_reprendreuncasexistanttraitement=create m_reprendreuncasexistanttraitement
+this.m_importerlesvues=create m_importerlesvues
+this.Item[UpperBound(this.Item)+1]=this.m_démarrerunnouveaucas
+this.Item[UpperBound(this.Item)+1]=this.m_reprendreuncasexistantsoclage
+this.Item[UpperBound(this.Item)+1]=this.m_reprendreuncasexistanttraitement
+this.Item[UpperBound(this.Item)+1]=this.m_importerlesvues
+end on
+
+on m_orthup.destroy
+call super::destroy
+destroy(this.m_démarrerunnouveaucas)
+destroy(this.m_reprendreuncasexistantsoclage)
+destroy(this.m_reprendreuncasexistanttraitement)
+destroy(this.m_importerlesvues)
+end on
+
+type m_démarrerunnouveaucas from menu within m_orthup
+end type
+
+on m_démarrerunnouveaucas.create
+call super::create
+this.text = "Démarrer un nouveau cas"
+this.toolbaritemname = "lc_icone_orthup.png"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_démarrerunnouveaucas.destroy
+call super::destroy
+end on
+
+event clicked;
+
+lancer_orthup (1)
+end event
+
+type m_reprendreuncasexistantsoclage from menu within m_orthup
+end type
+
+on m_reprendreuncasexistantsoclage.create
+call super::create
+this.text = "Reprendre un cas existant (Soclage)"
+this.toolbaritemname = "lc_icone_orthup.png"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_reprendreuncasexistantsoclage.destroy
+call super::destroy
+end on
+
+event clicked;
+
+lancer_orthup (2)
+end event
+
+type m_reprendreuncasexistanttraitement from menu within m_orthup
+end type
+
+on m_reprendreuncasexistanttraitement.create
+call super::create
+this.text = "Reprendre un cas existant (Traitement)"
+this.toolbaritemname = "lc_icone_orthup.png"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_reprendreuncasexistanttraitement.destroy
+call super::destroy
+end on
+
+event clicked;
+
+lancer_orthup (3)
+end event
+
+type m_importerlesvues from menu within m_orthup
+end type
+
+on m_importerlesvues.create
+call super::create
+this.text = "Importer les vues"
+this.toolbaritemname = "lc_icone_orthup.png"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_importerlesvues.destroy
+call super::destroy
+end on
+
+event clicked;
+
+// Données du patient 
+v_code_local = w_import_myray_as.v_code_local
+
+OpenWithParm(w_import_orthup, v_code_local)
+end event
+

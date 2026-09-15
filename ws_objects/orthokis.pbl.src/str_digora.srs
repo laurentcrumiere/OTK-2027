@@ -1,0 +1,7 @@
+﻿$PBExportHeader$str_digora.srs
+global type str_digora from structure
+	string		nom
+	string		numero
+	string		sexe
+end type
+

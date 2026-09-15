@@ -1,0 +1,21 @@
+﻿$PBExportHeader$due.srf
+global type due from function_object
+end type
+
+forward prototypes
+global function decimal due (double nocode, date date_ref)
+end prototypes
+
+global function decimal due (double nocode, date date_ref);decimal {2} due
+
+if VISIODENT_LIMITE then
+	// Pas de gestion des règlements dans les centres Visiodent
+	due = 0
+else
+	select isnull(dba.somme_due_patient(:nocode, :date_ref, 'N'),0) into :due from param ;
+end if
+
+
+return (due)
+end function
+

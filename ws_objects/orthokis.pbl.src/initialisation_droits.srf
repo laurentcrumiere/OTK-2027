@@ -1,0 +1,211 @@
+﻿$PBExportHeader$initialisation_droits.srf
+global type initialisation_droits from function_object
+end type
+
+forward prototypes
+global subroutine initialisation_droits (string user)
+end prototypes
+
+global subroutine initialisation_droits (string user);
+//-----------------------------------------------------------------------------------
+// ATTENTION ! DES QU'ON TOUCHE A CETTE FONCTION FAUT
+// FAIRE REGENERATE
+//-----------------------------------------------------------------------------------
+
+
+// Initialise le tableau des Droits d'accès en fonction de l'utilisateur passé en paramètre
+
+// Mets aussi à jour la variable glogale mdi_client
+
+// Description du tableau droits_acces
+
+		
+// Indice	Droits
+		
+//10	Patient_admini
+//11	Patient_soin
+//12	Patient_reglement
+//13	Patient_suivi
+//14	Patient_commentaire
+//15	Patient_page
+//16	Patient_ Rendez
+//17	Patient_soin_prevu
+//18 	patient_commentaire_admini
+//	
+//	
+//20	Liste_soin
+//21	Liste_secu
+//22	Liste_patient
+//23	Liste_financier
+//24	Liste_previsionnel
+//25	Liste_divers
+//26	Liste_tp
+//27	Liste clinique
+//28	Liste_rendez
+//29	Liste_historique
+//	
+//	
+//30	Table_adresse
+//31	Table_soin
+//32	Table_caisse
+//33	Table_rendez
+//34	Table_graphique
+//	
+//	
+//40	Outils_partie1
+//41	Outils_param
+//42	Outils_envoi
+//	
+//	
+//50	double_clic_salle_attente
+//
+//60	finance_devant
+//61	finance_relance
+//62	finance_remise
+//63	finance_recettes
+//64	finance_reg_type
+//65	finance_reg_remis
+//66	finance_payeur
+//
+//70  table_stock (table de la gestion de stock)
+//71  stock_commande (accès au menu saisie et reception commande)
+//72  stock_sortie (accès aux sorties de stock)
+//73  stock_maj (accès aux maj de produits)
+//74  stock_liste (accès aux listes de la gestion de stock)
+
+//80  autorisation suppression historique des éditions 
+//81  autorisation mise à jour des jours interdits 
+//82  acces à monOrthodontiste
+//83 suppression de facture
+//84 modification / suppression de soin après FSE
+
+string une_fenetre
+string v_enreg
+
+    SELECT FIRST "utilisateurs"."patient_admini",   
+         "utilisateurs"."patient_soin",   
+         "utilisateurs"."patient_reglement",   
+         "utilisateurs"."patient_suivi",   
+         "utilisateurs"."patient_commentaire",   
+         "utilisateurs"."patient_page",   
+         "utilisateurs"."patient_rendez",   
+         "utilisateurs"."patient_soin_prevu",   
+         "utilisateurs"."patient_commentaire_admini",   
+         "utilisateurs"."liste_soin",   
+         "utilisateurs"."liste_secu",   
+         "utilisateurs"."liste_patient",   
+         "utilisateurs"."liste_financier",   
+         "utilisateurs"."liste_previsionnel",   
+         "utilisateurs"."liste_divers",   
+         "utilisateurs"."liste_tp",   
+         "utilisateurs"."liste_clinique",   
+         "utilisateurs"."liste_rendez",   
+         "utilisateurs"."liste_historique",   
+         "utilisateurs"."table_adresse",   
+         "utilisateurs"."table_soin",   
+         "utilisateurs"."table_caisse",   
+         "utilisateurs"."table_rendez",   
+         "utilisateurs"."table_graphique",   
+         "utilisateurs"."outils_partie1",   
+         "utilisateurs"."outils_param",   
+         "utilisateurs"."outils_envoi",   
+         "utilisateurs"."double_clic_salle_attente",
+         "utilisateurs"."finance_devant",
+         "utilisateurs"."finance_relance",
+         "utilisateurs"."finance_remise",
+         "utilisateurs"."finance_recettes",
+         "utilisateurs"."finance_reg_type",
+         "utilisateurs"."finance_reg_remis",
+         "utilisateurs"."finance_payeur",
+			"utilisateurs"."table_stock",
+			"utilisateurs"."stock_commande",
+			"utilisateurs"."stock_sortie",
+			"utilisateurs"."stock_maj_produit",
+			"utilisateurs"."stock_liste",
+			"utilisateurs"."stock_impr_etiq",
+			"utilisateurs"."une_fenetre_par_patient",
+			"utilisateurs"."enregistrement_automatique",
+			"utilisateurs"."barre_mdi_patient",
+			"utilisateurs"."suppression_historique_editions",
+			"utilisateurs"."autor_jours_interdits",
+			"utilisateurs"."autor_monorthodontiste",
+			"utilisateurs"."autor_suppression_facture" ,
+			"utilisateurs"."sup_soin_fs"
+			
+
+			
+    INTO :droits_acces[10],   
+         :droits_acces[11],   
+         :droits_acces[12],   
+         :droits_acces[13],   
+         :droits_acces[14],   
+         :droits_acces[15],   
+         :droits_acces[16],   
+         :droits_acces[17],   
+         :droits_acces[18],   
+         :droits_acces[20],   
+         :droits_acces[21],   
+         :droits_acces[22],   
+         :droits_acces[23],   
+         :droits_acces[24],   
+         :droits_acces[25],   
+         :droits_acces[26],   
+         :droits_acces[27],   
+         :droits_acces[28],   
+         :droits_acces[29],   
+         :droits_acces[30],   
+         :droits_acces[31],   
+         :droits_acces[32],   
+         :droits_acces[33],   
+         :droits_acces[34],   
+         :droits_acces[40],   
+         :droits_acces[41],   
+         :droits_acces[42],   
+         :droits_acces[50],
+         :droits_acces[60],
+         :droits_acces[61],
+         :droits_acces[62],
+         :droits_acces[63],
+         :droits_acces[64],
+         :droits_acces[65],
+         :droits_acces[66],
+			:droits_acces[70],
+			:droits_acces[71],
+			:droits_acces[72],
+			:droits_acces[73],
+			:droits_acces[74],
+			:droits_acces[75],
+			:une_fenetre,
+			:v_enreg,
+			:position_barre_mdi_patient ,
+			:droits_acces[80],
+			:droits_acces[81],
+			:droits_acces[82],
+			:droits_acces[83],
+			:droits_acces[84]
+			
+    FROM "utilisateurs" 
+	 Where code = :utilisateur_code ;
+
+	// Mode 1 fenêtre obligatoire
+	une_fenetre = "O"
+	mdi_patient = true
+	
+	if v_enreg = 'O' then
+		enregistrement_automatique = true
+	else
+		enregistrement_automatique = false
+	end if
+
+	if sqlca.sqlcode <> 0 then
+		MessageBox("ATTENTION !","Problème dans l'initialisation des droits !~n~n"+sqlca.sqlerrText)
+	end if
+
+
+
+
+
+
+
+end subroutine
+

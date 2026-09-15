@@ -1,0 +1,31 @@
+﻿$PBExportHeader$fxg_ods_maj_patient.srf
+global type fxg_ods_maj_patient from function_object
+end type
+
+forward prototypes
+global function boolean fxg_ods_maj_patient (double v_code, boolean v_synchro)
+end prototypes
+
+global function boolean fxg_ods_maj_patient (double v_code, boolean v_synchro);
+
+// Mise à jour du patient dans ODS
+// Pas de synchronisation en modification normale d'un patient
+// Synchronisation si renvoi explicite du patient vers ODS
+
+
+string v_action 
+boolean retour
+
+if v_synchro then
+	v_action =  "action?type=hsim_den_patient&code=" + string(v_code)+"&synchro=1"
+else
+	v_action =  "action?type=hsim_den_patient&code=" + string(v_code)+"&synchro=0"
+end if
+
+// Lancement du webservice qui va bien
+
+retour = fxg_lancer_commande_myorthokis(v_action, v_synchro, 1)
+
+return retour
+end function
+

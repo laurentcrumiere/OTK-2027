@@ -1,0 +1,207 @@
+﻿$PBExportHeader$ajout_nouveau_patient.srf
+global type ajout_nouveau_patient from function_object
+end type
+
+forward prototypes
+global function integer ajout_nouveau_patient (double v_numero_dossier)
+end prototypes
+
+global function integer ajout_nouveau_patient (double v_numero_dossier);// Ajoute un patient avec les valeurs par défaut, et met N° de dossier passé en paramètre
+// Renvoie 1 si OK, -1 sinon
+		
+// en sortie VAR_CODE contient la valeur du code interne généré
+		
+//-----------------------------------------------------------------------------
+// VALEURS PAR DEFAUT
+//
+
+string var_praticien, var_dossier, var_corresp, var_dentiste, var_medecin
+string var_caisse, var_mutuelle, var_pays
+long v_ordre
+integer var_retour
+string v_code_comptable_defaut
+
+// PRATICIEN
+//SELECT code INTO :var_praticien FROM prati where prati_defaut = '1';
+//if isnull(var_praticien) then
+//	SELECT min(ordre_trie) INTO :v_ordre FROM prati where actif = 1;
+//	SELECT min(code)  INTO :var_praticien FROM prati where ordre_trie = :v_ordre and  actif = 1 ;
+//end if
+
+var_praticien = fxg_get_praticien_par_defaut()
+
+
+// TYPE DE DOSSIER 
+SELECT min(ordre_trie) INTO :v_ordre FROM dossier ;
+SELECT min(code)  INTO :var_dossier FROM dossier where ordre_trie = :v_ordre ;
+
+
+// CORRESPONDANTS 
+SELECT min(ordre_trie) INTO :v_ordre FROM correspondants where actif = 1 ;
+SELECT min(code)  INTO :var_corresp FROM correspondants where ordre_trie = :v_ordre ;
+
+// DENTISTE & AUTRE
+var_dentiste = var_corresp
+var_medecin = var_corresp
+
+
+
+// CAISSE 
+SELECT min(ordre_trie) INTO :v_ordre FROM CAISSE where  actif = 1;
+SELECT min(code)  INTO :var_caisse FROM CAISSE where ordre_trie = :v_ordre ;
+
+// MUTUELLE 
+SELECT min(ordre_trie) INTO :v_ordre FROM MUTUELLE where actif = 1;
+SELECT min(code)  INTO :var_mutuelle FROM MUTUELLE where ordre_trie = :v_ordre ;
+
+// Pays
+select top 1 code into :var_pays from pays where actif = 1 order by ordre_trie asc, nom asc ;
+if isnull(var_pays) then
+	// actifs et non actifs
+	select top 1 code into :var_pays from pays order by ordre_trie asc, nom asc ;
+end if
+
+// Lien ciel Compta
+if serial = "87694" or serial = "87641"  then
+	v_code_comptable_defaut = "411000"
+else
+	v_code_comptable_defaut = "411000"
+end if 
+
+string v_duree_traitement_unite
+
+if France then
+	v_duree_traitement_unite = "S"
+else
+	v_duree_traitement_unite = "M"
+end if
+
+string v_barre_avancement
+
+
+if belgique then
+	// mode belgique
+	v_barre_avancement = "B"
+else
+	// duréee
+	v_barre_avancement = "D"
+end if
+
+
+// En création de fiche, met la date du jour pour la date premier contact : "date_contact"
+// et met adulte à  Non
+INSERT INTO "patient"  
+	( "numero_dossier",              "nom",              "code_praticien",              "type_dossier",              "code_correspondant",   
+	  "code_dentiste",              "code_caisse",              "code_mutuelle",
+	  "type", 	  "classe",  	  "assure", 	  "devis_remis", 	  "plan_imprime", 	  "date_contact" ,
+	  "adulte",  	  "code_medecin", 	  "dep_imprime", "envoi_sms",
+	  "portable_patient_sms",  "portable_sms" ,  "portable2_parent1_sms" , 	  "portable1_parent2_sms" , "portable2_parent2_sms" ,  "portable1_payeur_sms" ,   "portable2_payeur_sms" ,
+	  
+	  "pays_parent1", "duree_traitement_unite", "code_comptable", "barre_avancement" ,
+	  "autor_rdv_portail_patient",
+//	  "autor_cloud" ,
+	  "autor_appli_patient", "autor_appli_parent11", "autor_appli_parent12", "autor_appli_parent21" , "autor_appli_parent22", "autor_appli_payeur1", "autor_appli_payeur2", "message_borne_conserver", "vaccine_covid_19" 	
+	  )
+VALUES (	 :v_numero_dossier, 'A renseigner', :var_praticien,   :var_dossier, :var_corresp ,   
+				:var_dentiste,    :var_caisse, :var_mutuelle,	'',	'',	1,'O','N',cast(getdate() as date) ,  
+				'N',:var_medecin,'N','O' ,
+				'?','?','?','N','N','N','N' ,
+				:var_pays, :v_duree_traitement_unite, :v_code_comptable_defaut, :v_barre_avancement ,
+				'O',
+				//'O' ,
+				 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'N', 'N')  ;
+
+
+
+//// En création de fiche, met la date du jour pour la date premier contact : "date_contact"
+//// et met adulte à  Non
+//INSERT INTO "patient"  
+//	( "numero_dossier",              "nom",              "code_praticien",              "type_dossier",              "code_correspondant",   
+//	  "code_dentiste",              "code_caisse",              "code_mutuelle",
+//	  "type", 	  "classe",  	  "assure", 	  "devis_remis", 	  "plan_imprime", 	  "date_contact",
+//	  "adulte",  	  "code_medecin", 	  "dep_imprime", "envoi_sms", 	  
+//	  portable_patient_sms ,  portable_sms ,  portable2_parent1_sms , 
+//	  portable1_parent2_sms , portable2_parent2_sms ,  portable1_payeur_sms ,  
+//	  portable2_payeur_sms , pays_parent1, duree_traitement_unite, code_comptable, barre_avancement, autor_rdv_portail_patient, autor_cloud,
+//	  autor_appli_patient, autor_appli_parent11, autor_appli_parent12, autor_appli_parent21, autor_appli_parent22, autor_appli_payeur1, autor_appli_payeur2, message_borne_conserver	  )
+//VALUES ( :v_numero_dossier, 'A renseigner', :var_praticien,   
+//			  :var_dossier, :var_corresp ,    :var_dentiste,    :var_caisse, :var_mutuelle,	'',	'',	1,'O','N',cast(getdate() as date),'N',:var_medecin,'N','O',
+//			  '?','?','?','N','N','N','N', :var_pays, :v_duree_traitement_unite, :v_code_comptable_defaut, :v_barre_avancement, 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'N')  ;
+//
+if SQLCA.SQLcode <> 0 Then
+	// Problème dans le INSERT
+	CHOOSE CASE SQLCA.SQLdbCode
+	CASE -193
+	// Problème de clé 
+			son(5)
+			Messagebox("ATTENTION !","Problème dans la génération du code interne du nouveau patient.~n~nAjout impossible.~n~nVeuillez contacter ARAKIS.")
+	CASE -196
+	// Problème d'unicité d'index -> numero de dossier du patient
+			son(5)
+			Messagebox("ATTENTION !","Problème dans l'ajout du Patient.~n~nIl est probable que le N° de dossier que vous avez saisi (" + string(v_numero_dossier) + ") existe déjà.~n~nVous devez indiquer un nouveau numéro.~n~nL'ajout n'a pas été effectué.")
+		CASE ELSE
+			son(4)
+			Messagebox("Erreur SQL N°"+string(SQLCA.SQLdbCode),SQLCA.SQLErrText)
+		END CHOOSE
+		rollback ;
+	var_retour = -1
+else
+	// Le insert s'est bien passé
+
+	// récupération du CODE généré automatiquement par la base de données en autoincrément
+	SELECT code into :var_code from patient where numero_dossier = :v_numero_dossier ;
+	
+	var_numero_dossier = v_numero_dossier
+	
+	// Mise à jour de l'historique des dossiers
+	INSERT INTO histo_dossier (code, date_heure, type_dossier) 
+	VALUES (:var_code, getdate(), :var_dossier) ;
+	
+	// Mémorisation de la création du dossier
+	ajout_histo_actions(var_code,"AJOPAT",today(),"Création normale du dossier" )
+
+	// Mise à jour de l'identifiant Odrade pour assurer compatibilité avec Odrade
+	update patient set "identifiant_odrade" = code where code = :var_code ;
+	
+	COMMIT ;
+	
+	// depuis le 23/12/2021 ... soucis dans la mise à jour de autor cloud avec une commande normal ... pour quelle raison ????
+	string cde
+	cde = "update patient set autor_cloud = 'O' where code = " + string(var_code) + " ;"
+	EXECUTE IMMEDIATE :cde ;
+	if sqlca.sqlcode <> 0 then
+		messagebox("Problème dans la mise à jour de autor_cloud",sqlca.sqlerrtext)
+		rollback ;
+	else
+		commit ;
+	end if
+
+	// Spécial Busson pour qu'il ait un numéro de dossier identique au code interne
+	if SERIAL = "87728" and var_code <> v_numero_dossier then
+		if Messagebox("ATTENTION", "Voulez-vous indiquer la valeur du code interne ("+  string(var_code) + ") comme numéro de dossier ? ", Question!, YesNo!, 1) = 1 then
+			update patient set numero_dossier = :var_code where code = :var_code ; 
+			if sqlca.sqlcode = 0 then
+				commit ;
+			else
+				Messagebox("ATTENTION !", "Erreur dans la mise à jour du N° de dossier !~n~n" + sqlca.sqlerrtext)
+				rollback ;
+			end if
+		end if
+	end if
+	
+	var_retour = 1
+	
+	// Depuis 2019 on crée aussi le dossier photos !!!
+	security_attributes sa
+	string chemindossier
+	chemindossier = dir_photos + string(var_code) 
+	if not fxg_FileExists(chemindossier) then 
+		CreateDirectory(chemindossier)
+	end if
+	
+end if
+
+
+return var_retour
+end function
+

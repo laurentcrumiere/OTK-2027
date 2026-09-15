@@ -1,0 +1,59 @@
+﻿$PBExportHeader$fxg_modification_pieces_jointes.srf
+global type fxg_modification_pieces_jointes from function_object
+end type
+
+forward prototypes
+global subroutine fxg_modification_pieces_jointes (double v_code_patient, string v_nom_document, string v_action)
+end prototypes
+
+global subroutine fxg_modification_pieces_jointes (double v_code_patient, string v_nom_document, string v_action);// Modification des commentaires des PJ, notamment en cas de modif / suppression des fichiers
+// Le meme fichier peut être dans plusieurs envois
+
+long lig , tot
+
+string v_commentaires 
+string v_nouveau_commentaire
+
+string v_code_interne_historique_edition
+long v_code_interne
+
+
+datastore dw_donnees
+
+// Récupération des données
+dw_donnees = CREATE DataStore
+dw_donnees.DataObject = "dw_historique_editions_pieces_jointes"
+
+
+dw_donnees.SetTransObject(SQLCA)
+dw_donnees.Retrieve(v_code_patient, v_nom_document)
+
+
+tot = dw_donnees.rowcount()
+
+
+for lig = 1 to tot
+	
+	v_commentaires = trim(string_non_nulle(dw_donnees.getitemstring( lig , "commentaires")))
+	
+	if v_commentaires = "" then 
+		v_nouveau_commentaire = v_action
+	else
+		v_nouveau_commentaire = v_commentaires + "~n" + v_action+" par " + utilisateur_code 
+	end if
+	
+	v_code_interne_historique_edition = dw_donnees.getitemstring( lig , "code_interne_historique_editions")
+	v_code_interne = dw_donnees.getitemnumber( lig , "code_interne")
+	
+	update "historique_editions_pieces_jointes" set commentaires = :v_nouveau_commentaire 
+	where code_interne_historique_editions = :v_code_interne_historique_edition and code_patient = :v_code_patient and code_interne  = :v_code_interne ;
+	
+	// pas de gestion d'erreur !!
+next
+
+commit ;
+
+
+
+end subroutine
+

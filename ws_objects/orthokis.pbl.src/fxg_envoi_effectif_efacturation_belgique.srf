@@ -1,0 +1,44 @@
+﻿$PBExportHeader$fxg_envoi_effectif_efacturation_belgique.srf
+global type fxg_envoi_effectif_efacturation_belgique from function_object
+end type
+
+forward prototypes
+global function boolean fxg_envoi_effectif_efacturation_belgique (string v_code_praticien, string v_code_oa, integer v_numero_envoi, date v_date_envoi)
+end prototypes
+
+global function boolean fxg_envoi_effectif_efacturation_belgique (string v_code_praticien, string v_code_oa, integer v_numero_envoi, date v_date_envoi);// Envoi  effectif
+	string s_fichier_json, s_texte_json, s_texte_json_retour
+	boolean v_retour = true
+
+	s_fichier_json = fxg_generer_json_efacturation_belgique(v_code_praticien, v_code_oa, v_numero_envoi, v_date_envoi) 
+	
+	if s_fichier_json <> "-1" then
+		
+		integer li_file_json
+		
+		li_file_json = FileOpen(s_fichier_json,TextMode!,  Read! ) 
+		
+		FileReadEx(li_file_json, s_texte_json)
+		
+		FileClose(li_file_json)
+		
+		if fxg_lancer_commande_efact_belgique("action?type=executeEhealth&cmd=" + v_code_praticien + ";FACTURATION",  s_texte_json , "P", s_texte_json_retour) then
+			Messagebox("Information","Les données ont été envoyées avec succès à l'Organisme Assureur " + v_code_oa+ " !~n~nN° d'envoi : " + string(v_numero_envoi))
+			 v_retour = true
+		else
+			messagebox("ATTENTION", "Erreur N°4 dans l'envoi pour l'Organisme Assureur " + v_code_oa+ " !~n~nL'envoi est tout de même mémorisé !~n~nJson retour :" + s_texte_json_retour)
+			 v_retour = false
+		end if	
+		
+		if not trace then
+			// suppression du fichier jSon si pas de trace demandée
+			FileDelete(s_fichier_json)
+		end if
+	else
+		messagebox("ATTENTION", "Erreur N°3 dans la génération du fichier d'envoi pour l'Organisme Assureur " + v_code_oa+ " !~n~nL'envoi est tout de même mémorisé !")
+		 v_retour = false
+	end if
+	
+	return v_retour
+end function
+

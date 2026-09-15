@@ -1,0 +1,25 @@
+﻿$PBExportHeader$fxg_ods_amo.srf
+global type fxg_ods_amo from function_object
+end type
+
+forward prototypes
+global subroutine fxg_ods_amo (double v_code)
+end prototypes
+
+global subroutine fxg_ods_amo (double v_code);
+
+// Affichage des infos AMO pour le patient 
+
+string v_action 
+
+// Toujours synchro car affichage
+v_action =  "action?type=hsim_den_patient_amo&code=" + string(v_code)
+
+fxg_lancer_commande_myorthokis(v_action, true, 2)
+
+
+// récupération des données et affichage
+
+return
+end subroutine
+

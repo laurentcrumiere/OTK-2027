@@ -1,0 +1,136 @@
+﻿$PBExportHeader$fxg_lancer_commande_myorthokis_http.srf
+global type fxg_lancer_commande_myorthokis_http from function_object
+end type
+
+forward prototypes
+global function boolean fxg_lancer_commande_myorthokis_http (string v_commande, string v_body, string v_type_requete, ref string v_json_retour)
+end prototypes
+
+global function boolean fxg_lancer_commande_myorthokis_http (string v_commande, string v_body, string v_type_requete, ref string v_json_retour);// EXECUTION D'UNE COMMANDE MYORTHOKIS EN HTTP
+
+// v_type_requete : G pour GET, P pour POST
+
+// v_json_retour en référence contienda le Json récupéré pour être analysé par l'appelant
+
+// retour 1 si ok , 0 sinon
+
+Trace (" *** ENVOI D'UNE COMMANDE (HTTP) A MY ORTHOKIS ***")
+
+integer li_rc, li_code
+
+
+HttpClient lnv_HttpClient
+lnv_HttpClient = Create HttpClient
+
+string ls_ReturnJson, ls_code, url_myo
+string s_commande, ls_result, ls_message
+
+long  ll_statut_reponse, ll_root
+BOOLEAN lb_success
+
+
+boolean retour = true
+
+v_json_retour = ""
+
+// myo ?
+select top 1 url_my_orthokis into :url_myo from param ;
+	
+if not utilisation_distante then 
+	if len(trim(url_myo)) > 0 then
+	
+		if v_type_requete = "G" then
+			v_type_requete = "GET"
+		else
+			v_type_requete = "POST"
+		end if
+
+		s_commande = url_myo + "myorthokis/" +  v_commande
+		
+		TRACE ( " - Body : " + v_body )
+		trace( " - Type de Requete : " + v_type_requete)
+
+		TRACE ( " - Envoi de la commande : " + s_commande )
+		
+		// Envoi de la commande
+		li_rc = lnv_HttpClient.SendRequest(v_type_requete, s_commande , v_body, EncodingUTF8!)
+		
+		TRACE ( " - Code Retour de la recherche : " + string(li_rc))
+		
+		if li_rc = 1 then 
+			
+				ll_statut_reponse = lnv_HttpClient.GetResponseStatusCode()
+				li_code = 0
+				
+				if lnv_HttpClient.GetResponseBody(ls_ReturnJson) = 1 then
+					
+					JSONParser json
+					json = CREATE JSONParser
+				  
+					ls_result = json.LoadString (ls_ReturnJson)
+					ll_root = json.GetRootItem()
+				end if
+				
+				if 200 <= ll_statut_reponse and ll_statut_reponse <= 299 then
+					// C'est bon 
+					
+					TRACE ( " - Commandée exécutée avec succès !~n" + ls_ReturnJson +"~n*********************************************************" )
+					
+					// Pas de gestion d'erreur ici ... on le fait dans la fenêtre appelante car action possible à faire (comme suppression d'une ligne de facture)
+					
+					v_json_retour = ls_ReturnJson
+					
+//					lb_success = json.GetItemBoolean(ll_root, 'success')   
+					
+//					if not lb_success then
+						
+//						li_code = json.GetItemNumber(ll_root, 'errorCode') 
+//						if isnull(li_code) then
+//							li_code = -1
+//						end if
+//						//ls_log = string_non_nulle(json.GetItemString(ll_root, 'log'))
+//						ls_message = string_non_nulle(json.GetItemString(ll_root, 'error'))
+						
+//						retour = false
+					
+//						MessageBox("ERREUR DANS LA DEMANDE DE TARIFICATION",	"Code Erreur : " + string(li_code) + "~n~nMessage : " + ls_message)
+						
+//					else
+						
+//						// C'est bon => en renvoie le Json
+						
+//						v_json_retour = ls_ReturnJson
+
+//					end if
+					
+					
+				else
+					
+					TRACE ( " **** Erreur GetResponseStatusCode N°" + string(ll_statut_reponse) + "  dans la l'exécution de la requête : ~n" + ls_ReturnJson +"~n*********************************************************" )
+					
+					MessageBox("ERREUR DANS L'EXECUTION DE LA COMMANDE",	"Erreur de communication N°1 avec myOrthokis !~n~nCode GetResponseStatusCode : " + string (ll_statut_reponse  ))
+					retour = false
+				
+				end if
+		end if
+		
+	else
+		Trace (" *** AUCUNE URL  : PAS D'ENVOI DE COMMANDE A MY ORTHOKIS ***")
+		trace("  Commande : " + v_commande)
+		retour = false
+	end if
+
+else
+	Trace (" *** UTIILISATION DISTANTE : PAS D'ENVOI DE COMMANDE A MY ORTHOKIS ***")
+	trace("  Commande : " + v_commande)
+	retour = false
+
+end if
+
+return retour
+
+
+
+
+end function
+

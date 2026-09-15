@@ -1,0 +1,148 @@
+﻿$PBExportHeader$faire_vignette.srf
+global type faire_vignette from function_object
+end type
+
+forward prototypes
+global subroutine faire_vignette (string fichier_image, string fichier_vignette, double v_code_patient)
+end prototypes
+
+global subroutine faire_vignette (string fichier_image, string fichier_vignette, double v_code_patient);
+string v_fichier_image_seul
+
+v_fichier_image_seul = gfx_extraire_nom_fichier(fichier_image)
+
+
+trace("=== Début Faire vignette pour :  " + fichier_image + "===")
+
+if fileExists(fichier_image) and isvalid(w_mdi_2020) then 
+		
+	
+	// Mémo de valeur AVANT ...
+	long memo_autoreduce, memo_autoresizeX, memo_autoresizeY 
+	long memo_savequality
+	
+	integer largeur_vignette, hauteur_vignette, qualite_jpeg, bits_pixel
+	
+	// Lecture des éléments de la config des vignettes
+	largeur_vignette = profileInt(dir_photos + inifile_photo, "vignettes", "largeur", largeur_vignette_defaut)
+	hauteur_vignette = profileInt(dir_photos + inifile_photo, "vignettes", "hauteur", hauteur_vignette_defaut)
+	qualite_jpeg = profileInt(dir_photos + inifile_photo, "vignettes", "qualite_jpeg", 80)
+	bits_pixel = profileInt(dir_photos + inifile_photo, "vignettes", "bits_pixel", 4)
+		
+	if largeur_vignette <= 0 and hauteur_vignette <= 0 then 
+		// Pour éviter que des belette mettent 0 et 0 (comme JUZAN) dans param imagerie
+		hauteur_vignette = 0 
+		largeur_vignette =  largeur_vignette_defaut 
+	end if 
+	
+	// IMAGEGEAR
+	
+	string erreur_image_gear 
+	integer largeur_reelle,hauteur_reelle
+
+	gearbox uo_gearbox_w_mdi_2020
+	
+	uo_gearbox_w_mdi_2020 = w_mdi_2020.uo_gearbox
+	
+	memo_autoreduce = uo_gearbox_w_mdi_2020.ole_image.object.autoreduce
+	memo_autoresizeX = uo_gearbox_w_mdi_2020.ole_image.object.autoresizeX
+	memo_autoresizeY = uo_gearbox_w_mdi_2020.ole_image.object.autoresizeY 
+	memo_savequality = uo_gearbox_w_mdi_2020.ole_image.object.savequality
+	
+	trace("Faire vignette - Fichier image : " + fichier_image + " - Code patient : " + string( v_code_patient ) )
+	
+	
+	// Chargement de l'image d'origne
+	uo_gearbox_w_mdi_2020.ole_image.object.Loadimage = fichier_image 
+
+	// recherche des infos de l'image d'origine
+	uo_gearbox_w_mdi_2020.ole_image.object.GetFileInfo = fichier_image 
+	
+	// Reduction des pixels
+	if bits_pixel = 4 then 
+		uo_gearbox_w_mdi_2020.ole_image.object.autoreduce = 2
+	else
+		uo_gearbox_w_mdi_2020.ole_image.object.autoreduce = 3
+	end if
+	
+	largeur_reelle = uo_gearbox_w_mdi_2020.ole_image.object.ImageWidth
+	hauteur_reelle = uo_gearbox_w_mdi_2020.ole_image.object.ImageHeight
+	
+	
+	// Reduction de la taille ... 300 de large
+	if largeur_vignette > 0 then
+		// On resize selon la largeur
+		if largeur_vignette < largeur_reelle then
+			uo_gearbox_w_mdi_2020.ole_image.object.ResizeWidth = largeur_vignette
+			uo_gearbox_w_mdi_2020.ole_image.object.ResizeHeight = round(largeur_vignette * hauteur_reelle / largeur_reelle, 0)
+			uo_gearbox_w_mdi_2020.ole_image.object.ResizeImage = 3
+
+		end if
+	else
+		// On resize selon la largeur
+		if hauteur_vignette < hauteur_reelle then
+			uo_gearbox_w_mdi_2020.ole_image.object.ResizeWidth = round(hauteur_vignette * largeur_reelle / hauteur_reelle , 0)
+			uo_gearbox_w_mdi_2020.ole_image.object.ResizeHeight  = hauteur_vignette
+			uo_gearbox_w_mdi_2020.ole_image.object.ResizeImage = 3
+
+		end if
+	end if
+	
+
+	// Sauvegarde en JPG
+	uo_gearbox_w_mdi_2020.ole_image.object.SaveFormat = IG_SAVE_JPG
+
+	//// tx de compression
+	uo_gearbox_w_mdi_2020.ole_image.object.savequality = qualite_jpeg
+	erreur_image_gear = 	uo_gearbox_w_mdi_2020.ole_image.object.ErrString
+	
+	uo_gearbox_w_mdi_2020.ole_image.object.SaveImage = fichier_vignette
+
+//	// Détection de la rotation si besoin
+//	uo_exif_jhead exif
+//	exif = create uo_exif_jhead
+//
+//	string v_orientation = ""
+//	v_orientation =  exif.get_champ(fichier_vignette, exif.exif_orientation) 
+//	destroy uo_exif_jhead
+//		
+//	if v_orientation = "rotate 180" then
+//		Trace("Fichier vignette image avec rotation 180 : " + fichier_vignette)
+//		uo_gearbox_w_mdi_2020.traitement_rotation(180)
+//		uo_gearbox_w_mdi_2020.ole_image.object.SaveImage = fichier_vignette
+//	end if
+
+	
+	
+	// Remise en état de la gearBox
+	uo_gearbox_w_mdi_2020.rendre_vierge()
+	uo_gearbox_w_mdi_2020.ole_image.object.autoreduce = memo_autoreduce
+	uo_gearbox_w_mdi_2020.ole_image.object.autoresizeX =   memo_autoresizeX
+	uo_gearbox_w_mdi_2020.ole_image.object.autoresizeY = memo_autoresizeY
+	uo_gearbox_w_mdi_2020.ole_image.object.savequality = memo_savequality
+
+	
+else
+	// pas de fichier image => suppression d'une vieille vigennet
+	if fileExists(fichier_vignette) then
+		DeleteFileA(fichier_vignette)
+	end if
+	
+	// Suppression des datas en base de données !!
+	delete from images_infos where code = :v_code_patient and nom_fichier = :v_fichier_image_seul ;
+	commit ;
+	
+end if
+
+trace("=== Fin Faire vignette pour :  " + fichier_image + "===")
+if trace then
+	if FileExists(fichier_vignette) then
+		trace(" * Vignette OK *")
+	else
+		trace(" * VIGNETTE PAS OK *")
+	end if
+end if
+
+
+end subroutine
+

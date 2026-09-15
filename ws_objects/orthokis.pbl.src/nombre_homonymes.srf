@@ -1,0 +1,39 @@
+﻿$PBExportHeader$nombre_homonymes.srf
+global type nombre_homonymes from function_object
+end type
+
+forward prototypes
+global function integer nombre_homonymes (double code_patient, string nom, string prenom)
+end prototypes
+
+global function integer nombre_homonymes (double code_patient, string nom, string prenom);//fx globale qui vérif si il a des homonyme ds la base lors de lacréation de nouveau patient
+//ATTENTION : le nom des colones de la datawin dw, passé en param, sont codé en dur (code, nom et prenom)
+//renvoie le nombre d'homonymes présent
+
+string	n, p, nom_complet
+int 		nb
+
+//travail avec des var locales
+n = nom
+p = prenom
+
+// On gère les NULL
+if isnull(n) then n = ""
+if isnull(p) then p = ""
+
+//mise en forme des données passées en paramètres --> trim et lower
+n = lower(trim(n))
+p = lower(trim(p))
+
+//construction du "nom_complet"
+nom_complet = trim(n + " " + p)
+
+//récup du nombre d'homonymes
+SELECT count(*) INTO :nb
+FROM patient
+WHERE trim(lower(trim(   isnull(nom,'')    )) + ' ' + lower(trim( isnull(prenom,'')  ))) = :nom_complet
+and code <> :code_patient ;
+
+return nb
+end function
+

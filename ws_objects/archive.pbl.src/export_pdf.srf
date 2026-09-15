@@ -1,0 +1,39 @@
+﻿$PBExportHeader$export_pdf.srf
+global type export_pdf from function_object
+end type
+
+forward prototypes
+global function integer export_pdf (datawindow dw, string fichier_destination)
+end prototypes
+
+global function integer export_pdf (datawindow dw, string fichier_destination);integer  valeur_retour
+
+// renvoie 
+// 1 si OK
+// -1 si pas OK
+// 0 si rien à à exporter
+
+if dw.rowcount() > 0 then
+	
+	// Exporte une datawindow (déjà remplie) au format PDF
+	// dans le fichier de destination
+	
+//	dw.Object.DataWindow.Export.PDF.Method = Distill!
+//	dw.Object.DataWindow.Export.PDF.Distill.CustomPostScript="Yes"
+//	dw.Modify("datawindow.Export.PDF.Method = '1'")
+//	dw.Modify("datawindow.Export.PDF.xslfop.print=no")
+//	dw.Object.DataWindow.Printer = "Sybase Datawindow PS"
+	
+//	valeur_retour = dw.saveas(fichier_destination, pdf!, true)
+	valeur_retour = dw.saveas(fichier_destination, pdf!, false)
+
+
+	//Messagebox("Export PDF !", valeur_retour)
+else
+	valeur_retour = 0
+end if
+
+
+return valeur_retour
+end function
+

@@ -1,0 +1,87 @@
+﻿$PBExportHeader$fxg_reporting_version.srf
+global type fxg_reporting_version from function_object
+end type
+
+forward prototypes
+global subroutine fxg_reporting_version ()
+end prototypes
+
+global subroutine fxg_reporting_version ();
+// envoi les information de mise à jour à Orthokis
+
+// Envoi de l'information de l'état à my Orthokis si Dental SMS
+long l_statut_reponse
+
+// On a besoin de l'uo Pocket ensuite, meme pour Dental SMS
+
+integer li_ret
+HttpClient lnv_HttpClient
+lnv_HttpClient = Create HttpClient
+string ls_ret, s_commande, ls_Return
+
+string s_body, s_token, s_old_version, s_version_ccvitale, s_version_reporting, s_old_version_ccvitale
+
+s_old_version = ProfileString(dir_photos+"PwoPhotos.ini"  ,  "ARAKIS", "Version", "0")
+s_old_version_ccvitale = ProfileString(dir_photos+"PwoPhotos.ini"  ,  "ARAKIS", "Version_ccvitale", "0")
+
+s_version_ccvitale = fxg_get_version_ccvitale()
+
+
+if s_old_version < version_ce_logiciel or (s_version_ccvitale <> "" and s_version_ccvitale <> s_old_version_ccvitale) then
+	
+	// On vient de changer de version ... si besoin, on met à jour une petit truc dans la base pour Téa
+	
+	
+	if s_old_version <= "33.00j" then
+		update codes_editions set module = 'lc_questionnaire.gif' where code = 'QM' ;
+		commit ;
+	end if
+
+	// Sécurisation dans l'entete
+
+	lnv_HttpClient.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+	lnv_HttpClient.SetRequestHeader("Accept", "*/*")
+	lnv_HttpClient.SetRequestHeader("Connection", "keep-alive")
+	lnv_HttpClient.SetRequestHeader("host", "api-stats.arakis.fr")
+	lnv_HttpClient.SetRequestHeader("Accept-Encoding", "gzip, deflate, br")
+	
+	s_commande = "https://api-stats.arakis.fr/cabinet/maj"
+
+	
+	if s_version_ccvitale <> "" then
+		s_version_reporting = version_ce_logiciel + "-" + s_version_ccvitale
+	else
+		s_version_reporting = version_ce_logiciel
+	end if
+
+	s_body = 'numero_serie=' + SERIAL + "&nom=" + licence + '&old_version=' + s_old_version + '&new_version=' + s_version_reporting
+	
+	// Envoi de la commande à Dental SMS
+//	li_ret= lnv_HttpClient.SendRequest("POST", s_commande, s_body, EncodingUTF8!)
+	li_ret= lnv_HttpClient.SendRequest("POST", s_commande, s_body)
+
+	l_statut_reponse = lnv_HttpClient.GetResponseStatusCode()
+	ls_ret = lnv_HttpClient.GetResponseStatusText()
+	li_ret = lnv_HttpClient.GetResponseBody(ls_return) 
+	
+	if li_ret = 1 and l_statut_reponse = 200 then
+		
+		// tout est OK !!!
+		// on écrit la version de ce build pour la prochaine fois
+		SetProfileString(dir_photos+"PwoPhotos.ini" ,  "ARAKIS", "Version", version_ce_logiciel)
+		if s_version_ccvitale <> ""  then
+			SetProfileString(dir_photos+"PwoPhotos.ini" ,  "ARAKIS", "Version_ccvitale", s_version_ccvitale)
+		end if
+		Trace ("Reporting de la version Ok : " + s_old_version + " -> " + version_ce_logiciel + s_version_ccvitale)
+	
+	else
+			// Pas de message d'erreur .. juste une trace au cas ou 
+			Trace ("Erreur dans le reporting de la version - fxg_reporting_version() - Erreur N°" + string(l_statut_reponse) + " Message : " + ls_ret)
+			Trace ("Commande envoyée : " + s_commande ) 
+			Trace (" Body envoyé : " + s_body)
+	end if
+
+end if
+
+end subroutine
+

@@ -1,0 +1,27 @@
+﻿$PBExportHeader$verif_jours_interdit.srf
+global type verif_jours_interdit from function_object
+end type
+
+forward prototypes
+global function boolean verif_jours_interdit (datawindow dw_liste)
+end prototypes
+
+global function boolean verif_jours_interdit (datawindow dw_liste);// On vérifie d'abord si pas d'erreur de chronologie dans les jours interdits 
+// Recherche d'un "!" sybole d'une erreur
+
+long lig
+
+lig = dw_liste.find("erreur = '!'",0,9999)
+
+if lig > 0 then
+	dw_liste.scrolltorow(lig)
+	dw_liste.setrow(lig)
+	dw_liste.setfocus()
+	Messagebox("ATTENTION !", "Erreur de saisie ! La période doit se terminer APRES son début !~n~nVeuillez corriger puis enregistrer !~n~n(Début : "+string(dw_liste.getitemdatetime(lig,"date_debut"))+ " / Fin : "+string(dw_liste.getitemdatetime(lig,"date_fin"))+")")
+	return false
+else
+	return true
+end if
+
+end function
+

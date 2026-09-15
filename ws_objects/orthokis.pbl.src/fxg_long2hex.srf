@@ -1,0 +1,25 @@
+﻿$PBExportHeader$fxg_long2hex.srf
+global type fxg_long2hex from function_object
+end type
+
+forward prototypes
+global function string fxg_long2hex (long al_number, integer ai_digit)
+end prototypes
+
+global function string fxg_long2hex (long al_number, integer ai_digit);long ll_temp0, ll_temp1
+char lc_ret
+
+IF ai_digit > 0 THEN
+   ll_temp0 = abs(al_number / (16 ^ (ai_digit - 1)))
+   ll_temp1 = ll_temp0 * (16 ^ (ai_digit - 1))
+   IF ll_temp0 > 9 THEN
+      lc_ret = char(ll_temp0 + 55)
+   ELSE
+      lc_ret = char(ll_temp0 + 48)
+   END IF
+   RETURN lc_ret + &
+          fxg_long2hex(al_number - ll_temp1 , ai_digit - 1)
+END IF
+RETURN ""
+end function
+

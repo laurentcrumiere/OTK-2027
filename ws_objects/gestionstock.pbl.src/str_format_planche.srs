@@ -1,0 +1,10 @@
+﻿$PBExportHeader$str_format_planche.srs
+global type str_format_planche from structure
+	integer		code
+	integer		nb_ligne
+	integer		nb_colonne
+	string		nom_dw
+	boolean		imprimante_c4
+	integer		premiere_etiquette
+end type
+

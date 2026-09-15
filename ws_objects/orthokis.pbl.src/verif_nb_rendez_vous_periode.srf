@@ -1,0 +1,47 @@
+﻿$PBExportHeader$verif_nb_rendez_vous_periode.srf
+global type verif_nb_rendez_vous_periode from function_object
+end type
+
+forward prototypes
+global function integer verif_nb_rendez_vous_periode (double patient_saisi, datetime rdv_saisi, integer duree_saisie, string prat_saisi, integer fauteuil_saisi, boolean meme_fauteuil)
+global function integer verif_nb_rendez_vous_periode (datetime debut, datetime fin, integer f1, integer f2, string prat)
+end prototypes
+
+global function integer verif_nb_rendez_vous_periode (double patient_saisi, datetime rdv_saisi, integer duree_saisie, string prat_saisi, integer fauteuil_saisi, boolean meme_fauteuil);
+// renvoie le nombre de rendez-vous 
+
+integer nb_rdv 
+
+if meme_fauteuil then
+	//sur le meme fauteuil
+	select count(*) into :nb_rdv from rdv, etat_rdv
+	where (rdv between :rdv_saisi and dateadd(mi,:duree_saisie - 1,:rdv_saisi)
+	or (:rdv_saisi between rdv and dateadd (minute,duree -1, rdv)) ) and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda = 'N' 
+	and rdv.code <> :patient_saisi and fauteuil = :fauteuil_saisi and code_praticien=:prat_saisi ;
+else
+	//sur  fauteuil different
+	select count(*) into :nb_rdv from rdv, etat_rdv
+	where (rdv between :rdv_saisi and dateadd(mi,:duree_saisie - 1,:rdv_saisi)
+	or (:rdv_saisi between rdv and dateadd (minute,duree -1, rdv)) ) and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda = 'N' 
+	and rdv.code <> :patient_saisi and fauteuil <>  :fauteuil_saisi and code_praticien=:prat_saisi ;
+	
+end if
+
+return nb_rdv
+end function
+
+global function integer verif_nb_rendez_vous_periode (datetime debut, datetime fin, integer f1, integer f2, string prat);// Calcul du nombre de rendez-vous durant une période donnée
+// Utile pour les verif de jours interdits pour un pratien donné
+
+long nb = 0
+
+
+select count(*) into :nb from rdv, etat_rdv where rdv 
+between :debut and :fin and fauteuil between :f1 and :f2 
+and absent = etat_rdv.code and etat_rdv.elimine_agenda = 'N' 
+and code_praticien = :prat  ;
+
+return nb
+
+end function
+

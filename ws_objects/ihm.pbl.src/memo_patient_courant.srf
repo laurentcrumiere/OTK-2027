@@ -1,0 +1,45 @@
+﻿$PBExportHeader$memo_patient_courant.srf
+global type memo_patient_courant from function_object
+end type
+
+forward prototypes
+global function integer memo_patient_courant (double code_patient)
+end prototypes
+
+global function integer memo_patient_courant (double code_patient);// Mémorisation du patient courant
+// 1. dans les variables globales pour PWO
+// 2. dans Orthokis.ini pour WORD
+
+// La fonction est appelée par w_cherche et par m_salleattente
+	
+// Recherche des infos dans la base de données
+string v_nom,v_prenom
+
+if code_patient > 0 then
+
+	SELECT patient.nom, prenom, nom_parent1,nom_payeur, moulage, isnull(mise_en_evidence.nom,'')  , numero_dossier 
+	INTO :v_nom,:v_prenom, :var_nomp, :var_pay, :var_moul, :var_CMU, :var_numero_dossier
+	FROM { oj  "patient" LEFT OUTER JOIN "mise_en_evidence" ON "patient"."mise_en_evidence" = "mise_en_evidence"."code"}  
+	WHERE patient.code = :code_patient ;
+	
+	// Mise en mémoire du nom ...
+	if isnull(v_prenom) then
+		var_nom = trim(v_nom)
+	else
+		var_nom = trim(v_nom)+' '+trim(v_prenom)
+	end if
+	
+	if len(trim(var_CMU)) > 0 then
+		var_CMU = " - "+var_CMU
+	end if
+	
+	// On met dans ORTHOKIS.INI le patient par défaut pour une utilisation de Word
+	if setprofilestring(dir_ini+inifile_orthokis,"Macros","CodDef",string(var_code)) <> 1 then return -1
+	if setprofilestring(dir_ini+inifile_orthokis,"Macros","NomDef",var_nom) <> 1 then return -1
+
+end if
+
+//si tout bien déroulé
+return 1
+end function
+

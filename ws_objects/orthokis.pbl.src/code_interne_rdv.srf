@@ -1,0 +1,30 @@
+﻿$PBExportHeader$code_interne_rdv.srf
+global type code_interne_rdv from function_object
+end type
+
+forward prototypes
+global function double code_interne_rdv ()
+end prototypes
+
+global function double code_interne_rdv ();
+// pour déterminer le code_interne d'un rendez-vous
+// pour éviter les pb en réplication, on fait un calcul de clefs basé
+// sur les horloges et non auto incrément simple !!
+
+double s , ms, result
+
+result = 0
+
+// nombre de secondes depuis 1/1/1900
+select min(seconds(date('1900-01-01'),getdate() ) ) into :s from param ;
+
+// nombre de ms de l'heure du micro
+ms = double ( right(string(now(),'hh:mm:ss.ffff') , 4 ))
+
+result = round( s * 10000 + ms , 0)
+
+return result
+
+
+end function
+

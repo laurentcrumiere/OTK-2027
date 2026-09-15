@@ -1,0 +1,13 @@
+﻿$PBExportHeader$f_pbus_clean_up.srf
+global type f_pbus_clean_up from function_object
+end type
+
+forward prototypes
+global function integer f_pbus_clean_up ()
+end prototypes
+
+global function integer f_pbus_clean_up ();IF IsValid(w_imagelist) THEN Close(w_imagelist)
+
+RETURN 1
+end function
+

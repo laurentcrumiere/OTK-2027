@@ -1,0 +1,44 @@
+﻿$PBExportHeader$centrer_sheet.srf
+$PBExportComments$Shani 1.0 / Centre une fenêtre de type Message
+global type centrer_sheet from function_object
+end type
+
+forward prototypes
+global subroutine centrer_sheet (window fenetre)
+global subroutine centrer_sheet (window sheet, window mdi)
+end prototypes
+
+global subroutine centrer_sheet (window fenetre);// Centre une fenêtre de type Message
+
+double haut,larg
+environment env
+
+GetEnvironment(env)
+	
+// Récupération de la taille de l'écran
+larg = PixelsToUnits(env.ScreenWidth,XPixelsToUnits!)
+haut = PixelsToUnits(env.ScreenHeight,YPixelsToUnits!)
+
+// Ajustement de la fenêtre au centre de l'écran
+fenetre.x = (larg - fenetre.Width) / 2
+fenetre.y = (haut - fenetre.Height) / 2
+
+
+end subroutine
+
+global subroutine centrer_sheet (window sheet, window mdi);// Centre une fenêtre de type sheet , dans une mdi mdi
+
+double haut,larg
+
+	
+// Récupération de la taille de l'écran
+larg = mdi.width
+haut =  mdi.height
+
+// Ajustement de la fenêtre au centre de l'écran
+sheet.x = (larg - sheet.Width) / 2
+sheet.y = (haut - sheet.Height) / 2
+
+
+end subroutine
+

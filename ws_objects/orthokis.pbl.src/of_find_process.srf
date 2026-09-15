@@ -1,0 +1,72 @@
+﻿$PBExportHeader$of_find_process.srf
+global type of_find_process from function_object
+end type
+
+forward prototypes
+global function boolean of_find_process (string as_process)
+end prototypes
+
+global function boolean of_find_process (string as_process);boolean lb_found
+
+String ls_exe_name
+
+ULong lul_SnapShot
+
+CONSTANT ULong TH32CS_SNAPPROCESS = 2
+
+CONSTANT ULong SIZEOF_STRUCT = 556
+
+SetPointer(HourGlass!)
+
+// on travaille en Majuscules
+as_process = upper(as_process)
+
+//Declare instance of structure to hold process information.
+
+str_ProcessEntry32 lstr_processes
+
+//Get snapshot of currently running processes.
+
+lul_SnapShot = CreateToolhelp32Snapshot( TH32CS_SNAPPROCESS, 0 )
+
+If lul_SnapShot = -1 THEN
+	Messagebox('ERREUR', "Impossible d'accéder aux processus système !")
+	Return FALSE
+End If
+
+ls_exe_name = Space(1024)
+
+//API requires dwSize to be the size of the structure in bytes.
+
+lstr_processes.dwSize = SIZEOF_STRUCT
+
+//Get the first process and then loop through the next processes.
+
+If Process32First(lul_snapshot, lstr_processes) Then
+
+	//Get the EXE name
+	ls_exe_name = upper(Trim(lstr_processes.szExeFile))
+		
+	If ls_exe_name = as_process Then
+		// Handle du process
+		lb_found = TRUE
+	Else
+		Do
+			ls_exe_name = upper(Trim(lstr_processes.szExeFile))
+			If ls_exe_name = as_process Then
+				// Handle du process
+				lb_found = TRUE
+				EXIT
+			End If
+		Loop While Process32Next(lul_snapshot, lstr_processes)
+	End If
+
+Else
+
+	MessageBox('ERREUR', "Impossible de parcourir les liste des processus !")
+
+End If
+
+Return lb_found
+end function
+

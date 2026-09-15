@@ -1,0 +1,15 @@
+﻿$PBExportHeader$deconnexion_base_odrade.srf
+global type deconnexion_base_odrade from function_object
+end type
+
+forward prototypes
+global subroutine deconnexion_base_odrade ()
+end prototypes
+
+global subroutine deconnexion_base_odrade ();
+
+// Déconnexion de la base connecté
+DISCONNECT using t_Odrade ;
+
+end subroutine
+

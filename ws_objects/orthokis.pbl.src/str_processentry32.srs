@@ -1,0 +1,14 @@
+﻿$PBExportHeader$str_processentry32.srs
+global type str_processentry32 from structure
+	unsignedlong		dwsize
+	unsignedlong		cntusage
+	unsignedlong		th32processid
+	unsignedlong		th32defaultheapid
+	unsignedlong		th32moduleid
+	unsignedlong		cntthreads
+	unsignedlong		th32parentprocessid
+	long		pcpriclassbase
+	unsignedlong		dwflags
+	character		szexefile[260]
+end type
+

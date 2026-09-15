@@ -1,0 +1,18 @@
+﻿$PBExportHeader$maj_patience.srf
+global type maj_patience from function_object
+end type
+
+forward prototypes
+global subroutine maj_patience (long row, long increment)
+end prototypes
+
+global subroutine maj_patience (long row, long increment);// Mise à jour de de la barre de w_patience
+
+if increment <> 0 then 
+	if mod(row,increment) = 0  then
+//		w_patience.wf_setvalue(row / increment * 10)
+		w_patience.wf_addvalue(10)
+	end if
+end if
+end subroutine
+

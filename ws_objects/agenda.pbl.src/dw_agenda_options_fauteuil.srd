@@ -1,0 +1,43 @@
+﻿$PBExportHeader$dw_agenda_options_fauteuil.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=time updatewhereclause=yes name=heure_debut dbname="agenda.heure_debut" values="00:00	00:00/00:30	00:30/01:00	01:00/01:30	01:30/02:00	02:00/02:30	02:30/03:00	03:00/03:30	03:30/04:00	04:00/04:30	04:30/05:00	05:00/05:30	05:30/06:00	06:00/06:30	06:30/07:00	07:00/07:30	07:30/08:00	08:00/08:30	08:30/09:00	09:00/09:30	90:30/10:00	10:00/10:30	10:30/11:00	11:00/11:30	11:30/12:00	12:00/12:30	12:30/13:00	13:00/13:30	13:30/14:00	14:00/14:30	14:30/15:00	15:00/15:30	15:30/16:00	16:00/16:30	16:30/17:00	17:00/17:30	17:30/18:00	18:00/18:30	18:30/19:00	19:00/19:30	19:30/20:00	20:00/20:30	20:30/21:00	21:00/21:30	21:30/22:00	22:00/22:30	22:30/23:00	23:00/23:30	23:30/" )
+ column=(type=time updatewhereclause=yes name=heure_fin dbname="agenda.heure_fin" )
+ column=(type=char(1) updatewhereclause=yes name=lundi dbname="agenda.lundi" )
+ column=(type=char(1) updatewhereclause=yes name=mardi dbname="agenda.mardi" )
+ column=(type=char(1) updatewhereclause=yes name=mercredi dbname="agenda.mercredi" )
+ column=(type=char(1) updatewhereclause=yes name=jeudi dbname="agenda.jeudi" )
+ column=(type=char(1) updatewhereclause=yes name=vendredi dbname="agenda.vendredi" )
+ column=(type=char(1) updatewhereclause=yes name=samedi dbname="agenda.samedi" )
+ column=(type=char(1) updatewhereclause=yes name=dimanche dbname="agenda.dimanche" )
+ column=(type=time updatewhereclause=yes name=intervalle dbname="agenda.intervalle" )
+ column=(type=real update=yes updatewhereclause=yes name=nombre_fauteuil dbname="agenda.nombre_fauteuil" values="1	1/2	2/3	3/4	4/5	5/6	6/7	7/8	8/9	9/10	10/11	11/12	12/13	13/14	14/15	15/" )
+ column=(type=char(1) updatewhereclause=yes name=tous dbname="agenda.tous" )
+ column=(type=time updatewhereclause=yes name=pause_debut dbname="agenda.pause_debut" )
+ column=(type=time updatewhereclause=yes name=pause_fin dbname="agenda.pause_fin" )
+ column=(type=char(1) updatewhereclause=yes name=urgence dbname="agenda.urgence" values="Urgence :	O/Urgence :	N" )
+ retrieve="  SELECT ~"agenda~".~"heure_debut~",   
+         ~"agenda~".~"heure_fin~",   
+         ~"agenda~".~"lundi~",   
+         ~"agenda~".~"mardi~",   
+         ~"agenda~".~"mercredi~",   
+         ~"agenda~".~"jeudi~",   
+         ~"agenda~".~"vendredi~",   
+         ~"agenda~".~"samedi~",   
+         ~"agenda~".~"dimanche~",   
+         ~"agenda~".~"intervalle~",   
+         ~"agenda~".~"nombre_fauteuil~",   
+         ~"agenda~".~"tous~",   
+         ~"agenda~".~"pause_debut~",   
+         ~"agenda~".~"pause_fin~",   
+         ~"agenda~".~"urgence~"  
+    FROM ~"agenda~"   
+" )
+column(band=detail id=11 alignment="1" tabsequence=10 border="5" color="0" x="265" y="4" height="60" width="274" format="[general]"  name=nombre_fauteuil ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.vscrollbar=yes ddlb.useasborder=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Nombre :" border="0" color="0" x="0" y="4" height="64" width="242"  name=nombre_fauteuil_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="0" tabsequence=20 border="0" color="0" x="567" y="4" height="64" width="347" format="[general]"  name=urgence checkbox.text="Urgence :" checkbox.on="O" checkbox.off="N" checkbox.lefttext=yes checkbox.scale=no checkbox.threed=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

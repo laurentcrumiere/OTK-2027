@@ -1,0 +1,57 @@
+﻿$PBExportHeader$fxg_get_rep_photos.srf
+global type fxg_get_rep_photos from function_object
+end type
+
+forward prototypes
+global function string fxg_get_rep_photos ()
+end prototypes
+
+global function string fxg_get_rep_photos ();// fx qui return le répertoire courrier si tout va bien
+// (càd : on a réussi à le récup et il existe)
+// renvoie une chaine vide si pb
+
+string	l_repphotos = ""
+string	en_local
+string	clef_dir_photo, clef_local
+
+
+if FileExists(dir_ini + inifile_orthokis) then
+// si le fichier "orthokis.ini" existe
+
+	// init des variables de clefs 
+	if utilisation_distante then
+	// si on est en utilisation distante (BD locale)
+		clef_dir_photo  = "dir_replic"
+		clef_local 		 = "local"
+		select rep_photos_replic into :l_repphotos from param ;
+	else
+	// en utilisation classic (BD cabinet)
+		clef_dir_photo  = "dir"
+		clef_local		 = "local"
+		select rep_photos into :l_repphotos from param ;
+	end if
+	
+	// on regarde si indiqué en local ou ds la base
+	en_local = ProfileString(dir_ini + inifile_orthokis, "photos", clef_local, "")
+	
+	if en_local = oui then
+	// si en local
+		// -> on continu de lire "orthokis.ini" pour récup le rep des courriers
+		l_repphotos = profilestring(dir_ini + inifile_orthokis, "photos", clef_dir_photo, "")
+		
+	else
+	// pas en local
+		// si le champ récup est nul -> transfo en string vide
+		if isnull(l_repphotos) then l_repphotos = ""
+		
+	end if
+	
+end if
+
+// si ce rep est invalide -> on le remet à string vierge
+if not fxg_FileExists(l_repphotos) then l_repphotos = ""
+	
+return l_repphotos
+
+end function
+

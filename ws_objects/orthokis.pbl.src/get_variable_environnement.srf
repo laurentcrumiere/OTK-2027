@@ -1,0 +1,29 @@
+﻿$PBExportHeader$get_variable_environnement.srf
+global type get_variable_environnement from function_object
+end type
+
+forward prototypes
+global function string get_variable_environnement (string valeur_cherchee)
+end prototypes
+
+global function string get_variable_environnement (string valeur_cherchee);
+// Function qui renvoie la valeur d'une variable d'environnement
+// Utile notamment pour lire windir, la variable d'installation de Windows
+
+// Lecture variables environnement
+ContextKeyword lcxk_base
+string valeur_retour
+string ls_values[]
+
+w_mdi_2020.GetContextService("Keyword", lcxk_base)
+lcxk_base.GetContextKeywords(valeur_cherchee , ls_values)
+IF Upperbound(ls_values) > 0 THEN
+   valeur_retour = ls_values[1]
+ELSE
+   valeur_retour = ""
+END IF
+
+
+return valeur_retour
+end function
+

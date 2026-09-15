@@ -1,0 +1,33 @@
+﻿$PBExportHeader$ajout_histo_messages_winpopup.srf
+global type ajout_histo_messages_winpopup from function_object
+end type
+
+forward prototypes
+global subroutine ajout_histo_messages_winpopup (string v_poste_recepteur, string v_message)
+end prototypes
+
+global subroutine ajout_histo_messages_winpopup (string v_poste_recepteur, string v_message);
+
+
+// Mise en historique des envois de message
+// la date / heure d'emission est mise par défaut par le serveur de BD
+
+string v_poste_emetteur
+
+v_poste_emetteur = get_nom_ordinateur()
+
+INSERT INTO "historique_messages_winpopup"  
+         ( "poste_emetteur",              "poste_recepteur",              "message",              "user_emetteur" , "confidentiel")  
+  VALUES ( :v_poste_emetteur,   :v_poste_recepteur,              :v_message,              :utilisateur_code , 'N' )  ;
+			  
+			  
+if sqlca.sqlcode <> 0 then
+	MessageBox("Problème d'ajout dans l'Historique des Envois de Message",Sqlca.sqlerrtext)
+	rollback ;
+else
+	commit ;
+end if
+
+
+end subroutine
+

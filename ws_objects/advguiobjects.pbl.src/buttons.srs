@@ -1,0 +1,20 @@
+﻿$PBExportHeader$buttons.srs
+global type buttons from structure
+	string		as_text
+	long		al_image
+	boolean		ab_selected
+	boolean		ab_mouseover
+	point		ast_point[]
+	long		al_backcolor1
+	long		al_backcolor2
+	boolean		ab_enabled
+	long		al_textheight
+	long		al_index
+	boolean		ab_invalid
+	boolean		ab_line
+	long		al_textcolor
+	long		al_textwidth
+	string		as_originaltext
+	any		ia_data
+end type
+

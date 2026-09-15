@@ -1,0 +1,39 @@
+﻿$PBExportHeader$get_pbus_shape.srf
+global type get_pbus_shape from function_object
+end type
+
+forward prototypes
+global function string get_pbus_shape (string forme)
+end prototypes
+
+global function string get_pbus_shape (string forme);// renvoie le nom de la couleur PB Ultimlate suite d'une couleur en français
+string forme_pbus
+
+forme = upper(forme)
+
+choose case forme
+		
+	case "OVALE"
+		forme_pbus = "CIRLCE"
+	case upper("Carré")
+		forme_pbus = "SQUARE"
+	case upper("Carré arrondi")
+		forme_pbus = "ROUNDEDSQUARE"
+	case else
+		forme_pbus = "SQUARE"
+
+end choose
+
+
+return forme_pbus
+
+
+
+
+
+
+
+
+
+end function
+

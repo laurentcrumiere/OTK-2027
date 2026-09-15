@@ -1,0 +1,111 @@
+﻿$PBExportHeader$affichage_somme_due.srf
+global type affichage_somme_due from function_object
+end type
+
+forward prototypes
+global subroutine affichage_somme_due (double var_code_local, boolean v_affichage, ref string v_libelle1, ref string v_libelle2, ref string v_libelle3)
+end prototypes
+
+global subroutine affichage_somme_due (double var_code_local, boolean v_affichage, ref string v_libelle1, ref string v_libelle2, ref string v_libelle3);// Calcul de la somme due
+// Patient courant est dans var_code
+
+// v_affichage sert à savoir si on affiche une messagebox ou qu'on se contente de mettre à jour les variables libellé pour MAJ par ailleur
+
+string nom,prenom,lib1,lib2,lib3
+integer tot
+
+decimal {2} due1,due2,montant
+
+date date_eche
+
+if v_affichage then
+	open(w_patience)
+end if
+
+
+Select nom,prenom INTO :nom,:prenom FROM Patient WHERE code = :var_code_local ;
+
+if isnull(nom)  then
+	son(5)
+	MessageBox("ATTENTION !","Aucun patient courant !")
+else
+
+	due1 = due(var_code_local,today())
+	due2 = due_tp(var_code_local,today())
+
+	if not isnull(prenom) then
+		nom = nom + " "+ prenom
+	end if
+
+	if due1 = 0 then
+		Lib1 = "Ce patient ne vous doit rien !"
+	else
+		if due1 < 0 then
+			if monnaie_base = 'F' then
+				Lib1 = "Vous avez trop perçu "+string(- due1,"######0.00")+" "+symbole_franc+" (soit "+string(- due1 / taux_euro,"######0.00")+" "+symbole_euro+") !"
+			else
+				Lib1 = "Vous avez trop perçu "+string(- due1,"######0.00")+" "+symbole_euro+" !"
+			end if
+		else
+			if monnaie_base = 'F' then
+				Lib1 = "Ce patient vous doit "+string(due1,"######0.00")+" "+symbole_franc+" (soit "+string( due1 / taux_euro,"######0.00")+" "+symbole_euro+") !"
+			else
+				Lib1 = "Ce patient vous doit "+string(due1,"######0.00")+" "+symbole_euro+" !"
+			end if
+		end if
+	end if
+	if due2 = 0 then
+		Lib2 = "Le Tiers Payant ne vous doit rien !"
+	else
+		if due2 < 0 then
+			if monnaie_base = 'F' then
+				Lib2 = "Vous avez trop perçu du Tiers Payant "+string(- due2,"######0.00")+" "+symbole_franc+" (soit "+string(- due2 / taux_euro,"######0.00")+" "+symbole_euro+") !"
+			else
+				Lib2 = "Vous avez trop perçu du Tiers Payant "+string(- due2,"######0.00")+" "+symbole_euro+" !"
+			end if
+		else
+			if monnaie_base = 'F' then
+				Lib2 = "Le Tiers Payant vous doit "+string(due2,"######0.00")+" "+symbole_franc+" (soit "+string(due2 / taux_euro,"######0.00")+" "+symbole_euro+") !"
+			else
+				Lib2 = "Le Tiers Payant vous doit "+string(due2,"######0.00")+" "+symbole_euro+" !"
+			end if
+		end if
+	end if
+
+	// Recherche du prochain règlement
+	proc_reglt(var_code_local,date_eche,montant,'P')
+
+	IF IsNull(montant) THEN
+		// pas de prochain règlement
+		lib3 = "Ce patient n'a pas de prochain règlement !"
+	ELSE
+		// Affichage de la date et du montant du prochain règlement - l'accompte
+		if monnaie_base = 'F' then
+			lib3 = "Le prochain règlement est de " +string(montant,"######0.00")+" "+symbole_franc+" (soit "+string(montant / taux_euro,"######0.00")+" "+symbole_euro+") " + " pour le " + string(date_eche)
+		else
+			lib3 = "Le prochain règlement est de " +string(montant,"######0.00")+" "+symbole_euro+" pour le " + string(date_eche)
+		end if
+	END IF
+
+
+	v_libelle1 = lib1
+	v_libelle2 = lib2
+	v_libelle3 = lib3
+
+	if v_affichage then
+		close(w_patience)
+	end if
+	
+	
+	if v_affichage then
+		MessageBox("Somme due par le patient courant","Patient courant : "+nom+"~n~n"+lib1+"~n~n"+lib3+"~n~n"+lib2)
+	end if
+
+
+
+end if
+
+
+
+end subroutine
+

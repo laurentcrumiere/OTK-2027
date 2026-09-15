@@ -1,0 +1,168 @@
+﻿$PBExportHeader$w_rdv_salle_attente_independante_2026.srw
+forward
+global type w_rdv_salle_attente_independante_2026 from w_rdv_salle_attente
+end type
+end forward
+
+global type w_rdv_salle_attente_independante_2026 from w_rdv_salle_attente
+integer width = 5531
+integer height = 2424
+string title = "Salle d~'attente Indépendante Orthokis"
+boolean righttoleft = false
+boolean clientedge = true
+end type
+global w_rdv_salle_attente_independante_2026 w_rdv_salle_attente_independante_2026
+
+on w_rdv_salle_attente_independante_2026.create
+int iCurrent
+call super::create
+end on
+
+on w_rdv_salle_attente_independante_2026.destroy
+call super::destroy
+end on
+
+type p_fond from w_rdv_salle_attente`p_fond within w_rdv_salle_attente_independante_2026
+end type
+
+type em_date from w_rdv_salle_attente`em_date within w_rdv_salle_attente_independante_2026
+end type
+
+type cb_fermer from w_rdv_salle_attente`cb_fermer within w_rdv_salle_attente_independante_2026
+end type
+
+type cb_ecran from w_rdv_salle_attente`cb_ecran within w_rdv_salle_attente_independante_2026
+end type
+
+type cb_imprimer from w_rdv_salle_attente`cb_imprimer within w_rdv_salle_attente_independante_2026
+end type
+
+type cb_autre from w_rdv_salle_attente`cb_autre within w_rdv_salle_attente_independante_2026
+end type
+
+type st_2 from w_rdv_salle_attente`st_2 within w_rdv_salle_attente_independante_2026
+end type
+
+type st_1 from w_rdv_salle_attente`st_1 within w_rdv_salle_attente_independante_2026
+end type
+
+type em_faut_max from w_rdv_salle_attente`em_faut_max within w_rdv_salle_attente_independante_2026
+end type
+
+type em_faut_min from w_rdv_salle_attente`em_faut_min within w_rdv_salle_attente_independante_2026
+end type
+
+type em_nb from w_rdv_salle_attente`em_nb within w_rdv_salle_attente_independante_2026
+end type
+
+type dw_prati from w_rdv_salle_attente`dw_prati within w_rdv_salle_attente_independante_2026
+end type
+
+type rb_un from w_rdv_salle_attente`rb_un within w_rdv_salle_attente_independante_2026
+end type
+
+type rb_tous from w_rdv_salle_attente`rb_tous within w_rdv_salle_attente_independante_2026
+end type
+
+type st_min from w_rdv_salle_attente`st_min within w_rdv_salle_attente_independante_2026
+end type
+
+type gb_1 from w_rdv_salle_attente`gb_1 within w_rdv_salle_attente_independante_2026
+end type
+
+type uo_1 from w_rdv_salle_attente`uo_1 within w_rdv_salle_attente_independante_2026
+end type
+
+type pb_prec from w_rdv_salle_attente`pb_prec within w_rdv_salle_attente_independante_2026
+end type
+
+type pb_suiv from w_rdv_salle_attente`pb_suiv within w_rdv_salle_attente_independante_2026
+end type
+
+type cbx_filtre from w_rdv_salle_attente`cbx_filtre within w_rdv_salle_attente_independante_2026
+end type
+
+type em_date2 from w_rdv_salle_attente`em_date2 within w_rdv_salle_attente_independante_2026
+end type
+
+type st_au from w_rdv_salle_attente`st_au within w_rdv_salle_attente_independante_2026
+end type
+
+type dw_liste from w_rdv_salle_attente`dw_liste within w_rdv_salle_attente_independante_2026
+end type
+
+type cb_enregistrer from w_rdv_salle_attente`cb_enregistrer within w_rdv_salle_attente_independante_2026
+end type
+
+type st_horloge from w_rdv_salle_attente`st_horloge within w_rdv_salle_attente_independante_2026
+end type
+
+type uo_icones from w_rdv_salle_attente`uo_icones within w_rdv_salle_attente_independante_2026
+end type
+
+type pb_agenda from w_rdv_salle_attente`pb_agenda within w_rdv_salle_attente_independante_2026
+end type
+
+type pb_planning from w_rdv_salle_attente`pb_planning within w_rdv_salle_attente_independante_2026
+end type
+
+type pb_aide from w_rdv_salle_attente`pb_aide within w_rdv_salle_attente_independante_2026
+end type
+
+type pb_sans from w_rdv_salle_attente`pb_sans within w_rdv_salle_attente_independante_2026
+end type
+
+type cb_restaure_positions from w_rdv_salle_attente`cb_restaure_positions within w_rdv_salle_attente_independante_2026
+end type
+
+type cb_rafraichir from w_rdv_salle_attente`cb_rafraichir within w_rdv_salle_attente_independante_2026
+end type
+
+type dw_liste_reference from w_rdv_salle_attente`dw_liste_reference within w_rdv_salle_attente_independante_2026
+end type
+
+type pb_urgence from w_rdv_salle_attente`pb_urgence within w_rdv_salle_attente_independante_2026
+end type
+
+type rb_heure_nom from w_rdv_salle_attente`rb_heure_nom within w_rdv_salle_attente_independante_2026
+end type
+
+type rb_heure_fauteuil from w_rdv_salle_attente`rb_heure_fauteuil within w_rdv_salle_attente_independante_2026
+end type
+
+type dw_liste_parametrable_impression from w_rdv_salle_attente`dw_liste_parametrable_impression within w_rdv_salle_attente_independante_2026
+end type
+
+type gb_2 from w_rdv_salle_attente`gb_2 within w_rdv_salle_attente_independante_2026
+end type
+
+type dw_detail_patient_2 from w_rdv_salle_attente`dw_detail_patient_2 within w_rdv_salle_attente_independante_2026
+end type
+
+type uo_mon_orthodontiste from w_rdv_salle_attente`uo_mon_orthodontiste within w_rdv_salle_attente_independante_2026
+end type
+
+type pb_annonce from w_rdv_salle_attente`pb_annonce within w_rdv_salle_attente_independante_2026
+end type
+
+type dw_rdv_futurs from w_rdv_salle_attente`dw_rdv_futurs within w_rdv_salle_attente_independante_2026
+end type
+
+type uo_moulage_patient from w_rdv_salle_attente`uo_moulage_patient within w_rdv_salle_attente_independante_2026
+end type
+
+type sle_fauteuils_specifiques from w_rdv_salle_attente`sle_fauteuils_specifiques within w_rdv_salle_attente_independante_2026
+end type
+
+type st_fauteuils_specifiques from w_rdv_salle_attente`st_fauteuils_specifiques within w_rdv_salle_attente_independante_2026
+end type
+
+type st_aide_fauteuils_specifiques from w_rdv_salle_attente`st_aide_fauteuils_specifiques within w_rdv_salle_attente_independante_2026
+end type
+
+type uo_url1 from w_rdv_salle_attente`uo_url1 within w_rdv_salle_attente_independante_2026
+end type
+
+type uo_url2 from w_rdv_salle_attente`uo_url2 within w_rdv_salle_attente_independante_2026
+end type
+

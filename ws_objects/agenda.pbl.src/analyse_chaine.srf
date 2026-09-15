@@ -1,0 +1,36 @@
+﻿$PBExportHeader$analyse_chaine.srf
+global type analyse_chaine from function_object
+end type
+
+forward prototypes
+global function string analyse_chaine (string chaine, integer position)
+end prototypes
+
+global function string analyse_chaine (string chaine, integer position);//Declaration des variables globales
+//----------------------------
+integer i,j 				//compteur de boucle
+integer virgule[]		//Tableau contenat toutes les virgules de la chaine passe en param
+string mot				//Mot decoupé de la chaine et renvoyé par la fonction
+
+//Recherche de l'emplacement des virgules et sauvegarde de leur position dans un tableau
+//----------------------------------------------------------------------
+j=1
+FOR i=1 to 10
+	j=pos(chaine, agenda_delimiteur  ,j)
+	virgule[i]=j
+	j++
+NEXT
+
+//Recherche du mot par rapport à sa position passé en param
+//------------------------------------------------
+IF position= 1 THEN
+	mot= left(chaine,virgule[1] - 1)
+ELSE
+	mot= mid(chaine, virgule[position -1] +1, (virgule[position] - (virgule[position -1] +1)))
+END IF
+
+//Renvoie le mot trouvé
+//-----------------
+RETURN mot
+end function
+

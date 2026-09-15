@@ -1,0 +1,15 @@
+﻿$PBExportHeader$valeur_par_defaut_ini.srf
+global type valeur_par_defaut_ini from function_object
+end type
+
+forward prototypes
+global subroutine valeur_par_defaut_ini (string groupe, string clef, string valeur_defaut)
+end prototypes
+
+global subroutine valeur_par_defaut_ini (string groupe, string clef, string valeur_defaut);
+// Valeur par défaut dans le .ini
+string valeur_string
+valeur_string = profilestring(dir_ini+"orthokis.ini", groupe , clef ,valeur_defaut)
+setprofilestring(dir_ini+"orthokis.ini", groupe, clef ,valeur_string) 
+end subroutine
+

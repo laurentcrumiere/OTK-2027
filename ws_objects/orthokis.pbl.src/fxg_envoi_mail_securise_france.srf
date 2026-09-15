@@ -1,0 +1,112 @@
+﻿$PBExportHeader$fxg_envoi_mail_securise_france.srf
+global type fxg_envoi_mail_securise_france from function_object
+end type
+
+forward prototypes
+global subroutine fxg_envoi_mail_securise_france (str_email_frm_output frm_output, double var_code_local, uo_email_email email, string fichiers_a_envoyer[])
+end prototypes
+
+global subroutine fxg_envoi_mail_securise_france (str_email_frm_output frm_output, double var_code_local, uo_email_email email, string fichiers_a_envoyer[]);// recherche des éléments du correspondant
+
+string v_code_correspondant
+string v_email_secu 
+integer num_fichier_ini
+string CheminDossier
+string v_objet
+string fichier_texte_envoye
+long nb_fichier_a_envoyer, lig, nb_fichier_tableau
+
+string fichier_texte_origine 
+string NomFichierIni
+
+CheminDossier = dir_photos + string(var_code_local) + "\"
+fichier_texte_origine = CheminDossier + "texte_email_tmp.html"
+NomFichierIni = "message_securise.ini"
+
+
+// Création du .ini 
+num_fichier_ini = FileOpen(CheminDossier + NomFichierIni , LineMode! , Write!, LockReadWrite!, Replace!)
+FileWrite(num_fichier_ini, "[message]")
+FileClose(num_fichier_ini)
+
+
+v_code_correspondant =  frm_output.code_correspondant
+
+select email_secu
+into  :v_email_secu
+from correspondants where code = :v_code_correspondant ;
+
+
+setprofilestring(CheminDossier + NomFichierIni,"message","destinataire", v_email_secu )
+
+
+// Nous servira pour les fonctions de mise en forme
+string v_fichier_corps
+
+if not isvalid(email) then		// si l'objet pas encore instancié
+	email = create uo_email_email
+end if
+
+email.set_patient(var_code_local)
+v_objet = frm_output.objet
+email.maj_champs(v_objet)
+
+// Objet
+setprofilestring(CheminDossier +NomFichierIni,"message","Objet",v_objet )
+
+// Emplacement spéciale pour myOrthokis
+double v_aleatoire		
+v_aleatoire =  rand(65000)
+fichier_texte_envoye = "texte_email_envoye_" + string(v_aleatoire) + ".html"
+
+FileCopy(fichier_texte_origine, CheminDossier + fichier_texte_envoye, true)
+
+FileDelete(fichier_texte_origine)
+
+setprofilestring(CheminDossier + NomFichierIni,"message","Corps",fichier_texte_envoye )
+
+
+nb_fichier_tableau = UpperBound(fichiers_a_envoyer[])
+
+// pour les images, il y a des cases vides dans le tableau
+nb_fichier_a_envoyer = 0
+for lig = 1 to nb_fichier_tableau
+	if fichiers_a_envoyer[lig] <> "" then
+		nb_fichier_a_envoyer = nb_fichier_a_envoyer + 1
+	end if
+next
+
+setprofilestring(CheminDossier +NomFichierIni,"message","Nombre_pj",string(nb_fichier_a_envoyer) )
+
+for lig = 1 to nb_fichier_a_envoyer
+	setprofilestring(CheminDossier + NomFichierIni,"message","Pj"+string(lig),fichiers_a_envoyer[lig] )
+next
+
+string v_prog 
+v_prog = dir_ini +"Envoi_Mail_Secu.exe"
+
+if fileexists(v_prog) then
+	runwait (v_prog + " "+ string(var_code_local), 1 )
+	
+	// traitement de mise en historique si retour OK 
+	if profilestring(CheminDossier + NomFichierIni,"erreur", "Code", "0") = "0"  then
+		// Mémorisation du mail ...
+		fxg_enregcourrierhisto ( var_code_local , "EMAILS" , today() , v_objet , fichier_texte_envoye , 'E' , 'N', 'N', '', frm_output.categorie)
+	else
+		Messagebox("ATTENTION", "Erreur dans l'envoi du Message Sécurisé :~n~n" +      profilestring(CheminDossier + NomFichierIni,"erreur", "Libellé", "Erreur N°" + profilestring(CheminDossier + NomFichierIni,"erreur", "Code", "0"))      )
+		// suppresion des fichiers 
+		FileDelete(CheminDossier + fichier_texte_envoye)
+	end if 
+	
+else
+	Messagebox("ATTENTION", "Impossible de localiser le fichier envoi de mail sécurisé !~n~n("+ v_prog + ")")
+	// suppresion des fichiers 
+	FileDelete(CheminDossier + fichier_texte_envoye)
+end if
+
+// suppresion des fichiers temporaires
+FileDelete(CheminDossier + NomFichierIni )
+FileDelete(CheminDossier + fichier_texte_origine)
+
+end subroutine
+

@@ -1,0 +1,22 @@
+﻿$PBExportHeader$gfx_close_connection_ole.srf
+global type gfx_close_connection_ole from function_object
+end type
+
+forward prototypes
+global function integer gfx_close_connection_ole (ref oleobject ole_obj)
+end prototypes
+
+global function integer gfx_close_connection_ole (ref oleobject ole_obj);// fx générale qui permet de déconnecter un objet ole
+// pas de gestion d'erreur
+
+
+//deconnection au serveur OLE
+ole_obj.disconnectobject()
+
+// libération de la mémoire
+destroy ole_obj
+
+// pas de gestion d'erreur
+return 1
+end function
+

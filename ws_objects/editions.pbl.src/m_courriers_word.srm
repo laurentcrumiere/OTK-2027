@@ -1,0 +1,294 @@
+﻿$PBExportHeader$m_courriers_word.srm
+forward
+global type m_courriers_word from menu
+end type
+type m_ajouterundossier from menu within m_courriers_word
+end type
+type m_ajouterundocument from menu within m_courriers_word
+end type
+type m_modifier_element from menu within m_courriers_word
+end type
+type m_modifier_modele from menu within m_courriers_word
+end type
+type m_supprimer_element from menu within m_courriers_word
+end type
+type m_dupliquerlélément from menu within m_courriers_word
+end type
+global type m_courriers_word from menu
+m_ajouterundossier m_ajouterundossier
+m_ajouterundocument m_ajouterundocument
+m_modifier_element m_modifier_element
+m_modifier_modele m_modifier_modele
+m_supprimer_element m_supprimer_element
+m_dupliquerlélément m_dupliquerlélément
+end type
+end forward
+
+global type m_courriers_word from menu
+m_ajouterundossier m_ajouterundossier
+m_ajouterundocument m_ajouterundocument
+m_modifier_element m_modifier_element
+m_modifier_modele m_modifier_modele
+m_supprimer_element m_supprimer_element
+m_dupliquerlélément m_dupliquerlélément
+end type
+global m_courriers_word m_courriers_word
+
+on m_courriers_word.create
+m_courriers_word=this
+call super::create
+this.text = "m_courriers_word"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_ajouterundossier=create m_ajouterundossier
+this.m_ajouterundocument=create m_ajouterundocument
+this.m_modifier_element=create m_modifier_element
+this.m_modifier_modele=create m_modifier_modele
+this.m_supprimer_element=create m_supprimer_element
+this.m_dupliquerlélément=create m_dupliquerlélément
+this.Item[UpperBound(this.Item)+1]=this.m_ajouterundossier
+this.Item[UpperBound(this.Item)+1]=this.m_ajouterundocument
+this.Item[UpperBound(this.Item)+1]=this.m_modifier_element
+this.Item[UpperBound(this.Item)+1]=this.m_modifier_modele
+this.Item[UpperBound(this.Item)+1]=this.m_supprimer_element
+this.Item[UpperBound(this.Item)+1]=this.m_dupliquerlélément
+end on
+
+on m_courriers_word.destroy
+call super::destroy
+destroy(this.m_ajouterundossier)
+destroy(this.m_ajouterundocument)
+destroy(this.m_modifier_element)
+destroy(this.m_modifier_modele)
+destroy(this.m_supprimer_element)
+destroy(this.m_dupliquerlélément)
+end on
+
+type m_ajouterundossier from menu within m_courriers_word
+end type
+
+on m_ajouterundossier.create
+call super::create
+this.text = "Ajouter un dossier"
+this.toolbaritemname = "CreateIndex_2!"
+this.menuimage = "lc_nouveau_dossier.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ajouterundossier.destroy
+call super::destroy
+end on
+
+event clicked;w_courriers_word.pb_ajouter_categ.TriggerEvent(Clicked!)
+end event
+
+type m_ajouterundocument from menu within m_courriers_word
+end type
+
+on m_ajouterundocument.create
+call super::create
+this.text = "Ajouter un document"
+this.toolbaritemname = "Insert_2!"
+this.menuimage = "lc_nouveau.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ajouterundocument.destroy
+call super::destroy
+end on
+
+event clicked;w_courriers_word.pb_ajouter_courrier.TriggerEvent(Clicked!)
+end event
+
+type m_modifier_element from menu within m_courriers_word
+end type
+
+on m_modifier_element.create
+call super::create
+this.text = "Modifier les propriétés de l~'élément"
+this.toolbaritemname = "Properties_2!"
+this.menuimage = "lc_modifier_proprietes.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_modifier_element.destroy
+call super::destroy
+end on
+
+event clicked;w_courriers_word.cb_renommer_elem.TriggerEvent(Clicked!)
+end event
+
+type m_modifier_modele from menu within m_courriers_word
+end type
+
+event clicked;
+
+w_courriers_word.pb_editer.TriggerEvent(Clicked!)
+end event
+
+on m_modifier_modele.create
+call super::create
+this.text = "Modifier le modèle"
+this.toolbaritemname = "DosEdit_2!"
+this.menuimage = "lc_renommer.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_modifier_modele.destroy
+call super::destroy
+end on
+
+type m_supprimer_element from menu within m_courriers_word
+end type
+
+on m_supprimer_element.create
+call super::create
+this.text = "Supprimer l~'élément"
+this.toolbaritemname = "DeleteRow_2!"
+this.menuimage = "lc_supprimer.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_supprimer_element.destroy
+call super::destroy
+end on
+
+event clicked;w_courriers_word.cb_supprimer_elem.TriggerEvent(Clicked!)
+end event
+
+type m_dupliquerlélément from menu within m_courriers_word
+end type
+
+on m_dupliquerlélément.create
+call super::create
+this.text = "Dupliquer l~'élément"
+this.toolbaritemname = "Copy_2!"
+this.menuimage = "lc_copy.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_dupliquerlélément.destroy
+call super::destroy
+end on
+
+event clicked;
+
+If Messagebox("ATTENTION", "Confirmez-vous la duplication de ce document ?" , Question!, YesNo!, 2) = 1 then
+
+	w_courriers_word.duplicate_element(true)
+	w_courriers_word.tv_courriers.SetFocus()
+
+end if
+
+end event
+

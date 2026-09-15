@@ -1,0 +1,20 @@
+﻿$PBExportHeader$dw_expl_media_mots_clefs.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=200 color="536870912" )
+table(column=(type=number update=yes updatewhereclause=yes key=yes identity=yes name=id dbname="expl_media_mots_clefs.id" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=description dbname="expl_media_mots_clefs.description" initial="A renseigner" )
+ column=(type=char(255) update=yes updatewhereclause=yes name=icone dbname="expl_media_mots_clefs.icone" initial="CreateIndex_2!" )
+ column=(type=number update=yes updatewhereclause=yes name=id_type dbname="expl_media_mots_clefs.id_type" )
+ column=(type=number update=yes updatewhereclause=yes name=id_groupe dbname="expl_media_mots_clefs.id_groupe" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"expl_media_mots_clefs~" ) COLUMN(NAME=~"expl_media_mots_clefs.id~") COLUMN(NAME=~"expl_media_mots_clefs.description~") COLUMN(NAME=~"expl_media_mots_clefs.icone~") COLUMN(NAME=~"expl_media_mots_clefs.id_type~") COLUMN(NAME=~"expl_media_mots_clefs.id_groupe~")) " update="expl_media_mots_clefs" updatewhere=1 updatekeyinplace=no  sort="id_groupe A description A " )
+column(band=detail id=2 alignment="0" tabsequence=10 border="0" color="0" x="384" y="12" height="76" width="1125" format="[general]"  name=description edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=30 border="0" color="0" x="1550" y="12" height="76" width="329" format="[general]"  name=id_type edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=40 border="0" color="0" x="1920" y="12" height="76" width="329" format="[general]"  name=id_groupe edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="14" y="12" height="76" width="329" format="[general]"  name=id edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=20 border="0" color="0" x="14" y="104" height="76" width="4389" format="[general]"  name=icone edit.limit=255 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
+ 

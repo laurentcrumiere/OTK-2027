@@ -1,0 +1,44 @@
+﻿$PBExportHeader$fxg_get_mac_address.srf
+global type fxg_get_mac_address from function_object
+end type
+
+forward prototypes
+global function string fxg_get_mac_address ()
+end prototypes
+
+global function string fxg_get_mac_address ();string v_adresse_mac
+
+
+Trace("- Utilisation de fxg_get_mac_address()")
+
+OLEObject ole_wsh
+Any la_usb[]
+string ls_message
+
+ ole_wsh = CREATE OLEObject
+ ole_wsh.ConnectToNewObject("MSScriptControl.ScriptControl")
+ ole_wsh.Language = "vbscript"
+ ole_wsh.AddCode('Function rtnMACAddresses()~r~n' &
+ + 'MACAddressList = "" ~r~n' + &
+ + 'strComputer = "."~r~n' + &
+ + 'Set objWMIService = ' + &
+ + '   GetObject("winmgmts:{impersonationLevel=impersonate}!\\" _~r~n' &
+ + '& strComputer & "\root\cimv2")~r~n' &
+ + 'Set colItems = ' &
+ + '  objWMIService.ExecQuery("Select * from Win32_NetworkAdapterConfiguration Where IPEnabled = ~'TRUE~'")~r~n' &
+ + 'For Each objItem in colItems~r~n' &
+ + 'MACAddressList = MACAddressList & " | " & objItem.Description & " = " & objItem.MACAddress  ~r~n' &
+ + 'Next~r~n' &
+ + 'rtnMACAddresses = MACAddressList~r~n' &
+ + 'End Function')
+ ls_message = ole_wsh.Eval("rtnMACAddresses")
+ ole_wsh.DisconnectObject()
+ DESTROY ole_wsh
+
+v_adresse_mac = right(ls_message, 17)
+
+v_adresse_mac = gfx_tout_remplacer(v_adresse_mac, ":", "-")
+
+return v_adresse_mac
+end function
+

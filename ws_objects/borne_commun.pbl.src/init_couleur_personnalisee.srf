@@ -1,0 +1,19 @@
+﻿$PBExportHeader$init_couleur_personnalisee.srf
+global type init_couleur_personnalisee from function_object
+end type
+
+forward prototypes
+global function integer init_couleur_personnalisee ()
+end prototypes
+
+global function integer init_couleur_personnalisee ();//Lit les infos de la table et les stockent dans le tableau global
+//-------------------------------------------------
+SELECT	couleur_1,couleur_2,couleur_3,couleur_4,couleur_5,couleur_6,couleur_7,couleur_8,couleur_9,couleur_10,couleur_11,couleur_12,couleur_13,couleur_14,couleur_15,couleur_16
+INTO		:couleur_personnalisee[1],:couleur_personnalisee[2],:couleur_personnalisee[3],:couleur_personnalisee[4],:couleur_personnalisee[5],:couleur_personnalisee[6],:couleur_personnalisee[7],:couleur_personnalisee[8],:couleur_personnalisee[9],:couleur_personnalisee[10],:couleur_personnalisee[11],:couleur_personnalisee[12],:couleur_personnalisee[13],:couleur_personnalisee[14],:couleur_personnalisee[15],:couleur_personnalisee[16]
+FROM	couleurs_personnalisees ;
+
+//Renvoie tjrs 1, pas de gestion d'erreur
+//------------------------------
+return 1
+end function
+

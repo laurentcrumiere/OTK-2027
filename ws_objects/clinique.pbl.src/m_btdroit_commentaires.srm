@@ -1,0 +1,1675 @@
+﻿$PBExportHeader$m_btdroit_commentaires.srm
+forward
+global type m_btdroit_commentaires from menu
+end type
+type m_type_rdv from menu within m_btdroit_commentaires
+end type
+type m_intervenant from menu within m_btdroit_commentaires
+end type
+type m_commentaire from menu within m_btdroit_commentaires
+end type
+type m_hygiene from menu within m_btdroit_commentaires
+end type
+type m_elastique from menu within m_btdroit_commentaires
+end type
+type m_acteprevu from menu within m_btdroit_commentaires
+end type
+type m_com3 from menu within m_btdroit_commentaires
+end type
+type m_com4 from menu within m_btdroit_commentaires
+end type
+type m_com5 from menu within m_btdroit_commentaires
+end type
+type m_com6 from menu within m_btdroit_commentaires
+end type
+type m_ecart_semaine from menu within m_btdroit_commentaires
+end type
+type m_praticiendurdv from menu within m_btdroit_commentaires
+end type
+type m_commentairedurendezvous from menu within m_btdroit_commentaires
+end type
+type m_ponctualite from menu within m_btdroit_commentaires
+end type
+type m_ponctualite_cabinet from menu within m_btdroit_commentaires
+end type
+type m_soincourant from menu within m_btdroit_commentaires
+end type
+type m_-0 from menu within m_btdroit_commentaires
+end type
+type m_restaurationdescolonnes from menu within m_btdroit_commentaires
+end type
+type m_- from menu within m_btdroit_commentaires
+end type
+type m_couper from menu within m_btdroit_commentaires
+end type
+type m_copier from menu within m_btdroit_commentaires
+end type
+type m_coller from menu within m_btdroit_commentaires
+end type
+type m_-1 from menu within m_btdroit_commentaires
+end type
+type m_informationsdemodifications from menu within m_btdroit_commentaires
+end type
+type m_exporter from menu within m_btdroit_commentaires
+end type
+type m_restauretexte from menu within m_btdroit_commentaires
+end type
+type m_com1 from menu within m_restauretexte
+end type
+type m_acteprévu from menu within m_restauretexte
+end type
+type m_com30 from menu within m_restauretexte
+end type
+type m_comn4 from menu within m_restauretexte
+end type
+type m_comn5 from menu within m_restauretexte
+end type
+type m_comn6 from menu within m_restauretexte
+end type
+type m_restauretexte from menu within m_btdroit_commentaires
+m_com1 m_com1
+m_acteprévu m_acteprévu
+m_com30 m_com30
+m_comn4 m_comn4
+m_comn5 m_comn5
+m_comn6 m_comn6
+end type
+global type m_btdroit_commentaires from menu
+m_type_rdv m_type_rdv
+m_intervenant m_intervenant
+m_commentaire m_commentaire
+m_hygiene m_hygiene
+m_elastique m_elastique
+m_acteprevu m_acteprevu
+m_com3 m_com3
+m_com4 m_com4
+m_com5 m_com5
+m_com6 m_com6
+m_ecart_semaine m_ecart_semaine
+m_praticiendurdv m_praticiendurdv
+m_commentairedurendezvous m_commentairedurendezvous
+m_ponctualite m_ponctualite
+m_ponctualite_cabinet m_ponctualite_cabinet
+m_soincourant m_soincourant
+m_-0 m_-0
+m_restaurationdescolonnes m_restaurationdescolonnes
+m_- m_-
+m_couper m_couper
+m_copier m_copier
+m_coller m_coller
+m_-1 m_-1
+m_informationsdemodifications m_informationsdemodifications
+m_exporter m_exporter
+m_restauretexte m_restauretexte
+end type
+end forward
+
+global type m_btdroit_commentaires from menu
+m_type_rdv m_type_rdv
+m_intervenant m_intervenant
+m_commentaire m_commentaire
+m_hygiene m_hygiene
+m_elastique m_elastique
+m_acteprevu m_acteprevu
+m_com3 m_com3
+m_com4 m_com4
+m_com5 m_com5
+m_com6 m_com6
+m_ecart_semaine m_ecart_semaine
+m_praticiendurdv m_praticiendurdv
+m_commentairedurendezvous m_commentairedurendezvous
+m_ponctualite m_ponctualite
+m_ponctualite_cabinet m_ponctualite_cabinet
+m_soincourant m_soincourant
+m_-0 m_-0
+m_restaurationdescolonnes m_restaurationdescolonnes
+m_- m_-
+m_couper m_couper
+m_copier m_copier
+m_coller m_coller
+m_-1 m_-1
+m_informationsdemodifications m_informationsdemodifications
+m_exporter m_exporter
+m_restauretexte m_restauretexte
+end type
+global m_btdroit_commentaires m_btdroit_commentaires
+
+type variables
+
+boolean commentaires_2010 = false
+end variables
+
+forward prototypes
+public subroutine restaure_texte (string colname)
+end prototypes
+
+public subroutine restaure_texte (string colname);if not 	commentaires_2010 then
+
+	if w_click_coment.dw_coment.rowcount() > 0 then
+		long lig 
+		string v_texte
+		
+		lig = w_click_coment.dw_coment.getrow()
+		
+		Clipboard (w_click_coment.dw_coment.getItemString(lig, colName + "_html") )
+
+		w_click_coment.dw_coment.setItem(lig, colName,"")
+		w_click_coment.dw_coment.setColumn(colName)
+		w_click_coment.dw_coment.setfocus()
+		police_rtf_par_defaut(w_click_coment.dw_coment)
+		
+		w_click_coment.dw_coment.paste()
+		
+		
+//		w_click_coment.dw_coment.setItem(lig, colName,w_click_coment.dw_coment.getItemString(lig, colName + "_html"))
+		
+//		w_click_coment.dw_coment.setItem(lig, colName, string_to_rtf(w_click_coment.dw_coment.getItemString(lig, colName + "_html"), couleur_noire, couleur_blanche))
+	end if
+end if
+end subroutine
+
+on m_btdroit_commentaires.create
+m_btdroit_commentaires=this
+call super::create
+this.text = "m_btdroit_commentaires"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_type_rdv=create m_type_rdv
+this.m_intervenant=create m_intervenant
+this.m_commentaire=create m_commentaire
+this.m_hygiene=create m_hygiene
+this.m_elastique=create m_elastique
+this.m_acteprevu=create m_acteprevu
+this.m_com3=create m_com3
+this.m_com4=create m_com4
+this.m_com5=create m_com5
+this.m_com6=create m_com6
+this.m_ecart_semaine=create m_ecart_semaine
+this.m_praticiendurdv=create m_praticiendurdv
+this.m_commentairedurendezvous=create m_commentairedurendezvous
+this.m_ponctualite=create m_ponctualite
+this.m_ponctualite_cabinet=create m_ponctualite_cabinet
+this.m_soincourant=create m_soincourant
+this.m_-0=create m_-0
+this.m_restaurationdescolonnes=create m_restaurationdescolonnes
+this.m_-=create m_-
+this.m_couper=create m_couper
+this.m_copier=create m_copier
+this.m_coller=create m_coller
+this.m_-1=create m_-1
+this.m_informationsdemodifications=create m_informationsdemodifications
+this.m_exporter=create m_exporter
+this.m_restauretexte=create m_restauretexte
+this.Item[UpperBound(this.Item)+1]=this.m_type_rdv
+this.Item[UpperBound(this.Item)+1]=this.m_intervenant
+this.Item[UpperBound(this.Item)+1]=this.m_commentaire
+this.Item[UpperBound(this.Item)+1]=this.m_hygiene
+this.Item[UpperBound(this.Item)+1]=this.m_elastique
+this.Item[UpperBound(this.Item)+1]=this.m_acteprevu
+this.Item[UpperBound(this.Item)+1]=this.m_com3
+this.Item[UpperBound(this.Item)+1]=this.m_com4
+this.Item[UpperBound(this.Item)+1]=this.m_com5
+this.Item[UpperBound(this.Item)+1]=this.m_com6
+this.Item[UpperBound(this.Item)+1]=this.m_ecart_semaine
+this.Item[UpperBound(this.Item)+1]=this.m_praticiendurdv
+this.Item[UpperBound(this.Item)+1]=this.m_commentairedurendezvous
+this.Item[UpperBound(this.Item)+1]=this.m_ponctualite
+this.Item[UpperBound(this.Item)+1]=this.m_ponctualite_cabinet
+this.Item[UpperBound(this.Item)+1]=this.m_soincourant
+this.Item[UpperBound(this.Item)+1]=this.m_-0
+this.Item[UpperBound(this.Item)+1]=this.m_restaurationdescolonnes
+this.Item[UpperBound(this.Item)+1]=this.m_-
+this.Item[UpperBound(this.Item)+1]=this.m_couper
+this.Item[UpperBound(this.Item)+1]=this.m_copier
+this.Item[UpperBound(this.Item)+1]=this.m_coller
+this.Item[UpperBound(this.Item)+1]=this.m_-1
+this.Item[UpperBound(this.Item)+1]=this.m_informationsdemodifications
+this.Item[UpperBound(this.Item)+1]=this.m_exporter
+this.Item[UpperBound(this.Item)+1]=this.m_restauretexte
+end on
+
+on m_btdroit_commentaires.destroy
+call super::destroy
+destroy(this.m_type_rdv)
+destroy(this.m_intervenant)
+destroy(this.m_commentaire)
+destroy(this.m_hygiene)
+destroy(this.m_elastique)
+destroy(this.m_acteprevu)
+destroy(this.m_com3)
+destroy(this.m_com4)
+destroy(this.m_com5)
+destroy(this.m_com6)
+destroy(this.m_ecart_semaine)
+destroy(this.m_praticiendurdv)
+destroy(this.m_commentairedurendezvous)
+destroy(this.m_ponctualite)
+destroy(this.m_ponctualite_cabinet)
+destroy(this.m_soincourant)
+destroy(this.m_-0)
+destroy(this.m_restaurationdescolonnes)
+destroy(this.m_-)
+destroy(this.m_couper)
+destroy(this.m_copier)
+destroy(this.m_coller)
+destroy(this.m_-1)
+destroy(this.m_informationsdemodifications)
+destroy(this.m_exporter)
+destroy(this.m_restauretexte)
+end on
+
+type m_type_rdv from menu within m_btdroit_commentaires
+end type
+
+event clicked;if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.type_rdv.visible = 0
+	else
+		w_click_coment.dw_coment.object.type_rdv.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.type_rdv.visible = 1
+	else
+		w_click_coment.dw_coment.object.type_rdv.visible = 1
+	end if
+	this.checked = true
+end if
+
+end event
+
+on m_type_rdv.create
+call super::create
+this.text = "Type de Rendez-vous"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_type_rdv.destroy
+call super::destroy
+end on
+
+type m_intervenant from menu within m_btdroit_commentaires
+end type
+
+event clicked;if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.intervenant.visible = 0
+	else
+		w_click_coment.dw_coment.object.intervenant.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.intervenant.visible = 1
+	else
+		w_click_coment.dw_coment.object.intervenant.visible = 1
+	end if
+	this.checked = true
+end if
+
+end event
+
+on m_intervenant.create
+call super::create
+this.text = "Intervenant"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_intervenant.destroy
+call super::destroy
+end on
+
+type m_commentaire from menu within m_btdroit_commentaires
+end type
+
+on m_commentaire.create
+call super::create
+this.text = "Commentaire"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_commentaire.destroy
+call super::destroy
+end on
+
+event clicked;
+if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.com_html.visible = 0
+	else
+		w_click_coment.dw_coment.object.com.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.com_html.visible = 1
+	else
+		w_click_coment.dw_coment.object.com.visible = 1
+	end if
+	this.checked = true
+end if
+
+end event
+
+type m_hygiene from menu within m_btdroit_commentaires
+end type
+
+on m_hygiene.create
+call super::create
+this.text = "Hygiène"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_hygiene.destroy
+call super::destroy
+end on
+
+event clicked;
+if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.hygiene_v10.visible = 0
+	else
+		w_click_coment.dw_coment.object.hygiene_v10.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.hygiene_v10.visible = 1
+	else
+		w_click_coment.dw_coment.object.hygiene_v10.visible = 1
+	end if
+	this.checked = true
+end if
+
+end event
+
+type m_elastique from menu within m_btdroit_commentaires
+end type
+
+on m_elastique.create
+call super::create
+this.text = "Elastique"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_elastique.destroy
+call super::destroy
+end on
+
+event clicked;
+if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.elastique_v10.visible = 0
+	else
+		w_click_coment.dw_coment.object.elastique_v10.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.elastique_v10.visible = 1
+	else
+		w_click_coment.dw_coment.object.elastique_v10.visible = 1
+	end if
+	this.checked = true
+end if
+
+end event
+
+type m_acteprevu from menu within m_btdroit_commentaires
+end type
+
+on m_acteprevu.create
+call super::create
+this.text = "Acte Prévu"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_acteprevu.destroy
+call super::destroy
+end on
+
+event clicked;
+if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.acte_prevu_html.visible = 0
+	else
+		w_click_coment.dw_coment.object.acte_prevu.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.acte_prevu_html.visible = 1
+	else
+		w_click_coment.dw_coment.object.acte_prevu.visible = 1
+	end if
+	this.checked = true
+end if
+
+end event
+
+type m_com3 from menu within m_btdroit_commentaires
+end type
+
+on m_com3.create
+call super::create
+this.text = "Col3"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_com3.destroy
+call super::destroy
+end on
+
+event clicked;
+if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.com3_html.visible = 0
+	else
+		w_click_coment.dw_coment.object.com3.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.com3_html.visible = 1
+	else
+		w_click_coment.dw_coment.object.com3.visible = 1
+	end if
+	this.checked = true
+end if
+
+end event
+
+type m_com4 from menu within m_btdroit_commentaires
+end type
+
+on m_com4.create
+call super::create
+this.text = "Col4"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_com4.destroy
+call super::destroy
+end on
+
+event clicked;
+if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.com4_html.visible = 0
+	else
+		w_click_coment.dw_coment.object.com4.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.com4_html.visible = 1
+	else
+		w_click_coment.dw_coment.object.com4.visible = 1
+	end if
+	this.checked = true
+end if
+
+end event
+
+type m_com5 from menu within m_btdroit_commentaires
+end type
+
+on m_com5.create
+call super::create
+this.text = "Col5"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_com5.destroy
+call super::destroy
+end on
+
+event clicked;
+if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.com5_html.visible = 0
+	else
+		w_click_coment.dw_coment.object.com5.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.com5_html.visible = 1
+	else
+		w_click_coment.dw_coment.object.com5.visible = 1
+	end if
+	this.checked = true
+end if
+
+end event
+
+type m_com6 from menu within m_btdroit_commentaires
+end type
+
+on m_com6.create
+call super::create
+this.text = "Col6"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_com6.destroy
+call super::destroy
+end on
+
+event clicked;
+if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.com6_html.visible = 0
+	else
+		w_click_coment.dw_coment.object.com6.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.com6_html.visible = 1
+	else
+		w_click_coment.dw_coment.object.com6.visible = 1
+	end if
+	this.checked = true
+end if
+
+end event
+
+type m_ecart_semaine from menu within m_btdroit_commentaires
+end type
+
+event clicked;
+if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.ecart_semaine.visible = 0
+	else
+		w_click_coment.dw_coment.object.ecart_semaine.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.ecart_semaine.visible = 1
+	else
+		w_click_coment.dw_coment.object.ecart_semaine.visible = 1
+	end if
+	this.checked = true
+end if
+
+
+end event
+
+on m_ecart_semaine.create
+call super::create
+this.text = "Ecart avec Commentaire Précédent"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ecart_semaine.destroy
+call super::destroy
+end on
+
+type m_praticiendurdv from menu within m_btdroit_commentaires
+end type
+
+event clicked;//code_praticien_rdv
+
+
+if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.code_praticien_rdv.visible = 0
+	else
+		w_click_coment.dw_coment.object.code_praticien_rdv.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.code_praticien_rdv.visible = 1
+	else
+		w_click_coment.dw_coment.object.code_praticien_rdv.visible = 1
+	end if
+	this.checked = true
+end if
+
+
+end event
+
+on m_praticiendurdv.create
+call super::create
+this.text = "Praticien du Rendez-vous"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_praticiendurdv.destroy
+call super::destroy
+end on
+
+type m_commentairedurendezvous from menu within m_btdroit_commentaires
+end type
+
+event clicked;//code_praticien_rdv
+
+
+if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.commentaire_rdv.visible = 0
+	else
+		w_click_coment.dw_coment.object.commentaire_rdv.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.commentaire_rdv.visible = 1
+	else
+		w_click_coment.dw_coment.object.commentaire_rdv.visible = 1
+	end if
+	this.checked = true
+end if
+
+
+end event
+
+on m_commentairedurendezvous.create
+call super::create
+this.text = "Commentaire du Rendez-vous"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_commentairedurendezvous.destroy
+call super::destroy
+end on
+
+type m_ponctualite from menu within m_btdroit_commentaires
+end type
+
+on m_ponctualite.create
+call super::create
+this.text = "Ponctualité Patient"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ponctualite.destroy
+call super::destroy
+end on
+
+event clicked;//code_praticien_rdv
+
+
+if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.ponctualite_rdv.visible = 0
+	else
+		w_click_coment.dw_coment.object.ponctualite_rdv.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.ponctualite_rdv.visible = 1
+	else
+		w_click_coment.dw_coment.object.ponctualite_rdv.visible = 1
+	end if
+	this.checked = true
+end if
+
+
+end event
+
+type m_ponctualite_cabinet from menu within m_btdroit_commentaires
+end type
+
+event clicked;
+
+if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.ponctualite_cabinet.visible = 0
+	else
+		w_click_coment.dw_coment.object.ponctualite_cabinet.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.ponctualite_cabinet.visible = 1
+	else
+		w_click_coment.dw_coment.object.ponctualite_cabinet.visible = 1
+	end if
+	this.checked = true
+end if
+
+
+end event
+
+on m_ponctualite_cabinet.create
+call super::create
+this.text = "Ponctualité Cabinet"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ponctualite_cabinet.destroy
+call super::destroy
+end on
+
+type m_soincourant from menu within m_btdroit_commentaires
+end type
+
+on m_soincourant.create
+call super::create
+this.text = "Soin Courant"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_soincourant.destroy
+call super::destroy
+end on
+
+event clicked;//code_praticien_rdv
+
+
+if this.checked then 
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.soin_courant.visible = 0
+	else
+		w_click_coment.dw_coment.object.soin_courant.visible = 0
+	end if
+	this.checked = false
+else
+	if commentaires_2010 then
+		w_click_coment_2010.dw_coment.object.soin_courant.visible = 1
+	else
+		w_click_coment.dw_coment.object.soin_courant.visible = 1
+	end if
+	this.checked = true
+end if
+
+
+end event
+
+type m_-0 from menu within m_btdroit_commentaires
+end type
+
+on m_-0.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-0.destroy
+call super::destroy
+end on
+
+type m_restaurationdescolonnes from menu within m_btdroit_commentaires
+end type
+
+event clicked;if commentaires_2010 then
+	w_click_coment_2010.dw_coment.object.com_html.visible = 1
+	w_click_coment_2010.dw_coment.object.com_html.width = 1856
+	
+	w_click_coment_2010.dw_coment.object.hygiene_v10.visible = 1
+	w_click_coment_2010.dw_coment.object.hygiene_v10.width = 248
+	
+	w_click_coment_2010.dw_coment.object.elastique_v10.visible = 1
+	w_click_coment_2010.dw_coment.object.elastique_v10.width = 248
+	
+	w_click_coment_2010.dw_coment.object.acte_prevu_html.visible = 1
+	w_click_coment_2010.dw_coment.object.acte_prevu_html.width = 937
+	
+	w_click_coment_2010.dw_coment.object.type_rdv.visible = 1
+	w_click_coment_2010.dw_coment.object.type_rdv.width = 389
+	
+	w_click_coment_2010.dw_coment.object.intervenant.visible = 1
+	w_click_coment_2010.dw_coment.object.intervenant.width = 279
+	
+	// Colonnes paramétrables
+	w_click_coment_2010.dw_coment.object.com3_html.visible = 0
+	w_click_coment_2010.dw_coment.object.com3_html.width = 279
+	w_click_coment_2010.dw_coment.object.com4_html.visible = 0
+	w_click_coment_2010.dw_coment.object.com4_html.width = 279
+	w_click_coment_2010.dw_coment.object.com5_html.visible = 0
+	w_click_coment_2010.dw_coment.object.com5_html.width = 279
+	w_click_coment_2010.dw_coment.object.com6_html.visible = 0
+	w_click_coment_2010.dw_coment.object.com6_html.width = 279
+	
+else
+	w_click_coment.dw_coment.object.com.visible = 1
+	w_click_coment.dw_coment.object.com.width = 1856
+	
+	w_click_coment.dw_coment.object.hygiene_v10.visible = 1
+	w_click_coment.dw_coment.object.hygiene_v10.width = 248
+	
+	w_click_coment.dw_coment.object.elastique_v10.visible = 1
+	w_click_coment.dw_coment.object.elastique_v10.width = 248
+	
+	w_click_coment.dw_coment.object.acte_prevu.visible = 1
+	w_click_coment.dw_coment.object.acte_prevu.width = 937
+	
+	w_click_coment.dw_coment.object.type_rdv.visible = 1
+	w_click_coment.dw_coment.object.type_rdv.width = 389
+	
+	w_click_coment.dw_coment.object.intervenant.visible = 1
+	w_click_coment.dw_coment.object.intervenant.width = 279
+
+	// Colonnes paramétrables
+	w_click_coment.dw_coment.object.com3.visible = 0
+	w_click_coment.dw_coment.object.com3.width = 279
+	w_click_coment.dw_coment.object.com4.visible = 0
+	w_click_coment.dw_coment.object.com4.width = 279
+	w_click_coment.dw_coment.object.com5.visible = 0
+	w_click_coment.dw_coment.object.com5.width = 279
+	w_click_coment.dw_coment.object.com6.visible = 0
+	w_click_coment.dw_coment.object.com6.width = 279
+
+end if
+
+// RAZ de l'ordre des colonnes
+Setprofilestring(dir_ini+inifile_orthokis,"Commentaires Cliniques","ordre_colonnes","RAZ")
+// On met la valeur "RAZ" pour que le RAZ se fasse au moment du close de la fenetre mère
+
+Messagebox("ATTENTION","Les colonnes ont été remises avec leur largeur et leur ordre par défaut ! Nous vous conseillons de fermer cette fenêtre puis la rouvrir pour retrouver une apparence normale !")
+end event
+
+on m_restaurationdescolonnes.create
+call super::create
+this.text = "Restauration des colonnes"
+this.menuimage = "lc_restaurer_colonnes.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_restaurationdescolonnes.destroy
+call super::destroy
+end on
+
+type m_- from menu within m_btdroit_commentaires
+end type
+
+on m_-.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_couper from menu within m_btdroit_commentaires
+end type
+
+event clicked;fxg_couper()
+end event
+
+on m_couper.create
+call super::create
+this.text = "Couper~tCtrl+X"
+this.shortcut = 344
+this.menuimage = "lc_cut.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_couper.destroy
+call super::destroy
+end on
+
+type m_copier from menu within m_btdroit_commentaires
+end type
+
+event clicked;fxg_copier()
+end event
+
+on m_copier.create
+call super::create
+this.text = "Copier~tCtrl+C"
+this.shortcut = 323
+this.menuimage = "lc_copy.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_copier.destroy
+call super::destroy
+end on
+
+type m_coller from menu within m_btdroit_commentaires
+end type
+
+event clicked;fxg_coller()
+end event
+
+on m_coller.create
+call super::create
+this.text = "Coller~tCtrl+V"
+this.shortcut = 342
+this.menuimage = "lc_paste.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_coller.destroy
+call super::destroy
+end on
+
+type m_-1 from menu within m_btdroit_commentaires
+end type
+
+on m_-1.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-1.destroy
+call super::destroy
+end on
+
+type m_informationsdemodifications from menu within m_btdroit_commentaires
+end type
+
+on m_informationsdemodifications.create
+call super::create
+this.text = "Informations de modifications"
+this.menuimage = "lc_infos.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_informationsdemodifications.destroy
+call super::destroy
+end on
+
+event clicked;
+double db_code_interne_rdv 
+
+
+if commentaires_2010 then
+	fxg_get_infos_modifs(w_click_coment_2010.dw_coment, w_click_coment_2010.dw_coment.getrow() )
+	db_code_interne_rdv = w_click_coment_2010.dw_coment.GetItemNumber( w_click_coment_2010.dw_coment.getrow(), "code_interne_rdv")
+	// reche
+else
+	fxg_get_infos_modifs(w_click_coment.dw_coment, w_click_coment.dw_coment.getrow() )
+	db_code_interne_rdv = w_click_coment.dw_coment.GetItemNumber( w_click_coment.dw_coment.getrow(), "code_interne_rdv")
+end if
+
+// Rechecher des éléments du rdv
+datetime dt_rdv
+string s_type_rdv
+
+
+
+select  first rdv , isnull(type_rdv.nom , '')
+into :dt_rdv, :s_type_rdv 
+from rdv, type_rdv 
+where rdv.code_interne = :db_code_interne_rdv and rdv."type" = type_rdv.code  ;
+
+if s_type_rdv= '' then
+	Messagebox("INFORMATION","Aucun rendez-vous n'est associé à ce comemntaire !")
+else
+	Messagebox("INFORMATIONS SUR LE RENDEZ-VOUS ASSOCIE","Rendez-vous du " + string(dt_rdv , "dd/mm/yyyy à hh:mm") +" pour " + s_type_rdv )
+end if
+end event
+
+type m_exporter from menu within m_btdroit_commentaires
+end type
+
+event clicked;int ret 
+
+if commentaires_2010 then
+	w_click_coment_2010.dw_coment_export = create datastore
+	w_click_coment_2010.dw_coment_export.dataobject = "dw_coment_export"
+
+	w_click_coment_2010.dw_coment_export.SetTransObject(sqlca)
+	w_click_coment_2010.dw_coment_export.retrieve(w_click_coment_2010.var_code_local)
+
+	param_win[1] = "E"
+	openWithParm(w_exporter_datastore_excel,  w_click_coment_2010.dw_coment_export)
+else
+	w_click_coment.dw_coment_export = create datastore
+	w_click_coment.dw_coment_export.dataobject = "dw_coment_export"
+	w_click_coment.dw_coment_export.object.datawindow.print.DocumentName = "Commentaires Cliniques"
+
+	
+	ret = w_click_coment.dw_coment_export.SetTransObject(sqlca)
+	ret = w_click_coment.dw_coment_export.retrieve(w_click_coment.var_code_local)
+
+	// Variable d'instance passée ....
+	param_win[1] = "E"
+	openWithParm(w_exporter_datastore_excel,  w_click_coment.dw_coment_export)
+end if
+
+end event
+
+on m_exporter.create
+call super::create
+this.text = "Exporter"
+this.menuimage = "lc_exporter_16.png"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_exporter.destroy
+call super::destroy
+end on
+
+type m_restauretexte from menu within m_btdroit_commentaires
+m_com1 m_com1
+m_acteprévu m_acteprévu
+m_com30 m_com30
+m_comn4 m_comn4
+m_comn5 m_comn5
+m_comn6 m_comn6
+end type
+
+on m_restauretexte.create
+call super::create
+this.visible = false
+this.text = "Restauration de Texte"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_com1=create m_com1
+this.m_acteprévu=create m_acteprévu
+this.m_com30=create m_com30
+this.m_comn4=create m_comn4
+this.m_comn5=create m_comn5
+this.m_comn6=create m_comn6
+this.Item[UpperBound(this.Item)+1]=this.m_com1
+this.Item[UpperBound(this.Item)+1]=this.m_acteprévu
+this.Item[UpperBound(this.Item)+1]=this.m_com30
+this.Item[UpperBound(this.Item)+1]=this.m_comn4
+this.Item[UpperBound(this.Item)+1]=this.m_comn5
+this.Item[UpperBound(this.Item)+1]=this.m_comn6
+end on
+
+on m_restauretexte.destroy
+call super::destroy
+destroy(this.m_com1)
+destroy(this.m_acteprévu)
+destroy(this.m_com30)
+destroy(this.m_comn4)
+destroy(this.m_comn5)
+destroy(this.m_comn6)
+end on
+
+type m_com1 from menu within m_restauretexte
+end type
+
+on m_com1.create
+call super::create
+this.text = "Com N°1"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_com1.destroy
+call super::destroy
+end on
+
+event clicked;
+restaure_texte("com")
+end event
+
+type m_acteprévu from menu within m_restauretexte
+end type
+
+event clicked;restaure_texte("acte_prevu")
+end event
+
+on m_acteprévu.create
+call super::create
+this.text = "Acte Prévu"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_acteprévu.destroy
+call super::destroy
+end on
+
+type m_com30 from menu within m_restauretexte
+end type
+
+event clicked;restaure_texte("com3")
+end event
+
+on m_com30.create
+call super::create
+this.text = "Com N°3"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_com30.destroy
+call super::destroy
+end on
+
+type m_comn4 from menu within m_restauretexte
+end type
+
+event clicked;restaure_texte("com4")
+end event
+
+on m_comn4.create
+call super::create
+this.text = "Com N°4"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_comn4.destroy
+call super::destroy
+end on
+
+type m_comn5 from menu within m_restauretexte
+end type
+
+event clicked;restaure_texte("com5")
+end event
+
+on m_comn5.create
+call super::create
+this.text = "Com N°5"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_comn5.destroy
+call super::destroy
+end on
+
+type m_comn6 from menu within m_restauretexte
+end type
+
+event clicked;restaure_texte("com6")
+end event
+
+on m_comn6.create
+call super::create
+this.text = "Com N°6"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_comn6.destroy
+call super::destroy
+end on
+

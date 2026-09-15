@@ -1,0 +1,56 @@
+﻿$PBExportHeader$calcul_age_a_une_date.srf
+global type calcul_age_a_une_date from function_object
+end type
+
+forward prototypes
+global function string calcul_age_a_une_date (date naissance, date date_voulue)
+end prototypes
+
+global function string calcul_age_a_une_date (date naissance, date date_voulue);// But de la fonction :
+// Calculer l'age d'une personne à une date donnée ... Pas forcément à la date du jour
+
+// Explications des variables : 
+//				 naissance : date de naissance sous forme de string 
+//				 date_voulue : date à laquelle on veut l'age de la personne
+//				 age : retourne l'age sous la forme an + mois
+
+
+string age
+long  an_naissance, mois_naissance
+
+
+IF naissance = date('00/00/0000') OR IsNull(naissance)  THEN
+	
+	age = "0 an 0 mois"
+	
+ELSE	
+	
+	// Calcul de l'an
+	IF month(date_voulue) * 100 +  day(date_voulue) < month( naissance ) * 100 + day( naissance ) THEN
+		an_naissance = year(date_voulue) - year( naissance ) - 1
+	ELSE
+		an_naissance = year(date_voulue) - year( naissance )
+	END IF
+	
+	// Calcul du mois
+	IF month(date_voulue) < month( naissance ) THEN
+		mois_naissance = month(date_voulue) - month( naissance ) +12
+	ELSE
+		IF month(date_voulue) = month( naissance ) THEN
+			if day(date_voulue) < day( naissance ) then
+				mois_naissance = 11
+			else
+				mois_naissance = 0
+			end if
+		else
+			mois_naissance = month(date_voulue) - month( naissance )
+		end if
+	END IF
+	
+	age = string(an_naissance) + " ans " + string(mois_naissance) + " mois"
+	
+END IF
+return age
+
+end function
+

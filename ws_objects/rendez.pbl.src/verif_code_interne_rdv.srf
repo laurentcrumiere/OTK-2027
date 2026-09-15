@@ -1,0 +1,29 @@
+﻿$PBExportHeader$verif_code_interne_rdv.srf
+global type verif_code_interne_rdv from function_object
+end type
+
+forward prototypes
+global function double verif_code_interne_rdv (double v_code_interne, w_agenda w_agenda_ouvert)
+end prototypes
+
+global function double verif_code_interne_rdv (double v_code_interne, w_agenda w_agenda_ouvert);
+integer li_cpt
+
+select isnull(count(*), 0) into :li_cpt from rdv where code_interne = :v_code_interne ; 
+
+if li_cpt = 0 then 
+	// pas bon => faut retrouver le code interne en fonction du rdv courant de w_agenda
+	double v_code_patient
+	datetime v_rdv
+	string v_code_praticien, v_type
+	
+	v_type = w_agenda_ouvert.type_rdv_agenda 
+	v_code_praticien = w_agenda_ouvert.code_praticien_agenda
+   	v_code_patient = double( w_agenda_ouvert.code_patient_agenda)   
+	v_rdv = 	datetime(date(left(w_agenda_ouvert.date_rdv_agenda,10)),time(mid(w_agenda_ouvert.date_rdv_agenda,12,8)))
+	select top 1 code_interne into :v_code_interne from rdv where code = :v_code_patient and "type"  =   :v_type and code_praticien = :v_code_praticien and rdv = :v_rdv ; 
+end if
+
+return v_code_interne
+end function
+

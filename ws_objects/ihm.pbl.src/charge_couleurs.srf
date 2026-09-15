@@ -1,0 +1,36 @@
+﻿$PBExportHeader$charge_couleurs.srf
+global type charge_couleurs from function_object
+end type
+
+forward prototypes
+global subroutine charge_couleurs ()
+end prototypes
+
+global subroutine charge_couleurs ();
+
+// Recherche des couleurs de fond dans le fichier Orthokis.ini
+//couleur_fond_fenetre = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","fond_fenetre","15780518"))
+//couleur_fond_barre_outils_3  = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","fond_barre_3","13335090"))
+couleur_fond_mdi = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","fond_mdi","15780518"))
+
+image_fond_mdi = profilestring(dir_ini+inifile_orthokis,"COULEURS","image_fond_mdi","")
+If  profilestring(dir_ini+inifile_orthokis,"COULEURS","image_fond_mdi_etiree","N") = 'O' then
+	image_fond_mdi_etiree = true
+else
+	image_fond_mdi_etiree = false
+end if
+
+
+couleur_fond_barre_patient  = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","fond_barre_patient","13335090"))
+couleur_fond_fenetre = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","fond_mdi_patient","15780518"))
+couleur_fond_barre_outils_3 = couleur_fond_fenetre // pour la couleur de la barre verticale
+ 
+// Datawindow
+couleur_fond_datawindow = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","fond_datawindow","15780518"))
+couleur_degrade_datawindow =  long(profilestring(dir_ini+inifile_orthokis,"COULEURS","degrade_datawindow","15780518"))
+brush_datawindow = profileInt(dir_ini+inifile_orthokis,"COULEURS","brush_datawindow",1) - 1
+
+
+
+end subroutine
+

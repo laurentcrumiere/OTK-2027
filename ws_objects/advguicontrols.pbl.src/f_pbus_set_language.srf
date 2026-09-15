@@ -1,0 +1,15 @@
+﻿$PBExportHeader$f_pbus_set_language.srf
+global type f_pbus_set_language from function_object
+end type
+
+forward prototypes
+global function integer f_pbus_set_language (string as_culture)
+end prototypes
+
+global function integer f_pbus_set_language (string as_culture);
+n_cst_ui_imagelist lnv_theme
+lnv_theme.of_SetGlobalLanguageCode(as_culture)
+
+RETURN 1
+end function
+

@@ -1,0 +1,685 @@
+﻿$PBExportHeader$m_btdroit_gearbox_fournisseur.srm
+forward
+global type m_btdroit_gearbox_fournisseur from m_btdroit_gearbox
+end type
+end forward
+
+global type m_btdroit_gearbox_fournisseur from m_btdroit_gearbox
+end type
+global m_btdroit_gearbox_fournisseur m_btdroit_gearbox_fournisseur
+
+type variables
+
+end variables
+
+forward prototypes
+public function integer gearpopmenu (integer x, integer y, gearbox gbox)
+end prototypes
+
+public function integer gearpopmenu (integer x, integer y, gearbox gbox);string	sl, lstr_path_prg
+
+
+gb2 = gbox	// on en garde une occurence
+
+// pour le "ouvrir avec ..."
+sl = profilestring(dir_ini + inifile_orthokis, "photos", "nom_editer_avec01", "")
+lstr_path_prg = ProfileString(dir_ini + inifile_orthokis, "photos", "editer_avec01", "")
+if lstr_path_prg = "" then
+// si aucun prg de retouche indiqué -> enable false
+	this.m_editer_avec.text = this.m_editer_avec.tag
+	this.m_editer_avec.enabled = false
+else
+// un prg de retouche est indiqué -> on rajoute la description à l'entrée du menu
+	this.m_editer_avec.text = this.m_editer_avec.tag + "[" + sl + "]"
+end if 
+
+// Si fichier photo n'existe pas encore
+if Not FileExists(gb2.fichier_photo) then
+	this.m_supprimerimage.enabled 	= false
+	this.m_déplacervers.enabled 		= false
+	this.m_sauvegardersous.enabled	= false
+	this.m_editer_avec.enabled 		= false
+	this.m_imprimerlimage.enabled 	= false
+end if
+
+// on ne fait uniquement des acquisition par fichier sur le dd
+this.m_acquisitionliendigorasoredex.visible = false
+this.m_acquisitionliendimaxisplanmeca.visible = false
+	
+// on affiche le menu en popup
+this.popmenu(x,y)
+
+// pas de gestion d'erreur
+return 1
+end function
+
+on m_btdroit_gearbox_fournisseur.create
+m_btdroit_gearbox_fournisseur=this
+call super::create
+this.text = "m_btdroit_gearbox_fournisseur"
+end on
+
+on m_btdroit_gearbox_fournisseur.destroy
+call super::destroy
+end on
+
+type m_selection_matos from m_btdroit_gearbox`m_selection_matos within m_btdroit_gearbox_fournisseur
+end type
+
+on m_selection_matos.create
+call super::create
+this.enabled = false
+this.menuanimation = true
+end on
+
+on m_selection_matos.destroy
+call super::destroy
+end on
+
+type m_acquerir from m_btdroit_gearbox`m_acquerir within m_btdroit_gearbox_fournisseur
+end type
+
+on m_acquerir.create
+call super::create
+this.enabled = false
+this.menuanimation = true
+end on
+
+on m_acquerir.destroy
+call super::destroy
+end on
+
+type m_-0 from m_btdroit_gearbox`m_-0 within m_btdroit_gearbox_fournisseur
+end type
+
+on m_-0.create
+call super::create
+this.visible = false
+end on
+
+on m_-0.destroy
+call super::destroy
+end on
+
+type m_acquisitionfichier from m_btdroit_gearbox`m_acquisitionfichier within m_btdroit_gearbox_fournisseur
+end type
+
+on m_acquisitionfichier.create
+call super::create
+this.menuimage = "lc_acquisition_fichier_16.png"
+this.menuanimation = true
+end on
+
+on m_acquisitionfichier.destroy
+call super::destroy
+end on
+
+event m_acquisitionfichier::clicked;string	pass_parameters	//string contenant infos a passer par "OPEN" de la fenetre acquisition fichier
+string	cl_name	//pour passer le bon param suivant photos ARAKIS ou clinique
+str_acqui_gear_param struct
+gearbox_fournisseur gb_fournisseur
+
+gb_fournisseur = gb2
+
+cl_name = right(gb2.classname(),3)
+
+//struct.code_fournisseur = nom_dossier_fournisseur
+//struct.code_contact = nom_dossier_contact
+
+struct.code_fournisseur = gb_fournisseur.dossier_fournisseur
+struct.code_contact = gb_fournisseur.numero_contact
+struct.code_produit = gb_fournisseur.numero_produit
+
+
+if cl_name = "003" then
+	struct.ajout_contact = false
+	struct.ajout_produit = false
+else
+	if cl_name = "004" then
+		struct.ajout_contact = true
+		struct.ajout_produit = false
+	else
+		// cl_name = "005"
+		struct.ajout_produit = true
+	end if		
+end if
+
+//ouvre la fenétre d'acquisition fichier
+openwithparm(w_acquisition_fichier_fournisseur,struct)
+
+//affiche la photo fraichement acquise
+
+if FileExists(gb2.fichier_photo) then
+	gb2.ole_image.object.AutoRedraw = true
+	gb2.ole_image.object.loadimage = gb2.fichier_photo
+else
+	gb2.ole_image.object.ClearImage = true
+end if
+
+end event
+
+type m_acquisitionidentitekitview from m_btdroit_gearbox`m_acquisitionidentitekitview within m_btdroit_gearbox_fournisseur
+end type
+
+on m_acquisitionidentitekitview.create
+call super::create
+end on
+
+on m_acquisitionidentitekitview.destroy
+call super::destroy
+end on
+
+type m_acquisitionliendimaxisplanmeca from m_btdroit_gearbox`m_acquisitionliendimaxisplanmeca within m_btdroit_gearbox_fournisseur
+end type
+
+on m_acquisitionliendimaxisplanmeca.create
+call super::create
+end on
+
+on m_acquisitionliendimaxisplanmeca.destroy
+call super::destroy
+end on
+
+type m_acquisitionliendigorasoredex from m_btdroit_gearbox`m_acquisitionliendigorasoredex within m_btdroit_gearbox_fournisseur
+end type
+
+on m_acquisitionliendigorasoredex.create
+call super::create
+end on
+
+on m_acquisitionliendigorasoredex.destroy
+call super::destroy
+end on
+
+type m_acquisitionlientrophy from m_btdroit_gearbox`m_acquisitionlientrophy within m_btdroit_gearbox_fournisseur
+end type
+
+on m_acquisitionlientrophy.create
+call super::create
+end on
+
+on m_acquisitionlientrophy.destroy
+call super::destroy
+end on
+
+type m_acquisitionlienvixwin32gendex from m_btdroit_gearbox`m_acquisitionlienvixwin32gendex within m_btdroit_gearbox_fournisseur
+end type
+
+on m_acquisitionlienvixwin32gendex.create
+call super::create
+end on
+
+on m_acquisitionlienvixwin32gendex.destroy
+call super::destroy
+end on
+
+type m_acquisitionliensidexissirona from m_btdroit_gearbox`m_acquisitionliensidexissirona within m_btdroit_gearbox_fournisseur
+end type
+
+on m_acquisitionliensidexissirona.create
+call super::create
+end on
+
+on m_acquisitionliensidexissirona.destroy
+call super::destroy
+end on
+
+type m_acquisitionlienmediadentmorita from m_btdroit_gearbox`m_acquisitionlienmediadentmorita within m_btdroit_gearbox_fournisseur
+end type
+
+on m_acquisitionlienmediadentmorita.create
+call super::create
+end on
+
+on m_acquisitionlienmediadentmorita.destroy
+call super::destroy
+end on
+
+type m_acquisitionliendbswindurrdental from m_btdroit_gearbox`m_acquisitionliendbswindurrdental within m_btdroit_gearbox_fournisseur
+end type
+
+on m_acquisitionliendbswindurrdental.create
+call super::create
+end on
+
+on m_acquisitionliendbswindurrdental.destroy
+call super::destroy
+end on
+
+type m_acquisitioncliniviewinstrumentarium from m_btdroit_gearbox`m_acquisitioncliniviewinstrumentarium within m_btdroit_gearbox_fournisseur
+end type
+
+on m_acquisitioncliniviewinstrumentarium.create
+call super::create
+end on
+
+on m_acquisitioncliniviewinstrumentarium.destroy
+call super::destroy
+end on
+
+type m_acquisitionlienmyray from m_btdroit_gearbox`m_acquisitionlienmyray within m_btdroit_gearbox_fournisseur
+end type
+
+on m_acquisitionlienmyray.create
+call super::create
+end on
+
+on m_acquisitionlienmyray.destroy
+call super::destroy
+end on
+
+type m_-1 from m_btdroit_gearbox`m_-1 within m_btdroit_gearbox_fournisseur
+end type
+
+on m_-1.create
+call super::create
+end on
+
+on m_-1.destroy
+call super::destroy
+end on
+
+type m_copierimage from m_btdroit_gearbox`m_copierimage within m_btdroit_gearbox_fournisseur
+end type
+
+on m_copierimage.create
+call super::create
+this.menuanimation = true
+end on
+
+on m_copierimage.destroy
+call super::destroy
+end on
+
+type m_collerimage from m_btdroit_gearbox`m_collerimage within m_btdroit_gearbox_fournisseur
+end type
+
+on m_collerimage.create
+call super::create
+this.menuimage = "lc_paste.png"
+this.menuanimation = true
+end on
+
+on m_collerimage.destroy
+call super::destroy
+end on
+
+type m_déplacervers from m_btdroit_gearbox`m_déplacervers within m_btdroit_gearbox_fournisseur
+end type
+
+on m_déplacervers.create
+call super::create
+this.visible = false
+this.menuanimation = true
+end on
+
+on m_déplacervers.destroy
+call super::destroy
+end on
+
+type m_10 from m_btdroit_gearbox`m_10 within m_btdroit_gearbox_fournisseur
+end type
+
+on m_10.create
+call super::create
+end on
+
+on m_10.destroy
+call super::destroy
+end on
+
+type m_odrade from m_btdroit_gearbox`m_odrade within m_btdroit_gearbox_fournisseur
+end type
+
+on m_odrade.create
+call super::create
+this.visible = false
+end on
+
+on m_odrade.destroy
+call super::destroy
+end on
+
+type m_envoyeruneradiodansodrade from m_btdroit_gearbox`m_envoyeruneradiodansodrade within m_btdroit_gearbox_fournisseur
+end type
+
+on m_envoyeruneradiodansodrade.create
+call super::create
+this.visible = false
+end on
+
+on m_envoyeruneradiodansodrade.destroy
+call super::destroy
+end on
+
+type m_1 from m_btdroit_gearbox`m_1 within m_btdroit_gearbox_fournisseur
+end type
+
+on m_1.create
+call super::create
+this.visible = false
+end on
+
+on m_1.destroy
+call super::destroy
+end on
+
+type m_modifierdateacquisition from m_btdroit_gearbox`m_modifierdateacquisition within m_btdroit_gearbox_fournisseur
+end type
+
+on m_modifierdateacquisition.create
+call super::create
+this.visible = false
+end on
+
+on m_modifierdateacquisition.destroy
+call super::destroy
+end on
+
+type m_editer from m_btdroit_gearbox`m_editer within m_btdroit_gearbox_fournisseur
+end type
+
+on m_editer.create
+call super::create
+end on
+
+on m_editer.destroy
+call super::destroy
+end on
+
+type m_editeur2021 from m_btdroit_gearbox`m_editeur2021 within m_btdroit_gearbox_fournisseur
+end type
+
+on m_editeur2021.create
+call super::create
+end on
+
+on m_editeur2021.destroy
+call super::destroy
+end on
+
+type m_ouvriravecxdraw from m_btdroit_gearbox`m_ouvriravecxdraw within m_btdroit_gearbox_fournisseur
+end type
+
+on m_ouvriravecxdraw.create
+call super::create
+end on
+
+on m_ouvriravecxdraw.destroy
+call super::destroy
+end on
+
+type m_etalonnerlaradioavecxdraw from m_btdroit_gearbox`m_etalonnerlaradioavecxdraw within m_btdroit_gearbox_fournisseur
+end type
+
+on m_etalonnerlaradioavecxdraw.create
+call super::create
+end on
+
+on m_etalonnerlaradioavecxdraw.destroy
+call super::destroy
+end on
+
+type m_tridim from m_btdroit_gearbox`m_tridim within m_btdroit_gearbox_fournisseur
+end type
+
+on m_tridim.create
+call super::create
+this.visible = false
+end on
+
+on m_tridim.destroy
+call super::destroy
+end on
+
+type m_editer_avec from m_btdroit_gearbox`m_editer_avec within m_btdroit_gearbox_fournisseur
+end type
+
+on m_editer_avec.create
+call super::create
+end on
+
+on m_editer_avec.destroy
+call super::destroy
+end on
+
+type m_imprimerlimage from m_btdroit_gearbox`m_imprimerlimage within m_btdroit_gearbox_fournisseur
+end type
+
+on m_imprimerlimage.create
+call super::create
+this.visible = false
+end on
+
+on m_imprimerlimage.destroy
+call super::destroy
+end on
+
+type m_utiliseruneresentationpowerpoint from m_btdroit_gearbox`m_utiliseruneresentationpowerpoint within m_btdroit_gearbox_fournisseur
+end type
+
+on m_utiliseruneresentationpowerpoint.create
+call super::create
+this.visible = false
+end on
+
+on m_utiliseruneresentationpowerpoint.destroy
+call super::destroy
+end on
+
+type m_envoyerparemailpiècejointe from m_btdroit_gearbox`m_envoyerparemailpiècejointe within m_btdroit_gearbox_fournisseur
+end type
+
+on m_envoyerparemailpiècejointe.create
+call super::create
+this.visible = false
+end on
+
+on m_envoyerparemailpiècejointe.destroy
+call super::destroy
+end on
+
+type m_composite from m_btdroit_gearbox`m_composite within m_btdroit_gearbox_fournisseur
+end type
+
+on m_composite.create
+call super::create
+this.visible = false
+end on
+
+on m_composite.destroy
+call super::destroy
+end on
+
+type m_composite1 from m_btdroit_gearbox`m_composite1 within m_composite
+end type
+
+on m_composite1.create
+call super::create
+this.menuimage = "SelectAll1!"
+end on
+
+on m_composite1.destroy
+call super::destroy
+end on
+
+type m_composite2 from m_btdroit_gearbox`m_composite2 within m_composite
+end type
+
+on m_composite2.create
+call super::create
+this.menuimage = "SelectAll1!"
+end on
+
+on m_composite2.destroy
+call super::destroy
+end on
+
+type m_composite3 from m_btdroit_gearbox`m_composite3 within m_composite
+end type
+
+on m_composite3.create
+call super::create
+this.menuimage = "SelectAll1!"
+end on
+
+on m_composite3.destroy
+call super::destroy
+end on
+
+type m_composite4 from m_btdroit_gearbox`m_composite4 within m_composite
+end type
+
+on m_composite4.create
+call super::create
+this.menuimage = "SelectAll1!"
+end on
+
+on m_composite4.destroy
+call super::destroy
+end on
+
+type m_0 from m_btdroit_gearbox`m_0 within m_btdroit_gearbox_fournisseur
+end type
+
+on m_0.create
+call super::create
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+type m_sauvegardersous from m_btdroit_gearbox`m_sauvegardersous within m_btdroit_gearbox_fournisseur
+end type
+
+on m_sauvegardersous.create
+call super::create
+this.menuanimation = true
+end on
+
+on m_sauvegardersous.destroy
+call super::destroy
+end on
+
+type m_exportmultiples from m_btdroit_gearbox`m_exportmultiples within m_btdroit_gearbox_fournisseur
+end type
+
+on m_exportmultiples.create
+call super::create
+this.visible = false
+end on
+
+on m_exportmultiples.destroy
+call super::destroy
+end on
+
+type m_supprimerimage from m_btdroit_gearbox`m_supprimerimage within m_btdroit_gearbox_fournisseur
+end type
+
+on m_supprimerimage.create
+call super::create
+this.menuanimation = true
+end on
+
+on m_supprimerimage.destroy
+call super::destroy
+end on
+
+event m_supprimerimage::clicked;if messagebox("ATTENTION ...","Suppression du fichier image, confirmez-vous ?",Exclamation!,OKCancel!) = 1 then
+	
+	FileDelete(gb2.fichier_photo)
+	gb2.charger_image()
+
+end if
+
+end event
+
+type m_copierversunautrepatient from m_btdroit_gearbox`m_copierversunautrepatient within m_btdroit_gearbox_fournisseur
+end type
+
+on m_copierversunautrepatient.create
+call super::create
+end on
+
+on m_copierversunautrepatient.destroy
+call super::destroy
+end on
+
+type m_- from m_btdroit_gearbox`m_- within m_btdroit_gearbox_fournisseur
+end type
+
+on m_-.create
+call super::create
+this.visible = false
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_informationssurlimage from m_btdroit_gearbox`m_informationssurlimage within m_btdroit_gearbox_fournisseur
+end type
+
+on m_informationssurlimage.create
+call super::create
+this.visible = false
+this.menuanimation = true
+end on
+
+on m_informationssurlimage.destroy
+call super::destroy
+end on
+
+type m_régénérerlavignette from m_btdroit_gearbox`m_régénérerlavignette within m_btdroit_gearbox_fournisseur
+end type
+
+on m_régénérerlavignette.create
+call super::create
+this.visible = false
+this.menuanimation = true
+end on
+
+on m_régénérerlavignette.destroy
+call super::destroy
+end on
+
+type m_régénérertouteslesvignettesdupatient from m_btdroit_gearbox`m_régénérertouteslesvignettesdupatient within m_btdroit_gearbox_fournisseur
+end type
+
+on m_régénérertouteslesvignettesdupatient.create
+call super::create
+this.visible = false
+end on
+
+on m_régénérertouteslesvignettesdupatient.destroy
+call super::destroy
+end on
+
+type m_affecterlesmotsclefs from m_btdroit_gearbox`m_affecterlesmotsclefs within m_btdroit_gearbox_fournisseur
+end type
+
+on m_affecterlesmotsclefs.create
+call super::create
+end on
+
+on m_affecterlesmotsclefs.destroy
+call super::destroy
+end on
+
+type m_restaurerlimageoriginale from m_btdroit_gearbox`m_restaurerlimageoriginale within m_btdroit_gearbox_fournisseur
+end type
+
+on m_restaurerlimageoriginale.create
+call super::create
+this.visible = false
+this.menuanimation = true
+end on
+
+on m_restaurerlimageoriginale.destroy
+call super::destroy
+end on
+
+type m_portraita4 from m_btdroit_gearbox`m_composite4 within m_composite
+end type
+

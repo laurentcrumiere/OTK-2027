@@ -1,0 +1,72 @@
+﻿$PBExportHeader$fxg_memo_state_treeview.srf
+global type fxg_memo_state_treeview from function_object
+end type
+
+forward prototypes
+global subroutine fxg_memo_state_treeview (treeview tv_1, string nom_tv_pour_memo)
+end prototypes
+
+global subroutine fxg_memo_state_treeview (treeview tv_1, string nom_tv_pour_memo);//////////////////////////////////////////////////////////////////////////////////
+//
+// Mémorise l'état d'un tree view (eclaté ou pas)
+//
+//////////////////////////////////////////////////////////////////////////////////
+
+
+TreeViewItem ltvi_root
+TreeViewItem ltvi_NextTreeViewItem
+TreeViewItem ltvi_CurrentTreeViewItem
+
+long ll_root, ll_next
+long ll_Current
+
+string statetv = ""			// contiendra les E pour expand ou des N pour non expand pour chaque item, au fur est à mesure qu'on les trouve
+
+//Get tree Root
+ll_root = tv_1.FindItem( RootTreeItem!, 0)
+tv_1.GetItem( ll_root, ltvi_root )
+tv_1.SelectItem(ll_root)
+//MessageBox( "Root Item", ltvi_root.Label )
+
+
+
+// Returns the next tree item in the same branch level
+
+
+do while true
+	//Get current tree
+	ll_current = tv_1.FindItem( CurrentTreeItem!, 0 )
+	
+	//Get current tree data information
+	tv_1.GetItem( ll_current, ltvi_CurrentTreeViewItem )
+	// MessageBox( "Current Tree Item", ltvi_CurrentTreeViewItem.Label )
+	if ltvi_CurrentTreeViewItem.Expanded then
+		statetv = statetv + "E"
+	else
+		statetv = statetv + "N"
+	end if
+	
+	//Get next tree
+	ll_next = tv_1.FindItem( NextTreeitem!, ll_current )
+	
+	if ll_next <= 0 then exit 
+	
+	tv_1.GetItem( ll_next, ltvi_NextTreeViewItem )
+	
+	//select and make it current
+	tv_1.SelectItem(ll_next)
+	
+	
+	// MessageBox( "Next Tree Item", ltvi_NextTreeViewItem.Label )
+
+loop 
+
+
+// Mémorisation 
+SetProfileString (dir_ini + inifile_orthokis,"TREEVIEWS","nom_tv_pour_memo",statetv)	
+
+//-------
+
+
+end subroutine
+

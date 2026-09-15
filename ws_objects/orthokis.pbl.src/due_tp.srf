@@ -1,0 +1,23 @@
+﻿$PBExportHeader$due_tp.srf
+global type due_tp from function_object
+end type
+
+forward prototypes
+global function decimal due_tp (double nocode, date date_ref)
+end prototypes
+
+global function decimal due_tp (double nocode, date date_ref);// Calcul de la somme due par un TP d'un patient
+decimal {2} totsoin,totpaye,due
+
+
+if VISIODENT_LIMITE then
+	// Pas de gestion des règlements dans les centres Visiodent
+	due = 0
+else
+	select somme_due_patient(:nocode, :date_ref, 'O') into :due from param ;
+end if
+
+
+return (due)
+end function
+

@@ -1,0 +1,21 @@
+﻿$PBExportHeader$date_claire.srf
+global type date_claire from function_object
+end type
+
+forward prototypes
+global function string date_claire (date vdate)
+end prototypes
+
+global function string date_claire (date vdate);// renvoie une date en clair : Mardi 12 Juin 1995
+//----------------------------------------------------
+string lib
+
+if not isnull(vdate) then
+	lib = jour[daynumber(vdate)]+" "+string(day(vdate))+" "+mois[month(vdate)]+" "+string(year(vdate))
+else			
+	lib = ""	// En cas d'erreur ou de null
+end if
+return(lib)
+
+end function
+

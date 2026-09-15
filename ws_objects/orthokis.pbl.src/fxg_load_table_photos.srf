@@ -1,0 +1,148 @@
+﻿$PBExportHeader$fxg_load_table_photos.srf
+global type fxg_load_table_photos from function_object
+end type
+
+forward prototypes
+global function integer fxg_load_table_photos ()
+end prototypes
+
+global function integer fxg_load_table_photos ();// fx qui remplie la table "param_photos" grace au contenu du
+// fichier "pwophotos.ini" avec par convention 
+// colonne type_photo = "1" pour des photos ARAKIS
+// colonne type_photo = "2" pour des photos cliniques
+// return	1 si ok
+//				-1 si pb
+
+integer	return_val = -1
+boolean	un_pb = false
+
+string	lrep_photos, chemin_complet_ini
+string	photo_description, photo_nom_fichier, photo_nom_cadre, photo_type
+int		lg_tab_photos_arakis		//nbr total de photos "à nous" càd ARAKIS
+int		lg_tab_photos				//nbr total de photos pour pages personalisables
+string	num_photo
+int		n
+string	lstr_sql
+integer	lstr_nbr_photos_cliniques
+
+
+// recup du rep photos
+lrep_photos = fxg_get_rep_photos()
+
+if lrep_photos <> "" then
+// si le rep existe
+	// on construit le chemin complet du fichier "pwophotos.ini"
+	chemin_complet_ini = lrep_photos +  inifile_photo
+	
+	if fxg_FileExists(chemin_complet_ini) then
+	// si le fichier "pwophotos.ini" existe
+		// construction de la syntaxe sql qui permet de rendre vierge la table param_photos
+		lstr_sql = "delete from param_photos;"
+		
+		// exécution de la commande SQL
+		execute immediate :lstr_sql ;
+		
+		if sqlca.sqlcode = 0 then
+		// si pas de pb ds le reset de la table
+			// on commit
+			commit ; 
+			// on y récup le nbr de photos ARAKIS ...
+			lg_tab_photos_arakis= integer(profilestring(chemin_complet_ini, "ARAKIS", "nbr_photos_arakis","0"))
+			// ... puis perso 
+			lg_tab_photos = integer(profilestring(chemin_complet_ini, "ARAKIS", "nbr_photos","0"))
+			
+			if lg_tab_photos_arakis >=1 then
+			// s'il y a au moins une photo ARAKIS
+				// init var de boucle
+				n = 0
+				
+				do while n < lg_tab_photos_arakis AND not un_pb
+				// pour chacune des lignes tant que pas d'erreur
+					// maj cpt de boucle
+					n++
+					
+					// transfo du num de construction du nom du champ photos à traiter
+					num_photo = num_nom_photo(n)
+					
+					// récup des données
+					photo_type = "1"	// convention : 1 pour des photos ARAKIS
+					photo_nom_cadre = "ole_photo_arakis" + num_photo
+					photo_description = profilestring(chemin_complet_ini, "ARAKIS", "ole_nom_photo_arakis" + num_photo,"")
+					photo_nom_fichier = profilestring(chemin_complet_ini, "ARAKIS", "ole_photo_arakis" + num_photo,"")
+					
+					// construction de la syntaxe sql
+					lstr_sql = "insert into param_photos (type_photo, nom_cadre, description, nom_fichier) values ('" + photo_type + "', '" + photo_nom_cadre + "', '" + fxg_string_without_quote(photo_description) + "', '" + photo_nom_fichier + "');"
+					
+					// exécution de la commande SQL
+					execute immediate :lstr_sql ;
+					
+					if sqlca.sqlcode = 0 then
+					// pas de pb -> on commit
+						COMMIT ;
+					else
+					// un souci -> on roolback et on l'indique (maj booleen)
+						ROLLBACK ;
+						un_pb = true
+					end if
+				loop
+				
+			end if
+			
+			if lg_tab_photos >=1 then
+			// s'il y a au moins une photo perso
+				// init var de boucle
+				n = 0
+				
+				// récupération du nbr de photos clinique que l'on souhaite prendre en cpt pour les courriers
+				// permet d'allèger le traitement des photos
+				lstr_nbr_photos_cliniques = integer(profilestring(chemin_complet_ini, "ARAKIS", "nbr_photos_en_cpt","50"))
+				
+				do while n < lstr_nbr_photos_cliniques AND not un_pb
+				// pour chacune des lignes tant que pas d'erreur
+					// maj cpt de boucle
+					n++
+					
+					// transfo du num de construction du nom du champ photo à traiter
+					num_photo = num_nom_photo(n)
+					
+					// récup des données
+					photo_type = "2"	// convention : 2 pour des photos cliniques
+					photo_nom_cadre = "ole_photo" + num_photo
+					photo_description = profilestring(chemin_complet_ini, "ARAKIS", "ole_nom_photo" + num_photo,"")
+					photo_nom_fichier = profilestring(chemin_complet_ini, "ARAKIS", "ole_photo" + num_photo,"")
+					
+					// construction de la syntaxe sql
+					lstr_sql = "insert into param_photos (type_photo, nom_cadre, description, nom_fichier) values ('" + photo_type + "', '" + photo_nom_cadre + "', '" + fxg_string_without_quote(photo_description) + "', '" + photo_nom_fichier + "');"
+					
+					// exécution de la commande SQL
+					execute immediate :lstr_sql ;
+					
+					if sqlca.sqlcode = 0 then
+					// pas de pb -> on commit
+						COMMIT ;
+					else
+					// un souci -> on roolback et on l'indique (maj booleen)
+						ROLLBACK ;
+						un_pb = true
+					end if
+				loop
+			
+			else
+			// un pb est survenu ds le delete de la table photo précédente
+				// on rollback
+				ROLLBACK ;
+			end if
+			
+			if not un_pb then return_val = 1
+		end if
+	else
+	// fichier pwophotos.ini existe pas ->  msg d'erreur
+		messagebox("INFORMATION", "Le répertoire photo n'est pas complètement initialisé !~nIl y manque le fichier " + inifile_photo + ".")
+	end if
+end if
+
+if return_val <> 1 then 	messagebox("ERREUR ...","Un problème est survenu lors de l'enregistrement des données pour le lien WORD !", StopSign! )
+
+return return_val
+end function
+

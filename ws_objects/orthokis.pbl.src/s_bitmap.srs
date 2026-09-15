@@ -1,0 +1,12 @@
+﻿$PBExportHeader$s_bitmap.srs
+$PBExportComments$utiliser pour l'affichage d'une image en fond de la w_mdi
+global type s_bitmap from structure
+	long		bmType
+	long		bmWidth
+	long		bmHeight
+	long		bmWidthBytes
+	long		bmPlanes
+	long		bmBitsPixel
+	blob		bmBits
+end type
+

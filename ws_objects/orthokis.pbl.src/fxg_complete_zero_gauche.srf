@@ -1,0 +1,19 @@
+﻿$PBExportHeader$fxg_complete_zero_gauche.srf
+global type fxg_complete_zero_gauche from function_object
+end type
+
+forward prototypes
+global function string fxg_complete_zero_gauche (string v_chaine, integer v_longeur)
+end prototypes
+
+global function string fxg_complete_zero_gauche (string v_chaine, integer v_longeur);// renvoie une chaine de v_longeur avec des 0 à gauche
+
+string  v_chaine_complete
+
+
+v_chaine_complete = right( fill("0",v_longeur) + v_chaine , v_longeur)
+
+return v_chaine_complete
+
+end function
+

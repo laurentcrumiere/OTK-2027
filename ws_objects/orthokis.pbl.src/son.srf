@@ -1,0 +1,19 @@
+﻿$PBExportHeader$son.srf
+global type son from function_object
+end type
+
+forward prototypes
+global subroutine son (integer numero)
+end prototypes
+
+global subroutine son (integer numero);string ls_string  
+ls_string=space(500)  
+
+// Emet un son si on a cocher qu'on veut émettre un son
+if avec_son then
+	//sndPlaySoundA (tson[numero], 3) 
+	// Function API Windows
+	mcisendstringW("Play "+ tson[numero] ,ls_string,len(ls_string),0)
+end if
+end subroutine
+

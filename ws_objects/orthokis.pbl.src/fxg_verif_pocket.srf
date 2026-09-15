@@ -1,0 +1,187 @@
+﻿$PBExportHeader$fxg_verif_pocket.srf
+global type fxg_verif_pocket from function_object
+end type
+
+forward prototypes
+global function integer fxg_verif_pocket ()
+end prototypes
+
+global function integer fxg_verif_pocket ();// Vérification des droits d'accès à Pocket Communication
+// renvoie 0 si pas d'opareteur SMS, 1 si Pocket, 2 si Dental SMS
+
+// Accées internet
+Inet iinet_base
+
+// Retour XML
+n_inetresult in_irdata
+
+string url_arakis , url_complete
+string nom_fichier_bt = "bp.bin"
+integer numero_fichier_bt
+string s_date_base64, s_date
+date d_date, d_date_serveur, d_date_du_jour
+long l_nb_jours_restants
+boolean b_retour, b_ok_suite
+integer i_retour
+string s_options_bt
+
+// Version_base_autorisee peut avoir des décimales
+//url_arakis = "https://www.arakis.fr/fr/telecha/Orthokis_" + string(integer(Version_base_autorisee))+ "/"
+url_arakis = "https://www.arakis.fr/fr/telecha/Orthokis_2024/"
+
+
+
+
+GetContextService("Internet", iinet_base)
+in_irdata = CREATE n_inetresult
+
+// pour codage en base 64
+CoderObject lnv_CoderObject
+lnv_CoderObject = Create CoderObject
+
+trace("=== DEBUT VERIFICATION POCKET ===")
+
+// Récupération du fichier de blocage
+
+url_complete = url_arakis + nom_fichier_bt
+iinet_base.GetURL(url_complete, in_irdata)
+
+in_irdata.of_WriteFile(dir_ini + nom_fichier_bt, in_irdata.iblob_data)
+
+if FileExists(dir_ini + nom_fichier_bt) then
+	
+	numero_fichier_bt = FileOpen(dir_ini + nom_fichier_bt, LineMode!)
+	fileRead( numero_fichier_bt , s_date_base64)
+	Fileclose(numero_fichier_bt)
+	
+	if not trace then
+		// On garde le fichier en mode trace
+		FileDelete(dir_ini + nom_fichier_bt)
+	end if
+	
+	s_date = string(lnv_CoderObject.base64decode(s_date_base64), EncodingANSI! )
+	trace ("s_date_base64 : " + s_date_base64)
+	trace ("s_date : " + s_date)
+	
+	// Pour être sur qu'on récupère bien une infos
+	if isnull(s_date_base64) or trim(s_date_base64) = "" or len (s_date_base64) > 20 then
+		b_ok_suite = false
+		trace("Pas Ok_suite")
+	else
+		b_ok_suite = true
+		trace("Ok_suite")
+	end if
+end if
+
+
+
+if not b_ok_suite then
+	// Erreur dans la récup du fichier de blocge => date = 31/12/2023 si pas déjà initilisée
+	select top 1 isnull(options_bt, '') into :s_options_bt from agenda ;
+	
+	// La date de pocket est stockée entre 11ème et 20ème caractères
+		
+	s_date_base64 = trim(mid(s_options_bt, 21, 20))
+	trace("Déjà stockée : " + s_date_base64)
+	
+	if s_date_base64 = "" then
+		s_date = "31/12/2023" 
+		s_date_base64 = lnv_CoderObject.base64encode(blob(s_date, EncodingANSI!))
+	else
+		s_date = string(lnv_CoderObject.base64decode(s_date_base64),EncodingANSI!)
+	end if
+	trace("s_date finale : " + s_date)
+end if
+
+// Stockage de la date en base 64
+s_options_bt = left(left(s_options_bt + space(100) , 20) +  s_date_base64 + + space(100), 100)
+update agenda set options_bt = :s_options_bt ;
+commit ;
+
+
+
+// traitement de la date ...
+d_date = date(s_date)
+
+// On prend la date du serveur histoire de ... 
+select cast(getdate() as date) into :d_date_serveur from param ;
+
+// on prend la date la plus récente des 2
+if today() < d_date_serveur then
+	d_date_du_jour =d_date_serveur
+else
+	d_date_du_jour = today()
+end if
+
+uo_pocket u_pocket
+string s_repertoire_pocket
+
+
+u_pocket = create uo_pocket
+u_pocket.triggerevent(Constructor!)
+s_repertoire_pocket = u_pocket.get_repertoire_pocket()
+
+if DirectoryExists(s_repertoire_pocket) then
+	// il y a un répoertoire, ils doivent donc envoyer des SMS
+	
+	if not u_pocket.is_dentalsms() then
+		// Ca doit être avec Pocket
+	
+		l_nb_jours_restants = daysAfter(d_date_du_jour, d_date)
+		
+		
+		// Affichage des messages en fonctions des jours restants
+		
+		// Autorisation ou pas ?
+		if l_nb_jours_restants > 0 then 
+			i_retour = 1
+			if l_nb_jours_restants < 15 then
+				// ont ils déjà eu le message
+				if profilestring(dir_ini+inifile_orthokis,"SMS","message_pocket15","N")  = "N" then
+					son(5)
+					MessageBox("ATTENTION","L'envoi de SMS ne pourra plus se faire en dehors de notre service DENTAL SMS à partir du " + s_date +" !~n~nIL EST TRES URGENT DE CONTACTER VOTRE INTERLOCUTEUR COMMERCIAL AU 04 75 78 50 70 AFIN QU'IL PUISSE VOUS PROPOSER LA MISE EN PLACE DE CE SERVICE !")
+					Setprofilestring(dir_ini+inifile_orthokis,"SMS","message_pocket15","O")
+				end if
+			else
+				if l_nb_jours_restants < 30 then
+					// ont ils déjà eu le message
+					if profilestring(dir_ini+inifile_orthokis,"SMS","message_pocket30","N")  = "N" then
+						son(5)
+						MessageBox("ATTENTION","L'envoi de SMS ne pourra plus se faire en dehors de notre service DENTAL SMS à partir du " + s_date +" !~n~nAPRES CETTE DATE VOUS NE POURREZ PLUS ENVOYER DE SMS FSE A PARTIR D'ORTHOKIS.~n~n Nous vous conseillons de contacter TRES RAPIDEMENT votre interlocuteur commercial au 04 75 78 50 70 afin qu'il puisse vous proposer la mise en place de ce service !")
+						Setprofilestring(dir_ini+inifile_orthokis,"SMS","message_pocket30","O")
+					end if
+				else
+					if l_nb_jours_restants < 60 then
+						// ont ils déjà eu le message
+						if profilestring(dir_ini+inifile_orthokis,"SMS","message_pocket60","N")  = "N" then
+							son(5)
+							MessageBox("ATTENTION","L'envoi de SMS ne pourra plus se faire en dehors de notre service DENTAL SMS à partir du " + s_date +" !~n~nAprès cette date, vous ne pourrez plus envoyer de SMS à partir d'Orthokis.~n~nNous vous conseillons de contacter au plus vite votre interlocuteur commercial au 04 75 78 50 70 afin qu'il puisse vous proposer la mise en place de ce service !")
+							Setprofilestring(dir_ini+inifile_orthokis,"SMS","message_pocket60","O")
+						end if
+					else
+						// pas de message car on est à + de 2 mois
+						i_retour = 1
+					end if
+				end if
+			end if
+				
+		else
+			b_retour = false
+			son(5)
+			MessageBox("ATTENTION","L'envoi de SMS est désormais désactivé !~n~nPour le réactiver veuillez contacter votre interlocuteur commercial au 04 75 78 50 70 !")
+		end if
+	else
+		// C'est Dental SMS
+		i_retour = 2
+	end if
+else
+	// Pas de dossier Pocket => pas d'opérateur
+	i_retour = 0
+end if
+
+trace("=== FIN VERIFICATION POCKET ===")
+
+return i_retour
+
+end function
+

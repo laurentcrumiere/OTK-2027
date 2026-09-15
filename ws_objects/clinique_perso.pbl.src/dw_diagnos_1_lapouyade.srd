@@ -1,0 +1,12 @@
+﻿$PBExportHeader$dw_diagnos_1_lapouyade.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=5 color="536870912" )
+detail(height=193 color="536870912" )
+table(column=(type=char(6) updatewhereclause=yes name=code_praticien dbname="patient.code_praticien" )
+ column=(type=char(6) updatewhereclause=yes name=moulage dbname="patient.moulage" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"patient~" ) COLUMN(NAME=~"patient.code_praticien~") COLUMN(NAME=~"patient.moulage~")WHERE(    EXP1 =~"( ~~~"patient~~~".~~~"code~~~"~"   OP =~"=~"    EXP2 =~":nocode )~" ) ) ARG(NAME = ~"nocode~" TYPE = number) " arguments=(("nocode", number)) )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="5" color="0" x="298" y="16" height="57" width="348" format="[general]"  name=code_praticien edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Praticien :"border="0" color="0" x="28" y="16" height="57" width="247"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

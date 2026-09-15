@@ -1,0 +1,31 @@
+﻿$PBExportHeader$jour_francais.srf
+global type jour_francais from function_object
+end type
+
+forward prototypes
+global function string jour_francais (string chaine)
+end prototypes
+
+global function string jour_francais (string chaine);
+
+// Remplace les mois en anglais dans la chaine passée en paramètre
+
+// utile pour les formats de rendez-vous
+
+string v_retour 
+
+v_retour = chaine
+
+v_retour = gfx_tout_remplacer( v_retour, "Sunday", "Dimanche")
+v_retour = gfx_tout_remplacer( v_retour, "Monday", "Lundi")
+v_retour = gfx_tout_remplacer( v_retour, "Tuesday", "Mardi")
+v_retour = gfx_tout_remplacer( v_retour, "Wednesday", "Mercredi")
+v_retour = gfx_tout_remplacer( v_retour, "Thursday", "Jeudi")
+v_retour = gfx_tout_remplacer( v_retour, "Friday", "Vendredi")
+v_retour = gfx_tout_remplacer( v_retour, "Saturday", "Samedi")
+
+
+return v_retour
+
+end function
+

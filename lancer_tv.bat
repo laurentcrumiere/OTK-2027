@@ -1,0 +1,2 @@
+cd \telvital
+app.exe

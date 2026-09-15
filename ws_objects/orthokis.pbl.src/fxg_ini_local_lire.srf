@@ -1,0 +1,38 @@
+﻿$PBExportHeader$fxg_ini_local_lire.srf
+global type fxg_ini_local_lire from function_object
+end type
+
+forward prototypes
+global function integer fxg_ini_local_lire (string section, string clef, ref string valeur)
+end prototypes
+
+global function integer fxg_ini_local_lire (string section, string clef, ref string valeur);// fx qui lit une valeur ds le ini local, càd orthokis.ini
+// return 1 si ok + la valeur ds la var en ref
+//		 0 si la clef ds la section donnée est introuvable
+//		-1 si pb ou clef introuvable
+
+constant string	val_defaut = "######"
+
+int			returnval = -1
+string		path_ini_file
+
+
+path_ini_file = DIR_INI + inifile_orthokis
+
+if FileExists( path_ini_file ) then
+	valeur = ProfileString (path_ini_file, section, clef, val_defaut ) 
+	if isnull( valeur ) OR valeur = "" then
+		messagebox("ERREUR ...", "Une erreur est survenue durant la lecture du fichier '" + inifile_orthokis + "' ; ~n~nOpération annulée !", StopSign! )
+	elseif valeur = val_defaut then
+	// la clef ds la section donnée est introuvable
+		returnval = 0
+	else
+		returnval = 1
+	end if
+else
+	messagebox("ERREUR ...", "Lecture du fichier '" + inifile_orthokis + "' impossible ; ~nce dernier est inexistant ou inaccessible. ~n~nOpération annulée !", StopSign! )
+end if
+
+return returnval 
+end function
+

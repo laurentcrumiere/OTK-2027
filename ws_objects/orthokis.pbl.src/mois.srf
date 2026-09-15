@@ -1,0 +1,45 @@
+﻿$PBExportHeader$mois.srf
+global type mois from function_object
+end type
+
+forward prototypes
+global function string mois (integer num)
+end prototypes
+
+global function string mois (integer num);// Retourne le libellé du mois
+
+if isnull(num) then
+	return ""
+else
+	choose case num
+		case 1
+			Return "Janvier"
+		case 2
+			Return "Février"
+		case 3
+			Return "Mars"
+		case 4
+			Return "Avril"
+		case 5
+			Return "Mai"
+		case 6
+			Return "Juin"
+		case 7
+			Return "Juillet"
+		case 8
+			Return "Aout"
+		case 9
+			Return "Septembre"
+		case 10
+			Return "Octobre"
+		case 11
+			Return "Novembre"
+		case 12
+			Return "Décembre"
+		Case Else
+			return ''
+	end choose
+end if
+
+end function
+

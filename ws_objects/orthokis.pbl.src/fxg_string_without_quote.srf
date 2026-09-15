@@ -1,0 +1,51 @@
+﻿$PBExportHeader$fxg_string_without_quote.srf
+global type fxg_string_without_quote from function_object
+end type
+
+forward prototypes
+global function string fxg_string_without_quote (string lstring)
+end prototypes
+
+global function string fxg_string_without_quote (string lstring);// fx qui return le chemin passé en param en remplaçant
+// les ' rencontré par des '' et
+// les " par des ''''
+// -> formatage utile pour les insertion ds des commandes SQL
+
+string	return_string = ""
+
+long		lg_lstring
+int		i
+string	lchar
+
+
+// récup de la lg de la chaine passée en param
+lg_lstring = len(lstring)
+
+if lg_lstring >= 1 then
+// si le chemin passé en param n'est pas vide
+	
+	for i = 1 to lg_lstring
+	// pour chacun des caractères
+		// on le récup
+		lchar = mid(lstring, i, 1)
+		
+		choose case lchar
+		// selon le char sélect
+			case "'"
+			// si un ' -> on le ré-insère pour le doubler
+				return_string += "''"
+			case '"'
+			// si un " -> on insère '''' pour le remplacer
+				return_string += "''''"
+			case else
+			// autres cas
+				return_string += lchar
+		end choose
+		
+	next
+	
+end if
+
+return return_string
+end function
+

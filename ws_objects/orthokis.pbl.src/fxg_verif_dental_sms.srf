@@ -1,0 +1,36 @@
+﻿$PBExportHeader$fxg_verif_dental_sms.srf
+global type fxg_verif_dental_sms from function_object
+end type
+
+forward prototypes
+global function integer fxg_verif_dental_sms ()
+end prototypes
+
+global function integer fxg_verif_dental_sms ();// renvoie 0 si pas d'opareteur SMS, 2 si Dental SMS
+integer i_retour = 0
+
+trace("=== DEBUT VERIFICATION DENTAL SMS  ===")
+uo_pocket u_pocket
+string s_repertoire_pocket
+u_pocket = create uo_pocket
+u_pocket.triggerevent(Constructor!)
+s_repertoire_pocket = u_pocket.get_repertoire_pocket()
+
+
+trace("- Recherche du répertoire config Dental SMS : " + s_repertoire_pocket )
+if DirectoryExists(s_repertoire_pocket) then
+	// il y a un répoertoire, ils doivent donc envoyer des SMS
+	trace("- Répertoire trouvé")
+	
+	if u_pocket.is_dentalsms() then
+		// C'est Dental SMS
+		i_retour = 2
+		trace("- DENTAL SMS détecté")
+	end if
+end if
+
+trace("=== FIN VERIFICATION DENTAL SMS  ===")
+
+return i_retour
+end function
+

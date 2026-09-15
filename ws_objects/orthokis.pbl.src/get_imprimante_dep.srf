@@ -1,0 +1,27 @@
+﻿$PBExportHeader$get_imprimante_dep.srf
+global type get_imprimante_dep from function_object
+end type
+
+forward prototypes
+global function string get_imprimante_dep (string v_code_praticien)
+end prototypes
+
+global function string get_imprimante_dep (string v_code_praticien);// Renvoie l'imprimante spécifique du poste et/ou du praticien
+
+string v_nom_imprimante, v_nom_poste
+
+v_nom_poste = get_nom_ordinateur()
+
+select isnull(nom_imprimante, '') into :v_nom_imprimante  
+from "praticien_imprimantes_dep" 
+where nom_poste = :v_nom_poste and code_praticien = :v_code_praticien ;
+
+if v_nom_imprimante = "" then 
+	// pas d'imprimante selon le pracien => imprimante du poste
+
+	v_nom_imprimante = profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep","") 
+end if
+
+return v_nom_imprimante
+end function
+

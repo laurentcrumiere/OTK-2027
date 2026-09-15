@@ -1,0 +1,17 @@
+﻿$PBExportHeader$jour.srf
+global type jour from function_object
+end type
+
+forward prototypes
+global function string jour (integer num)
+end prototypes
+
+global function string jour (integer num);// Renvoie le libelle en français (tableau en variable globale) du jour N° 
+// Le N° est à l'américaine ... 1 = Dimanche
+if num < 1 or num > 7 or isnull(num) then
+	return ''
+else
+	return Jour[num]
+end if
+end function
+

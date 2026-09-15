@@ -1,0 +1,89 @@
+﻿$PBExportHeader$tracer_formes.srf
+global type tracer_formes from function_object
+end type
+
+forward prototypes
+global subroutine tracer_formes (long code_patient, long code_radio, long code_trace, picture image, real resolution_x, real resolution_y, real pourcentage)
+end prototypes
+
+global subroutine tracer_formes (long code_patient, long code_radio, long code_trace, picture image, real resolution_x, real resolution_y, real pourcentage);// Variables
+
+
+// Tableau de points de la courbe de bézier
+point_type points[1000] 	
+
+ulong l_handle, l_device
+double x,y
+integer index_points,num_forme
+ulong hpen
+long couleur,epaisseur, couleur_forme
+
+
+// Recherche de la couleur de tracé des courbes
+SELECT couleur_courbe, epaisseur_courbe into :couleur,:epaisseur from traces where code_trace = :code_trace and code_patient = :code_patient 
+and code_radio = :code_radio using t_Odrade  ;
+
+l_handle = handle(image)
+l_device = GetDC(l_handle)
+
+
+
+// Recherche des points dans la base ...
+
+
+// LISTE DES FORMES DU TRACE
+DECLARE cur_forme CURSOR FOR 
+Select code_forme, couleur from formes where code_patient = :code_patient and code_radio = :code_radio and code_trace = :code_trace 
+order by code_forme using t_Odrade ;
+
+
+// POINTS DE CHAQUE FORME
+declare cur_points_forme CURSOR FOR 
+Select x, y from points_dessin_forme where code_patient = :code_patient and code_radio = :code_radio and code_trace = :code_trace 
+and (code_forme = :num_forme ) order by code_point_dessin using t_Odrade ;
+
+
+open cur_forme   ;
+
+fetch cur_forme into :num_forme, :couleur_forme ;
+
+// Parcours de toutes les formes du tracé
+do while t_Odrade.sqlcode = 0	
+
+	open cur_points_forme ;
+	fetch cur_points_forme into :x, :y;
+	
+	index_points = 0
+	// Parcours de tous les points de la forme
+	do while t_Odrade.sqlcode = 0
+		
+		index_points = index_points + 1
+		points[index_points].x= x * resolution_x * pourcentage /100
+		points[index_points].y = y * resolution_y * pourcentage / 100
+		
+		fetch cur_points_forme into :x, :y;
+	loop
+	
+	close cur_points_forme ;
+	
+	
+	if couleur_forme = -1 then
+		hpen =CreatePen(0, epaisseur, couleur)
+	else
+		hpen =CreatePen(0, epaisseur, couleur_forme)
+	end if
+
+	SelectObject(l_device, hpen)
+	PolyBezier(l_device, points, index_points)
+
+	fetch cur_forme into :num_forme, :couleur_forme ;
+loop
+
+close cur_forme ;
+
+
+
+
+
+end subroutine
+

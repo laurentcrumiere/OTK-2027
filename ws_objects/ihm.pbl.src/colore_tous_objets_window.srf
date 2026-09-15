@@ -1,0 +1,213 @@
+﻿$PBExportHeader$colore_tous_objets_window.srf
+global type colore_tous_objets_window from function_object
+end type
+
+forward prototypes
+global subroutine colore_tous_objets_window (userobject uo)
+global subroutine colore_tous_objets_window (window win, double couleur)
+end prototypes
+
+global subroutine colore_tous_objets_window (userobject uo);////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// recherche tous les objets d'un UO et leur applique la couleur de fond de la fenêtre
+
+// NOTE !!!! uo process does not work on objects that are not descended
+// from the dragobject class.
+
+dragobject temp
+int cnt,i
+
+cnt = upperbound(uo.control)
+
+for i = cnt to 1 step -1
+	
+	if typeof(uo.control[i]) <> rectangle! then
+		temp = uo.control[i]
+	
+		// now go get text size information
+		choose case typeof(temp)
+			case picture!
+			// On ne mémorise rien de plus
+			
+			case tab!
+				tab vtab
+				vtab = temp
+				if vtab.backcolor = couleur_sky then
+					vtab.backcolor = couleur_fond_fenetre
+				end if
+	
+			case commandbutton!
+				commandbutton cb
+				cb = temp
+				
+			case singlelineedit!
+				singlelineedit sle
+				sle = temp
+				if sle.backcolor = couleur_sky then
+					sle.backcolor = couleur_fond_fenetre
+				end if
+	
+			case editmask!
+				editmask em
+				em = temp
+				if em.backcolor = couleur_sky then
+					em.backcolor = couleur_fond_fenetre
+				end if
+	
+			case statictext!
+				statictext st
+				st = temp
+				if st.backcolor = couleur_sky then
+					st.backcolor = couleur_fond_fenetre
+				end if
+		
+			case picturebutton!
+				picturebutton pb
+				pb = temp
+	
+			case checkbox!
+				checkbox cbx
+				cbx = temp
+				if cbx.backcolor = couleur_sky then
+					cbx.backcolor = couleur_fond_fenetre
+				end if
+	
+			case dropdownlistbox!
+				dropdownlistbox ddlb
+				ddlb = temp
+	
+			case groupbox!
+				groupbox gb
+				gb = temp
+				if gb.backcolor = couleur_sky then
+					gb.backcolor = couleur_fond_fenetre
+				end if
+	
+			case listbox!
+				listbox lb
+				lb = temp
+	
+			case multilineedit!
+				multilineedit mle
+				mle = temp
+				if mle.backcolor = couleur_sky then
+					mle.backcolor = couleur_fond_fenetre
+				end if
+				
+			case radiobutton!
+				radiobutton rb
+				rb = temp
+				if rb.backcolor = couleur_sky then
+					rb.backcolor = couleur_fond_fenetre
+				end if
+				
+				
+		end choose
+		
+	end if // pas un rectangle
+next
+
+
+// couleur de fond de la fenêtre
+uo.backcolor = couleur_fond_fenetre
+
+
+return
+end subroutine
+
+global subroutine colore_tous_objets_window (window win, double couleur);////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// recherche tous les objets d'un win et leur applique la couleur de fond de la fenêtre
+
+// NOTE !!!! win process does not work on objects that are not descended
+// from the dragobject class.
+
+dragobject temp
+int cnt,i
+
+cnt = upperbound(win.control)
+
+for i = cnt to 1 step -1
+	
+	if typeof(win.control[i]) <> rectangle! then
+		temp = win.control[i]
+	
+		// now go get text size information
+		choose case typeof(temp)
+			case picture!
+			// On ne mémorise rien de plus
+			
+			case tab!
+				tab vtab
+				vtab = temp
+				vtab.backcolor = couleur
+	
+			case commandbutton!
+				commandbutton cb
+				cb = temp
+				
+			case singlelineedit!
+				singlelineedit sle
+				sle = temp
+	
+			case editmask!
+				editmask em
+				em = temp
+	
+			case statictext!
+				statictext st
+				st = temp
+				st.backcolor = couleur
+		
+			case picturebutton!
+				picturebutton pb
+				pb = temp
+				//pb.backcolor = couleur
+	
+			case checkbox!
+				checkbox cbx
+				cbx = temp
+				cbx.backcolor = couleur
+	
+			case dropdownlistbox!
+				dropdownlistbox ddlb
+				ddlb = temp
+	
+			case groupbox!
+				groupbox gb
+				gb = temp
+				gb.backcolor = couleur
+	
+			case listbox!
+				listbox lb
+				lb = temp
+	
+			case multilineedit!
+				multilineedit mle
+				mle = temp
+				mle.backcolor = couleur
+				
+			case radiobutton!
+				radiobutton rb
+				rb = temp
+				rb.backcolor = couleur
+				
+			case datawindow!
+				datawindow dw
+				dw = temp
+				colore_datawindow(dw)
+				
+				
+		end choose
+		
+	end if // pas un rectangle
+next
+
+
+// couleur de fond de la fenêtre
+win.backcolor = couleur
+
+
+return
+end subroutine
+

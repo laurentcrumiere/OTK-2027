@@ -1,0 +1,555 @@
+﻿$PBExportHeader$w_diagnos_maj_nicolas3.srw
+$PBExportComments$gearbox
+forward
+global type w_diagnos_maj_nicolas3 from w_diagnos_maj_
+end type
+type ole_photo041 from gearbox within w_diagnos_maj_nicolas3
+end type
+type ole_photo042 from gearbox within w_diagnos_maj_nicolas3
+end type
+type st_14 from statictext within w_diagnos_maj_nicolas3
+end type
+type st_15 from statictext within w_diagnos_maj_nicolas3
+end type
+type ole_photo043 from gearbox within w_diagnos_maj_nicolas3
+end type
+type st_1 from statictext within w_diagnos_maj_nicolas3
+end type
+type ole_photo044 from gearbox within w_diagnos_maj_nicolas3
+end type
+type st_2 from statictext within w_diagnos_maj_nicolas3
+end type
+type st_3 from statictext within w_diagnos_maj_nicolas3
+end type
+type st_4 from statictext within w_diagnos_maj_nicolas3
+end type
+type st_5 from statictext within w_diagnos_maj_nicolas3
+end type
+type mle_1 from multilineedit within w_diagnos_maj_nicolas3
+end type
+type sle_1 from singlelineedit within w_diagnos_maj_nicolas3
+end type
+type mle_2 from multilineedit within w_diagnos_maj_nicolas3
+end type
+type mle_3 from multilineedit within w_diagnos_maj_nicolas3
+end type
+type mle_4 from multilineedit within w_diagnos_maj_nicolas3
+end type
+type ole_1 from uo_schema_clinique within w_diagnos_maj_nicolas3
+end type
+type ole_2 from uo_schema_clinique within w_diagnos_maj_nicolas3
+end type
+type gb_2 from groupbox within w_diagnos_maj_nicolas3
+end type
+type gb_1 from groupbox within w_diagnos_maj_nicolas3
+end type
+end forward
+
+global type w_diagnos_maj_nicolas3 from w_diagnos_maj_
+string tag = "8000"
+integer width = 5819
+integer height = 3616
+string title = "Page Clinique N°3"
+boolean center = true
+ole_photo041 ole_photo041
+ole_photo042 ole_photo042
+st_14 st_14
+st_15 st_15
+ole_photo043 ole_photo043
+st_1 st_1
+ole_photo044 ole_photo044
+st_2 st_2
+st_3 st_3
+st_4 st_4
+st_5 st_5
+mle_1 mle_1
+sle_1 sle_1
+mle_2 mle_2
+mle_3 mle_3
+mle_4 mle_4
+ole_1 ole_1
+ole_2 ole_2
+gb_2 gb_2
+gb_1 gb_1
+end type
+global w_diagnos_maj_nicolas3 w_diagnos_maj_nicolas3
+
+forward prototypes
+public subroutine load_ctrls ()
+public subroutine unload_ctrls ()
+end prototypes
+
+public subroutine load_ctrls ();f.lirepage(mle_1,page_buffer[1],3700,200)
+f.lirepage(sle_1,page_buffer[1],3900,50)
+f.lirepage(mle_2,page_buffer[1],3950,300)
+f.lirepage(mle_3,page_buffer[1],4250,2000)
+f.lirepage(mle_4,page_buffer[1],6250,500)
+// max carac = 6750
+
+end subroutine
+
+public subroutine unload_ctrls ();f.ecrirepage(mle_1,page_buffer[2],3700,200)
+f.ecrirepage(sle_1,page_buffer[2],3900,50)
+f.ecrirepage(mle_2,page_buffer[2],3950,300)
+f.ecrirepage(mle_3,page_buffer[2],4250,2000)
+f.ecrirepage(mle_4,page_buffer[2],6250,500)
+// max carac = 6750
+
+end subroutine
+
+on w_diagnos_maj_nicolas3.create
+int iCurrent
+call super::create
+this.ole_photo041=create ole_photo041
+this.ole_photo042=create ole_photo042
+this.st_14=create st_14
+this.st_15=create st_15
+this.ole_photo043=create ole_photo043
+this.st_1=create st_1
+this.ole_photo044=create ole_photo044
+this.st_2=create st_2
+this.st_3=create st_3
+this.st_4=create st_4
+this.st_5=create st_5
+this.mle_1=create mle_1
+this.sle_1=create sle_1
+this.mle_2=create mle_2
+this.mle_3=create mle_3
+this.mle_4=create mle_4
+this.ole_1=create ole_1
+this.ole_2=create ole_2
+this.gb_2=create gb_2
+this.gb_1=create gb_1
+iCurrent=UpperBound(this.Control)
+this.Control[iCurrent+1]=this.ole_photo041
+this.Control[iCurrent+2]=this.ole_photo042
+this.Control[iCurrent+3]=this.st_14
+this.Control[iCurrent+4]=this.st_15
+this.Control[iCurrent+5]=this.ole_photo043
+this.Control[iCurrent+6]=this.st_1
+this.Control[iCurrent+7]=this.ole_photo044
+this.Control[iCurrent+8]=this.st_2
+this.Control[iCurrent+9]=this.st_3
+this.Control[iCurrent+10]=this.st_4
+this.Control[iCurrent+11]=this.st_5
+this.Control[iCurrent+12]=this.mle_1
+this.Control[iCurrent+13]=this.sle_1
+this.Control[iCurrent+14]=this.mle_2
+this.Control[iCurrent+15]=this.mle_3
+this.Control[iCurrent+16]=this.mle_4
+this.Control[iCurrent+17]=this.ole_1
+this.Control[iCurrent+18]=this.ole_2
+this.Control[iCurrent+19]=this.gb_2
+this.Control[iCurrent+20]=this.gb_1
+end on
+
+on w_diagnos_maj_nicolas3.destroy
+call super::destroy
+destroy(this.ole_photo041)
+destroy(this.ole_photo042)
+destroy(this.st_14)
+destroy(this.st_15)
+destroy(this.ole_photo043)
+destroy(this.st_1)
+destroy(this.ole_photo044)
+destroy(this.st_2)
+destroy(this.st_3)
+destroy(this.st_4)
+destroy(this.st_5)
+destroy(this.mle_1)
+destroy(this.sle_1)
+destroy(this.mle_2)
+destroy(this.mle_3)
+destroy(this.mle_4)
+destroy(this.ole_1)
+destroy(this.ole_2)
+destroy(this.gb_2)
+destroy(this.gb_1)
+end on
+
+type pb_suivant from w_diagnos_maj_`pb_suivant within w_diagnos_maj_nicolas3
+boolean visible = false
+integer x = 5595
+integer y = 3312
+integer taborder = 110
+end type
+
+type pb_precedant from w_diagnos_maj_`pb_precedant within w_diagnos_maj_nicolas3
+string tag = "nicolas2"
+integer x = 5431
+integer y = 3312
+integer taborder = 100
+end type
+
+type cb_imprimer from w_diagnos_maj_`cb_imprimer within w_diagnos_maj_nicolas3
+integer x = 3675
+integer y = 3312
+integer taborder = 60
+end type
+
+type cb_sauver from w_diagnos_maj_`cb_sauver within w_diagnos_maj_nicolas3
+integer x = 4553
+integer y = 3312
+integer taborder = 80
+end type
+
+type cb_annuler from w_diagnos_maj_`cb_annuler within w_diagnos_maj_nicolas3
+integer x = 4114
+integer y = 3312
+integer taborder = 70
+end type
+
+type cb_fermer from w_diagnos_maj_`cb_fermer within w_diagnos_maj_nicolas3
+integer x = 4992
+integer y = 3312
+integer taborder = 90
+end type
+
+type ole_photo041 from gearbox within w_diagnos_maj_nicolas3
+boolean visible = true
+integer x = 55
+integer y = 2568
+integer width = 741
+integer height = 576
+boolean bringtotop = true
+boolean vignette = true
+end type
+
+on ole_photo041.destroy
+call gearbox::destroy
+end on
+
+type ole_photo042 from gearbox within w_diagnos_maj_nicolas3
+boolean visible = true
+integer x = 850
+integer y = 2568
+integer width = 741
+integer height = 576
+boolean bringtotop = true
+boolean vignette = true
+end type
+
+on ole_photo042.destroy
+call gearbox::destroy
+end on
+
+type st_14 from statictext within w_diagnos_maj_nicolas3
+integer x = 55
+integer y = 3144
+integer width = 741
+integer height = 72
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 67108864
+string text = "tele profil"
+alignment alignment = center!
+boolean focusrectangle = false
+end type
+
+type st_15 from statictext within w_diagnos_maj_nicolas3
+integer x = 850
+integer y = 3144
+integer width = 741
+integer height = 72
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 67108864
+string text = "panoramique"
+alignment alignment = center!
+boolean focusrectangle = false
+end type
+
+type ole_photo043 from gearbox within w_diagnos_maj_nicolas3
+boolean visible = true
+integer x = 1646
+integer y = 2568
+integer width = 741
+integer height = 576
+boolean bringtotop = true
+boolean vignette = true
+end type
+
+on ole_photo043.destroy
+call gearbox::destroy
+end on
+
+type st_1 from statictext within w_diagnos_maj_nicolas3
+integer x = 1646
+integer y = 3144
+integer width = 741
+integer height = 72
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 67108864
+string text = "photo face"
+alignment alignment = center!
+boolean focusrectangle = false
+end type
+
+type ole_photo044 from gearbox within w_diagnos_maj_nicolas3
+boolean visible = true
+integer x = 2441
+integer y = 2568
+integer width = 741
+integer height = 576
+boolean bringtotop = true
+boolean vignette = true
+end type
+
+on ole_photo044.destroy
+call gearbox::destroy
+end on
+
+type st_2 from statictext within w_diagnos_maj_nicolas3
+integer x = 2441
+integer y = 3144
+integer width = 741
+integer height = 72
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 67108864
+string text = "photo profil"
+alignment alignment = center!
+boolean focusrectangle = false
+end type
+
+type st_3 from statictext within w_diagnos_maj_nicolas3
+integer x = 3264
+integer y = 2568
+integer width = 357
+integer height = 72
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 67108864
+string text = "Durée :"
+boolean focusrectangle = false
+end type
+
+type st_4 from statictext within w_diagnos_maj_nicolas3
+integer x = 3264
+integer y = 2688
+integer width = 357
+integer height = 72
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 67108864
+string text = "Contention :"
+boolean focusrectangle = false
+end type
+
+type st_5 from statictext within w_diagnos_maj_nicolas3
+integer x = 3264
+integer y = 2928
+integer width = 357
+integer height = 72
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 67108864
+string text = "Divers :"
+boolean focusrectangle = false
+end type
+
+type mle_1 from multilineedit within w_diagnos_maj_nicolas3
+integer x = 3621
+integer y = 2688
+integer width = 2085
+integer height = 216
+integer taborder = 40
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean vscrollbar = true
+integer limit = 200
+borderstyle borderstyle = stylelowered!
+boolean ignoredefaultbutton = true
+end type
+
+type sle_1 from singlelineedit within w_diagnos_maj_nicolas3
+integer x = 3621
+integer y = 2568
+integer width = 1371
+integer height = 96
+integer taborder = 30
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+integer limit = 50
+borderstyle borderstyle = stylelowered!
+end type
+
+type mle_2 from multilineedit within w_diagnos_maj_nicolas3
+integer x = 3621
+integer y = 2928
+integer width = 2085
+integer height = 312
+integer taborder = 50
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean vscrollbar = true
+integer limit = 300
+borderstyle borderstyle = stylelowered!
+boolean ignoredefaultbutton = true
+end type
+
+type mle_3 from multilineedit within w_diagnos_maj_nicolas3
+integer x = 165
+integer y = 144
+integer width = 2277
+integer height = 2184
+integer taborder = 10
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean vscrollbar = true
+integer limit = 2000
+borderstyle borderstyle = stylelowered!
+boolean ignoredefaultbutton = true
+end type
+
+type mle_4 from multilineedit within w_diagnos_maj_nicolas3
+integer x = 2661
+integer y = 1752
+integer width = 3017
+integer height = 576
+integer taborder = 20
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean vscrollbar = true
+integer limit = 500
+borderstyle borderstyle = stylelowered!
+boolean ignoredefaultbutton = true
+end type
+
+type ole_1 from uo_schema_clinique within w_diagnos_maj_nicolas3
+integer x = 2661
+integer y = 120
+integer width = 1563
+integer height = 1608
+boolean bringtotop = true
+string binarykey = "w_diagnos_maj_nicolas3.win"
+string default_pic = "clinique_perso9.bmp"
+string pic_save_name = "sch_gauche.bmp"
+end type
+
+type ole_2 from uo_schema_clinique within w_diagnos_maj_nicolas3
+integer x = 4251
+integer y = 120
+integer width = 1426
+integer height = 1608
+boolean bringtotop = true
+string binarykey = "w_diagnos_maj_nicolas3.win"
+integer binaryindex = 1
+string default_pic = "clinique_perso10.bmp"
+string pic_save_name = "sch_droit.bmp"
+end type
+
+type gb_2 from groupbox within w_diagnos_maj_nicolas3
+integer x = 2578
+integer y = 24
+integer width = 3182
+integer height = 2400
+integer textsize = -12
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 67108864
+string text = "Objectifs thérapeutiques"
+end type
+
+type gb_1 from groupbox within w_diagnos_maj_nicolas3
+integer x = 55
+integer y = 24
+integer width = 2496
+integer height = 2400
+integer textsize = -12
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 67108864
+string text = "Plan de traitement"
+end type
+
+
+Start of PowerBuilder Binary Data Section : Do NOT Edit
+04w_diagnos_maj_nicolas3.bin 
+2300000c00e011cfd0e11ab1a1000000000000000000000000000000000003003e0009fffe000000060000000000000000000000010000000100000000000010000000000200000001fffffffe0000000000000000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd00000004fffffffefffffffefffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff006f00520074006f004500200074006e00790072000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050016ffffffffffffffff0000000300000000000000000000000000000000000000000000000000000000f9ecdc3001d866d000000003000001000000000000500003004c004200430049004e0045004500530045004b000000590000000000000000000000000000000000000000000000000000000000000000000000000002001cffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000580000000000500003004f0042005800430054005300450052004d0041000000000000000000000000000000000000000000000000000000000000000000000000000000000002001affffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000020000004d00000000004200500043004f00530058004f00540041005200450047000000000000000000000000000000000000000000000000000000000000000000000000000000000101001a000000020000000100000004b7679ea411d365705000d4803d17ad0400000000f9ecb52001d866d0f9ecdc3001d866d000000000000000000000000000000001fffffffe00000003fffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+27ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff006d0049006700610047006500610065002000720043004f002d005800310038004300200070006f00720079006700690074006800280020002900630031002000390039002000390063004100750063006f005300740066000000000000000000000000000000000000000000000000000000000000000000000000000000000000fffe00020206b7679ea411d365705000d4803d17ad0400000001fb8f0821101b01640008ed8413c72e2b000000300000001d0000000100000000000000100000000100000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006f00430074006e006e00650073007400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001020012ffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000fffffffe00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c00e011cfd0e11ab1a1000000000000000000000000000000000003003e0009fffe000000060000000000000000000000010000000100000000000010000000000200000001fffffffe0000000000000000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd00000004fffffffefffffffefffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+21ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff006f00520074006f004500200074006e00790072000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050016ffffffffffffffff0000000300000000000000000000000000000000000000000000000000000000f9ecdc3001d866d000000003000001000000000000500003004c004200430049004e0045004500530045004b000000590000000000000000000000000000000000000000000000000000000000000000000000000002001cffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000580000000000500003004f0042005800430054005300450052004d0041000000000000000000000000000000000000000000000000000000000000000000000000000000000002001affffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000020000004d00000000004200500043004f00530058004f00540041005200450047000000000000000000000000000000000000000000000000000000000000000000000000000000000101001a000000020000000100000004b7679ea411d365705000d4803d17ad0400000000f9ecdc3001d866d0f9ecdc3001d866d000000000000000000000000000000001fffffffe00000003fffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff006d0049006700610047006500610065002000720043004f002d005800310038004300200070006f00720079006700690074006800280020002900630031002000390039002000390063004100750063006f005300740066000000000000000000000000000000000000000000000000000000000000000000000000000000000000fffe00020206b7679ea411d365705000d4803d17ad0400000001fb8f0821101b01640008ed8413c72e2b000000300000001d0000000100000000000000100000000100000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006f00430074006e006e00650073007400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001020012ffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000fffffffe00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffff000000000000000000000000
+2D0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+14w_diagnos_maj_nicolas3.bin 
+End of PowerBuilder Binary Data Section : No Source Expected After This Point

@@ -1,0 +1,25 @@
+﻿$PBExportHeader$db_erreur.srf
+global type db_erreur from function_object
+end type
+
+forward prototypes
+global subroutine db_erreur (datawindow dw, long err_code, string err_text)
+end prototypes
+
+global subroutine db_erreur (datawindow dw, long err_code, string err_text);//
+//CHOOSE CASE err_code
+//	CASE -193
+//		MessageBox("Alerte Base de Données","Le code clé que vous avez saisi existe déjà !",Information!)
+//	CASE -195
+//		MessageBox("Alerte Base de Données","Le code ne peut pas être nul !",Information!)
+//	CASE -198
+//		MessageBox("Alerte Base de Données","Vous n'avez pas le droit de supprimer cette ligne (ou de modifier sa clef) !~n~nElle est liée à une autre table.",Information!)
+//	CASE -3
+//		MessageBox("Alerte Base de Données","Les données que vous manipulez ont été~nmodifées par un autre utilisateur~nou dans une autre fenêtre.~n~nVeuillez annuler votre opération ....",Information!)
+//	CASE ELSE
+//		MessageBox("Alerte Base de Données Non Référencée","N° "+String(err_code)+"~nText : "+err_text+"~n~nVeuillez en avertir ARAKIS ...",Information!)
+//END CHOOSE
+//
+//
+end subroutine
+

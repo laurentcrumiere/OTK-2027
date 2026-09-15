@@ -1,0 +1,611 @@
+﻿$PBExportHeader$ajout_soins_automatiques.srf
+global type ajout_soins_automatiques from function_object
+end type
+
+forward prototypes
+global function boolean ajout_soins_automatiques (double var_code_local, string type_gestion, double v_soins_auto, double v_num_deb, date prem_date, boolean verif_unicite, boolean avec_question, integer devis, integer jour_echeance, boolean forcer_premiere_echeance_premier_mois)
+end prototypes
+
+global function boolean ajout_soins_automatiques (double var_code_local, string type_gestion, double v_soins_auto, double v_num_deb, date prem_date, boolean verif_unicite, boolean avec_question, integer devis, integer jour_echeance, boolean forcer_premiere_echeance_premier_mois);// ***************************************************************************
+//  UTILISE AUSSI PAR LE PROJET BORNE SALLE D'ATTENTE => A RECOPIER DANS borne_commun.pbl  
+// ***************************************************************************
+
+// *********************************************************
+//     															ATTENTION !
+//
+//     CERTAINES LIGNES DE CODES SPEFIQUES POUR LA GESTION DE TEA  ==>   FAUT COMMENTER / DECOMMENTER APRES AVOIR COPIER DANS borne_commun.pbl
+// ************************************************************
+
+
+// Ajout de soins automatique à un patient
+
+// type_gestion vaut P ou S pour Soins Prévisionnels ou Soins normaux
+// v_soins_auto = code du soin auto à ajouter
+// v_num_deb = numéro du 1er soin
+
+// verif_unicite : pour ne pas ajouter plusieurs fois le même soins ; surtout en cas d'ajout suite à mise à jour en salle d'attente
+// avec_question : utilisé par la fonction de vérification des regles de soins belges
+
+// devis sert uniquement pours les soins prévus ... numéro du devis du patient
+
+// jour_echeance sert à savoir si on génère l'échénace à une date fixe (le 15 du mois) ou pas (0 si date flottante)
+
+// forcer_premiere_echeance_premier_mois : pour éviter de passer au mois suivant si prélèvement le 15 du mois ... début du traitement le 20/02 ... si forcage ... 1er échéance le 15/2 .. sinon .. le 15/3
+
+boolean val_retour = true
+
+boolean v_suite
+long v_cpt
+
+integer li_dernier_jour_du_mois 
+string ls_date_echeance
+
+string v_motif, v_lettre, v_exo
+
+// Recherche de la clé_max déjà saisie 
+//------------------------------------------
+
+
+double cle_max
+
+cle_max = 0
+if type_gestion = 'P' then
+	SELECT Max(cle) INTO :cle_max FROM "soins_prevus" WHERE code = :var_code_local ;
+else
+	SELECT Max(cle) INTO :cle_max FROM "soins" WHERE code = :var_code_local ;
+end if
+
+if isnull(cle_max) then
+	cle_max = 1
+else
+	cle_max = cle_max + 1
+end if
+
+// pour savoir si on met à jour la date de 1ère demande
+long cpt_demande_avant, cpt_demande_apres
+if type_gestion = 'P' then
+	SELECT isnull(count(*), 0) INTO :cpt_demande_avant FROM "soins_prevus", "code_soins" 
+	WHERE  "soins_prevus"."code_devis" = :devis and "soins_prevus"."code" = :var_code_local AND "soins_prevus"."type" = "code_soins"."code" and ( ( "code_soins"."duree" = 6 and scp_demande = 90 ) or  ( "code_soins"."duree" = 3 and (scp_demande = 45 or scp_demande = 1)  ) or  ( "code_soins"."duree" = 12 and scp_demande = 180 ) ) ;
+else
+	SELECT isnull(count(*), 0) INTO :cpt_demande_avant FROM "soins", "code_soins" 
+	WHERE "soins"."code" = :var_code_local AND "soins"."type" = "code_soins"."code" and ( ( "code_soins"."duree" = 6 and scp_demande = 90 ) or  ( "code_soins"."duree" = 3 and (scp_demande = 45 or scp_demande = 1) ) or  ( "code_soins"."duree" = 12 and scp_demande = 180 ) )  ;
+end if
+
+// Recherche du numero_max de semestre ou surveillance déjà saisi
+// -------------------------------------------------------------
+
+double numero_max
+numero_max = 0
+
+
+if Belgique then
+	// on prend le maximum des N° déjà saisis
+	if type_gestion = 'P' then
+		SELECT isnull(Max(numero),0) INTO :numero_max FROM "soins_prevus", "code_soins" 
+		WHERE "soins_prevus"."code_devis" = :devis and "soins_prevus"."code" = :var_code_local AND "soins_prevus"."type" = "code_soins"."code" and "code_soins"."duree" > 0;
+	else
+		SELECT isnull(Max(numero),0) INTO :numero_max FROM "soins", "code_soins" 
+		WHERE "soins"."code" = :var_code_local AND "soins"."type" = "code_soins"."code" and "code_soins"."duree" > 0 ;
+	end if
+
+else
+	
+	if v_num_deb = 0 then
+		// on prend le maximum des N° déjà saisis
+		// pour détecter un semestre ou une surveillance on se base sur la durée depuis la V12
+		
+		if type_gestion = 'P' then
+			SELECT isnull(Max(numero),0) INTO :numero_max FROM "soins_prevus", "code_soins" 
+			WHERE "soins_prevus"."code_devis" = :devis and "soins_prevus"."code" = :var_code_local AND "soins_prevus"."type" = "code_soins"."code" and "code_soins"."duree" in  (3, 6, 12 );
+		else
+			SELECT isnull(Max(numero),0) INTO :numero_max FROM "soins", "code_soins" 
+			WHERE "soins"."code" = :var_code_local AND "soins"."type" = "code_soins"."code" and "code_soins"."duree" in (3, 6, 12) ;
+		end if
+	else
+		// on fait + 1 ensuite
+		numero_max = v_num_deb - 1
+	end if
+end if
+
+
+double v_cle_soins,v_cle_soins_auto,V_numero,delta,v_tp
+integer v_nombre_decalage, nb
+string v_type,v_tp2, v_origine
+char v_mode_decalage
+decimal {2} v_scp_demande,v_scp_accord,v_hn,v_total,v_montant, v_total_patient
+date v_date_demande,v_date_accord, v_date_echeance
+string commande, v_execution_immediate
+string  v_code_association, v_nature, v_remboursement_exceptionnel, v_non_prelevement, v_modificateurs
+			
+integer v_duree, v_jour_limite
+date v_date_temp
+date date_execution
+
+
+v_cle_soins = 0
+
+double tab_cle_soins_auto[]
+integer v_indice_tab_cle_soins_auto
+
+// Curseur sur les soins (tous les soins du modèle)
+
+	 	DECLARE Cur_soins CURSOR FOR  
+	  SELECT "cle","type","numero","date_demande","scp_demande","date_accord","scp_accord","hn",  
+		  "soins_auto"."total", "soins_auto"."tp" ,  "mode_decalage", "nombre_decalage", "execution_immediate" , "soins_auto". "code_association" , isnull("code_soins"."remboursement_exceptionnel_defaut",'N'),  "soins_auto". "modificateurs"
+	 FROM "soins_auto", "code_soins" WHERE "soins_auto"."type" = code_soins.code and soins_auto.code = :v_soins_auto order by "date_demande", "cle" ;
+
+
+	
+
+// Curseur sur les lignes de soins auto (du soin en cours)
+DECLARE Cur_lsoins CURSOR FOR  
+  SELECT "cle", "date", "montant", "tp", "origine_tp", "mode_decalage", "nombre_decalage" , "non_prelevement"
+	 FROM "ligne_soins_auto" WHERE code = :v_soins_auto and cle = :v_cle_soins_auto ;
+	 
+	 
+
+OPEN cur_soins ;
+
+FETCH cur_soins INTO :v_cle_soins_auto,:v_type,:v_numero,:v_date_demande,
+			:v_scp_demande,:v_date_accord,:v_scp_accord,:v_hn,   
+				 :v_total,:v_tp, :v_mode_decalage, :v_nombre_decalage, :v_execution_immediate , :v_code_association , :v_remboursement_exceptionnel , :v_modificateurs ;
+
+
+v_indice_tab_cle_soins_auto = 0
+
+// Boucle avec le cursueur UNIQUEMENT pour récupérer les clef des soins ... qu'on met dans un tableau pour exploiter ensuite car, le 13/1/2025, bug chez CUMBO avec le curseur qui se ferme en court de route ...
+//----------------------------------------
+Do while SQLCA.sqlcode = 0 
+	
+	v_indice_tab_cle_soins_auto = v_indice_tab_cle_soins_auto + 1
+	
+	tab_cle_soins_auto[v_indice_tab_cle_soins_auto] = v_cle_soins_auto
+	 
+	
+ FETCH cur_soins INTO :v_cle_soins_auto,:v_type,:v_numero,:v_date_demande,
+	:v_scp_demande,:v_date_accord,:v_scp_accord,:v_hn,   
+		 :v_total,:v_tp, :v_mode_decalage, :v_nombre_decalage, :v_execution_immediate , :v_code_association , :v_remboursement_exceptionnel, :v_modificateurs;
+
+
+loop
+
+close cur_soins ;
+
+
+
+
+
+// Boucle sur les lignes de soins auto
+//----------------------------------------
+//Do while SQLCA.sqlcode = 0 
+for v_indice_tab_cle_soins_auto = 1 to upperbound(tab_cle_soins_auto)
+	
+	Trace ("Ajout acte N°" + string(v_indice_tab_cle_soins_auto))
+	
+	v_cle_soins_auto = tab_cle_soins_auto[v_indice_tab_cle_soins_auto]
+	
+
+  SELECT "type","numero","date_demande","scp_demande","date_accord","scp_accord","hn",  
+	  "soins_auto"."total", "soins_auto"."tp" ,  "mode_decalage", "nombre_decalage", "execution_immediate" , "soins_auto". "code_association" , isnull("code_soins"."remboursement_exceptionnel_defaut",'N'), "soins_auto". "modificateurs"
+	INTO :v_type,:v_numero,:v_date_demande, :v_scp_demande,:v_date_accord,:v_scp_accord,:v_hn,   
+				 :v_total,:v_tp, :v_mode_decalage, :v_nombre_decalage, :v_execution_immediate , :v_code_association , :v_remboursement_exceptionnel, :v_modificateurs
+	FROM "soins_auto", "code_soins" WHERE "soins_auto"."type" = code_soins.code and soins_auto.code = :v_soins_auto and "cle" = :v_cle_soins_auto ;
+	
+
+		
+
+	
+	v_cle_soins = v_cle_soins + cle_max 
+
+	// On poursuit la numérotation des semestres .. si le soin en est un ...
+	nb = 0
+	SELECT count(*) INTO :nb FROM "code_soins" 
+	WHERE "code_soins"."code" = :v_type and ("code_soins"."duree" = 6 or ( "code_soins"."duree" = 12 and nb_lettre = 180 ) or ( "code_soins"."duree" = 3 and (nb_lettre = 45 or nb_lettre = 1)  )) ;
+
+		
+	if v_nature = "N" then
+		// en NGAP .. pas de code d'association
+		v_code_association = ""
+	end if
+
+
+	IF nb > 0 THEN
+		// C'est un semestre ou surveillance ou année de traitement .. soin avec durée
+		v_numero = v_numero + numero_max
+	else
+		// On n'est plus sur un semestre => On regarde si c'est une contention
+		nb = 0
+		SELECT count(*) INTO :nb FROM "code_soins" 
+		WHERE "code_soins"."code" = :v_type and "code_soins"."duree" = 12 ;
+		IF nb > 0 THEN
+			// C'est une contention ....
+			numero_max = 0
+		else
+			// C'est ni un semestre, ni une contention .. on regarde pour la Belgique
+			nb = 0
+			if Belgique then
+				SELECT count(*) INTO :nb FROM "code_soins" 
+				WHERE "code_soins"."code" = :v_type and "code_soins"."duree" > 0  ;
+		
+				IF nb > 0 THEN
+					// C'est un soin avec durée ... on numérote
+					v_numero = v_numero + numero_max
+				end if
+			end if
+		end if
+	END IF
+	
+	
+	
+	// Recherche si le CODE DE SOIN est soumis à entente (s'il a une durée en fait)
+	SELECT "duree", "lettre", "exo_defaut" INTO :v_duree, :v_lettre, :v_exo FROM "code_soins"  WHERE code = :v_type ;
+	
+	// Selon le mode de décalage, par jour ou par mois
+	if v_mode_decalage = 'J' then
+
+		v_date_temp = relativedate(prem_date, v_nombre_decalage)
+		
+
+		if Belgique and (type_gestion = 'S' or type_gestion = 'R') then
+			v_suite = verif_regles_soins_belges(var_code_local, v_type, v_date_temp , avec_question)
+			
+			// On recalcule la clef d'ajout car il y a peut être eu des ajouts automatiques
+			cle_max = 0
+			if type_gestion = 'P' then
+				SELECT Max(cle) INTO :cle_max FROM "soins_prevus" WHERE code = :var_code_local ;
+			else
+				SELECT Max(cle) INTO :cle_max FROM "soins" WHERE code = :var_code_local ;
+			end if
+			
+			if isnull(cle_max) then
+				cle_max = 1
+			else
+				cle_max = cle_max + 1
+			end if
+		
+			v_cle_soins = v_cle_soins + cle_max
+		else
+			v_suite = true
+		end if
+
+		if v_suite then 
+			if verif_unicite then
+				// pour ne pas ajouter 2 fois le meme soins !!
+				select isnull(count(*),0) into :v_cpt from soins where code = :var_code_local and "type" = :v_type and date_demande = :v_date_temp ;
+				if v_cpt > 0 then
+					v_suite = false
+				else
+					v_suite = true
+				end if
+			else
+				v_suite = true
+			end if
+		end if
+		
+		if v_suite then
+		
+			if v_duree > 0 and v_execution_immediate <> 'O' then
+				date_execution = ajout_x_mois(v_date_temp,v_duree )
+			else
+				date_execution = v_date_temp
+			end if
+	
+			
+			// Décalage par jour
+			if type_gestion = 'P' then
+				// prevus
+				
+
+					INSERT INTO "soins_prevus"  
+				( "cle",    "code",   "type",    "numero",   "date_demande",   "scp_demande",   
+				  "date_accord",   "scp_accord",   "hn",    "total",   "tp","user_modif","date_modif" , "code_devis", "code_association", "remboursement_exceptionnel", "exo", "modificateurs")  
+				VALUES ( :v_cle_soins,   :var_code_local,  :v_type,   :v_numero,   
+				  :v_date_temp ,   :v_scp_demande,   null ,   :v_scp_accord,   
+				  :v_hn,  :v_total,   :v_tp , :utilisateur_code, getdate(), :devis, :v_code_association, :v_remboursement_exceptionnel, :v_exo, :v_modificateurs)  ;
+
+				
+			else
+				// Normaux
+				if v_hn > 0 then 
+					v_motif = motif_depassement(var_code_local, v_type)
+				else
+					v_motif = ""
+				end if
+				
+				// Exo 3 pour les TO 45 
+				if CCVITALE and v_scp_demande = 45 and (v_lettre = 'TO' or v_lettre = 'ORT') then 
+					v_exo = "3"
+				end if
+					
+					INSERT INTO "soins"  
+				( "cle",    "code",   "type",    "numero",   "date_demande",   "scp_demande",   
+				  "date_accord",   "scp_accord",   "hn",    "total",   "tp" , "date_exe", "user_modif","date_modif", "motif_depassement", "code_association", "exo", "modificateurs")  
+				VALUES ( :v_cle_soins,   :var_code_local,  :v_type,   :v_numero,   
+				  :v_date_temp ,   :v_scp_demande,   null ,   :v_scp_accord,   
+				  :v_hn,  :v_total,   :v_tp , :date_execution,  :utilisateur_code, getdate() , :v_motif, :v_code_association, :v_exo, :v_modificateurs)  ;
+
+			end if
+		end if
+	else
+
+		// Ajout en mois
+		v_date_temp = ajout_x_mois(prem_date, v_nombre_decalage)
+		
+		if Belgique and (type_gestion = 'S' or type_gestion = 'R' ) then
+			v_suite = verif_regles_soins_belges(var_code_local, v_type, v_date_temp , avec_question)
+			
+			// On recalcule la clef d'ajout car il y a peut être eu des ajouts automatiques
+			cle_max = 0
+			if type_gestion = 'P' then
+				SELECT Max(cle) INTO :cle_max FROM "soins_prevus" WHERE code = :var_code_local ;
+			else
+				SELECT Max(cle) INTO :cle_max FROM "soins" WHERE code = :var_code_local ;
+			end if
+			
+			if isnull(cle_max) then
+				cle_max = 1
+			else
+				cle_max = cle_max + 1
+			end if
+		
+			v_cle_soins = v_cle_soins + cle_max
+		else
+			v_suite = true
+		end if
+
+		if v_suite then 
+			if verif_unicite then
+				// pour ne pas ajouter 2 fois le meme soins !!
+				select isnull(count(*),0) into :v_cpt from soins where code = :var_code_local and "type" = :v_type and date_demande = :v_date_temp ;
+				if v_cpt > 0 then
+					v_suite = false
+				else
+					v_suite = true
+				end if
+			else
+				v_suite = true
+			end if
+		end if
+			
+		if v_suite then
+			
+			if v_duree > 0 and v_execution_immediate <> 'O' then
+				date_execution = ajout_x_mois(v_date_temp,v_duree )
+			else
+				date_execution = v_date_temp
+			end if
+	
+			// Décalage par mois
+			if type_gestion = 'P' then
+				// Prévus
+
+				INSERT INTO "soins_prevus"  ( "cle", "code", "type",    "numero",   "date_demande",   "scp_demande",   
+				 "date_accord",   "scp_accord",   "hn",    "total",   "tp", "user_modif", "date_modif", "code_devis", "code_association" , "remboursement_exceptionnel", "exo", "modificateurs"  )    
+				VALUES ( :v_cle_soins,   :var_code_local,  	:v_type,   :v_numero,  
+				  :v_date_temp ,   :v_scp_demande,   null,   :v_scp_accord,   :v_hn,  :v_total,   :v_tp, :utilisateur_code, getdate() , :devis, :v_code_association 	, :v_remboursement_exceptionnel, :v_exo , :v_modificateurs )  ;
+
+						
+
+			else
+				// Normaux
+				if v_hn > 0 then 
+					v_motif = motif_depassement(var_code_local, v_type)
+				else
+					v_motif = ""
+				end if
+				// Exo 3 pour les TO 45 
+				if CCVITALE and v_scp_demande = 45 and (v_lettre = 'TO' or v_lettre = 'ORT') then 
+					v_exo = "3"
+				end if
+
+				INSERT INTO "soins"  ( "cle", "code", "type",    "numero",   "date_demande",   "scp_demande",   
+				 "date_accord",   "scp_accord",   "hn",    "total",   "tp" ,"date_exe", "user_modif", "date_modif", "motif_depassement", "code_association", "exo", "remboursement_exceptionnel", "modificateurs")  
+				VALUES ( :v_cle_soins,   :var_code_local,  	:v_type,   :v_numero,  
+				  :v_date_temp ,   :v_scp_demande,   null,   :v_scp_accord,   :v_hn,  :v_total,   :v_tp , :date_execution, :utilisateur_code, getdate(), :v_motif, :v_code_association, :v_exo, :v_remboursement_exceptionnel, :v_modificateurs)  ;
+					
+
+			end if
+		end if
+	end if
+	
+	if sqlca.sqlcode <> 0 then
+		MessageBox("ATTENTION !", "Erreur en ajout de soins !~n~n"+sqlca.sqlerrText)
+		val_retour = false
+		rollback ;
+	else
+		
+		if v_suite then			
+			
+			// Récupération de la date calculée
+			if type_gestion = 'P' then
+				SELECT "date_demande"  into :v_date_demande FROM "soins_prevus" 
+				  WHERE "code" = :var_code_local and "cle" = :v_cle_soins ;
+			else
+				SELECT "date_demande"  into :v_date_demande FROM "soins" 
+				  WHERE "code" = :var_code_local and "cle" = :v_cle_soins ;
+			end if
+	
+			// Boucle sur les lignes de soins du soin en cours
+			//-------------------------------------------------------
+	
+			OPEN cur_lsoins ;
+			FETCH cur_lsoins INTO :v_cle_soins_auto,:v_date_temp,:v_montant,:v_tp2, :v_origine, :v_mode_decalage, :v_nombre_decalage, :v_non_prelevement ;
+			
+			Do while SQLCA.sqlcode = 0 
+		
+				if isnull(v_origine) then
+					v_origine = ''
+				end if
+				if v_mode_decalage = 'J' then
+					// decalage en jours
+					v_date_echeance = RelativeDate(v_date_demande, v_nombre_decalage)
+				else
+					// Décalage en mois
+					v_date_echeance = ajout_x_mois(v_date_demande, v_nombre_decalage)
+				end if
+				
+				// Correction de l'échéance si jour fixe et par tiers payant 
+
+				// En 2027 on tient compte de forcer_premiere_echeance_premier_mois
+				if jour_echeance <> 0 and v_tp2 <> "O" then
+					// L'écheance patient doit être à jour fixe 
+					
+					if not forcer_premiere_echeance_premier_mois then 
+						// => on prend le jour fixe qui suis la date .. .
+						// Pour février ... 
+						if month(v_date_echeance) = 2 and (day(v_date_echeance) = 28 or day(v_date_echeance) = 29) and jour_echeance >= 28 then
+							// on ne fait rien car on est déja en fin de mois 
+						else
+							if month(v_date_echeance) = 2 and jour_echeance >= 28 then 
+								// On est en févirier .. on limite au 28
+								v_jour_limite = 28
+							else
+								v_jour_limite = jour_echeance
+							end if
+							// on refait un test en principe inutile ... pas sécurité
+							if 1 <= v_jour_limite and v_jour_limite <= 31 then
+	 							DO WHILE day(v_date_echeance) <> v_jour_limite  
+									v_date_echeance = relativedate(v_date_echeance,1)
+	 							LOOP
+							end if
+						end if
+					else
+						// on force la première écheance le 1er mois
+
+						// verification selon le dernier jour du mois 
+						li_dernier_jour_du_mois = day( fin_mois (v_date_echeance) )
+						ls_date_echeance = string(v_date_echeance, "jj/mm/yyyy")
+						if jour_echeance <= li_dernier_jour_du_mois then 
+							v_date_echeance = date(string(jour_echeance) + right(ls_date_echeance, 8))
+						else
+							v_date_echeance = date(string(li_dernier_jour_du_mois) + right(ls_date_echeance, 8))
+						end if
+
+					end if
+				end if					
+					
+
+
+
+				
+				
+				// fin du calcul de l'échéance
+				
+				if type_gestion = 'P' then
+					INSERT INTO "ligne_soins_prevus"  
+						( "cle",    "code",    "date",    "montant",    "tp",		"origine_tp", "non_prelevement")  
+					VALUES ( :v_cle_soins,   :var_code_local,  :v_date_echeance ,   :v_montant,   :v_tp2, :v_origine, :v_non_prelevement) ;
+					
+				else
+					INSERT INTO "ligne_soins"  
+						( "cle",    "code",    "date",    "montant",    "tp","origine_tp", "non_prelevement")    
+					VALUES ( :v_cle_soins,   :var_code_local, :v_date_echeance,   :v_montant,   :v_tp2, :v_origine, :v_non_prelevement) ;
+					
+				end if
+
+
+				
+	
+				if sqlca.sqlcode <> 0 then
+					MessageBox("ATTENTION !", "Erreur en ajout lignes de soins !~n~n"+sqlca.sqlerrText)
+					rollback ;
+					val_retour = false
+					end if
+			
+				FETCH cur_lsoins INTO :v_cle_soins_auto,:v_date_temp,:v_montant,:v_tp2, :v_origine, :v_mode_decalage, :v_nombre_decalage, :v_non_prelevement ;
+
+			LOOP
+		
+			close cur_lsoins ; // Fin de la boucle sur les lignes
+			
+			trace("val_retour - ajout du soins ok ? : " + string(val_retour))
+			
+			if val_retour then
+				
+				// on commit de suite sinon on peut avoir des blocages avec TEA
+				commit ;
+				
+				
+				// Le soin vient d'être ajouté ou mis à jour => Mise à jour VISIODENT
+				if APPEL_VISIODENT and not VISIODENT_LIMITE and sqlca.sqlcode = 0 and type_gestion = 'S' then
+					fxg_ods_envoi_soin(var_code_local, v_cle_soins, false)
+				end if
+				
+				trace("TEA ? : " + string(TEA))
+
+				if TEA then 
+					
+					select isnull(sum(montant),0) into :v_total_patient from ligne_soins where code = :var_code_local and cle = :v_cle_soins and tp <> 'O' ;
+					
+					trace("type_gestion : " + type_gestion + " - Total : " + string(v_total) + "  - v_cle_soins : "  + string(v_cle_soins) + " - Total patient : " + string(v_total_patient) )
+					
+					// Code à liberer pour la BORNE
+					// if type_gestion = 'S' and v_total_patient > 0 then
+					// 	fxg_lancer_commande_dsapi("payment/create/" + string(var_code_local) + "-" + string(v_cle_soins) , "",  "S", "G", var_code_local )
+					// end if
+					
+					// Code à liberer pour la ORTHOKIS
+					if (type_gestion = 'S' or type_gestion = "R") then
+						fxg_maj_soins_tea(var_code_local, v_cle_soins, "C")
+					end if
+					
+				end if
+			end if
+
+		end if // fin du test v_suite
+	
+	end if // Fin du test de l'erreur de l'ajout sur les soins
+	
+	
+	// On passe au soin suivant
+
+
+next
+//close cur_soins ;  // Fin de la boucle sur les soins
+
+
+// pour savoir si on met a jour la date de 1ère demande 
+
+// Depuis 2017 on verifie renouvellement oui/non plutôt que la durée
+if type_gestion = 'P' then
+	SELECT isnull(count(*), 0) INTO :cpt_demande_apres FROM "soins_prevus", "code_soins" 
+	WHERE "soins_prevus"."code_devis" = :devis and "soins_prevus"."code" = :var_code_local AND "soins_prevus"."type" = "code_soins"."code" and "code_soins"."renouvt" = 'O'  ;
+else
+	SELECT isnull(count(*), 0) INTO :cpt_demande_apres FROM "soins", "code_soins" 
+	WHERE "soins"."code" = :var_code_local AND "soins"."type" = "code_soins"."code" and  "code_soins"."renouvt" = 'O'  ;
+end if
+
+if cpt_demande_avant = 0 and cpt_demande_apres > 0 and not Belgique then
+	// Mise à jour de la date de 1ère demande
+	update patient set date_prem_demande = :prem_date where code = :var_code_local and date_prem_demande is null ;
+end if
+
+
+commit ;
+
+
+// Mémorisation
+string v_nom_soins_auto
+
+if val_retour then
+	select nom into :v_nom_soins_auto from titres_soins_auto where code = :v_soins_auto ;
+	
+	if devis <> 0 and type_gestion = 'P' then
+		if Messagebox("ATTENTION", "Voulez-vous inscrire '" + v_nom_soins_auto + "' comme nom du devis ?", Question!, YesNo!, 2) = 1 then
+			update devis set libelle  = :v_nom_soins_auto where code = :var_code_local and code_devis  = :devis ;
+			commit ;
+		end if
+	end if
+
+	
+	if type_gestion = 'P' then
+		ajout_histo_actions(var_code_local,"AJOSOP",today(),"(Plusieurs) Soin Auto : "+ v_nom_soins_auto )
+	else
+		ajout_histo_actions(var_code_local,"AJOSOI",today(),"(Plusieurs) Soin Auto : "+ v_nom_soins_auto )
+	end if
+end if
+
+return val_retour
+
+end function
+

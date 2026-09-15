@@ -1,0 +1,120 @@
+﻿$PBExportHeader$f_pbus_circleprogress.srf
+global type f_pbus_circleprogress from function_object
+end type
+
+forward prototypes
+global function boolean f_pbus_circleprogress (ulong ahdc, long ax, long ay, long awidth, long aheight, double progresspercent, string fontname, integer fontsize, integer circlethickness, string theme)
+end prototypes
+
+global function boolean f_pbus_circleprogress (ulong ahdc, long ax, long ay, long awidth, long aheight, double progresspercent, string fontname, integer fontsize, integer circlethickness, string theme);LongPtr lul_Graphic, lul_path, lul_GdiToken, lul_Pen,lul_Pen2, lul_colorRGB, lul_font
+Long ll_circle
+Double progressAngle
+Double remainderAngle
+ULong lul_color, lul_color2
+Int li_red, li_green, li_blue
+String ls_text
+RECT lstr_Rect
+RECT l_TextRect
+GdiplusStartupInput  lstr_input
+GdiplusStartupOutput lstr_output
+n_cst_win32 lnv_win32
+
+n_cst_pbus_lic iu_lic
+IF NOT iu_lic.of_Registered() AND &
+   iu_lic.of_Key() = "38017E06-84A2-4B73-9CE5-87C0BD9A39A8" THEN
+	RETURN FALSE
+END IF
+
+lnv_win32 = CREATE n_cst_win32
+
+//Setup
+lstr_input.GdiplusVersion = 1
+lnv_win32.GdiplusStartup(lul_GdiToken, lstr_input, lstr_output)
+lnv_win32.GdipCreateFromHDC(ahdc, lul_Graphic)
+lnv_win32.GdipSetSmoothingMode(lul_Graphic, 5)
+lnv_win32.GdipSetPageUnit(lul_Graphic, 2)
+
+//Get PenColor for circle outline
+n_uspb_colors lnv_colors
+lul_colorRGB = lnv_colors.of_GetColor(Theme, li_red, li_green, li_blue)
+
+//Get color for circle fill
+lul_color = lnv_win32.PBUSMakeARGB (255, li_red, li_green, li_blue)
+lul_color2 = lnv_win32.PBUSMakeARGB (255, 190, 190, 190)
+
+int i
+i = lnv_win32.GetDeviceCaps(ahdc,2)
+
+IF i = 2 THEN
+	lnv_win32.GdipCreatePen1(lul_color,CircleThickness, 3, lul_Pen)
+	lnv_win32.GdipCreatePen1(lul_color2,CircleThickness, 3, lul_Pen2)	
+ELSE
+	lnv_win32.GdipCreatePen1(lul_color,CircleThickness, 2, lul_Pen)
+	lnv_win32.GdipCreatePen1(lul_color2,CircleThickness, 2, lul_Pen2)	
+END IF
+
+lnv_win32.GdipSetSmoothingMode(lul_Graphic, 5)
+
+//Create Font
+LogFont lstr_Lf
+
+lstr_Lf.lffacename = fontname
+lstr_Lf.lfweight = 400
+lstr_Lf.lfheight = -1 * ( lnv_win32.MulDiv(fontsize, lnv_win32.GetDeviceCaps(ahdc, lnv_win32.LOGPIXELSY), 72) )
+lstr_Lf.lfPitchAndFamily = '1'
+lstr_Lf.lfClipPrecision = Char(2)
+lstr_Lf.lfOutPrecision = Char(1)
+lstr_Lf.lfQuality = Char(1)
+lstr_Lf.lfCharset = Char(1)
+
+lul_font = lnv_win32.CreateFontIndirect( lstr_Lf )
+
+//Get circle size
+ll_circle = Min(awidth, aheight)  - (circlethickness * 2)
+
+//Get complete portion
+progressAngle = 360.00 / 100.00 * ProgressPercent
+remainderAngle = 360 - progressAngle
+
+//Draw Progress Portion
+lnv_win32.GdipCreatePath(0, lul_path)
+lnv_win32.GdipAddPathArcI(lul_path, circlethickness + ax, circlethickness + ay, ll_circle, ll_circle, -90, progressAngle);
+lnv_win32.GdipDrawPath(lul_graphic, lul_Pen, lul_path);
+lnv_win32.GdipDeletePath(lul_path)
+
+//Draw Remainder
+lnv_win32.GdipCreatePath(0, lul_path)
+lnv_win32.GdipAddPathArcI(lul_path, circlethickness + ax, circlethickness + ay, ll_circle, ll_circle, progressAngle - 90, remainderAngle);
+lnv_win32.GdipDrawPath(lul_graphic, lul_pen2, lul_path);
+lnv_win32.GdipDeletePath(lul_path)
+
+//Display percentage
+
+lnv_win32.SelectObject(ahdc, lul_font)
+lnv_win32.SetBkMode(ahdc, 1)
+
+// Position
+l_TextRect.Left = circlethickness + ax
+l_TextRect.Top = circlethickness + ay
+l_TextRect.Right = ll_circle + l_TextRect.Left
+l_TextRect.Bottom = ll_circle + l_TextRect.Top
+
+lnv_win32.SetTextColor(ahdc, lul_colorRGB)
+
+ls_text = String(Long(Round(ProgressPercent, 0))) + "%"
+lnv_win32.Drawtext(ahdc, ls_text, LEN(ls_text), l_TextRect, 37)
+
+
+//Cleanup
+lnv_win32.DeleteObject(lul_font)
+lnv_win32.GdipDeletePen(lul_Pen)
+lnv_win32.GdipDeletePen(lul_Pen2)
+lnv_win32.GdipDeletePath(lul_path)
+lnv_win32.GdipDeleteGraphics(lul_Graphic)
+lnv_win32.GdiplusShutdown(lul_GdiToken)
+
+DESTROY lnv_win32
+
+RETURN true
+end function
+

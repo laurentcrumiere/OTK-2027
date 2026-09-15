@@ -1,0 +1,166 @@
+﻿$PBExportHeader$fxg_lancer_commande_econnector.srf
+global type fxg_lancer_commande_econnector from function_object
+end type
+
+forward prototypes
+global function boolean fxg_lancer_commande_econnector (string v_commande, string v_type_requete, string v_body, ref string v_json_retour)
+end prototypes
+
+global function boolean fxg_lancer_commande_econnector (string v_commande, string v_type_requete, string v_body, ref string v_json_retour);// EXECUTION D'UNE eConnector  MYORTHOKIS EN HTTP
+
+// v_type_requete : G pour GET, P pour POST
+
+// v_json_retour en référence contienda le Json récupéré pour être analysé par l'appelant
+
+// retour 1 si ok , 0 sinon
+
+Trace (" *** ENVOI D'UNE COMMANDE AU eCONNECTOR ***")
+
+integer li_rc, li_code
+
+
+HttpClient lnv_HttpClient
+lnv_HttpClient = Create HttpClient
+blob lb_data
+string  ls_code, url_econnector, ls_error
+string s_commande, ls_result, ls_message
+
+long  ll_statut_reponse, ll_root
+integer li_fichier
+string ls_contenu_pdf
+BOOLEAN lb_success
+
+string v_fichier_pdf
+integer li_fichier_json_retour
+string ls_nom_json_retour
+
+boolean retour = true
+
+v_json_retour = ""
+
+url_econnector =  Profilestring(dir_ini+inifile_orthokis,"LUXEMBOURG","url_econnector","http://localhost:16900/" ) + "econnector/"
+
+if v_type_requete = "G" then
+	v_type_requete ="GET"
+else
+	v_type_requete ="POST"
+end if
+
+s_commande = url_econnector +  v_commande
+
+TRACE ( " - Body : " + v_body )
+trace( " - Type de Requete : " + v_type_requete)
+
+TRACE ( " - Envoi de la commande : " + s_commande )
+
+lnv_HttpClient.SetRequestHeader("X-CNS", "CNS")
+lnv_HttpClient.SetRequestHeader("Content-Type", "application/xml")
+
+//lnv_HttpClient.SecureProtocol = 5
+
+// Envoi de la commande
+li_rc = lnv_HttpClient.SendRequest(v_type_requete, s_commande , v_body, EncodingUTF8!)
+
+TRACE ( " - Code Retour de la recherche : " + string(li_rc))
+
+if li_rc = 1 then 
+	
+		ll_statut_reponse = lnv_HttpClient.GetResponseStatusCode()
+		li_code = 0
+		TRACE ( " - Code Status réponse : " + string(ll_statut_reponse) )
+		JSONParser json
+		json = CREATE JSONParser
+			  
+
+//		if ll_statut_reponse = 200 and right(s_commande, 12)  = "generate-pdf" then 
+//				// le retour est un PDF 
+			
+//				li_code = lnv_HttpClient.GetResponseBody(v_json_retour, EncodingUTF8!) 
+				
+//				ls_result = json.LoadString (v_json_retour)
+//				ll_root = json.GetRootItem()
+				
+//				ls_contenu_pdf =  string_non_nulle(json.GetItemString(ll_root, "tdepotDocument"))
+				
+//				v_fichier_pdf = dir_ini + "fichier.pdf"
+//				FileDelete(v_fichier_pdf)
+//				li_fichier = FileOpen(v_fichier_pdf , StreamMode! , write!, LockWrite!, replace!)
+//				fileWriteex(li_fichier, blob(ls_contenu_pdf ))
+//				fileclose(li_fichier)
+//				retour = true
+//				Trace ("v_json_retour : " + v_json_retour)
+//				Trace ("Fichier PDF en retour : " + ls_contenu_pdf)
+				
+//		else
+			// On recupère le Json
+			if lnv_HttpClient.GetResponseBody(v_json_retour, EncodingUTF8!) = 1 then
+			
+				// pour traces
+				ls_nom_json_retour = dir_ini + "json_retour.txt"
+				li_fichier_json_retour = FileOpen(ls_nom_json_retour , TextMode! , write!, LockWrite!, replace!)
+				fileWriteex(li_fichier_json_retour, v_json_retour)
+				fileclose(li_fichier_json_retour)
+
+				ls_result = json.LoadString (v_json_retour)
+				ll_root = json.GetRootItem()
+			end if
+			
+			if 200 <= ll_statut_reponse and ll_statut_reponse <= 299 and v_json_retour <> "" then
+				// C'est bon 
+				// Je Json sera interprété par l'appelant !!
+				TRACE ( " - Commandée exécutée avec succès !~n" + v_json_retour +"~n*********************************************************" )
+				
+			else
+				
+				if v_json_retour <> "" then
+					TRACE ( " **** Erreur GetResponseStatusCode N°" + string(ll_statut_reponse) + "  dans la l'exécution de la requête : ~n" + v_json_retour +"~n*********************************************************" )
+					ls_code = string_non_nulle(json.GetItemString(ll_root, "errorCode"))
+					if ls_code = "XML_XSD_VALIDATION" then 
+						
+						ls_error = string_non_nulle(json.GetItemString(ll_root, "detail"))
+						ls_message = string(json.GetItemNumber(ll_root, "line")) + " - " +  string(json.GetItemNumber(ll_root, "column")) 
+						
+						MessageBox("ERREUR DANS L'EXECUTION DE LA COMMANDE",	"Problème de syntaxe du fichier XML !~n~nCode GetResponseStatusCode : " + string (ll_statut_reponse  ) + "~n~nCode : " + ls_code + "~n~nDetail : " + ls_error +"~n~nLigne - Colonne : " + ls_message )
+
+						
+					else
+						
+					
+						// Décodage du jSOn
+						ls_code = string_non_nulle(json.GetItemString(ll_root, "code"))
+						ls_error = string_non_nulle(json.GetItemString(ll_root, "error"))
+						ls_message = string_non_nulle(json.GetItemString(ll_root, "message"))
+						
+						if ls_code =  "wst:ExpiredData" then 
+							MessageBox("ERREUR DANS L'EXECUTION DE LA COMMANDE",	"Erreur de communication N°1 avec l'eConnector !~n~nCode GetResponseStatusCode : " + string (ll_statut_reponse  ) + "~n~nCode : " + ls_code + "~n~nError : " + ls_error +"~n~nMessage : " + ls_message + "~n~nSolution proposée : Veuillez vous déconnecter puis vous reconnecter au eConnector !") 
+						else
+							MessageBox("ERREUR DANS L'EXECUTION DE LA COMMANDE",	"Erreur de communication N°1 avec l'eConnector !~n~nCode GetResponseStatusCode : " + string (ll_statut_reponse  ) + "~n~nCode : " + ls_code + "~n~nError : " + ls_error +"~n~nMessage : " + ls_message ) 
+						end if
+					end if
+					retour = false
+				else
+					// Pas de retour 
+					//=> C'est OK 
+					if ll_statut_reponse <> 200 then
+						MessageBox("ERREUR DANS L'EXECUTION DE LA COMMANDE",	"Erreur de communication N°2 avec l'eConnector !~n~nCode GetResponseStatusCode : " + string (ll_statut_reponse  ) + "~n~nAucun Retour !") 
+					end if 
+					TRACE("v_json_retour est vide")
+				end if
+			end if
+		//end if
+else
+	MessageBox("ERREUR DANS L'EXECUTION DE LA COMMANDE",	"Erreur de communication N°3 avec l'eConnector !~n~nCode Erreur  : " + string (li_rc  ) + "~n~n" + fxg_get_message_httpclient_sendrequest(li_rc)) 
+	TRACE ( " - Erreur Send Request : " + string(ll_statut_reponse) + " - " + fxg_get_message_httpclient_sendrequest(li_rc) )
+
+	retour = false
+end if
+
+
+
+return retour
+
+
+
+
+end function
+

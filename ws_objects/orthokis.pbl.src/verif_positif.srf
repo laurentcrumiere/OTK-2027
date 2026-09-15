@@ -1,0 +1,15 @@
+﻿$PBExportHeader$verif_positif.srf
+global type verif_positif from function_object
+end type
+
+forward prototypes
+global subroutine verif_positif (editmask em)
+end prototypes
+
+global subroutine verif_positif (editmask em);if real(em.text) < 0 then
+	em.setfocus()
+	son(5)
+	Messagebox("ATTENTION","Vous ne pouvez pas saisir un nombre négatif !")
+end if
+end subroutine
+

@@ -1,0 +1,13 @@
+﻿$PBExportHeader$etiquettes.srj
+EXE:s:\orthokis\devpt\v10.60\util\etiquettes.exe,,0,0
+CMP:0,0,0,2,0,0
+PBD:S:\Orthokis\Devpt\V10.60\Util\etiquett.pbl,,0
+OBJ:s:\orthokis\devpt\v10.60\util\etiquett.pbl,dw_etiquettes_liste,d
+OBJ:s:\orthokis\devpt\v10.60\util\etiquett.pbl,sup_apostrophe,f
+OBJ:s:\orthokis\devpt\v10.60\util\etiquett.pbl,dw_patient_liste1,d
+OBJ:s:\orthokis\devpt\v10.60\util\etiquett.pbl,dw_etiquettes_petites,d
+OBJ:s:\orthokis\devpt\v10.60\util\etiquett.pbl,w_etiquettes,w
+OBJ:s:\orthokis\devpt\v10.60\util\etiquett.pbl,dw_etiquettes_generation,d
+OBJ:S:\Orthokis\Devpt\V10.60\Util\etiquett.pbl,etiquettes,a
+OBJ:s:\orthokis\devpt\v10.60\util\etiquett.pbl,w_cherche,w
+OBJ:s:\orthokis\devpt\v10.60\util\etiquett.pbl,dw_etiquettes_grandes,d

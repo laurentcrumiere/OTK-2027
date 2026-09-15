@@ -1,0 +1,95 @@
+﻿$PBExportHeader$of_getcolumnorder_sans_compute.srf
+global type of_getcolumnorder_sans_compute from function_object
+end type
+
+forward prototypes
+global function string of_getcolumnorder_sans_compute (datawindow adw)
+end prototypes
+
+global function string of_getcolumnorder_sans_compute (datawindow adw);// Renvoite une chaine contenant la liste des 
+//
+// num who date modifications
+// --- --- --------
+//------------------------------
+// 001 jda 05/08/01 Original
+//=====================
+integer li_loop, li_max, li_columns, li_x[]
+integer li_width, li_work
+string ls_column[], ls_computes[], ls_work
+
+// get column count
+li_max = Integer(adw.Object.DataWindow.Column.Count)
+li_columns = 0
+
+// step through each column
+FOR li_loop = 1 TO li_max STEP 1
+	// test visible property (it may have a formula)
+	IF adw.Describe("#" + String(li_loop) + ".Visible") = "1" THEN
+		ls_work = adw.Describe("#" + String(li_loop) + ".Name")
+		// bypass columns with no names
+		IF ls_work = ''  THEN CONTINUE
+		// keep track of output count
+		li_columns ++
+		// get current width of column
+		li_width =Integer(adw.Describe("#" +String(li_loop) + ".Width"))
+		// build string element (name=width)
+		ls_column[li_columns]= ls_work + '=' + 	string(li_width)
+		// extract X positon
+		li_x[li_columns] = Integer(adw.Describe("#" +  String(li_loop) + ".X"))
+	END IF
+NEXT
+
+////-----------------------
+//// this section is used to determine X position and width
+//// of any visible computed columns
+////-----------------------
+//// call function to give list of computes
+//
+//li_max = of_enumerateComputes(adw, ls_computes)
+//
+//// loop through list of computed fields
+//FOR li_loop = 1 TO li_max STEP 1
+//	// if the compute is visible, include it
+//	IF adw.Describe(ls_computes[li_loop] +  ".Visible" ) = "1" THEN
+//		// bump count
+//		li_columns ++
+//		// get current width of compute 
+//		li_width = Integer(adw.Describe(ls_computes[li_loop] + ".Width"))
+//		// build string element (name=width)
+//		ls_column[li_columns] = ls_computes[li_loop] + '=' + string(li_width)
+//		// extract X position
+//		li_x[li_columns] = Integer(adw.Describe(ls_computes[li_loop] + ".X"))
+//	END IF
+//NEXT
+//
+//--------------------------------
+// sort array in ascending order
+//--------------------------------
+li_max = li_columns
+FOR li_loop = 1 TO li_max -1 STEP 1
+	IF li_x[li_loop] > li_x[li_loop+1] THEN
+		li_work = li_x[li_loop +1]
+		ls_work = ls_column[li_loop +1]
+		li_x[li_loop +1] = li_x[li_loop]
+		ls_column[li_loop +1] = ls_column[li_loop]
+		li_x[li_loop] = li_work
+		ls_column[li_loop] = ls_work
+		// force back to first iteration
+		li_loop = 0
+	END IF
+NEXT
+
+//----------------------------
+// now build the order string
+//----------------------------
+ls_work = ''
+FOR li_loop = 1 TO li_max STEP 1
+	// build order string with name=width,
+	ls_work = ls_work + ls_column[li_loop] + ","
+NEXT
+
+
+// return excluding trailing comma
+return Left(ls_work, Len(ls_work) -1)
+end function
+

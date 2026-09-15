@@ -1,0 +1,29 @@
+﻿$PBExportHeader$mep_win_mdi.srf
+global type mep_win_mdi from function_object
+end type
+
+forward prototypes
+global subroutine mep_win_mdi (window win, integer choix)
+end prototypes
+
+global subroutine mep_win_mdi (window win, integer choix);if ui_v2020 then
+	
+	// on centre 
+	Centrer (win)
+	
+else
+	
+	choose case choix
+	case 1		//place la win dans l'angle sup-gauche de mdi
+		//on vérifie si la fenêtre existe bien
+		if isvalid(win) then
+			win.x = 0
+			win.y = 0
+		end if
+	case 2		//centre la win dans la mdi
+		
+	end choose
+end if
+
+end subroutine
+

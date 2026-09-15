@@ -1,0 +1,90 @@
+﻿$PBExportHeader$fxg_enregcourrierhisto.srf
+global type fxg_enregcourrierhisto from function_object
+end type
+
+forward prototypes
+global function string fxg_enregcourrierhisto (double numpatient, string typecourrier, date v_date_document, string v_libelle_document, string chemin_courrier, string nature_historique, string publication_patient, string publication_correspondant, string v_statut_signature, integer v_id_categorie)
+end prototypes
+
+global function string fxg_enregcourrierhisto (double numpatient, string typecourrier, date v_date_document, string v_libelle_document, string chemin_courrier, string nature_historique, string publication_patient, string publication_correspondant, string v_statut_signature, integer v_id_categorie);
+// IMPORTANT  ! Utilisée aussi dans SIGNATURE.PBL
+// ---------------------------------------------------------------
+
+// procedure qui enreg un document ds l'historique du patient 
+
+datetime 	no
+string		nom_courrier, path_courrier, fichier_pdf
+string v_extension
+string v_code_interne = ""
+string v_code_interne_sup = ""
+
+no = datetime(today(),now())
+
+
+//MessageBox("TRACE dans ENREG COURRIER ", "chemin_courrier " + chemin_courrier)
+
+if not isnull( chemin_courrier ) then nom_courrier = gfx_extraire_nom_fichier( chemin_courrier )
+
+//MessageBox("TRACE dans ENREG COURRIER ", "nom_courrier " + nom_courrier)
+//MessageBox("TRACE dans ENREG COURRIER ", "numPatient " + string(numPatient))
+//MessageBox("TRACE dans ENREG COURRIER ", "typeCourrier " + typeCourrier)
+//MessageBox("TRACE dans ENREG COURRIER ", "utilisateur_code " + utilisateur_code)
+
+v_extension = gfx_extraire_extension_fichier( chemin_courrier )
+
+
+if upper(v_extension) <> "PDF" then
+	v_code_interne = fxg_get_clef_historique_editions()
+	// C'est pas un PDF .. OBLIGATOIREMENT on ne publie pas sur le portail
+	INSERT INTO "historique_editions"  ( "code", "code_courrier","date_document", "date_modif", "libelle", "nom_courrier", "user_modif", "nature", "public_web_patient", "public_web_correspondant", "statut_signature" , "code_interne" , "id_categorie")  
+	VALUES ( :numPatient , :typeCourrier ,:v_date_document , :no , :v_libelle_document , :nom_courrier, :utilisateur_code, :nature_historique, 'N', 'N', :v_statut_signature, :v_code_interne, :v_id_categorie )  ;
+
+	if sqlca.sqlcode <> 0 then
+		MessagebOx("ATTENTION","Erreur dans la mémorisation du document.~n~n" + sqlca.sqlerrtext )
+		rollback ;
+	else
+		commit ;
+		// C'est pas un PDF .. OBLIGATOIREMENT on ne publie pas sur le portail
+//		if TEA and publication_patient = "O" then
+//			fxg_lancer_commande_dsapi("document/create/" + v_code_interne, "",  "D", "G", numpatient )
+//		end if
+		// Si le fichier à mémoriser n'est pas déjà un PDF, on regarde illico si le meme fichier existe en PDF ... si oui, on l'ajoute (il a été généré ou pas selon les param)
+		path_courrier =  gfx_extraire_path_fichier( chemin_courrier )
+		v_code_interne_sup = fxg_get_clef_historique_editions()
+		fichier_pdf = gfx_fichier_sans_extension( chemin_courrier ) + ".pdf"
+		if FileExists (path_courrier + fichier_pdf ) then
+			INSERT INTO "historique_editions"  ( "code", "code_courrier","date_document", "date_modif", "libelle", "nom_courrier", "user_modif", "nature", "public_web_patient", "public_web_correspondant" , "statut_signature", "code_interne", "id_categorie")  
+			VALUES ( :numPatient , 'WORPDF' ,:v_date_document , :no , :v_libelle_document , :fichier_pdf, :utilisateur_code, :nature_historique, :publication_patient, :publication_correspondant , :v_statut_signature , :v_code_interne_sup, :v_id_categorie)  ;
+
+			if sqlca.sqlcode <> 0 then
+				MessagebOx("ATTENTION","Erreur dans la mémorisation du document.~n~n" + sqlca.sqlerrtext )
+				rollback ;
+			else
+				commit ;
+				if TEA and publication_patient = "O" then
+					fxg_lancer_commande_dsapi("document/create/" + v_code_interne_sup, "", "D", "G" , numpatient )
+				end if
+			end if
+		end if
+	end if
+else
+	v_code_interne = fxg_get_clef_historique_editions()
+	// C'est un PDF .. on publie ou pas selon les arguments
+	INSERT INTO "historique_editions"  ( "code", "code_courrier","date_document", "date_modif", "libelle", "nom_courrier", "user_modif", "nature", "public_web_patient", "public_web_correspondant" , "statut_signature", "code_interne", "id_categorie")  
+	VALUES ( :numPatient , :typeCourrier ,:v_date_document , :no , :v_libelle_document , :nom_courrier, :utilisateur_code, :nature_historique, :publication_patient, :publication_correspondant, :v_statut_signature , :v_code_interne, :v_id_categorie)  ;
+
+	if sqlca.sqlcode <> 0 then
+		MessagebOx("ATTENTION","Erreur dans la mémorisation du document.~n~n" + sqlca.sqlerrtext )
+		rollback ;
+	else
+		commit ;
+		if TEA and publication_patient = "O" then
+			fxg_lancer_commande_dsapi("document/create/" + v_code_interne, "", "D", "G" , numpatient)
+		end if
+	end if
+end if
+
+return v_code_interne
+
+end function
+

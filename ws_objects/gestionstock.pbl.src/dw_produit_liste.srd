@@ -1,0 +1,17 @@
+﻿$PBExportHeader$dw_produit_liste.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=82042848 processing=1 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=0 selected.mouse=no )
+header(height=76 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=60 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=produit_code_interne dbname="produit.code_interne" )
+ column=(type=char(6) updatewhereclause=yes name=produit_code_type_produit dbname="produit.code_type_produit" )
+ column=(type=char(6) updatewhereclause=yes name=reference_produit_code_fournisseur dbname="reference_produit.code_fournisseur" )
+ column=(type=char(30) updatewhereclause=yes name=produit_designation dbname="produit.designation" )
+ column=(type=decimal(0) updatewhereclause=yes name=produit_couleur_texte dbname="produit.couleur_texte" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"produit~" )  TABLE(NAME=~"reference_produit~" ) COLUMN(NAME=~"produit.code_interne~") COLUMN(NAME=~"produit.code_type_produit~") COLUMN(NAME=~"reference_produit.code_fournisseur~") COLUMN(NAME=~"produit.designation~") COLUMN(NAME=~"produit.couleur_texte~")    JOIN (LEFT=~"reference_produit.code_produit~"    OP =~"=~"RIGHT=~"produit.code_interne~" )WHERE(    EXP1 =~"~~~"produit~~~".~~~"code_interne~~~"~"   OP =~"=~"    EXP2 =~":var_code_produit~" ) ) ORDER(NAME=~"reference_produit.code_fournisseur~" ASC=yes ) ARG(NAME = ~"var_code_produit~" TYPE = string) " arguments=(("var_code_produit", string))  sort="reference_produit_code_fournisseur A " )
+text(band=header alignment="2" text="Fournisseur" border="6" color="0" x="9" y="8" height="60" width="905"  name=reference_produit_code_fournisseur_t  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="2" tabsequence=32766 border="0" color="0~t produit_couleur_texte " x="9" y="0" height="60" width="905" format="[general]"  name=reference_produit_code_fournisseur dddw.name=dw_fournisseur_gris_ddlb dddw.displaycolumn=nom dddw.datacolumn=code dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

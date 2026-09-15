@@ -1,0 +1,200 @@
+﻿$PBExportHeader$fxg_enregistrement_historique_traitement.srf
+global type fxg_enregistrement_historique_traitement from function_object
+end type
+
+forward prototypes
+global subroutine fxg_enregistrement_historique_traitement (double var_code_local, datawindow dw_traitement, datawindow dw_dep, datawindow dw_diag1, datawindow dw_diag2, datawindow dw_diag3, datawindow dw_diag4)
+end prototypes
+
+global subroutine fxg_enregistrement_historique_traitement (double var_code_local, datawindow dw_traitement, datawindow dw_dep, datawindow dw_diag1, datawindow dw_diag2, datawindow dw_diag3, datawindow dw_diag4);//Declaration des variables locales
+///--------------------------------------
+
+// Mémorisation des diag et plan de traitement
+
+// De manière classique la fonctionn n'utilise que les 3 premiers arguments, les autres sont à null
+
+// Si les 4 dernières DW ne sont pas nulles, c'est qu'on est dans l'assistant des diag => faut prendre les diag là !!
+
+
+string plan_traitement
+string traitement_effectue
+string plan_traitement_html
+string traitement_effectue_html
+char basal_max_pro
+char basal_max_retro
+char basal_mand_pro
+char basal_mand_retro
+char basal_max_endo
+char basal_max_exo
+char basal_mand_endo
+char basal_mand_exo
+char hypodivergence
+char hyperdivergence
+char alveo_max_pro
+char alveo_max_retro
+char alveo_mand_pro
+char alveo_mand_retro
+char alveo_max_endo
+char alveo_max_exo
+char alveo_mand_endo
+char alveo_mand_exo
+char supraclusion
+char infraclusion
+char mol_cl1
+char mol_cl2
+char mol_cl3
+char can_cl1
+char can_cl2
+char can_cl3
+string molaire
+string canine
+char dento_max
+char dento_dent
+string agenesie
+string surnum
+string malposition
+char occl_dte
+char occl_gche
+char occl_ant
+string facteur
+string commentaire
+string commentaire_html
+
+
+string diag_dentaire_html
+string diag_fonctionnel_html
+string plan_complement_html
+string diag_alveolaire_html
+string extraction
+string dents_soins
+
+//Ouvre la fenetre pour demander le titre et la date
+//----------------------------------------------------------
+open(w_enregistre_historique_traitement)
+
+//Cree un nouvel enregistrement dans l'historique des traitements
+//---------------------------------------------------------------------------
+
+//Si texte Fermer, on sort
+//----------------------------
+if titre_historique="Fermer" then
+	return
+end if
+
+dw_traitement.accepttext()
+dw_dep.accepttext()
+
+
+if isnull(dw_diag1) then
+	
+	//Recup des données depuis les deux datawindows
+	plan_traitement = dw_traitement.getitemstring(dw_traitement.getrow(),"plan_traitement")
+	traitement_effectue = dw_traitement.getitemstring(dw_traitement.getrow(),"traitement_effectue")
+	plan_traitement_html = dw_traitement.getitemstring(dw_traitement.getrow(),"patient_plan_traitement_html")
+	traitement_effectue_html = dw_traitement.getitemstring(dw_traitement.getrow(),"patient_traitement_effectue_html")
+
+	// Pour les plans de traitement multiples ou non
+	if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","plans_mutiples","N") = "O" then
+		diag_dentaire_html = dw_traitement.getitemstring(dw_traitement.getrow(),"patient_diag_dentaire_html")
+		diag_fonctionnel_html = dw_traitement.getitemstring(dw_traitement.getrow(),"patient_diag_fonctionnel_html")
+		plan_complement_html = dw_traitement.getitemstring(dw_traitement.getrow(),"patient_plan_complement_html")
+		extraction = dw_traitement.getitemstring(dw_traitement.getrow(),"patient_extraction")
+		diag_alveolaire_html = dw_traitement.getitemstring(dw_traitement.getrow(),"patient_diag_alveolaire_html")
+		dents_soins = dw_traitement.getitemstring(dw_traitement.getrow(),"patient_dents_soins")
+end if
+
+else
+	
+	// recup des diag depuis les 4 datawindows
+
+	plan_traitement = dw_traitement.getitemstring(dw_traitement.getrow(),"plan_traitement")
+	plan_traitement_html = dw_traitement.getitemstring(dw_traitement.getrow(),"patient_plan_traitement_html")
+	extraction = dw_traitement.getitemstring(dw_traitement.getrow(),"patient_extraction")
+	plan_complement_html = dw_traitement.getitemstring(dw_traitement.getrow(),"patient_plan_complement_html")
+	dents_soins = dw_traitement.getitemstring(dw_traitement.getrow(),"patient_dents_soins")
+
+	diag_dentaire_html = dw_diag1.getitemstring(dw_diag1.getrow(),"patient_diag_dentaire_html")
+	diag_alveolaire_html = dw_diag2.getitemstring(dw_diag2.getrow(),"patient_diag_alveolaire_html")
+	traitement_effectue = dw_diag3.getitemstring(dw_diag3.getrow(),"traitement_effectue")
+	traitement_effectue_html = dw_diag3.getitemstring(dw_diag3.getrow(),"patient_traitement_effectue_html")
+	diag_fonctionnel_html = dw_diag4.getitemstring(dw_diag4.getrow(),"patient_diag_fonctionnel_html")
+	
+	
+end if
+
+basal_max_pro=dw_dep.getitemstring(dw_dep.getrow(),"basal_max_pro")
+basal_max_retro=dw_dep.getitemstring(dw_dep.getrow(),"basal_max_retro")
+basal_mand_pro=dw_dep.getitemstring(dw_dep.getrow(),"basal_mand_pro")
+basal_mand_retro=dw_dep.getitemstring(dw_dep.getrow(),"basal_mand_retro")
+basal_max_endo=dw_dep.getitemstring(dw_dep.getrow(),"basal_max_endo")
+basal_max_exo=dw_dep.getitemstring(dw_dep.getrow(),"basal_max_exo")
+basal_mand_endo=dw_dep.getitemstring(dw_dep.getrow(),"basal_mand_endo")
+basal_mand_exo=dw_dep.getitemstring(dw_dep.getrow(),"basal_mand_exo")
+hypodivergence=dw_dep.getitemstring(dw_dep.getrow(),"hypodivergence")
+hyperdivergence=dw_dep.getitemstring(dw_dep.getrow(),"hyperdivergence")
+alveo_max_pro=dw_dep.getitemstring(dw_dep.getrow(),"alveo_max_pro")
+alveo_max_retro=dw_dep.getitemstring(dw_dep.getrow(),"alveo_max_retro")
+alveo_mand_pro=dw_dep.getitemstring(dw_dep.getrow(),"alveo_mand_pro")
+alveo_mand_retro=dw_dep.getitemstring(dw_dep.getrow(),"alveo_mand_retro")
+alveo_max_endo=dw_dep.getitemstring(dw_dep.getrow(),"alveo_max_endo")
+alveo_max_exo=dw_dep.getitemstring(dw_dep.getrow(),"alveo_max_exo")
+alveo_mand_endo=dw_dep.getitemstring(dw_dep.getrow(),"alveo_mand_endo")
+alveo_mand_exo=dw_dep.getitemstring(dw_dep.getrow(),"alveo_mand_exo")
+supraclusion=dw_dep.getitemstring(dw_dep.getrow(),"supraclusion")
+infraclusion=dw_dep.getitemstring(dw_dep.getrow(),"infraclusion")
+mol_cl1=dw_dep.getitemstring(dw_dep.getrow(),"mol_cl1")
+mol_cl2=dw_dep.getitemstring(dw_dep.getrow(),"mol_cl2")
+mol_cl3=dw_dep.getitemstring(dw_dep.getrow(),"mol_cl3")
+can_cl1=dw_dep.getitemstring(dw_dep.getrow(),"can_cl1")
+can_cl2=dw_dep.getitemstring(dw_dep.getrow(),"can_cl2")
+can_cl3=dw_dep.getitemstring(dw_dep.getrow(),"can_cl3")
+molaire=dw_dep.getitemstring(dw_dep.getrow(),"molaire")
+canine=dw_dep.getitemstring(dw_dep.getrow(),"canine")
+dento_max=dw_dep.getitemstring(dw_dep.getrow(),"dento_max")
+dento_dent=dw_dep.getitemstring(dw_dep.getrow(),"dento_dent")
+agenesie=dw_dep.getitemstring(dw_dep.getrow(),"agenesie")
+surnum=dw_dep.getitemstring(dw_dep.getrow(),"surnum")
+malposition=dw_dep.getitemstring(dw_dep.getrow(),"malposition")
+occl_dte=dw_dep.getitemstring(dw_dep.getrow(),"occl_dte")
+occl_gche=dw_dep.getitemstring(dw_dep.getrow(),"occl_gche")
+occl_ant=dw_dep.getitemstring(dw_dep.getrow(),"occl_ant")
+facteur=dw_dep.getitemstring(dw_dep.getrow(),"facteur")
+commentaire=dw_dep.getitemstring(dw_dep.getrow(),"commentaire")
+commentaire_html=dw_dep.getitemstring(dw_dep.getrow(),"patient_commentaire_html")
+
+
+	
+INSERT INTO historique_traitement("code", "date_sauvegarde", "plan_traitement" , "traitement_effectue" ,
+"basal_max_pro","basal_max_retro", "basal_mand_pro", "basal_mand_retro", "basal_max_endo", "basal_max_exo"
+, "basal_mand_endo" , "basal_mand_exo", "hypodivergence", "hyperdivergence", "alveo_max_pro"
+, "alveo_max_retro", "alveo_mand_pro", "alveo_mand_retro", "alveo_max_endo",
+"alveo_max_exo", "alveo_mand_endo" , "alveo_mand_exo" , "supraclusion" , "infraclusion" , "mol_cl1" ,
+"mol_cl2" , "mol_cl3" , "can_cl1" , "can_cl2" , "can_cl3" , "molaire" , "canine" , "dento_max" , "dento_dent" ,
+"agenesie" , "surnum" , "malposition" , "occl_dte" , "occl_gche" , "occl_ant" , "facteur" , "commentaire", "titre",
+"plan_traitement_html" , "traitement_effectue_html" , "commentaire_html",  "diag_dentaire_html", "diag_fonctionnel_html", "plan_complement_html",  "extraction", "diag_alveolaire_html" , "dents_soins") 
+VALUES(:var_code_local, :date_historique, :plan_traitement , :traitement_effectue ,
+:basal_max_pro,:basal_max_retro, :basal_mand_pro, :basal_mand_retro, :basal_max_endo, :basal_max_exo
+, :basal_mand_endo , :basal_mand_exo, :hypodivergence, :hyperdivergence, :alveo_max_pro
+, :alveo_max_retro, :alveo_mand_pro, :alveo_mand_retro, :alveo_max_endo,
+:alveo_max_exo, :alveo_mand_endo , :alveo_mand_exo , :supraclusion , :infraclusion , :mol_cl1 ,
+:mol_cl2 , :mol_cl3 , :can_cl1 , :can_cl2 , :can_cl3 , :molaire, :canine , :dento_max , :dento_dent ,
+:agenesie , :surnum , :malposition , :occl_dte , :occl_gche , :occl_ant , :facteur , :commentaire, :titre_historique ,
+:plan_traitement_html , :traitement_effectue_html , :commentaire_html, :diag_dentaire_html, :diag_fonctionnel_html,  :plan_complement_html, :extraction, :diag_alveolaire_html , :dents_soins) ;
+
+
+												
+if sqlca.sqlcode <> 0 then
+	if sqlca.sqldbcode = -193 then
+		messagebox('ATTENTION',"Impossible d'enregistrer. Il existe déja un enregistrement pour ce patient, à cette date")
+	else
+		messagebox('ATTENTION', sqlca.sqlerrtext)
+ 	end if
+	 rollback ;
+else
+//	init_icone_histo()
+	commit;												
+end if
+
+
+end subroutine
+

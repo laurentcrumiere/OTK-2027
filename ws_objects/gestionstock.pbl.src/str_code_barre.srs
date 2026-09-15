@@ -1,0 +1,9 @@
+﻿$PBExportHeader$str_code_barre.srs
+global type str_code_barre from structure
+	double		code_barre
+	date		jour
+	string		code_produit
+	string		designation
+	string		numero_lot
+end type
+

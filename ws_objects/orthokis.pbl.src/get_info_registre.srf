@@ -1,0 +1,35 @@
+﻿$PBExportHeader$get_info_registre.srf
+global type get_info_registre from function_object
+end type
+
+forward prototypes
+global function integer get_info_registre (ref str_info_registre str)
+end prototypes
+
+global function integer get_info_registre (ref str_info_registre str);//fonction qui récup du registre window les éléments nécessaires
+//fx à lancer lors du démarrage d'ORTHOkis
+//--> permet de centraliser les appels au registre pour suivi des versions de window
+
+
+Long 		sI_bufferLength
+String	lS_repTemp
+
+
+//récup le rep temp du système
+if GetTempPath(sI_bufferLength,lS_repTemp) = 0 Then
+	//oups .. 1 pb !
+	//on met un chemin en dure ... histoire de ...
+	str.rep_temp = "C:\windows\TEMP"
+	//puis on se barre
+	return 0
+else
+	//str.rep_temp = lS_repTemp
+	//--> la fonction GetTempPathA ne mache pas sur mon poste,
+	//je joue la sécurité ...
+	str.rep_temp = DIR_INI 
+end if
+
+//si tout va bien !
+return 1
+end function
+

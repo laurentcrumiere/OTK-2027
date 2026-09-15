@@ -1,0 +1,121 @@
+﻿$PBExportHeader$fxg_verification_arrivees_salle_attente.srf
+global type fxg_verification_arrivees_salle_attente from function_object
+end type
+
+forward prototypes
+global subroutine fxg_verification_arrivees_salle_attente ()
+end prototypes
+
+global subroutine fxg_verification_arrivees_salle_attente ();
+
+// affiche les patients qui sont arrivés en salle d'attente depuis la denière heure de mise à jour sous forme de Power Toast
+
+// derniere heure sera mise à jour
+
+// pour checker photo identité
+string v_fichier_image, v_fichier_image_complet, v_type_alerte, v_type_alerte_nouveaux
+time v_derniere_heure 
+date v_derniere_date
+string v_praticien_min, v_praticien_max
+time v_now
+v_type_alerte = ProfileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee","N") 
+
+v_type_alerte_nouveaux = ProfileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee_nouveaux","N") 
+
+
+ 
+if v_type_alerte <> "N" or v_type_alerte_nouveaux <> "N" then
+	
+	// Pour quel(s) praticien(s) , selon la config de la salle d'attente
+	if profileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee_praticien","T") = "T" then
+		// Tous les praticiens
+		v_praticien_min = ""
+		v_praticien_max = "ZZZZZZ"
+	else
+		v_praticien_min =  fxg_get_praticien_par_defaut()
+		v_praticien_max = v_praticien_min
+	end if
+
+	// Dernière heure de scrutation
+	v_derniere_heure = time(ProfileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee_heure",'00:00') )
+	v_derniere_date = date(ProfileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee_date",string(today())) )
+
+	// Mémo des infos pour la prochane fois 
+	SetProfileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee_date",string(today()))
+	
+	// On prend comme heure celle du serveur .... histoire de ...
+	select getdate() into :v_now from param ;
+	
+	SetProfileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee_heure",string(v_now))
+	
+	if v_derniere_date < today() then 
+		v_derniere_heure = time("00:00")
+	end if
+	
+	string v_nom, v_prenom, v_nouveau_patient
+	double v_code 
+	
+	
+	declare cur_sa cursor for 
+	select isnull(patient.nom, ''), isnull(patient.prenom, '') , patient.code, "type_rdv"."nouveau_patient"
+	from patient, rdv, etat_rdv , type_rdv
+	where patient.code = rdv.code and rdv.absent = etat_rdv.code and etat_rdv.salle_attente = 'O' and rdv.arrivee > :v_derniere_heure and "rdv"."type" = "type_rdv"."code"  
+	and cast(rdv as date) = cast(getdate() as date) and rdv.code_praticien between :v_praticien_min and :v_praticien_max 
+	order by rdv.arrivee asc ;
+	
+	open cur_sa ;
+	
+	fetch cur_sa into :v_nom, :v_prenom, :v_code, :v_nouveau_patient  ;
+	
+
+	
+	
+	if sqlca.sqlcode = 0 then 
+		
+		uo_choix_image_2013 choix_image_2013
+		choix_image_2013 = create uo_choix_image_2013
+		
+	
+		do while sqlca.sqlcode = 0
+			
+			if v_nouveau_patient = "O" then
+				// Arrivée d'un nouveau patient
+				Powertoast.of_alert( "lc_admini_nouveau.png", "Nouveau patient : " + v_nom + ' '+ v_prenom,"RED",  Powertoast.SLIDEUP_ANIMATION)
+				if v_type_alerte = "S" then
+					son_force(6)
+				end if
+				
+			else
+				// Arrivée d'un patient normal
+
+				v_fichier_image = choix_image_2013.trouver_image ("identite_administrative", v_code)
+			
+				if v_fichier_image <> "" then
+					v_fichier_image_complet = dir_photos + string(v_code) + win_delimiter + v_fichier_image
+				
+					if not FileExists(v_fichier_image_complet) then
+						v_fichier_image_complet = ""
+					end if
+				else
+					v_fichier_image_complet = ""
+				end if
+
+				
+				
+				if v_type_alerte = "S" then
+					son_force(5)
+				end if
+				Powertoast.of_Toast("Arrivée d'un patient", v_nom + ' '+ v_prenom, v_fichier_image_complet, Powertoast.SLIDEUP_ANIMATION)
+			end if
+			
+				
+			fetch cur_sa into :v_nom, :v_prenom, :v_code, :v_nouveau_patient  ;
+			
+		loop
+	end if
+		
+	close cur_sa ;
+end if
+
+end subroutine
+

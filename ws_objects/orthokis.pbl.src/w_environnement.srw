@@ -1,0 +1,15849 @@
+﻿$PBExportHeader$w_environnement.srw
+forward
+global type w_environnement from w_fenetre_arakis
+end type
+type cb_enregistrer from uo_picturebutton_390x120 within w_environnement
+end type
+type cb_fermer from uo_picturebutton_390x120_fermer within w_environnement
+end type
+type cb_annuler from uo_picturebutton_390x120 within w_environnement
+end type
+type tab_1 from tab within w_environnement
+end type
+type tabpage_sons from userobject within tab_1
+end type
+type cbx_desactiver_effet_modal from checkbox within tabpage_sons
+end type
+type rb_ui_v2020_menu_office_365_v2 from radiobutton within tabpage_sons
+end type
+type rb_ui_v2020_menu_office_365 from radiobutton within tabpage_sons
+end type
+type rb_ui_v2020_menu_defaut from radiobutton within tabpage_sons
+end type
+type cbx_infobulles_icones_lateraux from checkbox within tabpage_sons
+end type
+type cb_appliquer_couleurs from uo_picturebutton_390x120 within tabpage_sons
+end type
+type ddlb_couleurs_coordonnees from dropdownlistbox within tabpage_sons
+end type
+type st_25 from statictext within tabpage_sons
+end type
+type ddlb_theme_v2020_barre_icones from dropdownlistbox within tabpage_sons
+end type
+type cbx_desactiver_graphiques_animes from checkbox within tabpage_sons
+end type
+type cbx_ui_v2020_desactiver_gauche from checkbox within tabpage_sons
+end type
+type em_nb_onglets_autorises from editmask within tabpage_sons
+end type
+type st_36 from statictext within tabpage_sons
+end type
+type st_31 from statictext within tabpage_sons
+end type
+type ddlb_theme_global from dropdownlistbox within tabpage_sons
+end type
+type cbx_ui_v2020_desactiver_droit from checkbox within tabpage_sons
+end type
+type cb_reinit_2020 from uo_picturebutton_390x120 within tabpage_sons
+end type
+type cb_memo_2020 from uo_picturebutton_390x120 within tabpage_sons
+end type
+type st_38 from statictext within tabpage_sons
+end type
+type ddlb_style_v2020 from dropdownlistbox within tabpage_sons
+end type
+type st_30 from statictext within tabpage_sons
+end type
+type ddlb_theme_v2020 from dropdownlistbox within tabpage_sons
+end type
+type st_49 from statictext within tabpage_sons
+end type
+type st_couleur_degrade from statictext within tabpage_sons
+end type
+type st_48 from statictext within tabpage_sons
+end type
+type st_47 from statictext within tabpage_sons
+end type
+type st_couleur_datawindow from statictext within tabpage_sons
+end type
+type cb_8 from commandbutton within tabpage_sons
+end type
+type cb_7 from commandbutton within tabpage_sons
+end type
+type ddlb_brush from dropdownlistbox within tabpage_sons
+end type
+type cb_6 from commandbutton within tabpage_sons
+end type
+type st_couleur_mdi_patient from statictext within tabpage_sons
+end type
+type st_33 from statictext within tabpage_sons
+end type
+type st_32 from statictext within tabpage_sons
+end type
+type pb_1 from picturebutton within tabpage_sons
+end type
+type pb_2 from picturebutton within tabpage_sons
+end type
+type pb_3 from picturebutton within tabpage_sons
+end type
+type pb_4 from picturebutton within tabpage_sons
+end type
+type pb_5 from picturebutton within tabpage_sons
+end type
+type pb_6 from picturebutton within tabpage_sons
+end type
+type pb_7 from picturebutton within tabpage_sons
+end type
+type pb_8 from picturebutton within tabpage_sons
+end type
+type pb_9 from picturebutton within tabpage_sons
+end type
+type pb_10 from picturebutton within tabpage_sons
+end type
+type pb_11 from picturebutton within tabpage_sons
+end type
+type pb_12 from picturebutton within tabpage_sons
+end type
+type pb_13 from picturebutton within tabpage_sons
+end type
+type pb_14 from picturebutton within tabpage_sons
+end type
+type st_3 from statictext within tabpage_sons
+end type
+type st_4 from statictext within tabpage_sons
+end type
+type st_5 from statictext within tabpage_sons
+end type
+type st_6 from statictext within tabpage_sons
+end type
+type st_7 from statictext within tabpage_sons
+end type
+type cbx_sons_actifs from checkbox within tabpage_sons
+end type
+type st_2 from statictext within tabpage_sons
+end type
+type st_8 from statictext within tabpage_sons
+end type
+type sle_son1 from singlelineedit within tabpage_sons
+end type
+type sle_son2 from singlelineedit within tabpage_sons
+end type
+type sle_son3 from singlelineedit within tabpage_sons
+end type
+type sle_son4 from singlelineedit within tabpage_sons
+end type
+type sle_son5 from singlelineedit within tabpage_sons
+end type
+type sle_son6 from singlelineedit within tabpage_sons
+end type
+type sle_son7 from singlelineedit within tabpage_sons
+end type
+type gb_14 from groupbox within tabpage_sons
+end type
+type gb_19 from groupbox within tabpage_sons
+end type
+type gb_volets from groupbox within tabpage_sons
+end type
+type gb_onglets from groupbox within tabpage_sons
+end type
+type gb_18 from groupbox within tabpage_sons
+end type
+type gb_30 from groupbox within tabpage_sons
+end type
+type tabpage_sons from userobject within tab_1
+cbx_desactiver_effet_modal cbx_desactiver_effet_modal
+rb_ui_v2020_menu_office_365_v2 rb_ui_v2020_menu_office_365_v2
+rb_ui_v2020_menu_office_365 rb_ui_v2020_menu_office_365
+rb_ui_v2020_menu_defaut rb_ui_v2020_menu_defaut
+cbx_infobulles_icones_lateraux cbx_infobulles_icones_lateraux
+cb_appliquer_couleurs cb_appliquer_couleurs
+ddlb_couleurs_coordonnees ddlb_couleurs_coordonnees
+st_25 st_25
+ddlb_theme_v2020_barre_icones ddlb_theme_v2020_barre_icones
+cbx_desactiver_graphiques_animes cbx_desactiver_graphiques_animes
+cbx_ui_v2020_desactiver_gauche cbx_ui_v2020_desactiver_gauche
+em_nb_onglets_autorises em_nb_onglets_autorises
+st_36 st_36
+st_31 st_31
+ddlb_theme_global ddlb_theme_global
+cbx_ui_v2020_desactiver_droit cbx_ui_v2020_desactiver_droit
+cb_reinit_2020 cb_reinit_2020
+cb_memo_2020 cb_memo_2020
+st_38 st_38
+ddlb_style_v2020 ddlb_style_v2020
+st_30 st_30
+ddlb_theme_v2020 ddlb_theme_v2020
+st_49 st_49
+st_couleur_degrade st_couleur_degrade
+st_48 st_48
+st_47 st_47
+st_couleur_datawindow st_couleur_datawindow
+cb_8 cb_8
+cb_7 cb_7
+ddlb_brush ddlb_brush
+cb_6 cb_6
+st_couleur_mdi_patient st_couleur_mdi_patient
+st_33 st_33
+st_32 st_32
+pb_1 pb_1
+pb_2 pb_2
+pb_3 pb_3
+pb_4 pb_4
+pb_5 pb_5
+pb_6 pb_6
+pb_7 pb_7
+pb_8 pb_8
+pb_9 pb_9
+pb_10 pb_10
+pb_11 pb_11
+pb_12 pb_12
+pb_13 pb_13
+pb_14 pb_14
+st_3 st_3
+st_4 st_4
+st_5 st_5
+st_6 st_6
+st_7 st_7
+cbx_sons_actifs cbx_sons_actifs
+st_2 st_2
+st_8 st_8
+sle_son1 sle_son1
+sle_son2 sle_son2
+sle_son3 sle_son3
+sle_son4 sle_son4
+sle_son5 sle_son5
+sle_son6 sle_son6
+sle_son7 sle_son7
+gb_14 gb_14
+gb_19 gb_19
+gb_volets gb_volets
+gb_onglets gb_onglets
+gb_18 gb_18
+gb_30 gb_30
+end type
+type tabpage_repertoires from userobject within tab_1
+end type
+type pb_19 from picturebutton within tabpage_repertoires
+end type
+type sle_raccourci_menu_patient from singlelineedit within tabpage_repertoires
+end type
+type cbx_version_mediadent from checkbox within tabpage_repertoires
+end type
+type st_3shape0 from statictext within tabpage_repertoires
+end type
+type sle_3shape0 from singlelineedit within tabpage_repertoires
+end type
+type pb_3shape2 from picturebutton within tabpage_repertoires
+end type
+type sle_3shape3 from singlelineedit within tabpage_repertoires
+end type
+type st_3shape4 from statictext within tabpage_repertoires
+end type
+type st_3shape3 from statictext within tabpage_repertoires
+end type
+type sle_3shape4 from singlelineedit within tabpage_repertoires
+end type
+type pb_3shape0 from picturebutton within tabpage_repertoires
+end type
+type sle_3shape2 from singlelineedit within tabpage_repertoires
+end type
+type st_3shape2 from statictext within tabpage_repertoires
+end type
+type pb_recherche_rep_replic_odrade from picturebutton within tabpage_repertoires
+end type
+type pb_recherche_rep_replic_orthokis from picturebutton within tabpage_repertoires
+end type
+type pb_22 from picturebutton within tabpage_repertoires
+end type
+type pb_explorer from picturebutton within tabpage_repertoires
+end type
+type rb_replic_base_odrade_locale from radiobutton within tabpage_repertoires
+end type
+type rb_replic_base_odrade_cabinet from radiobutton within tabpage_repertoires
+end type
+type st_replic_base_odrade from statictext within tabpage_repertoires
+end type
+type st_indiquez_valeur from statictext within tabpage_repertoires
+end type
+type sle_dcm2jpg from singlelineedit within tabpage_repertoires
+end type
+type st_param_conversion from statictext within tabpage_repertoires
+end type
+type sle_3shape from singlelineedit within tabpage_repertoires
+end type
+type st_3shape from statictext within tabpage_repertoires
+end type
+type pb_18 from picturebutton within tabpage_repertoires
+end type
+type sle_dir_acquis_wifi from singlelineedit within tabpage_repertoires
+end type
+type st_23 from statictext within tabpage_repertoires
+end type
+type pb_17 from picturebutton within tabpage_repertoires
+end type
+type sle_dir_acquis_courant from singlelineedit within tabpage_repertoires
+end type
+type st_13 from statictext within tabpage_repertoires
+end type
+type pb_courriers_replic from picturebutton within tabpage_repertoires
+end type
+type sle_courriers_replic from singlelineedit within tabpage_repertoires
+end type
+type st_courriers_replic from statictext within tabpage_repertoires
+end type
+type st_odrade_present from statictext within tabpage_repertoires
+end type
+type pb_odrade from picturebutton within tabpage_repertoires
+end type
+type sle_dolphin from singlelineedit within tabpage_repertoires
+end type
+type st_dolphin from statictext within tabpage_repertoires
+end type
+type pb_rep_radio from picturebutton within tabpage_repertoires
+end type
+type sle_rep_radio from singlelineedit within tabpage_repertoires
+end type
+type st_rep_radio from statictext within tabpage_repertoires
+end type
+type pb_radio_exe from picturebutton within tabpage_repertoires
+end type
+type st_radio_exe from statictext within tabpage_repertoires
+end type
+type sle_odrade from singlelineedit within tabpage_repertoires
+end type
+type st_odrade from statictext within tabpage_repertoires
+end type
+type st_installation from statictext within tabpage_repertoires
+end type
+type pb_171 from picturebutton within tabpage_repertoires
+end type
+type sle_sauvegarde from singlelineedit within tabpage_repertoires
+end type
+type st_16 from statictext within tabpage_repertoires
+end type
+type cbx_courriers from checkbox within tabpage_repertoires
+end type
+type cbx_photos from checkbox within tabpage_repertoires
+end type
+type st_151 from statictext within tabpage_repertoires
+end type
+type pb_16 from picturebutton within tabpage_repertoires
+end type
+type pb_photos_replic from picturebutton within tabpage_repertoires
+end type
+type pb_15 from picturebutton within tabpage_repertoires
+end type
+type sle_photos from singlelineedit within tabpage_repertoires
+end type
+type sle_courriers from singlelineedit within tabpage_repertoires
+end type
+type st_9 from statictext within tabpage_repertoires
+end type
+type st_10 from statictext within tabpage_repertoires
+end type
+type sle_photos_replic from singlelineedit within tabpage_repertoires
+end type
+type st_photos_replic from statictext within tabpage_repertoires
+end type
+type pb_dolphin from picturebutton within tabpage_repertoires
+end type
+type gb_3shape from groupbox within tabpage_repertoires
+end type
+type sle_radio_exe from singlelineedit within tabpage_repertoires
+end type
+type gb_26 from groupbox within tabpage_repertoires
+end type
+type gb_replic from groupbox within tabpage_repertoires
+end type
+type gb_1 from groupbox within tabpage_repertoires
+end type
+type gb_lien_radio from groupbox within tabpage_repertoires
+end type
+type gb_48 from groupbox within tabpage_repertoires
+end type
+type tabpage_repertoires from userobject within tab_1
+pb_19 pb_19
+sle_raccourci_menu_patient sle_raccourci_menu_patient
+cbx_version_mediadent cbx_version_mediadent
+st_3shape0 st_3shape0
+sle_3shape0 sle_3shape0
+pb_3shape2 pb_3shape2
+sle_3shape3 sle_3shape3
+st_3shape4 st_3shape4
+st_3shape3 st_3shape3
+sle_3shape4 sle_3shape4
+pb_3shape0 pb_3shape0
+sle_3shape2 sle_3shape2
+st_3shape2 st_3shape2
+pb_recherche_rep_replic_odrade pb_recherche_rep_replic_odrade
+pb_recherche_rep_replic_orthokis pb_recherche_rep_replic_orthokis
+pb_22 pb_22
+pb_explorer pb_explorer
+rb_replic_base_odrade_locale rb_replic_base_odrade_locale
+rb_replic_base_odrade_cabinet rb_replic_base_odrade_cabinet
+st_replic_base_odrade st_replic_base_odrade
+st_indiquez_valeur st_indiquez_valeur
+sle_dcm2jpg sle_dcm2jpg
+st_param_conversion st_param_conversion
+sle_3shape sle_3shape
+st_3shape st_3shape
+pb_18 pb_18
+sle_dir_acquis_wifi sle_dir_acquis_wifi
+st_23 st_23
+pb_17 pb_17
+sle_dir_acquis_courant sle_dir_acquis_courant
+st_13 st_13
+pb_courriers_replic pb_courriers_replic
+sle_courriers_replic sle_courriers_replic
+st_courriers_replic st_courriers_replic
+st_odrade_present st_odrade_present
+pb_odrade pb_odrade
+sle_dolphin sle_dolphin
+st_dolphin st_dolphin
+pb_rep_radio pb_rep_radio
+sle_rep_radio sle_rep_radio
+st_rep_radio st_rep_radio
+pb_radio_exe pb_radio_exe
+st_radio_exe st_radio_exe
+sle_odrade sle_odrade
+st_odrade st_odrade
+st_installation st_installation
+pb_171 pb_171
+sle_sauvegarde sle_sauvegarde
+st_16 st_16
+cbx_courriers cbx_courriers
+cbx_photos cbx_photos
+st_151 st_151
+pb_16 pb_16
+pb_photos_replic pb_photos_replic
+pb_15 pb_15
+sle_photos sle_photos
+sle_courriers sle_courriers
+st_9 st_9
+st_10 st_10
+sle_photos_replic sle_photos_replic
+st_photos_replic st_photos_replic
+pb_dolphin pb_dolphin
+gb_3shape gb_3shape
+sle_radio_exe sle_radio_exe
+gb_26 gb_26
+gb_replic gb_replic
+gb_1 gb_1
+gb_lien_radio gb_lien_radio
+gb_48 gb_48
+end type
+type tabpage_administratif from userobject within tab_1
+end type
+type cbx_forcer_adri from checkbox within tabpage_administratif
+end type
+type st_table_predefinis_admini_largeur from statictext within tabpage_administratif
+end type
+type em_table_predefinis_admini_largeur from editmask within tabpage_administratif
+end type
+type cbx_commentaires_admini_2010 from checkbox within tabpage_administratif
+end type
+type cbx_masquer_decalage from checkbox within tabpage_administratif
+end type
+type gb_tests_imprimantes from groupbox within tabpage_administratif
+end type
+type cbx_recu_word from checkbox within tabpage_administratif
+end type
+type cb_cadrage_local from commandbutton within tabpage_administratif
+end type
+type cbx_dep_utiliser_cadagre_local from checkbox within tabpage_administratif
+end type
+type cbx_supprimer_confirmation_eattest from checkbox within tabpage_administratif
+end type
+type ddlb_ged_onglet from dropdownlistbox within tabpage_administratif
+end type
+type st_24 from statictext within tabpage_administratif
+end type
+type cbx_table_predefinis_adminis_sans_rtf from checkbox within tabpage_administratif
+end type
+type cbx_afficher_barre_avance_clinique_soins from checkbox within tabpage_administratif
+end type
+type cbx_envoi_mail_document_signe from checkbox within tabpage_administratif
+end type
+type cb_imprimantes_praticiens from commandbutton within tabpage_administratif
+end type
+type cbx_afficher_assistant_echeances from checkbox within tabpage_administratif
+end type
+type cb_test_fs from commandbutton within tabpage_administratif
+end type
+type cb_test_recto_verso_dep from commandbutton within tabpage_administratif
+end type
+type cb_test_recto_dep from commandbutton within tabpage_administratif
+end type
+type cbx_factures_pub_mon_ortho from checkbox within tabpage_administratif
+end type
+type cbx_commentaires_adm_saisie_a_part from checkbox within tabpage_administratif
+end type
+type cbx_alerte_somme_due_rdv from checkbox within tabpage_administratif
+end type
+type cbx_soins_coches from checkbox within tabpage_administratif
+end type
+type st_72 from statictext within tabpage_administratif
+end type
+type cbx_facture_word from checkbox within tabpage_administratif
+end type
+type em_nb_lignes_soins_word from editmask within tabpage_administratif
+end type
+type cbx_attestations_word from checkbox within tabpage_administratif
+end type
+type pb_cadrage_ads from uo_picturebutton_390x120 within tabpage_administratif
+end type
+type cbx_debit_credit_pdf from checkbox within tabpage_administratif
+end type
+type cbx_recus_pdf from checkbox within tabpage_administratif
+end type
+type cbx_attestations_2016 from checkbox within tabpage_administratif
+end type
+type cbx_factures_pdf from checkbox within tabpage_administratif
+end type
+type cbx_afficher_date_accord from checkbox within tabpage_administratif
+end type
+type cbx_table_predefinis_commentaires_adm from checkbox within tabpage_administratif
+end type
+type cbx_word_premier_plan from checkbox within tabpage_administratif
+end type
+type cbx_souligner_adultes from checkbox within tabpage_administratif
+end type
+type sle_belgique_format from singlelineedit within tabpage_administratif
+end type
+type st_belgique_format from statictext within tabpage_administratif
+end type
+type st_belgique_avertissement from statictext within tabpage_administratif
+end type
+type gb_signature_numerique from groupbox within tabpage_administratif
+end type
+type cbx_email_en_pj from checkbox within tabpage_administratif
+end type
+type cbx_somme_due_famille from checkbox within tabpage_administratif
+end type
+type cbx_memo_word from checkbox within tabpage_administratif
+end type
+type em_nombre_boucle_vitale from editmask within tabpage_administratif
+end type
+type cbx_quitter_televitale from checkbox within tabpage_administratif
+end type
+type st_vitale_15 from statictext within tabpage_administratif
+end type
+type st_vitale_50 from statictext within tabpage_administratif
+end type
+type st_vitale_30 from statictext within tabpage_administratif
+end type
+type em_duree_boucle_vitale from editmask within tabpage_administratif
+end type
+type ddlb_imprimante_feuilles_soins from uo_liste_imprimantes within tabpage_administratif
+end type
+type cbx_active_impr_specif_feuilles_soins from checkbox within tabpage_administratif
+end type
+type ddlb_imprimante_dep from uo_liste_imprimantes within tabpage_administratif
+end type
+type cbx_dep_integre from checkbox within tabpage_administratif
+end type
+type cbx_active_impr_specif_dep from checkbox within tabpage_administratif
+end type
+type gb_dep from groupbox within tabpage_administratif
+end type
+type gb_fs from groupbox within tabpage_administratif
+end type
+type gb_vitale from groupbox within tabpage_administratif
+end type
+type gb_21 from groupbox within tabpage_administratif
+end type
+type ddlb_imprimante_signature_numerique from uo_liste_imprimantes within tabpage_administratif
+end type
+type gb_33 from groupbox within tabpage_administratif
+end type
+type gb_23 from groupbox within tabpage_administratif
+end type
+type gb_soins from groupbox within tabpage_administratif
+end type
+type gb_facture from groupbox within tabpage_administratif
+end type
+type gb_autres from groupbox within tabpage_administratif
+end type
+type gb_32 from groupbox within tabpage_administratif
+end type
+type gb_50 from groupbox within tabpage_administratif
+end type
+type gb_belgique from groupbox within tabpage_administratif
+end type
+type tabpage_administratif from userobject within tab_1
+cbx_forcer_adri cbx_forcer_adri
+st_table_predefinis_admini_largeur st_table_predefinis_admini_largeur
+em_table_predefinis_admini_largeur em_table_predefinis_admini_largeur
+cbx_commentaires_admini_2010 cbx_commentaires_admini_2010
+cbx_masquer_decalage cbx_masquer_decalage
+gb_tests_imprimantes gb_tests_imprimantes
+cbx_recu_word cbx_recu_word
+cb_cadrage_local cb_cadrage_local
+cbx_dep_utiliser_cadagre_local cbx_dep_utiliser_cadagre_local
+cbx_supprimer_confirmation_eattest cbx_supprimer_confirmation_eattest
+ddlb_ged_onglet ddlb_ged_onglet
+st_24 st_24
+cbx_table_predefinis_adminis_sans_rtf cbx_table_predefinis_adminis_sans_rtf
+cbx_afficher_barre_avance_clinique_soins cbx_afficher_barre_avance_clinique_soins
+cbx_envoi_mail_document_signe cbx_envoi_mail_document_signe
+cb_imprimantes_praticiens cb_imprimantes_praticiens
+cbx_afficher_assistant_echeances cbx_afficher_assistant_echeances
+cb_test_fs cb_test_fs
+cb_test_recto_verso_dep cb_test_recto_verso_dep
+cb_test_recto_dep cb_test_recto_dep
+cbx_factures_pub_mon_ortho cbx_factures_pub_mon_ortho
+cbx_commentaires_adm_saisie_a_part cbx_commentaires_adm_saisie_a_part
+cbx_alerte_somme_due_rdv cbx_alerte_somme_due_rdv
+cbx_soins_coches cbx_soins_coches
+st_72 st_72
+cbx_facture_word cbx_facture_word
+em_nb_lignes_soins_word em_nb_lignes_soins_word
+cbx_attestations_word cbx_attestations_word
+pb_cadrage_ads pb_cadrage_ads
+cbx_debit_credit_pdf cbx_debit_credit_pdf
+cbx_recus_pdf cbx_recus_pdf
+cbx_attestations_2016 cbx_attestations_2016
+cbx_factures_pdf cbx_factures_pdf
+cbx_afficher_date_accord cbx_afficher_date_accord
+cbx_table_predefinis_commentaires_adm cbx_table_predefinis_commentaires_adm
+cbx_word_premier_plan cbx_word_premier_plan
+cbx_souligner_adultes cbx_souligner_adultes
+sle_belgique_format sle_belgique_format
+st_belgique_format st_belgique_format
+st_belgique_avertissement st_belgique_avertissement
+gb_signature_numerique gb_signature_numerique
+cbx_email_en_pj cbx_email_en_pj
+cbx_somme_due_famille cbx_somme_due_famille
+cbx_memo_word cbx_memo_word
+em_nombre_boucle_vitale em_nombre_boucle_vitale
+cbx_quitter_televitale cbx_quitter_televitale
+st_vitale_15 st_vitale_15
+st_vitale_50 st_vitale_50
+st_vitale_30 st_vitale_30
+em_duree_boucle_vitale em_duree_boucle_vitale
+ddlb_imprimante_feuilles_soins ddlb_imprimante_feuilles_soins
+cbx_active_impr_specif_feuilles_soins cbx_active_impr_specif_feuilles_soins
+ddlb_imprimante_dep ddlb_imprimante_dep
+cbx_dep_integre cbx_dep_integre
+cbx_active_impr_specif_dep cbx_active_impr_specif_dep
+gb_dep gb_dep
+gb_fs gb_fs
+gb_vitale gb_vitale
+gb_21 gb_21
+ddlb_imprimante_signature_numerique ddlb_imprimante_signature_numerique
+gb_33 gb_33
+gb_23 gb_23
+gb_soins gb_soins
+gb_facture gb_facture
+gb_autres gb_autres
+gb_32 gb_32
+gb_50 gb_50
+gb_belgique gb_belgique
+end type
+type tabpage_clinique from userobject within tab_1
+end type
+type em_table_predefinis_largeur from editmask within tabpage_clinique
+end type
+type st_table_predefinis_largeur from statictext within tabpage_clinique
+end type
+type cbx_remarques_sans_rtf from checkbox within tabpage_clinique
+end type
+type cbx_table_predefinis_sans_rtf from checkbox within tabpage_clinique
+end type
+type rb_saisie_a_part_autre from radiobutton within tabpage_clinique
+end type
+type rb_saisie_a_part_meme from radiobutton within tabpage_clinique
+end type
+type rb_saisie_a_part_non from radiobutton within tabpage_clinique
+end type
+type gb_9 from groupbox within tabpage_clinique
+end type
+type cbx_multiligne_infobulle from checkbox within tabpage_clinique
+end type
+type cbx_barre_avancement_infobulle from checkbox within tabpage_clinique
+end type
+type cbx_diag_non_rtf from checkbox within tabpage_clinique
+end type
+type cbx_table_predefinis_memo_arbo from checkbox within tabpage_clinique
+end type
+type cbx_colonne6_deroulante from checkbox within tabpage_clinique
+end type
+type cbx_colonne5_deroulante from checkbox within tabpage_clinique
+end type
+type cbx_colonne4_deroulante from checkbox within tabpage_clinique
+end type
+type cbx_colonne3_deroulante from checkbox within tabpage_clinique
+end type
+type st_64 from statictext within tabpage_clinique
+end type
+type em_rafraichissement_temps_restant from editmask within tabpage_clinique
+end type
+type cbx_temps_restant from checkbox within tabpage_clinique
+end type
+type st_55 from statictext within tabpage_clinique
+end type
+type em_hauteur_lignes from editmask within tabpage_clinique
+end type
+type st_54 from statictext within tabpage_clinique
+end type
+type cbx_assistant_diagnostics from checkbox within tabpage_clinique
+end type
+type rb_tri_commentaires_decroissant from radiobutton within tabpage_clinique
+end type
+type rb_tri_commentaires_croissant from radiobutton within tabpage_clinique
+end type
+type gb_16 from groupbox within tabpage_clinique
+end type
+type cbx_pas_plusieurs_lignes from checkbox within tabpage_clinique
+end type
+type cbx_creation_auto_ouverture from checkbox within tabpage_clinique
+end type
+type cbx_plans_multiples from checkbox within tabpage_clinique
+end type
+type cbx_zone_remarque_commentaires from checkbox within tabpage_clinique
+end type
+type cbx_message_rdv_sans_rtf from checkbox within tabpage_clinique
+end type
+type cbx_fermer_kitview from checkbox within tabpage_clinique
+end type
+type cbx_commentaires_2010 from checkbox within tabpage_clinique
+end type
+type cbx_diag_commentaires_clin from checkbox within tabpage_clinique
+end type
+type sle_page_photos from singlelineedit within tabpage_clinique
+end type
+type cbx_sommaire from checkbox within tabpage_clinique
+end type
+type st_42 from statictext within tabpage_clinique
+end type
+type rb_qualite from radiobutton within tabpage_clinique
+end type
+type rb_prochain_rdv_message from radiobutton within tabpage_clinique
+end type
+type cbx_table_predefinis_commentaires_clin from checkbox within tabpage_clinique
+end type
+type gb_24 from groupbox within tabpage_clinique
+end type
+type gb_22 from groupbox within tabpage_clinique
+end type
+type gb_13 from groupbox within tabpage_clinique
+end type
+type gb_27 from groupbox within tabpage_clinique
+end type
+type gb_kitview from groupbox within tabpage_clinique
+end type
+type gb_2 from groupbox within tabpage_clinique
+end type
+type gb_6 from groupbox within tabpage_clinique
+end type
+type gb_40 from groupbox within tabpage_clinique
+end type
+type tabpage_clinique from userobject within tab_1
+em_table_predefinis_largeur em_table_predefinis_largeur
+st_table_predefinis_largeur st_table_predefinis_largeur
+cbx_remarques_sans_rtf cbx_remarques_sans_rtf
+cbx_table_predefinis_sans_rtf cbx_table_predefinis_sans_rtf
+rb_saisie_a_part_autre rb_saisie_a_part_autre
+rb_saisie_a_part_meme rb_saisie_a_part_meme
+rb_saisie_a_part_non rb_saisie_a_part_non
+gb_9 gb_9
+cbx_multiligne_infobulle cbx_multiligne_infobulle
+cbx_barre_avancement_infobulle cbx_barre_avancement_infobulle
+cbx_diag_non_rtf cbx_diag_non_rtf
+cbx_table_predefinis_memo_arbo cbx_table_predefinis_memo_arbo
+cbx_colonne6_deroulante cbx_colonne6_deroulante
+cbx_colonne5_deroulante cbx_colonne5_deroulante
+cbx_colonne4_deroulante cbx_colonne4_deroulante
+cbx_colonne3_deroulante cbx_colonne3_deroulante
+st_64 st_64
+em_rafraichissement_temps_restant em_rafraichissement_temps_restant
+cbx_temps_restant cbx_temps_restant
+st_55 st_55
+em_hauteur_lignes em_hauteur_lignes
+st_54 st_54
+cbx_assistant_diagnostics cbx_assistant_diagnostics
+rb_tri_commentaires_decroissant rb_tri_commentaires_decroissant
+rb_tri_commentaires_croissant rb_tri_commentaires_croissant
+gb_16 gb_16
+cbx_pas_plusieurs_lignes cbx_pas_plusieurs_lignes
+cbx_creation_auto_ouverture cbx_creation_auto_ouverture
+cbx_plans_multiples cbx_plans_multiples
+cbx_zone_remarque_commentaires cbx_zone_remarque_commentaires
+cbx_message_rdv_sans_rtf cbx_message_rdv_sans_rtf
+cbx_fermer_kitview cbx_fermer_kitview
+cbx_commentaires_2010 cbx_commentaires_2010
+cbx_diag_commentaires_clin cbx_diag_commentaires_clin
+sle_page_photos sle_page_photos
+cbx_sommaire cbx_sommaire
+st_42 st_42
+rb_qualite rb_qualite
+rb_prochain_rdv_message rb_prochain_rdv_message
+cbx_table_predefinis_commentaires_clin cbx_table_predefinis_commentaires_clin
+gb_24 gb_24
+gb_22 gb_22
+gb_13 gb_13
+gb_27 gb_27
+gb_kitview gb_kitview
+gb_2 gb_2
+gb_6 gb_6
+gb_40 gb_40
+end type
+type tabpage_imagerie_2013 from userobject within tab_1
+end type
+type cbx_afficher_nom_fichier_survol from checkbox within tabpage_imagerie_2013
+end type
+type cb_reset from uo_picturebutton_390x120 within tabpage_imagerie_2013
+end type
+type ddlb_forme_du_cadre from dropdownlistbox within tabpage_imagerie_2013
+end type
+type st_forme_du_cadre from statictext within tabpage_imagerie_2013
+end type
+type cbx_editeur_2013_par_defaut from checkbox within tabpage_imagerie_2013
+end type
+type uo_clinique_7 from uo_choix_image_2013 within tabpage_imagerie_2013
+end type
+type uo_clinique_8 from uo_choix_image_2013 within tabpage_imagerie_2013
+end type
+type uo_clinique_6 from uo_choix_image_2013 within tabpage_imagerie_2013
+end type
+type st_74 from statictext within tabpage_imagerie_2013
+end type
+type st_75 from statictext within tabpage_imagerie_2013
+end type
+type st_76 from statictext within tabpage_imagerie_2013
+end type
+type st_77 from statictext within tabpage_imagerie_2013
+end type
+type uo_clinique_5 from uo_choix_image_2013 within tabpage_imagerie_2013
+end type
+type st_73 from statictext within tabpage_imagerie_2013
+end type
+type em_nb_cadres_images_commentaires from editmask within tabpage_imagerie_2013
+end type
+type uo_acquisition_pano from uo_choix_image_2013 within tabpage_imagerie_2013
+end type
+type st_71 from statictext within tabpage_imagerie_2013
+end type
+type cbx_images_sur_fond_noir_2013 from checkbox within tabpage_imagerie_2013
+end type
+type cbx_photo_iden_clinique_2013 from checkbox within tabpage_imagerie_2013
+end type
+type cbx_photo_iden_2013 from checkbox within tabpage_imagerie_2013
+end type
+type st_53 from statictext within tabpage_imagerie_2013
+end type
+type uo_diag_2 from uo_choix_image_2013 within tabpage_imagerie_2013
+end type
+type st_50 from statictext within tabpage_imagerie_2013
+end type
+type uo_diag_1 from uo_choix_image_2013 within tabpage_imagerie_2013
+end type
+type gb_35 from groupbox within tabpage_imagerie_2013
+end type
+type cbx_ouverture_editeur from checkbox within tabpage_imagerie_2013
+end type
+type sle_imagerie_2013_couleur_groupe from singlelineedit within tabpage_imagerie_2013
+end type
+type st_15 from statictext within tabpage_imagerie_2013
+end type
+type cbx_imagerie_2013_a_part from checkbox within tabpage_imagerie_2013
+end type
+type uo_clinique_4 from uo_choix_image_2013 within tabpage_imagerie_2013
+end type
+type uo_clinique_3 from uo_choix_image_2013 within tabpage_imagerie_2013
+end type
+type uo_clinique_2 from uo_choix_image_2013 within tabpage_imagerie_2013
+end type
+type uo_clinique_1 from uo_choix_image_2013 within tabpage_imagerie_2013
+end type
+type st_63 from statictext within tabpage_imagerie_2013
+end type
+type st_62 from statictext within tabpage_imagerie_2013
+end type
+type st_61 from statictext within tabpage_imagerie_2013
+end type
+type st_60 from statictext within tabpage_imagerie_2013
+end type
+type uo_identite_clinique from uo_choix_image_2013 within tabpage_imagerie_2013
+end type
+type st_59 from statictext within tabpage_imagerie_2013
+end type
+type uo_acquisition_radio from uo_choix_image_2013 within tabpage_imagerie_2013
+end type
+type uo_fiche_admini from uo_choix_image_2013 within tabpage_imagerie_2013
+end type
+type st_57 from statictext within tabpage_imagerie_2013
+end type
+type st_58 from statictext within tabpage_imagerie_2013
+end type
+type rb_outils_explorateur_2013_droite from radiobutton within tabpage_imagerie_2013
+end type
+type rb_outils_explorateur_2013_gauche from radiobutton within tabpage_imagerie_2013
+end type
+type gb_36 from groupbox within tabpage_imagerie_2013
+end type
+type gb_37 from groupbox within tabpage_imagerie_2013
+end type
+type gb_25 from groupbox within tabpage_imagerie_2013
+end type
+type gb_38 from groupbox within tabpage_imagerie_2013
+end type
+type gb_28 from groupbox within tabpage_imagerie_2013
+end type
+type gb_forme_du_cadre from groupbox within tabpage_imagerie_2013
+end type
+type tabpage_imagerie_2013 from userobject within tab_1
+cbx_afficher_nom_fichier_survol cbx_afficher_nom_fichier_survol
+cb_reset cb_reset
+ddlb_forme_du_cadre ddlb_forme_du_cadre
+st_forme_du_cadre st_forme_du_cadre
+cbx_editeur_2013_par_defaut cbx_editeur_2013_par_defaut
+uo_clinique_7 uo_clinique_7
+uo_clinique_8 uo_clinique_8
+uo_clinique_6 uo_clinique_6
+st_74 st_74
+st_75 st_75
+st_76 st_76
+st_77 st_77
+uo_clinique_5 uo_clinique_5
+st_73 st_73
+em_nb_cadres_images_commentaires em_nb_cadres_images_commentaires
+uo_acquisition_pano uo_acquisition_pano
+st_71 st_71
+cbx_images_sur_fond_noir_2013 cbx_images_sur_fond_noir_2013
+cbx_photo_iden_clinique_2013 cbx_photo_iden_clinique_2013
+cbx_photo_iden_2013 cbx_photo_iden_2013
+st_53 st_53
+uo_diag_2 uo_diag_2
+st_50 st_50
+uo_diag_1 uo_diag_1
+gb_35 gb_35
+cbx_ouverture_editeur cbx_ouverture_editeur
+sle_imagerie_2013_couleur_groupe sle_imagerie_2013_couleur_groupe
+st_15 st_15
+cbx_imagerie_2013_a_part cbx_imagerie_2013_a_part
+uo_clinique_4 uo_clinique_4
+uo_clinique_3 uo_clinique_3
+uo_clinique_2 uo_clinique_2
+uo_clinique_1 uo_clinique_1
+st_63 st_63
+st_62 st_62
+st_61 st_61
+st_60 st_60
+uo_identite_clinique uo_identite_clinique
+st_59 st_59
+uo_acquisition_radio uo_acquisition_radio
+uo_fiche_admini uo_fiche_admini
+st_57 st_57
+st_58 st_58
+rb_outils_explorateur_2013_droite rb_outils_explorateur_2013_droite
+rb_outils_explorateur_2013_gauche rb_outils_explorateur_2013_gauche
+gb_36 gb_36
+gb_37 gb_37
+gb_25 gb_25
+gb_38 gb_38
+gb_28 gb_28
+gb_forme_du_cadre gb_forme_du_cadre
+end type
+type tabpage_salle_attente from userobject within tab_1
+end type
+type cbx_ne_pas_verifier_retard_en_bd from checkbox within tabpage_salle_attente
+end type
+type em_limite_scrutation from editmask within tabpage_salle_attente
+end type
+type st_limite_scrutation from statictext within tabpage_salle_attente
+end type
+type rb_tri_mini_salle_attente_heure_arrivee from radiobutton within tabpage_salle_attente
+end type
+type rb_tri_mini_salle_attente_heure_rdv from radiobutton within tabpage_salle_attente
+end type
+type rb_alerte_arrivees_nouveaux_sonore from radiobutton within tabpage_salle_attente
+end type
+type rb_alerte_arrivees_nouveaux_visuelle from radiobutton within tabpage_salle_attente
+end type
+type rb_alerte_arrivees_nouveaux_aucune from radiobutton within tabpage_salle_attente
+end type
+type gb_alerte_arrivees_nouveaux from groupbox within tabpage_salle_attente
+end type
+type cbx_compteur_menu_patient from checkbox within tabpage_salle_attente
+end type
+type rb_alerte_praticien_defaut from radiobutton within tabpage_salle_attente
+end type
+type rb_alerte_tous_praticien from radiobutton within tabpage_salle_attente
+end type
+type gb_4 from groupbox within tabpage_salle_attente
+end type
+type cbx_suivi_clinique from checkbox within tabpage_salle_attente
+end type
+type rb_praticien_par_defaut_utilisateur from radiobutton within tabpage_salle_attente
+end type
+type rb_rdv_ponctualite from radiobutton within tabpage_salle_attente
+end type
+type rb_alerte_arrivees_sonore from radiobutton within tabpage_salle_attente
+end type
+type rb_alerte_arrivees_visuelle from radiobutton within tabpage_salle_attente
+end type
+type rb_alerte_arrivees_aucune from radiobutton within tabpage_salle_attente
+end type
+type st_29 from statictext within tabpage_salle_attente
+end type
+type em_volet_salle_attente_surveillance_jour from editmask within tabpage_salle_attente
+end type
+type cbx_volet_salle_attente_surveillance from checkbox within tabpage_salle_attente
+end type
+type cbx_materialiser_meme_famille from checkbox within tabpage_salle_attente
+end type
+type cbx_salle_attente_parametrable from checkbox within tabpage_salle_attente
+end type
+type cbx_ouvrir_fenetre_a_part from checkbox within tabpage_salle_attente
+end type
+type cbx_affichage_barre_avancement_clinique from checkbox within tabpage_salle_attente
+end type
+type cbx_ouverture_lancement from checkbox within tabpage_salle_attente
+end type
+type cbx_raffraichissement_conserver_position from checkbox within tabpage_salle_attente
+end type
+type em_nb_jours_alerte_prochain_reg from editmask within tabpage_salle_attente
+end type
+type st_69 from statictext within tabpage_salle_attente
+end type
+type cbx_alerte_prochain_reg from checkbox within tabpage_salle_attente
+end type
+type rb_post_it_pas from radiobutton within tabpage_salle_attente
+end type
+type st_34 from statictext within tabpage_salle_attente
+end type
+type cbx_planning_conserver from checkbox within tabpage_salle_attente
+end type
+type cbx_ticket_tous_rdv_futurs from checkbox within tabpage_salle_attente
+end type
+type rb_ticket_word from radiobutton within tabpage_salle_attente
+end type
+type gb_20 from groupbox within tabpage_salle_attente
+end type
+type st_52 from statictext within tabpage_salle_attente
+end type
+type em_largeur_ticket from editmask within tabpage_salle_attente
+end type
+type em_hauteur_ticket from editmask within tabpage_salle_attente
+end type
+type st_51 from statictext within tabpage_salle_attente
+end type
+type ddlb_imprimante_ticket_rdv from uo_liste_imprimantes within tabpage_salle_attente
+end type
+type cbx_active_impr_specif_rdv from checkbox within tabpage_salle_attente
+end type
+type em_retard_rdv from editmask within tabpage_salle_attente
+end type
+type st_46 from statictext within tabpage_salle_attente
+end type
+type st_41 from statictext within tabpage_salle_attente
+end type
+type rb_rdv_tableau from radiobutton within tabpage_salle_attente
+end type
+type rb_rdv_camembert from radiobutton within tabpage_salle_attente
+end type
+type st_40 from statictext within tabpage_salle_attente
+end type
+type cbx_mini_salle_attente_on_top from checkbox within tabpage_salle_attente
+end type
+type st_39 from statictext within tabpage_salle_attente
+end type
+type st_27 from statictext within tabpage_salle_attente
+end type
+type cbx_photo_synthese from checkbox within tabpage_salle_attente
+end type
+type rb_post_it_haut from radiobutton within tabpage_salle_attente
+end type
+type rb_post_it_bas from radiobutton within tabpage_salle_attente
+end type
+type dw_prati from datawindow within tabpage_salle_attente
+end type
+type rb_un_prat from radiobutton within tabpage_salle_attente
+end type
+type rb_tous_praticiens from radiobutton within tabpage_salle_attente
+end type
+type cbx_affichage_automatique from checkbox within tabpage_salle_attente
+end type
+type st_14 from statictext within tabpage_salle_attente
+end type
+type em_raffraichissement from editmask within tabpage_salle_attente
+end type
+type em_nb_jours_alerte_dep from editmask within tabpage_salle_attente
+end type
+type st_dep_38 from statictext within tabpage_salle_attente
+end type
+type cbx_alerte_dep from checkbox within tabpage_salle_attente
+end type
+type cbx_ouverture_synthese from checkbox within tabpage_salle_attente
+end type
+type cbx_salleattenteargent from checkbox within tabpage_salle_attente
+end type
+type st_37 from statictext within tabpage_salle_attente
+end type
+type gb_11 from groupbox within tabpage_salle_attente
+end type
+type gb_12 from groupbox within tabpage_salle_attente
+end type
+type gb_15 from groupbox within tabpage_salle_attente
+end type
+type rb_ticket_rtf from radiobutton within tabpage_salle_attente
+end type
+type gb_10 from groupbox within tabpage_salle_attente
+end type
+type gb_46 from groupbox within tabpage_salle_attente
+end type
+type gb_wait_and_smile from groupbox within tabpage_salle_attente
+end type
+type sle_wait_and_smile_lieu from singlelineedit within tabpage_salle_attente
+end type
+type gb_17 from groupbox within tabpage_salle_attente
+end type
+type gb_47 from groupbox within tabpage_salle_attente
+end type
+type gb_51 from groupbox within tabpage_salle_attente
+end type
+type gb_tri_mini_salle_attente from groupbox within tabpage_salle_attente
+end type
+type tabpage_salle_attente from userobject within tab_1
+cbx_ne_pas_verifier_retard_en_bd cbx_ne_pas_verifier_retard_en_bd
+em_limite_scrutation em_limite_scrutation
+st_limite_scrutation st_limite_scrutation
+rb_tri_mini_salle_attente_heure_arrivee rb_tri_mini_salle_attente_heure_arrivee
+rb_tri_mini_salle_attente_heure_rdv rb_tri_mini_salle_attente_heure_rdv
+rb_alerte_arrivees_nouveaux_sonore rb_alerte_arrivees_nouveaux_sonore
+rb_alerte_arrivees_nouveaux_visuelle rb_alerte_arrivees_nouveaux_visuelle
+rb_alerte_arrivees_nouveaux_aucune rb_alerte_arrivees_nouveaux_aucune
+gb_alerte_arrivees_nouveaux gb_alerte_arrivees_nouveaux
+cbx_compteur_menu_patient cbx_compteur_menu_patient
+rb_alerte_praticien_defaut rb_alerte_praticien_defaut
+rb_alerte_tous_praticien rb_alerte_tous_praticien
+gb_4 gb_4
+cbx_suivi_clinique cbx_suivi_clinique
+rb_praticien_par_defaut_utilisateur rb_praticien_par_defaut_utilisateur
+rb_rdv_ponctualite rb_rdv_ponctualite
+rb_alerte_arrivees_sonore rb_alerte_arrivees_sonore
+rb_alerte_arrivees_visuelle rb_alerte_arrivees_visuelle
+rb_alerte_arrivees_aucune rb_alerte_arrivees_aucune
+st_29 st_29
+em_volet_salle_attente_surveillance_jour em_volet_salle_attente_surveillance_jour
+cbx_volet_salle_attente_surveillance cbx_volet_salle_attente_surveillance
+cbx_materialiser_meme_famille cbx_materialiser_meme_famille
+cbx_salle_attente_parametrable cbx_salle_attente_parametrable
+cbx_ouvrir_fenetre_a_part cbx_ouvrir_fenetre_a_part
+cbx_affichage_barre_avancement_clinique cbx_affichage_barre_avancement_clinique
+cbx_ouverture_lancement cbx_ouverture_lancement
+cbx_raffraichissement_conserver_position cbx_raffraichissement_conserver_position
+em_nb_jours_alerte_prochain_reg em_nb_jours_alerte_prochain_reg
+st_69 st_69
+cbx_alerte_prochain_reg cbx_alerte_prochain_reg
+rb_post_it_pas rb_post_it_pas
+st_34 st_34
+cbx_planning_conserver cbx_planning_conserver
+cbx_ticket_tous_rdv_futurs cbx_ticket_tous_rdv_futurs
+rb_ticket_word rb_ticket_word
+gb_20 gb_20
+st_52 st_52
+em_largeur_ticket em_largeur_ticket
+em_hauteur_ticket em_hauteur_ticket
+st_51 st_51
+ddlb_imprimante_ticket_rdv ddlb_imprimante_ticket_rdv
+cbx_active_impr_specif_rdv cbx_active_impr_specif_rdv
+em_retard_rdv em_retard_rdv
+st_46 st_46
+st_41 st_41
+rb_rdv_tableau rb_rdv_tableau
+rb_rdv_camembert rb_rdv_camembert
+st_40 st_40
+cbx_mini_salle_attente_on_top cbx_mini_salle_attente_on_top
+st_39 st_39
+st_27 st_27
+cbx_photo_synthese cbx_photo_synthese
+rb_post_it_haut rb_post_it_haut
+rb_post_it_bas rb_post_it_bas
+dw_prati dw_prati
+rb_un_prat rb_un_prat
+rb_tous_praticiens rb_tous_praticiens
+cbx_affichage_automatique cbx_affichage_automatique
+st_14 st_14
+em_raffraichissement em_raffraichissement
+em_nb_jours_alerte_dep em_nb_jours_alerte_dep
+st_dep_38 st_dep_38
+cbx_alerte_dep cbx_alerte_dep
+cbx_ouverture_synthese cbx_ouverture_synthese
+cbx_salleattenteargent cbx_salleattenteargent
+st_37 st_37
+gb_11 gb_11
+gb_12 gb_12
+gb_15 gb_15
+rb_ticket_rtf rb_ticket_rtf
+gb_10 gb_10
+gb_46 gb_46
+gb_wait_and_smile gb_wait_and_smile
+sle_wait_and_smile_lieu sle_wait_and_smile_lieu
+gb_17 gb_17
+gb_47 gb_47
+gb_51 gb_51
+gb_tri_mini_salle_attente gb_tri_mini_salle_attente
+end type
+type tabpage_divers from userobject within tab_1
+end type
+type sle_exe_econnector from singlelineedit within tabpage_divers
+end type
+type pb_exe_econnector from picturebutton within tabpage_divers
+end type
+type st_exe_econnector from statictext within tabpage_divers
+end type
+type cb_tester_url_econector from commandbutton within tabpage_divers
+end type
+type sle_url_econnector from singlelineedit within tabpage_divers
+end type
+type st_url_econnector from statictext within tabpage_divers
+end type
+type cbx_lancement_messagerie from checkbox within tabpage_divers
+end type
+type rb_tracabilite_decroissant from radiobutton within tabpage_divers
+end type
+type rb_tracabilite_croissant from radiobutton within tabpage_divers
+end type
+type st_tri_tracabilite from statictext within tabpage_divers
+end type
+type cbx_desactiver_saisies_surggerees from checkbox within tabpage_divers
+end type
+type cbx_messagerie from checkbox within tabpage_divers
+end type
+type st_alerte_salle_attente from statictext within tabpage_divers
+end type
+type cbx_alerte_salle_attente from checkbox within tabpage_divers
+end type
+type rb_menu_rtf_clic_droit from radiobutton within tabpage_divers
+end type
+type rb_menu_rtf_automatique from radiobutton within tabpage_divers
+end type
+type cbx_recherche_mise_a_jour from checkbox within tabpage_divers
+end type
+type cbx_ouverture_animee from checkbox within tabpage_divers
+end type
+type cbx_licence_logicielle from checkbox within tabpage_divers
+end type
+type sle_url_licences from singlelineedit within tabpage_divers
+end type
+type st_28 from statictext within tabpage_divers
+end type
+type cbx_liste_patients_a_recontacter from checkbox within tabpage_divers
+end type
+type ddlb_recherche_produit from dropdownlistbox within tabpage_divers
+end type
+type st_70 from statictext within tabpage_divers
+end type
+type cbx_imprimer_lot from checkbox within tabpage_divers
+end type
+type cbx_verif_seuil_alerte from checkbox within tabpage_divers
+end type
+type cbx_memo_patient_memoire from checkbox within tabpage_divers
+end type
+type cbx_pas_alerte_sterilisation from checkbox within tabpage_divers
+end type
+type cbx_rtf_souligne_police from checkbox within tabpage_divers
+end type
+type cbx_rtf_italique_police from checkbox within tabpage_divers
+end type
+type cbx_rtf_gras_police from checkbox within tabpage_divers
+end type
+type sle_rtf_taille_police from singlelineedit within tabpage_divers
+end type
+type sle_rtf_couleur_police from singlelineedit within tabpage_divers
+end type
+type pb_modifier_police from uo_picturebutton_390x120 within tabpage_divers
+end type
+type sle_rtf_nom_police from singlelineedit within tabpage_divers
+end type
+type st_56 from statictext within tabpage_divers
+end type
+type st_45 from statictext within tabpage_divers
+end type
+type st_17 from statictext within tabpage_divers
+end type
+type st_test_police from statictext within tabpage_divers
+end type
+type ddlb_taches from dropdownlistbox within tabpage_divers
+end type
+type st_20 from statictext within tabpage_divers
+end type
+type ddlb_saints from dropdownlistbox within tabpage_divers
+end type
+type st_22 from statictext within tabpage_divers
+end type
+type st_11 from statictext within tabpage_divers
+end type
+type ddlb_admini_onglets from dropdownlistbox within tabpage_divers
+end type
+type cbx_sauvegarde_auto from checkbox within tabpage_divers
+end type
+type ddlb_recherche from dropdownlistbox within tabpage_divers
+end type
+type st_21 from statictext within tabpage_divers
+end type
+type gb_7 from groupbox within tabpage_divers
+end type
+type gb_8 from groupbox within tabpage_divers
+end type
+type gb_31 from groupbox within tabpage_divers
+end type
+type gb_39 from groupbox within tabpage_divers
+end type
+type gb_42 from groupbox within tabpage_divers
+end type
+type gb_45 from groupbox within tabpage_divers
+end type
+type gb_3 from groupbox within tabpage_divers
+end type
+type ddlb_couleur_alerte_salle_attente from dropdownlistbox within tabpage_divers
+end type
+type gb_mon_orthodontiste from groupbox within tabpage_divers
+end type
+type gb_econnector from groupbox within tabpage_divers
+end type
+type tabpage_divers from userobject within tab_1
+sle_exe_econnector sle_exe_econnector
+pb_exe_econnector pb_exe_econnector
+st_exe_econnector st_exe_econnector
+cb_tester_url_econector cb_tester_url_econector
+sle_url_econnector sle_url_econnector
+st_url_econnector st_url_econnector
+cbx_lancement_messagerie cbx_lancement_messagerie
+rb_tracabilite_decroissant rb_tracabilite_decroissant
+rb_tracabilite_croissant rb_tracabilite_croissant
+st_tri_tracabilite st_tri_tracabilite
+cbx_desactiver_saisies_surggerees cbx_desactiver_saisies_surggerees
+cbx_messagerie cbx_messagerie
+st_alerte_salle_attente st_alerte_salle_attente
+cbx_alerte_salle_attente cbx_alerte_salle_attente
+rb_menu_rtf_clic_droit rb_menu_rtf_clic_droit
+rb_menu_rtf_automatique rb_menu_rtf_automatique
+cbx_recherche_mise_a_jour cbx_recherche_mise_a_jour
+cbx_ouverture_animee cbx_ouverture_animee
+cbx_licence_logicielle cbx_licence_logicielle
+sle_url_licences sle_url_licences
+st_28 st_28
+cbx_liste_patients_a_recontacter cbx_liste_patients_a_recontacter
+ddlb_recherche_produit ddlb_recherche_produit
+st_70 st_70
+cbx_imprimer_lot cbx_imprimer_lot
+cbx_verif_seuil_alerte cbx_verif_seuil_alerte
+cbx_memo_patient_memoire cbx_memo_patient_memoire
+cbx_pas_alerte_sterilisation cbx_pas_alerte_sterilisation
+cbx_rtf_souligne_police cbx_rtf_souligne_police
+cbx_rtf_italique_police cbx_rtf_italique_police
+cbx_rtf_gras_police cbx_rtf_gras_police
+sle_rtf_taille_police sle_rtf_taille_police
+sle_rtf_couleur_police sle_rtf_couleur_police
+pb_modifier_police pb_modifier_police
+sle_rtf_nom_police sle_rtf_nom_police
+st_56 st_56
+st_45 st_45
+st_17 st_17
+st_test_police st_test_police
+ddlb_taches ddlb_taches
+st_20 st_20
+ddlb_saints ddlb_saints
+st_22 st_22
+st_11 st_11
+ddlb_admini_onglets ddlb_admini_onglets
+cbx_sauvegarde_auto cbx_sauvegarde_auto
+ddlb_recherche ddlb_recherche
+st_21 st_21
+gb_7 gb_7
+gb_8 gb_8
+gb_31 gb_31
+gb_39 gb_39
+gb_42 gb_42
+gb_45 gb_45
+gb_3 gb_3
+ddlb_couleur_alerte_salle_attente ddlb_couleur_alerte_salle_attente
+gb_mon_orthodontiste gb_mon_orthodontiste
+gb_econnector gb_econnector
+end type
+type tabpage_cti from userobject within tab_1
+end type
+type cbx_verif_ligne from checkbox within tabpage_cti
+end type
+type st_19 from statictext within tabpage_cti
+end type
+type sle_numero_sortir from singlelineedit within tabpage_cti
+end type
+type em_ignorer from editmask within tabpage_cti
+end type
+type st_18 from statictext within tabpage_cti
+end type
+type st_1 from statictext within tabpage_cti
+end type
+type cbx_lien_active from checkbox within tabpage_cti
+end type
+type tabpage_cti from userobject within tab_1
+cbx_verif_ligne cbx_verif_ligne
+st_19 st_19
+sle_numero_sortir sle_numero_sortir
+em_ignorer em_ignorer
+st_18 st_18
+st_1 st_1
+cbx_lien_active cbx_lien_active
+end type
+type tabpage_imagerie from userobject within tab_1
+end type
+type ddlb_acquisition from dropdownlistbox within tabpage_imagerie
+end type
+type ddlb_acquisition_imagerie from dropdownlistbox within tabpage_imagerie
+end type
+type st_44 from statictext within tabpage_imagerie
+end type
+type st_43 from statictext within tabpage_imagerie
+end type
+type cbx_images_sur_fond_noir from checkbox within tabpage_imagerie
+end type
+type cbx_masquer_iden_dans_imagerie from checkbox within tabpage_imagerie
+end type
+type cbx_photo_iden_clinique from checkbox within tabpage_imagerie
+end type
+type cbx_photo_iden from checkbox within tabpage_imagerie
+end type
+type st_67 from statictext within tabpage_imagerie
+end type
+type st_66 from statictext within tabpage_imagerie
+end type
+type st_65 from statictext within tabpage_imagerie
+end type
+type cbx_photos_commentaires_cliniques from checkbox within tabpage_imagerie
+end type
+type ddlb_image4 from dropdownlistbox within tabpage_imagerie
+end type
+type ddlb_image1 from dropdownlistbox within tabpage_imagerie
+end type
+type gb_photos from groupbox within tabpage_imagerie
+end type
+type ddlb_image3 from dropdownlistbox within tabpage_imagerie
+end type
+type st_cadre3 from statictext within tabpage_imagerie
+end type
+type ddlb_image2 from dropdownlistbox within tabpage_imagerie
+end type
+type st_cadre2 from statictext within tabpage_imagerie
+end type
+type st_cadre1 from statictext within tabpage_imagerie
+end type
+type st_cadre4 from statictext within tabpage_imagerie
+end type
+type gb_29 from groupbox within tabpage_imagerie
+end type
+type tabpage_imagerie from userobject within tab_1
+ddlb_acquisition ddlb_acquisition
+ddlb_acquisition_imagerie ddlb_acquisition_imagerie
+st_44 st_44
+st_43 st_43
+cbx_images_sur_fond_noir cbx_images_sur_fond_noir
+cbx_masquer_iden_dans_imagerie cbx_masquer_iden_dans_imagerie
+cbx_photo_iden_clinique cbx_photo_iden_clinique
+cbx_photo_iden cbx_photo_iden
+st_67 st_67
+st_66 st_66
+st_65 st_65
+cbx_photos_commentaires_cliniques cbx_photos_commentaires_cliniques
+ddlb_image4 ddlb_image4
+ddlb_image1 ddlb_image1
+gb_photos gb_photos
+ddlb_image3 ddlb_image3
+st_cadre3 st_cadre3
+ddlb_image2 ddlb_image2
+st_cadre2 st_cadre2
+st_cadre1 st_cadre1
+st_cadre4 st_cadre4
+gb_29 gb_29
+end type
+type tab_1 from tab within w_environnement
+tabpage_sons tabpage_sons
+tabpage_repertoires tabpage_repertoires
+tabpage_administratif tabpage_administratif
+tabpage_clinique tabpage_clinique
+tabpage_imagerie_2013 tabpage_imagerie_2013
+tabpage_salle_attente tabpage_salle_attente
+tabpage_divers tabpage_divers
+tabpage_cti tabpage_cti
+tabpage_imagerie tabpage_imagerie
+end type
+type st_12 from statictext within w_environnement
+end type
+type uo_resize from resize_fenetre within w_environnement
+end type
+type pb_memo_ini from uo_picturebutton_390x120 within w_environnement
+end type
+type pb_restau_ini from uo_picturebutton_390x120 within w_environnement
+end type
+type dw_tests_imprimantes from datawindow within w_environnement
+end type
+type cb_optimiser from uo_picturebutton_390x120 within w_environnement
+end type
+type pb_aide from uo_bouton_aide within w_environnement
+end type
+type gb_5 from groupbox within w_environnement
+end type
+type gb_41 from groupbox within w_environnement
+end type
+type gb_34 from groupbox within w_environnement
+end type
+type gb_43 from groupbox within w_environnement
+end type
+type gb_44 from groupbox within w_environnement
+end type
+type gb_49 from groupbox within w_environnement
+end type
+end forward
+
+global type w_environnement from w_fenetre_arakis
+integer x = 18
+integer y = 176
+integer width = 5403
+integer height = 3020
+string title = "Environnement Poste de Travail"
+cb_enregistrer cb_enregistrer
+cb_fermer cb_fermer
+cb_annuler cb_annuler
+tab_1 tab_1
+st_12 st_12
+uo_resize uo_resize
+pb_memo_ini pb_memo_ini
+pb_restau_ini pb_restau_ini
+dw_tests_imprimantes dw_tests_imprimantes
+cb_optimiser cb_optimiser
+pb_aide pb_aide
+gb_5 gb_5
+gb_41 gb_41
+gb_34 gb_34
+gb_43 gb_43
+gb_44 gb_44
+gb_49 gb_49
+end type
+global w_environnement w_environnement
+
+type variables
+sauvegarde_base	save_base
+
+uo_lien_vixwin		uo_vixwin
+uo_lien_trophy		uo_trophy
+uo_lien_mediadent	uo_mediadent
+uo_lien_sidexis		uo_sidexis
+uo_lien_durrdental		uo_durrdental
+lien_myray		uo_myray
+lien_rayscan		uo_rayscan
+
+lien_radios_2015 radios_2015 
+
+ integer tab_ddlb_2013_radio[]
+ 
+ string v_rep_mise_jour_centralise
+ 
+// lien_3Shape    uo_3Shape
+
+// pour repositionnement de la palette de couleur
+integer  ii_palette_x = 0
+integer ii_palette_y = 0
+end variables
+
+forward prototypes
+private function integer verif_path (ref singlelineedit sle, readonly checkbox cbx)
+private function integer quel_rep (readonly checkbox cbx, ref string ini_section, ref string ini_key_rep, ref string ini_key_local, ref string bd_column)
+private function integer get_path (ref singlelineedit sle, readonly checkbox cbx)
+private function integer read_dir (ref singlelineedit sle, ref checkbox cbx)
+public subroutine pour_un_rep (ref singlelineedit sle)
+private function integer save_dir (readonly singlelineedit sle, readonly checkbox cbx)
+public subroutine get_infos ()
+end prototypes
+
+private function integer verif_path (ref singlelineedit sle, readonly checkbox cbx);//vérif si chemin de la sle correct
+//cad = se termine par un "\"
+//et commence par "\\" si la cbx "local" pas cochée
+
+string s, s2
+
+s = trim(sle.text)
+if s = "" then goto fin
+s2 = right(s,1)
+if s2 <> win_delimiter then s = s + win_delimiter
+if cbx.checked = false then
+	s2 = left(s,2)
+	if s2 <> win_delimiter + win_delimiter then goto pas_chemin_reseaux
+end if
+sle.text = s
+
+goto fin
+//gestion erreurs
+pas_chemin_reseaux:
+	messagebox("ATTENTION", "Le chemin indiqué n'est pas un chemin réseau valide (sous la forme '\\nom_du_serveur\nom_du_partage\'),~nveuillez le ressaisir")
+	sle.text = ""
+	sle.setfocus()
+	return -1
+fin:
+	return 1
+end function
+
+private function integer quel_rep (readonly checkbox cbx, ref string ini_section, ref string ini_key_rep, ref string ini_key_local, ref string bd_column);string	cbx_classname
+
+cbx_classname = cbx.classname()
+choose case cbx_classname
+	case "cbx_photos"
+		ini_section 	= "photos"
+		ini_key_rep 	= "dir"
+		ini_key_local 	= "local"
+		BD_column 		= "rep_photos"
+	case "cbx_photos_replic"
+		ini_section 	= "photos"
+		ini_key_rep 	= "dir_replic"
+		ini_key_local 	= "local_replic"
+		BD_column 		= "rep_photos_replic"
+	case "cbx_courriers"
+		ini_section 	= "courriers"
+		ini_key_rep 	= "dir"
+		ini_key_local 	= "local"
+		BD_column 		= "rep_courriers"
+end choose
+
+return 1
+end function
+
+private function integer get_path (ref singlelineedit sle, readonly checkbox cbx);//fx private pour mettre à jour le chemin, s'il existe, suivant orthokis.ini ou bd
+//renvoie 1 si ok
+//renvoie -1 si pb
+
+
+string	ini_section
+string	ini_key_rep
+string	ini_key_local
+string	sql_result
+string	BD_column
+
+
+//init les var locales
+if quel_rep(cbx, ini_section, ini_key_rep, ini_key_local, BD_column) <> 1 then return -1
+
+//retrouve les bonnes infos grace aux var locales
+choose case cbx.checked
+	case	false
+		//info ds Base
+		if BD_column = "rep_photos" then 
+			select rep_photos into :sql_result FROM param ;
+		end if
+		if BD_column = "rep_photos_replic" then 
+			select rep_photos_replic into :sql_result FROM param ;
+		end if
+		if BD_column = "rep_courriers" then
+			select rep_courriers into :sql_result FROM param ;
+		end if
+		if SQLCA.SQLCode <> 0 then return -1
+		sle.text = sql_result
+	case true
+		//info ds orthokis.ini
+		sle.text = profilestring(dir_ini + inifile_orthokis, ini_section, ini_key_rep, par_défaut)
+end choose
+
+//vérif si bien un chemin à priori valide
+verif_path(sle, cbx)
+
+//place le focus ds la sle pour modifs éventuelles
+sle.setfocus()
+
+return 1
+end function
+
+private function integer read_dir (ref singlelineedit sle, ref checkbox cbx);string	read_ini
+string	ini_section
+string	ini_key_rep
+string	ini_key_local
+string	sql_string
+string	sql_result
+string	BD_column
+string	s
+
+quel_rep(cbx, ini_section, ini_key_rep, ini_key_local, BD_column)
+
+if not FileExists(dir_ini + inifile_orthokis) then goto erreur_1
+
+read_ini = profilestring(dir_ini + inifile_orthokis, ini_section, ini_key_local, par_défaut)
+choose case read_ini
+	case	par_défaut
+//		read_ini = profilestring(dir_ini + inifile_orthokis, ini_section, ini_key_rep, par_défaut)
+//		sql_string = "UPDATE param SET " + BD_column + " = '" + read_ini + "'"
+//		EXECUTE IMMEDIATE :sql_string ;
+//		if SQLCA.SQLCode <> 0 then goto erreur_2
+		SetProfileString(dir_ini + inifile_orthokis, ini_section, ini_key_local, oui)
+		cbx.checked = true
+		sle.text = profilestring(dir_ini + inifile_orthokis, ini_section, ini_key_rep, par_défaut)
+	case	oui
+		cbx.checked = true
+		sle.text = profilestring(dir_ini + inifile_orthokis, ini_section, ini_key_rep, par_défaut)
+	case	non
+		if BD_column = "rep_photos" then 
+			select rep_photos into :sql_result FROM param ;
+		end if
+		if BD_column = "rep_photos_replic" then 
+			select rep_photos_replic into :sql_result FROM param ;
+		end if
+		if BD_column = "rep_courriers" then
+			select rep_courriers into :sql_result FROM param ;
+		end if
+//		sql_string = "SELECT " + BD_column + " INTO :sql_result FROM param"
+//		EXECUTE IMMEDIATE :sql_string ;
+		if SQLCA.SQLCode <> 0 then goto erreur_2
+		sle.text = sql_result
+end choose
+
+goto fin
+//gestion erreurs
+erreur_1:
+	messagebox("ATTENTION","Imposible de trouver le fichier ORTHOKIS.INI")
+	return -1
+erreur_2:
+	messagebox("ATTENTION","Un problème est survenue lors ~nde l'accés à la Base de Données")
+	return -1
+fin:
+	return 1
+end function
+
+public subroutine pour_un_rep (ref singlelineedit sle);// fonction qui rajoute un "\" au chemin indiqué s'il n'y est pas
+
+if sle.text <> "" then
+// si qqch d'inscrit
+	// si dernier carac n'est pas un "\" -> on en rajoute un
+	if right(sle.text, 1) <> win_delimiter then sle.text += win_delimiter
+end if
+
+end subroutine
+
+private function integer save_dir (readonly singlelineedit sle, readonly checkbox cbx);string	ini_section
+string	ini_key_rep
+string	ini_key_local
+string	sql_string
+string	BD_column
+string	temp_s
+
+quel_rep(cbx, ini_section, ini_key_rep, ini_key_local, BD_column)
+
+if not FileExists(dir_ini + inifile_orthokis) then goto erreur_1
+choose case	cbx.checked
+	case true
+		SetProfileString(dir_ini + inifile_orthokis, ini_section, ini_key_local, oui)
+		setprofilestring(dir_ini + inifile_orthokis, ini_section, ini_key_rep, sle.text)
+	case false
+		SetProfileString(dir_ini + inifile_orthokis, ini_section, ini_key_local, non)
+		//pour mettre un "\" par une commande sql --> il faut le doubler
+		if sle.text <> "" then temp_s = "\\" + sle.text
+		sql_string = "UPDATE param SET " + BD_column + " = '" + temp_s + "'"
+		EXECUTE IMMEDIATE :sql_string ;
+		if SQLCA.SQLCode <> 0 then 
+			rollback ;
+			goto erreur_2
+		else
+			commit ;
+		end if
+end choose
+
+goto fin
+
+//gestion erreurs
+erreur_1:
+	messagebox("ATTENTION","Imposible de trouver le fichier ORTHOKIS.INI")
+	return -1
+erreur_2:
+	messagebox("ATTENTION","Un problème est survenue lors ~nde l'accés à la Base de Données")
+	return -1
+fin:
+	return 1
+end function
+
+public subroutine get_infos ();/// procédure qui retourve toutes le données
+
+
+integer v_index
+string v_libelle
+
+//////// ONGLET SONS
+//------------------------
+
+// Lecture des sons
+if profilestring(dir_ini+inifile_orthokis,"sons","activer","") = "true" then
+	tab_1.tabpage_sons.cbx_sons_actifs.checked = true
+else
+	tab_1.tabpage_sons.cbx_sons_actifs.checked = false
+end if
+
+tab_1.tabpage_sons.sle_son1.text = profilestring(dir_ini+inifile_orthokis,"sons","son1","")
+tab_1.tabpage_sons.sle_son2.text = profilestring(dir_ini+inifile_orthokis,"sons","son2","")
+tab_1.tabpage_sons.sle_son3.text = profilestring(dir_ini+inifile_orthokis,"sons","son3","")
+tab_1.tabpage_sons.sle_son4.text = profilestring(dir_ini+inifile_orthokis,"sons","son4","")
+tab_1.tabpage_sons.sle_son5.text = profilestring(dir_ini+inifile_orthokis,"sons","son5","")
+tab_1.tabpage_sons.sle_son6.text = profilestring(dir_ini+inifile_orthokis,"sons","son6","")
+tab_1.tabpage_sons.sle_son7.text = profilestring(dir_ini+inifile_orthokis,"sons","son7","")
+
+
+// Lecture des couleurs de fond 
+
+//tab_1.tabpage_sons.st_couleur_fenetre.backcolor = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","fond_fenetre","15780518"))
+//tab_1.tabpage_sons.st_couleur_barre.backcolor = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","fond_barre_3","13335090"))
+//tab_1.tabpage_sons.st_couleur_textes_barre.backcolor = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","textes_barre_3",string(rgb(255,255,0))))
+//
+////tab_1.tabpage_sons.st_couleur_mdi.backcolor = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","fond_mdi","15780518"))
+////tab_1.tabpage_sons.sle_image_fond.text = profilestring(dir_ini+inifile_orthokis,"COULEURS","image_fond_mdi","")
+//tab_1.tabpage_sons.st_couleur_barre_patient.backcolor = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","fond_barre_patient","13335090"))
+
+
+tab_1.tabpage_sons.ddlb_theme_v2020_barre_icones.SelectItem(integer(profilestring(dir_ini+inifile_orthokis,"UI_V2020","theme_barre_icones","2")))
+
+
+tab_1.tabpage_sons.st_couleur_mdi_patient.backcolor = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","fond_mdi_patient","15780518"))
+
+
+
+//If  profilestring(dir_ini+inifile_orthokis,"COULEURS","image_fond_mdi_etiree","N") = 'O' then
+//	tab_1.tabpage_sons.cbx_image_etiree.checked = true
+//else
+//	tab_1.tabpage_sons.cbx_image_etiree.checked = false
+//end if
+
+// Fond d'écran et boutons
+//tab_1.tabpage_sons.ddlb_fonds.SelectItem(profilestring(dir_ini+inifile_orthokis,"COULEURS","image_fond_fenetres"," Aucune"), 1)
+//if tab_1.tabpage_sons.ddlb_fonds.text = " Aucune" then
+//	tab_1.tabpage_sons.p_ecran.PictureName = "" 
+//else
+//	tab_1.tabpage_sons.p_ecran.PictureName = dir_ini+dir_fonds+tab_1.tabpage_sons.ddlb_fonds.text+".jpg"
+//end if
+////tab_1.tabpage_sons.ddlb_boutons.SelectItem(profilestring(dir_ini+inifile_orthokis,"COULEURS","image_boutons","bleu"), 1)
+////tab_1.tabpage_sons.p_bouton.PictureName = dir_ini+dir_fonds+tab_1.tabpage_sons.ddlb_boutons.text+"_pb_250_120.jpg"
+//
+//tab_1.tabpage_sons.ddlb_fonds_icones.SelectItem(profilestring(dir_ini+inifile_orthokis,"COULEURS","image_fond_barre_icones","Violet"), 1)
+//if tab_1.tabpage_sons.ddlb_fonds_icones.text = " Aucune" then
+//	tab_1.tabpage_sons.p_ecran_icones.PictureName = "" 
+//else
+//	tab_1.tabpage_sons.p_ecran_icones.PictureName = dir_ini+dir_fonds+tab_1.tabpage_sons.ddlb_fonds_icones.text+".jpg"
+//end if
+
+//// Effets de la barre3
+//If  profileString(dir_ini+inifile_orthokis,"toolbar_3","noeffect","N")  = 'O' then
+//	tab_1.tabpage_sons.cbx_noeffect_barre3.checked = true
+//else
+//	tab_1.tabpage_sons.cbx_noeffect_barre3.checked = false
+//end if
+//
+//
+//// Animation des boutons ?
+//if profilestring(dir_ini+inifile_orthokis,"COULEURS","animation_boutons","O") = "O" then
+//	tab_1.tabpage_sons.cbx_boutons_animation.checked = true
+//else
+//	tab_1.tabpage_sons.cbx_boutons_animation.checked = false
+//end if
+//
+//
+//// Animation des émoticones
+//if profilestring(dir_ini+inifile_orthokis,"COULEURS","desactiver_emoticones","N") = "O" then
+//	tab_1.tabpage_sons.cbx_desactiver_emoticones.checked = true
+//else
+//	tab_1.tabpage_sons.cbx_desactiver_emoticones.checked = false
+//end if
+//
+
+
+// Couleurs datawindow
+tab_1.tabpage_sons.st_couleur_datawindow.backcolor = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","fond_datawindow","15780518"))
+tab_1.tabpage_sons.st_couleur_degrade.backcolor = long(profilestring(dir_ini+inifile_orthokis,"COULEURS","degrade_datawindow","15780518"))
+tab_1.tabpage_sons.ddlb_brush.SelectItem(profileInt(dir_ini+inifile_orthokis,"COULEURS","brush_datawindow",1))
+
+
+// Interface V2020
+//if profilestring(dir_ini+inifile_orthokis,"UI_V2020","active","N") = "O" then
+//	tab_1.tabpage_sons.cbx_ui_v2020.checked = true
+//else
+//	tab_1.tabpage_sons.cbx_ui_v2020.checked = false
+//end if
+
+if profilestring(dir_ini+inifile_orthokis,"UI_V2020","desactiver_gauche","N") = "O" then
+	tab_1.tabpage_sons.cbx_ui_v2020_desactiver_gauche.checked = true
+else
+	tab_1.tabpage_sons.cbx_ui_v2020_desactiver_gauche.checked = false
+end if
+if profilestring(dir_ini+inifile_orthokis,"UI_V2020","desactiver_droit","N") = "O" then
+	tab_1.tabpage_sons.cbx_ui_v2020_desactiver_droit.checked = true
+else
+	tab_1.tabpage_sons.cbx_ui_v2020_desactiver_droit.checked = false
+end if
+choose case profilestring(dir_ini+inifile_orthokis,"UI_V2020","menu_office_365","N")
+	case "2"
+		tab_1.tabpage_sons.rb_ui_v2020_menu_office_365_v2.checked = true
+	case "N"
+		tab_1.tabpage_sons.rb_ui_v2020_menu_defaut.checked = true
+	case else 
+		tab_1.tabpage_sons.rb_ui_v2020_menu_office_365.checked = true
+end choose
+
+
+//if profilestring(dir_ini+inifile_orthokis,"UI_V2020","desactiver_animation_patience","N") = "O" then
+//	tab_1.tabpage_sons.cbx_desactiver_animation_patience.checked = true
+//else
+//	tab_1.tabpage_sons.cbx_desactiver_animation_patience.checked = false
+//end if
+
+
+if profilestring(dir_ini+inifile_orthokis,"UI_V2020","desactiver_graphiques_anime","N") = "O" then
+	tab_1.tabpage_sons.cbx_desactiver_graphiques_animes.checked = true
+else
+	tab_1.tabpage_sons.cbx_desactiver_graphiques_animes.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"UI_V2020","desactiver_effet_modal","N") = "O" then
+	tab_1.tabpage_sons.cbx_desactiver_effet_modal.checked = true
+else
+	tab_1.tabpage_sons.cbx_desactiver_effet_modal.checked = false
+end if
+
+
+
+
+
+tab_1.tabpage_sons.ddlb_theme_global.SelectItem(profilestring(dir_ini+inifile_orthokis,"UI_V2020","theme_global","Aucun"), 1)
+tab_1.tabpage_sons.em_nb_onglets_autorises.text = profilestring(dir_ini+inifile_orthokis,"UI_V2020","nb_onglets_autorises","10")
+
+tab_1.tabpage_sons.ddlb_theme_v2020.SelectItem(integer(profilestring(dir_ini+inifile_orthokis,"UI_V2020","theme","1")))
+tab_1.tabpage_sons.ddlb_style_v2020.SelectItem(integer(profilestring(dir_ini+inifile_orthokis,"UI_V2020","style","1")))
+
+// Couleurs coordonnées ... elles sont stockées sous forme de fichier Ini dans le dossier Boutons - Fonds
+tab_1.tabpage_sons.ddlb_couleurs_coordonnees.dirlist(dir_ini + "Boutons - Fonds\*.ini",32)
+
+tab_1.tabpage_sons.ddlb_couleurs_coordonnees.text = profilestring(dir_ini+inifile_orthokis,"UI_V2020","couleurs_coordonnees","")
+
+
+if profilestring(dir_ini+inifile_orthokis,"UI_V2020","infobulles_icones_lateraux","O") = "O" then
+	tab_1.tabpage_sons.cbx_infobulles_icones_lateraux.checked = true
+else
+	tab_1.tabpage_sons.cbx_infobulles_icones_lateraux.checked = false
+end if
+
+
+
+// ONGLET REPERTOIRES
+//-------------------------
+
+
+tab_1.tabpage_repertoires.sle_sauvegarde.text = save_base.get_chemin_sauvegarde()
+read_dir(tab_1.tabpage_repertoires.sle_photos, tab_1.tabpage_repertoires.cbx_photos)		//tab_1.tabpage_repertoires.sle_photos.text = profilestring(dir_ini+inifile_orthokis,"photos","dir","")
+read_dir(tab_1.tabpage_repertoires.sle_courriers, tab_1.tabpage_repertoires.cbx_courriers)		//tab_1.tabpage_repertoires.sle_courriers.text = profilestring(dir_ini+inifile_orthokis,"courriers","dir","")
+
+tab_1.tabpage_repertoires.sle_raccourci_menu_patient.text = profilestring(dir_ini+inifile_orthokis,"UI_V2020","raccourci_menu_patient","")
+
+if tab_1.tabpage_repertoires.cbx_photos.checked then 
+	// on masque la case pour éviter de la décocher => force les répertoires en local dans le .ini
+	tab_1.tabpage_repertoires.cbx_photos.visible = false
+else
+	tab_1.tabpage_repertoires.cbx_photos.checked = true
+	tab_1.tabpage_repertoires.sle_photos.text = profilestring(dir_ini+inifile_orthokis,"photos","dir","C:\Power\Photos\")
+	MessageBox("ATTENTION","Le répertoire des photos doit être indiqué en Local (case Local cochée). La case ne l'était pas mais vient d'être cochée par Orthokis.~n~nVeuillez vérifier le paramétrage du dossier des photos avant de poursuivre.")
+end if
+
+if  tab_1.tabpage_repertoires.cbx_courriers.checked then 
+	// on masque la case pour éviter de la décocher => force les répertoires en local dans le .ini
+	tab_1.tabpage_repertoires.cbx_courriers.visible = false
+else
+	tab_1.tabpage_repertoires.cbx_courriers.checked = true
+	tab_1.tabpage_repertoires.sle_courriers.text = profilestring(dir_ini+inifile_orthokis,"courriers","dir","C:\Power\ortho\lettres types\")
+	MessageBox("ATTENTION","Le répertoire des courriers doit être indiqué en Local (case Local cochée). La case ne l'était pas mais vient d'être cochée par Orthokis.~n~nVeuillez vérifier le paramétrage du dossier des courriers avant de poursuivre.")
+end if
+
+
+
+
+// Les dossiers réplication sont FORCEMENT dans le .INI depuis la V2011
+//read_dir( tab_1.tabpage_repertoires.//)		
+tab_1.tabpage_repertoires.sle_photos_replic.text=profilestring(dir_ini+inifile_orthokis,"photos","dir_replic","C:\Power\Photos\")
+tab_1.tabpage_repertoires.sle_courriers_replic.text=profilestring(dir_ini+inifile_orthokis,"courriers","dir_replic","C:\Power\Ortho\Lettres Types\")
+if profilestring(dir_ini+inifile_orthokis,"odrade","base_replic","C") = "C" then
+	tab_1.tabpage_repertoires.rb_replic_base_odrade_cabinet.checked = true
+	tab_1.tabpage_repertoires.rb_replic_base_odrade_locale.checked = false
+else
+	tab_1.tabpage_repertoires.rb_replic_base_odrade_cabinet.checked = false
+	tab_1.tabpage_repertoires.rb_replic_base_odrade_locale.checked = true
+end if
+
+// acquisition photos
+tab_1.tabpage_repertoires.sle_dir_acquis_courant.text=profilestring(dir_ini+inifile_orthokis,"photos","dir_acquis_courant","")
+tab_1.tabpage_repertoires.sle_dir_acquis_wifi.text=profilestring(dir_ini+inifile_orthokis,"photos","dir_acquis_wifi","")
+
+// Odrade est installé sur la machine ?
+if not Odrade then
+	// Pas de logiciel Odrade installé
+	tab_1.tabpage_repertoires.sle_odrade.text = profilestring(dir_ini+inifile_orthokis,"odrade","dir_patient","\\serveur\power\odrade\patients\")
+else
+	// Y a Odrade => pas besoin de configuré le répertoire
+	tab_1.tabpage_repertoires.pb_odrade.visible = false
+	tab_1.tabpage_repertoires.sle_odrade.visible = false
+	tab_1.tabpage_repertoires.st_odrade_present.visible = true
+end if
+
+
+tab_1.tabpage_repertoires.sle_dolphin.text = profilestring(dir_ini+inifile_orthokis,"dolphin","dir","c:\dolphin\")
+
+if Shape then
+	tab_1.tabpage_repertoires.gb_3shape.visible = true
+	tab_1.tabpage_repertoires.sle_3shape0.visible = true
+	tab_1.tabpage_repertoires.st_3shape0.visible = true
+
+	tab_1.tabpage_repertoires.sle_3shape.visible = false
+	tab_1.tabpage_repertoires.sle_3shape2.visible = false
+	tab_1.tabpage_repertoires.sle_3shape3.visible = false
+	tab_1.tabpage_repertoires.sle_3shape4.visible = false
+	
+	tab_1.tabpage_repertoires.pb_3shape2.visible = false
+
+	tab_1.tabpage_repertoires.st_3shape.visible = false
+	tab_1.tabpage_repertoires.st_3shape2.visible = false
+	tab_1.tabpage_repertoires.st_3shape3.visible = false
+	tab_1.tabpage_repertoires.st_3shape4.visible = false
+
+	tab_1.tabpage_repertoires.sle_3shape0.text  = profilestring(dir_ini+inifile_orthokis,"3shape","exe_orthoanalyser","C:\Program Files\3Shape\OrthoAnalyzer\OrthoAnalyzer.exe")
+	tab_1.tabpage_repertoires.sle_3shape2.text  = profilestring(dir_ini+inifile_orthokis,"3shape","datas_orthoanalyser","C:\ProgramData\3Shape\OrthoData\")
+
+end if
+
+
+if not ODR then
+	// Si pas de lien Odrade, on masque le répertoire Odrade
+	tab_1.tabpage_repertoires.sle_odrade.visible = false
+	tab_1.tabpage_repertoires.st_odrade.visible = false
+	tab_1.tabpage_repertoires.pb_odrade.visible = false
+end if
+
+if not dolphin then
+// Si pas de lien Dolphin, on masque le répertoire Dolphin
+	tab_1.tabpage_repertoires.sle_dolphin.visible = false
+	tab_1.tabpage_repertoires.st_dolphin.visible = false
+	tab_1.tabpage_repertoires.pb_dolphin.visible = false
+end if
+
+
+if vixwin then
+	tab_1.tabpage_repertoires.gb_lien_radio.text = tab_1.tabpage_repertoires.gb_lien_radio.tag + "VixWin"
+	tab_1.tabpage_repertoires.sle_rep_radio.text = uo_vixwin.get_rep_radio()
+	tab_1.tabpage_repertoires.sle_radio_exe.text = uo_vixwin.get_programme_exe_path()
+elseif trophy then
+	tab_1.tabpage_repertoires.gb_lien_radio.text = tab_1.tabpage_repertoires.gb_lien_radio.tag + uo_trophy.get_nom_soft_radio()
+	tab_1.tabpage_repertoires.sle_rep_radio.text = uo_trophy.get_rep_radio()
+	tab_1.tabpage_repertoires.sle_radio_exe.text = uo_trophy.get_programme_exe_path()
+elseif mediadent then
+	tab_1.tabpage_repertoires.pb_radio_exe.visible = false
+	tab_1.tabpage_repertoires.gb_lien_radio.text = tab_1.tabpage_repertoires.gb_lien_radio.tag + uo_mediadent.get_nom_soft_radio()
+	tab_1.tabpage_repertoires.sle_rep_radio.text = uo_mediadent.get_rep_radio()
+	tab_1.tabpage_repertoires.st_radio_exe.text = "Attente lancement " + uo_mediadent.get_nom_soft_radio() +" (millisecondes) :"
+	tab_1.tabpage_repertoires.sle_radio_exe.x = tab_1.tabpage_repertoires.st_radio_exe.x + tab_1.tabpage_repertoires.st_radio_exe.width + 50
+	tab_1.tabpage_repertoires.sle_radio_exe.width = 329
+	tab_1.tabpage_repertoires.sle_radio_exe.text = uo_mediadent.get_tps_attente()
+	if long(tab_1.tabpage_repertoires.sle_radio_exe.text) = 0 then tab_1.tabpage_repertoires.sle_radio_exe.text = "3000"	// par défaut 3 secondes
+	tab_1.tabpage_repertoires.sle_dcm2jpg.visible = true
+	tab_1.tabpage_repertoires.st_indiquez_valeur.visible = true
+	tab_1.tabpage_repertoires.st_param_conversion.visible = true 
+	tab_1.tabpage_repertoires.gb_lien_radio.height = 624
+	tab_1.tabpage_repertoires.sle_dcm2jpg.text = profilestring(dir_ini+inifile_orthokis,"dcm2jpg","options","") 
+	tab_1.tabpage_repertoires.cbx_version_mediadent.visible = true
+	if profilestring(dir_ini+inifile_orthokis,"lien","mediadent_version8","N") = "O" then
+		tab_1.tabpage_repertoires.cbx_version_mediadent.checked = true
+	else
+		tab_1.tabpage_repertoires.cbx_version_mediadent.checked = false
+	end if
+
+elseif SIDEXIS then
+	tab_1.tabpage_repertoires.st_rep_radio.visible = false
+	tab_1.tabpage_repertoires.sle_rep_radio.visible = false
+	tab_1.tabpage_repertoires.pb_rep_radio.visible = false
+	tab_1.tabpage_repertoires.st_radio_exe.y = tab_1.tabpage_repertoires.st_rep_radio.y
+	tab_1.tabpage_repertoires.sle_radio_exe.y = tab_1.tabpage_repertoires.sle_rep_radio.y
+	tab_1.tabpage_repertoires.pb_radio_exe.y = tab_1.tabpage_repertoires.pb_rep_radio.y
+	tab_1.tabpage_repertoires.gb_lien_radio.height = 240
+	tab_1.tabpage_repertoires.gb_lien_radio.text = tab_1.tabpage_repertoires.gb_lien_radio.tag + uo_sidexis.get_nom_soft_radio()
+	tab_1.tabpage_repertoires.sle_radio_exe.text = uo_sidexis.get_programme_exe_path()
+elseif durrdental then
+	tab_1.tabpage_repertoires.st_rep_radio.visible = false
+	tab_1.tabpage_repertoires.sle_rep_radio.visible = false
+	tab_1.tabpage_repertoires.pb_rep_radio.visible = false
+	tab_1.tabpage_repertoires.st_radio_exe.y = tab_1.tabpage_repertoires.st_rep_radio.y
+	tab_1.tabpage_repertoires.sle_radio_exe.y = tab_1.tabpage_repertoires.sle_rep_radio.y
+	tab_1.tabpage_repertoires.pb_radio_exe.y = tab_1.tabpage_repertoires.pb_rep_radio.y
+	tab_1.tabpage_repertoires.gb_lien_radio.height = 240
+	tab_1.tabpage_repertoires.gb_lien_radio.text = tab_1.tabpage_repertoires.gb_lien_radio.tag + uo_durrdental.get_nom_soft_radio()
+	tab_1.tabpage_repertoires.sle_radio_exe.text = uo_durrdental.get_programme_exe_path()
+elseif Myray then
+	tab_1.tabpage_repertoires.gb_lien_radio.text = "Lien MyRay"
+	tab_1.tabpage_repertoires.sle_rep_radio.text = uo_myray.get_rep_radio()
+	tab_1.tabpage_repertoires.sle_radio_exe.text = uo_myray.get_programme_exe_path()
+	tab_1.tabpage_repertoires.sle_dcm2jpg.visible = true
+	tab_1.tabpage_repertoires.st_indiquez_valeur.visible = true
+	tab_1.tabpage_repertoires.st_param_conversion.visible = true 
+	tab_1.tabpage_repertoires.gb_lien_radio.height = 548
+	tab_1.tabpage_repertoires.sle_dcm2jpg.text = profilestring(dir_ini+inifile_orthokis,"dcm2jpg","options","") 
+elseif Owandy then
+	tab_1.tabpage_repertoires.gb_lien_radio.text = "Lien Owandy"
+	tab_1.tabpage_repertoires.st_rep_radio.visible = false
+	tab_1.tabpage_repertoires.sle_rep_radio.visible = false
+	tab_1.tabpage_repertoires.sle_radio_exe.text = radios_2015.get_programme_exe_path()
+	tab_1.tabpage_repertoires.sle_dcm2jpg.visible = false
+	tab_1.tabpage_repertoires.pb_rep_radio.visible = false
+elseif RAYSCAN then
+	tab_1.tabpage_repertoires.gb_lien_radio.text = "Lien Rayscan"
+	tab_1.tabpage_repertoires.st_rep_radio.visible = true
+	tab_1.tabpage_repertoires.st_rep_radio.text = "Adresse Serveur :"
+	tab_1.tabpage_repertoires.st_radio_exe.text = "Logiciel Smartdent :"
+	tab_1.tabpage_repertoires.sle_rep_radio.visible = true
+	tab_1.tabpage_repertoires.sle_rep_radio.text = uo_rayscan.get_url_serveur()
+	tab_1.tabpage_repertoires.sle_radio_exe.text = uo_rayscan.get_exe()
+	tab_1.tabpage_repertoires.sle_dcm2jpg.visible = false
+	tab_1.tabpage_repertoires.pb_rep_radio.visible = false
+else
+	tab_1.tabpage_repertoires.gb_lien_radio.visible = false
+	tab_1.tabpage_repertoires.st_rep_radio.visible = false
+	tab_1.tabpage_repertoires.sle_rep_radio.visible = false
+	tab_1.tabpage_repertoires.pb_rep_radio.visible = false
+	tab_1.tabpage_repertoires.st_radio_exe.visible = false
+	tab_1.tabpage_repertoires.sle_radio_exe.visible = false
+	tab_1.tabpage_repertoires.pb_radio_exe.visible = false
+end if
+
+tab_1.tabpage_repertoires.st_installation.text = dir_ini
+
+
+// ONGLET SALLE D'ATTENTE
+tab_1.tabpage_salle_attente.em_raffraichissement.text = profilestring(dir_ini+inifile_orthokis,"rendez-vous","raffraichissement","60")
+
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","patients_devant_argent","true") = "true" then
+	tab_1.tabpage_salle_attente.cbx_salleattenteargent.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_salleattenteargent.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","ouverture_synthese","true") = "true" then
+	tab_1.tabpage_salle_attente.cbx_ouverture_synthese.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_ouverture_synthese.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","raffraichissement_conserver_position","false") = "true" then
+	tab_1.tabpage_salle_attente.cbx_raffraichissement_conserver_position.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_raffraichissement_conserver_position.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","affichage_barre_avancement_clinique","false") = "true" then
+	tab_1.tabpage_salle_attente.cbx_affichage_barre_avancement_clinique.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_affichage_barre_avancement_clinique.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","ne_pas_verifier_retard_en_bd","false") = "true" then
+	tab_1.tabpage_salle_attente.cbx_ne_pas_verifier_retard_en_bd.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_ne_pas_verifier_retard_en_bd.checked = false
+end if
+
+
+
+
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","materialiser_meme_famille","false") = "true" then
+	tab_1.tabpage_salle_attente.cbx_materialiser_meme_famille.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_materialiser_meme_famille.checked = false
+end if
+
+tab_1.tabpage_salle_attente.sle_wait_and_smile_lieu.text = profilestring(dir_ini+inifile_orthokis,"rendez-vous","lieu_wait_and_smile","Salle de Soins")
+
+
+tab_1.tabpage_salle_attente.em_nb_jours_alerte_dep.text = profilestring(dir_ini+inifile_orthokis,"rendez-vous","nb_jours_alerte_dep","30")
+tab_1.tabpage_salle_attente.em_retard_rdv.text = profilestring(dir_ini+inifile_orthokis,"rendez-vous","minutes_retard_rdv_alerte","15")
+tab_1.tabpage_salle_attente.em_nb_jours_alerte_prochain_reg.text = profilestring(dir_ini+inifile_orthokis,"rendez-vous","nb_jours_alerte_prochain_reg","30")
+
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","alerte_dep","false") = "true" then
+	tab_1.tabpage_salle_attente.cbx_alerte_dep.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_alerte_dep.checked = false
+end if
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","alerte_prochain_reg","false") = "true" then
+	tab_1.tabpage_salle_attente.cbx_alerte_prochain_reg.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_alerte_prochain_reg.checked = false
+end if
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","compteur_menu_patient","false") = "true" then
+	tab_1.tabpage_salle_attente.cbx_compteur_menu_patient.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_compteur_menu_patient.checked = false
+end if
+
+
+tab_1.tabpage_salle_attente.em_limite_scrutation.text = profilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_limite_scrutation","0")
+
+//if profilestring(dir_ini+inifile_orthokis,"rendez-vous","position_synthese","B") = "B" then
+//	tab_1.tabpage_salle_attente.rb_synthese_bas.checked = true
+//	tab_1.tabpage_salle_attente.rb_synthese_droite.checked = false
+//else
+//	tab_1.tabpage_salle_attente.rb_synthese_bas.checked = false
+//	tab_1.tabpage_salle_attente.rb_synthese_droite.checked = true
+//end if
+
+// Photo dans synthese
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","photo_synthese","false") = "true" then
+	tab_1.tabpage_salle_attente.cbx_photo_synthese.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_photo_synthese.checked = false
+end if
+
+// Post it
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","position_post_it","B") = "B" then
+	// en bas
+	tab_1.tabpage_salle_attente.rb_post_it_bas.checked = true
+	tab_1.tabpage_salle_attente.rb_post_it_haut.checked = false
+	tab_1.tabpage_salle_attente.rb_post_it_pas.checked = false
+else
+	if profilestring(dir_ini+inifile_orthokis,"rendez-vous","position_post_it","B") = "H" then
+		// en haut
+		tab_1.tabpage_salle_attente.rb_post_it_bas.checked = false
+		tab_1.tabpage_salle_attente.rb_post_it_haut.checked = true
+		tab_1.tabpage_salle_attente.rb_post_it_pas.checked = false
+	else
+		// Pas de post it
+		tab_1.tabpage_salle_attente.rb_post_it_bas.checked = false
+		tab_1.tabpage_salle_attente.rb_post_it_haut.checked = false
+		tab_1.tabpage_salle_attente.rb_post_it_pas.checked = true
+	end if
+end if
+
+
+
+// lancement automatique à l'ouverture
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","ouverture_salle_attente_lancement","false") = "true" then
+	tab_1.tabpage_salle_attente.cbx_ouverture_lancement.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_ouverture_lancement.checked = false
+end if
+
+// fenêtre à part
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","ouverture_fenetre_a_part","false") = "true" then
+	tab_1.tabpage_salle_attente.cbx_ouvrir_fenetre_a_part.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_ouvrir_fenetre_a_part.checked = false
+end if
+
+// salle d'attente paramérable
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_parametrable","false") = "true" then
+	tab_1.tabpage_salle_attente.cbx_salle_attente_parametrable.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_salle_attente_parametrable.checked = false
+end if
+
+// Surveillance dans le volet salle d'attente
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","volet_salle_attente_surveillance","false") = "true" then
+	tab_1.tabpage_salle_attente.cbx_volet_salle_attente_surveillance.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_volet_salle_attente_surveillance.checked = false
+end if
+tab_1.tabpage_salle_attente.em_volet_salle_attente_surveillance_jour.text = profileString(dir_ini+inifile_orthokis,"rendez-vous","volet_salle_attente_surveillance_jours","30")
+
+// Suivi clinique dans le volet salle d'attente
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","volet_salle_attente_suivi_clinique","false") = "true" then
+	tab_1.tabpage_salle_attente.cbx_suivi_clinique.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_suivi_clinique.checked = false
+end if
+
+
+
+// affichage liste automatique
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","affichage_auto_salle_attente","true") = "true" then
+	tab_1.tabpage_salle_attente.cbx_affichage_automatique.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_affichage_automatique.checked = false
+end if
+
+// praticines
+If profilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_auto_tous","true") = "true" then
+	tab_1.tabpage_salle_attente.dw_prati.visible = false
+	tab_1.tabpage_salle_attente.rb_tous_praticiens.checked = true
+	tab_1.tabpage_salle_attente.rb_un_prat.checked = false
+	tab_1.tabpage_salle_attente.rb_praticien_par_defaut_utilisateur.checked = false
+else
+	if profilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_auto_tous","true") = "defaut" then
+		tab_1.tabpage_salle_attente.dw_prati.visible = false
+		tab_1.tabpage_salle_attente.rb_tous_praticiens.checked = false
+		tab_1.tabpage_salle_attente.rb_un_prat.checked = false
+		tab_1.tabpage_salle_attente.rb_praticien_par_defaut_utilisateur.checked = true
+	else
+		tab_1.tabpage_salle_attente.dw_prati.visible = true
+		string v_find
+		v_find =  "code = '"+	profilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_auto_praticiens",tab_1.tabpage_salle_attente.dw_prati.gettext())+"'"
+		tab_1.tabpage_salle_attente.dw_prati.ScrollToRow(tab_1.tabpage_salle_attente.dw_prati.Find(v_find ,1,999))
+		tab_1.tabpage_salle_attente.rb_tous_praticiens.checked = false
+		tab_1.tabpage_salle_attente.rb_un_prat.checked = true
+		tab_1.tabpage_salle_attente.rb_praticien_par_defaut_utilisateur.checked = false
+	end if
+end if
+
+// Mini Salle attente
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","mini_salle_attente_on_top","False") = "true" then
+	tab_1.tabpage_salle_attente.cbx_mini_salle_attente_on_top.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_mini_salle_attente_on_top.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","mini_salle_attente_tri","R") = "R" then
+	// Heure de rendez-vous
+	tab_1.tabpage_salle_attente.rb_tri_mini_salle_attente_heure_rdv.checked = true
+	tab_1.tabpage_salle_attente.rb_tri_mini_salle_attente_heure_arrivee.checked = false
+else
+	// Heure d'arrivée
+	tab_1.tabpage_salle_attente.rb_tri_mini_salle_attente_heure_rdv.checked = false
+	tab_1.tabpage_salle_attente.rb_tri_mini_salle_attente_heure_arrivee.checked = true
+end if
+
+// Planning d'une journée
+if profilestring(dir_ini+inifile_orthokis,"rendez-vous","conservation_rdv_planning","N") = "O" then
+	tab_1.tabpage_salle_attente.cbx_planning_conserver.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_planning_conserver.checked = false
+end if
+
+
+// Graphique de la gestion des rendez-vous
+Choose case profilestring(dir_ini+inifile_orthokis,"rendez-vous","graphique_gestion","C") 
+	case "C" 
+		tab_1.tabpage_salle_attente.rb_rdv_camembert.checked = true
+		tab_1.tabpage_salle_attente.rb_rdv_tableau.checked = false
+		tab_1.tabpage_salle_attente.rb_rdv_ponctualite.checked = false
+	case "T"
+		tab_1.tabpage_salle_attente.rb_rdv_camembert.checked = false
+		tab_1.tabpage_salle_attente.rb_rdv_tableau.checked = true
+		tab_1.tabpage_salle_attente.rb_rdv_ponctualite.checked = false
+	case "P"
+		tab_1.tabpage_salle_attente.rb_rdv_camembert.checked = false
+		tab_1.tabpage_salle_attente.rb_rdv_tableau.checked = false
+		tab_1.tabpage_salle_attente.rb_rdv_ponctualite.checked = true
+end choose
+
+// Ticket de rendez-vous
+
+if profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","rdv_active","N")  = 'O' then
+	tab_1.tabpage_salle_attente.cbx_active_impr_specif_rdv.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_active_impr_specif_rdv.checked = false
+end if
+
+if tab_1.tabpage_salle_attente.ddlb_imprimante_ticket_rdv.setImprimanteCourante( profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","ticket_rdv","") )   <= 0 then
+	// l'imprimante n'est pas / plus dans la liste => imprimante par défaut
+	tab_1.tabpage_salle_attente.ddlb_imprimante_ticket_rdv.setImprimanteCourante(tab_1.tabpage_salle_attente.ddlb_imprimante_ticket_rdv.getimprimanteDefaut())
+end if
+
+
+tab_1.tabpage_salle_attente.em_largeur_ticket.text = profileString(dir_ini+inifile_orthokis,"rendez-vous","ticket_largeur","3200")
+tab_1.tabpage_salle_attente.em_hauteur_ticket.text = profileString(dir_ini+inifile_orthokis,"rendez-vous","ticket_hauteur","2900")
+
+// format du ticket de rendez-vous
+if profileString(dir_ini+inifile_orthokis,"rendez-vous","ticket_format","R")  = 'R' then
+	tab_1.tabpage_salle_attente.rb_ticket_rtf.checked = true
+	tab_1.tabpage_salle_attente.rb_ticket_word.checked = false
+else
+	tab_1.tabpage_salle_attente.rb_ticket_rtf.checked = false
+	tab_1.tabpage_salle_attente.rb_ticket_word.checked = true
+end if
+
+if profileString(dir_ini+inifile_orthokis,"rendez-vous","ticket_tous_rdv_futurs","O")  = 'O' then
+	tab_1.tabpage_salle_attente.cbx_ticket_tous_rdv_futurs.checked = true
+else
+	tab_1.tabpage_salle_attente.cbx_ticket_tous_rdv_futurs.checked = false
+end if
+
+// Alerte des arrivées
+choose case profileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee","N") 
+	case "N" 
+		tab_1.tabpage_salle_attente.rb_alerte_arrivees_aucune.checked = true
+	case "V" 
+		tab_1.tabpage_salle_attente.rb_alerte_arrivees_visuelle.checked = true
+	case "S" 
+		tab_1.tabpage_salle_attente.rb_alerte_arrivees_sonore.checked = true
+end choose
+
+// Alerte des arrivées nouveaux
+choose case profileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee_nouveaux","N") 
+	case "N" 
+		tab_1.tabpage_salle_attente.rb_alerte_arrivees_nouveaux_aucune.checked = true
+	case "V" 
+		tab_1.tabpage_salle_attente.rb_alerte_arrivees_nouveaux_visuelle.checked = true
+	case "S" 
+		tab_1.tabpage_salle_attente.rb_alerte_arrivees_nouveaux_sonore.checked = true
+end choose
+
+// Arrivée pour tous les praticiens ?
+if profileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee_praticien","T") = "T" then 
+	tab_1.tabpage_salle_attente.rb_alerte_tous_praticien.checked = true
+else
+	tab_1.tabpage_salle_attente.rb_alerte_praticien_defaut.checked = true
+end if
+
+// ONGLET ADMINISTRATIF
+//-------------------------------
+
+
+// Utilisation de la table des commentaires prédéfinis
+if profilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","table_predefinis","N") = "O" then
+	tab_1.tabpage_administratif.cbx_table_predefinis_commentaires_adm.checked = true
+else
+	tab_1.tabpage_administratif.cbx_table_predefinis_commentaires_adm.checked = false
+end if
+
+// Saisie à part
+if profilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","saisie_a_part","N") = "O" then
+	tab_1.tabpage_administratif.cbx_commentaires_adm_saisie_a_part.checked = true
+else
+	tab_1.tabpage_administratif.cbx_commentaires_adm_saisie_a_part.checked = false
+end if
+
+// Sans RTF
+if profilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","table_predefinis_sans_rtf","N") = "O" then
+	tab_1.tabpage_administratif.cbx_table_predefinis_adminis_sans_rtf.checked = true
+else
+	tab_1.tabpage_administratif.cbx_table_predefinis_adminis_sans_rtf.checked = false
+end if
+if profilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","commentaires_2010","N") = "O" then
+	tab_1.tabpage_administratif.cbx_commentaires_admini_2010.checked = true
+else
+	tab_1.tabpage_administratif.cbx_commentaires_admini_2010.checked = false
+end if
+
+tab_1.tabpage_administratif.em_table_predefinis_admini_largeur.text = profilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","table_predefinis_largeur","1166")
+
+
+
+// Imprimante DEP
+//---------------------
+if profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep_active","N")  = 'O' then
+	tab_1.tabpage_administratif.cbx_active_impr_specif_dep.checked = true
+else
+	tab_1.tabpage_administratif.cbx_active_impr_specif_dep.checked = false
+end if
+if tab_1.tabpage_administratif.ddlb_imprimante_dep.setImprimanteCourante( profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep","") )   <= 0 then
+	// l'imprimante n'est pas / plus dans la liste => imprimante par défaut
+	tab_1.tabpage_administratif.ddlb_imprimante_dep.setImprimanteCourante(tab_1.tabpage_administratif.ddlb_imprimante_dep.getimprimanteDefaut())
+end if
+
+
+// DEP Integrée ???
+if profilestring(dir_ini+inifile_orthokis,"DEP-FSE","dep_integre", "N") = "O" then
+	tab_1.tabpage_administratif.cbx_dep_integre.checked = true
+else
+	tab_1.tabpage_administratif.cbx_dep_integre.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"DEP-FSE","dep_utiliser_cadagre_local", "N") = "O" and FRANCE then
+	tab_1.tabpage_administratif.cbx_dep_utiliser_cadagre_local.checked = true
+	tab_1.tabpage_administratif.cb_cadrage_local.visible = true
+	
+else
+	tab_1.tabpage_administratif.cbx_dep_utiliser_cadagre_local.checked = false
+	tab_1.tabpage_administratif.cb_cadrage_local.visible = false
+end if 
+
+
+
+// FS Intégrée ??
+//if profilestring(dir_ini+inifile_orthokis,"DEP-FSE","fs_integre", "N") = "O" then
+//	tab_1.tabpage_administratif.cbx_fs_integre.checked = true
+//else
+//	tab_1.tabpage_administratif.cbx_fs_integre.checked = false
+//end if
+
+
+// Imprimante Feuilles de soins
+if profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","feuilles_soins_active","") = "" then
+	// rien de définit pour l'imprimante feuille de soins .. on est à la mise en place 2010
+	// => on reprend ce qu'il y a pour DEP
+	tab_1.tabpage_administratif.cbx_active_impr_specif_feuilles_soins.checked = tab_1.tabpage_administratif.cbx_active_impr_specif_dep.checked
+	tab_1.tabpage_administratif.ddlb_imprimante_feuilles_soins.setImprimanteCourante(tab_1.tabpage_administratif.ddlb_imprimante_dep.getimprimanteCourante())
+	
+else
+	if profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","feuilles_soins_active","N")  = 'O' then
+		tab_1.tabpage_administratif.cbx_active_impr_specif_feuilles_soins.checked = true
+	else
+		tab_1.tabpage_administratif.cbx_active_impr_specif_feuilles_soins.checked = false
+	end if
+	if tab_1.tabpage_administratif.ddlb_imprimante_feuilles_soins.setImprimanteCourante( profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","feuilles_soins","") )   <= 0 then
+		// l'imprimante n'est pas / plus dans la liste => imprimante par défaut
+		tab_1.tabpage_administratif.ddlb_imprimante_feuilles_soins.setImprimanteCourante(tab_1.tabpage_administratif.ddlb_imprimante_dep.getimprimanteDefaut())
+	end if
+end if
+
+
+// CC Vitale 
+tab_1.tabpage_administratif.em_nombre_boucle_vitale.text = profilestring(dir_ini+inifile_orthokis,"televitale","nb_boucles","20")
+tab_1.tabpage_administratif.em_duree_boucle_vitale.text = profilestring(dir_ini+inifile_orthokis,"televitale","sleep_time","500")
+if profilestring(dir_ini+inifile_orthokis,"televitale","quitter_televitale","N") = "O" then
+	tab_1.tabpage_administratif.cbx_quitter_televitale.checked = true
+else
+	tab_1.tabpage_administratif.cbx_quitter_televitale.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"televitale","forcer_adri","N") = "O" then
+	tab_1.tabpage_administratif.cbx_forcer_adri.checked = true
+else
+	tab_1.tabpage_administratif.cbx_forcer_adri.checked = false
+end if
+
+
+
+
+
+// GED
+tab_1.tabpage_administratif.ddlb_ged_onglet.SelectItem(integer(profilestring(dir_ini+inifile_orthokis,"GED","onglet_ouverture","1")))
+
+
+// Mémorisation courriers Word
+if profilestring(dir_ini+inifile_orthokis,"WORD","memo_automatique","O") = "O" then 
+	tab_1.tabpage_administratif.cbx_memo_word.checked = true
+else
+	tab_1.tabpage_administratif.cbx_memo_word.checked = false
+end if
+
+// Emails en pièce jointe
+if profilestring(dir_ini+inifile_orthokis,"WORD","envoi_en_piece_jointe","N") = "O" then 
+	tab_1.tabpage_administratif.cbx_email_en_pj.checked = true
+else
+	tab_1.tabpage_administratif.cbx_email_en_pj.checked = false
+end if
+
+// Forcer Word en premier plan
+if profilestring(dir_ini+inifile_orthokis,"WORD","forcer_word_premier_plan","N") = "O" then 
+	tab_1.tabpage_administratif.cbx_word_premier_plan.checked = true
+else
+	tab_1.tabpage_administratif.cbx_word_premier_plan.checked = false
+end if
+
+// Lignes de soins dans les courriers Word
+tab_1.tabpage_administratif.em_nb_lignes_soins_word.text = profilestring(dir_ini+inifile_orthokis,"WORD","nb_lignes_soins","10")
+
+// Facture avec document Word
+if profilestring(dir_ini+inifile_orthokis,"WORD","facture_word","N") = "O" then
+	tab_1.tabpage_administratif.cbx_facture_word.checked = true
+else
+	tab_1.tabpage_administratif.cbx_facture_word.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"WORD","recu_word","N") = "O" then
+	tab_1.tabpage_administratif.cbx_recu_word.checked = true
+else
+	tab_1.tabpage_administratif.cbx_recu_word.checked = false
+end if
+
+
+
+
+// Imprimante Signature numérique 
+if tab_1.tabpage_administratif.ddlb_imprimante_signature_numerique.setImprimanteCourante( profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","signature_numerique","SIGNificant Client") )   <= 0 then
+	// l'imprimante n'est pas / plus dans la liste => imprimante par défaut
+	tab_1.tabpage_administratif.ddlb_imprimante_signature_numerique.setImprimanteCourante(tab_1.tabpage_administratif.ddlb_imprimante_signature_numerique.getimprimanteDefaut())
+end if
+
+
+
+// Sommue due famille sur lien de parenté
+if profilestring(dir_ini+inifile_orthokis,"admini","somme_due_famille","N") = "O" then 
+	tab_1.tabpage_administratif.cbx_somme_due_famille.checked = true
+else
+	tab_1.tabpage_administratif.cbx_somme_due_famille.checked = false
+end if
+
+
+// Ecriture des adultes soulignés
+if profilestring(dir_ini+inifile_orthokis,"admini","souligner_adultes","N") = "O" then 
+	tab_1.tabpage_administratif.cbx_souligner_adultes.checked = true
+else
+	tab_1.tabpage_administratif.cbx_souligner_adultes.checked = false
+end if
+
+// Affichage date d'accord
+string val_par_defaut
+if luxembourg then
+	val_par_defaut = "O" 
+else
+	val_par_defaut = "N" 
+end if 
+
+if profilestring(dir_ini+inifile_orthokis,"admini","afficher_date_accord",val_par_defaut) = "O" then 
+	tab_1.tabpage_administratif.cbx_afficher_date_accord.checked = true
+else
+	tab_1.tabpage_administratif.cbx_afficher_date_accord.checked = false
+end if
+
+// Assistant echénaces
+if profilestring(dir_ini+inifile_orthokis,"admini","afficher_assistant_echeances","N") = "O" then 
+	tab_1.tabpage_administratif.cbx_afficher_assistant_echeances.checked = true
+else
+	tab_1.tabpage_administratif.cbx_afficher_assistant_echeances.checked = false
+end if
+
+
+
+
+
+if belgique then
+	tab_1.tabpage_administratif.sle_belgique_format.text = profilestring(dir_ini+inifile_orthokis,"DEP-FSE","format_papier_attestation","0")
+	if profilestring(dir_ini+inifile_orthokis,"DEP-FSE","attestations_2016","N")  ="N" then 
+	 	tab_1.tabpage_administratif.cbx_attestations_2016.checked = false
+	else
+	 	tab_1.tabpage_administratif.cbx_attestations_2016.checked = true
+	end if
+	if profilestring(dir_ini+inifile_orthokis,"DEP-FSE","attestations_word","N")  ="N" then 
+	 	tab_1.tabpage_administratif.cbx_attestations_word.checked = false
+	else
+	 	tab_1.tabpage_administratif.cbx_attestations_word.checked = true
+	end if
+	
+	tab_1.tabpage_administratif.gb_soins.visible = false
+	tab_1.tabpage_administratif.cbx_soins_coches.visible = false
+	
+	if profilestring(dir_ini+inifile_orthokis,"DEP-FSE","supprimer_confirmation_eattest","N")  = "O" then 
+		tab_1.tabpage_administratif.cbx_supprimer_confirmation_eattest.checked = true
+	else
+		tab_1.tabpage_administratif.cbx_supprimer_confirmation_eattest.checked = FALSE
+	end if
+end if
+
+// Soins cochés après la saisie d'un règlement
+if not belgique then
+	if profilestring(dir_ini+inifile_orthokis,"admini","soins_coches_reglement","O")  ="N" then 
+		tab_1.tabpage_administratif.cbx_soins_coches.checked = false
+	else
+		tab_1.tabpage_administratif.cbx_soins_coches.checked = true
+	end if
+else
+		tab_1.tabpage_administratif.cbx_soins_coches.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"admini","alerte_somme_due_rdv","N") = "N" then 
+	tab_1.tabpage_administratif.cbx_alerte_somme_due_rdv.checked = false
+else
+	tab_1.tabpage_administratif.cbx_alerte_somme_due_rdv.checked = true
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"admini","afficher_barre_avance_clinique_soins","N") = "N" then 
+	tab_1.tabpage_administratif.cbx_afficher_barre_avance_clinique_soins.checked = false
+else
+	tab_1.tabpage_administratif.cbx_afficher_barre_avance_clinique_soins.checked = true
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"admini","masquer_decalages_menu_clic_droit","N") = "N" then 
+	tab_1.tabpage_administratif.cbx_masquer_decalage.checked = false
+else
+	tab_1.tabpage_administratif.cbx_masquer_decalage.checked = true
+end if
+
+
+
+if profilestring(dir_ini+inifile_orthokis,"admini","envoi_mail_document_signe","N") = "N" then 
+	tab_1.tabpage_administratif.cbx_envoi_mail_document_signe.checked = false
+else
+	tab_1.tabpage_administratif.cbx_envoi_mail_document_signe.checked = true
+end if
+
+
+
+ 
+
+// factures en PDF ou pas ... P = Publication
+if profilestring(dir_ini+inifile_orthokis,"admini","facture_pdf","N") = "O" then 
+	tab_1.tabpage_administratif.cbx_factures_pdf.checked = true
+	tab_1.tabpage_administratif.cbx_factures_pub_mon_ortho.visible = true
+	if profilestring(dir_ini+inifile_orthokis,"admini","factures_pub_mon_ortho","N") = "O" then 
+		tab_1.tabpage_administratif.cbx_factures_pub_mon_ortho.checked = true
+	else
+		tab_1.tabpage_administratif.cbx_factures_pub_mon_ortho.checked = false
+	end if
+else
+	tab_1.tabpage_administratif.cbx_factures_pdf.checked = false
+	tab_1.tabpage_administratif.cbx_factures_pub_mon_ortho.checked = false
+	tab_1.tabpage_administratif.cbx_factures_pub_mon_ortho.visible = false
+end if
+if profilestring(dir_ini+inifile_orthokis,"admini","recu_pdf","N") = "O" then 
+	tab_1.tabpage_administratif.cbx_recus_pdf.checked = true
+else
+	tab_1.tabpage_administratif.cbx_recus_pdf.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"admini","debit_credit_pdf","N") = "O" then 
+	tab_1.tabpage_administratif.cbx_debit_credit_pdf.checked = true
+else
+	tab_1.tabpage_administratif.cbx_debit_credit_pdf.checked = false
+end if
+
+
+
+
+
+
+
+
+// ONGLET CLINIQUE
+
+// Colonnes avec listes déroulantes
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","colonne3_deroulante","N") = "O" then
+	tab_1.tabpage_clinique.cbx_colonne3_deroulante.checked = true
+else
+	tab_1.tabpage_clinique.cbx_colonne3_deroulante.checked = false
+end if
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","colonne4_deroulante","N") = "O" then
+	tab_1.tabpage_clinique.cbx_colonne4_deroulante.checked = true
+else
+	tab_1.tabpage_clinique.cbx_colonne4_deroulante.checked = false
+end if
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","colonne5_deroulante","N") = "O" then
+	tab_1.tabpage_clinique.cbx_colonne5_deroulante.checked = true
+else
+	tab_1.tabpage_clinique.cbx_colonne5_deroulante.checked = false
+end if
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","colonne6_deroulante","N") = "O" then
+	tab_1.tabpage_clinique.cbx_colonne6_deroulante.checked = true
+else
+	tab_1.tabpage_clinique.cbx_colonne6_deroulante.checked = false
+end if
+
+	
+
+// Cadre qualité ou message prochain rdv par défaut
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","affichage_cadre","Q") = "Q" then
+	tab_1.tabpage_clinique.rb_qualite.checked = true
+	tab_1.tabpage_clinique.rb_prochain_rdv_message.checked = false
+else
+	tab_1.tabpage_clinique.rb_qualite.checked = false
+	tab_1.tabpage_clinique.rb_prochain_rdv_message.checked = true
+end if
+
+
+// Utilisation de la table des commentaires prédéfinis
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","table_predefinis","N") = "O" then
+	tab_1.tabpage_clinique.cbx_table_predefinis_commentaires_clin.checked = true
+else
+	tab_1.tabpage_clinique.cbx_table_predefinis_commentaires_clin.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","table_predefinis_memo_arbo","N") = "O" then
+	tab_1.tabpage_clinique.cbx_table_predefinis_memo_arbo.checked = true
+else
+	tab_1.tabpage_clinique.cbx_table_predefinis_memo_arbo.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","table_predefinis_sans_rtf","N") = "O" then
+	tab_1.tabpage_clinique.cbx_table_predefinis_sans_rtf.checked = true
+else
+	tab_1.tabpage_clinique.cbx_table_predefinis_sans_rtf.checked = false
+end if
+
+tab_1.tabpage_clinique.em_table_predefinis_largeur.text = profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","table_predefinis_largeur","1033")
+
+
+
+// Avec ou sans cadre diag / plan de traitement
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","avec_diag","N") = "O" then
+	tab_1.tabpage_clinique.cbx_diag_commentaires_clin.checked = true
+else
+	tab_1.tabpage_clinique.cbx_diag_commentaires_clin.checked = false
+end if
+
+// Diag non rtf
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","diag_non_rtf","N") = "O" then
+	tab_1.tabpage_clinique.cbx_diag_non_rtf.checked = true
+else
+	tab_1.tabpage_clinique.cbx_diag_non_rtf.checked = false
+end if
+
+// replacement des pages cliniques par l'assistant des diags
+if profilestring(dir_ini+inifile_orthokis,"Clinique","assistant","N") = "O" then
+	tab_1.tabpage_clinique.cbx_assistant_diagnostics.checked = true
+else
+	tab_1.tabpage_clinique.cbx_assistant_diagnostics.checked = false
+end if
+
+tab_1.tabpage_clinique.em_hauteur_lignes.text = string(profileInt(dir_ini+inifile_orthokis,"commentaires_cliniques","hauteur_lignes",0))
+
+
+
+
+// Création automatique d'un commenraires
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","creation_auto_ouverture","N") = "O" then
+	tab_1.tabpage_clinique.cbx_creation_auto_ouverture.checked = true
+else
+	tab_1.tabpage_clinique.cbx_creation_auto_ouverture.checked = false
+end if
+
+// Commentaires 2010
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","commentaires_2010","O") = "O" then
+	tab_1.tabpage_clinique.cbx_commentaires_2010.checked = true
+else
+	tab_1.tabpage_clinique.cbx_commentaires_2010.checked = false
+end if
+
+
+// Saisie et modification des lignes dans une fenêtre à part
+choose case profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","saisie_modif_a_part","N") 
+	case "N" 
+		tab_1.tabpage_clinique.rb_saisie_a_part_non.checked = true
+		tab_1.tabpage_clinique.rb_saisie_a_part_meme.checked = false
+		tab_1.tabpage_clinique.rb_saisie_a_part_autre.checked = false
+	case "M" 
+		tab_1.tabpage_clinique.rb_saisie_a_part_non.checked = false
+		tab_1.tabpage_clinique.rb_saisie_a_part_meme.checked = true
+		tab_1.tabpage_clinique.rb_saisie_a_part_autre.checked = false
+	case "A" 
+		tab_1.tabpage_clinique.rb_saisie_a_part_non.checked = false
+		tab_1.tabpage_clinique.rb_saisie_a_part_meme.checked = false
+		tab_1.tabpage_clinique.rb_saisie_a_part_autre.checked = true
+end choose
+
+// Liste déroulates ?
+if tab_1.tabpage_clinique.cbx_commentaires_2010.checked then
+	tab_1.tabpage_clinique.cbx_colonne3_deroulante.visible = true
+	tab_1.tabpage_clinique.cbx_colonne4_deroulante.visible = true
+	tab_1.tabpage_clinique.cbx_colonne5_deroulante.visible = true
+	tab_1.tabpage_clinique.cbx_colonne6_deroulante.visible = true
+else
+	tab_1.tabpage_clinique.cbx_colonne3_deroulante.visible = false
+	tab_1.tabpage_clinique.cbx_colonne4_deroulante.visible = false
+	tab_1.tabpage_clinique.cbx_colonne5_deroulante.visible = false
+	tab_1.tabpage_clinique.cbx_colonne6_deroulante.visible = false
+end if
+
+// Message RDV sans RTF
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","message_rdv_sans_rtf","O") = "O" then
+	tab_1.tabpage_clinique.cbx_message_rdv_sans_rtf.checked = true
+else
+	tab_1.tabpage_clinique.cbx_message_rdv_sans_rtf.checked = false
+end if
+
+// Plusieurs liegnes en ajout
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","pas_plusieurs_lignes_rtf","N") = "O" then
+	tab_1.tabpage_clinique.cbx_pas_plusieurs_lignes.checked = true
+else
+	tab_1.tabpage_clinique.cbx_pas_plusieurs_lignes.checked = false
+end if
+
+// Ordre de tri
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","ordre_tri","D") = "D" then
+	tab_1.tabpage_clinique.rb_tri_commentaires_decroissant.checked = true
+	tab_1.tabpage_clinique.rb_tri_commentaires_croissant.checked = false
+else
+	tab_1.tabpage_clinique.rb_tri_commentaires_croissant.checked = true
+	tab_1.tabpage_clinique.rb_tri_commentaires_decroissant.checked = false
+end if
+
+
+// Plan de traitement multiples
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","plans_mutiples","N") = "O" then
+	tab_1.tabpage_clinique.cbx_plans_multiples.checked = true
+else
+	tab_1.tabpage_clinique.cbx_plans_multiples.checked = false
+end if
+
+// page photos rapide (commentaires)
+tab_1.tabpage_clinique.sle_page_photos.text=profilestring(dir_ini+inifile_orthokis,"photos","page_clinique","")
+
+if profilestring(dir_ini+inifile_orthokis,"photos","page_clinique_presentation",oui) = oui then
+	tab_1.tabpage_clinique.cbx_sommaire.checked = true
+else
+	tab_1.tabpage_clinique.cbx_sommaire.checked = false
+end if
+
+// infobulles
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","barre_avancement_infobulle","O") = "O" then
+	tab_1.tabpage_clinique.cbx_barre_avancement_infobulle.checked = true
+else
+	tab_1.tabpage_clinique.cbx_barre_avancement_infobulle.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","multiligne_infobulle","O") = "O" then
+	tab_1.tabpage_clinique.cbx_multiligne_infobulle.checked = true
+else
+	tab_1.tabpage_clinique.cbx_multiligne_infobulle.checked = false
+end if
+
+
+// Lien kitview
+if kitview then
+	tab_1.tabpage_clinique.gb_kitview.visible = true
+	tab_1.tabpage_clinique.cbx_fermer_kitview.visible = true
+	if profilestring(dir_ini+inifile_orthokis,"KITVIEW","fermer_apres_acquisition","O") = "O" then
+		tab_1.tabpage_clinique.cbx_fermer_kitview.checked = true
+	else
+		tab_1.tabpage_clinique.cbx_fermer_kitview.checked = false
+	end if
+end if
+
+
+if profilestring(dir_ini+inifile_orthokis,"admini","zone_remarque_commentaires","N") = "O" then 
+	tab_1.tabpage_clinique.cbx_zone_remarque_commentaires.checked = true
+else
+	tab_1.tabpage_clinique.cbx_zone_remarque_commentaires.checked = false
+end if
+
+
+
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","remarques_sans_rtf","N") = "O" then 
+	tab_1.tabpage_clinique.cbx_remarques_sans_rtf.checked = true
+else
+	tab_1.tabpage_clinique.cbx_remarques_sans_rtf.checked = false
+end if
+
+
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","temps_restant","N") = "O" then 
+	tab_1.tabpage_clinique.cbx_temps_restant.checked = true
+else
+	tab_1.tabpage_clinique.cbx_temps_restant.checked = false
+end if
+
+tab_1.tabpage_clinique.em_rafraichissement_temps_restant.text = profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rafraichissement_temps_restant","120")
+
+
+
+// ONGLET IMAGERIE 2013
+
+
+if profilestring(dir_ini+inifile_orthokis,"explorateur_photos_2013","position_outils","D") = "D" then
+	tab_1.tabpage_imagerie_2013.rb_outils_explorateur_2013_droite.checked = true
+	tab_1.tabpage_imagerie_2013.rb_outils_explorateur_2013_gauche.checked = false
+else
+	tab_1.tabpage_imagerie_2013.rb_outils_explorateur_2013_droite.checked = false
+	tab_1.tabpage_imagerie_2013.rb_outils_explorateur_2013_gauche.checked = true
+end if
+
+
+if profilestring(dir_ini+inifile_orthokis,"explorateur_photos_2013","a_part","N") = "O" then
+	tab_1.tabpage_imagerie_2013.cbx_imagerie_2013_a_part.checked = true
+else
+	tab_1.tabpage_imagerie_2013.cbx_imagerie_2013_a_part.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"explorateur_photos_2013","ouverture_editeur","O") = "O" then
+	tab_1.tabpage_imagerie_2013.cbx_ouverture_editeur.checked = true
+else
+	tab_1.tabpage_imagerie_2013.cbx_ouverture_editeur.checked = false
+end if
+
+
+
+
+
+
+// couleur groupe
+tab_1.tabpage_imagerie_2013.sle_imagerie_2013_couleur_groupe.backcolor = long(profilestring(dir_ini+inifile_orthokis,"explorateur_photos_2013","couleur_groupe", string(couleur_jaune)))
+
+// Types d'images et temps de traitement
+
+tab_1.tabpage_imagerie_2013.uo_fiche_admini.initialisation("identite_administrative", true)
+tab_1.tabpage_imagerie_2013.uo_identite_clinique.initialisation("identite_commentaires_cliniques", true)
+
+// Photos dans commentaires cliniques
+
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","nb_cadres_photos","") = "" then
+	// Pas encore initialisé => on regarde l'ancien paramètres pour dire 4 ou 0
+	if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","quatre_photos","false") = "true" then
+		SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","nb_cadres_photos","4")
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","nb_cadres_photos","0")
+	end if
+end if
+
+tab_1.tabpage_imagerie_2013.em_nb_cadres_images_commentaires.text = Profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","nb_cadres_photos","0")
+
+tab_1.tabpage_imagerie_2013.uo_clinique_1.initialisation("cadre_1_commentaires_cliniques", true)
+tab_1.tabpage_imagerie_2013.uo_clinique_2.initialisation("cadre_2_commentaires_cliniques", true)
+tab_1.tabpage_imagerie_2013.uo_clinique_3.initialisation("cadre_3_commentaires_cliniques", true)
+tab_1.tabpage_imagerie_2013.uo_clinique_4.initialisation("cadre_4_commentaires_cliniques", true)
+tab_1.tabpage_imagerie_2013.uo_clinique_5.initialisation("cadre_5_commentaires_cliniques", true)
+tab_1.tabpage_imagerie_2013.uo_clinique_6.initialisation("cadre_6_commentaires_cliniques", true)
+tab_1.tabpage_imagerie_2013.uo_clinique_7.initialisation("cadre_7_commentaires_cliniques", true)
+tab_1.tabpage_imagerie_2013.uo_clinique_8.initialisation("cadre_8_commentaires_cliniques", true)
+
+tab_1.tabpage_imagerie_2013.uo_diag_1.initialisation("cadre_1_diagnostic", true)
+tab_1.tabpage_imagerie_2013.uo_diag_2.initialisation("cadre_2_diagnostic", true)
+
+
+tab_1.tabpage_imagerie_2013.uo_acquisition_radio.initialisation("radio", false)
+tab_1.tabpage_imagerie_2013.uo_acquisition_pano.initialisation("pano", false)
+
+
+
+if profilestring(dir_ini+inifile_orthokis,"photos","iden","") = "true" then
+	tab_1.tabpage_imagerie_2013.cbx_photo_iden_2013.checked = true
+else
+	tab_1.tabpage_imagerie_2013.cbx_photo_iden_2013.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"photos","iden_clinique","") = "true" then
+	tab_1.tabpage_imagerie_2013.cbx_photo_iden_clinique_2013.checked = true
+else
+	tab_1.tabpage_imagerie_2013.cbx_photo_iden_clinique_2013.checked = false
+end if
+
+
+if profilestring(dir_ini+inifile_orthokis,"photos","images_sur_fond_noir","false") = "true" then
+	tab_1.tabpage_imagerie_2013.cbx_images_sur_fond_noir_2013.checked = true
+else
+	tab_1.tabpage_imagerie_2013.cbx_images_sur_fond_noir_2013.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"photos","editeur_2013_par_defaut","false") = "true" then
+	tab_1.tabpage_imagerie_2013.cbx_editeur_2013_par_defaut.checked = true
+else
+	tab_1.tabpage_imagerie_2013.cbx_editeur_2013_par_defaut.checked = false
+end if
+
+
+tab_1.tabpage_imagerie_2013.ddlb_forme_du_cadre.text = profilestring(dir_ini+inifile_orthokis,"photos","forme_du_cadre","Oval")
+
+if profilestring(dir_ini+inifile_orthokis,"photos","afficher_nom_fichier_survol","false") = "true" then
+	tab_1.tabpage_imagerie_2013.cbx_afficher_nom_fichier_survol.checked = true
+else
+	tab_1.tabpage_imagerie_2013.cbx_afficher_nom_fichier_survol.checked = false
+end if
+
+// Acquisition des photos dans la barre d'outils et dans le module imagerie
+// 1 -> Fichiers
+// 2 -> TWAIN
+// 3 -> Fichiers avec Script
+// 4 -> Fichier Wifi
+// 5-> Scriots wiFi
+//tab_1.tabpage_imagerie_2013.ddlb_acquisition_2013.Selectitem(profileInt(dir_ini+inifile_orthokis,"toolbar_3","acquisition",1))
+
+
+// ONGLET DIVERS
+//-------------------------
+tab_1.tabpage_divers.cbx_sauvegarde_auto.checked = save_base.get_sauvegarde_auto()
+
+// Mémo des patients courants ?
+if profileString(dir_ini+inifile_orthokis,"Patients_Courants","Memo","N") = "N" then
+	tab_1.tabpage_divers.cbx_memo_patient_memoire.checked = false
+else
+	tab_1.tabpage_divers.cbx_memo_patient_memoire.checked = true
+end if
+
+// Ouverture de la liste des patients à recontacter
+if profileString(dir_ini+inifile_orthokis,"Ouverture","liste_patients_a_recontacter","N") = "N" then
+	tab_1.tabpage_divers.cbx_liste_patients_a_recontacter.checked = false
+else
+	tab_1.tabpage_divers.cbx_liste_patients_a_recontacter.checked = true
+end if
+
+// Fenetre de connexion animée
+if profileString(dir_ini+inifile_orthokis,"Ouverture","ouverture_animee","O") = "O" then
+	tab_1.tabpage_divers.cbx_ouverture_animee.checked = true
+else
+	tab_1.tabpage_divers.cbx_ouverture_animee.checked = false
+end if
+
+// Recherche de mise à jour au lancement
+if profilestring(dir_ini+inifile_orthokis,"Ouverture","recherche_mise_a_jour","O") = "O" then
+	tab_1.tabpage_divers.cbx_recherche_mise_a_jour.checked = true
+else
+	tab_1.tabpage_divers.cbx_recherche_mise_a_jour.checked = false
+end if
+
+
+
+tab_1.tabpage_divers.ddlb_recherche.Selectitem(profileInt(dir_ini+inifile_orthokis,"recherche","rechercher_par",1))
+
+// Saisies suggerees
+if profilestring(dir_ini+inifile_orthokis,"recherche","desactiver_saisies_suggerees","N") = "O" then
+	tab_1.tabpage_divers.cbx_desactiver_saisies_surggerees.checked = true
+else
+	tab_1.tabpage_divers.cbx_desactiver_saisies_surggerees.checked = false
+end if
+
+
+// traçabilité
+if profileString(dir_ini+inifile_orthokis,"Stock_Tracabilité","pas_alerte_sterilisation","N") = "N" then
+	tab_1.tabpage_divers.cbx_pas_alerte_sterilisation.checked = false
+else
+	tab_1.tabpage_divers.cbx_pas_alerte_sterilisation.checked = true
+end if
+
+if profileString(dir_ini+inifile_orthokis,"Stock_Tracabilité","verif_seuil_alerte","N") = "N" then
+	tab_1.tabpage_divers.cbx_verif_seuil_alerte.checked = false
+else
+	tab_1.tabpage_divers.cbx_verif_seuil_alerte.checked = true
+end if
+
+if profileString(dir_ini+inifile_orthokis,"Stock_Tracabilité","imprimer_lot_etiquettes","N") = "N" then
+	tab_1.tabpage_divers.cbx_imprimer_lot.checked = false
+else
+	tab_1.tabpage_divers.cbx_imprimer_lot.checked = true
+end if
+
+tab_1.tabpage_divers.ddlb_recherche_produit.Selectitem(profileInt(dir_ini+inifile_orthokis,"recherche", "Stock_Tracabilité",1))
+
+if profileString(dir_ini+inifile_orthokis,"Stock_Tracabilité","tri_fenetre_tracabilite","C") = "C" then
+	tab_1.tabpage_divers.rb_tracabilite_croissant.checked = true
+else
+	tab_1.tabpage_divers.rb_tracabilite_decroissant.checked = true
+end if
+
+// Mon Orthodontiste
+if profileString(dir_ini+inifile_orthokis,"Mon Orthodontiste","alerte_salle_attente","O") = "O" then
+	tab_1.tabpage_divers.cbx_alerte_salle_attente.checked = true
+else
+	tab_1.tabpage_divers.cbx_alerte_salle_attente.checked = false
+end if
+
+if long(profilestring(dir_ini+inifile_orthokis,"Mon Orthodontiste","couleur_alerte_salle_attente","255")) > 0 then
+	// avant 2024, on stockait la valeur RGB
+	Setprofilestring(dir_ini+inifile_orthokis,"Mon Orthodontiste","couleur_alerte_salle_attente","Rouge")
+end if
+
+tab_1.tabpage_divers.ddlb_couleur_alerte_salle_attente.text = profilestring(dir_ini+inifile_orthokis,"Mon Orthodontiste","couleur_alerte_salle_attente","Rouge")
+
+
+	
+	
+	
+	
+// Onglets fiche admini
+tab_1.tabpage_divers.ddlb_admini_onglets.Selectitem(profileInt(dir_ini+inifile_orthokis,"admini","onglets",2))
+
+
+// Ouverture des saints
+tab_1.tabpage_divers.ddlb_saints.Selectitem(profileInt(dir_ini+inifile_orthokis,"SAINTS","ouverture",1))
+
+
+// Ouverture des taches
+tab_1.tabpage_divers.ddlb_taches.Selectitem(profileInt(dir_ini+inifile_orthokis,"TACHES","ouverture",1))
+
+
+// Police de caractères par défaut pour les RTF
+tab_1.tabpage_divers.sle_rtf_nom_police.text = Profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_nom_police","Tahoma")
+tab_1.tabpage_divers.sle_rtf_couleur_police.backcolor = long(Profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_couleur_police","0"))
+tab_1.tabpage_divers.sle_rtf_taille_police.text = Profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_taille_police","10")
+if Profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_gras_police","N") = "O" then
+	tab_1.tabpage_divers.cbx_rtf_gras_police.checked = true
+else
+	tab_1.tabpage_divers.cbx_rtf_gras_police.checked = false
+end if
+if Profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_italique_police","N") = "O" then
+	tab_1.tabpage_divers.cbx_rtf_italique_police.checked = true
+else
+	tab_1.tabpage_divers.cbx_rtf_italique_police.checked = false
+end if
+if Profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_souligne_police","N") = "O" then
+	tab_1.tabpage_divers.cbx_rtf_souligne_police.checked = true
+else
+	tab_1.tabpage_divers.cbx_rtf_souligne_police.checked = false
+end if
+
+if Profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","menu_rtf","A") = "A" then
+	tab_1.tabpage_divers.rb_menu_rtf_automatique.checked = true
+	tab_1.tabpage_divers.rb_menu_rtf_clic_droit.checked = false
+else
+	tab_1.tabpage_divers.rb_menu_rtf_automatique.checked = false
+	tab_1.tabpage_divers.rb_menu_rtf_clic_droit.checked = true
+end if
+
+
+// change settings ( Strikeout not supported by Statictext control )
+tab_1.tabpage_divers.st_test_police.FaceName	= tab_1.tabpage_divers.sle_rtf_nom_police.Text
+tab_1.tabpage_divers.st_test_police.TextSize	= integer(tab_1.tabpage_divers.sle_rtf_taille_police.Text)
+if tab_1.tabpage_divers.cbx_rtf_gras_police.checked	then
+	tab_1.tabpage_divers.st_test_police.Weight		= 700
+else
+	tab_1.tabpage_divers.st_test_police.Weight		= 400
+end if
+tab_1.tabpage_divers.st_test_police.TextColor	= tab_1.tabpage_divers.sle_rtf_couleur_police.BackColor
+tab_1.tabpage_divers.st_test_police.Italic		= tab_1.tabpage_divers.cbx_rtf_italique_police.checked
+tab_1.tabpage_divers.st_test_police.Underline	= tab_1.tabpage_divers.cbx_rtf_souligne_police.checked
+
+tab_1.tabpage_divers.sle_url_licences.text = Profilestring(dir_ini+inifile_orthokis,"connexion","url_licences","")
+
+if  Profilestring(dir_ini+inifile_orthokis,"connexion","licence_logicielle","O") = "O" then
+	tab_1.tabpage_divers.cbx_licence_logicielle.checked = true
+else
+	tab_1.tabpage_divers.cbx_licence_logicielle.checked = false
+end if
+
+
+// Luxembourg
+tab_1.tabpage_divers.sle_url_econnector.text = Profilestring(dir_ini+inifile_orthokis,"LUXEMBOURG","url_econnector","http://localhost:16900/")
+tab_1.tabpage_divers.sle_exe_econnector.text = Profilestring(dir_ini+inifile_orthokis,"LUXEMBOURG","exe_econnector","")
+
+
+// Messagerie 
+
+// Paramètres de la messagerie instantanée
+// Fermeture
+if Profilestring(dir_ini+inifile_orthokis,"MESSAGERIE","fermeture_Orthokis","N") = "O" then
+	tab_1.tabpage_divers.cbx_messagerie.checked = true
+else
+	tab_1.tabpage_divers.cbx_messagerie.checked = false
+end if
+
+// Ouverture
+if Profilestring(dir_ini+inifile_orthokis,"MESSAGERIE","ouverture_Orthokis","O") = "O" then
+	tab_1.tabpage_divers.cbx_lancement_messagerie.checked = true
+else
+	tab_1.tabpage_divers.cbx_lancement_messagerie.checked = false
+end if
+
+// Luxembourg
+tab_1.tabpage_divers.sle_url_licences.text = Profilestring(dir_ini+inifile_orthokis,"connexion","url_licences","")
+
+
+
+// ONGLET CTI
+//-------------------------
+
+
+// lien activé ?
+
+if profilestring(dir_ini+inifile_orthokis,"CTI","lien_active","N") = "O" then
+	tab_1.tabpage_cti.cbx_lien_active.checked = true
+else
+	tab_1.tabpage_cti.cbx_lien_active.checked = false
+end if
+
+
+tab_1.tabpage_cti.sle_numero_sortir.text =  profilestring(dir_ini+inifile_orthokis,"CTI","numero_sortir","")
+tab_1.tabpage_cti.em_ignorer.text =  profilestring(dir_ini+inifile_orthokis,"CTI","ignorer","")
+
+if profilestring(dir_ini+inifile_orthokis,"CTI","verif_ligne_sortie","O") = "O" then
+	tab_1.tabpage_cti.cbx_verif_ligne.checked = true
+else
+	tab_1.tabpage_cti.cbx_verif_ligne.checked = false
+end if
+
+
+// ANCIENNE IMAGERIE
+
+// Photos dans commentaires cliniques
+if profilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","quatre_photos","false") = "true" then
+	tab_1.tabpage_imagerie.cbx_photos_commentaires_cliniques.checked = true
+else
+	tab_1.tabpage_imagerie.cbx_photos_commentaires_cliniques.checked = false
+end if
+
+
+// Nom des cadres photos 
+tab_1.tabpage_imagerie.ddlb_image1.SelectItem(profileInt(dir_ini+inifile_orthokis,"commentaires_cliniques","cadre_1",0))
+tab_1.tabpage_imagerie.ddlb_image2.SelectItem(profileInt(dir_ini+inifile_orthokis,"commentaires_cliniques","cadre_2",0))
+tab_1.tabpage_imagerie.ddlb_image3.SelectItem(profileInt(dir_ini+inifile_orthokis,"commentaires_cliniques","cadre_3",0))
+tab_1.tabpage_imagerie.ddlb_image4.SelectItem(profileInt(dir_ini+inifile_orthokis,"commentaires_cliniques","cadre_4",0))
+
+
+if profilestring(dir_ini+inifile_orthokis,"photos","iden","") = "true" then
+	tab_1.tabpage_imagerie.cbx_photo_iden.checked = true
+else
+	tab_1.tabpage_imagerie.cbx_photo_iden.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"photos","iden_clinique","") = "true" then
+	tab_1.tabpage_imagerie.cbx_photo_iden_clinique.checked = true
+else
+	tab_1.tabpage_imagerie.cbx_photo_iden_clinique.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"photos","masquer_iden_dans_imagerie","false") = "true" then
+	tab_1.tabpage_imagerie.cbx_masquer_iden_dans_imagerie.checked = true
+else
+	tab_1.tabpage_imagerie.cbx_masquer_iden_dans_imagerie.checked = false
+end if
+
+if profilestring(dir_ini+inifile_orthokis,"photos","images_sur_fond_noir","false") = "true" then
+	tab_1.tabpage_imagerie.cbx_images_sur_fond_noir.checked = true
+else
+	tab_1.tabpage_imagerie.cbx_images_sur_fond_noir.checked = false
+end if
+
+// Acquisition des photos dans la barre d'outils et dans le module imagerie
+// 1 -> Fichiers
+// 2 -> TWAIN
+// 3 -> Fichiers avec Script
+// 4 -> Fichier Wifi
+// 5-> Scriots wiFi
+tab_1.tabpage_imagerie.ddlb_acquisition.Selectitem(profileInt(dir_ini+inifile_orthokis,"toolbar_3","acquisition",1))
+tab_1.tabpage_imagerie.ddlb_acquisition_imagerie.Selectitem(profileInt(dir_ini+inifile_orthokis,"photos","acquisition_imagerie",4))
+
+
+
+end subroutine
+
+event open;call super::open;//instancie les uo
+save_base = create sauvegarde_base
+
+uo_vixwin = create uo_lien_vixwin
+uo_trophy = create uo_lien_trophy
+uo_mediadent = create uo_lien_mediadent
+uo_sidexis = create uo_lien_sidexis
+uo_durrdental = create uo_lien_durrdental 
+uo_myray = create lien_myray 
+uo_rayscan = create lien_rayscan
+//uo_3Shape = create lien_3Shape
+radios_2015 = create lien_radios_2015
+
+
+
+tab_1.tabpage_salle_attente.dw_prati.settransobject(sqlca)
+tab_1.tabpage_salle_attente.dw_prati.retrieve()
+
+// On disable l'onglet si pas le module
+tab_1.tabpage_cti.enabled = cti
+
+
+// Initialisation des dropDow des liste d'images
+//charge la ddlb avec les noms du fichiers pwophoto.INI
+LoadDdlbPhoto ( tab_1.tabpage_imagerie.ddlb_image1 , "" )
+
+// recopie de la premièere liste pour éviter des load
+long i
+for i = 1 to  tab_1.tabpage_imagerie.ddlb_image1.totalitems()
+	tab_1.tabpage_imagerie.ddlb_image1.selectitem(i)
+	tab_1.tabpage_imagerie.ddlb_image2.AddItem(tab_1.tabpage_imagerie.ddlb_image1.text)
+	tab_1.tabpage_imagerie.ddlb_image3.AddItem(tab_1.tabpage_imagerie.ddlb_image1.text)
+	tab_1.tabpage_imagerie.ddlb_image4.AddItem(tab_1.tabpage_imagerie.ddlb_image1.text)
+next
+
+// Si pas la réplication, on masque les options ...
+if not utilisation_distante then
+	tab_1.tabpage_repertoires.gb_replic.visible = false
+	tab_1.tabpage_repertoires.st_photos_replic.visible = false
+	tab_1.tabpage_repertoires.st_courriers_replic.visible = false
+	tab_1.tabpage_repertoires.sle_photos_replic.visible = false
+	tab_1.tabpage_repertoires.sle_courriers_replic.visible = false
+	tab_1.tabpage_repertoires.pb_photos_replic.visible = false
+	tab_1.tabpage_repertoires.pb_courriers_replic.visible = false
+	tab_1.tabpage_repertoires.rb_replic_base_odrade_cabinet.visible = false
+	tab_1.tabpage_repertoires.rb_replic_base_odrade_locale.visible = false
+	tab_1.tabpage_repertoires.st_replic_base_odrade.visible = false
+	tab_1.tabpage_repertoires.pb_recherche_rep_replic_orthokis.visible = false
+	tab_1.tabpage_repertoires.pb_recherche_rep_replic_odrade.visible = false
+end if
+
+
+// Spécial belgique
+// on affiche les infos pour papier attestation -  sinon on les masque => boolean belgique
+tab_1.tabpage_administratif.gb_belgique.visible = belgique
+tab_1.tabpage_administratif.sle_belgique_format.visible = belgique
+tab_1.tabpage_administratif.st_belgique_format.visible = belgique
+tab_1.tabpage_administratif.st_belgique_avertissement.visible = belgique
+tab_1.tabpage_administratif.cbx_attestations_2016.visible = belgique
+tab_1.tabpage_administratif.cbx_attestations_word.visible = belgique
+tab_1.tabpage_administratif.pb_cadrage_ads.visible = belgique
+tab_1.tabpage_administratif.cbx_supprimer_confirmation_eattest.visible = belgique
+
+
+// Imagerie 2013 ou pas
+if imagerie_2013 then
+	tab_1.tabpage_imagerie_2013.visible = true
+	tab_1.tabpage_imagerie.visible = false
+else
+	tab_1.tabpage_imagerie_2013.visible = false
+	tab_1.tabpage_imagerie.visible = true
+	open(w_avertissement_imagerie_non_2013)
+end if
+
+
+if not france then
+	tab_1.tabpage_administratif.gb_dep.visible = false
+	tab_1.tabpage_administratif.cbx_active_impr_specif_dep.visible = false
+	tab_1.tabpage_administratif.ddlb_imprimante_dep.visible = false
+	tab_1.tabpage_administratif.cbx_dep_integre.visible = false
+	tab_1.tabpage_administratif.cb_imprimantes_praticiens.visible = false
+	tab_1.tabpage_administratif.cbx_dep_utiliser_cadagre_local.visible = false
+	
+	tab_1.tabpage_administratif.cbx_masquer_decalage.visible = false
+	tab_1.tabpage_administratif.cb_cadrage_local.visible = false
+	
+	
+	if Belgique then
+		tab_1.tabpage_administratif.gb_fs.text = "Attestions de Soins"
+	end if
+	
+	
+	tab_1.tabpage_salle_attente.cbx_alerte_dep.visible = false
+	tab_1.tabpage_salle_attente.em_nb_jours_alerte_dep.visible = false
+	tab_1.tabpage_salle_attente.st_dep_38.visible = false
+	
+	// factures en PDF ou pas .. pas hors de france !
+	if Luxembourg then
+		tab_1.tabpage_administratif.cbx_factures_pdf.visible = true
+		tab_1.tabpage_administratif.cbx_facture_word.visible = false
+	else
+		tab_1.tabpage_administratif.cbx_factures_pdf.visible = false
+	end if
+end if
+
+
+if  CCVITALE then
+	tab_1.tabpage_administratif.cbx_quitter_televitale.visible = true
+	if version_ce_logiciel < "36.90" then 
+		tab_1.tabpage_administratif.cbx_forcer_adri.visible = false
+	else
+			tab_1.tabpage_administratif.cbx_forcer_adri.visible = true
+	end if
+else
+
+	tab_1.tabpage_administratif.cbx_quitter_televitale.visible = false
+
+	tab_1.tabpage_administratif.gb_vitale.visible = false
+	tab_1.tabpage_administratif.st_vitale_15.visible = false
+	tab_1.tabpage_administratif.st_vitale_50.visible = false
+	tab_1.tabpage_administratif.em_nombre_boucle_vitale.visible = false
+	tab_1.tabpage_administratif.st_vitale_30.visible = false
+	tab_1.tabpage_administratif.em_duree_boucle_vitale.visible = false
+end if
+
+
+if WAIT_AND_SMILE then
+	tab_1.tabpage_salle_attente.gb_wait_and_smile.visible = true
+	tab_1.tabpage_salle_attente.sle_wait_and_smile_lieu.visible = true
+else
+	tab_1.tabpage_salle_attente.sle_wait_and_smile_lieu.visible = false
+	tab_1.tabpage_salle_attente.gb_wait_and_smile.visible = false
+end if
+
+if SIGNATURE_NUMERIQUE then
+	tab_1.tabpage_administratif.gb_signature_numerique.visible = true
+	tab_1.tabpage_administratif.ddlb_imprimante_signature_numerique.visible = true
+else
+	tab_1.tabpage_administratif.ddlb_imprimante_signature_numerique.visible = false
+	tab_1.tabpage_administratif.gb_signature_numerique.visible = false
+end if
+
+// affiche les infos
+get_infos()
+
+
+// Mise à jour centralisée 
+string v_maj
+
+select top 1  maj_orthokis_centralisee, chemin_maj_orthokis_centralisee
+into :v_maj, :v_rep_mise_jour_centralise 
+from param ;
+
+if v_maj = "O" then 
+	pb_memo_ini.visible = true
+	pb_restau_ini.visible = true
+end if
+
+
+if MON_ORTHODONTISTE OR TEA then
+
+	tab_1.tabpage_divers.gb_mon_orthodontiste.visible = true
+	tab_1.tabpage_divers.cbx_alerte_salle_attente.visible = true
+	tab_1.tabpage_divers.ddlb_couleur_alerte_salle_attente.visible = true
+	tab_1.tabpage_divers.st_alerte_salle_attente.visible = true
+	
+	if TEA then
+		tab_1.tabpage_divers.gb_mon_orthodontiste.text = "Application " + LIBELLE_APPLICATION
+		tab_1.tabpage_administratif.cbx_factures_pub_mon_ortho.text = "Pub " + LIBELLE_APPLICATION
+
+	end if
+	
+end if
+
+
+//ouverture
+uo_resize.taille(this)
+
+string s_ip_externe
+s_ip_externe = fxg_get_ip_externe()
+
+if s_ip_externe = "185.163.138.254" or s_ip_externe = "90.63.220.252" or s_ip_externe = "81.250.224.58"  or s_ip_externe = "185.147.67.35" or s_ip_externe = "46.18.224.156" then
+	// ip externes de Valence ou Dijon
+	tab_1.tabpage_administratif.gb_tests_imprimantes.visible = true
+	tab_1.tabpage_administratif.cb_test_recto_dep.visible = true
+	tab_1.tabpage_administratif.cb_test_recto_verso_dep.visible = true
+	tab_1.tabpage_administratif.cb_test_fs.visible = true
+end if
+
+
+if  luxembourg then
+	
+	tab_1.tabpage_divers.gb_econnector.visible = true
+	tab_1.tabpage_divers.st_url_econnector.visible = true
+	tab_1.tabpage_divers.sle_url_econnector.visible = true
+	tab_1.tabpage_divers.cb_tester_url_econector.visible = true
+	tab_1.tabpage_divers.pb_exe_econnector.visible = true
+	tab_1.tabpage_divers.st_exe_econnector.visible = true
+	tab_1.tabpage_divers.sle_exe_econnector.visible = true
+end if
+
+if version_ce_logiciel < "36.90" then
+	tab_1.tabpage_imagerie_2013.cbx_afficher_nom_fichier_survol.visible = false
+	tab_1.tabpage_administratif.st_table_predefinis_admini_largeur.visible = false
+	tab_1.tabpage_administratif.em_table_predefinis_admini_largeur.visible = false
+end if
+
+colore_tous_objets_tab(tab_1, couleur_fond_datawindow)
+
+
+
+end event
+
+on w_environnement.create
+int iCurrent
+call super::create
+this.cb_enregistrer=create cb_enregistrer
+this.cb_fermer=create cb_fermer
+this.cb_annuler=create cb_annuler
+this.tab_1=create tab_1
+this.st_12=create st_12
+this.uo_resize=create uo_resize
+this.pb_memo_ini=create pb_memo_ini
+this.pb_restau_ini=create pb_restau_ini
+this.dw_tests_imprimantes=create dw_tests_imprimantes
+this.cb_optimiser=create cb_optimiser
+this.pb_aide=create pb_aide
+this.gb_5=create gb_5
+this.gb_41=create gb_41
+this.gb_34=create gb_34
+this.gb_43=create gb_43
+this.gb_44=create gb_44
+this.gb_49=create gb_49
+iCurrent=UpperBound(this.Control)
+this.Control[iCurrent+1]=this.cb_enregistrer
+this.Control[iCurrent+2]=this.cb_fermer
+this.Control[iCurrent+3]=this.cb_annuler
+this.Control[iCurrent+4]=this.tab_1
+this.Control[iCurrent+5]=this.st_12
+this.Control[iCurrent+6]=this.uo_resize
+this.Control[iCurrent+7]=this.pb_memo_ini
+this.Control[iCurrent+8]=this.pb_restau_ini
+this.Control[iCurrent+9]=this.dw_tests_imprimantes
+this.Control[iCurrent+10]=this.cb_optimiser
+this.Control[iCurrent+11]=this.pb_aide
+this.Control[iCurrent+12]=this.gb_5
+this.Control[iCurrent+13]=this.gb_41
+this.Control[iCurrent+14]=this.gb_34
+this.Control[iCurrent+15]=this.gb_43
+this.Control[iCurrent+16]=this.gb_44
+this.Control[iCurrent+17]=this.gb_49
+end on
+
+on w_environnement.destroy
+call super::destroy
+destroy(this.cb_enregistrer)
+destroy(this.cb_fermer)
+destroy(this.cb_annuler)
+destroy(this.tab_1)
+destroy(this.st_12)
+destroy(this.uo_resize)
+destroy(this.pb_memo_ini)
+destroy(this.pb_restau_ini)
+destroy(this.dw_tests_imprimantes)
+destroy(this.cb_optimiser)
+destroy(this.pb_aide)
+destroy(this.gb_5)
+destroy(this.gb_41)
+destroy(this.gb_34)
+destroy(this.gb_43)
+destroy(this.gb_44)
+destroy(this.gb_49)
+end on
+
+event resize;uo_resize.retaille(this)
+end event
+
+event close;call super::close;destroy sauvegarde_base
+
+destroy uo_vixwin
+destroy uo_trophy
+destroy uo_mediadent
+destroy uo_sidexis
+destroy uo_durrdental
+destroy uo_myray
+ 
+destroy uo_rayscan
+//destroy uo_3Shape
+
+
+end event
+
+event timer;call super::timer;if version_ce_logiciel >= "36.90" then
+	Timer(0)
+	fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
+end if
+
+
+end event
+
+type p_fond from w_fenetre_arakis`p_fond within w_environnement
+integer x = 1614
+integer y = 2020
+end type
+
+type cb_enregistrer from uo_picturebutton_390x120 within w_environnement
+integer x = 4087
+integer y = 2768
+integer width = 512
+integer height = 132
+integer taborder = 30
+string text = "&Enregistrer"
+string iconname = "ACTIONS_enregistrer.png"
+end type
+
+event clicked;call super::clicked;
+integer v_index
+integer v_numero_theme, v_numero_style, v_numero_onglet
+string v_nom_theme, v_nom_theme_global
+
+
+integer v_numero_theme_ancien, v_numero_style_ancien
+string v_nom_theme_ancien, v_nom_theme_global_ancien
+
+
+Try 
+	
+	open(w_patience)
+	
+	// ONGLET SONS
+	//-------------------------
+	if tab_1.tabpage_sons.cbx_sons_actifs.checked then
+		setprofilestring(dir_ini+inifile_orthokis,"sons","activer","true") 
+	else
+		setprofilestring(dir_ini+inifile_orthokis,"sons","activer","false") 
+	end if
+	setprofilestring(dir_ini+inifile_orthokis,"sons","son1",tab_1.tabpage_sons.sle_son1.text)
+	setprofilestring(dir_ini+inifile_orthokis,"sons","son2",tab_1.tabpage_sons.sle_son2.text)
+	setprofilestring(dir_ini+inifile_orthokis,"sons","son3",tab_1.tabpage_sons.sle_son3.text)
+	setprofilestring(dir_ini+inifile_orthokis,"sons","son4",tab_1.tabpage_sons.sle_son4.text)
+	setprofilestring(dir_ini+inifile_orthokis,"sons","son5",tab_1.tabpage_sons.sle_son5.text)
+	setprofilestring(dir_ini+inifile_orthokis,"sons","son6",tab_1.tabpage_sons.sle_son6.text)
+	setprofilestring(dir_ini+inifile_orthokis,"sons","son7",tab_1.tabpage_sons.sle_son7.text)
+	
+	// ATTENTION .. y un son 8 pour la messagerie
+	
+	// Mise à jour des variables
+	
+		// Entrée du logiciel
+			tson[1] = profilestring(dir_ini+inifile_orthokis,"sons","son1","")
+		// Sortie
+			tson[2] = profilestring(dir_ini+inifile_orthokis,"sons","son2","")
+		// Enregistrement d'un reglement
+			tson[3] = profilestring(dir_ini+inifile_orthokis,"sons","son3","")
+		// Erreur de données
+			tson[4] = profilestring(dir_ini+inifile_orthokis,"sons","son4","")
+		// Alerte
+			tson[5] = profilestring(dir_ini+inifile_orthokis,"sons","son5","")
+		// A propos de
+			tson[6] = profilestring(dir_ini+inifile_orthokis,"sons","son6","")
+		// Suppression
+			tson[7] = profilestring(dir_ini+inifile_orthokis,"sons","son7","")
+	
+		if profilestring(dir_ini+inifile_orthokis,"sons","activer","") = "true" then
+			avec_son = true
+		else
+			avec_son = false
+		end if
+	
+	
+	// Couleurs de fond 
+	
+//	setprofilestring(dir_ini+inifile_orthokis,"COULEURS","fond_fenetre",string(tab_1.tabpage_sons.st_couleur_fenetre.backcolor))
+//	setprofilestring(dir_ini+inifile_orthokis,"COULEURS","fond_barre_3",string(tab_1.tabpage_sons.st_couleur_barre.backcolor))
+////	setprofilestring(dir_ini+inifile_orthokis,"COULEURS","fond_mdi",string(tab_1.tabpage_sons.st_couleur_mdi.backcolor))
+//	Setprofilestring(dir_ini+inifile_orthokis,"COULEURS","textes_barre_3",string(tab_1.tabpage_sons.st_couleur_textes_barre.backcolor))
+//	
+	//setprofilestring(dir_ini+inifile_orthokis,"COULEURS","fond_barre_patient",string(tab_1.tabpage_sons.st_couleur_barre_patient.backcolor))
+	
+	
+	
+	v_numero_theme = tab_1.tabpage_sons.ddlb_theme_v2020_barre_icones.FindItem(tab_1.tabpage_sons.ddlb_theme_v2020_barre_icones.text,1)
+	Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","theme_barre_icones",string(v_numero_theme))
+
+	setprofilestring(dir_ini+inifile_orthokis,"COULEURS","fond_mdi_patient",string(tab_1.tabpage_sons.st_couleur_mdi_patient.backcolor))
+	
+	
+	
+////	setprofilestring(dir_ini+inifile_orthokis,"COULEURS","image_fond_mdi",tab_1.tabpage_sons.sle_image_fond.text)
+//	
+//	if tab_1.tabpage_sons.cbx_image_etiree.checked then
+//		setprofilestring(dir_ini+inifile_orthokis,"COULEURS","image_fond_mdi_etiree","O")
+//	else
+//		setprofilestring(dir_ini+inifile_orthokis,"COULEURS","image_fond_mdi_etiree","N")
+//	end if
+	
+//	// Effets de la barre3
+//	If  tab_1.tabpage_sons.cbx_noeffect_barre3.checked then
+//		SetprofileString(dir_ini+inifile_orthokis,"toolbar_3","noeffect","O")  
+//	else
+//		SetprofileString(dir_ini+inifile_orthokis,"toolbar_3","noeffect","N")  
+//	end if
+//		
+	
+	
+//	// Animation des émoticones
+//	if tab_1.tabpage_sons.cbx_desactiver_emoticones.checked then
+//		Setprofilestring(dir_ini+inifile_orthokis,"COULEURS","desactiver_emoticones","O")
+//	else
+//		Setprofilestring(dir_ini+inifile_orthokis,"COULEURS","desactiver_emoticones","N")
+//	end if
+	
+	
+	
+	// Couleurs des datawindows
+	Setprofilestring(dir_ini+inifile_orthokis,"COULEURS","fond_datawindow",string(tab_1.tabpage_sons.st_couleur_datawindow.backcolor))
+	Setprofilestring(dir_ini+inifile_orthokis,"COULEURS","degrade_datawindow",string(tab_1.tabpage_sons.st_couleur_degrade.backcolor))
+	SetprofileString(dir_ini+inifile_orthokis,"COULEURS","brush_datawindow",string(tab_1.tabpage_sons.ddlb_brush.SelectItem(tab_1.tabpage_sons.ddlb_brush.text,1)))
+	
+	
+	
+	
+	// Image de fond des fenetre
+//	setprofilestring(dir_ini+inifile_orthokis,"COULEURS","image_fond_fenetres",tab_1.tabpage_sons.ddlb_fonds.text)
+//	setprofilestring(dir_ini+inifile_orthokis,"COULEURS","image_fond_barre_icones",tab_1.tabpage_sons.ddlb_fonds_icones.text)
+////	setprofilestring(dir_ini+inifile_orthokis,"COULEURS","image_boutons",tab_1.tabpage_sons.ddlb_boutons.text)
+	
+//	// Animation des boutons ?
+//	if tab_1.tabpage_sons.cbx_boutons_animation.checked then
+//		setprofilestring(dir_ini+inifile_orthokis,"COULEURS","animation_boutons","O")
+//	else
+//		setprofilestring(dir_ini+inifile_orthokis,"COULEURS","animation_boutons","N")
+//	end if
+	
+	
+//	// Interface V2020
+//	if tab_1.tabpage_sons.cbx_ui_v2020.checked then
+//		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","active","O")
+//	else
+//		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","active","N")
+//	end if
+//
+	if tab_1.tabpage_sons.cbx_ui_v2020_desactiver_gauche.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","desactiver_gauche","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","desactiver_gauche","N") 
+	end if
+
+	if tab_1.tabpage_sons.cbx_ui_v2020_desactiver_droit.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","desactiver_droit","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","desactiver_droit","N")
+	end if
+
+	if tab_1.tabpage_sons.rb_ui_v2020_menu_office_365_v2.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","menu_office_365","2")
+	else
+		if tab_1.tabpage_sons.rb_ui_v2020_menu_defaut.checked then
+			Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","menu_office_365","N") 
+		else
+			Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","menu_office_365","O") 
+		end if
+	end if
+
+	if tab_1.tabpage_sons.cbx_desactiver_graphiques_animes.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","desactiver_graphiques_anime","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","desactiver_graphiques_anime","N") 
+	end if
+	
+	
+	if tab_1.tabpage_sons.cbx_desactiver_effet_modal.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","desactiver_effet_modal","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","desactiver_effet_modal","N") 
+	end if
+	
+
+	
+	
+	v_numero_theme_ancien = integer(profilestring(dir_ini+inifile_orthokis,"UI_V2020","theme","1"))
+	v_nom_theme_ancien = nom_theme_2020(v_numero_theme_ancien)
+	v_numero_style_ancien  = integer(profilestring(dir_ini+inifile_orthokis,"UI_V2020","style","1"))
+	
+	v_numero_theme = tab_1.tabpage_sons.ddlb_theme_v2020.FindItem(tab_1.tabpage_sons.ddlb_theme_v2020.text,1)
+	v_nom_theme = nom_theme_2020(v_numero_theme)
+	Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","theme",string(v_numero_theme))
+	v_numero_style = tab_1.tabpage_sons.ddlb_style_v2020.FindItem(tab_1.tabpage_sons.ddlb_style_v2020.text,1)
+	Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","style",string(v_numero_style))
+	
+	Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","theme_global",tab_1.tabpage_sons.ddlb_theme_global.text)
+	Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","theme_global",tab_1.tabpage_sons.ddlb_theme_global.text)
+	if integer (tab_1.tabpage_sons.em_nb_onglets_autorises.text) < 5  then 
+		tab_1.tabpage_sons.em_nb_onglets_autorises.text = "5"
+		Messagebox("ATTENTION", "Vous ne pouvez pas indiquer moins de 5 onglets ouvrables !")
+	end if
+	
+	Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","nb_onglets_autorises",tab_1.tabpage_sons.em_nb_onglets_autorises.text)
+	
+	v_nom_theme_global_ancien = GetTheme ()
+	if v_nom_theme_global_ancien = "" then
+		v_nom_theme_global_ancien = "Aucun"
+	end if
+	
+	if ui_v2020 then
+		// On ne fait la mise à jour de l'affichage que si ça change pour éviter clignotement
+		if v_nom_theme <> v_nom_theme_ancien then
+			w_mdi_2020.of_setTheme(v_nom_theme)
+			f_pbus_set_global_theme(v_nom_theme)
+		end if
+		if v_numero_style <> v_numero_style_ancien then
+			w_mdi_2020.uo_PowerDock.of_setstyle  ( v_numero_style )
+		end if
+		
+		v_nom_theme_global = tab_1.tabpage_sons.ddlb_theme_global.text
+		if v_nom_theme_global <> v_nom_theme_global_ancien then
+			if v_nom_theme_global <> "Aucun" then 
+				ApplyTheme (v_nom_theme_global)
+			else
+				Messagebox("ATTENTION", "Pour annuler le thème en cours vous devez quitter puis relancer Orthokis !")
+			end if
+		end if
+		
+
+		choose case Profilestring(dir_ini+inifile_orthokis,"UI_V2020","menu_office_365","N") 
+			case "N"
+				w_mdi_2020.of_SetStyle(w_mdi_2020.DEFAULT)
+			case "2"
+				w_mdi_2020.of_SetStyle(w_mdi_2020.OFFICE365_2)
+			case else
+				w_mdi_2020.of_SetStyle(w_mdi_2020.OFFICE365)
+		end choose
+		
+		
+
+		
+	end if
+
+	SetprofileString(dir_ini+inifile_orthokis,"UI_V2020","UI_V2020",string(tab_1.tabpage_sons.ddlb_theme_v2020.SelectItem(tab_1.tabpage_sons.ddlb_theme_v2020.text,1)))
+
+	if tab_1.tabpage_sons.cbx_infobulles_icones_lateraux.checked  then
+		SetProfilestring(dir_ini+inifile_orthokis,"UI_V2020","infobulles_icones_lateraux","O") 
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"UI_V2020","infobulles_icones_lateraux","N") 
+	end if
+
+
+
+
+
+
+	// réinitialisation des couleurs
+	charge_couleurs()
+	
+	
+	// ONGLET REPERTOIRES
+	//-------------------------
+	save_dir(tab_1.tabpage_repertoires.sle_photos, tab_1.tabpage_repertoires.cbx_photos)						//setprofilestring(dir_ini+inifile_orthokis,"photos","dir",tab_1.tabpage_repertoires.sle_photos.text)
+	//save_dir(tab_1.tabpage_repertoires.sle_photos_replic, tab_1.tabpage_repertoires.cbx_photos_replic)	//setprofilestring(dir_ini+inifile_orthokis,"photos","dir_replic",tab_1.tabpage_repertoires.sle_photos_replic.text)
+	save_dir(tab_1.tabpage_repertoires.sle_courriers, tab_1.tabpage_repertoires.cbx_courriers)				//setprofilestring(dir_ini+inifile_orthokis,"courriers","dir",tab_1.tabpage_repertoires.sle_courriers.text)
+	save_base.set_chemin_sauvegarde(tab_1.tabpage_repertoires.sle_sauvegarde.text)
+	setprofilestring(dir_ini+inifile_orthokis,"odrade","dir_patient",tab_1.tabpage_repertoires.sle_odrade.text)
+	setprofilestring(dir_ini+inifile_orthokis,"dolphin","dir",tab_1.tabpage_repertoires.sle_dolphin.text)
+
+	string v_dossier
+	v_dossier = trim(tab_1.tabpage_repertoires.sle_raccourci_menu_patient.text)
+	setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","raccourci_menu_patient",v_dossier)
+	
+	// Pour activer ou non le dossier Windows raccourci
+	if ui_v2020 then
+		if v_dossier <> "" then
+			m_orthokis_2020.m_patients.m_dossierwindows.visible = true
+			w_mdi_2020.of_rebuildribbon (true)
+
+//			w_mdi_2020.of_showtoplevelmenu (m_orthokis_2020.m_patients.m_dossierwindows, true, true) 
+		else
+//			w_mdi_2020.of_showtoplevelmenu (m_orthokis_2020.m_patients.m_dossierwindows, false, true) 
+			m_orthokis_2020.m_patients.m_dossierwindows.visible = false
+			w_mdi_2020.of_rebuildribbon (true)
+		end if
+	end if
+	
+	// 3Shape
+	if Shape then
+		setprofilestring(dir_ini+inifile_orthokis,"3shape","exe_orthoanalyser",tab_1.tabpage_repertoires.sle_3shape0.text)
+		setprofilestring(dir_ini+inifile_orthokis,"3shape","datas_orthoanalyser",tab_1.tabpage_repertoires.sle_3shape2.text)
+	end if
+	
+	
+	Setprofilestring(dir_ini+inifile_orthokis,"photos","dir_replic",tab_1.tabpage_repertoires.sle_photos_replic.text)
+	Setprofilestring(dir_ini+inifile_orthokis,"courriers","dir_replic",tab_1.tabpage_repertoires.sle_courriers_replic.text)
+	
+	if tab_1.tabpage_repertoires.rb_replic_base_odrade_cabinet.checked then
+		SetProfilestring(dir_ini+inifile_orthokis,"odrade","base_replic","C") 
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"odrade","base_replic","L") 
+	end if
+	
+	
+	// acquisition photos
+	Setprofilestring(dir_ini+inifile_orthokis,"photos","dir_acquis_courant",tab_1.tabpage_repertoires.sle_dir_acquis_courant.text)
+	Setprofilestring(dir_ini+inifile_orthokis,"photos","dir_acquis_wifi",tab_1.tabpage_repertoires.sle_dir_acquis_wifi.text)
+
+	
+	
+	// Depuis 2014 on ne gère plus les messages d'erreurs sur les sauvegardes de liens radios ... à débloquer si besoin plus tard
+	// Depuis 2015 on ne traite plus les zones vides
+	
+	if vixwin then
+		if len(trim(tab_1.tabpage_repertoires.sle_radio_exe.text)) > 0 then
+			if uo_vixwin.set_programme_exe_path(tab_1.tabpage_repertoires.sle_radio_exe.text) <> 1 then 
+				//messagebox("ERREUR ...", "Sauvegarde du chemin de l'exécutable " + uo_vixwin.get_nom_soft_radio() + " impossible.", StopSign!)
+			end if
+		end if
+		if len(trim(tab_1.tabpage_repertoires.sle_rep_radio.text)) > 0 then
+			if uo_vixwin.set_rep_radio(tab_1.tabpage_repertoires.sle_rep_radio.text)	<> 1 then 
+				//messagebox("ERREUR ...", "Sauvegarde du répertoire radio " + uo_vixwin.get_nom_soft_radio() + " impossible.", StopSign!)
+			end if
+		end if
+	end if
+	
+	if trophy then
+		if len(trim(tab_1.tabpage_repertoires.sle_radio_exe.text)) > 0 then
+			if uo_trophy.set_programme_exe_path(tab_1.tabpage_repertoires.sle_radio_exe.text) <> 1 then 
+				//messagebox("ERREUR ...", "Sauvegarde du chemin de l'exécutable " + uo_trophy.get_nom_soft_radio() + " impossible.", StopSign!)
+			end if
+		end if
+		if len(trim(tab_1.tabpage_repertoires.sle_rep_radio.text)) > 0 then
+			if uo_trophy.set_rep_radio(tab_1.tabpage_repertoires.sle_rep_radio.text)	<> 1 then 
+				//messagebox("ERREUR ...", "Sauvegarde du répertoire radio " + uo_trophy.get_nom_soft_radio() + " impossible.", StopSign!)
+			end if
+		end if
+	end if
+	
+	if mediadent then
+		if len(trim(tab_1.tabpage_repertoires.sle_radio_exe.text)) > 0 then
+			if uo_mediadent.set_temps_attente_lancement(tab_1.tabpage_repertoires.sle_radio_exe.text) <> 1 then 
+				//messagebox("ERREUR ...", "Sauvegarde du temps d'attente du lancement ~nde " + uo_mediadent.get_nom_soft_radio() + " impossible.", StopSign!)
+			end if
+		end if
+		if len(trim(tab_1.tabpage_repertoires.sle_rep_radio.text)) > 0 then
+			if uo_mediadent.set_rep_radio(tab_1.tabpage_repertoires.sle_rep_radio.text)	<> 1 then 
+				//messagebox("ERREUR ...", "Sauvegarde du répertoire radio " + uo_mediadent.get_nom_soft_radio() + " impossible.", StopSign!)
+			end if
+		end if
+		
+		setprofilestring(dir_ini+inifile_orthokis,"dcm2jpg","options",tab_1.tabpage_repertoires.sle_dcm2jpg.text) 
+		if tab_1.tabpage_repertoires.cbx_version_mediadent.checked then
+			Setprofilestring(dir_ini+inifile_orthokis,"lien","mediadent_version8","O") 
+		else
+			Setprofilestring(dir_ini+inifile_orthokis,"lien","mediadent_version8","N") 
+		end if
+
+	end if
+	
+	if sidexis then
+		if len(trim(tab_1.tabpage_repertoires.sle_radio_exe.text)) > 0 then
+			if uo_sidexis.set_programme_exe_path(tab_1.tabpage_repertoires.sle_radio_exe.text) <> 1 then 
+				//messagebox("ERREUR ...", "Sauvegarde du chemin de l'exécutable " + uo_sidexis.get_nom_soft_radio() + " impossible.", StopSign!)
+			end if
+		end if
+	end if
+	
+	if durrdental then
+		if len(trim(tab_1.tabpage_repertoires.sle_radio_exe.text)) > 0 then
+			if uo_durrdental.set_programme_exe_path(tab_1.tabpage_repertoires.sle_radio_exe.text) <> 1 then 
+				//messagebox("ERREUR ...", "Sauvegarde du chemin de l'exécutable " + uo_durrdental.get_nom_soft_radio() + " impossible.", StopSign!)
+			end if
+		end if
+	end if
+	
+	if myray then
+		if len(trim(tab_1.tabpage_repertoires.sle_rep_radio.text)) > 0 then
+			if uo_myray.set_rep_radio(tab_1.tabpage_repertoires.sle_rep_radio.text) <> 1 then 
+				//messagebox("ERREUR ...", "Sauvegarde du chemin des radios Myray impossible.", StopSign!)
+			end if
+		end if
+		if len(trim(tab_1.tabpage_repertoires.sle_radio_exe.text)) > 0 then
+			if uo_myray.set_programme_exe_path(tab_1.tabpage_repertoires.sle_radio_exe.text) <> 1 then 
+				//messagebox("ERREUR ...", "Sauvegarde du chemin de l'exécutable Myray impossible.", StopSign!)
+			end if
+		end if
+		setprofilestring(dir_ini+inifile_orthokis,"dcm2jpg","options",tab_1.tabpage_repertoires.sle_dcm2jpg.text) 
+	end if
+
+	if Rayscan then
+		if len(trim(tab_1.tabpage_repertoires.sle_radio_exe.text)) > 0 then
+			uo_rayscan.set_exe(tab_1.tabpage_repertoires.sle_radio_exe.text) 
+		end if
+		if len(trim(tab_1.tabpage_repertoires.sle_rep_radio.text )) > 0 then
+			uo_rayscan.set_url_serveur(tab_1.tabpage_repertoires.sle_rep_radio.text )
+		end if
+	end if
+	
+	if owandy then
+		if len(trim(tab_1.tabpage_repertoires.sle_radio_exe.text)) > 0 then
+			if radios_2015.set_programme_exe_path(tab_1.tabpage_repertoires.sle_radio_exe.text) <> 1 then 
+				//messagebox("ERREUR ...", "Sauvegarde du chemin de l'exécutable Owandy impossible.", StopSign!)
+			end if
+		end if
+	end if
+	
+	// ONGLET SALLE D'ATTENTE
+	//-------------------------
+	
+	//patient devant de l'argent pour salle d'attente
+	if tab_1.tabpage_salle_attente.cbx_salleattenteargent.checked then
+		setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","patients_devant_argent","true") 
+	else
+		setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","patients_devant_argent","false") 
+	end if
+	
+	// alerte DEP pour salle d'attente
+	if tab_1.tabpage_salle_attente.cbx_alerte_dep.checked then
+		setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","alerte_dep","true") 
+	else
+		setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","alerte_dep","false") 
+	end if
+
+	// alerte Prochain Reglement pour salle d'attente
+	if tab_1.tabpage_salle_attente.cbx_alerte_prochain_reg.checked then
+		setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","alerte_prochain_reg","true") 
+	else
+		setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","alerte_prochain_reg","false") 
+	end if
+	
+	// Compteur menu patient
+	if tab_1.tabpage_salle_attente.cbx_compteur_menu_patient.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","compteur_menu_patient","true")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","compteur_menu_patient","false")
+	end if
+
+
+	
+	
+	
+	// Alerte retard
+	Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","minutes_retard_rdv_alerte",tab_1.tabpage_salle_attente.em_retard_rdv.text)
+	
+	
+	//ouverture de la synthèse pour salle d'attente
+	if tab_1.tabpage_salle_attente.cbx_ouverture_synthese.checked then
+		setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","ouverture_synthese","true") 
+	else
+		setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","ouverture_synthese","false") 
+	end if
+	
+	
+	// Raffraichissement de la salle d'attente
+	Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","raffraichissement",tab_1.tabpage_salle_attente.em_raffraichissement.text)
+	
+	// Position après raffraichissement
+	if tab_1.tabpage_salle_attente.cbx_raffraichissement_conserver_position.checked then
+		SetProfilestring(dir_ini+inifile_orthokis,"rendez-vous","raffraichissement_conserver_position","true") 
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"rendez-vous","raffraichissement_conserver_position","false") 
+	end if
+	
+	// Barre d'avancement clinique
+	if tab_1.tabpage_salle_attente.cbx_affichage_barre_avancement_clinique.checked then
+		SetProfilestring(dir_ini+inifile_orthokis,"rendez-vous","affichage_barre_avancement_clinique","true") 
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"rendez-vous","affichage_barre_avancement_clinique","false") 
+	end if
+	
+	if tab_1.tabpage_salle_attente.cbx_ne_pas_verifier_retard_en_bd.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","ne_pas_verifier_retard_en_bd", "true") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","ne_pas_verifier_retard_en_bd", "false") 
+	end if
+	
+	if tab_1.tabpage_salle_attente.cbx_materialiser_meme_famille.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","materialiser_meme_famille","true") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","materialiser_meme_famille","false") 
+	end if
+	
+	Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","lieu_wait_and_smile", tab_1.tabpage_salle_attente.sle_wait_and_smile_lieu.text )
+
+	// Nb jours pour alerte dep de  la salle d'attente
+	Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","nb_jours_alerte_dep",tab_1.tabpage_salle_attente.em_nb_jours_alerte_dep.text)
+	// Nb jours pour alerte prochain reg de  la salle d'attente
+	Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","nb_jours_alerte_prochain_reg",tab_1.tabpage_salle_attente.em_nb_jours_alerte_prochain_reg.text)
+	
+	// limite scrutation
+	Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_limite_scrutation",tab_1.tabpage_salle_attente.em_limite_scrutation.text)
+
+	
+//	// position de la synthse dans la salle d'attente
+//	
+//	if tab_1.tabpage_salle_attente.rb_synthese_bas.checked then
+//		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","position_synthese","B") 
+//	else
+//		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","position_synthese","D") 
+//	end if
+	
+	
+	// position du post it dans la salle d'attente
+	
+	if tab_1.tabpage_salle_attente.rb_post_it_bas.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","position_post_it","B") 
+	else
+		if tab_1.tabpage_salle_attente.rb_post_it_haut.checked then
+			Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","position_post_it","H") 
+		else
+			Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","position_post_it","P") 
+		end if
+	end if
+	
+	// Photo dans synthse
+	if tab_1.tabpage_salle_attente.cbx_photo_synthese.checked then
+		SetProfilestring(dir_ini+inifile_orthokis,"rendez-vous","photo_synthese","true") 
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"rendez-vous","photo_synthese","false") 
+	end if
+	
+	
+	
+	// lancement automatique à l'ouverture ou pas
+	if 	tab_1.tabpage_salle_attente.cbx_ouverture_lancement.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","ouverture_salle_attente_lancement","true") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","ouverture_salle_attente_lancement","false") 
+	end if
+	
+	// fenêtre à part
+	if tab_1.tabpage_salle_attente.cbx_ouvrir_fenetre_a_part.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","ouverture_fenetre_a_part","true")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","ouverture_fenetre_a_part","false")
+	end if
+	
+	// Surveillance dans le volet salle d'attente
+	if tab_1.tabpage_salle_attente.cbx_volet_salle_attente_surveillance.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","volet_salle_attente_surveillance","true") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","volet_salle_attente_surveillance","false") 
+	end if
+	SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","volet_salle_attente_surveillance_jours",tab_1.tabpage_salle_attente.em_volet_salle_attente_surveillance_jour.text)
+
+
+	// Suivi clinique dans le volet salle d'attente
+	if tab_1.tabpage_salle_attente.cbx_suivi_clinique.checked then 
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","volet_salle_attente_suivi_clinique","true")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","volet_salle_attente_suivi_clinique","false")
+	end if
+
+	
+	// salle d'attente paramérable
+	if tab_1.tabpage_salle_attente.cbx_salle_attente_parametrable.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_parametrable","true")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_parametrable","false")
+	end if
+	
+	// Affichage automatique ou pas
+	if 	tab_1.tabpage_salle_attente.cbx_affichage_automatique.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","affichage_auto_salle_attente","true") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","affichage_auto_salle_attente","false") 
+	end if
+	
+	// Praticiens
+	if tab_1.tabpage_salle_attente.rb_tous_praticiens.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_auto_tous","true") 
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_auto_praticiens","") 
+	else
+		if tab_1.tabpage_salle_attente.rb_praticien_par_defaut_utilisateur.checked then
+			Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_auto_tous","defaut") 
+			Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_auto_praticiens","") 
+		else
+			Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_auto_tous","false") 
+			Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_auto_praticiens",tab_1.tabpage_salle_attente.dw_prati.gettext()) 
+		end if
+	end if
+	
+	// Mini Salle on top
+	if tab_1.tabpage_salle_attente.cbx_mini_salle_attente_on_top.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","mini_salle_attente_on_top","true") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","mini_salle_attente_on_top","false") 
+	end if
+	
+	if tab_1.tabpage_salle_attente.rb_tri_mini_salle_attente_heure_rdv.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","mini_salle_attente_tri","R") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","mini_salle_attente_tri","A") 
+	end if
+
+	
+	
+	
+	// Planning d'une journée
+	if tab_1.tabpage_salle_attente.cbx_planning_conserver.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","conservation_rdv_planning","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","conservation_rdv_planning","N") 
+	end if
+
+	
+	// Graphique de la gestion des rendez-vous
+	if tab_1.tabpage_salle_attente.rb_rdv_camembert.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","graphique_gestion","C") 
+	else
+		if tab_1.tabpage_salle_attente.rb_rdv_ponctualite.checked then 
+			Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","graphique_gestion","P")
+		else
+			Setprofilestring(dir_ini+inifile_orthokis,"rendez-vous","graphique_gestion","T") 
+		end if
+	end if
+	
+	
+	// Ticket de rdv 
+	Setprofilestring(dir_ini+inifile_orthokis,"IMPRIMANTES","ticket_rdv",tab_1.tabpage_salle_attente.ddlb_imprimante_ticket_rdv.text)
+	if tab_1.tabpage_salle_attente.cbx_active_impr_specif_rdv.checked then
+		SetProfileString(dir_ini+inifile_orthokis,"IMPRIMANTES","rdv_active","O") 
+	else
+		SetProfileString(dir_ini+inifile_orthokis,"IMPRIMANTES","rdv_active","N") 
+	end if
+	
+	SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","ticket_largeur",tab_1.tabpage_salle_attente.em_largeur_ticket.text )
+	SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","ticket_hauteur",tab_1.tabpage_salle_attente.em_hauteur_ticket.text )
+	
+	// format du ticket de rendez-vous
+	if tab_1.tabpage_salle_attente.rb_ticket_rtf.checked then
+		SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","ticket_format","R")
+	else
+		SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","ticket_format","W")
+	end if
+	
+	// tous les rdv futurs ou pas
+	if tab_1.tabpage_salle_attente.cbx_ticket_tous_rdv_futurs.checked then 
+		SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","ticket_tous_rdv_futurs","O")
+	else
+		SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","ticket_tous_rdv_futurs","N")
+	end if
+	
+	// Alerte des arrivées
+	if tab_1.tabpage_salle_attente.rb_alerte_arrivees_aucune.checked then
+		SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee","N") 
+	else
+		if tab_1.tabpage_salle_attente.rb_alerte_arrivees_visuelle.checked then
+			SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee","V") 
+		else
+			SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee","S") 
+		end if
+	end if
+	
+	// Alerte des nouveaux patients
+	if tab_1.tabpage_salle_attente.rb_alerte_arrivees_nouveaux_aucune.checked then
+		SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee_nouveaux","N") 
+	else
+		if tab_1.tabpage_salle_attente.rb_alerte_arrivees_nouveaux_visuelle.checked then
+			SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee_nouveaux","V") 
+		else
+			SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee_nouveaux","S") 
+		end if
+	end if
+	
+
+	// Arrivée pour tous les praticiens ?
+	if tab_1.tabpage_salle_attente.rb_alerte_tous_praticien.checked then
+		SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee_praticien","T") 
+	else
+		SetprofileString(dir_ini+inifile_orthokis,"rendez-vous","alerte_arrivee_praticien","D") 
+	end if
+	
+	
+	// ONGLET ADMINISTRATIF
+	//-------------------------------
+	
+	
+	// Utilisation de la table des commentaires prédéfinis
+	if tab_1.tabpage_administratif.cbx_table_predefinis_commentaires_adm.checked then
+		setprofilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","table_predefinis","O") 
+	else
+		setprofilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","table_predefinis","N") 
+	end if
+
+	// Saisie à part
+	if tab_1.tabpage_administratif.cbx_commentaires_adm_saisie_a_part.checked then
+		setprofilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","saisie_a_part","O") 
+	else
+		setprofilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","saisie_a_part","N") 
+	end if
+
+
+	// Sans RTF
+	if tab_1.tabpage_administratif.cbx_table_predefinis_adminis_sans_rtf.checked then 
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","table_predefinis_sans_rtf","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","table_predefinis_sans_rtf","N") 
+	end if
+
+
+	if tab_1.tabpage_administratif.cbx_commentaires_admini_2010.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","commentaires_2010","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","commentaires_2010","N")
+	end if
+	
+
+
+
+	
+	// Mémorisation des imprimantes spécifiques !
+	Setprofilestring(dir_ini+inifile_orthokis,"IMPRIMANTES","dep",tab_1.tabpage_administratif.ddlb_imprimante_dep.text)
+	if tab_1.tabpage_administratif.cbx_active_impr_specif_dep.checked then
+		SetProfileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep_active","O") 
+	else
+		SetProfileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep_active","N") 
+	end if
+	
+	Setprofilestring(dir_ini+inifile_orthokis,"IMPRIMANTES","feuilles_soins",tab_1.tabpage_administratif.ddlb_imprimante_feuilles_soins.text)
+	if tab_1.tabpage_administratif.cbx_active_impr_specif_feuilles_soins.checked then
+		SetProfileString(dir_ini+inifile_orthokis,"IMPRIMANTES","feuilles_soins_active","O") 
+	else
+		SetProfileString(dir_ini+inifile_orthokis,"IMPRIMANTES","feuilles_soins_active","N") 
+	end if
+	
+	Setprofilestring(dir_ini+inifile_orthokis,"IMPRIMANTES","signature_numerique",tab_1.tabpage_administratif.ddlb_imprimante_signature_numerique.text)
+	
+	
+	
+	
+	// DEP Integrée ???
+	if tab_1.tabpage_administratif.cbx_dep_integre.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"DEP-FSE","dep_integre", "O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"DEP-FSE","dep_integre", "N")
+	end if
+	
+	
+	if tab_1.tabpage_administratif.cbx_dep_utiliser_cadagre_local.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"DEP-FSE","dep_utiliser_cadagre_local", "O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"DEP-FSE","dep_utiliser_cadagre_local", "N") 
+	end if
+
+
+
+	
+	
+	// FS Intégrée ??
+//	if tab_1.tabpage_administratif.cbx_fs_integre.checked then
+//		Setprofilestring(dir_ini+inifile_orthokis,"DEP-FSE","fs_integre", "O")
+//	else
+//		Setprofilestring(dir_ini+inifile_orthokis,"DEP-FSE","fs_integre", "N")
+//	end if
+	
+	// soins cochés après saisie d'un règlement
+	if tab_1.tabpage_administratif.cbx_soins_coches.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","soins_coches_reglement","O")  
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","soins_coches_reglement","N")  
+	end if
+	
+	if tab_1.tabpage_administratif.cbx_alerte_somme_due_rdv.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","alerte_somme_due_rdv","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","alerte_somme_due_rdv","N") 
+	end if
+
+
+	if tab_1.tabpage_administratif.cbx_afficher_barre_avance_clinique_soins.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","afficher_barre_avance_clinique_soins","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","afficher_barre_avance_clinique_soins","N") 
+	end if
+
+	
+	if tab_1.tabpage_administratif.cbx_masquer_decalage.checked  then
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","masquer_decalages_menu_clic_droit","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","masquer_decalages_menu_clic_droit","N")
+	end if
+
+	
+	if tab_1.tabpage_administratif.cbx_envoi_mail_document_signe.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","envoi_mail_document_signe","O")  
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","envoi_mail_document_signe","N")  
+	end if
+
+	
+	// CC Vitale
+	//-----------------
+	SetProfilestring(dir_ini+inifile_orthokis,"televitale","nb_boucles",tab_1.tabpage_administratif.em_nombre_boucle_vitale.text)
+	SetProfilestring(dir_ini+inifile_orthokis,"televitale","sleep_time",tab_1.tabpage_administratif.em_duree_boucle_vitale.text)
+	
+	if tab_1.tabpage_administratif.cbx_quitter_televitale.checked then
+		SetProfilestring(dir_ini+inifile_orthokis,"televitale","quitter_televitale","O")
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"televitale","quitter_televitale","N")
+	end if
+	
+	if tab_1.tabpage_administratif.cbx_forcer_adri.checked then 
+		SetProfilestring(dir_ini+inifile_orthokis,"televitale","forcer_adri","O")
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"televitale","forcer_adri","N")
+	end if
+	
+	
+	
+	// GED
+	v_numero_onglet = tab_1.tabpage_administratif.ddlb_ged_onglet.FindItem(tab_1.tabpage_administratif.ddlb_ged_onglet.text,1)
+	Setprofilestring(dir_ini+inifile_orthokis,"GED","onglet_ouverture",string(v_numero_onglet))
+
+	
+	// Word
+	
+	if tab_1.tabpage_administratif.cbx_memo_word.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"WORD","memo_automatique","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"WORD","memo_automatique","N") 
+	end if
+	
+	if tab_1.tabpage_administratif.cbx_email_en_pj.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"WORD","envoi_en_piece_jointe","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"WORD","envoi_en_piece_jointe","N") 
+	end if
+	
+	
+	// Forcer Word en premier plan
+	if tab_1.tabpage_administratif.cbx_word_premier_plan.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"WORD","forcer_word_premier_plan","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"WORD","forcer_word_premier_plan","N")
+	end if
+
+	// Lignes de soins dans les courriers Word
+	Setprofilestring(dir_ini+inifile_orthokis,"WORD","nb_lignes_soins",tab_1.tabpage_administratif.em_nb_lignes_soins_word.text)
+
+	
+	
+	// Facture avec document Word
+	if tab_1.tabpage_administratif.cbx_facture_word.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"WORD","facture_word","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"WORD","facture_word","N") 
+	end if
+	
+	// Reçu avec document Word
+	if tab_1.tabpage_administratif.cbx_recu_word.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"WORD","recu_word","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"WORD","recu_word","N") 
+	end if
+
+	
+	
+	// Sommue due famille sur lien de parenté
+	if tab_1.tabpage_administratif.cbx_somme_due_famille.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","somme_due_famille","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","somme_due_famille","N") 
+	end if
+	
+	if tab_1.tabpage_administratif.cbx_souligner_adultes.checked then
+		// Ecriture des adultes soulignés
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","souligner_adultes","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","souligner_adultes","N") 
+	end if
+
+	// Affichage date d'accord
+	if tab_1.tabpage_administratif.cbx_afficher_date_accord.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","afficher_date_accord","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","afficher_date_accord","N")
+	end if	
+	
+	// Assistant echénaces
+	if tab_1.tabpage_administratif.cbx_afficher_assistant_echeances.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","afficher_assistant_echeances","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","afficher_assistant_echeances","N") 
+	end if
+
+
+	
+	
+	if belgique then
+		Setprofilestring(dir_ini+inifile_orthokis,"DEP-FSE","format_papier_attestation",trim(tab_1.tabpage_administratif.sle_belgique_format.text))
+		if tab_1.tabpage_administratif.cbx_attestations_2016.checked then
+			Setprofilestring(dir_ini+inifile_orthokis,"DEP-FSE","attestations_2016","O")
+		else
+			Setprofilestring(dir_ini+inifile_orthokis,"DEP-FSE","attestations_2016","N")
+		end if
+		if tab_1.tabpage_administratif.cbx_attestations_word.checked then
+			Setprofilestring(dir_ini+inifile_orthokis,"DEP-FSE","attestations_word","O")
+		else
+			Setprofilestring(dir_ini+inifile_orthokis,"DEP-FSE","attestations_word","N")
+		end if
+		
+		if tab_1.tabpage_administratif.cbx_supprimer_confirmation_eattest.checked then
+			Setprofilestring(dir_ini+inifile_orthokis,"DEP-FSE","supprimer_confirmation_eattest","O") 
+		else
+			Setprofilestring(dir_ini+inifile_orthokis,"DEP-FSE","supprimer_confirmation_eattest","O") 
+		end if 
+		
+end if
+	
+	
+	// factures en PDF ou pas
+	
+	if tab_1.tabpage_administratif.cbx_factures_pdf.checked then 
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","facture_pdf","O")
+		if tab_1.tabpage_administratif.cbx_factures_pub_mon_ortho.checked then
+			Setprofilestring(dir_ini+inifile_orthokis,"admini","factures_pub_mon_ortho","O") 
+		else
+			Setprofilestring(dir_ini+inifile_orthokis,"admini","factures_pub_mon_ortho","N") 
+		end if	
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","facture_pdf","N")
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","factures_pub_mon_ortho","N") 
+	end if
+	
+	// Recu en PDF ou pas
+	if tab_1.tabpage_administratif.cbx_recus_pdf.checked then 
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","recu_pdf","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","recu_pdf","N")
+	end if
+
+	// debit credit  en PDF ou pas
+	if tab_1.tabpage_administratif.cbx_debit_credit_pdf.checked then 
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","debit_credit_pdf","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","debit_credit_pdf","N")
+	end if
+
+	Setprofilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","table_predefinis_largeur",tab_1.tabpage_administratif.em_table_predefinis_admini_largeur.text)
+
+	// ONGLET CLINIQUE
+	//-------------------------
+	
+	
+	// ONGLET CLINIQUE
+
+	// Colonnes avec listes déroulantes
+	if tab_1.tabpage_clinique.cbx_colonne3_deroulante.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","colonne3_deroulante","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","colonne3_deroulante","N") 
+	end if
+	if tab_1.tabpage_clinique.cbx_colonne4_deroulante.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","colonne4_deroulante","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","colonne4_deroulante","N") 
+	end if
+	if tab_1.tabpage_clinique.cbx_colonne5_deroulante.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","colonne5_deroulante","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","colonne5_deroulante","N") 
+	end if
+	if tab_1.tabpage_clinique.cbx_colonne6_deroulante.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","colonne6_deroulante","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","colonne6_deroulante","N") 
+	end if
+
+	
+	// Utilisation de la table des commentaires prédéfinis
+	if tab_1.tabpage_clinique.cbx_table_predefinis_commentaires_clin.checked then
+		setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","table_predefinis","O") 
+	else
+		setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","table_predefinis","N") 
+	end if
+	
+	if tab_1.tabpage_clinique.cbx_table_predefinis_memo_arbo.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","table_predefinis_memo_arbo","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","table_predefinis_memo_arbo","N")
+	end if
+
+	if tab_1.tabpage_clinique.cbx_table_predefinis_sans_rtf.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","table_predefinis_sans_rtf","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","table_predefinis_sans_rtf","N")
+	end if
+	
+	Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","table_predefinis_largeur",tab_1.tabpage_clinique.em_table_predefinis_largeur.text)
+
+	// Commentaires 2010
+	if tab_1.tabpage_clinique.cbx_commentaires_2010.checked then
+		setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","commentaires_2010","O") 
+	else
+		setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","commentaires_2010","N") 
+	end if
+	
+	// Message RDV sans RTF
+	if tab_1.tabpage_clinique.cbx_message_rdv_sans_rtf.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","message_rdv_sans_rtf","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","message_rdv_sans_rtf","N") 
+	end if
+	
+	// Ajout de ligne si RTF
+	if tab_1.tabpage_clinique.cbx_pas_plusieurs_lignes.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","pas_plusieurs_lignes_rtf","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","pas_plusieurs_lignes_rtf","N")
+	end if
+	
+	SetprofileString(dir_ini+inifile_orthokis,"commentaires_cliniques","hauteur_lignes",tab_1.tabpage_clinique.em_hauteur_lignes.text)
+
+	// Ordre de tri
+	if tab_1.tabpage_clinique.rb_tri_commentaires_decroissant.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","ordre_tri","D")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","ordre_tri","C") 
+	end if
+
+	// Avec ou non cadre diagnostic / plan de traitement
+	if tab_1.tabpage_clinique.cbx_diag_commentaires_clin.checked then
+		setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","avec_diag","O") 
+	else
+		setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","avec_diag","N") 
+	end if
+
+	// Diag non rtf
+	if tab_1.tabpage_clinique.cbx_diag_non_rtf.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","diag_non_rtf","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","diag_non_rtf","N")
+	end if
+
+	// replacement des pages cliniques par l'assistant des diags
+	if tab_1.tabpage_clinique.cbx_assistant_diagnostics.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"Clinique","assistant","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"Clinique","assistant","N") 
+	end if
+
+	// Création automatique d'un commenraires
+	if tab_1.tabpage_clinique.cbx_creation_auto_ouverture.checked then
+		SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","creation_auto_ouverture","O")
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","creation_auto_ouverture","N")
+	end if
+	
+// Saisie et modification des lignes dans une fenêtre à part
+	if tab_1.tabpage_clinique.rb_saisie_a_part_non.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","saisie_modif_a_part","N")
+	else
+		if tab_1.tabpage_clinique.rb_saisie_a_part_meme.checked then
+			Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","saisie_modif_a_part","M")
+		else
+			Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","saisie_modif_a_part","A")
+		end if
+	end if
+			
+	// Cadre qualité ou message prochain rdv par défaut
+	if tab_1.tabpage_clinique.rb_qualite.checked then
+		SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","affichage_cadre","Q")
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","affichage_cadre","M")
+	end if
+	
+	// Plan de traitement multiples
+	if tab_1.tabpage_clinique.cbx_plans_multiples.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","plans_mutiples","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","plans_mutiples","N") 
+	end if
+	
+	// sommaire pages cliniques pour racourci commentaires cliniques
+	if tab_1.tabpage_clinique.cbx_sommaire.checked then
+		setprofilestring(dir_ini+inifile_orthokis,"photos","page_clinique_presentation",oui) 
+	else
+		setprofilestring(dir_ini+inifile_orthokis,"photos","page_clinique_presentation",non) 
+	end if
+	
+	// Page photos
+	Setprofilestring(dir_ini+inifile_orthokis,"photos","page_clinique",tab_1.tabpage_clinique.sle_page_photos.text)
+	
+	// infobulles
+	if tab_1.tabpage_clinique.cbx_barre_avancement_infobulle.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","barre_avancement_infobulle","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","barre_avancement_infobulle","N") 
+	end if
+	if tab_1.tabpage_clinique.cbx_multiligne_infobulle.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","multiligne_infobulle","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","multiligne_infobulle","N") 
+	end if
+
+
+	// Lien kitview
+	if kitview then
+		if tab_1.tabpage_clinique.cbx_fermer_kitview.checked then
+			Setprofilestring(dir_ini+inifile_orthokis,"KITVIEW","fermer_apres_acquisition","O")
+		else
+			Setprofilestring(dir_ini+inifile_orthokis,"KITVIEW","fermer_apres_acquisition","N")
+		end if
+	end if
+	
+	
+	// Zone remarques
+	
+	if tab_1.tabpage_clinique.cbx_zone_remarque_commentaires.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","zone_remarque_commentaires","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"admini","zone_remarque_commentaires","N")
+	end if
+	
+	if tab_1.tabpage_clinique.cbx_remarques_sans_rtf.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","remarques_sans_rtf","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","remarques_sans_rtf","N") 
+	end if
+
+	
+	
+	// Zone Temps restant
+	
+	if tab_1.tabpage_clinique.cbx_temps_restant.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","temps_restant","O")  
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","temps_restant","N")  
+	end if
+
+	Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rafraichissement_temps_restant",tab_1.tabpage_clinique.em_rafraichissement_temps_restant.text)
+
+	
+	// ONGLET IMAGERIE 2013
+
+	if tab_1.tabpage_imagerie_2013.rb_outils_explorateur_2013_droite.checked  then
+		SetProfilestring(dir_ini+inifile_orthokis,"explorateur_photos_2013","position_outils","D")  
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"explorateur_photos_2013","position_outils","G")  
+	end if
+	
+	
+	if tab_1.tabpage_imagerie_2013.cbx_imagerie_2013_a_part.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"explorateur_photos_2013","a_part","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"explorateur_photos_2013","a_part","N")
+	end if
+
+	if tab_1.tabpage_imagerie_2013.cbx_ouverture_editeur.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"explorateur_photos_2013","ouverture_editeur","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"explorateur_photos_2013","ouverture_editeur","N")
+	end if
+
+
+	// couleur groupe
+	Setprofilestring(dir_ini+inifile_orthokis,"explorateur_photos_2013","couleur_groupe", string(tab_1.tabpage_imagerie_2013.sle_imagerie_2013_couleur_groupe.backcolor))
+
+
+	// Photos dans fiche admini
+	if tab_1.tabpage_imagerie_2013.cbx_photo_iden_2013.checked then
+		setprofilestring(dir_ini+inifile_orthokis,"photos","iden","true") 
+	else
+		setprofilestring(dir_ini+inifile_orthokis,"photos","iden","false") 
+	end if
+	
+	// Photo dans commentaire clinique
+	if tab_1.tabpage_imagerie_2013.cbx_photo_iden_clinique_2013.checked then
+		setprofilestring(dir_ini+inifile_orthokis,"photos","iden_clinique","true") 
+	else
+		setprofilestring(dir_ini+inifile_orthokis,"photos","iden_clinique","false") 
+	end if
+	
+	if tab_1.tabpage_imagerie_2013.cbx_images_sur_fond_noir_2013.checked then
+		SetProfilestring(dir_ini+inifile_orthokis,"photos","images_sur_fond_noir","true") 
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"photos","images_sur_fond_noir","false") 
+	end if
+
+	if tab_1.tabpage_imagerie_2013.cbx_editeur_2013_par_defaut.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"photos","editeur_2013_par_defaut","true") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"photos","editeur_2013_par_defaut","false") 
+	end if
+	
+	if tab_1.tabpage_imagerie_2013.cbx_afficher_nom_fichier_survol.checked then 
+		Setprofilestring(dir_ini+inifile_orthokis,"photos","afficher_nom_fichier_survol","true") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"photos","afficher_nom_fichier_survol","false") 
+	end if
+	
+	// Types_images et temps de traitement
+	
+	// Photos dans commentaires cliniques
+//		if tab_1.tabpage_imagerie_2013.cbx_photos_commentaires_cliniques_2013.checked then
+//			Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","quatre_photos","true") 
+//		else
+//			Setprofilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","quatre_photos","false") 
+//		end if
+	string a
+	a = tab_1.tabpage_imagerie_2013.em_nb_cadres_images_commentaires.text
+	
+	SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","nb_cadres_photos",tab_1.tabpage_imagerie_2013.em_nb_cadres_images_commentaires.text)
+
+	tab_1.tabpage_imagerie_2013.uo_fiche_admini.sauvegarde()
+	tab_1.tabpage_imagerie_2013.uo_identite_clinique.sauvegarde()
+	tab_1.tabpage_imagerie_2013.uo_clinique_1.sauvegarde()
+	tab_1.tabpage_imagerie_2013.uo_clinique_2.sauvegarde()
+	tab_1.tabpage_imagerie_2013.uo_clinique_3.sauvegarde()
+	tab_1.tabpage_imagerie_2013.uo_clinique_4.sauvegarde()
+	tab_1.tabpage_imagerie_2013.uo_clinique_5.sauvegarde()
+	tab_1.tabpage_imagerie_2013.uo_clinique_6.sauvegarde()
+	tab_1.tabpage_imagerie_2013.uo_clinique_7.sauvegarde()
+	tab_1.tabpage_imagerie_2013.uo_clinique_8.sauvegarde()
+	tab_1.tabpage_imagerie_2013.uo_diag_1.sauvegarde()
+	tab_1.tabpage_imagerie_2013.uo_diag_2.sauvegarde()
+	tab_1.tabpage_imagerie_2013.uo_acquisition_radio.sauvegarde()
+	tab_1.tabpage_imagerie_2013.uo_acquisition_pano.sauvegarde()
+	
+	Setprofilestring(dir_ini+inifile_orthokis,"photos","forme_du_cadre",tab_1.tabpage_imagerie_2013.ddlb_forme_du_cadre.text)
+
+
+	
+	
+	// ONGLET DIVERS
+	//-------------------------
+	//sauvegarde auto de la base
+	save_base.set_sauvegarde_auto(tab_1.tabpage_divers.cbx_sauvegarde_auto.checked)
+	
+	// Mémo des patients courants ?
+	if tab_1.tabpage_divers.cbx_memo_patient_memoire.checked then
+		SetProfileString(dir_ini+inifile_orthokis,"Patients_Courants","Memo","O") 
+	else
+		SetProfileString(dir_ini+inifile_orthokis,"Patients_Courants","Memo","N") 
+	end if
+
+	// Ouverture de la liste des patients à recontacter
+	if tab_1.tabpage_divers.cbx_liste_patients_a_recontacter.checked then
+		SetprofileString(dir_ini+inifile_orthokis,"Ouverture","liste_patients_a_recontacter","O") 
+	else
+		SetprofileString(dir_ini+inifile_orthokis,"Ouverture","liste_patients_a_recontacter","N") 
+	end if
+
+	// Fenetre de connexion animée
+	if tab_1.tabpage_divers.cbx_ouverture_animee.checked then
+		SetprofileString(dir_ini+inifile_orthokis,"Ouverture","ouverture_animee","O") 
+	else
+		SetprofileString(dir_ini+inifile_orthokis,"Ouverture","ouverture_animee","N") 
+	end if
+
+	// Recherche de mise à jour au lancement
+	if tab_1.tabpage_divers.cbx_recherche_mise_a_jour.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"Ouverture","recherche_mise_a_jour","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"Ouverture","recherche_mise_a_jour","N")
+	end if
+
+
+	
+	// Rechercher par ...
+	Setprofilestring(dir_ini+inifile_orthokis,"recherche","rechercher_par",string(tab_1.tabpage_divers.ddlb_recherche.FindItem(tab_1.tabpage_divers.ddlb_recherche.text,1)))
+
+	
+	// Saisies suggerees
+	if tab_1.tabpage_divers.cbx_desactiver_saisies_surggerees.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"recherche","desactiver_saisies_suggerees","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"recherche","desactiver_saisies_suggerees","N") 
+	end if
+
+	
+	
+	// traçabilité
+	if tab_1.tabpage_divers.cbx_pas_alerte_sterilisation.checked then 
+		SetprofileString(dir_ini+inifile_orthokis,"Stock_Tracabilité","pas_alerte_sterilisation","O")
+	else
+		SetprofileString(dir_ini+inifile_orthokis,"Stock_Tracabilité","pas_alerte_sterilisation","N")
+	end if
+	
+	
+	if tab_1.tabpage_divers.cbx_verif_seuil_alerte.checked then
+		SetprofileString(dir_ini+inifile_orthokis,"Stock_Tracabilité","verif_seuil_alerte","O") 
+	else
+		SetprofileString(dir_ini+inifile_orthokis,"Stock_Tracabilité","verif_seuil_alerte","N") 
+	end if
+	
+	if tab_1.tabpage_divers.cbx_imprimer_lot.checked then
+		SetprofileString(dir_ini+inifile_orthokis,"Stock_Tracabilité","imprimer_lot_etiquettes","O") 
+	else
+		SetprofileString(dir_ini+inifile_orthokis,"Stock_Tracabilité","imprimer_lot_etiquettes","N") 
+	end if
+	
+	Setprofilestring(dir_ini+inifile_orthokis,"recherche","Stock_Tracabilité",string(tab_1.tabpage_divers.ddlb_recherche_produit.FindItem(tab_1.tabpage_divers.ddlb_recherche_produit.text,1)))
+	
+	
+	if tab_1.tabpage_divers.rb_tracabilite_croissant.checked then
+		SetprofileString(dir_ini+inifile_orthokis,"Stock_Tracabilité","tri_fenetre_tracabilite","C") 
+	else
+		SetprofileString(dir_ini+inifile_orthokis,"Stock_Tracabilité","tri_fenetre_tracabilite","D") 
+	end if
+		
+
+	
+	
+	
+
+	Setprofilestring(dir_ini+inifile_orthokis,"connexion","url_licences",tab_1.tabpage_divers.sle_url_licences.text)
+
+	if tab_1.tabpage_divers.cbx_licence_logicielle.checked  then
+		SetProfilestring(dir_ini+inifile_orthokis,"connexion","licence_logicielle","O")	
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"connexion","licence_logicielle","N")	
+	end if
+	
+	
+	
+	// Luxembourg
+	SetProfilestring(dir_ini+inifile_orthokis,"LUXEMBOURG", "url_econnector", tab_1.tabpage_divers.sle_url_econnector.text )
+	SetProfilestring(dir_ini+inifile_orthokis,"LUXEMBOURG", "exe_econnector", tab_1.tabpage_divers.sle_exe_econnector.text )
+
+
+	
+	// onglets admini
+	Setprofilestring(dir_ini+inifile_orthokis,"admini","onglets",string(tab_1.tabpage_divers.ddlb_admini_onglets.FindItem(tab_1.tabpage_divers.ddlb_admini_onglets.text,1)))
+	
+	
+	
+	
+	
+	// MAJ des répertoires
+	if utilisation_distante then
+		dir_photos = tab_1.tabpage_repertoires.sle_photos_replic.text
+	else
+		dir_photos = tab_1.tabpage_repertoires.sle_photos.text
+	end if	
+	dir_courriers = tab_1.tabpage_repertoires.sle_courriers.text
+	
+	// Rechercher par ...
+	rechercher_par = profileInt(dir_ini+inifile_orthokis,"recherche","rechercher_par",1)
+	
+	// Ouverture des saints
+	Setprofilestring(dir_ini+inifile_orthokis,"SAINTS","ouverture",string(tab_1.tabpage_divers.ddlb_saints.FindItem(tab_1.tabpage_divers.ddlb_saints.text,1)))
+	
+	// Ouverture des taches
+	Setprofilestring(dir_ini+inifile_orthokis,"TACHES","ouverture",string(tab_1.tabpage_divers.ddlb_taches.FindItem(tab_1.tabpage_divers.ddlb_taches.text,1)))
+	
+	
+	// Paramètres de la messagerie instantanée
+	if tab_1.tabpage_divers.cbx_messagerie.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"MESSAGERIE","fermeture_Orthokis","O") 
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"MESSAGERIE","fermeture_Orthokis","O") 
+	end if
+
+	// Ouverture
+	if tab_1.tabpage_divers.cbx_lancement_messagerie.checked then
+		SetProfilestring(dir_ini+inifile_orthokis,"MESSAGERIE","ouverture_Orthokis","O")  
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"MESSAGERIE","ouverture_Orthokis","N")  
+	end if
+
+	
+	// Police de caractères par défaut pour les RTF
+	SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_nom_police",tab_1.tabpage_divers.sle_rtf_nom_police.text)
+	SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_couleur_police",string(tab_1.tabpage_divers.sle_rtf_couleur_police.backcolor))
+	SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_taille_police",tab_1.tabpage_divers.sle_rtf_taille_police.text)
+	
+	if tab_1.tabpage_divers.cbx_rtf_gras_police.checked then
+		SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_gras_police","O")
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_gras_police","N")
+	end if
+		
+	
+	if tab_1.tabpage_divers.cbx_rtf_italique_police.checked then
+		SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_italique_police","O")
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_italique_police","N")
+	end if
+		
+		
+	if tab_1.tabpage_divers.cbx_rtf_souligne_police.checked then
+		SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_souligne_police","O")
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","rtf_souligne_police","N")
+	end if
+	
+	if tab_1.tabpage_divers.rb_menu_rtf_automatique.checked then 
+		SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","menu_rtf","A") 
+	else
+		SetProfilestring(dir_ini+inifile_orthokis,"commentaires_cliniques","menu_rtf","C") 
+	end if
+
+
+
+	// Mon Orthodontiste
+	
+	if tab_1.tabpage_divers.cbx_alerte_salle_attente.checked then 
+		SetprofileString(dir_ini+inifile_orthokis,"Mon Orthodontiste","alerte_salle_attente","O") 
+	else
+		SetprofileString(dir_ini+inifile_orthokis,"Mon Orthodontiste","alerte_salle_attente","N") 
+	end if
+
+
+	Setprofilestring(dir_ini+inifile_orthokis,"Mon Orthodontiste","couleur_alerte_salle_attente",tab_1.tabpage_divers.ddlb_couleur_alerte_salle_attente.text )
+
+	
+	// ONGLET CTI
+	//-------------------------
+	
+	
+	// lien activé ?
+	
+	if tab_1.tabpage_cti.cbx_lien_active.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"CTI","lien_active","O")
+		if not cti_actif then
+			// le lien n'était pas actif avant
+			cti_actif = true
+			open(w_cti)
+		end if
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"CTI","lien_active","N")
+		if  cti_actif then
+			// le lien n'est plus actif
+			cti_actif = false
+			close(w_cti)
+		end if
+	end if
+	
+	Setprofilestring(dir_ini+inifile_orthokis,"CTI","numero_sortir",tab_1.tabpage_cti.sle_numero_sortir.text )
+	Setprofilestring(dir_ini+inifile_orthokis,"CTI","ignorer",tab_1.tabpage_cti.em_ignorer.text )
+	
+	// Vérificaion de la ligne en sortie
+	if tab_1.tabpage_cti.cbx_verif_ligne.checked then
+		Setprofilestring(dir_ini+inifile_orthokis,"CTI","verif_ligne_sortie","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"CTI","verif_ligne_sortie","N")
+	end if
+		
+		
+	// Fenetre 
+	colore_tous_objets_tab(tab_1, couleur_fond_datawindow)
+	
+	// On applique les couleurs en live .. histoire de voir ...
+	// Cette fenêtre
+	parent.backcolor = couleur_fond_fenetre
+	
+
+
+
+	close(w_patience)
+Catch (RuntimeError er)
+	
+	Messagebox("ERREUR INATTENDUE","Une erreur inattendue s'est produite.~nLes données n'ont peut être pas été enregistrées correctement.")
+	
+	
+End Try
+
+
+end event
+
+type cb_fermer from uo_picturebutton_390x120_fermer within w_environnement
+integer x = 4626
+integer y = 2768
+integer width = 512
+integer height = 132
+integer taborder = 40
+boolean default = true
+end type
+
+event clicked;fermer_fenetre(parent)
+end event
+
+type cb_annuler from uo_picturebutton_390x120 within w_environnement
+integer x = 3547
+integer y = 2768
+integer width = 512
+integer height = 132
+integer taborder = 20
+string text = "&Annuler"
+string iconname = "ACTIONS_annuler.png"
+end type
+
+event clicked;call super::clicked;// affiche les infos
+get_infos()
+end event
+
+type tab_1 from tab within w_environnement
+integer x = 46
+integer y = 4
+integer width = 5243
+integer height = 2732
+integer taborder = 10
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Tahoma"
+long backcolor = 16777215
+boolean multiline = true
+boolean focusonbuttondown = true
+boolean boldselectedtext = true
+alignment alignment = center!
+integer selectedtab = 1
+tabpage_sons tabpage_sons
+tabpage_repertoires tabpage_repertoires
+tabpage_administratif tabpage_administratif
+tabpage_clinique tabpage_clinique
+tabpage_imagerie_2013 tabpage_imagerie_2013
+tabpage_salle_attente tabpage_salle_attente
+tabpage_divers tabpage_divers
+tabpage_cti tabpage_cti
+tabpage_imagerie tabpage_imagerie
+end type
+
+on tab_1.create
+this.tabpage_sons=create tabpage_sons
+this.tabpage_repertoires=create tabpage_repertoires
+this.tabpage_administratif=create tabpage_administratif
+this.tabpage_clinique=create tabpage_clinique
+this.tabpage_imagerie_2013=create tabpage_imagerie_2013
+this.tabpage_salle_attente=create tabpage_salle_attente
+this.tabpage_divers=create tabpage_divers
+this.tabpage_cti=create tabpage_cti
+this.tabpage_imagerie=create tabpage_imagerie
+this.Control[]={this.tabpage_sons,&
+this.tabpage_repertoires,&
+this.tabpage_administratif,&
+this.tabpage_clinique,&
+this.tabpage_imagerie_2013,&
+this.tabpage_salle_attente,&
+this.tabpage_divers,&
+this.tabpage_cti,&
+this.tabpage_imagerie}
+end on
+
+on tab_1.destroy
+destroy(this.tabpage_sons)
+destroy(this.tabpage_repertoires)
+destroy(this.tabpage_administratif)
+destroy(this.tabpage_clinique)
+destroy(this.tabpage_imagerie_2013)
+destroy(this.tabpage_salle_attente)
+destroy(this.tabpage_divers)
+destroy(this.tabpage_cti)
+destroy(this.tabpage_imagerie)
+end on
+
+type tabpage_sons from userobject within tab_1
+integer x = 18
+integer y = 336
+integer width = 5207
+integer height = 2380
+long backcolor = 16777215
+string text = "Sons / Couleurs"
+long tabtextcolor = 33554432
+long tabbackcolor = 15780518
+string picturename = "lc_sons.png"
+long picturemaskcolor = 536870912
+cbx_desactiver_effet_modal cbx_desactiver_effet_modal
+rb_ui_v2020_menu_office_365_v2 rb_ui_v2020_menu_office_365_v2
+rb_ui_v2020_menu_office_365 rb_ui_v2020_menu_office_365
+rb_ui_v2020_menu_defaut rb_ui_v2020_menu_defaut
+cbx_infobulles_icones_lateraux cbx_infobulles_icones_lateraux
+cb_appliquer_couleurs cb_appliquer_couleurs
+ddlb_couleurs_coordonnees ddlb_couleurs_coordonnees
+st_25 st_25
+ddlb_theme_v2020_barre_icones ddlb_theme_v2020_barre_icones
+cbx_desactiver_graphiques_animes cbx_desactiver_graphiques_animes
+cbx_ui_v2020_desactiver_gauche cbx_ui_v2020_desactiver_gauche
+em_nb_onglets_autorises em_nb_onglets_autorises
+st_36 st_36
+st_31 st_31
+ddlb_theme_global ddlb_theme_global
+cbx_ui_v2020_desactiver_droit cbx_ui_v2020_desactiver_droit
+cb_reinit_2020 cb_reinit_2020
+cb_memo_2020 cb_memo_2020
+st_38 st_38
+ddlb_style_v2020 ddlb_style_v2020
+st_30 st_30
+ddlb_theme_v2020 ddlb_theme_v2020
+st_49 st_49
+st_couleur_degrade st_couleur_degrade
+st_48 st_48
+st_47 st_47
+st_couleur_datawindow st_couleur_datawindow
+cb_8 cb_8
+cb_7 cb_7
+ddlb_brush ddlb_brush
+cb_6 cb_6
+st_couleur_mdi_patient st_couleur_mdi_patient
+st_33 st_33
+st_32 st_32
+pb_1 pb_1
+pb_2 pb_2
+pb_3 pb_3
+pb_4 pb_4
+pb_5 pb_5
+pb_6 pb_6
+pb_7 pb_7
+pb_8 pb_8
+pb_9 pb_9
+pb_10 pb_10
+pb_11 pb_11
+pb_12 pb_12
+pb_13 pb_13
+pb_14 pb_14
+st_3 st_3
+st_4 st_4
+st_5 st_5
+st_6 st_6
+st_7 st_7
+cbx_sons_actifs cbx_sons_actifs
+st_2 st_2
+st_8 st_8
+sle_son1 sle_son1
+sle_son2 sle_son2
+sle_son3 sle_son3
+sle_son4 sle_son4
+sle_son5 sle_son5
+sle_son6 sle_son6
+sle_son7 sle_son7
+gb_14 gb_14
+gb_19 gb_19
+gb_volets gb_volets
+gb_onglets gb_onglets
+gb_18 gb_18
+gb_30 gb_30
+end type
+
+on tabpage_sons.create
+this.cbx_desactiver_effet_modal=create cbx_desactiver_effet_modal
+this.rb_ui_v2020_menu_office_365_v2=create rb_ui_v2020_menu_office_365_v2
+this.rb_ui_v2020_menu_office_365=create rb_ui_v2020_menu_office_365
+this.rb_ui_v2020_menu_defaut=create rb_ui_v2020_menu_defaut
+this.cbx_infobulles_icones_lateraux=create cbx_infobulles_icones_lateraux
+this.cb_appliquer_couleurs=create cb_appliquer_couleurs
+this.ddlb_couleurs_coordonnees=create ddlb_couleurs_coordonnees
+this.st_25=create st_25
+this.ddlb_theme_v2020_barre_icones=create ddlb_theme_v2020_barre_icones
+this.cbx_desactiver_graphiques_animes=create cbx_desactiver_graphiques_animes
+this.cbx_ui_v2020_desactiver_gauche=create cbx_ui_v2020_desactiver_gauche
+this.em_nb_onglets_autorises=create em_nb_onglets_autorises
+this.st_36=create st_36
+this.st_31=create st_31
+this.ddlb_theme_global=create ddlb_theme_global
+this.cbx_ui_v2020_desactiver_droit=create cbx_ui_v2020_desactiver_droit
+this.cb_reinit_2020=create cb_reinit_2020
+this.cb_memo_2020=create cb_memo_2020
+this.st_38=create st_38
+this.ddlb_style_v2020=create ddlb_style_v2020
+this.st_30=create st_30
+this.ddlb_theme_v2020=create ddlb_theme_v2020
+this.st_49=create st_49
+this.st_couleur_degrade=create st_couleur_degrade
+this.st_48=create st_48
+this.st_47=create st_47
+this.st_couleur_datawindow=create st_couleur_datawindow
+this.cb_8=create cb_8
+this.cb_7=create cb_7
+this.ddlb_brush=create ddlb_brush
+this.cb_6=create cb_6
+this.st_couleur_mdi_patient=create st_couleur_mdi_patient
+this.st_33=create st_33
+this.st_32=create st_32
+this.pb_1=create pb_1
+this.pb_2=create pb_2
+this.pb_3=create pb_3
+this.pb_4=create pb_4
+this.pb_5=create pb_5
+this.pb_6=create pb_6
+this.pb_7=create pb_7
+this.pb_8=create pb_8
+this.pb_9=create pb_9
+this.pb_10=create pb_10
+this.pb_11=create pb_11
+this.pb_12=create pb_12
+this.pb_13=create pb_13
+this.pb_14=create pb_14
+this.st_3=create st_3
+this.st_4=create st_4
+this.st_5=create st_5
+this.st_6=create st_6
+this.st_7=create st_7
+this.cbx_sons_actifs=create cbx_sons_actifs
+this.st_2=create st_2
+this.st_8=create st_8
+this.sle_son1=create sle_son1
+this.sle_son2=create sle_son2
+this.sle_son3=create sle_son3
+this.sle_son4=create sle_son4
+this.sle_son5=create sle_son5
+this.sle_son6=create sle_son6
+this.sle_son7=create sle_son7
+this.gb_14=create gb_14
+this.gb_19=create gb_19
+this.gb_volets=create gb_volets
+this.gb_onglets=create gb_onglets
+this.gb_18=create gb_18
+this.gb_30=create gb_30
+this.Control[]={this.cbx_desactiver_effet_modal,&
+this.rb_ui_v2020_menu_office_365_v2,&
+this.rb_ui_v2020_menu_office_365,&
+this.rb_ui_v2020_menu_defaut,&
+this.cbx_infobulles_icones_lateraux,&
+this.cb_appliquer_couleurs,&
+this.ddlb_couleurs_coordonnees,&
+this.st_25,&
+this.ddlb_theme_v2020_barre_icones,&
+this.cbx_desactiver_graphiques_animes,&
+this.cbx_ui_v2020_desactiver_gauche,&
+this.em_nb_onglets_autorises,&
+this.st_36,&
+this.st_31,&
+this.ddlb_theme_global,&
+this.cbx_ui_v2020_desactiver_droit,&
+this.cb_reinit_2020,&
+this.cb_memo_2020,&
+this.st_38,&
+this.ddlb_style_v2020,&
+this.st_30,&
+this.ddlb_theme_v2020,&
+this.st_49,&
+this.st_couleur_degrade,&
+this.st_48,&
+this.st_47,&
+this.st_couleur_datawindow,&
+this.cb_8,&
+this.cb_7,&
+this.ddlb_brush,&
+this.cb_6,&
+this.st_couleur_mdi_patient,&
+this.st_33,&
+this.st_32,&
+this.pb_1,&
+this.pb_2,&
+this.pb_3,&
+this.pb_4,&
+this.pb_5,&
+this.pb_6,&
+this.pb_7,&
+this.pb_8,&
+this.pb_9,&
+this.pb_10,&
+this.pb_11,&
+this.pb_12,&
+this.pb_13,&
+this.pb_14,&
+this.st_3,&
+this.st_4,&
+this.st_5,&
+this.st_6,&
+this.st_7,&
+this.cbx_sons_actifs,&
+this.st_2,&
+this.st_8,&
+this.sle_son1,&
+this.sle_son2,&
+this.sle_son3,&
+this.sle_son4,&
+this.sle_son5,&
+this.sle_son6,&
+this.sle_son7,&
+this.gb_14,&
+this.gb_19,&
+this.gb_volets,&
+this.gb_onglets,&
+this.gb_18,&
+this.gb_30}
+end on
+
+on tabpage_sons.destroy
+destroy(this.cbx_desactiver_effet_modal)
+destroy(this.rb_ui_v2020_menu_office_365_v2)
+destroy(this.rb_ui_v2020_menu_office_365)
+destroy(this.rb_ui_v2020_menu_defaut)
+destroy(this.cbx_infobulles_icones_lateraux)
+destroy(this.cb_appliquer_couleurs)
+destroy(this.ddlb_couleurs_coordonnees)
+destroy(this.st_25)
+destroy(this.ddlb_theme_v2020_barre_icones)
+destroy(this.cbx_desactiver_graphiques_animes)
+destroy(this.cbx_ui_v2020_desactiver_gauche)
+destroy(this.em_nb_onglets_autorises)
+destroy(this.st_36)
+destroy(this.st_31)
+destroy(this.ddlb_theme_global)
+destroy(this.cbx_ui_v2020_desactiver_droit)
+destroy(this.cb_reinit_2020)
+destroy(this.cb_memo_2020)
+destroy(this.st_38)
+destroy(this.ddlb_style_v2020)
+destroy(this.st_30)
+destroy(this.ddlb_theme_v2020)
+destroy(this.st_49)
+destroy(this.st_couleur_degrade)
+destroy(this.st_48)
+destroy(this.st_47)
+destroy(this.st_couleur_datawindow)
+destroy(this.cb_8)
+destroy(this.cb_7)
+destroy(this.ddlb_brush)
+destroy(this.cb_6)
+destroy(this.st_couleur_mdi_patient)
+destroy(this.st_33)
+destroy(this.st_32)
+destroy(this.pb_1)
+destroy(this.pb_2)
+destroy(this.pb_3)
+destroy(this.pb_4)
+destroy(this.pb_5)
+destroy(this.pb_6)
+destroy(this.pb_7)
+destroy(this.pb_8)
+destroy(this.pb_9)
+destroy(this.pb_10)
+destroy(this.pb_11)
+destroy(this.pb_12)
+destroy(this.pb_13)
+destroy(this.pb_14)
+destroy(this.st_3)
+destroy(this.st_4)
+destroy(this.st_5)
+destroy(this.st_6)
+destroy(this.st_7)
+destroy(this.cbx_sons_actifs)
+destroy(this.st_2)
+destroy(this.st_8)
+destroy(this.sle_son1)
+destroy(this.sle_son2)
+destroy(this.sle_son3)
+destroy(this.sle_son4)
+destroy(this.sle_son5)
+destroy(this.sle_son6)
+destroy(this.sle_son7)
+destroy(this.gb_14)
+destroy(this.gb_19)
+destroy(this.gb_volets)
+destroy(this.gb_onglets)
+destroy(this.gb_18)
+destroy(this.gb_30)
+end on
+
+type cbx_desactiver_effet_modal from checkbox within tabpage_sons
+integer x = 3835
+integer y = 2164
+integer width = 672
+integer height = 76
+boolean bringtotop = true
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Désactiver effet modal"
+end type
+
+type rb_ui_v2020_menu_office_365_v2 from radiobutton within tabpage_sons
+integer x = 2286
+integer y = 2056
+integer width = 398
+integer height = 76
+boolean bringtotop = true
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Office 365 V2"
+end type
+
+type rb_ui_v2020_menu_office_365 from radiobutton within tabpage_sons
+integer x = 1934
+integer y = 2056
+integer width = 320
+integer height = 76
+boolean bringtotop = true
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Office 365"
+end type
+
+type rb_ui_v2020_menu_defaut from radiobutton within tabpage_sons
+integer x = 1632
+integer y = 2056
+integer width = 270
+integer height = 76
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Défaut"
+end type
+
+type cbx_infobulles_icones_lateraux from checkbox within tabpage_sons
+integer x = 2857
+integer y = 700
+integer width = 946
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Infobulles sur les icônes latéraux"
+end type
+
+type cb_appliquer_couleurs from uo_picturebutton_390x120 within tabpage_sons
+integer x = 1888
+integer y = 2188
+integer width = 494
+integer height = 116
+integer taborder = 130
+string text = "Appliquer"
+string iconname = "ACTIONS_executer.png"
+end type
+
+event clicked;call super::clicked;
+
+// Lit le fichier .ini correspondant au thème choisit et remplace les couleurs
+
+
+string s_nom_theme, s_nom_fichier_theme
+integer i_numero_fichier_theme
+
+s_nom_theme = tab_1.tabpage_sons.ddlb_couleurs_coordonnees.text
+
+s_nom_fichier_theme = dir_ini + "Boutons - Fonds\" + s_nom_theme
+
+if FileExists(s_nom_fichier_theme ) then
+	
+	if Messagebox("CONFIRMATION","Vous allez mettre en place les couleurs coordonnées et enregistrer les Paramètres du Poste de Travail.~n~nConfirmez-vous ?", question!, YesNo!, 2) = 1 then
+		tab_1.tabpage_sons.st_couleur_mdi_patient.backcolor = long(profilestring(s_nom_fichier_theme,"COULEURS","fond_mdi_patient","15780518"))
+		tab_1.tabpage_sons.st_couleur_datawindow.backcolor = long(profilestring(s_nom_fichier_theme,"COULEURS","fond_datawindow","15780518"))
+		tab_1.tabpage_sons.st_couleur_degrade.backcolor = long(profilestring(s_nom_fichier_theme,"COULEURS","degrade_datawindow","15780518"))
+		tab_1.tabpage_sons.ddlb_brush.SelectItem(profileInt(s_nom_fichier_theme,"COULEURS","brush_datawindow",1))
+		
+		tab_1.tabpage_sons.ddlb_theme_v2020.SelectItem(integer(profilestring(s_nom_fichier_theme,"UI_V2020","theme","1")))
+		tab_1.tabpage_sons.ddlb_theme_v2020_barre_icones.SelectItem(integer(profilestring(s_nom_fichier_theme,"UI_V2020","theme_barre_icones","2")))
+		
+		if profilestring(s_nom_fichier_theme,"UI_V2020","menu_office_365","N") = "O" then
+			tab_1.tabpage_sons.rb_ui_v2020_menu_office_365.checked = true
+			tab_1.tabpage_sons.rb_ui_v2020_menu_office_365_v2.checked = false
+			tab_1.tabpage_sons.rb_ui_v2020_menu_defaut.checked = false
+		else
+			tab_1.tabpage_sons.rb_ui_v2020_menu_office_365.checked = false
+			tab_1.tabpage_sons.rb_ui_v2020_menu_office_365_v2.checked = false
+			tab_1.tabpage_sons.rb_ui_v2020_menu_defaut.checked = true
+		end if
+			
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","couleurs_coordonnees",tab_1.tabpage_sons.ddlb_couleurs_coordonnees.text)
+		
+		cb_enregistrer.triggerevent(Clicked!)
+	end if
+
+else
+	Messagebox("ATTENTION", "Impossible de localiser le fichier " + s_nom_fichier_theme)
+end if
+
+end event
+
+type ddlb_couleurs_coordonnees from dropdownlistbox within tabpage_sons
+integer x = 1083
+integer y = 2192
+integer width = 727
+integer height = 408
+integer taborder = 120
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean vscrollbar = true
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_25 from statictext within tabpage_sons
+integer x = 443
+integer y = 2216
+integer width = 631
+integer height = 60
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Couleurs coordonnées : "
+boolean focusrectangle = false
+end type
+
+type ddlb_theme_v2020_barre_icones from dropdownlistbox within tabpage_sons
+integer x = 1207
+integer y = 1316
+integer width = 841
+integer height = 740
+integer taborder = 120
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean sorted = false
+boolean vscrollbar = true
+string item[] = {"Bleu","Olive","Argent","Classique","Noir","Windows 10 Bleu","Windows 10 Olive","Windows 10 Argent","Windows 10 Black","Ambre","Cobalt","Brun","Emerald","Magenta","Mauve","Orange","Rose","Rouge","Teal","Violet"}
+borderstyle borderstyle = stylelowered!
+end type
+
+type cbx_desactiver_graphiques_animes from checkbox within tabpage_sons
+integer x = 2875
+integer y = 2164
+integer width = 933
+integer height = 76
+boolean bringtotop = true
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Désactiver les graphiques animés"
+end type
+
+type cbx_ui_v2020_desactiver_gauche from checkbox within tabpage_sons
+integer x = 2949
+integer y = 1608
+integer width = 681
+integer height = 76
+boolean bringtotop = true
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Désactiver volet gauche"
+end type
+
+type em_nb_onglets_autorises from editmask within tabpage_sons
+integer x = 3735
+integer y = 1280
+integer width = 247
+integer height = 88
+integer taborder = 60
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+borderstyle borderstyle = stylelowered!
+string mask = "##"
+boolean spin = true
+double increment = 1
+string minmax = "1~~99"
+end type
+
+type st_36 from statictext within tabpage_sons
+integer x = 2985
+integer y = 1296
+integer width = 754
+integer height = 60
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Nombre d~'onglets autorisés :"
+boolean focusrectangle = false
+end type
+
+type st_31 from statictext within tabpage_sons
+integer x = 2880
+integer y = 900
+integer width = 384
+integer height = 60
+boolean bringtotop = true
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Thème global :"
+boolean focusrectangle = false
+end type
+
+type ddlb_theme_global from dropdownlistbox within tabpage_sons
+integer x = 3346
+integer y = 884
+integer width = 841
+integer height = 740
+integer taborder = 120
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean sorted = false
+boolean vscrollbar = true
+string item[] = {"Aucun","Flat Design Blue","Flat Design Dark","Flat Design Grey","Flat Design Silver"}
+borderstyle borderstyle = stylelowered!
+end type
+
+type cbx_ui_v2020_desactiver_droit from checkbox within tabpage_sons
+integer x = 2949
+integer y = 1720
+integer width = 681
+integer height = 76
+boolean bringtotop = true
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Désactiver volet droit"
+end type
+
+type cb_reinit_2020 from uo_picturebutton_390x120 within tabpage_sons
+integer x = 3689
+integer y = 1836
+integer width = 718
+integer taborder = 110
+string text = "Réinit. Positions"
+string tiptext = "Réinitilise la disposition des élements graphiques"
+string iconname = "ACTIONS_annuler.png"
+end type
+
+event clicked;call super::clicked;
+if ui_v2020 then
+
+	if messagebox("ATTENTION","Vous allez remettre les volets latéraux et les menus dans leurs positions par défaut.~n~nConfirmez-vous ?", Question!, YesNo!, 2) = 1 then
+		// mise en place des valeurs par défaut
+		
+		// Volet Salle d'attente
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","position_volet_sa",string( w_mdi_2020.uo_PowerDock.Right ))
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","pinned_volet_sa","N")
+	
+		// Volet patients
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","position_volet_patients",string( w_mdi_2020.uo_PowerDock.Left ))
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","pinned_volet_patients","N")
+	
+		
+		// Menu du haut 
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","pinned_menu","O")
+		
+		// raffraichissement
+		
+		w_mdi_2020.init_ui_2020(false)
+		w_mdi_2020.of_dockribbon () 
+	end if
+else
+	Messagebox("ATTENTION", "Cette fonctionnalité n'est pas adaptée à l'ancienne interface !")
+end if
+end event
+
+type cb_memo_2020 from uo_picturebutton_390x120 within tabpage_sons
+integer x = 2935
+integer y = 1840
+integer width = 718
+integer taborder = 110
+string text = "Mémo Positions"
+string tiptext = "Mémorise la position des élements graphiques pour la prochaine ouverture du logiciel"
+string iconname = "ACTIONS_enregistrer.png"
+end type
+
+event clicked;call super::clicked;
+
+// Mémorise les positions des éléments UI 2020
+if ui_v2020 then
+	
+	integer v_position
+	
+	// Volet Salle d'attente
+	v_position = w_mdi_2020.uo_PowerDock.of_GetDockItemPanel ( uo_volet_salle_attente)
+	Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","position_volet_sa",string( v_position ))
+	if w_mdi_2020.uo_PowerDock.of_isdocked (v_position) then
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","pinned_volet_sa","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","pinned_volet_sa","N")
+	end if
+	
+	// Volet patients
+	v_position = w_mdi_2020.uo_PowerDock.of_GetDockItemPanel ( uo_volet_patients)
+	Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","position_volet_patients",string( v_position ))
+	if w_mdi_2020.uo_PowerDock.of_isdocked (v_position) then
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","pinned_volet_patients","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","pinned_volet_patients","N")
+	end if
+	
+
+	// Menu du haut 
+	if w_mdi_2020.of_isribbondocked ()  then
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","pinned_menu","O")
+	else
+		Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","pinned_menu","N")
+	end if
+
+else
+
+	Messagebox("ATTENTION", "Cette fonctionnalité n'est pas adaptée à l'ancienne interface !")
+
+end if
+end event
+
+type st_38 from statictext within tabpage_sons
+integer x = 2967
+integer y = 1152
+integer width = 357
+integer height = 60
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Style onglets :"
+boolean focusrectangle = false
+end type
+
+type ddlb_style_v2020 from dropdownlistbox within tabpage_sons
+integer x = 3429
+integer y = 1152
+integer width = 841
+integer height = 740
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean sorted = false
+boolean vscrollbar = true
+string item[] = {"Windows 10 Bleu","Windows 10 Olive","Windows 10 Argent","Style 2005","Style 2013"}
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_30 from statictext within tabpage_sons
+integer x = 361
+integer y = 2084
+integer width = 375
+integer height = 60
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Thème menu :"
+boolean focusrectangle = false
+end type
+
+type ddlb_theme_v2020 from dropdownlistbox within tabpage_sons
+integer x = 759
+integer y = 2056
+integer width = 841
+integer height = 740
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean sorted = false
+boolean vscrollbar = true
+string item[] = {"Bleu","Olive","Argent","Classique","Noir","Windows 10 Bleu","Windows 10 Olive","Windows 10 Argent","Windows 10 Black","Ambre","Cobalt","Brun","Emerald","Magenta","Mauve","Orange","Rose","Rouge","Teal","Violet"}
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_49 from statictext within tabpage_sons
+integer x = 443
+integer y = 1876
+integer width = 539
+integer height = 60
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Couleur de dégradé :"
+boolean focusrectangle = false
+end type
+
+type st_couleur_degrade from statictext within tabpage_sons
+string tag = "nobackcolor"
+integer x = 1001
+integer y = 1864
+integer width = 402
+integer height = 80
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 15780518
+boolean border = true
+boolean focusrectangle = false
+end type
+
+event rbuttondown;this.backcolor = couleur_sky
+
+end event
+
+type st_48 from statictext within tabpage_sons
+integer x = 443
+integer y = 1748
+integer width = 585
+integer height = 60
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Mode de remplissage :"
+boolean focusrectangle = false
+end type
+
+type st_47 from statictext within tabpage_sons
+integer x = 443
+integer y = 1620
+integer width = 439
+integer height = 60
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Couleur de fond :"
+boolean focusrectangle = false
+end type
+
+type st_couleur_datawindow from statictext within tabpage_sons
+string tag = "nobackcolor"
+integer x = 923
+integer y = 1608
+integer width = 402
+integer height = 80
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 15780518
+boolean border = true
+boolean focusrectangle = false
+end type
+
+event rbuttondown;this.backcolor = couleur_sky
+
+end event
+
+type cb_8 from commandbutton within tabpage_sons
+integer x = 1486
+integer y = 1864
+integer width = 192
+integer height = 80
+integer taborder = 100
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "..."
+end type
+
+event clicked;long couleur_choisie
+
+// Les positions seront utilisées dans le timer de la fenêtre	
+ii_palette_x = unitstopixels( w_mdi_2020.pointerx() , XUnitsToPixels! ) 
+ii_palette_y = unitstopixels( w_mdi_2020.pointery() , YUnitsToPixels! ) 
+		
+Timer(0.05)	// pour déclencher le repositionnement de la palette
+
+
+//Appel de la fenetre couleur et au retour, met la couleur de fond
+//--------------------------------------------------
+if appel_palette(couleur_choisie) then
+	st_couleur_degrade.backcolor = couleur_choisie
+end if
+end event
+
+type cb_7 from commandbutton within tabpage_sons
+integer x = 1413
+integer y = 1608
+integer width = 192
+integer height = 80
+integer taborder = 100
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "..."
+end type
+
+event clicked;long couleur_choisie
+
+// Les positions seront utilisées dans le timer de la fenêtre	
+ii_palette_x = unitstopixels( w_mdi_2020.pointerx() , XUnitsToPixels! ) 
+ii_palette_y = unitstopixels( w_mdi_2020.pointery() , YUnitsToPixels! ) 
+		
+Timer(0.05)	// pour déclencher le repositionnement de la palette
+
+//Appel de la fenetre couleur et au retour, met la couleur de fond
+//--------------------------------------------------
+if appel_palette(couleur_choisie) then
+	st_couleur_datawindow.backcolor = couleur_choisie
+end if
+end event
+
+type ddlb_brush from dropdownlistbox within tabpage_sons
+integer x = 1079
+integer y = 1728
+integer width = 777
+integer height = 400
+integer taborder = 50
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean sorted = false
+string item[] = {"Plein","Dégradé Horizontal","Dégradé Vertical"}
+borderstyle borderstyle = stylelowered!
+end type
+
+type cb_6 from commandbutton within tabpage_sons
+integer x = 1431
+integer y = 1176
+integer width = 192
+integer height = 80
+integer taborder = 90
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "..."
+end type
+
+event clicked;long couleur_choisie
+
+// Les positions seront utilisées dans le timer de la fenêtre	
+ii_palette_x = unitstopixels( w_mdi_2020.pointerx() , XUnitsToPixels! ) 
+ii_palette_y = unitstopixels( w_mdi_2020.pointery() , YUnitsToPixels! ) 
+
+		
+Timer(0.05)	// pour déclencher le repositionnement de la palette
+
+
+//Appel de la fenetre couleur et au retour, met la couleur de fond
+//--------------------------------------------------
+if appel_palette(couleur_choisie) then
+	st_couleur_mdi_patient.backcolor = couleur_choisie
+end if
+end event
+
+type st_couleur_mdi_patient from statictext within tabpage_sons
+string tag = "nobackcolor"
+integer x = 928
+integer y = 1184
+integer width = 402
+integer height = 80
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 15780518
+boolean border = true
+boolean focusrectangle = false
+end type
+
+event rbuttondown;
+
+this.backcolor = couleur_sky
+end event
+
+type st_33 from statictext within tabpage_sons
+integer x = 443
+integer y = 1196
+integer width = 489
+integer height = 60
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Couleur de fond  :"
+boolean focusrectangle = false
+end type
+
+type st_32 from statictext within tabpage_sons
+integer x = 443
+integer y = 1320
+integer width = 727
+integer height = 92
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Style barre d~'icones latérale :"
+boolean focusrectangle = false
+end type
+
+type pb_1 from picturebutton within tabpage_sons
+integer x = 2313
+integer y = 84
+integer width = 137
+integer height = 116
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un fichier"
+long backcolor = 553648127
+end type
+
+event clicked;string ficname,ficpath
+
+if GetFileOpenName("Fichiers Son",ficname,ficpath,"WAV","Fichiers Sons (*.wav),*.Wav") = 1 then
+	sle_son1.text = ficname
+end if
+end event
+
+type pb_2 from picturebutton within tabpage_sons
+integer x = 2313
+integer y = 208
+integer width = 137
+integer height = 116
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un fichier"
+long backcolor = 553648127
+end type
+
+event clicked;string ficname,ficpath
+
+if GetFileOpenName("Fichiers Son",ficname,ficpath,"WAV","Fichiers Sons (*.wav),*.Wav") = 1 then
+	sle_son2.text = ficname
+end if
+end event
+
+type pb_3 from picturebutton within tabpage_sons
+integer x = 2313
+integer y = 332
+integer width = 137
+integer height = 116
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = arabiccharset!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un fichier"
+long backcolor = 553648127
+end type
+
+event clicked;string ficname,ficpath
+
+if GetFileOpenName("Fichiers Son",ficname,ficpath,"WAV","Fichiers Sons (*.wav),*.Wav") = 1 then
+	sle_son3.text = ficname
+end if
+end event
+
+type pb_4 from picturebutton within tabpage_sons
+integer x = 2313
+integer y = 456
+integer width = 137
+integer height = 116
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un fichier"
+long backcolor = 553648127
+end type
+
+event clicked;string ficname,ficpath
+
+if GetFileOpenName("Fichiers Son",ficname,ficpath,"WAV","Fichiers Sons (*.wav),*.Wav") = 1 then
+	sle_son4.text = ficname
+end if
+end event
+
+type pb_5 from picturebutton within tabpage_sons
+integer x = 2313
+integer y = 580
+integer width = 137
+integer height = 116
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un fichier"
+long backcolor = 553648127
+end type
+
+event clicked;string ficname,ficpath
+
+if GetFileOpenName("Fichiers Son",ficname,ficpath,"WAV","Fichiers Sons (*.wav),*.Wav") = 1 then
+	sle_son5.text = ficname
+end if
+end event
+
+type pb_6 from picturebutton within tabpage_sons
+integer x = 2313
+integer y = 704
+integer width = 137
+integer height = 116
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un fichier"
+long backcolor = 553648127
+end type
+
+event clicked;string ficname,ficpath
+
+if GetFileOpenName("Fichiers Son",ficname,ficpath,"WAV","Fichiers Sons (*.wav),*.Wav") = 1 then
+	sle_son6.text = ficname
+end if
+end event
+
+type pb_7 from picturebutton within tabpage_sons
+integer x = 2313
+integer y = 828
+integer width = 137
+integer height = 116
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un fichier"
+long backcolor = 553648127
+end type
+
+event clicked;string ficname,ficpath
+
+if GetFileOpenName("Fichiers Son",ficname,ficpath,"WAV","Fichiers Sons (*.wav),*.Wav") = 1 then
+	sle_son7.text = ficname
+end if
+end event
+
+type pb_8 from picturebutton within tabpage_sons
+integer x = 2491
+integer y = 84
+integer width = 137
+integer height = 116
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_sons.png"
+alignment htextalign = left!
+long backcolor = 553648127
+end type
+
+event clicked;son_force(1)
+end event
+
+type pb_9 from picturebutton within tabpage_sons
+integer x = 2491
+integer y = 208
+integer width = 137
+integer height = 116
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_sons.png"
+alignment htextalign = left!
+long backcolor = 553648127
+end type
+
+event clicked;son_force(2)
+end event
+
+type pb_10 from picturebutton within tabpage_sons
+integer x = 2491
+integer y = 332
+integer width = 137
+integer height = 116
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_sons.png"
+alignment htextalign = left!
+long backcolor = 553648127
+end type
+
+event clicked;son_force(3)
+end event
+
+type pb_11 from picturebutton within tabpage_sons
+integer x = 2491
+integer y = 456
+integer width = 137
+integer height = 116
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_sons.png"
+alignment htextalign = left!
+long backcolor = 553648127
+end type
+
+event clicked;son_force(4)
+end event
+
+type pb_12 from picturebutton within tabpage_sons
+integer x = 2491
+integer y = 580
+integer width = 137
+integer height = 116
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_sons.png"
+alignment htextalign = left!
+long backcolor = 553648127
+end type
+
+event clicked;son_force(5)
+end event
+
+type pb_13 from picturebutton within tabpage_sons
+integer x = 2491
+integer y = 828
+integer width = 137
+integer height = 116
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_sons.png"
+alignment htextalign = left!
+long backcolor = 553648127
+end type
+
+event clicked;son_force(7)
+end event
+
+type pb_14 from picturebutton within tabpage_sons
+integer x = 2491
+integer y = 704
+integer width = 137
+integer height = 116
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_sons.png"
+alignment htextalign = left!
+long backcolor = 553648127
+end type
+
+event clicked;son_force(6)
+end event
+
+type st_3 from statictext within tabpage_sons
+integer x = 215
+integer y = 112
+integer width = 658
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+boolean enabled = false
+string text = "Entrée Logiciel :"
+boolean focusrectangle = false
+end type
+
+type st_4 from statictext within tabpage_sons
+integer x = 215
+integer y = 228
+integer width = 658
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+boolean enabled = false
+string text = "Sortie Logiciel :"
+boolean focusrectangle = false
+end type
+
+type st_5 from statictext within tabpage_sons
+integer x = 215
+integer y = 344
+integer width = 658
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+boolean enabled = false
+string text = "Règlement enregistrer :"
+boolean focusrectangle = false
+end type
+
+type st_6 from statictext within tabpage_sons
+integer x = 215
+integer y = 460
+integer width = 658
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+boolean enabled = false
+string text = "Erreur sur les données :"
+boolean focusrectangle = false
+end type
+
+type st_7 from statictext within tabpage_sons
+integer x = 215
+integer y = 576
+integer width = 658
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+boolean enabled = false
+string text = "Alertes :"
+boolean focusrectangle = false
+end type
+
+type cbx_sons_actifs from checkbox within tabpage_sons
+integer x = 128
+integer y = 28
+integer width = 503
+integer height = 72
+integer taborder = 10
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Sons activés"
+end type
+
+type st_2 from statictext within tabpage_sons
+integer x = 215
+integer y = 692
+integer width = 658
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+boolean enabled = false
+string text = "A propos de :"
+boolean focusrectangle = false
+end type
+
+type st_8 from statictext within tabpage_sons
+integer x = 215
+integer y = 808
+integer width = 658
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+boolean enabled = false
+string text = "Suppression :"
+boolean focusrectangle = false
+end type
+
+type sle_son1 from singlelineedit within tabpage_sons
+integer x = 910
+integer y = 104
+integer width = 1353
+integer height = 88
+integer taborder = 20
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
+end type
+
+type sle_son2 from singlelineedit within tabpage_sons
+integer x = 910
+integer y = 220
+integer width = 1353
+integer height = 88
+integer taborder = 30
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
+end type
+
+type sle_son3 from singlelineedit within tabpage_sons
+integer x = 910
+integer y = 336
+integer width = 1353
+integer height = 88
+integer taborder = 40
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
+end type
+
+type sle_son4 from singlelineedit within tabpage_sons
+integer x = 910
+integer y = 452
+integer width = 1353
+integer height = 88
+integer taborder = 50
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
+end type
+
+type sle_son5 from singlelineedit within tabpage_sons
+integer x = 910
+integer y = 568
+integer width = 1353
+integer height = 88
+integer taborder = 60
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
+end type
+
+type sle_son6 from singlelineedit within tabpage_sons
+integer x = 910
+integer y = 684
+integer width = 1353
+integer height = 88
+integer taborder = 70
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
+end type
+
+type sle_son7 from singlelineedit within tabpage_sons
+integer x = 910
+integer y = 800
+integer width = 1353
+integer height = 88
+integer taborder = 80
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
+end type
+
+type gb_14 from groupbox within tabpage_sons
+integer x = 379
+integer y = 1520
+integer width = 1760
+integer height = 484
+integer taborder = 50
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Listes Ecran"
+end type
+
+type gb_19 from groupbox within tabpage_sons
+integer x = 379
+integer y = 1088
+integer width = 1760
+integer height = 404
+integer taborder = 100
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Fenêtres"
+end type
+
+type gb_volets from groupbox within tabpage_sons
+integer x = 2834
+integer y = 1492
+integer width = 1701
+integer height = 548
+integer taborder = 120
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Volets latéraux et Rubans"
+end type
+
+type gb_onglets from groupbox within tabpage_sons
+integer x = 2834
+integer y = 1064
+integer width = 1701
+integer height = 376
+integer taborder = 100
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Onglets"
+end type
+
+type gb_18 from groupbox within tabpage_sons
+integer x = 2834
+integer y = 2080
+integer width = 1701
+integer height = 204
+integer taborder = 110
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Animations / Effets"
+end type
+
+type gb_30 from groupbox within tabpage_sons
+integer x = 197
+integer y = 992
+integer width = 2537
+integer height = 1352
+integer taborder = 120
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Couleurs"
+end type
+
+type tabpage_repertoires from userobject within tab_1
+integer x = 18
+integer y = 336
+integer width = 5207
+integer height = 2380
+long backcolor = 16777215
+string text = "Répertoires"
+long tabtextcolor = 33554432
+long tabbackcolor = 15780518
+string picturename = "lc_repertoires.png"
+long picturemaskcolor = 536870912
+pb_19 pb_19
+sle_raccourci_menu_patient sle_raccourci_menu_patient
+cbx_version_mediadent cbx_version_mediadent
+st_3shape0 st_3shape0
+sle_3shape0 sle_3shape0
+pb_3shape2 pb_3shape2
+sle_3shape3 sle_3shape3
+st_3shape4 st_3shape4
+st_3shape3 st_3shape3
+sle_3shape4 sle_3shape4
+pb_3shape0 pb_3shape0
+sle_3shape2 sle_3shape2
+st_3shape2 st_3shape2
+pb_recherche_rep_replic_odrade pb_recherche_rep_replic_odrade
+pb_recherche_rep_replic_orthokis pb_recherche_rep_replic_orthokis
+pb_22 pb_22
+pb_explorer pb_explorer
+rb_replic_base_odrade_locale rb_replic_base_odrade_locale
+rb_replic_base_odrade_cabinet rb_replic_base_odrade_cabinet
+st_replic_base_odrade st_replic_base_odrade
+st_indiquez_valeur st_indiquez_valeur
+sle_dcm2jpg sle_dcm2jpg
+st_param_conversion st_param_conversion
+sle_3shape sle_3shape
+st_3shape st_3shape
+pb_18 pb_18
+sle_dir_acquis_wifi sle_dir_acquis_wifi
+st_23 st_23
+pb_17 pb_17
+sle_dir_acquis_courant sle_dir_acquis_courant
+st_13 st_13
+pb_courriers_replic pb_courriers_replic
+sle_courriers_replic sle_courriers_replic
+st_courriers_replic st_courriers_replic
+st_odrade_present st_odrade_present
+pb_odrade pb_odrade
+sle_dolphin sle_dolphin
+st_dolphin st_dolphin
+pb_rep_radio pb_rep_radio
+sle_rep_radio sle_rep_radio
+st_rep_radio st_rep_radio
+pb_radio_exe pb_radio_exe
+st_radio_exe st_radio_exe
+sle_odrade sle_odrade
+st_odrade st_odrade
+st_installation st_installation
+pb_171 pb_171
+sle_sauvegarde sle_sauvegarde
+st_16 st_16
+cbx_courriers cbx_courriers
+cbx_photos cbx_photos
+st_151 st_151
+pb_16 pb_16
+pb_photos_replic pb_photos_replic
+pb_15 pb_15
+sle_photos sle_photos
+sle_courriers sle_courriers
+st_9 st_9
+st_10 st_10
+sle_photos_replic sle_photos_replic
+st_photos_replic st_photos_replic
+pb_dolphin pb_dolphin
+gb_3shape gb_3shape
+sle_radio_exe sle_radio_exe
+gb_26 gb_26
+gb_replic gb_replic
+gb_1 gb_1
+gb_lien_radio gb_lien_radio
+gb_48 gb_48
+end type
+
+on tabpage_repertoires.create
+this.pb_19=create pb_19
+this.sle_raccourci_menu_patient=create sle_raccourci_menu_patient
+this.cbx_version_mediadent=create cbx_version_mediadent
+this.st_3shape0=create st_3shape0
+this.sle_3shape0=create sle_3shape0
+this.pb_3shape2=create pb_3shape2
+this.sle_3shape3=create sle_3shape3
+this.st_3shape4=create st_3shape4
+this.st_3shape3=create st_3shape3
+this.sle_3shape4=create sle_3shape4
+this.pb_3shape0=create pb_3shape0
+this.sle_3shape2=create sle_3shape2
+this.st_3shape2=create st_3shape2
+this.pb_recherche_rep_replic_odrade=create pb_recherche_rep_replic_odrade
+this.pb_recherche_rep_replic_orthokis=create pb_recherche_rep_replic_orthokis
+this.pb_22=create pb_22
+this.pb_explorer=create pb_explorer
+this.rb_replic_base_odrade_locale=create rb_replic_base_odrade_locale
+this.rb_replic_base_odrade_cabinet=create rb_replic_base_odrade_cabinet
+this.st_replic_base_odrade=create st_replic_base_odrade
+this.st_indiquez_valeur=create st_indiquez_valeur
+this.sle_dcm2jpg=create sle_dcm2jpg
+this.st_param_conversion=create st_param_conversion
+this.sle_3shape=create sle_3shape
+this.st_3shape=create st_3shape
+this.pb_18=create pb_18
+this.sle_dir_acquis_wifi=create sle_dir_acquis_wifi
+this.st_23=create st_23
+this.pb_17=create pb_17
+this.sle_dir_acquis_courant=create sle_dir_acquis_courant
+this.st_13=create st_13
+this.pb_courriers_replic=create pb_courriers_replic
+this.sle_courriers_replic=create sle_courriers_replic
+this.st_courriers_replic=create st_courriers_replic
+this.st_odrade_present=create st_odrade_present
+this.pb_odrade=create pb_odrade
+this.sle_dolphin=create sle_dolphin
+this.st_dolphin=create st_dolphin
+this.pb_rep_radio=create pb_rep_radio
+this.sle_rep_radio=create sle_rep_radio
+this.st_rep_radio=create st_rep_radio
+this.pb_radio_exe=create pb_radio_exe
+this.st_radio_exe=create st_radio_exe
+this.sle_odrade=create sle_odrade
+this.st_odrade=create st_odrade
+this.st_installation=create st_installation
+this.pb_171=create pb_171
+this.sle_sauvegarde=create sle_sauvegarde
+this.st_16=create st_16
+this.cbx_courriers=create cbx_courriers
+this.cbx_photos=create cbx_photos
+this.st_151=create st_151
+this.pb_16=create pb_16
+this.pb_photos_replic=create pb_photos_replic
+this.pb_15=create pb_15
+this.sle_photos=create sle_photos
+this.sle_courriers=create sle_courriers
+this.st_9=create st_9
+this.st_10=create st_10
+this.sle_photos_replic=create sle_photos_replic
+this.st_photos_replic=create st_photos_replic
+this.pb_dolphin=create pb_dolphin
+this.gb_3shape=create gb_3shape
+this.sle_radio_exe=create sle_radio_exe
+this.gb_26=create gb_26
+this.gb_replic=create gb_replic
+this.gb_1=create gb_1
+this.gb_lien_radio=create gb_lien_radio
+this.gb_48=create gb_48
+this.Control[]={this.pb_19,&
+this.sle_raccourci_menu_patient,&
+this.cbx_version_mediadent,&
+this.st_3shape0,&
+this.sle_3shape0,&
+this.pb_3shape2,&
+this.sle_3shape3,&
+this.st_3shape4,&
+this.st_3shape3,&
+this.sle_3shape4,&
+this.pb_3shape0,&
+this.sle_3shape2,&
+this.st_3shape2,&
+this.pb_recherche_rep_replic_odrade,&
+this.pb_recherche_rep_replic_orthokis,&
+this.pb_22,&
+this.pb_explorer,&
+this.rb_replic_base_odrade_locale,&
+this.rb_replic_base_odrade_cabinet,&
+this.st_replic_base_odrade,&
+this.st_indiquez_valeur,&
+this.sle_dcm2jpg,&
+this.st_param_conversion,&
+this.sle_3shape,&
+this.st_3shape,&
+this.pb_18,&
+this.sle_dir_acquis_wifi,&
+this.st_23,&
+this.pb_17,&
+this.sle_dir_acquis_courant,&
+this.st_13,&
+this.pb_courriers_replic,&
+this.sle_courriers_replic,&
+this.st_courriers_replic,&
+this.st_odrade_present,&
+this.pb_odrade,&
+this.sle_dolphin,&
+this.st_dolphin,&
+this.pb_rep_radio,&
+this.sle_rep_radio,&
+this.st_rep_radio,&
+this.pb_radio_exe,&
+this.st_radio_exe,&
+this.sle_odrade,&
+this.st_odrade,&
+this.st_installation,&
+this.pb_171,&
+this.sle_sauvegarde,&
+this.st_16,&
+this.cbx_courriers,&
+this.cbx_photos,&
+this.st_151,&
+this.pb_16,&
+this.pb_photos_replic,&
+this.pb_15,&
+this.sle_photos,&
+this.sle_courriers,&
+this.st_9,&
+this.st_10,&
+this.sle_photos_replic,&
+this.st_photos_replic,&
+this.pb_dolphin,&
+this.gb_3shape,&
+this.sle_radio_exe,&
+this.gb_26,&
+this.gb_replic,&
+this.gb_1,&
+this.gb_lien_radio,&
+this.gb_48}
+end on
+
+on tabpage_repertoires.destroy
+destroy(this.pb_19)
+destroy(this.sle_raccourci_menu_patient)
+destroy(this.cbx_version_mediadent)
+destroy(this.st_3shape0)
+destroy(this.sle_3shape0)
+destroy(this.pb_3shape2)
+destroy(this.sle_3shape3)
+destroy(this.st_3shape4)
+destroy(this.st_3shape3)
+destroy(this.sle_3shape4)
+destroy(this.pb_3shape0)
+destroy(this.sle_3shape2)
+destroy(this.st_3shape2)
+destroy(this.pb_recherche_rep_replic_odrade)
+destroy(this.pb_recherche_rep_replic_orthokis)
+destroy(this.pb_22)
+destroy(this.pb_explorer)
+destroy(this.rb_replic_base_odrade_locale)
+destroy(this.rb_replic_base_odrade_cabinet)
+destroy(this.st_replic_base_odrade)
+destroy(this.st_indiquez_valeur)
+destroy(this.sle_dcm2jpg)
+destroy(this.st_param_conversion)
+destroy(this.sle_3shape)
+destroy(this.st_3shape)
+destroy(this.pb_18)
+destroy(this.sle_dir_acquis_wifi)
+destroy(this.st_23)
+destroy(this.pb_17)
+destroy(this.sle_dir_acquis_courant)
+destroy(this.st_13)
+destroy(this.pb_courriers_replic)
+destroy(this.sle_courriers_replic)
+destroy(this.st_courriers_replic)
+destroy(this.st_odrade_present)
+destroy(this.pb_odrade)
+destroy(this.sle_dolphin)
+destroy(this.st_dolphin)
+destroy(this.pb_rep_radio)
+destroy(this.sle_rep_radio)
+destroy(this.st_rep_radio)
+destroy(this.pb_radio_exe)
+destroy(this.st_radio_exe)
+destroy(this.sle_odrade)
+destroy(this.st_odrade)
+destroy(this.st_installation)
+destroy(this.pb_171)
+destroy(this.sle_sauvegarde)
+destroy(this.st_16)
+destroy(this.cbx_courriers)
+destroy(this.cbx_photos)
+destroy(this.st_151)
+destroy(this.pb_16)
+destroy(this.pb_photos_replic)
+destroy(this.pb_15)
+destroy(this.sle_photos)
+destroy(this.sle_courriers)
+destroy(this.st_9)
+destroy(this.st_10)
+destroy(this.sle_photos_replic)
+destroy(this.st_photos_replic)
+destroy(this.pb_dolphin)
+destroy(this.gb_3shape)
+destroy(this.sle_radio_exe)
+destroy(this.gb_26)
+destroy(this.gb_replic)
+destroy(this.gb_1)
+destroy(this.gb_lien_radio)
+destroy(this.gb_48)
+end on
+
+type pb_19 from picturebutton within tabpage_repertoires
+integer x = 4338
+integer y = 80
+integer width = 151
+integer height = 128
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un répertoire"
+long backcolor = 553648127
+end type
+
+event clicked;string repertoire
+repertoire = trim(sle_raccourci_menu_patient.text)
+if repertoire = "" then
+	repertoire = "c:\"
+end if
+
+repertoire = get_repertoire("Sélectionnez le dossier raccourci du menu Patient ...",repertoire)
+
+// on interdit un raccourci sur le dossier photos
+
+if upper(repertoire) = upper(dir_photos) then
+	Messagebox("ATTENTION !", "Vous ne pouvez pas désigner le répertoire des Photos en raccourci !")
+else
+	sle_raccourci_menu_patient.text = repertoire
+end if
+
+
+
+end event
+
+type sle_raccourci_menu_patient from singlelineedit within tabpage_repertoires
+integer x = 2793
+integer y = 112
+integer width = 1513
+integer height = 88
+integer taborder = 20
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
+end type
+
+event losefocus;verif_path(sle_photos,cbx_photos)
+end event
+
+type cbx_version_mediadent from checkbox within tabpage_repertoires
+boolean visible = false
+integer x = 2491
+integer y = 1204
+integer width = 800
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Mediadent version 8 ou +"
+end type
+
+type st_3shape0 from statictext within tabpage_repertoires
+boolean visible = false
+integer x = 82
+integer y = 1676
+integer width = 699
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Logiciel OrthoAnalyser :"
+boolean focusrectangle = false
+end type
+
+type sle_3shape0 from singlelineedit within tabpage_repertoires
+boolean visible = false
+integer x = 791
+integer y = 1664
+integer width = 2075
+integer height = 88
+integer taborder = 90
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+borderstyle borderstyle = stylelowered!
+end type
+
+type pb_3shape2 from picturebutton within tabpage_repertoires
+boolean visible = false
+integer x = 2894
+integer y = 1876
+integer width = 151
+integer height = 128
+integer taborder = 110
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+long backcolor = 553648127
+end type
+
+event clicked;
+string repertoire
+repertoire = sle_photos.text
+sle_3shape2.text  = get_repertoire("Sélectionnez le dossier OrthoData de 3Shape ...",repertoire)
+end event
+
+type sle_3shape3 from singlelineedit within tabpage_repertoires
+boolean visible = false
+integer x = 3410
+integer y = 1780
+integer width = 969
+integer height = 88
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_3shape4 from statictext within tabpage_repertoires
+boolean visible = false
+integer x = 3077
+integer y = 1904
+integer width = 421
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Mot de Passe :"
+boolean focusrectangle = false
+end type
+
+type st_3shape3 from statictext within tabpage_repertoires
+boolean visible = false
+integer x = 3077
+integer y = 1792
+integer width = 325
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Utilisateur :"
+boolean focusrectangle = false
+end type
+
+type sle_3shape4 from singlelineedit within tabpage_repertoires
+boolean visible = false
+integer x = 3502
+integer y = 1888
+integer width = 969
+integer height = 88
+integer taborder = 90
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+borderstyle borderstyle = stylelowered!
+end type
+
+type pb_3shape0 from picturebutton within tabpage_repertoires
+boolean visible = false
+integer x = 2894
+integer y = 1648
+integer width = 151
+integer height = 128
+integer taborder = 100
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+long backcolor = 553648127
+end type
+
+event clicked;string ficname,ficpath, repertoire
+integer lgname, lgpath
+
+if GetFileOpenName("Fichier exécutable",ficname,ficpath,"DB","Fichier exécutable OrthoAnalyzer de 3Shape (*.exe),*.exe") = 1 then
+	lgname = len(ficname)
+	lgpath = len(ficpath)
+	lgname = lgname - lgpath
+	repertoire = left (ficname, lgname) 
+//	sle_3shape.text = ficname + ficpath
+	sle_3shape0.text = ficname 
+end if
+end event
+
+type sle_3shape2 from singlelineedit within tabpage_repertoires
+boolean visible = false
+integer x = 626
+integer y = 1892
+integer width = 2245
+integer height = 88
+integer taborder = 90
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+borderstyle borderstyle = stylelowered!
+end type
+
+event losefocus;pour_un_rep(sle_sauvegarde)
+end event
+
+type st_3shape2 from statictext within tabpage_repertoires
+boolean visible = false
+integer x = 82
+integer y = 1900
+integer width = 535
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Dossier OrthoData :"
+boolean focusrectangle = false
+end type
+
+type pb_recherche_rep_replic_odrade from picturebutton within tabpage_repertoires
+integer x = 2181
+integer y = 1336
+integer width = 151
+integer height = 128
+integer taborder = 140
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Eras Demi ITC"
+string picturename = "lc_windows.png"
+string disabledname = "lc_explorer.png"
+string powertiptext = "Lance l~'explorateur Windows dans le répertoire"
+long backcolor = 553648127
+end type
+
+event clicked;
+String v_commande
+
+v_commande = "Explorer.exe /n," + sle_courriers_replic.text
+
+
+run(v_commande)
+end event
+
+type pb_recherche_rep_replic_orthokis from picturebutton within tabpage_repertoires
+integer x = 2181
+integer y = 1212
+integer width = 151
+integer height = 128
+integer taborder = 130
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Eras Demi ITC"
+string picturename = "lc_windows.png"
+string disabledname = "lc_explorer.png"
+string powertiptext = "Lance l~'explorateur Windows dans le répertoire"
+long backcolor = 553648127
+end type
+
+event clicked;
+String v_commande
+
+v_commande = "Explorer.exe /n," + sle_photos_replic.text
+
+
+run(v_commande)
+end event
+
+type pb_22 from picturebutton within tabpage_repertoires
+integer x = 2181
+integer y = 212
+integer width = 151
+integer height = 128
+integer taborder = 120
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Eras Demi ITC"
+string picturename = "lc_windows.png"
+string disabledname = "lc_explorer.png"
+string powertiptext = "Lance l~'explorateur Windows dans le répertoire"
+long backcolor = 553648127
+end type
+
+event clicked;
+
+String v_commande
+
+v_commande = "Explorer.exe /n," + sle_courriers.text
+
+
+run(v_commande)
+end event
+
+type pb_explorer from picturebutton within tabpage_repertoires
+integer x = 2181
+integer y = 88
+integer width = 151
+integer height = 128
+integer taborder = 110
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Eras Demi ITC"
+string picturename = "lc_windows.png"
+string disabledname = "lc_explorer.png"
+string powertiptext = "Lance l~'explorateur Windows dans le répertoire"
+long backcolor = 553648127
+end type
+
+event clicked;
+
+String v_commande
+
+v_commande = "Explorer.exe /n," + sle_photos.text
+
+
+run(v_commande)
+end event
+
+type rb_replic_base_odrade_locale from radiobutton within tabpage_repertoires
+integer x = 1033
+integer y = 1472
+integer width = 402
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Locale"
+end type
+
+type rb_replic_base_odrade_cabinet from radiobutton within tabpage_repertoires
+integer x = 613
+integer y = 1472
+integer width = 402
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cabinet"
+end type
+
+type st_replic_base_odrade from statictext within tabpage_repertoires
+integer x = 110
+integer y = 1472
+integer width = 402
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Base Odrade :"
+boolean focusrectangle = false
+end type
+
+type st_indiquez_valeur from statictext within tabpage_repertoires
+boolean visible = false
+integer x = 3150
+integer y = 1136
+integer width = 1362
+integer height = 72
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 553648127
+string text = "Indiquez une valeur uniquement sous le contrôle d~'ARAKIS"
+boolean focusrectangle = false
+end type
+
+type sle_dcm2jpg from singlelineedit within tabpage_repertoires
+boolean visible = false
+integer x = 3154
+integer y = 1020
+integer width = 1385
+integer height = 96
+integer taborder = 90
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_param_conversion from statictext within tabpage_repertoires
+boolean visible = false
+integer x = 2441
+integer y = 1040
+integer width = 704
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Param. Conversion JPEG"
+boolean focusrectangle = false
+end type
+
+type sle_3shape from singlelineedit within tabpage_repertoires
+boolean visible = false
+integer x = 791
+integer y = 1780
+integer width = 2075
+integer height = 88
+integer taborder = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_3shape from statictext within tabpage_repertoires
+boolean visible = false
+integer x = 82
+integer y = 1792
+integer width = 699
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Adresse Dental Desktop :"
+boolean focusrectangle = false
+end type
+
+type pb_18 from picturebutton within tabpage_repertoires
+integer x = 1989
+integer y = 876
+integer width = 151
+integer height = 128
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un répertoire"
+long backcolor = 553648127
+end type
+
+event clicked;string repertoire
+repertoire = sle_dir_acquis_wifi.text
+sle_dir_acquis_wifi.text = get_repertoire("Sélectionnez le dossier d'acquisition des photos Wi-Fi ...",repertoire)
+
+
+end event
+
+type sle_dir_acquis_wifi from singlelineedit within tabpage_repertoires
+integer x = 622
+integer y = 896
+integer width = 1353
+integer height = 88
+integer taborder = 110
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_23 from statictext within tabpage_repertoires
+integer x = 114
+integer y = 904
+integer width = 389
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Mode Wi-Fi :"
+boolean focusrectangle = false
+end type
+
+type pb_17 from picturebutton within tabpage_repertoires
+integer x = 1989
+integer y = 748
+integer width = 151
+integer height = 128
+integer taborder = 90
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un répertoire"
+long backcolor = 553648127
+end type
+
+event clicked;string repertoire
+repertoire = sle_dir_acquis_courant.text
+sle_dir_acquis_courant.text = get_repertoire("Sélectionnez le dossier d'acquisition des photos fichiers ...",repertoire)
+
+
+end event
+
+type sle_dir_acquis_courant from singlelineedit within tabpage_repertoires
+integer x = 622
+integer y = 768
+integer width = 1353
+integer height = 88
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_13 from statictext within tabpage_repertoires
+integer x = 114
+integer y = 776
+integer width = 457
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Mode Fichiers :"
+boolean focusrectangle = false
+end type
+
+type pb_courriers_replic from picturebutton within tabpage_repertoires
+integer x = 2007
+integer y = 1340
+integer width = 151
+integer height = 128
+integer taborder = 40
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un répertoire"
+long backcolor = 553648127
+end type
+
+event clicked;string repertoire
+repertoire = sle_courriers_replic.text
+sle_courriers_replic.text = get_repertoire("Sélectionnez le dossier des modèles de courriers mode itinérant (local) ...",repertoire)
+
+
+end event
+
+type sle_courriers_replic from singlelineedit within tabpage_repertoires
+integer x = 617
+integer y = 1360
+integer width = 1353
+integer height = 88
+integer taborder = 30
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_courriers_replic from statictext within tabpage_repertoires
+integer x = 110
+integer y = 1368
+integer width = 302
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+boolean enabled = false
+string text = "Courriers :"
+boolean focusrectangle = false
+end type
+
+type st_odrade_present from statictext within tabpage_repertoires
+boolean visible = false
+integer x = 613
+integer y = 472
+integer width = 1358
+integer height = 136
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 553648127
+string text = "Logiciel Odrade détecté sur ce poste : la configuration du dossier se fait dans Odrade."
+boolean focusrectangle = false
+end type
+
+type pb_odrade from picturebutton within tabpage_repertoires
+integer x = 2011
+integer y = 468
+integer width = 151
+integer height = 128
+integer taborder = 90
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un répertoire"
+long backcolor = 553648127
+end type
+
+event clicked;string repertoire
+repertoire = sle_odrade.text
+sle_odrade.text = get_repertoire("Sélectionnez le dossier des patients de Odrade ...",repertoire)
+
+
+end event
+
+type sle_dolphin from singlelineedit within tabpage_repertoires
+integer x = 2871
+integer y = 1460
+integer width = 1353
+integer height = 88
+integer taborder = 70
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_dolphin from statictext within tabpage_repertoires
+integer x = 2519
+integer y = 1472
+integer width = 302
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Dolphin :"
+boolean focusrectangle = false
+end type
+
+type pb_rep_radio from picturebutton within tabpage_repertoires
+integer x = 4366
+integer y = 756
+integer width = 151
+integer height = 128
+integer taborder = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+long backcolor = 553648127
+end type
+
+event clicked;string	lstr_rep
+string ficname,ficpath
+integer lgname, lgpath
+string repertoire
+
+if Myray then
+	repertoire = sle_rep_radio.text
+	sle_rep_radio.text = get_repertoire("Sélectionnez le dossier des radios MyRay ...",repertoire)
+else
+	if tab_1.tabpage_repertoires.sle_rep_radio.text = ""  then
+	// si encore rien de config
+		
+		if vixwin then lstr_rep = uo_vixwin.find_rep_radio()
+		if trophy then lstr_rep = uo_trophy.find_rep_radio()
+		if mediadent then lstr_rep = uo_mediadent.find_rep_radio()
+	//	if mediadent then
+	//		if FileExists( uo_mediadent.get_programme_default_path( ) + uo_mediadent.get_programme_exe_file( ) ) then
+	//			lstr_rep = uo_mediadent.get_programme_default_path( ) + "ARAKIS" + win_delimiter
+	//		end if
+	//	end if
+		
+		tab_1.tabpage_repertoires.sle_rep_radio.text = lstr_rep
+	end if
+	
+	if lstr_rep = ""  then
+	// si rien récup à l'étape précédente
+		if GetFileOpenName("Fichiers photos",ficname,ficpath,"JPG","Fichiers Photos (*.jpg),*.jpg") = 1 then
+			lgname = len(ficname)
+			lgpath = len(ficpath)
+			lgname = lgname - lgpath
+			
+			lstr_rep = left (ficname, lgname)
+			
+			tab_1.tabpage_repertoires.sle_rep_radio.text = lstr_rep
+		end if
+	end if
+end if
+
+sle_rep_radio.setfocus( )
+end event
+
+type sle_rep_radio from singlelineedit within tabpage_repertoires
+integer x = 2976
+integer y = 780
+integer width = 1353
+integer height = 88
+integer taborder = 90
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+borderstyle borderstyle = stylelowered!
+end type
+
+event losefocus;if not rayscan then
+	pour_un_rep( sle_rep_radio )
+end if
+end event
+
+type st_rep_radio from statictext within tabpage_repertoires
+integer x = 2491
+integer y = 788
+integer width = 274
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Radios :"
+boolean focusrectangle = false
+end type
+
+type pb_radio_exe from picturebutton within tabpage_repertoires
+integer x = 4366
+integer y = 884
+integer width = 151
+integer height = 128
+integer taborder = 70
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+long backcolor = 553648127
+end type
+
+event clicked;string	lstr_rep
+string ficname,ficpath
+integer lgname, lgpath
+
+if Myray or Owandy then
+	if GetFileOpenName("Fichiers exécutables",ficname,ficpath,"EXE","Fichiers exécutables (*.exe),*.exe") = 1 then
+		lstr_rep = ficname
+	end if
+else
+	if Rayscan then
+		if GetFileOpenName("Fichier exécutable",ficname,ficpath,"EXE","Fichiers exécutables (*.exe),*.exe") = 1 then
+			lgname = len(ficname)
+			lgpath = len(ficpath)
+			lgname = lgname - lgpath
+			
+			//lstr_rep = left (ficname, lgname)
+			// Depuis 2016, nom complet ...
+			lstr_rep = ficname
+		end if
+	else
+		if trim(tab_1.tabpage_repertoires.sle_radio_exe.text) = ""  then
+			// si encore rien de config
+			if vixwin then lstr_rep = uo_vixwin.find_programme_exe_path()
+			if trophy then lstr_rep = uo_trophy.find_programme_exe_path()
+			if sidexis then lstr_rep = uo_sidexis.find_programme_exe_path()
+			if DURRDENTAL then lstr_rep = uo_DURRDENTAL.find_programme_exe_path()
+		else
+			if GetFileOpenName("Fichier exécutable",ficname,ficpath,"EXE","Fichiers exécutables (*.exe),*.exe") = 1 then
+				lgname = len(ficname)
+				lgpath = len(ficpath)
+				lgname = lgname - lgpath
+				
+				//lstr_rep = left (ficname, lgname)
+				// Depuis 2016, nom complet ...
+				lstr_rep = ficname
+			end if
+		end if
+	end if
+end if
+
+
+tab_1.tabpage_repertoires.sle_radio_exe.text = lstr_rep
+
+sle_radio_exe.setfocus( )
+end event
+
+type st_radio_exe from statictext within tabpage_repertoires
+integer x = 2491
+integer y = 896
+integer width = 1673
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Exécutable :"
+boolean focusrectangle = false
+end type
+
+type sle_odrade from singlelineedit within tabpage_repertoires
+integer x = 617
+integer y = 496
+integer width = 1353
+integer height = 88
+integer taborder = 70
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+borderstyle borderstyle = stylelowered!
+end type
+
+event losefocus;pour_un_rep(sle_odrade)
+end event
+
+type st_odrade from statictext within tabpage_repertoires
+integer x = 82
+integer y = 488
+integer width = 526
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Patients Odrade :"
+boolean focusrectangle = false
+end type
+
+type st_installation from statictext within tabpage_repertoires
+integer x = 2761
+integer y = 408
+integer width = 1230
+integer height = 88
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 134217731
+boolean border = true
+borderstyle borderstyle = stylelowered!
+boolean focusrectangle = false
+end type
+
+type pb_171 from picturebutton within tabpage_repertoires
+integer x = 2007
+integer y = 340
+integer width = 151
+integer height = 128
+integer taborder = 40
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un répertoire"
+long backcolor = 553648127
+end type
+
+event clicked;string repertoire
+repertoire = sle_sauvegarde.text
+sle_sauvegarde.text = get_repertoire("Sélectionnez le dossier de Sauvegarde de la Base ...",repertoire)
+
+
+end event
+
+type sle_sauvegarde from singlelineedit within tabpage_repertoires
+integer x = 617
+integer y = 364
+integer width = 1353
+integer height = 88
+integer taborder = 40
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
+end type
+
+event losefocus;pour_un_rep(sle_sauvegarde)
+end event
+
+type st_16 from statictext within tabpage_repertoires
+integer x = 87
+integer y = 368
+integer width = 526
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Sauvegarde Base :"
+boolean focusrectangle = false
+end type
+
+type cbx_courriers from checkbox within tabpage_repertoires
+integer x = 2373
+integer y = 240
+integer width = 229
+integer height = 76
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "local"
+end type
+
+event clicked;get_path(sle_courriers, cbx_courriers)
+
+end event
+
+type cbx_photos from checkbox within tabpage_repertoires
+integer x = 2373
+integer y = 112
+integer width = 229
+integer height = 76
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "local"
+end type
+
+event clicked;get_path(sle_photos, cbx_photos)
+
+end event
+
+type st_151 from statictext within tabpage_repertoires
+integer x = 2766
+integer y = 312
+integer width = 946
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+boolean enabled = false
+string text = "Répertoire d~'installation d~'Orthokis :"
+boolean focusrectangle = false
+end type
+
+type pb_16 from picturebutton within tabpage_repertoires
+integer x = 2007
+integer y = 212
+integer width = 151
+integer height = 128
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un répertoire"
+long backcolor = 553648127
+end type
+
+event clicked;string repertoire
+repertoire = sle_courriers.text
+sle_courriers.text = get_repertoire("Sélectionnez le dossier des courriers ...",repertoire)
+
+
+end event
+
+type pb_photos_replic from picturebutton within tabpage_repertoires
+integer x = 2007
+integer y = 1212
+integer width = 151
+integer height = 128
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un répertoire"
+long backcolor = 553648127
+end type
+
+event clicked;string repertoire
+repertoire = sle_photos_replic.text
+sle_photos_replic.text = get_repertoire("Sélectionnez le dossier des photos mode itinérant (local) ...",repertoire)
+
+
+end event
+
+type pb_15 from picturebutton within tabpage_repertoires
+integer x = 2007
+integer y = 84
+integer width = 151
+integer height = 128
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+string powertiptext = "Permet de sélectionner un répertoire"
+long backcolor = 553648127
+end type
+
+event clicked;string repertoire
+repertoire = sle_photos.text
+sle_photos.text = get_repertoire("Sélectionnez le dossier des photos ...",repertoire)
+
+end event
+
+type sle_photos from singlelineedit within tabpage_repertoires
+integer x = 617
+integer y = 100
+integer width = 1353
+integer height = 88
+integer taborder = 10
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
+end type
+
+event losefocus;verif_path(sle_photos,cbx_photos)
+end event
+
+type sle_courriers from singlelineedit within tabpage_repertoires
+integer x = 617
+integer y = 232
+integer width = 1353
+integer height = 88
+integer taborder = 30
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
+end type
+
+event losefocus;verif_path(sle_courriers,cbx_courriers)
+end event
+
+type st_9 from statictext within tabpage_repertoires
+integer x = 87
+integer y = 112
+integer width = 521
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+boolean enabled = false
+string text = "Photos :"
+boolean focusrectangle = false
+end type
+
+type st_10 from statictext within tabpage_repertoires
+integer x = 87
+integer y = 240
+integer width = 517
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+boolean enabled = false
+string text = "Courriers :"
+boolean focusrectangle = false
+end type
+
+type sle_photos_replic from singlelineedit within tabpage_repertoires
+integer x = 617
+integer y = 1232
+integer width = 1353
+integer height = 88
+integer taborder = 20
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_photos_replic from statictext within tabpage_repertoires
+integer x = 114
+integer y = 1240
+integer width = 265
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+boolean enabled = false
+string text = "Photos :"
+boolean focusrectangle = false
+end type
+
+type pb_dolphin from picturebutton within tabpage_repertoires
+integer x = 4261
+integer y = 1440
+integer width = 151
+integer height = 128
+integer taborder = 80
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+long backcolor = 553648127
+end type
+
+event clicked;string ficname,ficpath, repertoire
+integer lgname, lgpath
+
+if GetFileOpenName("Fichier exécutable",ficname,ficpath,"DB","Fichier exécutable Dolphin (*.exe),*.exe") = 1 then
+	lgname = len(ficname)
+	lgpath = len(ficpath)
+	lgname = lgname - lgpath
+	repertoire = left (ficname, lgname) 
+	sle_dolphin.text = repertoire
+end if
+end event
+
+type gb_3shape from groupbox within tabpage_repertoires
+string tag = "Lien radio "
+boolean visible = false
+integer x = 37
+integer y = 1588
+integer width = 4503
+integer height = 440
+integer taborder = 90
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "3Shape"
+end type
+
+type sle_radio_exe from singlelineedit within tabpage_repertoires
+integer x = 2976
+integer y = 884
+integer width = 1353
+integer height = 96
+integer taborder = 80
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+borderstyle borderstyle = stylelowered!
+end type
+
+type gb_26 from groupbox within tabpage_repertoires
+string tag = "Lien radio "
+integer x = 41
+integer y = 24
+integer width = 2674
+integer height = 620
+integer taborder = 100
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Travail au Cabinet "
+end type
+
+type gb_replic from groupbox within tabpage_repertoires
+string tag = "réplication"
+integer x = 41
+integer y = 1152
+integer width = 2331
+integer height = 420
+integer taborder = 110
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Travail en Réplication (autonome)"
+end type
+
+type gb_1 from groupbox within tabpage_repertoires
+string tag = "Lien radio "
+integer x = 37
+integer y = 692
+integer width = 2167
+integer height = 348
+integer taborder = 120
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Acquisition Photos"
+end type
+
+type gb_lien_radio from groupbox within tabpage_repertoires
+string tag = "Lien radio "
+integer x = 2400
+integer y = 692
+integer width = 2167
+integer height = 344
+integer taborder = 100
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Lien radio "
+end type
+
+type gb_48 from groupbox within tabpage_repertoires
+integer x = 2747
+integer y = 24
+integer width = 1769
+integer height = 224
+integer taborder = 90
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Dossier Raccourci Menu Patient"
+end type
+
+type tabpage_administratif from userobject within tab_1
+event create ( )
+event destroy ( )
+integer x = 18
+integer y = 336
+integer width = 5207
+integer height = 2380
+long backcolor = 16777215
+string text = "Administratif"
+long tabtextcolor = 33554432
+long tabbackcolor = 15780518
+string picturename = "lc_admini.png"
+long picturemaskcolor = 536870912
+cbx_forcer_adri cbx_forcer_adri
+st_table_predefinis_admini_largeur st_table_predefinis_admini_largeur
+em_table_predefinis_admini_largeur em_table_predefinis_admini_largeur
+cbx_commentaires_admini_2010 cbx_commentaires_admini_2010
+cbx_masquer_decalage cbx_masquer_decalage
+gb_tests_imprimantes gb_tests_imprimantes
+cbx_recu_word cbx_recu_word
+cb_cadrage_local cb_cadrage_local
+cbx_dep_utiliser_cadagre_local cbx_dep_utiliser_cadagre_local
+cbx_supprimer_confirmation_eattest cbx_supprimer_confirmation_eattest
+ddlb_ged_onglet ddlb_ged_onglet
+st_24 st_24
+cbx_table_predefinis_adminis_sans_rtf cbx_table_predefinis_adminis_sans_rtf
+cbx_afficher_barre_avance_clinique_soins cbx_afficher_barre_avance_clinique_soins
+cbx_envoi_mail_document_signe cbx_envoi_mail_document_signe
+cb_imprimantes_praticiens cb_imprimantes_praticiens
+cbx_afficher_assistant_echeances cbx_afficher_assistant_echeances
+cb_test_fs cb_test_fs
+cb_test_recto_verso_dep cb_test_recto_verso_dep
+cb_test_recto_dep cb_test_recto_dep
+cbx_factures_pub_mon_ortho cbx_factures_pub_mon_ortho
+cbx_commentaires_adm_saisie_a_part cbx_commentaires_adm_saisie_a_part
+cbx_alerte_somme_due_rdv cbx_alerte_somme_due_rdv
+cbx_soins_coches cbx_soins_coches
+st_72 st_72
+cbx_facture_word cbx_facture_word
+em_nb_lignes_soins_word em_nb_lignes_soins_word
+cbx_attestations_word cbx_attestations_word
+pb_cadrage_ads pb_cadrage_ads
+cbx_debit_credit_pdf cbx_debit_credit_pdf
+cbx_recus_pdf cbx_recus_pdf
+cbx_attestations_2016 cbx_attestations_2016
+cbx_factures_pdf cbx_factures_pdf
+cbx_afficher_date_accord cbx_afficher_date_accord
+cbx_table_predefinis_commentaires_adm cbx_table_predefinis_commentaires_adm
+cbx_word_premier_plan cbx_word_premier_plan
+cbx_souligner_adultes cbx_souligner_adultes
+sle_belgique_format sle_belgique_format
+st_belgique_format st_belgique_format
+st_belgique_avertissement st_belgique_avertissement
+gb_signature_numerique gb_signature_numerique
+cbx_email_en_pj cbx_email_en_pj
+cbx_somme_due_famille cbx_somme_due_famille
+cbx_memo_word cbx_memo_word
+em_nombre_boucle_vitale em_nombre_boucle_vitale
+cbx_quitter_televitale cbx_quitter_televitale
+st_vitale_15 st_vitale_15
+st_vitale_50 st_vitale_50
+st_vitale_30 st_vitale_30
+em_duree_boucle_vitale em_duree_boucle_vitale
+ddlb_imprimante_feuilles_soins ddlb_imprimante_feuilles_soins
+cbx_active_impr_specif_feuilles_soins cbx_active_impr_specif_feuilles_soins
+ddlb_imprimante_dep ddlb_imprimante_dep
+cbx_dep_integre cbx_dep_integre
+cbx_active_impr_specif_dep cbx_active_impr_specif_dep
+gb_dep gb_dep
+gb_fs gb_fs
+gb_vitale gb_vitale
+gb_21 gb_21
+ddlb_imprimante_signature_numerique ddlb_imprimante_signature_numerique
+gb_33 gb_33
+gb_23 gb_23
+gb_soins gb_soins
+gb_facture gb_facture
+gb_autres gb_autres
+gb_32 gb_32
+gb_50 gb_50
+gb_belgique gb_belgique
+end type
+
+on tabpage_administratif.create
+this.cbx_forcer_adri=create cbx_forcer_adri
+this.st_table_predefinis_admini_largeur=create st_table_predefinis_admini_largeur
+this.em_table_predefinis_admini_largeur=create em_table_predefinis_admini_largeur
+this.cbx_commentaires_admini_2010=create cbx_commentaires_admini_2010
+this.cbx_masquer_decalage=create cbx_masquer_decalage
+this.gb_tests_imprimantes=create gb_tests_imprimantes
+this.cbx_recu_word=create cbx_recu_word
+this.cb_cadrage_local=create cb_cadrage_local
+this.cbx_dep_utiliser_cadagre_local=create cbx_dep_utiliser_cadagre_local
+this.cbx_supprimer_confirmation_eattest=create cbx_supprimer_confirmation_eattest
+this.ddlb_ged_onglet=create ddlb_ged_onglet
+this.st_24=create st_24
+this.cbx_table_predefinis_adminis_sans_rtf=create cbx_table_predefinis_adminis_sans_rtf
+this.cbx_afficher_barre_avance_clinique_soins=create cbx_afficher_barre_avance_clinique_soins
+this.cbx_envoi_mail_document_signe=create cbx_envoi_mail_document_signe
+this.cb_imprimantes_praticiens=create cb_imprimantes_praticiens
+this.cbx_afficher_assistant_echeances=create cbx_afficher_assistant_echeances
+this.cb_test_fs=create cb_test_fs
+this.cb_test_recto_verso_dep=create cb_test_recto_verso_dep
+this.cb_test_recto_dep=create cb_test_recto_dep
+this.cbx_factures_pub_mon_ortho=create cbx_factures_pub_mon_ortho
+this.cbx_commentaires_adm_saisie_a_part=create cbx_commentaires_adm_saisie_a_part
+this.cbx_alerte_somme_due_rdv=create cbx_alerte_somme_due_rdv
+this.cbx_soins_coches=create cbx_soins_coches
+this.st_72=create st_72
+this.cbx_facture_word=create cbx_facture_word
+this.em_nb_lignes_soins_word=create em_nb_lignes_soins_word
+this.cbx_attestations_word=create cbx_attestations_word
+this.pb_cadrage_ads=create pb_cadrage_ads
+this.cbx_debit_credit_pdf=create cbx_debit_credit_pdf
+this.cbx_recus_pdf=create cbx_recus_pdf
+this.cbx_attestations_2016=create cbx_attestations_2016
+this.cbx_factures_pdf=create cbx_factures_pdf
+this.cbx_afficher_date_accord=create cbx_afficher_date_accord
+this.cbx_table_predefinis_commentaires_adm=create cbx_table_predefinis_commentaires_adm
+this.cbx_word_premier_plan=create cbx_word_premier_plan
+this.cbx_souligner_adultes=create cbx_souligner_adultes
+this.sle_belgique_format=create sle_belgique_format
+this.st_belgique_format=create st_belgique_format
+this.st_belgique_avertissement=create st_belgique_avertissement
+this.gb_signature_numerique=create gb_signature_numerique
+this.cbx_email_en_pj=create cbx_email_en_pj
+this.cbx_somme_due_famille=create cbx_somme_due_famille
+this.cbx_memo_word=create cbx_memo_word
+this.em_nombre_boucle_vitale=create em_nombre_boucle_vitale
+this.cbx_quitter_televitale=create cbx_quitter_televitale
+this.st_vitale_15=create st_vitale_15
+this.st_vitale_50=create st_vitale_50
+this.st_vitale_30=create st_vitale_30
+this.em_duree_boucle_vitale=create em_duree_boucle_vitale
+this.ddlb_imprimante_feuilles_soins=create ddlb_imprimante_feuilles_soins
+this.cbx_active_impr_specif_feuilles_soins=create cbx_active_impr_specif_feuilles_soins
+this.ddlb_imprimante_dep=create ddlb_imprimante_dep
+this.cbx_dep_integre=create cbx_dep_integre
+this.cbx_active_impr_specif_dep=create cbx_active_impr_specif_dep
+this.gb_dep=create gb_dep
+this.gb_fs=create gb_fs
+this.gb_vitale=create gb_vitale
+this.gb_21=create gb_21
+this.ddlb_imprimante_signature_numerique=create ddlb_imprimante_signature_numerique
+this.gb_33=create gb_33
+this.gb_23=create gb_23
+this.gb_soins=create gb_soins
+this.gb_facture=create gb_facture
+this.gb_autres=create gb_autres
+this.gb_32=create gb_32
+this.gb_50=create gb_50
+this.gb_belgique=create gb_belgique
+this.Control[]={this.cbx_forcer_adri,&
+this.st_table_predefinis_admini_largeur,&
+this.em_table_predefinis_admini_largeur,&
+this.cbx_commentaires_admini_2010,&
+this.cbx_masquer_decalage,&
+this.gb_tests_imprimantes,&
+this.cbx_recu_word,&
+this.cb_cadrage_local,&
+this.cbx_dep_utiliser_cadagre_local,&
+this.cbx_supprimer_confirmation_eattest,&
+this.ddlb_ged_onglet,&
+this.st_24,&
+this.cbx_table_predefinis_adminis_sans_rtf,&
+this.cbx_afficher_barre_avance_clinique_soins,&
+this.cbx_envoi_mail_document_signe,&
+this.cb_imprimantes_praticiens,&
+this.cbx_afficher_assistant_echeances,&
+this.cb_test_fs,&
+this.cb_test_recto_verso_dep,&
+this.cb_test_recto_dep,&
+this.cbx_factures_pub_mon_ortho,&
+this.cbx_commentaires_adm_saisie_a_part,&
+this.cbx_alerte_somme_due_rdv,&
+this.cbx_soins_coches,&
+this.st_72,&
+this.cbx_facture_word,&
+this.em_nb_lignes_soins_word,&
+this.cbx_attestations_word,&
+this.pb_cadrage_ads,&
+this.cbx_debit_credit_pdf,&
+this.cbx_recus_pdf,&
+this.cbx_attestations_2016,&
+this.cbx_factures_pdf,&
+this.cbx_afficher_date_accord,&
+this.cbx_table_predefinis_commentaires_adm,&
+this.cbx_word_premier_plan,&
+this.cbx_souligner_adultes,&
+this.sle_belgique_format,&
+this.st_belgique_format,&
+this.st_belgique_avertissement,&
+this.gb_signature_numerique,&
+this.cbx_email_en_pj,&
+this.cbx_somme_due_famille,&
+this.cbx_memo_word,&
+this.em_nombre_boucle_vitale,&
+this.cbx_quitter_televitale,&
+this.st_vitale_15,&
+this.st_vitale_50,&
+this.st_vitale_30,&
+this.em_duree_boucle_vitale,&
+this.ddlb_imprimante_feuilles_soins,&
+this.cbx_active_impr_specif_feuilles_soins,&
+this.ddlb_imprimante_dep,&
+this.cbx_dep_integre,&
+this.cbx_active_impr_specif_dep,&
+this.gb_dep,&
+this.gb_fs,&
+this.gb_vitale,&
+this.gb_21,&
+this.ddlb_imprimante_signature_numerique,&
+this.gb_33,&
+this.gb_23,&
+this.gb_soins,&
+this.gb_facture,&
+this.gb_autres,&
+this.gb_32,&
+this.gb_50,&
+this.gb_belgique}
+end on
+
+on tabpage_administratif.destroy
+destroy(this.cbx_forcer_adri)
+destroy(this.st_table_predefinis_admini_largeur)
+destroy(this.em_table_predefinis_admini_largeur)
+destroy(this.cbx_commentaires_admini_2010)
+destroy(this.cbx_masquer_decalage)
+destroy(this.gb_tests_imprimantes)
+destroy(this.cbx_recu_word)
+destroy(this.cb_cadrage_local)
+destroy(this.cbx_dep_utiliser_cadagre_local)
+destroy(this.cbx_supprimer_confirmation_eattest)
+destroy(this.ddlb_ged_onglet)
+destroy(this.st_24)
+destroy(this.cbx_table_predefinis_adminis_sans_rtf)
+destroy(this.cbx_afficher_barre_avance_clinique_soins)
+destroy(this.cbx_envoi_mail_document_signe)
+destroy(this.cb_imprimantes_praticiens)
+destroy(this.cbx_afficher_assistant_echeances)
+destroy(this.cb_test_fs)
+destroy(this.cb_test_recto_verso_dep)
+destroy(this.cb_test_recto_dep)
+destroy(this.cbx_factures_pub_mon_ortho)
+destroy(this.cbx_commentaires_adm_saisie_a_part)
+destroy(this.cbx_alerte_somme_due_rdv)
+destroy(this.cbx_soins_coches)
+destroy(this.st_72)
+destroy(this.cbx_facture_word)
+destroy(this.em_nb_lignes_soins_word)
+destroy(this.cbx_attestations_word)
+destroy(this.pb_cadrage_ads)
+destroy(this.cbx_debit_credit_pdf)
+destroy(this.cbx_recus_pdf)
+destroy(this.cbx_attestations_2016)
+destroy(this.cbx_factures_pdf)
+destroy(this.cbx_afficher_date_accord)
+destroy(this.cbx_table_predefinis_commentaires_adm)
+destroy(this.cbx_word_premier_plan)
+destroy(this.cbx_souligner_adultes)
+destroy(this.sle_belgique_format)
+destroy(this.st_belgique_format)
+destroy(this.st_belgique_avertissement)
+destroy(this.gb_signature_numerique)
+destroy(this.cbx_email_en_pj)
+destroy(this.cbx_somme_due_famille)
+destroy(this.cbx_memo_word)
+destroy(this.em_nombre_boucle_vitale)
+destroy(this.cbx_quitter_televitale)
+destroy(this.st_vitale_15)
+destroy(this.st_vitale_50)
+destroy(this.st_vitale_30)
+destroy(this.em_duree_boucle_vitale)
+destroy(this.ddlb_imprimante_feuilles_soins)
+destroy(this.cbx_active_impr_specif_feuilles_soins)
+destroy(this.ddlb_imprimante_dep)
+destroy(this.cbx_dep_integre)
+destroy(this.cbx_active_impr_specif_dep)
+destroy(this.gb_dep)
+destroy(this.gb_fs)
+destroy(this.gb_vitale)
+destroy(this.gb_21)
+destroy(this.ddlb_imprimante_signature_numerique)
+destroy(this.gb_33)
+destroy(this.gb_23)
+destroy(this.gb_soins)
+destroy(this.gb_facture)
+destroy(this.gb_autres)
+destroy(this.gb_32)
+destroy(this.gb_50)
+destroy(this.gb_belgique)
+end on
+
+type cbx_forcer_adri from checkbox within tabpage_administratif
+boolean visible = false
+integer x = 2057
+integer y = 1036
+integer width = 727
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Tahoma"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Forcer ADRi à la lecture"
+end type
+
+type st_table_predefinis_admini_largeur from statictext within tabpage_administratif
+integer x = 1774
+integer y = 200
+integer width = 224
+integer height = 56
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Largeur : "
+boolean focusrectangle = false
+end type
+
+type em_table_predefinis_admini_largeur from editmask within tabpage_administratif
+integer x = 2007
+integer y = 184
+integer width = 247
+integer height = 88
+integer taborder = 90
+boolean bringtotop = true
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+alignment alignment = center!
+borderstyle borderstyle = stylelowered!
+string mask = "###0"
+boolean spin = true
+end type
+
+type cbx_commentaires_admini_2010 from checkbox within tabpage_administratif
+integer x = 110
+integer y = 88
+integer width = 1006
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Ne pas utiliser Commentaires RTF"
+end type
+
+event clicked;//if this.checked then
+//	cbx_colonne3_deroulante.visible = true
+//	cbx_colonne4_deroulante.visible = true
+//	cbx_colonne5_deroulante.visible = true
+//	cbx_colonne6_deroulante.visible = true
+//else
+//	cbx_colonne3_deroulante.visible = false
+//	cbx_colonne4_deroulante.visible = false
+//	cbx_colonne5_deroulante.visible = false
+//	cbx_colonne6_deroulante.visible = false
+//end if
+	
+	
+end event
+
+type cbx_masquer_decalage from checkbox within tabpage_administratif
+integer x = 3099
+integer y = 2088
+integer width = 1998
+integer height = 76
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Masquer décalages que dates (demandes / echéances) dans menu clic droit"
+end type
+
+type gb_tests_imprimantes from groupbox within tabpage_administratif
+boolean visible = false
+integer x = 1883
+integer y = 1564
+integer width = 869
+integer height = 536
+integer taborder = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+long backcolor = 67108864
+string text = "Tests Imprimantes"
+end type
+
+type cbx_recu_word from checkbox within tabpage_administratif
+integer x = 3090
+integer y = 856
+integer width = 1486
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Utiliser le reçu Word (au lieu du reçu intégré)"
+end type
+
+type cb_cadrage_local from commandbutton within tabpage_administratif
+boolean visible = false
+integer x = 818
+integer y = 584
+integer width = 718
+integer height = 104
+integer taborder = 50
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "Cadrage local"
+end type
+
+event clicked;
+if isvalid(w_environnement_cadrage_dep) then
+	// on selectionne
+	w_mdi_2020.uo_powerdock.of_activatedocument (w_environnement_cadrage_dep)
+else
+	// on ouvre
+	if fxg_ouverture_onglet_possible() then
+		w_mdi_2020.uo_powerdock.of_openDocument(w_environnement_cadrage_dep, "Cadrage DEP", m_orthokis_2020.m_outils.m_paramètres.toolbarItemName)
+	end if
+end if
+
+
+
+
+end event
+
+type cbx_dep_utiliser_cadagre_local from checkbox within tabpage_administratif
+integer x = 105
+integer y = 600
+integer width = 663
+integer height = 76
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Utiliser cadrage local"
+end type
+
+event clicked;
+if checked then 
+	cb_cadrage_local.visible = true
+else
+	cb_cadrage_local.visible = false
+end if
+end event
+
+type cbx_supprimer_confirmation_eattest from checkbox within tabpage_administratif
+integer x = 3122
+integer y = 1112
+integer width = 1806
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Supprimer la confirmation d~'actualisation après une eAttest"
+end type
+
+type ddlb_ged_onglet from dropdownlistbox within tabpage_administratif
+integer x = 901
+integer y = 1416
+integer width = 850
+integer height = 376
+integer taborder = 120
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean sorted = false
+string item[] = {"Onglet Courriers","Onglet Actions","Onglet Documents"}
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_24 from statictext within tabpage_administratif
+integer x = 105
+integer y = 1424
+integer width = 722
+integer height = 72
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Positionnement à l~'ouverture"
+boolean focusrectangle = false
+end type
+
+type cbx_table_predefinis_adminis_sans_rtf from checkbox within tabpage_administratif
+integer x = 1143
+integer y = 188
+integer width = 562
+integer height = 80
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Ne pas utiliser RTF"
+end type
+
+type cbx_afficher_barre_avance_clinique_soins from checkbox within tabpage_administratif
+integer x = 3099
+integer y = 1992
+integer width = 1285
+integer height = 76
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Afficher la barre d~'avancement clinique"
+end type
+
+type cbx_envoi_mail_document_signe from checkbox within tabpage_administratif
+integer x = 105
+integer y = 2164
+integer width = 1285
+integer height = 76
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Proposer l~'envoi par mail du document signé"
+end type
+
+type cb_imprimantes_praticiens from commandbutton within tabpage_administratif
+integer x = 2208
+integer y = 392
+integer width = 718
+integer height = 104
+integer taborder = 40
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "Définir par Praticien"
+end type
+
+event clicked;open(w_environnement_imprimantes_prat)
+end event
+
+type cbx_afficher_assistant_echeances from checkbox within tabpage_administratif
+integer x = 105
+integer y = 1916
+integer width = 1390
+integer height = 80
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Afficher l~'assistant d~'échéances dans les soins"
+end type
+
+type cb_test_fs from commandbutton within tabpage_administratif
+boolean visible = false
+integer x = 2062
+integer y = 1940
+integer width = 562
+integer height = 132
+integer taborder = 80
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "Feuille de Soins"
+end type
+
+event clicked;dw_tests_imprimantes.reset()
+dw_tests_imprimantes.insertrow(9999)
+dw_tests_imprimantes.setitem(1, "texte", "Impression Feuille de Soins")
+
+
+
+// recherche de l'imprimante spécifique pour les dep et feuilles de soins
+if profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","feuilles_soins_active","N") = "O" then 
+	dw_tests_imprimantes.Modify ('DataWindow.Printer="' + profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","feuilles_soins","")  + '" ')
+else
+	dw_tests_imprimantes.Modify ('DataWindow.Printer="' + Printgetprinter()  + '" ')
+end if
+
+dw_tests_imprimantes.print()
+
+end event
+
+type cb_test_recto_verso_dep from commandbutton within tabpage_administratif
+boolean visible = false
+integer x = 2062
+integer y = 1796
+integer width = 562
+integer height = 132
+integer taborder = 70
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "Recto / Verso DEP"
+end type
+
+event clicked;
+dw_tests_imprimantes.reset()
+dw_tests_imprimantes.insertrow(9999)
+dw_tests_imprimantes.setitem(1, "texte", "Impression DEP recto/verso => Recto")
+
+dw_tests_imprimantes.insertrow(9999)
+dw_tests_imprimantes.setitem(2, "texte", "Impression DEP recto/verso => Verso")
+
+// recherche de l'imprimante spécifique pour les dep et feuilles de soins
+if profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep_active","N") = "O" then 
+	dw_tests_imprimantes.Modify ('DataWindow.Printer="' + profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep","")   + '" ')
+else
+	dw_tests_imprimantes.Modify ('DataWindow.Printer="' + Printgetprinter()  + '" ')
+end if
+
+dw_tests_imprimantes.print()
+
+end event
+
+type cb_test_recto_dep from commandbutton within tabpage_administratif
+boolean visible = false
+integer x = 2062
+integer y = 1652
+integer width = 562
+integer height = 132
+integer taborder = 60
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "Recto DEP"
+end type
+
+event clicked;
+dw_tests_imprimantes.reset()
+dw_tests_imprimantes.insertrow(9999)
+dw_tests_imprimantes.setitem(1, "texte", "Impression DEP recto")
+
+// recherche de l'imprimante spécifique pour les dep et feuilles de soins
+if profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep_active","N") = "O" then 
+	dw_tests_imprimantes.Modify ('DataWindow.Printer="' + profileString(dir_ini+inifile_orthokis,"IMPRIMANTES","dep","")   + '" ')
+else
+	dw_tests_imprimantes.Modify ('DataWindow.Printer="' + Printgetprinter()  + '" ')
+end if
+
+dw_tests_imprimantes.print()
+
+end event
+
+type cbx_factures_pub_mon_ortho from checkbox within tabpage_administratif
+integer x = 3438
+integer y = 1608
+integer width = 439
+integer height = 80
+boolean bringtotop = true
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Pub Mon Ortho"
+boolean threestate = true
+end type
+
+type cbx_commentaires_adm_saisie_a_part from checkbox within tabpage_administratif
+integer x = 1143
+integer y = 88
+integer width = 1257
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Tahoma"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Activer le mode ~"Saisie / modification à part~""
+end type
+
+event clicked;
+if checked and cbx_table_predefinis_commentaires_adm.checked then
+	Messagebox("ATTENTION", "Le mode Table des Com. Prédéfinis va être désactivé car les 2 modes ne peuvent pas être activés simultanément !")
+	cbx_table_predefinis_commentaires_adm.checked = false
+end if
+end event
+
+type cbx_alerte_somme_due_rdv from checkbox within tabpage_administratif
+integer x = 3099
+integer y = 1896
+integer width = 1285
+integer height = 76
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Alerte somme due à la prise d~'un rendez-vous"
+end type
+
+type cbx_soins_coches from checkbox within tabpage_administratif
+integer x = 3099
+integer y = 1800
+integer width = 1595
+integer height = 76
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Conserver les soins cochés après la saisie d~'un règlement"
+end type
+
+type st_72 from statictext within tabpage_administratif
+integer x = 3099
+integer y = 660
+integer width = 1006
+integer height = 72
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Nombre de lignes de soins autorisées :"
+boolean focusrectangle = false
+end type
+
+type cbx_facture_word from checkbox within tabpage_administratif
+integer x = 3090
+integer y = 756
+integer width = 1486
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Utiliser la facture Word (au lieu de la facture intégrée)"
+end type
+
+type em_nb_lignes_soins_word from editmask within tabpage_administratif
+integer x = 4123
+integer y = 640
+integer width = 215
+integer height = 88
+integer taborder = 50
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+borderstyle borderstyle = stylelowered!
+string mask = "##"
+boolean spin = true
+double increment = 1
+string minmax = "0~~20"
+end type
+
+type cbx_attestations_word from checkbox within tabpage_administratif
+integer x = 4105
+integer y = 1372
+integer width = 507
+integer height = 76
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Attestations Word"
+end type
+
+type pb_cadrage_ads from uo_picturebutton_390x120 within tabpage_administratif
+integer x = 4677
+integer y = 1352
+integer width = 411
+integer height = 116
+integer taborder = 80
+string text = "&Cadrage"
+end type
+
+event clicked;call super::clicked;	// Modification du docu attestation.doc
+	
+	string fic1, fic2
+	
+	fic1 = dir_ini + nom_fichier_attestation
+	fic2 = fic1 + ".origine"
+	if not FileExists(fic1) then
+		// Le fichier n'existe pas encore
+		// On recopie le fichier d'origine
+		FileCopy(fic2, fic1)
+	end if
+	
+	if FileExists(fic1) then
+		
+		// ouvre un fichier word 
+		uo_lien_word uo_word
+		
+		uo_word = create uo_lien_word
+		
+		uo_word.traiter_avec_word(Service_EditerCourrier, dir_ini, nom_fichier_attestation, false) 
+		
+	else
+		Messagebox("ATTENTION","Le fichier d'impression de l'Attestation de Soins est introuvable.~n~nVeuillez contacter ARAKIS.")
+	end if
+end event
+
+event rbuttondown;call super::rbuttondown;	
+If Messagebox("ATTENTION","Vous allez reinitialiser le document d'impression de l'Attestation de Soins.~nVous serez peut-être amené à le recadrer ensuite.~n~nConfirmez-vous ?", Question!, Yesno!, 2) = 1 then
+	string fic1, fic2
+	
+	fic1 = dir_ini + nom_fichier_attestation
+	fic2 = fic1 + ".origine"
+	if not FileExists(fic1) then
+		// Le fichier n'existe pas encore
+		// On recopie le fichier d'origine
+		if FileCopy(fic2, fic1) = 1 then
+			MessageBox("INFORMATION","La réinitilisation a été réalisée avec succès.")
+		else
+			MessageBox("ATTENTION","Une erreur s'est produite durant la réinitilisation . Elle n'a pas été réalisée.")
+		end if
+	end if
+end if
+end event
+
+type cbx_debit_credit_pdf from checkbox within tabpage_administratif
+integer x = 4325
+integer y = 1608
+integer width = 759
+integer height = 80
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Règlements Débit / Crédit"
+end type
+
+type cbx_recus_pdf from checkbox within tabpage_administratif
+integer x = 4009
+integer y = 1608
+integer width = 293
+integer height = 80
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = " Reçus"
+end type
+
+type cbx_attestations_2016 from checkbox within tabpage_administratif
+integer x = 3122
+integer y = 1372
+integer width = 503
+integer height = 76
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Attestations 2016"
+end type
+
+type cbx_factures_pdf from checkbox within tabpage_administratif
+integer x = 3090
+integer y = 1608
+integer width = 411
+integer height = 80
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Factures"
+end type
+
+event clicked;if checked then 
+	tab_1.tabpage_administratif.cbx_factures_pub_mon_ortho.visible = true
+else
+	tab_1.tabpage_administratif.cbx_factures_pub_mon_ortho.visible = false
+end if
+
+end event
+
+type cbx_afficher_date_accord from checkbox within tabpage_administratif
+integer x = 105
+integer y = 1828
+integer width = 1390
+integer height = 80
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Afficher date d~'accord si remplie (Gestion des Soins)"
+end type
+
+type cbx_table_predefinis_commentaires_adm from checkbox within tabpage_administratif
+integer x = 110
+integer y = 188
+integer width = 1033
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Avec Table des Com. Prédéfinis"
+end type
+
+event clicked;
+if checked and cbx_commentaires_adm_saisie_a_part.checked then
+	Messagebox("ATTENTION", "Le mode Saisie / Modification à part va être désactivé car les 2 modes ne peuvent pas être activés simultanément !")
+	cbx_commentaires_adm_saisie_a_part.checked = false
+end if
+end event
+
+type cbx_word_premier_plan from checkbox within tabpage_administratif
+integer x = 3090
+integer y = 292
+integer width = 1143
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Forcer Word en premier plan"
+end type
+
+type cbx_souligner_adultes from checkbox within tabpage_administratif
+integer x = 105
+integer y = 1740
+integer width = 1088
+integer height = 80
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Souligner les noms des patients Adultes"
+end type
+
+type sle_belgique_format from singlelineedit within tabpage_administratif
+boolean visible = false
+integer x = 4434
+integer y = 1192
+integer width = 169
+integer height = 96
+integer taborder = 100
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "0"
+integer limit = 3
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_belgique_format from statictext within tabpage_administratif
+integer x = 3122
+integer y = 1216
+integer width = 1289
+integer height = 72
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Format de papier pour impression des attestations "
+boolean focusrectangle = false
+end type
+
+type st_belgique_avertissement from statictext within tabpage_administratif
+integer x = 3122
+integer y = 1292
+integer width = 1577
+integer height = 64
+integer textsize = -8
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 553648127
+string text = "Paramètre à modifier uniquement sous le contrôle d~'ARAKIS"
+boolean focusrectangle = false
+end type
+
+type gb_signature_numerique from groupbox within tabpage_administratif
+integer x = 3104
+integer y = 392
+integer width = 1797
+integer height = 232
+integer taborder = 130
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Tahoma"
+boolean italic = true
+long backcolor = 16777215
+string text = "Signature Numérique"
+end type
+
+type cbx_email_en_pj from checkbox within tabpage_administratif
+integer x = 3090
+integer y = 192
+integer width = 1143
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Envoi des emails en Pièce Jointe"
+end type
+
+type cbx_somme_due_famille from checkbox within tabpage_administratif
+integer x = 105
+integer y = 1652
+integer width = 1125
+integer height = 80
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Signaler la somme due pour la famille"
+end type
+
+type cbx_memo_word from checkbox within tabpage_administratif
+integer x = 3090
+integer y = 92
+integer width = 1143
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Mémorisation des courriers automatique"
+end type
+
+type em_nombre_boucle_vitale from editmask within tabpage_administratif
+integer x = 631
+integer y = 1200
+integer width = 229
+integer height = 88
+integer taborder = 60
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+borderstyle borderstyle = stylelowered!
+string mask = "#####"
+boolean spin = true
+end type
+
+type cbx_quitter_televitale from checkbox within tabpage_administratif
+integer x = 105
+integer y = 1036
+integer width = 1682
+integer height = 80
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Quitter automatiquement CC-Vitale après la saisie d~'une FSE"
+end type
+
+type st_vitale_15 from statictext within tabpage_administratif
+integer x = 96
+integer y = 1124
+integer width = 1929
+integer height = 72
+integer textsize = -8
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 553648127
+string text = "Paramètres à modifier uniquement sous le contrôle d~'un technicien Helpdesk"
+boolean focusrectangle = false
+end type
+
+type st_vitale_50 from statictext within tabpage_administratif
+integer x = 105
+integer y = 1216
+integer width = 530
+integer height = 72
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Nombre de Boucles"
+boolean focusrectangle = false
+end type
+
+type st_vitale_30 from statictext within tabpage_administratif
+integer x = 891
+integer y = 1216
+integer width = 640
+integer height = 72
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Durée de chaque Boucle"
+boolean focusrectangle = false
+end type
+
+type em_duree_boucle_vitale from editmask within tabpage_administratif
+integer x = 1541
+integer y = 1200
+integer width = 270
+integer height = 88
+integer taborder = 70
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+borderstyle borderstyle = stylelowered!
+string mask = "#####"
+boolean spin = true
+end type
+
+type ddlb_imprimante_feuilles_soins from uo_liste_imprimantes within tabpage_administratif
+integer x = 722
+integer y = 832
+integer height = 776
+integer taborder = 20
+end type
+
+type cbx_active_impr_specif_feuilles_soins from checkbox within tabpage_administratif
+integer x = 105
+integer y = 836
+integer width = 553
+integer height = 76
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Activer l~'imprimante"
+end type
+
+type ddlb_imprimante_dep from uo_liste_imprimantes within tabpage_administratif
+integer x = 722
+integer y = 392
+integer height = 776
+integer taborder = 100
+end type
+
+type cbx_dep_integre from checkbox within tabpage_administratif
+integer x = 105
+integer y = 504
+integer width = 782
+integer height = 76
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Imprimer document intégré"
+end type
+
+type cbx_active_impr_specif_dep from checkbox within tabpage_administratif
+integer x = 105
+integer y = 404
+integer width = 599
+integer height = 80
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Activer l~'imprimante"
+end type
+
+type gb_dep from groupbox within tabpage_administratif
+integer x = 41
+integer y = 308
+integer width = 2930
+integer height = 420
+integer taborder = 40
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Demande d~'Entente Préalable"
+end type
+
+type gb_fs from groupbox within tabpage_administratif
+integer x = 41
+integer y = 748
+integer width = 2930
+integer height = 220
+integer taborder = 50
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Feuilles de Soins "
+end type
+
+type gb_vitale from groupbox within tabpage_administratif
+integer x = 41
+integer y = 956
+integer width = 2930
+integer height = 368
+integer taborder = 70
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Lien CC-Vitale"
+end type
+
+type gb_21 from groupbox within tabpage_administratif
+integer x = 3003
+integer y = 12
+integer width = 2162
+integer height = 972
+integer taborder = 80
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Courriers Word"
+end type
+
+type ddlb_imprimante_signature_numerique from uo_liste_imprimantes within tabpage_administratif
+integer x = 3241
+integer y = 480
+integer height = 776
+integer taborder = 30
+boolean bringtotop = true
+end type
+
+type gb_33 from groupbox within tabpage_administratif
+integer x = 41
+integer y = 1540
+integer width = 2930
+integer height = 504
+integer taborder = 90
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Options d~'affichage "
+end type
+
+type gb_23 from groupbox within tabpage_administratif
+integer x = 41
+integer y = 8
+integer width = 2930
+integer height = 280
+integer taborder = 120
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Commentaires Administratifs"
+end type
+
+type gb_soins from groupbox within tabpage_administratif
+integer x = 3003
+integer y = 1724
+integer width = 2162
+integer height = 484
+integer taborder = 110
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Soins / règlements"
+end type
+
+type gb_facture from groupbox within tabpage_administratif
+integer x = 3049
+integer y = 1568
+integer width = 891
+integer height = 128
+integer taborder = 120
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+end type
+
+type gb_autres from groupbox within tabpage_administratif
+integer x = 3003
+integer y = 1504
+integer width = 2162
+integer height = 216
+integer taborder = 100
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Impression PDF (pour envoi email si besoin)"
+end type
+
+type gb_32 from groupbox within tabpage_administratif
+integer x = 41
+integer y = 2076
+integer width = 2930
+integer height = 212
+integer taborder = 120
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Signature (locale) de documents"
+end type
+
+type gb_50 from groupbox within tabpage_administratif
+integer x = 41
+integer y = 1332
+integer width = 2930
+integer height = 196
+integer taborder = 40
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Gestion des Documents"
+end type
+
+type gb_belgique from groupbox within tabpage_administratif
+integer x = 3003
+integer y = 1024
+integer width = 2162
+integer height = 464
+integer taborder = 110
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Belgique"
+end type
+
+type tabpage_clinique from userobject within tab_1
+integer x = 18
+integer y = 336
+integer width = 5207
+integer height = 2380
+long backcolor = 16777215
+string text = "Clinique"
+long tabtextcolor = 33554432
+long tabbackcolor = 16777215
+string picturename = "lc_clinique_24.png"
+long picturemaskcolor = 536870912
+em_table_predefinis_largeur em_table_predefinis_largeur
+st_table_predefinis_largeur st_table_predefinis_largeur
+cbx_remarques_sans_rtf cbx_remarques_sans_rtf
+cbx_table_predefinis_sans_rtf cbx_table_predefinis_sans_rtf
+rb_saisie_a_part_autre rb_saisie_a_part_autre
+rb_saisie_a_part_meme rb_saisie_a_part_meme
+rb_saisie_a_part_non rb_saisie_a_part_non
+gb_9 gb_9
+cbx_multiligne_infobulle cbx_multiligne_infobulle
+cbx_barre_avancement_infobulle cbx_barre_avancement_infobulle
+cbx_diag_non_rtf cbx_diag_non_rtf
+cbx_table_predefinis_memo_arbo cbx_table_predefinis_memo_arbo
+cbx_colonne6_deroulante cbx_colonne6_deroulante
+cbx_colonne5_deroulante cbx_colonne5_deroulante
+cbx_colonne4_deroulante cbx_colonne4_deroulante
+cbx_colonne3_deroulante cbx_colonne3_deroulante
+st_64 st_64
+em_rafraichissement_temps_restant em_rafraichissement_temps_restant
+cbx_temps_restant cbx_temps_restant
+st_55 st_55
+em_hauteur_lignes em_hauteur_lignes
+st_54 st_54
+cbx_assistant_diagnostics cbx_assistant_diagnostics
+rb_tri_commentaires_decroissant rb_tri_commentaires_decroissant
+rb_tri_commentaires_croissant rb_tri_commentaires_croissant
+gb_16 gb_16
+cbx_pas_plusieurs_lignes cbx_pas_plusieurs_lignes
+cbx_creation_auto_ouverture cbx_creation_auto_ouverture
+cbx_plans_multiples cbx_plans_multiples
+cbx_zone_remarque_commentaires cbx_zone_remarque_commentaires
+cbx_message_rdv_sans_rtf cbx_message_rdv_sans_rtf
+cbx_fermer_kitview cbx_fermer_kitview
+cbx_commentaires_2010 cbx_commentaires_2010
+cbx_diag_commentaires_clin cbx_diag_commentaires_clin
+sle_page_photos sle_page_photos
+cbx_sommaire cbx_sommaire
+st_42 st_42
+rb_qualite rb_qualite
+rb_prochain_rdv_message rb_prochain_rdv_message
+cbx_table_predefinis_commentaires_clin cbx_table_predefinis_commentaires_clin
+gb_24 gb_24
+gb_22 gb_22
+gb_13 gb_13
+gb_27 gb_27
+gb_kitview gb_kitview
+gb_2 gb_2
+gb_6 gb_6
+gb_40 gb_40
+end type
+
+on tabpage_clinique.create
+this.em_table_predefinis_largeur=create em_table_predefinis_largeur
+this.st_table_predefinis_largeur=create st_table_predefinis_largeur
+this.cbx_remarques_sans_rtf=create cbx_remarques_sans_rtf
+this.cbx_table_predefinis_sans_rtf=create cbx_table_predefinis_sans_rtf
+this.rb_saisie_a_part_autre=create rb_saisie_a_part_autre
+this.rb_saisie_a_part_meme=create rb_saisie_a_part_meme
+this.rb_saisie_a_part_non=create rb_saisie_a_part_non
+this.gb_9=create gb_9
+this.cbx_multiligne_infobulle=create cbx_multiligne_infobulle
+this.cbx_barre_avancement_infobulle=create cbx_barre_avancement_infobulle
+this.cbx_diag_non_rtf=create cbx_diag_non_rtf
+this.cbx_table_predefinis_memo_arbo=create cbx_table_predefinis_memo_arbo
+this.cbx_colonne6_deroulante=create cbx_colonne6_deroulante
+this.cbx_colonne5_deroulante=create cbx_colonne5_deroulante
+this.cbx_colonne4_deroulante=create cbx_colonne4_deroulante
+this.cbx_colonne3_deroulante=create cbx_colonne3_deroulante
+this.st_64=create st_64
+this.em_rafraichissement_temps_restant=create em_rafraichissement_temps_restant
+this.cbx_temps_restant=create cbx_temps_restant
+this.st_55=create st_55
+this.em_hauteur_lignes=create em_hauteur_lignes
+this.st_54=create st_54
+this.cbx_assistant_diagnostics=create cbx_assistant_diagnostics
+this.rb_tri_commentaires_decroissant=create rb_tri_commentaires_decroissant
+this.rb_tri_commentaires_croissant=create rb_tri_commentaires_croissant
+this.gb_16=create gb_16
+this.cbx_pas_plusieurs_lignes=create cbx_pas_plusieurs_lignes
+this.cbx_creation_auto_ouverture=create cbx_creation_auto_ouverture
+this.cbx_plans_multiples=create cbx_plans_multiples
+this.cbx_zone_remarque_commentaires=create cbx_zone_remarque_commentaires
+this.cbx_message_rdv_sans_rtf=create cbx_message_rdv_sans_rtf
+this.cbx_fermer_kitview=create cbx_fermer_kitview
+this.cbx_commentaires_2010=create cbx_commentaires_2010
+this.cbx_diag_commentaires_clin=create cbx_diag_commentaires_clin
+this.sle_page_photos=create sle_page_photos
+this.cbx_sommaire=create cbx_sommaire
+this.st_42=create st_42
+this.rb_qualite=create rb_qualite
+this.rb_prochain_rdv_message=create rb_prochain_rdv_message
+this.cbx_table_predefinis_commentaires_clin=create cbx_table_predefinis_commentaires_clin
+this.gb_24=create gb_24
+this.gb_22=create gb_22
+this.gb_13=create gb_13
+this.gb_27=create gb_27
+this.gb_kitview=create gb_kitview
+this.gb_2=create gb_2
+this.gb_6=create gb_6
+this.gb_40=create gb_40
+this.Control[]={this.em_table_predefinis_largeur,&
+this.st_table_predefinis_largeur,&
+this.cbx_remarques_sans_rtf,&
+this.cbx_table_predefinis_sans_rtf,&
+this.rb_saisie_a_part_autre,&
+this.rb_saisie_a_part_meme,&
+this.rb_saisie_a_part_non,&
+this.gb_9,&
+this.cbx_multiligne_infobulle,&
+this.cbx_barre_avancement_infobulle,&
+this.cbx_diag_non_rtf,&
+this.cbx_table_predefinis_memo_arbo,&
+this.cbx_colonne6_deroulante,&
+this.cbx_colonne5_deroulante,&
+this.cbx_colonne4_deroulante,&
+this.cbx_colonne3_deroulante,&
+this.st_64,&
+this.em_rafraichissement_temps_restant,&
+this.cbx_temps_restant,&
+this.st_55,&
+this.em_hauteur_lignes,&
+this.st_54,&
+this.cbx_assistant_diagnostics,&
+this.rb_tri_commentaires_decroissant,&
+this.rb_tri_commentaires_croissant,&
+this.gb_16,&
+this.cbx_pas_plusieurs_lignes,&
+this.cbx_creation_auto_ouverture,&
+this.cbx_plans_multiples,&
+this.cbx_zone_remarque_commentaires,&
+this.cbx_message_rdv_sans_rtf,&
+this.cbx_fermer_kitview,&
+this.cbx_commentaires_2010,&
+this.cbx_diag_commentaires_clin,&
+this.sle_page_photos,&
+this.cbx_sommaire,&
+this.st_42,&
+this.rb_qualite,&
+this.rb_prochain_rdv_message,&
+this.cbx_table_predefinis_commentaires_clin,&
+this.gb_24,&
+this.gb_22,&
+this.gb_13,&
+this.gb_27,&
+this.gb_kitview,&
+this.gb_2,&
+this.gb_6,&
+this.gb_40}
+end on
+
+on tabpage_clinique.destroy
+destroy(this.em_table_predefinis_largeur)
+destroy(this.st_table_predefinis_largeur)
+destroy(this.cbx_remarques_sans_rtf)
+destroy(this.cbx_table_predefinis_sans_rtf)
+destroy(this.rb_saisie_a_part_autre)
+destroy(this.rb_saisie_a_part_meme)
+destroy(this.rb_saisie_a_part_non)
+destroy(this.gb_9)
+destroy(this.cbx_multiligne_infobulle)
+destroy(this.cbx_barre_avancement_infobulle)
+destroy(this.cbx_diag_non_rtf)
+destroy(this.cbx_table_predefinis_memo_arbo)
+destroy(this.cbx_colonne6_deroulante)
+destroy(this.cbx_colonne5_deroulante)
+destroy(this.cbx_colonne4_deroulante)
+destroy(this.cbx_colonne3_deroulante)
+destroy(this.st_64)
+destroy(this.em_rafraichissement_temps_restant)
+destroy(this.cbx_temps_restant)
+destroy(this.st_55)
+destroy(this.em_hauteur_lignes)
+destroy(this.st_54)
+destroy(this.cbx_assistant_diagnostics)
+destroy(this.rb_tri_commentaires_decroissant)
+destroy(this.rb_tri_commentaires_croissant)
+destroy(this.gb_16)
+destroy(this.cbx_pas_plusieurs_lignes)
+destroy(this.cbx_creation_auto_ouverture)
+destroy(this.cbx_plans_multiples)
+destroy(this.cbx_zone_remarque_commentaires)
+destroy(this.cbx_message_rdv_sans_rtf)
+destroy(this.cbx_fermer_kitview)
+destroy(this.cbx_commentaires_2010)
+destroy(this.cbx_diag_commentaires_clin)
+destroy(this.sle_page_photos)
+destroy(this.cbx_sommaire)
+destroy(this.st_42)
+destroy(this.rb_qualite)
+destroy(this.rb_prochain_rdv_message)
+destroy(this.cbx_table_predefinis_commentaires_clin)
+destroy(this.gb_24)
+destroy(this.gb_22)
+destroy(this.gb_13)
+destroy(this.gb_27)
+destroy(this.gb_kitview)
+destroy(this.gb_2)
+destroy(this.gb_6)
+destroy(this.gb_40)
+end on
+
+type em_table_predefinis_largeur from editmask within tabpage_clinique
+integer x = 4503
+integer y = 648
+integer width = 247
+integer height = 88
+integer taborder = 80
+boolean bringtotop = true
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+alignment alignment = center!
+borderstyle borderstyle = stylelowered!
+string mask = "###0"
+boolean spin = true
+end type
+
+type st_table_predefinis_largeur from statictext within tabpage_clinique
+integer x = 4270
+integer y = 664
+integer width = 224
+integer height = 56
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Largeur : "
+boolean focusrectangle = false
+end type
+
+type cbx_remarques_sans_rtf from checkbox within tabpage_clinique
+integer x = 3602
+integer y = 748
+integer width = 731
+integer height = 80
+boolean bringtotop = true
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Ne pas utiliser remarques RTF"
+end type
+
+type cbx_table_predefinis_sans_rtf from checkbox within tabpage_clinique
+integer x = 3721
+integer y = 652
+integer width = 503
+integer height = 80
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Ne pas utiliser RTF"
+end type
+
+type rb_saisie_a_part_autre from radiobutton within tabpage_clinique
+integer x = 1225
+integer y = 780
+integer width = 686
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Dans une autre fenêtre"
+end type
+
+type rb_saisie_a_part_meme from radiobutton within tabpage_clinique
+integer x = 494
+integer y = 780
+integer width = 686
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Dans la même fenêtre"
+end type
+
+type rb_saisie_a_part_non from radiobutton within tabpage_clinique
+integer x = 224
+integer y = 780
+integer width = 224
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Non"
+end type
+
+type gb_9 from groupbox within tabpage_clinique
+integer x = 123
+integer y = 700
+integer width = 1897
+integer height = 200
+integer taborder = 130
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+long backcolor = 16777215
+string text = "Saisie / Modification à part"
+end type
+
+type cbx_multiligne_infobulle from checkbox within tabpage_clinique
+integer x = 1125
+integer y = 1736
+integer width = 704
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Afficher l~'infobulle"
+end type
+
+type cbx_barre_avancement_infobulle from checkbox within tabpage_clinique
+integer x = 142
+integer y = 1736
+integer width = 704
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Afficher l~'infobulle"
+end type
+
+type cbx_diag_non_rtf from checkbox within tabpage_clinique
+integer x = 2853
+integer y = 1424
+integer width = 663
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Ne pas utiliser RTF"
+end type
+
+type cbx_table_predefinis_memo_arbo from checkbox within tabpage_clinique
+integer x = 2871
+integer y = 652
+integer width = 818
+integer height = 80
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Mémorisation de l~'arborescense"
+end type
+
+type cbx_colonne6_deroulante from checkbox within tabpage_clinique
+integer x = 2149
+integer y = 464
+integer width = 905
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Colonne 6 avec liste déroulante"
+end type
+
+type cbx_colonne5_deroulante from checkbox within tabpage_clinique
+integer x = 2149
+integer y = 364
+integer width = 905
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Colonne 5 avec liste déroulante"
+end type
+
+type cbx_colonne4_deroulante from checkbox within tabpage_clinique
+integer x = 2149
+integer y = 264
+integer width = 905
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Colonne 4 avec liste déroulante"
+end type
+
+type cbx_colonne3_deroulante from checkbox within tabpage_clinique
+integer x = 2149
+integer y = 164
+integer width = 905
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Colonne 3 avec liste déroulante"
+end type
+
+type st_64 from statictext within tabpage_clinique
+integer x = 2427
+integer y = 944
+integer width = 878
+integer height = 56
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Rafraich. temps restant (en secondes) "
+boolean focusrectangle = false
+end type
+
+type em_rafraichissement_temps_restant from editmask within tabpage_clinique
+integer x = 3323
+integer y = 928
+integer width = 219
+integer height = 88
+integer taborder = 60
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "120"
+borderstyle borderstyle = stylelowered!
+string mask = "###"
+boolean spin = true
+end type
+
+type cbx_temps_restant from checkbox within tabpage_clinique
+integer x = 2162
+integer y = 844
+integer width = 1413
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Mise en évidence du temps restant (avance/retard)"
+end type
+
+type st_55 from statictext within tabpage_clinique
+integer x = 1669
+integer y = 588
+integer width = 407
+integer height = 72
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 553648127
+string text = "(80 = 1 ligne env)"
+boolean focusrectangle = false
+end type
+
+type em_hauteur_lignes from editmask within tabpage_clinique
+integer x = 1440
+integer y = 568
+integer width = 219
+integer height = 92
+integer taborder = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+alignment alignment = center!
+borderstyle borderstyle = stylelowered!
+string mask = "##0"
+boolean spin = true
+end type
+
+type st_54 from statictext within tabpage_clinique
+integer x = 137
+integer y = 580
+integer width = 1317
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Hauteur des lignes (0 pour hauteur automatique) "
+boolean focusrectangle = false
+end type
+
+type cbx_assistant_diagnostics from checkbox within tabpage_clinique
+integer x = 1362
+integer y = 1476
+integer width = 1207
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Utiliser assistant diagnostics à la place"
+end type
+
+type rb_tri_commentaires_decroissant from radiobutton within tabpage_clinique
+integer x = 3767
+integer y = 244
+integer width = 402
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Décroissant"
+end type
+
+type rb_tri_commentaires_croissant from radiobutton within tabpage_clinique
+integer x = 3342
+integer y = 244
+integer width = 402
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Croissant"
+end type
+
+type gb_16 from groupbox within tabpage_clinique
+integer x = 3282
+integer y = 164
+integer width = 1006
+integer height = 200
+integer taborder = 130
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+long backcolor = 16777215
+string text = "Ordre de tri des commentaires"
+end type
+
+type cbx_pas_plusieurs_lignes from checkbox within tabpage_clinique
+integer x = 137
+integer y = 368
+integer width = 1563
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Ne pas ~"ouvrir~" plusieurs lignes (si Commentaires RTF)"
+end type
+
+type cbx_creation_auto_ouverture from checkbox within tabpage_clinique
+integer x = 137
+integer y = 464
+integer width = 1513
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Création automatique d~'un commentaire à l~'ouverture"
+end type
+
+type cbx_plans_multiples from checkbox within tabpage_clinique
+integer x = 2853
+integer y = 1508
+integer width = 1088
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Utiliser les Diags et Plans multiples"
+end type
+
+type cbx_zone_remarque_commentaires from checkbox within tabpage_clinique
+integer x = 2162
+integer y = 748
+integer width = 1358
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Affichage de la zone Remarques Administratives"
+end type
+
+type cbx_message_rdv_sans_rtf from checkbox within tabpage_clinique
+integer x = 137
+integer y = 272
+integer width = 1234
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Ne pas utiliser Message prochain RDV RTF"
+end type
+
+type cbx_fermer_kitview from checkbox within tabpage_clinique
+boolean visible = false
+integer x = 3433
+integer y = 1740
+integer width = 978
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Fermer Kitview après aquisition ID"
+end type
+
+type cbx_commentaires_2010 from checkbox within tabpage_clinique
+integer x = 137
+integer y = 176
+integer width = 1042
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Ne pas utiliser Commentaires RTF"
+end type
+
+event clicked;if this.checked then
+	cbx_colonne3_deroulante.visible = true
+	cbx_colonne4_deroulante.visible = true
+	cbx_colonne5_deroulante.visible = true
+	cbx_colonne6_deroulante.visible = true
+else
+	cbx_colonne3_deroulante.visible = false
+	cbx_colonne4_deroulante.visible = false
+	cbx_colonne5_deroulante.visible = false
+	cbx_colonne6_deroulante.visible = false
+end if
+	
+	
+end event
+
+type cbx_diag_commentaires_clin from checkbox within tabpage_clinique
+integer x = 2853
+integer y = 1340
+integer width = 1093
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Avec Diagnostic / Plan de traitement"
+end type
+
+type sle_page_photos from singlelineedit within tabpage_clinique
+integer x = 1362
+integer y = 1360
+integer width = 1353
+integer height = 88
+integer taborder = 80
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
+end type
+
+type cbx_sommaire from checkbox within tabpage_clinique
+integer x = 142
+integer y = 1452
+integer width = 1001
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Sommaire pour pages cliniques"
+end type
+
+type st_42 from statictext within tabpage_clinique
+integer x = 137
+integer y = 1360
+integer width = 1221
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Page accessible par commentaires cliniques "
+boolean focusrectangle = false
+end type
+
+type rb_qualite from radiobutton within tabpage_clinique
+integer x = 183
+integer y = 1040
+integer width = 489
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Cadre Qualité"
+boolean checked = true
+end type
+
+type rb_prochain_rdv_message from radiobutton within tabpage_clinique
+integer x = 695
+integer y = 1040
+integer width = 750
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Message prochain Rdv"
+end type
+
+type cbx_table_predefinis_commentaires_clin from checkbox within tabpage_clinique
+integer x = 2162
+integer y = 652
+integer width = 846
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Avec Table Prédéfinis"
+end type
+
+type gb_24 from groupbox within tabpage_clinique
+integer x = 123
+integer y = 952
+integer width = 1417
+integer height = 200
+integer taborder = 120
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+long backcolor = 16777215
+string text = "Affichage par défaut"
+end type
+
+type gb_22 from groupbox within tabpage_clinique
+integer x = 59
+integer y = 64
+integer width = 5097
+integer height = 1156
+integer taborder = 60
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Commentaires cliniques"
+end type
+
+type gb_13 from groupbox within tabpage_clinique
+integer x = 69
+integer y = 1264
+integer width = 2702
+integer height = 352
+integer taborder = 110
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Pages cliniques"
+end type
+
+type gb_27 from groupbox within tabpage_clinique
+integer x = 1819
+integer y = 564
+integer width = 480
+integer height = 400
+integer taborder = 50
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+long backcolor = 15780518
+string text = "none"
+end type
+
+type gb_kitview from groupbox within tabpage_clinique
+boolean visible = false
+integer x = 3369
+integer y = 1636
+integer width = 1102
+integer height = 256
+integer taborder = 130
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 16777215
+string text = "Lien Kitview"
+end type
+
+type gb_2 from groupbox within tabpage_clinique
+integer x = 2798
+integer y = 1260
+integer width = 1600
+integer height = 352
+integer taborder = 100
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Diagnostic / Plan de traitement"
+end type
+
+type gb_6 from groupbox within tabpage_clinique
+integer x = 69
+integer y = 1636
+integer width = 974
+integer height = 256
+integer taborder = 120
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Barre d~'avancement clinique"
+end type
+
+type gb_40 from groupbox within tabpage_clinique
+integer x = 1074
+integer y = 1636
+integer width = 974
+integer height = 256
+integer taborder = 130
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Zones de saisie multilignes"
+end type
+
+type tabpage_imagerie_2013 from userobject within tab_1
+integer x = 18
+integer y = 336
+integer width = 5207
+integer height = 2380
+long backcolor = 16777215
+string text = "Imagerie"
+long tabtextcolor = 33554432
+long tabbackcolor = 15780518
+string picturename = "lc_images.png"
+long picturemaskcolor = 536870912
+cbx_afficher_nom_fichier_survol cbx_afficher_nom_fichier_survol
+cb_reset cb_reset
+ddlb_forme_du_cadre ddlb_forme_du_cadre
+st_forme_du_cadre st_forme_du_cadre
+cbx_editeur_2013_par_defaut cbx_editeur_2013_par_defaut
+uo_clinique_7 uo_clinique_7
+uo_clinique_8 uo_clinique_8
+uo_clinique_6 uo_clinique_6
+st_74 st_74
+st_75 st_75
+st_76 st_76
+st_77 st_77
+uo_clinique_5 uo_clinique_5
+st_73 st_73
+em_nb_cadres_images_commentaires em_nb_cadres_images_commentaires
+uo_acquisition_pano uo_acquisition_pano
+st_71 st_71
+cbx_images_sur_fond_noir_2013 cbx_images_sur_fond_noir_2013
+cbx_photo_iden_clinique_2013 cbx_photo_iden_clinique_2013
+cbx_photo_iden_2013 cbx_photo_iden_2013
+st_53 st_53
+uo_diag_2 uo_diag_2
+st_50 st_50
+uo_diag_1 uo_diag_1
+gb_35 gb_35
+cbx_ouverture_editeur cbx_ouverture_editeur
+sle_imagerie_2013_couleur_groupe sle_imagerie_2013_couleur_groupe
+st_15 st_15
+cbx_imagerie_2013_a_part cbx_imagerie_2013_a_part
+uo_clinique_4 uo_clinique_4
+uo_clinique_3 uo_clinique_3
+uo_clinique_2 uo_clinique_2
+uo_clinique_1 uo_clinique_1
+st_63 st_63
+st_62 st_62
+st_61 st_61
+st_60 st_60
+uo_identite_clinique uo_identite_clinique
+st_59 st_59
+uo_acquisition_radio uo_acquisition_radio
+uo_fiche_admini uo_fiche_admini
+st_57 st_57
+st_58 st_58
+rb_outils_explorateur_2013_droite rb_outils_explorateur_2013_droite
+rb_outils_explorateur_2013_gauche rb_outils_explorateur_2013_gauche
+gb_36 gb_36
+gb_37 gb_37
+gb_25 gb_25
+gb_38 gb_38
+gb_28 gb_28
+gb_forme_du_cadre gb_forme_du_cadre
+end type
+
+on tabpage_imagerie_2013.create
+this.cbx_afficher_nom_fichier_survol=create cbx_afficher_nom_fichier_survol
+this.cb_reset=create cb_reset
+this.ddlb_forme_du_cadre=create ddlb_forme_du_cadre
+this.st_forme_du_cadre=create st_forme_du_cadre
+this.cbx_editeur_2013_par_defaut=create cbx_editeur_2013_par_defaut
+this.uo_clinique_7=create uo_clinique_7
+this.uo_clinique_8=create uo_clinique_8
+this.uo_clinique_6=create uo_clinique_6
+this.st_74=create st_74
+this.st_75=create st_75
+this.st_76=create st_76
+this.st_77=create st_77
+this.uo_clinique_5=create uo_clinique_5
+this.st_73=create st_73
+this.em_nb_cadres_images_commentaires=create em_nb_cadres_images_commentaires
+this.uo_acquisition_pano=create uo_acquisition_pano
+this.st_71=create st_71
+this.cbx_images_sur_fond_noir_2013=create cbx_images_sur_fond_noir_2013
+this.cbx_photo_iden_clinique_2013=create cbx_photo_iden_clinique_2013
+this.cbx_photo_iden_2013=create cbx_photo_iden_2013
+this.st_53=create st_53
+this.uo_diag_2=create uo_diag_2
+this.st_50=create st_50
+this.uo_diag_1=create uo_diag_1
+this.gb_35=create gb_35
+this.cbx_ouverture_editeur=create cbx_ouverture_editeur
+this.sle_imagerie_2013_couleur_groupe=create sle_imagerie_2013_couleur_groupe
+this.st_15=create st_15
+this.cbx_imagerie_2013_a_part=create cbx_imagerie_2013_a_part
+this.uo_clinique_4=create uo_clinique_4
+this.uo_clinique_3=create uo_clinique_3
+this.uo_clinique_2=create uo_clinique_2
+this.uo_clinique_1=create uo_clinique_1
+this.st_63=create st_63
+this.st_62=create st_62
+this.st_61=create st_61
+this.st_60=create st_60
+this.uo_identite_clinique=create uo_identite_clinique
+this.st_59=create st_59
+this.uo_acquisition_radio=create uo_acquisition_radio
+this.uo_fiche_admini=create uo_fiche_admini
+this.st_57=create st_57
+this.st_58=create st_58
+this.rb_outils_explorateur_2013_droite=create rb_outils_explorateur_2013_droite
+this.rb_outils_explorateur_2013_gauche=create rb_outils_explorateur_2013_gauche
+this.gb_36=create gb_36
+this.gb_37=create gb_37
+this.gb_25=create gb_25
+this.gb_38=create gb_38
+this.gb_28=create gb_28
+this.gb_forme_du_cadre=create gb_forme_du_cadre
+this.Control[]={this.cbx_afficher_nom_fichier_survol,&
+this.cb_reset,&
+this.ddlb_forme_du_cadre,&
+this.st_forme_du_cadre,&
+this.cbx_editeur_2013_par_defaut,&
+this.uo_clinique_7,&
+this.uo_clinique_8,&
+this.uo_clinique_6,&
+this.st_74,&
+this.st_75,&
+this.st_76,&
+this.st_77,&
+this.uo_clinique_5,&
+this.st_73,&
+this.em_nb_cadres_images_commentaires,&
+this.uo_acquisition_pano,&
+this.st_71,&
+this.cbx_images_sur_fond_noir_2013,&
+this.cbx_photo_iden_clinique_2013,&
+this.cbx_photo_iden_2013,&
+this.st_53,&
+this.uo_diag_2,&
+this.st_50,&
+this.uo_diag_1,&
+this.gb_35,&
+this.cbx_ouverture_editeur,&
+this.sle_imagerie_2013_couleur_groupe,&
+this.st_15,&
+this.cbx_imagerie_2013_a_part,&
+this.uo_clinique_4,&
+this.uo_clinique_3,&
+this.uo_clinique_2,&
+this.uo_clinique_1,&
+this.st_63,&
+this.st_62,&
+this.st_61,&
+this.st_60,&
+this.uo_identite_clinique,&
+this.st_59,&
+this.uo_acquisition_radio,&
+this.uo_fiche_admini,&
+this.st_57,&
+this.st_58,&
+this.rb_outils_explorateur_2013_droite,&
+this.rb_outils_explorateur_2013_gauche,&
+this.gb_36,&
+this.gb_37,&
+this.gb_25,&
+this.gb_38,&
+this.gb_28,&
+this.gb_forme_du_cadre}
+end on
+
+on tabpage_imagerie_2013.destroy
+destroy(this.cbx_afficher_nom_fichier_survol)
+destroy(this.cb_reset)
+destroy(this.ddlb_forme_du_cadre)
+destroy(this.st_forme_du_cadre)
+destroy(this.cbx_editeur_2013_par_defaut)
+destroy(this.uo_clinique_7)
+destroy(this.uo_clinique_8)
+destroy(this.uo_clinique_6)
+destroy(this.st_74)
+destroy(this.st_75)
+destroy(this.st_76)
+destroy(this.st_77)
+destroy(this.uo_clinique_5)
+destroy(this.st_73)
+destroy(this.em_nb_cadres_images_commentaires)
+destroy(this.uo_acquisition_pano)
+destroy(this.st_71)
+destroy(this.cbx_images_sur_fond_noir_2013)
+destroy(this.cbx_photo_iden_clinique_2013)
+destroy(this.cbx_photo_iden_2013)
+destroy(this.st_53)
+destroy(this.uo_diag_2)
+destroy(this.st_50)
+destroy(this.uo_diag_1)
+destroy(this.gb_35)
+destroy(this.cbx_ouverture_editeur)
+destroy(this.sle_imagerie_2013_couleur_groupe)
+destroy(this.st_15)
+destroy(this.cbx_imagerie_2013_a_part)
+destroy(this.uo_clinique_4)
+destroy(this.uo_clinique_3)
+destroy(this.uo_clinique_2)
+destroy(this.uo_clinique_1)
+destroy(this.st_63)
+destroy(this.st_62)
+destroy(this.st_61)
+destroy(this.st_60)
+destroy(this.uo_identite_clinique)
+destroy(this.st_59)
+destroy(this.uo_acquisition_radio)
+destroy(this.uo_fiche_admini)
+destroy(this.st_57)
+destroy(this.st_58)
+destroy(this.rb_outils_explorateur_2013_droite)
+destroy(this.rb_outils_explorateur_2013_gauche)
+destroy(this.gb_36)
+destroy(this.gb_37)
+destroy(this.gb_25)
+destroy(this.gb_38)
+destroy(this.gb_28)
+destroy(this.gb_forme_du_cadre)
+end on
+
+type cbx_afficher_nom_fichier_survol from checkbox within tabpage_imagerie_2013
+integer x = 3579
+integer y = 1600
+integer width = 937
+integer height = 72
+integer taborder = 10
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Afficher nom du fichier sur survol"
+end type
+
+type cb_reset from uo_picturebutton_390x120 within tabpage_imagerie_2013
+integer x = 3547
+integer y = 2076
+integer width = 1111
+integer height = 132
+integer taborder = 100
+boolean bringtotop = true
+string text = "Réinitialiser positions fenêtres"
+string iconname = "ACTIONS_annuler.png"
+end type
+
+event clicked;call super::clicked;
+if Messagebox("ATTENTION","Vous allez réinitialiser la position des fenetres de l'imagerie.~n~nConfirmez-vous ?" , Question! , YesNo!, 2) = 1 then
+	
+	// Editeur
+	fxg_positions_sauvegarder( "editeur_2022", 0, 0, 2000, 2000 ) 
+	fxg_positions_sauvegarder( "editeur_image", 0, 0, 2000, 2000 ) 
+	SetProfileString (dir_ini+inifile_orthokis,"explorateur_photos_2013","x", "0" ) 
+	SetProfileString (dir_ini+inifile_orthokis,"explorateur_photos_2013","y", "0" ) 
+	SetProfileString (dir_ini+inifile_orthokis,"explorateur_photos_2013","width", "2000" ) 
+	SetProfileString (dir_ini+inifile_orthokis,"explorateur_photos_2013","height", "2000" )
+
+end if
+end event
+
+type ddlb_forme_du_cadre from dropdownlistbox within tabpage_imagerie_2013
+integer x = 645
+integer y = 2144
+integer width = 809
+integer height = 332
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean sorted = false
+string item[] = {"Ovale","Carré","Carré arrondi"}
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_forme_du_cadre from statictext within tabpage_imagerie_2013
+integer x = 151
+integer y = 2144
+integer width = 466
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Forme du cadre :"
+boolean focusrectangle = false
+end type
+
+type cbx_editeur_2013_par_defaut from checkbox within tabpage_imagerie_2013
+integer x = 2103
+integer y = 1852
+integer width = 987
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Conserver l~'éditeur 2013 par défaut"
+end type
+
+type uo_clinique_7 from uo_choix_image_2013 within tabpage_imagerie_2013
+event destroy ( )
+integer x = 2661
+integer y = 1012
+integer taborder = 110
+boolean bringtotop = true
+end type
+
+on uo_clinique_7.destroy
+call uo_choix_image_2013::destroy
+end on
+
+type uo_clinique_8 from uo_choix_image_2013 within tabpage_imagerie_2013
+event destroy ( )
+integer x = 2661
+integer y = 1136
+integer taborder = 110
+boolean bringtotop = true
+end type
+
+on uo_clinique_8.destroy
+call uo_choix_image_2013::destroy
+end on
+
+type uo_clinique_6 from uo_choix_image_2013 within tabpage_imagerie_2013
+event destroy ( )
+integer x = 2661
+integer y = 888
+integer taborder = 110
+boolean bringtotop = true
+end type
+
+on uo_clinique_6.destroy
+call uo_choix_image_2013::destroy
+end on
+
+type st_74 from statictext within tabpage_imagerie_2013
+integer x = 2405
+integer y = 784
+integer width = 219
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cadre 5"
+boolean focusrectangle = false
+end type
+
+type st_75 from statictext within tabpage_imagerie_2013
+integer x = 2405
+integer y = 908
+integer width = 219
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cadre 6"
+boolean focusrectangle = false
+end type
+
+type st_76 from statictext within tabpage_imagerie_2013
+integer x = 2405
+integer y = 1036
+integer width = 219
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cadre 7"
+boolean focusrectangle = false
+end type
+
+type st_77 from statictext within tabpage_imagerie_2013
+integer x = 2405
+integer y = 1160
+integer width = 219
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cadre 8"
+boolean focusrectangle = false
+end type
+
+type uo_clinique_5 from uo_choix_image_2013 within tabpage_imagerie_2013
+event destroy ( )
+integer x = 2661
+integer y = 764
+integer taborder = 90
+boolean bringtotop = true
+end type
+
+on uo_clinique_5.destroy
+call uo_choix_image_2013::destroy
+end on
+
+type st_73 from statictext within tabpage_imagerie_2013
+integer x = 315
+integer y = 672
+integer width = 745
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Nombre de cadres images :"
+boolean focusrectangle = false
+end type
+
+type em_nb_cadres_images_commentaires from editmask within tabpage_imagerie_2013
+integer x = 1070
+integer y = 652
+integer width = 206
+integer height = 100
+integer taborder = 150
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+alignment alignment = center!
+borderstyle borderstyle = stylelowered!
+string mask = "0"
+boolean autoskip = true
+boolean spin = true
+string minmax = "0~~8"
+end type
+
+type uo_acquisition_pano from uo_choix_image_2013 within tabpage_imagerie_2013
+integer x = 1134
+integer y = 1712
+integer width = 823
+integer taborder = 80
+end type
+
+on uo_acquisition_pano.destroy
+call uo_choix_image_2013::destroy
+end on
+
+type st_71 from statictext within tabpage_imagerie_2013
+integer x = 151
+integer y = 1724
+integer width = 914
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Acquisition de Pano numérique : "
+boolean focusrectangle = false
+end type
+
+type cbx_images_sur_fond_noir_2013 from checkbox within tabpage_imagerie_2013
+integer x = 2103
+integer y = 1768
+integer width = 686
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Images sur fond Noir"
+end type
+
+type cbx_photo_iden_clinique_2013 from checkbox within tabpage_imagerie_2013
+integer x = 2103
+integer y = 1684
+integer width = 1280
+integer height = 72
+integer taborder = 20
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Photo d~'identité dans commentaires cliniques"
+end type
+
+type cbx_photo_iden_2013 from checkbox within tabpage_imagerie_2013
+integer x = 2103
+integer y = 1600
+integer width = 1170
+integer height = 72
+integer taborder = 10
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Photo d~'identité dans fiche administrative"
+end type
+
+type st_53 from statictext within tabpage_imagerie_2013
+integer x = 2295
+integer y = 1436
+integer width = 219
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cadre 2"
+boolean focusrectangle = false
+end type
+
+type uo_diag_2 from uo_choix_image_2013 within tabpage_imagerie_2013
+integer x = 2574
+integer y = 1416
+integer taborder = 110
+end type
+
+on uo_diag_2.destroy
+call uo_choix_image_2013::destroy
+end on
+
+type st_50 from statictext within tabpage_imagerie_2013
+integer x = 274
+integer y = 1436
+integer width = 219
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cadre 1"
+boolean focusrectangle = false
+end type
+
+type uo_diag_1 from uo_choix_image_2013 within tabpage_imagerie_2013
+integer x = 581
+integer y = 1416
+integer taborder = 100
+end type
+
+on uo_diag_1.destroy
+call uo_choix_image_2013::destroy
+end on
+
+type gb_35 from groupbox within tabpage_imagerie_2013
+integer x = 128
+integer y = 1332
+integer width = 4265
+integer height = 236
+integer taborder = 130
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+long backcolor = 16777215
+string text = "Photos diagnostic"
+end type
+
+type cbx_ouverture_editeur from checkbox within tabpage_imagerie_2013
+integer x = 2309
+integer y = 72
+integer width = 882
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Ouvrir l~'éditeur en plein écran"
+end type
+
+type sle_imagerie_2013_couleur_groupe from singlelineedit within tabpage_imagerie_2013
+integer x = 1134
+integer y = 1828
+integer width = 823
+integer height = 112
+integer taborder = 130
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+long backcolor = 134217731
+borderstyle borderstyle = stylelowered!
+end type
+
+event rbuttondown;
+
+	//Declaration des variables locales
+	//--------------------------
+	long couleur_choisie
+	
+	couleur_choisie = this.backcolor
+	
+	// Les positions seront utilisées dans le timer de la fenêtre	
+	ii_palette_x = pointerx()
+	ii_palette_y = pointery()
+		
+	Timer(0.05)	// pour déclencher le repositionnement de la palette
+
+	//Appel de la fenetre couleur et au retour, met la couleur de fond
+	//--------------------------------------------------
+	if appel_palette(couleur_choisie) then
+		boolean v_suite = false
+		this.backcolor = couleur_choisie
+	end if
+end event
+
+type st_15 from statictext within tabpage_imagerie_2013
+integer x = 151
+integer y = 1856
+integer width = 823
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Couleur de fond des groupes : "
+boolean focusrectangle = false
+end type
+
+type cbx_imagerie_2013_a_part from checkbox within tabpage_imagerie_2013
+integer x = 1001
+integer y = 72
+integer width = 1198
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Ouvrir l~'imagerie dans une fenêtre à part"
+end type
+
+type uo_clinique_4 from uo_choix_image_2013 within tabpage_imagerie_2013
+event destroy ( )
+integer x = 576
+integer y = 1136
+integer taborder = 100
+end type
+
+on uo_clinique_4.destroy
+call uo_choix_image_2013::destroy
+end on
+
+type uo_clinique_3 from uo_choix_image_2013 within tabpage_imagerie_2013
+event destroy ( )
+integer x = 576
+integer y = 1012
+integer taborder = 90
+end type
+
+on uo_clinique_3.destroy
+call uo_choix_image_2013::destroy
+end on
+
+type uo_clinique_2 from uo_choix_image_2013 within tabpage_imagerie_2013
+event destroy ( )
+integer x = 576
+integer y = 888
+integer taborder = 80
+end type
+
+on uo_clinique_2.destroy
+call uo_choix_image_2013::destroy
+end on
+
+type uo_clinique_1 from uo_choix_image_2013 within tabpage_imagerie_2013
+event destroy ( )
+integer x = 576
+integer y = 764
+integer taborder = 70
+end type
+
+on uo_clinique_1.destroy
+call uo_choix_image_2013::destroy
+end on
+
+type st_63 from statictext within tabpage_imagerie_2013
+integer x = 325
+integer y = 1156
+integer width = 219
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cadre 4"
+boolean focusrectangle = false
+end type
+
+type st_62 from statictext within tabpage_imagerie_2013
+integer x = 325
+integer y = 1032
+integer width = 219
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cadre 3"
+boolean focusrectangle = false
+end type
+
+type st_61 from statictext within tabpage_imagerie_2013
+integer x = 325
+integer y = 908
+integer width = 219
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cadre 2"
+boolean focusrectangle = false
+end type
+
+type st_60 from statictext within tabpage_imagerie_2013
+integer x = 325
+integer y = 784
+integer width = 219
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cadre 1"
+boolean focusrectangle = false
+end type
+
+type uo_identite_clinique from uo_choix_image_2013 within tabpage_imagerie_2013
+integer x = 2555
+integer y = 368
+integer taborder = 70
+end type
+
+on uo_identite_clinique.destroy
+call uo_choix_image_2013::destroy
+end on
+
+type st_59 from statictext within tabpage_imagerie_2013
+integer x = 2295
+integer y = 388
+integer width = 251
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Clinique"
+boolean focusrectangle = false
+end type
+
+type uo_acquisition_radio from uo_choix_image_2013 within tabpage_imagerie_2013
+event destroy ( )
+integer x = 1134
+integer y = 1588
+integer width = 823
+integer taborder = 70
+end type
+
+on uo_acquisition_radio.destroy
+call uo_choix_image_2013::destroy
+end on
+
+type uo_fiche_admini from uo_choix_image_2013 within tabpage_imagerie_2013
+integer x = 581
+integer y = 368
+integer taborder = 60
+end type
+
+on uo_fiche_admini.destroy
+call uo_choix_image_2013::destroy
+end on
+
+type st_57 from statictext within tabpage_imagerie_2013
+integer x = 178
+integer y = 384
+integer width = 421
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Administrative"
+boolean focusrectangle = false
+end type
+
+type st_58 from statictext within tabpage_imagerie_2013
+integer x = 151
+integer y = 1608
+integer width = 992
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Acquisition de Téléradio numérique : "
+boolean focusrectangle = false
+end type
+
+type rb_outils_explorateur_2013_droite from radiobutton within tabpage_imagerie_2013
+integer x = 480
+integer y = 60
+integer width = 270
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Droite"
+end type
+
+type rb_outils_explorateur_2013_gauche from radiobutton within tabpage_imagerie_2013
+integer x = 146
+integer y = 60
+integer width = 315
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Gauche"
+end type
+
+type gb_36 from groupbox within tabpage_imagerie_2013
+integer x = 128
+integer y = 568
+integer width = 4265
+integer height = 752
+integer taborder = 120
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+long backcolor = 16777215
+string text = "Photos commentaires cliniques"
+end type
+
+type gb_37 from groupbox within tabpage_imagerie_2013
+integer x = 128
+integer y = 292
+integer width = 4265
+integer height = 236
+integer taborder = 130
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+long backcolor = 16777215
+string text = "Photos d~'identités"
+end type
+
+type gb_25 from groupbox within tabpage_imagerie_2013
+integer x = 73
+integer y = 196
+integer width = 4635
+integer height = 1816
+integer taborder = 70
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+long backcolor = 16777215
+string text = "Types d~'images"
+end type
+
+type gb_38 from groupbox within tabpage_imagerie_2013
+integer x = 82
+integer y = 8
+integer width = 818
+integer height = 172
+integer taborder = 140
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+long backcolor = 16777215
+string text = "Position des Outils"
+end type
+
+type gb_28 from groupbox within tabpage_imagerie_2013
+integer x = 128
+integer y = 1088
+integer width = 4265
+integer height = 500
+integer taborder = 130
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+long backcolor = 15780518
+string text = "Photos commentaires cliniques"
+end type
+
+type gb_forme_du_cadre from groupbox within tabpage_imagerie_2013
+integer x = 78
+integer y = 2036
+integer width = 1449
+integer height = 244
+integer taborder = 120
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 553648127
+string text = "Salle d~'attente && Fiche Administrative"
+end type
+
+type tabpage_salle_attente from userobject within tab_1
+event create ( )
+event destroy ( )
+integer x = 18
+integer y = 336
+integer width = 5207
+integer height = 2380
+long backcolor = 16777215
+string text = "Salle d~'Attente~r~nRDV"
+long tabtextcolor = 33554432
+long tabbackcolor = 15780518
+string picturename = "lc_salle_attente.png"
+long picturemaskcolor = 536870912
+cbx_ne_pas_verifier_retard_en_bd cbx_ne_pas_verifier_retard_en_bd
+em_limite_scrutation em_limite_scrutation
+st_limite_scrutation st_limite_scrutation
+rb_tri_mini_salle_attente_heure_arrivee rb_tri_mini_salle_attente_heure_arrivee
+rb_tri_mini_salle_attente_heure_rdv rb_tri_mini_salle_attente_heure_rdv
+rb_alerte_arrivees_nouveaux_sonore rb_alerte_arrivees_nouveaux_sonore
+rb_alerte_arrivees_nouveaux_visuelle rb_alerte_arrivees_nouveaux_visuelle
+rb_alerte_arrivees_nouveaux_aucune rb_alerte_arrivees_nouveaux_aucune
+gb_alerte_arrivees_nouveaux gb_alerte_arrivees_nouveaux
+cbx_compteur_menu_patient cbx_compteur_menu_patient
+rb_alerte_praticien_defaut rb_alerte_praticien_defaut
+rb_alerte_tous_praticien rb_alerte_tous_praticien
+gb_4 gb_4
+cbx_suivi_clinique cbx_suivi_clinique
+rb_praticien_par_defaut_utilisateur rb_praticien_par_defaut_utilisateur
+rb_rdv_ponctualite rb_rdv_ponctualite
+rb_alerte_arrivees_sonore rb_alerte_arrivees_sonore
+rb_alerte_arrivees_visuelle rb_alerte_arrivees_visuelle
+rb_alerte_arrivees_aucune rb_alerte_arrivees_aucune
+st_29 st_29
+em_volet_salle_attente_surveillance_jour em_volet_salle_attente_surveillance_jour
+cbx_volet_salle_attente_surveillance cbx_volet_salle_attente_surveillance
+cbx_materialiser_meme_famille cbx_materialiser_meme_famille
+cbx_salle_attente_parametrable cbx_salle_attente_parametrable
+cbx_ouvrir_fenetre_a_part cbx_ouvrir_fenetre_a_part
+cbx_affichage_barre_avancement_clinique cbx_affichage_barre_avancement_clinique
+cbx_ouverture_lancement cbx_ouverture_lancement
+cbx_raffraichissement_conserver_position cbx_raffraichissement_conserver_position
+em_nb_jours_alerte_prochain_reg em_nb_jours_alerte_prochain_reg
+st_69 st_69
+cbx_alerte_prochain_reg cbx_alerte_prochain_reg
+rb_post_it_pas rb_post_it_pas
+st_34 st_34
+cbx_planning_conserver cbx_planning_conserver
+cbx_ticket_tous_rdv_futurs cbx_ticket_tous_rdv_futurs
+rb_ticket_word rb_ticket_word
+gb_20 gb_20
+st_52 st_52
+em_largeur_ticket em_largeur_ticket
+em_hauteur_ticket em_hauteur_ticket
+st_51 st_51
+ddlb_imprimante_ticket_rdv ddlb_imprimante_ticket_rdv
+cbx_active_impr_specif_rdv cbx_active_impr_specif_rdv
+em_retard_rdv em_retard_rdv
+st_46 st_46
+st_41 st_41
+rb_rdv_tableau rb_rdv_tableau
+rb_rdv_camembert rb_rdv_camembert
+st_40 st_40
+cbx_mini_salle_attente_on_top cbx_mini_salle_attente_on_top
+st_39 st_39
+st_27 st_27
+cbx_photo_synthese cbx_photo_synthese
+rb_post_it_haut rb_post_it_haut
+rb_post_it_bas rb_post_it_bas
+dw_prati dw_prati
+rb_un_prat rb_un_prat
+rb_tous_praticiens rb_tous_praticiens
+cbx_affichage_automatique cbx_affichage_automatique
+st_14 st_14
+em_raffraichissement em_raffraichissement
+em_nb_jours_alerte_dep em_nb_jours_alerte_dep
+st_dep_38 st_dep_38
+cbx_alerte_dep cbx_alerte_dep
+cbx_ouverture_synthese cbx_ouverture_synthese
+cbx_salleattenteargent cbx_salleattenteargent
+st_37 st_37
+gb_11 gb_11
+gb_12 gb_12
+gb_15 gb_15
+rb_ticket_rtf rb_ticket_rtf
+gb_10 gb_10
+gb_46 gb_46
+gb_wait_and_smile gb_wait_and_smile
+sle_wait_and_smile_lieu sle_wait_and_smile_lieu
+gb_17 gb_17
+gb_47 gb_47
+gb_51 gb_51
+gb_tri_mini_salle_attente gb_tri_mini_salle_attente
+end type
+
+on tabpage_salle_attente.create
+this.cbx_ne_pas_verifier_retard_en_bd=create cbx_ne_pas_verifier_retard_en_bd
+this.em_limite_scrutation=create em_limite_scrutation
+this.st_limite_scrutation=create st_limite_scrutation
+this.rb_tri_mini_salle_attente_heure_arrivee=create rb_tri_mini_salle_attente_heure_arrivee
+this.rb_tri_mini_salle_attente_heure_rdv=create rb_tri_mini_salle_attente_heure_rdv
+this.rb_alerte_arrivees_nouveaux_sonore=create rb_alerte_arrivees_nouveaux_sonore
+this.rb_alerte_arrivees_nouveaux_visuelle=create rb_alerte_arrivees_nouveaux_visuelle
+this.rb_alerte_arrivees_nouveaux_aucune=create rb_alerte_arrivees_nouveaux_aucune
+this.gb_alerte_arrivees_nouveaux=create gb_alerte_arrivees_nouveaux
+this.cbx_compteur_menu_patient=create cbx_compteur_menu_patient
+this.rb_alerte_praticien_defaut=create rb_alerte_praticien_defaut
+this.rb_alerte_tous_praticien=create rb_alerte_tous_praticien
+this.gb_4=create gb_4
+this.cbx_suivi_clinique=create cbx_suivi_clinique
+this.rb_praticien_par_defaut_utilisateur=create rb_praticien_par_defaut_utilisateur
+this.rb_rdv_ponctualite=create rb_rdv_ponctualite
+this.rb_alerte_arrivees_sonore=create rb_alerte_arrivees_sonore
+this.rb_alerte_arrivees_visuelle=create rb_alerte_arrivees_visuelle
+this.rb_alerte_arrivees_aucune=create rb_alerte_arrivees_aucune
+this.st_29=create st_29
+this.em_volet_salle_attente_surveillance_jour=create em_volet_salle_attente_surveillance_jour
+this.cbx_volet_salle_attente_surveillance=create cbx_volet_salle_attente_surveillance
+this.cbx_materialiser_meme_famille=create cbx_materialiser_meme_famille
+this.cbx_salle_attente_parametrable=create cbx_salle_attente_parametrable
+this.cbx_ouvrir_fenetre_a_part=create cbx_ouvrir_fenetre_a_part
+this.cbx_affichage_barre_avancement_clinique=create cbx_affichage_barre_avancement_clinique
+this.cbx_ouverture_lancement=create cbx_ouverture_lancement
+this.cbx_raffraichissement_conserver_position=create cbx_raffraichissement_conserver_position
+this.em_nb_jours_alerte_prochain_reg=create em_nb_jours_alerte_prochain_reg
+this.st_69=create st_69
+this.cbx_alerte_prochain_reg=create cbx_alerte_prochain_reg
+this.rb_post_it_pas=create rb_post_it_pas
+this.st_34=create st_34
+this.cbx_planning_conserver=create cbx_planning_conserver
+this.cbx_ticket_tous_rdv_futurs=create cbx_ticket_tous_rdv_futurs
+this.rb_ticket_word=create rb_ticket_word
+this.gb_20=create gb_20
+this.st_52=create st_52
+this.em_largeur_ticket=create em_largeur_ticket
+this.em_hauteur_ticket=create em_hauteur_ticket
+this.st_51=create st_51
+this.ddlb_imprimante_ticket_rdv=create ddlb_imprimante_ticket_rdv
+this.cbx_active_impr_specif_rdv=create cbx_active_impr_specif_rdv
+this.em_retard_rdv=create em_retard_rdv
+this.st_46=create st_46
+this.st_41=create st_41
+this.rb_rdv_tableau=create rb_rdv_tableau
+this.rb_rdv_camembert=create rb_rdv_camembert
+this.st_40=create st_40
+this.cbx_mini_salle_attente_on_top=create cbx_mini_salle_attente_on_top
+this.st_39=create st_39
+this.st_27=create st_27
+this.cbx_photo_synthese=create cbx_photo_synthese
+this.rb_post_it_haut=create rb_post_it_haut
+this.rb_post_it_bas=create rb_post_it_bas
+this.dw_prati=create dw_prati
+this.rb_un_prat=create rb_un_prat
+this.rb_tous_praticiens=create rb_tous_praticiens
+this.cbx_affichage_automatique=create cbx_affichage_automatique
+this.st_14=create st_14
+this.em_raffraichissement=create em_raffraichissement
+this.em_nb_jours_alerte_dep=create em_nb_jours_alerte_dep
+this.st_dep_38=create st_dep_38
+this.cbx_alerte_dep=create cbx_alerte_dep
+this.cbx_ouverture_synthese=create cbx_ouverture_synthese
+this.cbx_salleattenteargent=create cbx_salleattenteargent
+this.st_37=create st_37
+this.gb_11=create gb_11
+this.gb_12=create gb_12
+this.gb_15=create gb_15
+this.rb_ticket_rtf=create rb_ticket_rtf
+this.gb_10=create gb_10
+this.gb_46=create gb_46
+this.gb_wait_and_smile=create gb_wait_and_smile
+this.sle_wait_and_smile_lieu=create sle_wait_and_smile_lieu
+this.gb_17=create gb_17
+this.gb_47=create gb_47
+this.gb_51=create gb_51
+this.gb_tri_mini_salle_attente=create gb_tri_mini_salle_attente
+this.Control[]={this.cbx_ne_pas_verifier_retard_en_bd,&
+this.em_limite_scrutation,&
+this.st_limite_scrutation,&
+this.rb_tri_mini_salle_attente_heure_arrivee,&
+this.rb_tri_mini_salle_attente_heure_rdv,&
+this.rb_alerte_arrivees_nouveaux_sonore,&
+this.rb_alerte_arrivees_nouveaux_visuelle,&
+this.rb_alerte_arrivees_nouveaux_aucune,&
+this.gb_alerte_arrivees_nouveaux,&
+this.cbx_compteur_menu_patient,&
+this.rb_alerte_praticien_defaut,&
+this.rb_alerte_tous_praticien,&
+this.gb_4,&
+this.cbx_suivi_clinique,&
+this.rb_praticien_par_defaut_utilisateur,&
+this.rb_rdv_ponctualite,&
+this.rb_alerte_arrivees_sonore,&
+this.rb_alerte_arrivees_visuelle,&
+this.rb_alerte_arrivees_aucune,&
+this.st_29,&
+this.em_volet_salle_attente_surveillance_jour,&
+this.cbx_volet_salle_attente_surveillance,&
+this.cbx_materialiser_meme_famille,&
+this.cbx_salle_attente_parametrable,&
+this.cbx_ouvrir_fenetre_a_part,&
+this.cbx_affichage_barre_avancement_clinique,&
+this.cbx_ouverture_lancement,&
+this.cbx_raffraichissement_conserver_position,&
+this.em_nb_jours_alerte_prochain_reg,&
+this.st_69,&
+this.cbx_alerte_prochain_reg,&
+this.rb_post_it_pas,&
+this.st_34,&
+this.cbx_planning_conserver,&
+this.cbx_ticket_tous_rdv_futurs,&
+this.rb_ticket_word,&
+this.gb_20,&
+this.st_52,&
+this.em_largeur_ticket,&
+this.em_hauteur_ticket,&
+this.st_51,&
+this.ddlb_imprimante_ticket_rdv,&
+this.cbx_active_impr_specif_rdv,&
+this.em_retard_rdv,&
+this.st_46,&
+this.st_41,&
+this.rb_rdv_tableau,&
+this.rb_rdv_camembert,&
+this.st_40,&
+this.cbx_mini_salle_attente_on_top,&
+this.st_39,&
+this.st_27,&
+this.cbx_photo_synthese,&
+this.rb_post_it_haut,&
+this.rb_post_it_bas,&
+this.dw_prati,&
+this.rb_un_prat,&
+this.rb_tous_praticiens,&
+this.cbx_affichage_automatique,&
+this.st_14,&
+this.em_raffraichissement,&
+this.em_nb_jours_alerte_dep,&
+this.st_dep_38,&
+this.cbx_alerte_dep,&
+this.cbx_ouverture_synthese,&
+this.cbx_salleattenteargent,&
+this.st_37,&
+this.gb_11,&
+this.gb_12,&
+this.gb_15,&
+this.rb_ticket_rtf,&
+this.gb_10,&
+this.gb_46,&
+this.gb_wait_and_smile,&
+this.sle_wait_and_smile_lieu,&
+this.gb_17,&
+this.gb_47,&
+this.gb_51,&
+this.gb_tri_mini_salle_attente}
+end on
+
+on tabpage_salle_attente.destroy
+destroy(this.cbx_ne_pas_verifier_retard_en_bd)
+destroy(this.em_limite_scrutation)
+destroy(this.st_limite_scrutation)
+destroy(this.rb_tri_mini_salle_attente_heure_arrivee)
+destroy(this.rb_tri_mini_salle_attente_heure_rdv)
+destroy(this.rb_alerte_arrivees_nouveaux_sonore)
+destroy(this.rb_alerte_arrivees_nouveaux_visuelle)
+destroy(this.rb_alerte_arrivees_nouveaux_aucune)
+destroy(this.gb_alerte_arrivees_nouveaux)
+destroy(this.cbx_compteur_menu_patient)
+destroy(this.rb_alerte_praticien_defaut)
+destroy(this.rb_alerte_tous_praticien)
+destroy(this.gb_4)
+destroy(this.cbx_suivi_clinique)
+destroy(this.rb_praticien_par_defaut_utilisateur)
+destroy(this.rb_rdv_ponctualite)
+destroy(this.rb_alerte_arrivees_sonore)
+destroy(this.rb_alerte_arrivees_visuelle)
+destroy(this.rb_alerte_arrivees_aucune)
+destroy(this.st_29)
+destroy(this.em_volet_salle_attente_surveillance_jour)
+destroy(this.cbx_volet_salle_attente_surveillance)
+destroy(this.cbx_materialiser_meme_famille)
+destroy(this.cbx_salle_attente_parametrable)
+destroy(this.cbx_ouvrir_fenetre_a_part)
+destroy(this.cbx_affichage_barre_avancement_clinique)
+destroy(this.cbx_ouverture_lancement)
+destroy(this.cbx_raffraichissement_conserver_position)
+destroy(this.em_nb_jours_alerte_prochain_reg)
+destroy(this.st_69)
+destroy(this.cbx_alerte_prochain_reg)
+destroy(this.rb_post_it_pas)
+destroy(this.st_34)
+destroy(this.cbx_planning_conserver)
+destroy(this.cbx_ticket_tous_rdv_futurs)
+destroy(this.rb_ticket_word)
+destroy(this.gb_20)
+destroy(this.st_52)
+destroy(this.em_largeur_ticket)
+destroy(this.em_hauteur_ticket)
+destroy(this.st_51)
+destroy(this.ddlb_imprimante_ticket_rdv)
+destroy(this.cbx_active_impr_specif_rdv)
+destroy(this.em_retard_rdv)
+destroy(this.st_46)
+destroy(this.st_41)
+destroy(this.rb_rdv_tableau)
+destroy(this.rb_rdv_camembert)
+destroy(this.st_40)
+destroy(this.cbx_mini_salle_attente_on_top)
+destroy(this.st_39)
+destroy(this.st_27)
+destroy(this.cbx_photo_synthese)
+destroy(this.rb_post_it_haut)
+destroy(this.rb_post_it_bas)
+destroy(this.dw_prati)
+destroy(this.rb_un_prat)
+destroy(this.rb_tous_praticiens)
+destroy(this.cbx_affichage_automatique)
+destroy(this.st_14)
+destroy(this.em_raffraichissement)
+destroy(this.em_nb_jours_alerte_dep)
+destroy(this.st_dep_38)
+destroy(this.cbx_alerte_dep)
+destroy(this.cbx_ouverture_synthese)
+destroy(this.cbx_salleattenteargent)
+destroy(this.st_37)
+destroy(this.gb_11)
+destroy(this.gb_12)
+destroy(this.gb_15)
+destroy(this.rb_ticket_rtf)
+destroy(this.gb_10)
+destroy(this.gb_46)
+destroy(this.gb_wait_and_smile)
+destroy(this.sle_wait_and_smile_lieu)
+destroy(this.gb_17)
+destroy(this.gb_47)
+destroy(this.gb_51)
+destroy(this.gb_tri_mini_salle_attente)
+end on
+
+type cbx_ne_pas_verifier_retard_en_bd from checkbox within tabpage_salle_attente
+integer x = 192
+integer y = 864
+integer width = 1230
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Ne pas vérifier automatismes retard en BD"
+end type
+
+type em_limite_scrutation from editmask within tabpage_salle_attente
+integer x = 2318
+integer y = 856
+integer width = 302
+integer height = 88
+integer taborder = 60
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+alignment alignment = center!
+borderstyle borderstyle = stylelowered!
+string mask = "##0"
+boolean spin = true
+end type
+
+type st_limite_scrutation from statictext within tabpage_salle_attente
+integer x = 1477
+integer y = 868
+integer width = 837
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Limite scrutation (en minutes) :"
+boolean focusrectangle = false
+end type
+
+type rb_tri_mini_salle_attente_heure_arrivee from radiobutton within tabpage_salle_attente
+integer x = 1353
+integer y = 2072
+integer width = 498
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Heure d~'arrivée"
+end type
+
+type rb_tri_mini_salle_attente_heure_rdv from radiobutton within tabpage_salle_attente
+integer x = 608
+integer y = 2072
+integer width = 654
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Heure du rendez-vous"
+end type
+
+type rb_alerte_arrivees_nouveaux_sonore from radiobutton within tabpage_salle_attente
+integer x = 4105
+integer y = 1660
+integer width = 567
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Visuelle et Sonore"
+end type
+
+type rb_alerte_arrivees_nouveaux_visuelle from radiobutton within tabpage_salle_attente
+integer x = 3721
+integer y = 1660
+integer width = 311
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Visuelle"
+end type
+
+type rb_alerte_arrivees_nouveaux_aucune from radiobutton within tabpage_salle_attente
+integer x = 3333
+integer y = 1660
+integer width = 325
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Aucune"
+end type
+
+type gb_alerte_arrivees_nouveaux from groupbox within tabpage_salle_attente
+integer x = 3241
+integer y = 1584
+integer width = 1499
+integer height = 188
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 16777215
+string text = "Nouveaux Patients"
+end type
+
+type cbx_compteur_menu_patient from checkbox within tabpage_salle_attente
+integer x = 192
+integer y = 1472
+integer width = 1042
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Activer compteur dans menu Patient"
+end type
+
+type rb_alerte_praticien_defaut from radiobutton within tabpage_salle_attente
+integer x = 3721
+integer y = 1848
+integer width = 919
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Uniquement praticien par défaut"
+end type
+
+type rb_alerte_tous_praticien from radiobutton within tabpage_salle_attente
+integer x = 3333
+integer y = 1848
+integer width = 402
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Pour tous"
+end type
+
+type gb_4 from groupbox within tabpage_salle_attente
+integer x = 3241
+integer y = 1784
+integer width = 1499
+integer height = 176
+integer taborder = 140
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 16777215
+string text = "Praticiens"
+end type
+
+type cbx_suivi_clinique from checkbox within tabpage_salle_attente
+integer x = 2903
+integer y = 204
+integer width = 457
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Suivi Clinique"
+end type
+
+type rb_praticien_par_defaut_utilisateur from radiobutton within tabpage_salle_attente
+integer x = 306
+integer y = 556
+integer width = 1179
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Pour le Praticien par défaut de l~'utilisateur"
+end type
+
+event clicked;if this.checked then
+	dw_prati.visible = false
+else
+	dw_prati.visible = true
+end if
+end event
+
+type rb_rdv_ponctualite from radiobutton within tabpage_salle_attente
+integer x = 3634
+integer y = 2196
+integer width = 759
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Analyse de la Ponctualité"
+end type
+
+type rb_alerte_arrivees_sonore from radiobutton within tabpage_salle_attente
+integer x = 4105
+integer y = 1476
+integer width = 567
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Visuelle et Sonore"
+end type
+
+type rb_alerte_arrivees_visuelle from radiobutton within tabpage_salle_attente
+integer x = 3721
+integer y = 1476
+integer width = 311
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Visuelle"
+end type
+
+type rb_alerte_arrivees_aucune from radiobutton within tabpage_salle_attente
+integer x = 3333
+integer y = 1476
+integer width = 325
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Aucune"
+end type
+
+type st_29 from statictext within tabpage_salle_attente
+integer x = 3406
+integer y = 112
+integer width = 448
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Délai (en jours) : "
+boolean focusrectangle = false
+end type
+
+type em_volet_salle_attente_surveillance_jour from editmask within tabpage_salle_attente
+integer x = 3968
+integer y = 100
+integer width = 302
+integer height = 88
+integer taborder = 50
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+alignment alignment = center!
+borderstyle borderstyle = stylelowered!
+string mask = "####0"
+boolean spin = true
+string minmax = "0~~"
+end type
+
+type cbx_volet_salle_attente_surveillance from checkbox within tabpage_salle_attente
+integer x = 2903
+integer y = 104
+integer width = 457
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Surveillance"
+end type
+
+type cbx_materialiser_meme_famille from checkbox within tabpage_salle_attente
+integer x = 1559
+integer y = 308
+integer width = 777
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Matérialiser même famille"
+end type
+
+type cbx_salle_attente_parametrable from checkbox within tabpage_salle_attente
+integer x = 192
+integer y = 308
+integer width = 1120
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Activer la Salle d~'Attente Paramétrable"
+end type
+
+type cbx_ouvrir_fenetre_a_part from checkbox within tabpage_salle_attente
+integer x = 1559
+integer y = 124
+integer width = 978
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Ouverture dans une fenêtre à part"
+end type
+
+type cbx_affichage_barre_avancement_clinique from checkbox within tabpage_salle_attente
+integer x = 1559
+integer y = 216
+integer width = 1262
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Affichage de la barre d~'avancement clinique"
+end type
+
+type cbx_ouverture_lancement from checkbox within tabpage_salle_attente
+integer x = 192
+integer y = 124
+integer width = 1335
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Ouverture automatique au lancement d~'Orthokis"
+end type
+
+type cbx_raffraichissement_conserver_position from checkbox within tabpage_salle_attente
+integer x = 192
+integer y = 768
+integer width = 1600
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Conserver le positionnement après le raffraichissement"
+end type
+
+type em_nb_jours_alerte_prochain_reg from editmask within tabpage_salle_attente
+integer x = 1774
+integer y = 1368
+integer width = 302
+integer height = 88
+integer taborder = 50
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+alignment alignment = center!
+borderstyle borderstyle = stylelowered!
+string mask = "####0"
+boolean spin = true
+end type
+
+type st_69 from statictext within tabpage_salle_attente
+integer x = 987
+integer y = 1376
+integer width = 768
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Délai pour alerte (en jours) : "
+boolean focusrectangle = false
+end type
+
+type cbx_alerte_prochain_reg from checkbox within tabpage_salle_attente
+integer x = 192
+integer y = 1376
+integer width = 791
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Alerte prochain règlement"
+end type
+
+type rb_post_it_pas from radiobutton within tabpage_salle_attente
+integer x = 3726
+integer y = 396
+integer width = 462
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Pas de Post-it"
+end type
+
+type st_34 from statictext within tabpage_salle_attente
+integer x = 192
+integer y = 2180
+integer width = 768
+integer height = 80
+boolean bringtotop = true
+integer textsize = -11
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean underline = true
+long backcolor = 553648127
+string text = "Planning d~'une journée"
+boolean focusrectangle = false
+end type
+
+type cbx_planning_conserver from checkbox within tabpage_salle_attente
+integer x = 192
+integer y = 2272
+integer width = 1897
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Conserver tous les rendez-vous (même les éliminés de l~'Agenda)"
+end type
+
+type cbx_ticket_tous_rdv_futurs from checkbox within tabpage_salle_attente
+integer x = 2935
+integer y = 1156
+integer width = 1179
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Reprendre TOUS les rendez-vous futurs"
+end type
+
+type rb_ticket_word from radiobutton within tabpage_salle_attente
+integer x = 4448
+integer y = 1028
+integer width = 658
+integer height = 80
+boolean bringtotop = true
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Document Word (Doc)"
+end type
+
+type gb_20 from groupbox within tabpage_salle_attente
+integer x = 4402
+integer y = 852
+integer width = 722
+integer height = 304
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 553648127
+string text = "Format"
+end type
+
+type st_52 from statictext within tabpage_salle_attente
+integer x = 3621
+integer y = 1036
+integer width = 279
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Largeur :"
+boolean focusrectangle = false
+end type
+
+type em_largeur_ticket from editmask within tabpage_salle_attente
+integer x = 3913
+integer y = 1020
+integer width = 302
+integer height = 88
+integer taborder = 110
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+alignment alignment = right!
+borderstyle borderstyle = stylelowered!
+string mask = "###0"
+boolean spin = true
+string minmax = "0~~5000"
+end type
+
+type em_hauteur_ticket from editmask within tabpage_salle_attente
+integer x = 3237
+integer y = 1020
+integer width = 302
+integer height = 88
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+alignment alignment = right!
+borderstyle borderstyle = stylelowered!
+string mask = "###0"
+boolean spin = true
+string minmax = "0~~5000"
+end type
+
+type st_51 from statictext within tabpage_salle_attente
+integer x = 2939
+integer y = 1036
+integer width = 279
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Hauteur :"
+boolean focusrectangle = false
+end type
+
+type ddlb_imprimante_ticket_rdv from uo_liste_imprimantes within tabpage_salle_attente
+integer x = 2930
+integer y = 912
+integer taborder = 110
+end type
+
+type cbx_active_impr_specif_rdv from checkbox within tabpage_salle_attente
+integer x = 2921
+integer y = 824
+integer width = 1051
+integer height = 80
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Activer l~'imprimante spécifique Ticket RDV"
+end type
+
+type em_retard_rdv from editmask within tabpage_salle_attente
+integer x = 1504
+integer y = 1268
+integer width = 302
+integer height = 88
+integer taborder = 50
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+alignment alignment = center!
+borderstyle borderstyle = stylelowered!
+string mask = "##0"
+boolean spin = true
+end type
+
+type st_46 from statictext within tabpage_salle_attente
+integer x = 192
+integer y = 1280
+integer width = 1280
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Retard par rapport à Rendez-vous (en minutes) :"
+boolean focusrectangle = false
+end type
+
+type st_41 from statictext within tabpage_salle_attente
+integer x = 2843
+integer y = 2012
+integer width = 933
+integer height = 72
+integer textsize = -11
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean underline = true
+long backcolor = 553648127
+string text = "Gestions des Rendez-vous :"
+boolean focusrectangle = false
+end type
+
+type rb_rdv_tableau from radiobutton within tabpage_salle_attente
+integer x = 4421
+integer y = 2196
+integer width = 585
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Tableau des Types"
+end type
+
+type rb_rdv_camembert from radiobutton within tabpage_salle_attente
+integer x = 2921
+integer y = 2196
+integer width = 704
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Camembert des états"
+boolean checked = true
+end type
+
+type st_40 from statictext within tabpage_salle_attente
+integer x = 192
+integer y = 1880
+integer width = 695
+integer height = 80
+integer textsize = -11
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean underline = true
+long backcolor = 553648127
+string text = "Mini Salle d~'Attente :"
+boolean focusrectangle = false
+end type
+
+type cbx_mini_salle_attente_on_top from checkbox within tabpage_salle_attente
+integer x = 192
+integer y = 1972
+integer width = 2011
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Mini-Salle d~'Attente toujours visible (au dessus de Tous les programmes)"
+end type
+
+type st_39 from statictext within tabpage_salle_attente
+integer x = 192
+integer y = 32
+integer width = 681
+integer height = 80
+integer textsize = -11
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean underline = true
+long backcolor = 553648127
+string text = "Salle d~'attente :"
+boolean focusrectangle = false
+end type
+
+type st_27 from statictext within tabpage_salle_attente
+integer x = 192
+integer y = 956
+integer width = 430
+integer height = 80
+integer textsize = -11
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean underline = true
+long backcolor = 553648127
+string text = "Alertes :"
+boolean focusrectangle = false
+end type
+
+type cbx_photo_synthese from checkbox within tabpage_salle_attente
+integer x = 192
+integer y = 1764
+integer width = 855
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Photo dans la synthèse"
+end type
+
+type rb_post_it_haut from radiobutton within tabpage_salle_attente
+integer x = 3374
+integer y = 396
+integer width = 297
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "en Haut"
+end type
+
+type rb_post_it_bas from radiobutton within tabpage_salle_attente
+integer x = 2967
+integer y = 396
+integer width = 297
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "en Bas"
+boolean checked = true
+end type
+
+type dw_prati from datawindow within tabpage_salle_attente
+string tag = "no resizeall"
+boolean visible = false
+integer x = 1778
+integer y = 468
+integer width = 869
+integer height = 76
+integer taborder = 100
+string dataobject = "dw_cherche_prati"
+boolean border = false
+end type
+
+type rb_un_prat from radiobutton within tabpage_salle_attente
+integer x = 1134
+integer y = 468
+integer width = 581
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Pour le Praticien"
+end type
+
+event clicked;
+if this.checked then
+	dw_prati.visible = true
+else
+	dw_prati.visible = false
+end if
+end event
+
+type rb_tous_praticiens from radiobutton within tabpage_salle_attente
+integer x = 306
+integer y = 468
+integer width = 731
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Pour tous les Praticiens"
+boolean checked = true
+end type
+
+event clicked;
+
+if this.checked then
+	dw_prati.visible = false
+else
+	dw_prati.visible = true
+end if
+end event
+
+type cbx_affichage_automatique from checkbox within tabpage_salle_attente
+integer x = 192
+integer y = 216
+integer width = 1312
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Affichage automatique de la liste à l~'ouverture"
+end type
+
+type st_14 from statictext within tabpage_salle_attente
+integer x = 192
+integer y = 1576
+integer width = 430
+integer height = 80
+integer textsize = -11
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean underline = true
+long backcolor = 553648127
+string text = "Synthèse :"
+boolean focusrectangle = false
+end type
+
+type em_raffraichissement from editmask within tabpage_salle_attente
+integer x = 1943
+integer y = 676
+integer width = 366
+integer height = 88
+integer taborder = 40
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+alignment alignment = center!
+borderstyle borderstyle = stylelowered!
+string mask = "####0"
+boolean spin = true
+end type
+
+type em_nb_jours_alerte_dep from editmask within tabpage_salle_attente
+integer x = 1774
+integer y = 1164
+integer width = 302
+integer height = 88
+integer taborder = 40
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+alignment alignment = center!
+borderstyle borderstyle = stylelowered!
+string mask = "####0"
+boolean spin = true
+end type
+
+type st_dep_38 from statictext within tabpage_salle_attente
+integer x = 987
+integer y = 1176
+integer width = 768
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Délai pour alerte (en jours) : "
+boolean focusrectangle = false
+end type
+
+type cbx_alerte_dep from checkbox within tabpage_salle_attente
+integer x = 192
+integer y = 1172
+integer width = 759
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Alerte impression DEP"
+end type
+
+type cbx_ouverture_synthese from checkbox within tabpage_salle_attente
+integer x = 192
+integer y = 1664
+integer width = 1161
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Ouverture automatique de la Synthèse"
+end type
+
+type cbx_salleattenteargent from checkbox within tabpage_salle_attente
+integer x = 192
+integer y = 1064
+integer width = 1829
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Mise en évidence patients devant de l~'argent dans Salle d~'attente"
+end type
+
+type st_37 from statictext within tabpage_salle_attente
+integer x = 192
+integer y = 684
+integer width = 1733
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Période de rafraîchissement de la Salle d~'attente (en secondes) :"
+boolean focusrectangle = false
+end type
+
+type gb_11 from groupbox within tabpage_salle_attente
+integer x = 2843
+integer y = 316
+integer width = 2309
+integer height = 188
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 16777215
+string text = "Position du Post-il"
+end type
+
+type gb_12 from groupbox within tabpage_salle_attente
+integer x = 2843
+integer y = 2112
+integer width = 2309
+integer height = 212
+integer taborder = 110
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 16777215
+string text = "Graphique affiché par défaut"
+end type
+
+type gb_15 from groupbox within tabpage_salle_attente
+integer x = 2843
+integer y = 748
+integer width = 2309
+integer height = 540
+integer taborder = 90
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 16777215
+string text = "Ticket de Rendez-vous"
+end type
+
+type rb_ticket_rtf from radiobutton within tabpage_salle_attente
+integer x = 4443
+integer y = 916
+integer width = 658
+integer height = 80
+boolean bringtotop = true
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Interne Orthokis (Rtf)"
+end type
+
+type gb_10 from groupbox within tabpage_salle_attente
+integer x = 187
+integer y = 396
+integer width = 2487
+integer height = 264
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 16777215
+string text = "Praticiens"
+end type
+
+type gb_46 from groupbox within tabpage_salle_attente
+integer x = 2843
+integer y = 24
+integer width = 2309
+integer height = 284
+integer taborder = 120
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 16777215
+string text = "Volet salle d~'attente"
+end type
+
+type gb_wait_and_smile from groupbox within tabpage_salle_attente
+integer x = 2843
+integer y = 520
+integer width = 2309
+integer height = 220
+integer taborder = 110
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 16777215
+string text = "Lieu pour Wait and Smile"
+end type
+
+type sle_wait_and_smile_lieu from singlelineedit within tabpage_salle_attente
+integer x = 2907
+integer y = 596
+integer width = 2190
+integer height = 112
+integer taborder = 80
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+string text = "Salle de Soins"
+borderstyle borderstyle = stylelowered!
+end type
+
+type gb_17 from groupbox within tabpage_salle_attente
+integer x = 3241
+integer y = 1400
+integer width = 1499
+integer height = 188
+integer taborder = 60
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 16777215
+string text = "Tous les rendez-vous"
+end type
+
+type gb_47 from groupbox within tabpage_salle_attente
+integer x = 2839
+integer y = 1312
+integer width = 2309
+integer height = 676
+integer taborder = 50
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 16777215
+string text = "Alerte sur les arrivées"
+end type
+
+type gb_51 from groupbox within tabpage_salle_attente
+integer x = 2903
+integer y = 1612
+integer width = 1499
+integer height = 216
+integer taborder = 70
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 16777215
+string text = "Tous les rendez-vous"
+end type
+
+type gb_tri_mini_salle_attente from groupbox within tabpage_salle_attente
+integer x = 457
+integer y = 2032
+integer width = 1454
+integer height = 140
+integer taborder = 90
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 553648127
+string text = "Tri"
+end type
+
+type tabpage_divers from userobject within tab_1
+integer x = 18
+integer y = 336
+integer width = 5207
+integer height = 2380
+long backcolor = 16777215
+string text = "Divers"
+long tabtextcolor = 33554432
+long tabbackcolor = 15780518
+string picturename = "lc_divers.png"
+long picturemaskcolor = 553648127
+sle_exe_econnector sle_exe_econnector
+pb_exe_econnector pb_exe_econnector
+st_exe_econnector st_exe_econnector
+cb_tester_url_econector cb_tester_url_econector
+sle_url_econnector sle_url_econnector
+st_url_econnector st_url_econnector
+cbx_lancement_messagerie cbx_lancement_messagerie
+rb_tracabilite_decroissant rb_tracabilite_decroissant
+rb_tracabilite_croissant rb_tracabilite_croissant
+st_tri_tracabilite st_tri_tracabilite
+cbx_desactiver_saisies_surggerees cbx_desactiver_saisies_surggerees
+cbx_messagerie cbx_messagerie
+st_alerte_salle_attente st_alerte_salle_attente
+cbx_alerte_salle_attente cbx_alerte_salle_attente
+rb_menu_rtf_clic_droit rb_menu_rtf_clic_droit
+rb_menu_rtf_automatique rb_menu_rtf_automatique
+cbx_recherche_mise_a_jour cbx_recherche_mise_a_jour
+cbx_ouverture_animee cbx_ouverture_animee
+cbx_licence_logicielle cbx_licence_logicielle
+sle_url_licences sle_url_licences
+st_28 st_28
+cbx_liste_patients_a_recontacter cbx_liste_patients_a_recontacter
+ddlb_recherche_produit ddlb_recherche_produit
+st_70 st_70
+cbx_imprimer_lot cbx_imprimer_lot
+cbx_verif_seuil_alerte cbx_verif_seuil_alerte
+cbx_memo_patient_memoire cbx_memo_patient_memoire
+cbx_pas_alerte_sterilisation cbx_pas_alerte_sterilisation
+cbx_rtf_souligne_police cbx_rtf_souligne_police
+cbx_rtf_italique_police cbx_rtf_italique_police
+cbx_rtf_gras_police cbx_rtf_gras_police
+sle_rtf_taille_police sle_rtf_taille_police
+sle_rtf_couleur_police sle_rtf_couleur_police
+pb_modifier_police pb_modifier_police
+sle_rtf_nom_police sle_rtf_nom_police
+st_56 st_56
+st_45 st_45
+st_17 st_17
+st_test_police st_test_police
+ddlb_taches ddlb_taches
+st_20 st_20
+ddlb_saints ddlb_saints
+st_22 st_22
+st_11 st_11
+ddlb_admini_onglets ddlb_admini_onglets
+cbx_sauvegarde_auto cbx_sauvegarde_auto
+ddlb_recherche ddlb_recherche
+st_21 st_21
+gb_7 gb_7
+gb_8 gb_8
+gb_31 gb_31
+gb_39 gb_39
+gb_42 gb_42
+gb_45 gb_45
+gb_3 gb_3
+ddlb_couleur_alerte_salle_attente ddlb_couleur_alerte_salle_attente
+gb_mon_orthodontiste gb_mon_orthodontiste
+gb_econnector gb_econnector
+end type
+
+on tabpage_divers.create
+this.sle_exe_econnector=create sle_exe_econnector
+this.pb_exe_econnector=create pb_exe_econnector
+this.st_exe_econnector=create st_exe_econnector
+this.cb_tester_url_econector=create cb_tester_url_econector
+this.sle_url_econnector=create sle_url_econnector
+this.st_url_econnector=create st_url_econnector
+this.cbx_lancement_messagerie=create cbx_lancement_messagerie
+this.rb_tracabilite_decroissant=create rb_tracabilite_decroissant
+this.rb_tracabilite_croissant=create rb_tracabilite_croissant
+this.st_tri_tracabilite=create st_tri_tracabilite
+this.cbx_desactiver_saisies_surggerees=create cbx_desactiver_saisies_surggerees
+this.cbx_messagerie=create cbx_messagerie
+this.st_alerte_salle_attente=create st_alerte_salle_attente
+this.cbx_alerte_salle_attente=create cbx_alerte_salle_attente
+this.rb_menu_rtf_clic_droit=create rb_menu_rtf_clic_droit
+this.rb_menu_rtf_automatique=create rb_menu_rtf_automatique
+this.cbx_recherche_mise_a_jour=create cbx_recherche_mise_a_jour
+this.cbx_ouverture_animee=create cbx_ouverture_animee
+this.cbx_licence_logicielle=create cbx_licence_logicielle
+this.sle_url_licences=create sle_url_licences
+this.st_28=create st_28
+this.cbx_liste_patients_a_recontacter=create cbx_liste_patients_a_recontacter
+this.ddlb_recherche_produit=create ddlb_recherche_produit
+this.st_70=create st_70
+this.cbx_imprimer_lot=create cbx_imprimer_lot
+this.cbx_verif_seuil_alerte=create cbx_verif_seuil_alerte
+this.cbx_memo_patient_memoire=create cbx_memo_patient_memoire
+this.cbx_pas_alerte_sterilisation=create cbx_pas_alerte_sterilisation
+this.cbx_rtf_souligne_police=create cbx_rtf_souligne_police
+this.cbx_rtf_italique_police=create cbx_rtf_italique_police
+this.cbx_rtf_gras_police=create cbx_rtf_gras_police
+this.sle_rtf_taille_police=create sle_rtf_taille_police
+this.sle_rtf_couleur_police=create sle_rtf_couleur_police
+this.pb_modifier_police=create pb_modifier_police
+this.sle_rtf_nom_police=create sle_rtf_nom_police
+this.st_56=create st_56
+this.st_45=create st_45
+this.st_17=create st_17
+this.st_test_police=create st_test_police
+this.ddlb_taches=create ddlb_taches
+this.st_20=create st_20
+this.ddlb_saints=create ddlb_saints
+this.st_22=create st_22
+this.st_11=create st_11
+this.ddlb_admini_onglets=create ddlb_admini_onglets
+this.cbx_sauvegarde_auto=create cbx_sauvegarde_auto
+this.ddlb_recherche=create ddlb_recherche
+this.st_21=create st_21
+this.gb_7=create gb_7
+this.gb_8=create gb_8
+this.gb_31=create gb_31
+this.gb_39=create gb_39
+this.gb_42=create gb_42
+this.gb_45=create gb_45
+this.gb_3=create gb_3
+this.ddlb_couleur_alerte_salle_attente=create ddlb_couleur_alerte_salle_attente
+this.gb_mon_orthodontiste=create gb_mon_orthodontiste
+this.gb_econnector=create gb_econnector
+this.Control[]={this.sle_exe_econnector,&
+this.pb_exe_econnector,&
+this.st_exe_econnector,&
+this.cb_tester_url_econector,&
+this.sle_url_econnector,&
+this.st_url_econnector,&
+this.cbx_lancement_messagerie,&
+this.rb_tracabilite_decroissant,&
+this.rb_tracabilite_croissant,&
+this.st_tri_tracabilite,&
+this.cbx_desactiver_saisies_surggerees,&
+this.cbx_messagerie,&
+this.st_alerte_salle_attente,&
+this.cbx_alerte_salle_attente,&
+this.rb_menu_rtf_clic_droit,&
+this.rb_menu_rtf_automatique,&
+this.cbx_recherche_mise_a_jour,&
+this.cbx_ouverture_animee,&
+this.cbx_licence_logicielle,&
+this.sle_url_licences,&
+this.st_28,&
+this.cbx_liste_patients_a_recontacter,&
+this.ddlb_recherche_produit,&
+this.st_70,&
+this.cbx_imprimer_lot,&
+this.cbx_verif_seuil_alerte,&
+this.cbx_memo_patient_memoire,&
+this.cbx_pas_alerte_sterilisation,&
+this.cbx_rtf_souligne_police,&
+this.cbx_rtf_italique_police,&
+this.cbx_rtf_gras_police,&
+this.sle_rtf_taille_police,&
+this.sle_rtf_couleur_police,&
+this.pb_modifier_police,&
+this.sle_rtf_nom_police,&
+this.st_56,&
+this.st_45,&
+this.st_17,&
+this.st_test_police,&
+this.ddlb_taches,&
+this.st_20,&
+this.ddlb_saints,&
+this.st_22,&
+this.st_11,&
+this.ddlb_admini_onglets,&
+this.cbx_sauvegarde_auto,&
+this.ddlb_recherche,&
+this.st_21,&
+this.gb_7,&
+this.gb_8,&
+this.gb_31,&
+this.gb_39,&
+this.gb_42,&
+this.gb_45,&
+this.gb_3,&
+this.ddlb_couleur_alerte_salle_attente,&
+this.gb_mon_orthodontiste,&
+this.gb_econnector}
+end on
+
+on tabpage_divers.destroy
+destroy(this.sle_exe_econnector)
+destroy(this.pb_exe_econnector)
+destroy(this.st_exe_econnector)
+destroy(this.cb_tester_url_econector)
+destroy(this.sle_url_econnector)
+destroy(this.st_url_econnector)
+destroy(this.cbx_lancement_messagerie)
+destroy(this.rb_tracabilite_decroissant)
+destroy(this.rb_tracabilite_croissant)
+destroy(this.st_tri_tracabilite)
+destroy(this.cbx_desactiver_saisies_surggerees)
+destroy(this.cbx_messagerie)
+destroy(this.st_alerte_salle_attente)
+destroy(this.cbx_alerte_salle_attente)
+destroy(this.rb_menu_rtf_clic_droit)
+destroy(this.rb_menu_rtf_automatique)
+destroy(this.cbx_recherche_mise_a_jour)
+destroy(this.cbx_ouverture_animee)
+destroy(this.cbx_licence_logicielle)
+destroy(this.sle_url_licences)
+destroy(this.st_28)
+destroy(this.cbx_liste_patients_a_recontacter)
+destroy(this.ddlb_recherche_produit)
+destroy(this.st_70)
+destroy(this.cbx_imprimer_lot)
+destroy(this.cbx_verif_seuil_alerte)
+destroy(this.cbx_memo_patient_memoire)
+destroy(this.cbx_pas_alerte_sterilisation)
+destroy(this.cbx_rtf_souligne_police)
+destroy(this.cbx_rtf_italique_police)
+destroy(this.cbx_rtf_gras_police)
+destroy(this.sle_rtf_taille_police)
+destroy(this.sle_rtf_couleur_police)
+destroy(this.pb_modifier_police)
+destroy(this.sle_rtf_nom_police)
+destroy(this.st_56)
+destroy(this.st_45)
+destroy(this.st_17)
+destroy(this.st_test_police)
+destroy(this.ddlb_taches)
+destroy(this.st_20)
+destroy(this.ddlb_saints)
+destroy(this.st_22)
+destroy(this.st_11)
+destroy(this.ddlb_admini_onglets)
+destroy(this.cbx_sauvegarde_auto)
+destroy(this.ddlb_recherche)
+destroy(this.st_21)
+destroy(this.gb_7)
+destroy(this.gb_8)
+destroy(this.gb_31)
+destroy(this.gb_39)
+destroy(this.gb_42)
+destroy(this.gb_45)
+destroy(this.gb_3)
+destroy(this.ddlb_couleur_alerte_salle_attente)
+destroy(this.gb_mon_orthodontiste)
+destroy(this.gb_econnector)
+end on
+
+type sle_exe_econnector from singlelineedit within tabpage_divers
+boolean visible = false
+integer x = 3223
+integer y = 2192
+integer width = 1737
+integer height = 104
+integer taborder = 140
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+borderstyle borderstyle = stylelowered!
+end type
+
+type pb_exe_econnector from picturebutton within tabpage_divers
+boolean visible = false
+integer x = 4974
+integer y = 2176
+integer width = 151
+integer height = 128
+integer taborder = 130
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_explorer.png"
+alignment htextalign = left!
+long backcolor = 553648127
+end type
+
+event clicked;
+string ficname,ficpath
+
+
+if GetFileOpenName("Fichiers exécutables",ficname,ficpath,"EXE","Fichiers exécutables (*.exe),*.exe") = 1 then
+	tab_1.tabpage_divers.sle_exe_econnector.text = ficname
+end if
+
+end event
+
+type st_exe_econnector from statictext within tabpage_divers
+boolean visible = false
+integer x = 3063
+integer y = 2212
+integer width = 174
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Prog :"
+boolean focusrectangle = false
+end type
+
+type cb_tester_url_econector from commandbutton within tabpage_divers
+boolean visible = false
+integer x = 4955
+integer y = 2056
+integer width = 187
+integer height = 112
+integer taborder = 120
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Tahoma"
+string text = "Tester"
+end type
+
+event clicked;string v_retour 
+if fxg_lancer_commande_econnector("status", "G", "" , v_retour) then 
+	messagebox("Information", "eConnector : Status OK")
+else
+	messagebox("ATTENTION", "Erreur dans la communication avec l'eConnector !~n~n" +  v_retour)
+end if
+end event
+
+type sle_url_econnector from singlelineedit within tabpage_divers
+boolean visible = false
+integer x = 3223
+integer y = 2068
+integer width = 1737
+integer height = 104
+integer taborder = 130
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_url_econnector from statictext within tabpage_divers
+boolean visible = false
+integer x = 3095
+integer y = 2084
+integer width = 142
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Url : "
+boolean focusrectangle = false
+end type
+
+type cbx_lancement_messagerie from checkbox within tabpage_divers
+integer x = 2350
+integer y = 812
+integer width = 1157
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Lancement de la Messagerie d~'Orthokis"
+end type
+
+type rb_tracabilite_decroissant from radiobutton within tabpage_divers
+integer x = 1472
+integer y = 552
+integer width = 402
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Décroissant"
+end type
+
+type rb_tracabilite_croissant from radiobutton within tabpage_divers
+integer x = 1047
+integer y = 552
+integer width = 402
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Croissant"
+end type
+
+type st_tri_tracabilite from statictext within tabpage_divers
+integer x = 151
+integer y = 552
+integer width = 763
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Tri de la fenêtre Traçabilité : "
+boolean focusrectangle = false
+end type
+
+type cbx_desactiver_saisies_surggerees from checkbox within tabpage_divers
+integer x = 96
+integer y = 1216
+integer width = 1486
+integer height = 84
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Désactiver les saisies suggérées (listes déroulantes)"
+end type
+
+type cbx_messagerie from checkbox within tabpage_divers
+integer x = 2350
+integer y = 316
+integer width = 1157
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Fermeture de la Messagerie d~'Orthokis"
+end type
+
+type st_alerte_salle_attente from statictext within tabpage_divers
+boolean visible = false
+integer x = 1627
+integer y = 2088
+integer width = 457
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Couleur alerte :"
+boolean focusrectangle = false
+end type
+
+type cbx_alerte_salle_attente from checkbox within tabpage_divers
+boolean visible = false
+integer x = 142
+integer y = 2088
+integer width = 1147
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Alerte absence photo salle d~'attente"
+end type
+
+type rb_menu_rtf_clic_droit from radiobutton within tabpage_divers
+integer x = 1015
+integer y = 1476
+integer width = 1074
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Affichage sur le Clic Droit de la souris"
+end type
+
+type rb_menu_rtf_automatique from radiobutton within tabpage_divers
+integer x = 160
+integer y = 1476
+integer width = 667
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Affichage automatique"
+end type
+
+type cbx_recherche_mise_a_jour from checkbox within tabpage_divers
+integer x = 2350
+integer y = 712
+integer width = 1138
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Recherche de mise à jour"
+end type
+
+type cbx_ouverture_animee from checkbox within tabpage_divers
+integer x = 2350
+integer y = 620
+integer width = 891
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Fenêtre de connexion animée"
+end type
+
+type cbx_licence_logicielle from checkbox within tabpage_divers
+integer x = 142
+integer y = 1844
+integer width = 1321
+integer height = 72
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Activation logicielle de la licence (si possible)"
+end type
+
+type sle_url_licences from singlelineedit within tabpage_divers
+integer x = 567
+integer y = 1724
+integer width = 3758
+integer height = 104
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+integer limit = 500
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_28 from statictext within tabpage_divers
+integer x = 142
+integer y = 1744
+integer width = 439
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "URL Licences : "
+boolean focusrectangle = false
+end type
+
+type cbx_liste_patients_a_recontacter from checkbox within tabpage_divers
+integer x = 2350
+integer y = 528
+integer width = 1477
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Ouvrir la Liste des Patients à Recontacter (si besoin)"
+end type
+
+type ddlb_recherche_produit from dropdownlistbox within tabpage_divers
+integer x = 896
+integer y = 448
+integer width = 1198
+integer height = 628
+integer taborder = 60
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+boolean sorted = false
+boolean vscrollbar = true
+string item[] = {"Type Produit","Désignation","Code Produit","Lieu de Stockage","Code Barre","Référence Fournisseur","Identifiant UDI"}
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_70 from statictext within tabpage_divers
+integer x = 151
+integer y = 460
+integer width = 731
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Recherche de Produit par :"
+boolean focusrectangle = false
+end type
+
+type cbx_imprimer_lot from checkbox within tabpage_divers
+integer x = 160
+integer y = 348
+integer width = 1893
+integer height = 84
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Imprimer N° Lot fournisseur sur les étiquettes"
+end type
+
+type cbx_verif_seuil_alerte from checkbox within tabpage_divers
+integer x = 160
+integer y = 244
+integer width = 1893
+integer height = 84
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Vérification des produits en dessous d~'un seuil d~'alerte au démarrage"
+end type
+
+type cbx_memo_patient_memoire from checkbox within tabpage_divers
+integer x = 2350
+integer y = 224
+integer width = 1157
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Mémorisation des patients en mémoire"
+end type
+
+type cbx_pas_alerte_sterilisation from checkbox within tabpage_divers
+integer x = 160
+integer y = 144
+integer width = 1445
+integer height = 84
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Pas d~'alerte en ajout de code barre de stérilisation"
+end type
+
+type cbx_rtf_souligne_police from checkbox within tabpage_divers
+integer x = 3438
+integer y = 1276
+integer width = 320
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+boolean enabled = false
+string text = "Souligné"
+boolean automatic = false
+end type
+
+type cbx_rtf_italique_police from checkbox within tabpage_divers
+integer x = 3141
+integer y = 1276
+integer width = 270
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+boolean enabled = false
+string text = "Italique"
+boolean automatic = false
+end type
+
+type cbx_rtf_gras_police from checkbox within tabpage_divers
+integer x = 2871
+integer y = 1276
+integer width = 242
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+boolean enabled = false
+string text = "Gras"
+boolean automatic = false
+end type
+
+type sle_rtf_taille_police from singlelineedit within tabpage_divers
+integer x = 2633
+integer y = 1264
+integer width = 178
+integer height = 104
+integer taborder = 110
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 134217731
+boolean displayonly = true
+borderstyle borderstyle = stylelowered!
+end type
+
+type sle_rtf_couleur_police from singlelineedit within tabpage_divers
+integer x = 2935
+integer y = 1132
+integer width = 635
+integer height = 104
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 134217731
+boolean displayonly = true
+borderstyle borderstyle = stylelowered!
+end type
+
+type pb_modifier_police from uo_picturebutton_390x120 within tabpage_divers
+integer x = 3826
+integer y = 1240
+integer width = 558
+integer height = 152
+integer taborder = 30
+string text = "Modifier Police"
+end type
+
+event clicked;call super::clicked;// choose font
+
+n_choosefont ln_cf
+
+If ln_cf.of_ChooseFont(w_environnement, tab_1.tabpage_divers.sle_rtf_nom_police.text, long(tab_1.tabpage_divers.sle_rtf_taille_police.Text), tab_1.tabpage_divers.sle_rtf_couleur_police.BackColor) Then
+	
+	// Mémoi dans les cases !!!
+	tab_1.tabpage_divers.sle_rtf_nom_police.Text	= ln_cf.iFaceName
+	tab_1.tabpage_divers.sle_rtf_taille_police.Text	= string(ln_cf.iTextSize)
+	tab_1.tabpage_divers.sle_rtf_couleur_police.BackColor	= ln_cf.iTextColor
+	if ln_cf.iItalic then
+		tab_1.tabpage_divers.cbx_rtf_italique_police.checked	= true
+	else
+		tab_1.tabpage_divers.cbx_rtf_italique_police.checked	= false
+	end if
+	if ln_cf.iUnderline then
+		tab_1.tabpage_divers.cbx_rtf_souligne_police.checked	= true
+	else
+		tab_1.tabpage_divers.cbx_rtf_souligne_police.checked	= false
+	end if
+	if ln_cf.iBold then
+		tab_1.tabpage_divers.cbx_rtf_gras_police.checked	= true
+	else
+		tab_1.tabpage_divers.cbx_rtf_gras_police.checked	= false
+	end if
+
+	// change settings ( Strikeout not supported by Statictext control )
+	tab_1.tabpage_divers.st_test_police.FaceName	= tab_1.tabpage_divers.sle_rtf_nom_police.Text
+	tab_1.tabpage_divers.st_test_police.TextSize	= integer(tab_1.tabpage_divers.sle_rtf_taille_police.Text)
+
+	if tab_1.tabpage_divers.cbx_rtf_gras_police.checked	then
+		tab_1.tabpage_divers.st_test_police.Weight		= 700
+	else
+		tab_1.tabpage_divers.st_test_police.Weight		= 400
+	end if
+	tab_1.tabpage_divers.st_test_police.TextColor	= tab_1.tabpage_divers.sle_rtf_couleur_police.BackColor
+	tab_1.tabpage_divers.st_test_police.Italic		= tab_1.tabpage_divers.cbx_rtf_italique_police.checked
+	tab_1.tabpage_divers.st_test_police.Underline	= tab_1.tabpage_divers.cbx_rtf_souligne_police.checked
+	
+	
+	
+End If
+
+end event
+
+type sle_rtf_nom_police from singlelineedit within tabpage_divers
+integer x = 2619
+integer y = 1016
+integer width = 1467
+integer height = 104
+integer taborder = 90
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 134217731
+boolean displayonly = true
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_56 from statictext within tabpage_divers
+integer x = 2432
+integer y = 1284
+integer width = 192
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Taille :"
+boolean focusrectangle = false
+end type
+
+type st_45 from statictext within tabpage_divers
+integer x = 2423
+integer y = 1164
+integer width = 517
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Couleur de Texte : "
+boolean focusrectangle = false
+end type
+
+type st_17 from statictext within tabpage_divers
+integer x = 2418
+integer y = 1036
+integer width = 201
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Nom : "
+boolean focusrectangle = false
+end type
+
+type st_test_police from statictext within tabpage_divers
+integer x = 2377
+integer y = 1432
+integer width = 1998
+integer height = 128
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 67108864
+string text = "Exemple d~'écriture de la police"
+alignment alignment = center!
+boolean border = true
+boolean focusrectangle = false
+end type
+
+type ddlb_taches from dropdownlistbox within tabpage_divers
+integer x = 896
+integer y = 1112
+integer width = 1253
+integer height = 500
+integer taborder = 70
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+boolean sorted = false
+string item[] = {"Au 1er démarrage du jour","Au 1er démarrage de l~'utilisateur","A tous les démarrages","Jamais"}
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_20 from statictext within tabpage_divers
+integer x = 96
+integer y = 1112
+integer width = 608
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Gestion des Tâches :"
+boolean focusrectangle = false
+end type
+
+type ddlb_saints from dropdownlistbox within tabpage_divers
+integer x = 896
+integer y = 1000
+integer width = 1253
+integer height = 500
+integer taborder = 60
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+boolean sorted = false
+string item[] = {"Au 1er démarrage du jour","Au 1er démarrage de l~'utilisateur","A tous les démarrages","Jamais"}
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_22 from statictext within tabpage_divers
+integer x = 96
+integer y = 1000
+integer width = 635
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Ouverture Ephéméride :"
+boolean focusrectangle = false
+end type
+
+type st_11 from statictext within tabpage_divers
+integer x = 96
+integer y = 892
+integer width = 800
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Onglets Fiche administrative :"
+boolean focusrectangle = false
+end type
+
+type ddlb_admini_onglets from dropdownlistbox within tabpage_divers
+integer x = 896
+integer y = 892
+integer width = 663
+integer height = 320
+integer taborder = 50
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+string item[] = {"Avec Icônes","Avec Texte","Avec Texte et Icônes"}
+borderstyle borderstyle = stylelowered!
+end type
+
+type cbx_sauvegarde_auto from checkbox within tabpage_divers
+integer x = 2350
+integer y = 132
+integer width = 1801
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Sauvegarde automatique de la base à la fermeture du programme"
+end type
+
+type ddlb_recherche from dropdownlistbox within tabpage_divers
+integer x = 896
+integer y = 788
+integer width = 873
+integer height = 840
+integer taborder = 50
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+boolean sorted = false
+boolean vscrollbar = true
+string item[] = {"Nom du Patient","N° de Dossier","N° de Moulage","Nom des Parents","Nom du Payeur","N° de Sécurité Sociale","N° de Téléphone","Code Interne","Date de Naissance","Ville / Code Postal","Email"}
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_21 from statictext within tabpage_divers
+integer x = 96
+integer y = 788
+integer width = 731
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Recherche de Patient par :"
+boolean focusrectangle = false
+end type
+
+type gb_7 from groupbox within tabpage_divers
+integer x = 2309
+integer y = 40
+integer width = 2126
+integer height = 376
+integer taborder = 80
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Fermeture"
+end type
+
+type gb_8 from groupbox within tabpage_divers
+integer x = 55
+integer y = 688
+integer width = 2135
+integer height = 648
+integer taborder = 30
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Divers"
+end type
+
+type gb_31 from groupbox within tabpage_divers
+integer x = 2309
+integer y = 924
+integer width = 2130
+integer height = 676
+integer taborder = 110
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 16777215
+string text = "Police par défaut pour zones RTF"
+end type
+
+type gb_39 from groupbox within tabpage_divers
+integer x = 55
+integer y = 60
+integer width = 2135
+integer height = 612
+integer taborder = 70
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Stock / Traçabilité"
+end type
+
+type gb_42 from groupbox within tabpage_divers
+integer x = 2309
+integer y = 448
+integer width = 2126
+integer height = 460
+integer taborder = 40
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Ouverture"
+end type
+
+type gb_45 from groupbox within tabpage_divers
+integer x = 55
+integer y = 1624
+integer width = 4389
+integer height = 340
+integer taborder = 40
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Paramètres réservés aux techniciens ARAKIS"
+end type
+
+type gb_3 from groupbox within tabpage_divers
+integer x = 55
+integer y = 1384
+integer width = 2135
+integer height = 220
+integer taborder = 60
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Menu des polices de caractères des zones RTF"
+end type
+
+type ddlb_couleur_alerte_salle_attente from dropdownlistbox within tabpage_divers
+boolean visible = false
+integer x = 2094
+integer y = 2084
+integer width = 791
+integer height = 500
+integer taborder = 120
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean vscrollbar = true
+string item[] = {"Rouge","Noir","Bleu","Magenta","Orange","Rose","Violet","Gris","Vert"}
+borderstyle borderstyle = stylelowered!
+end type
+
+type gb_mon_orthodontiste from groupbox within tabpage_divers
+boolean visible = false
+integer x = 55
+integer y = 1984
+integer width = 2976
+integer height = 232
+integer taborder = 50
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "Mon Orthodontiste"
+end type
+
+type gb_econnector from groupbox within tabpage_divers
+boolean visible = false
+integer x = 3045
+integer y = 1992
+integer width = 2121
+integer height = 336
+integer taborder = 110
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "eConnector"
+end type
+
+type tabpage_cti from userobject within tab_1
+integer x = 18
+integer y = 336
+integer width = 5207
+integer height = 2380
+long backcolor = 16777215
+string text = "CTI"
+long tabtextcolor = 33554432
+long tabbackcolor = 15780518
+string picturename = "lc_telephone.png"
+long picturemaskcolor = 536870912
+cbx_verif_ligne cbx_verif_ligne
+st_19 st_19
+sle_numero_sortir sle_numero_sortir
+em_ignorer em_ignorer
+st_18 st_18
+st_1 st_1
+cbx_lien_active cbx_lien_active
+end type
+
+on tabpage_cti.create
+this.cbx_verif_ligne=create cbx_verif_ligne
+this.st_19=create st_19
+this.sle_numero_sortir=create sle_numero_sortir
+this.em_ignorer=create em_ignorer
+this.st_18=create st_18
+this.st_1=create st_1
+this.cbx_lien_active=create cbx_lien_active
+this.Control[]={this.cbx_verif_ligne,&
+this.st_19,&
+this.sle_numero_sortir,&
+this.em_ignorer,&
+this.st_18,&
+this.st_1,&
+this.cbx_lien_active}
+end on
+
+on tabpage_cti.destroy
+destroy(this.cbx_verif_ligne)
+destroy(this.st_19)
+destroy(this.sle_numero_sortir)
+destroy(this.em_ignorer)
+destroy(this.st_18)
+destroy(this.st_1)
+destroy(this.cbx_lien_active)
+end on
+
+type cbx_verif_ligne from checkbox within tabpage_cti
+integer x = 155
+integer y = 764
+integer width = 910
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Vérification de la ligne en sortie"
+end type
+
+type st_19 from statictext within tabpage_cti
+integer x = 1573
+integer y = 552
+integer width = 402
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "chiffres."
+boolean focusrectangle = false
+end type
+
+type sle_numero_sortir from singlelineedit within tabpage_cti
+integer x = 1536
+integer y = 364
+integer width = 553
+integer height = 100
+integer taborder = 30
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+borderstyle borderstyle = stylelowered!
+end type
+
+type em_ignorer from editmask within tabpage_cti
+integer x = 1230
+integer y = 540
+integer width = 302
+integer height = 92
+integer taborder = 50
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+string text = "none"
+alignment alignment = center!
+borderstyle borderstyle = stylelowered!
+string mask = "#0"
+boolean spin = true
+end type
+
+type st_18 from statictext within tabpage_cti
+integer x = 155
+integer y = 552
+integer width = 1038
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Ignorer les appels entrants inférieurs à"
+boolean focusrectangle = false
+end type
+
+type st_1 from statictext within tabpage_cti
+integer x = 155
+integer y = 372
+integer width = 1413
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "N° à composer pour accéder à une ligne extérieure"
+boolean focusrectangle = false
+end type
+
+type cbx_lien_active from checkbox within tabpage_cti
+integer x = 155
+integer y = 196
+integer width = 526
+integer height = 80
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Lien CTI activé"
+end type
+
+type tabpage_imagerie from userobject within tab_1
+event create ( )
+event destroy ( )
+integer x = 18
+integer y = 336
+integer width = 5207
+integer height = 2380
+long backcolor = 16777215
+string text = "Imagerie *** NON SUPPORTEE ***"
+long tabtextcolor = 33554432
+long tabbackcolor = 15780518
+string picturename = "lc_images.png"
+long picturemaskcolor = 536870912
+ddlb_acquisition ddlb_acquisition
+ddlb_acquisition_imagerie ddlb_acquisition_imagerie
+st_44 st_44
+st_43 st_43
+cbx_images_sur_fond_noir cbx_images_sur_fond_noir
+cbx_masquer_iden_dans_imagerie cbx_masquer_iden_dans_imagerie
+cbx_photo_iden_clinique cbx_photo_iden_clinique
+cbx_photo_iden cbx_photo_iden
+st_67 st_67
+st_66 st_66
+st_65 st_65
+cbx_photos_commentaires_cliniques cbx_photos_commentaires_cliniques
+ddlb_image4 ddlb_image4
+ddlb_image1 ddlb_image1
+gb_photos gb_photos
+ddlb_image3 ddlb_image3
+st_cadre3 st_cadre3
+ddlb_image2 ddlb_image2
+st_cadre2 st_cadre2
+st_cadre1 st_cadre1
+st_cadre4 st_cadre4
+gb_29 gb_29
+end type
+
+on tabpage_imagerie.create
+this.ddlb_acquisition=create ddlb_acquisition
+this.ddlb_acquisition_imagerie=create ddlb_acquisition_imagerie
+this.st_44=create st_44
+this.st_43=create st_43
+this.cbx_images_sur_fond_noir=create cbx_images_sur_fond_noir
+this.cbx_masquer_iden_dans_imagerie=create cbx_masquer_iden_dans_imagerie
+this.cbx_photo_iden_clinique=create cbx_photo_iden_clinique
+this.cbx_photo_iden=create cbx_photo_iden
+this.st_67=create st_67
+this.st_66=create st_66
+this.st_65=create st_65
+this.cbx_photos_commentaires_cliniques=create cbx_photos_commentaires_cliniques
+this.ddlb_image4=create ddlb_image4
+this.ddlb_image1=create ddlb_image1
+this.gb_photos=create gb_photos
+this.ddlb_image3=create ddlb_image3
+this.st_cadre3=create st_cadre3
+this.ddlb_image2=create ddlb_image2
+this.st_cadre2=create st_cadre2
+this.st_cadre1=create st_cadre1
+this.st_cadre4=create st_cadre4
+this.gb_29=create gb_29
+this.Control[]={this.ddlb_acquisition,&
+this.ddlb_acquisition_imagerie,&
+this.st_44,&
+this.st_43,&
+this.cbx_images_sur_fond_noir,&
+this.cbx_masquer_iden_dans_imagerie,&
+this.cbx_photo_iden_clinique,&
+this.cbx_photo_iden,&
+this.st_67,&
+this.st_66,&
+this.st_65,&
+this.cbx_photos_commentaires_cliniques,&
+this.ddlb_image4,&
+this.ddlb_image1,&
+this.gb_photos,&
+this.ddlb_image3,&
+this.st_cadre3,&
+this.ddlb_image2,&
+this.st_cadre2,&
+this.st_cadre1,&
+this.st_cadre4,&
+this.gb_29}
+end on
+
+on tabpage_imagerie.destroy
+destroy(this.ddlb_acquisition)
+destroy(this.ddlb_acquisition_imagerie)
+destroy(this.st_44)
+destroy(this.st_43)
+destroy(this.cbx_images_sur_fond_noir)
+destroy(this.cbx_masquer_iden_dans_imagerie)
+destroy(this.cbx_photo_iden_clinique)
+destroy(this.cbx_photo_iden)
+destroy(this.st_67)
+destroy(this.st_66)
+destroy(this.st_65)
+destroy(this.cbx_photos_commentaires_cliniques)
+destroy(this.ddlb_image4)
+destroy(this.ddlb_image1)
+destroy(this.gb_photos)
+destroy(this.ddlb_image3)
+destroy(this.st_cadre3)
+destroy(this.ddlb_image2)
+destroy(this.st_cadre2)
+destroy(this.st_cadre1)
+destroy(this.st_cadre4)
+destroy(this.gb_29)
+end on
+
+type ddlb_acquisition from dropdownlistbox within tabpage_imagerie
+integer x = 3223
+integer y = 796
+integer width = 997
+integer height = 448
+integer taborder = 110
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "none"
+boolean sorted = false
+string item[] = {"Multiples Fichiers.","Multiples Twain.","Avec Scripts.","Multiples Fichiers Wi-Fi.","Avec Scripts Wi-Fi."}
+borderstyle borderstyle = stylelowered!
+end type
+
+type ddlb_acquisition_imagerie from dropdownlistbox within tabpage_imagerie
+integer x = 3223
+integer y = 940
+integer width = 997
+integer height = 448
+integer taborder = 110
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+string text = "none"
+boolean sorted = false
+string item[] = {"Multiples Fichiers.","Multiples Twain.","Avec Scripts.","Multiples Fichiers Wi-Fi.","Avec Scripts Wi-Fi."}
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_44 from statictext within tabpage_imagerie
+integer x = 2587
+integer y = 952
+integer width = 448
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Module Imagerie"
+boolean focusrectangle = false
+end type
+
+type st_43 from statictext within tabpage_imagerie
+integer x = 2587
+integer y = 812
+integer width = 393
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Barre d~'outils "
+boolean focusrectangle = false
+end type
+
+type cbx_images_sur_fond_noir from checkbox within tabpage_imagerie
+integer x = 197
+integer y = 1460
+integer width = 686
+integer height = 72
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 553648127
+string text = "Images sur fond Noir"
+end type
+
+type cbx_masquer_iden_dans_imagerie from checkbox within tabpage_imagerie
+integer x = 197
+integer y = 1376
+integer width = 1335
+integer height = 72
+integer taborder = 20
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Masquer les Photos d~'identité dans l~'imagerie"
+end type
+
+type cbx_photo_iden_clinique from checkbox within tabpage_imagerie
+integer x = 197
+integer y = 1292
+integer width = 1280
+integer height = 72
+integer taborder = 20
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Photo d~'identité dans commentaires cliniques"
+end type
+
+type cbx_photo_iden from checkbox within tabpage_imagerie
+integer x = 197
+integer y = 1208
+integer width = 1170
+integer height = 72
+integer taborder = 10
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Photo d~'identité dans fiche administrative"
+end type
+
+type st_67 from statictext within tabpage_imagerie
+integer x = 73
+integer y = 464
+integer width = 4187
+integer height = 132
+integer textsize = -16
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 16711680
+long backcolor = 65535
+string text = "N~'hésitez pas à appeler notre hotline au 04 75 78 50 70 pour plus de renseignements."
+alignment alignment = center!
+boolean focusrectangle = false
+end type
+
+type st_66 from statictext within tabpage_imagerie
+integer x = 73
+integer y = 252
+integer width = 4187
+integer height = 248
+integer textsize = -16
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 255
+long backcolor = 65535
+string text = "Vous devez migrer (gratuitement) vers cette nouvelle fonction. L~'imagerie actuelle n~'est plus supportée dans cette mise à jour."
+alignment alignment = center!
+boolean focusrectangle = false
+end type
+
+type st_65 from statictext within tabpage_imagerie
+integer x = 73
+integer y = 28
+integer width = 4187
+integer height = 248
+integer textsize = -16
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 16711680
+long backcolor = 65535
+string text = "Vous êtes encore dans l~'ancienne imagerie d~'Orthokis ! Depuis la version 2013 Orthokis dispose d~'une imagerie plus conviviale et plus puissante."
+alignment alignment = center!
+boolean focusrectangle = false
+end type
+
+type cbx_photos_commentaires_cliniques from checkbox within tabpage_imagerie
+integer x = 270
+integer y = 732
+integer width = 1207
+integer height = 80
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "4 Photos dans les commentaires cliniques"
+end type
+
+type ddlb_image4 from dropdownlistbox within tabpage_imagerie
+integer x = 1568
+integer y = 972
+integer width = 773
+integer height = 824
+integer taborder = 40
+boolean bringtotop = true
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean sorted = false
+boolean vscrollbar = true
+borderstyle borderstyle = stylelowered!
+end type
+
+type ddlb_image1 from dropdownlistbox within tabpage_imagerie
+integer x = 498
+integer y = 852
+integer width = 773
+integer height = 824
+integer taborder = 60
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean sorted = false
+boolean vscrollbar = true
+borderstyle borderstyle = stylelowered!
+end type
+
+type gb_photos from groupbox within tabpage_imagerie
+integer x = 178
+integer y = 648
+integer width = 2208
+integer height = 456
+integer taborder = 140
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 16777215
+string text = "Photos"
+end type
+
+type ddlb_image3 from dropdownlistbox within tabpage_imagerie
+integer x = 1568
+integer y = 852
+integer width = 773
+integer height = 824
+integer taborder = 70
+boolean bringtotop = true
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean sorted = false
+boolean vscrollbar = true
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_cadre3 from statictext within tabpage_imagerie
+integer x = 1326
+integer y = 852
+integer width = 219
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cadre 3"
+boolean focusrectangle = false
+end type
+
+type ddlb_image2 from dropdownlistbox within tabpage_imagerie
+integer x = 498
+integer y = 972
+integer width = 773
+integer height = 824
+integer taborder = 40
+boolean bringtotop = true
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean sorted = false
+boolean vscrollbar = true
+borderstyle borderstyle = stylelowered!
+end type
+
+type st_cadre2 from statictext within tabpage_imagerie
+integer x = 265
+integer y = 972
+integer width = 219
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cadre 2"
+boolean focusrectangle = false
+end type
+
+type st_cadre1 from statictext within tabpage_imagerie
+integer x = 265
+integer y = 852
+integer width = 219
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cadre 1"
+boolean focusrectangle = false
+end type
+
+type st_cadre4 from statictext within tabpage_imagerie
+integer x = 1326
+integer y = 972
+integer width = 219
+integer height = 64
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 553648127
+string text = "Cadre 4"
+boolean focusrectangle = false
+end type
+
+type gb_29 from groupbox within tabpage_imagerie
+integer x = 2473
+integer y = 648
+integer width = 1806
+integer height = 456
+integer taborder = 110
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 16777215
+string text = "Boutons raccourcis pour acquisitions d~'images"
+end type
+
+type st_12 from statictext within w_environnement
+integer x = 37
+integer y = 2808
+integer width = 1778
+integer height = 76
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 255
+long backcolor = 65535
+string text = "Paramètres locaux propres au poste de travail uniquement"
+alignment alignment = center!
+boolean focusrectangle = false
+end type
+
+event clicked;// Révélation des boutons de tests d'imprimante pour équipes techniques
+	tab_1.tabpage_administratif.gb_tests_imprimantes.visible = true
+	tab_1.tabpage_administratif.cb_test_recto_dep.visible = true
+	tab_1.tabpage_administratif.cb_test_recto_verso_dep.visible = true
+	tab_1.tabpage_administratif.cb_test_fs.visible = true
+
+end event
+
+event rbuttondown;// Révélation des boutons de tests d'imprimante pour équipes techniques
+	tab_1.tabpage_administratif.gb_tests_imprimantes.visible = true
+	tab_1.tabpage_administratif.cb_test_recto_dep.visible = true
+	tab_1.tabpage_administratif.cb_test_recto_verso_dep.visible = true
+	tab_1.tabpage_administratif.cb_test_fs.visible = true
+
+end event
+
+type uo_resize from resize_fenetre within w_environnement
+boolean visible = false
+integer x = 2089
+integer y = 8
+integer width = 910
+integer height = 328
+end type
+
+on uo_resize.destroy
+call resize_fenetre::destroy
+end on
+
+type pb_memo_ini from uo_picturebutton_390x120 within w_environnement
+boolean visible = false
+integer x = 1929
+integer y = 2768
+integer width = 512
+integer height = 132
+integer taborder = 70
+boolean bringtotop = true
+string text = "&Mémoriser"
+string iconname = "ACTIONS_memoriser.png"
+end type
+
+event clicked;call super::clicked;
+
+// Mémoridation du .ini le dossier maj_arakis
+
+string v_fic_local, v_fic_destination
+
+
+v_fic_local = dir_ini + "Orthokis.ini"
+v_fic_destination = v_rep_mise_jour_centralise + "Orthokis-"+trim(get_nom_ordinateur())+".ini" 
+
+string libelle_deja = ""
+datetime v_date_fichier
+if FileExists(v_fic_destination) then
+	v_date_fichier = fxg_get_file_date(v_fic_destination)
+	 libelle_deja = "~n~nIL EXISTE DEJA UN FICHIER DE SAUVEGARDE POUR CE POSTE SUR LE SERVEUR ("+ string(v_date_fichier)+")"
+end if
+
+if Messagebox("ATTENTION","Vous allez mémoriser le fichier Orthokis.ini de ce poste sur le serveur."+ libelle_deja + "~n~nConfirmez-vous ?" , Question! , YesNo!, 2) = 1 then
+	integer ret
+	ret = FileCopy(v_fic_local, v_fic_destination, true )
+	if ret = 1 then
+		Messagebox("ATTENTION","Le fichier local a été copié en " + v_fic_destination)
+	else
+		Messagebox("ATTENTION","Une erreur s'est produite !~n~nLe fichier n'a pas été copié. ")
+	end if
+end if
+end event
+
+type pb_restau_ini from uo_picturebutton_390x120 within w_environnement
+boolean visible = false
+integer x = 2469
+integer y = 2768
+integer width = 512
+integer height = 132
+integer taborder = 80
+boolean bringtotop = true
+string text = "&Restaurer"
+string iconname = "ACTIONS_Restaurer.png"
+end type
+
+event clicked;call super::clicked;
+OpenWithParm(w_environnement_restau_iini, v_rep_mise_jour_centralise)
+
+
+// on enchaine une annulation / enregister pout recharger les nouvelles données + les appliquer
+
+cb_annuler.triggerevent(clicked!)
+cb_enregistrer.triggerevent(clicked!)
+end event
+
+type dw_tests_imprimantes from datawindow within w_environnement
+boolean visible = false
+integer x = 4773
+integer y = 1020
+integer width = 686
+integer height = 400
+integer taborder = 50
+boolean bringtotop = true
+string title = "none"
+string dataobject = "dw_tests_imprimantes"
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
+end type
+
+type cb_optimiser from uo_picturebutton_390x120 within w_environnement
+integer x = 2999
+integer y = 2768
+integer width = 512
+integer height = 132
+integer taborder = 90
+boolean bringtotop = true
+string text = "&Optimiser"
+string iconname = "ACTIONS_recalculer.png"
+end type
+
+event clicked;call super::clicked;
+//Open(w_environnement_optimiser)
+guo_fenetre_modale.wf_ouvrir(w_environnement_optimiser)
+
+open(w_patience)
+// on enchaine une annulation / enregister pout recharger les nouvelles données + les appliquer
+
+cb_annuler.triggerevent(clicked!)
+cb_enregistrer.triggerevent(clicked!)
+
+close(w_patience)
+end event
+
+type pb_aide from uo_bouton_aide within w_environnement
+string tag = "Paramètres Poste de Travail"
+integer x = 5175
+integer y = 2764
+integer width = 142
+integer height = 124
+integer taborder = 100
+boolean bringtotop = true
+end type
+
+type gb_5 from groupbox within w_environnement
+integer x = 142
+integer y = 572
+integer width = 2354
+integer height = 252
+integer taborder = 100
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 15780518
+string text = "Salle d~'attente"
+end type
+
+type gb_41 from groupbox within w_environnement
+integer x = 142
+integer y = 572
+integer width = 2354
+integer height = 252
+integer taborder = 110
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 15780518
+string text = "Salle d~'attente"
+end type
+
+type gb_34 from groupbox within w_environnement
+integer x = 101
+integer y = 872
+integer width = 2757
+integer height = 400
+integer taborder = 120
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 15780518
+string text = "Types d~'image"
+end type
+
+type gb_43 from groupbox within w_environnement
+integer x = 55
+integer y = 956
+integer width = 2135
+integer height = 544
+integer taborder = 60
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long backcolor = 15780518
+end type
+
+type gb_44 from groupbox within w_environnement
+integer x = 128
+integer y = 1332
+integer width = 4265
+integer height = 236
+integer taborder = 130
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+long backcolor = 16777215
+string text = "Photos diagnostic"
+end type
+
+type gb_49 from groupbox within w_environnement
+integer x = 128
+integer y = 1332
+integer width = 4265
+integer height = 236
+integer taborder = 140
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean italic = true
+long textcolor = 33554432
+long backcolor = 16777215
+string text = "Photos diagnostic"
+end type
+

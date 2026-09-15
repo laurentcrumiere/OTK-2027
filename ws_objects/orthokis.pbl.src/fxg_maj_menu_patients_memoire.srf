@@ -1,0 +1,49 @@
+﻿$PBExportHeader$fxg_maj_menu_patients_memoire.srf
+global type fxg_maj_menu_patients_memoire from function_object
+end type
+
+forward prototypes
+global function integer fxg_maj_menu_patients_memoire ()
+end prototypes
+
+global function integer fxg_maj_menu_patients_memoire ();// fx qui maj visuellement le menu des patients en mémoire
+// selon les 2 tabs globaux "Tab_PatientsCourants" et "Tab_PatientsCourantsToolbar"
+
+int	i
+
+if UI_v2020 then
+//	for i = 1 to 10
+//		if Tab_PatientsCourants[i] <> 0 then
+//			//maj du text du menu "Patients en mémoire"
+//			m_orthokis_2020.m_patientsenmémoire.item[i].text = Tab_PatientsCourantsToolBar[i]
+//			//maj du popup help
+//			m_orthokis_2020.m_patientsenmémoire.item[i].ToolbarItemText = Tab_PatientsCourantsToolBar[i]
+//			//passe à visible la ligne [i] patient courant
+//			m_orthokis_2020.m_patientsenmémoire.item[i].visible = true
+//		else
+//			//passe à invisible la ligne [i] patient courant
+//			m_orthokis_2020.m_patientsenmémoire.item[i].visible = false
+//		end if
+//	next
+	
+else
+//	for i = 1 to 10
+//		if Tab_PatientsCourants[i] <> 0 then
+//			//maj du text du menu "Patients en mémoire"
+//			m_orthokis.m_patientsenmémoire.item[i].text = Tab_PatientsCourantsToolBar[i]
+//			//maj du popup help
+//			m_orthokis.m_patientsenmémoire.item[i].ToolbarItemText = Tab_PatientsCourantsToolBar[i]
+//			//passe à visible la ligne [i] patient courant
+//			m_orthokis.m_patientsenmémoire.item[i].visible = true
+//		else
+//			//passe à invisible la ligne [i] patient courant
+//			m_orthokis.m_patientsenmémoire.item[i].visible = false
+//		end if
+//	next
+end if
+
+
+// pas de gestion d'erreur
+return 1
+end function
+

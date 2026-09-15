@@ -1,0 +1,81 @@
+﻿$PBExportHeader$gfx_creer_rep.srf
+global type gfx_creer_rep from function_object
+end type
+
+forward prototypes
+global function integer gfx_creer_rep (string str_path)
+end prototypes
+
+global function integer gfx_creer_rep (string str_path);// fx qui crée le rep et les sous-rep si nécessaire
+// pour que le path passé en param existe
+// return 1 si pb
+//			-1 si pb
+
+security_attributes	sa		// pour compatibilité winNT lors de création de rep
+int			return_val = -1
+long		llg_nbr_carac , i
+string		lstr_char
+boolean	lb_premier_win_delimiter
+string		lstr_temp_path
+boolean	un_pb
+
+
+// recup du nbr de carac
+llg_nbr_carac = len(str_path)
+
+if llg_nbr_carac > 3 then	// car au mini ça commence par \\x\ OU x:\
+// si path passé en param est non vide
+	if right(str_path, 1) <> win_Delimiter then
+	// si path ne se termine pas par un win_Delimiter ->on le rajoute ET maj du nbr de carac
+		str_path += win_Delimiter
+		llg_nbr_carac++
+	end if
+	
+	if left(str_path , 2) = (win_Delimiter + win_Delimiter) then
+	// si c un path réseaux
+		// init cpt à partir du 3ème carac + init de la string temp
+		lstr_temp_path = win_Delimiter + win_Delimiter
+		i = 3
+	else
+	// c un lecteur
+		lstr_temp_path = ""
+		i = 1
+	end if
+	
+	do while not un_pb AND i <= llg_nbr_carac
+	// pour chacun des carac (tant que pas de pb)
+		// recup d'un carac
+		lstr_char = mid(str_path, i, 1)
+		
+		if lstr_char = win_Delimiter then
+		// si un carac de fin de rep
+			if not lb_premier_win_delimiter then
+			// si premier win_delimiter -> maj du booleén
+				lb_premier_win_delimiter = true
+			else
+			// "x : \" OU "\\x\" déjà passée
+				if not FileExists(lstr_temp_path) then
+				// si rep n'existe pas encore
+					// si un pb pendant la creation du rep -> maj boolén de sortie de boucle
+					if CreateDirectoryA(lstr_temp_path, sa) = 0 then un_pb = true
+				end if
+			end if
+			// on rajoute le carac à lstr_temp_path
+			lstr_temp_path += lstr_char
+		else
+		// un carac comme un autre -> on le rajoute à lstr_temp_path
+			lstr_temp_path += lstr_char
+		end if
+		
+		// maj cpt
+		i++
+	loop
+	
+	// si pas de pb de rencontré -> maj val retour
+	if not un_pb then return_val = 1
+end if
+
+
+return return_val
+end function
+

@@ -1,0 +1,137 @@
+﻿$PBExportHeader$fxg_envoi_email_mdp_portail_corresp.srf
+global type fxg_envoi_email_mdp_portail_corresp from function_object
+end type
+
+forward prototypes
+global subroutine fxg_envoi_email_mdp_portail_corresp (ref datawindow dw_fiche, u_cst_commandbutton bouton_enregistrer, richtextedit rte_1)
+end prototypes
+
+global subroutine fxg_envoi_email_mdp_portail_corresp (ref datawindow dw_fiche, u_cst_commandbutton bouton_enregistrer, richtextedit rte_1);uo_email_compte		cpt_email
+uo_email_email 		email
+long id_cpt
+
+string v_texte_message
+string v_site_portail
+dw_fiche.accepttext()	
+
+
+if dw_fiche.rowcount() > 0 then
+	
+	// recup du nom du site portail
+	select top 1 isnull(url_portail_patient,'') into :v_site_portail from param ;
+	
+	if len(trim(v_site_portail)) = 0 then
+		Messagebox("ERREUR","Vous devez indiquer l'adresse (URL) de votre site Internet Portail Patient dans le menu 'Outils', 'Paramètres Généraux', onglet 'Portail Patient'.")
+	else
+	
+		integer  v_cpt_a_utiliser
+		string v_cpt_user
+
+		
+		select isnull(utiliser_compte_mail_perso, 'N'), cpt_mail into :v_cpt_user, :id_cpt from utilisateurs where code = :utilisateur_code ;
+		
+		if v_cpt_user = 'N' then
+			// recherche de l'ID du cpt mail du praticien par defaut
+			SELECT cpt_mail INTO :id_cpt FROM prati WHERE prati_defaut = 1 ;
+		end if
+		if isnull(id_cpt) then
+			// pas de compte mail par defaut sur ce prati
+			// --> on choisi le premier de la liste des cpt order by ordre_tri, nom
+			select top 1 id into :id_cpt from email_comptes order by ordre_tri, nom ;
+		end if
+		
+		if isnull(id_cpt) then
+		
+			MessageBox("ATTENTION","Vous devez définir des Comptes Emails pour chaque praticien avant d'envoyer des emails (menu 'Tables', 'Administratif').~n~nCeci ne semble pas être le cas.~n~nL'envoi de l'email ne peut avoir lieu.")
+		
+		else
+	
+			// init cpt mail et affection au mail manager
+			cpt_email = create uo_email_compte
+			cpt_email.charger(id_cpt)
+			email_manager.set_compte(cpt_email)
+			
+			string v_email , v_mot_de_passe
+			
+			v_email = dw_fiche.GetItemString(1, "email")
+			v_mot_de_passe = dw_fiche.GetItemString(1, "mdp_correspondant")
+			
+			zeroS(v_email)
+			zeroS(v_mot_de_passe)
+			
+			if len(trim(v_email)) > 0 then 
+			
+				if len(trim(v_mot_de_passe)) = 0 then 
+					v_mot_de_passe = left(trim(dw_fiche.GetItemString(1, "code"))+"040866", 6)
+					dw_fiche.SetItem(1, "mdp_correspondant", v_mot_de_passe)
+					bouton_enregistrer.triggerevent(clicked!)
+				end if
+				
+				
+			// Texte et objet de l'email
+				string v_texte, v_objet
+				select top 1 texte_login_portail_correspondant, objet_login_portail_correspondant into :v_texte, :v_objet from param ; 
+			
+				// creation et envoie email
+				email = create uo_email_email
+				email.add_destinataire_a(v_email, false)
+				email.set_from(cpt_email.my_alias,cpt_email.my_adr)
+				email_manager.propos_objet = v_objet
+				email.set_sujet(email_manager.propos_objet)
+					
+			
+				// Génératon du fichier rtf pour passage en paramètre
+				string nom_fichier_rtf, nom_fichier_html
+				integer num_fichier_texte, num_fichier_html
+			
+				nom_fichier_rtf = dir_ini + "texte_email_tmp.rtf"
+				nom_fichier_html = dir_ini + "texte_email_tmp.html"
+				num_fichier_texte = FileOpen( nom_fichier_rtf, StreamMode! , Write! , LockWrite! , replace!)
+				FileWrite(num_fichier_texte, v_texte)
+				FileClose(num_fichier_texte)
+		
+				// Conversion en HTML
+				rte_1.insertdocument(nom_fichier_rtf, True, FileTypeRichText! )
+				rte_1.savedocument(nom_fichier_html, FileTypeHTML!)
+					
+					
+				//v_texte_message = "Bonjour,~n~nVos identifiants de connexion pour accéder à votre espace patient sur le site "+v_site_portail+ " sont :~n~nEmail : " + v_email+"~nMot de passe : "+v_mot_de_passe+"~n~nSi vous n'arrivez pas à accéder à votre espace patient, veuillez nous contacter.~n~nCordialement, ~n~nLe Cabinet du Dr "+v_nom_praticien
+				
+				string text_html 
+				num_fichier_html = fileopen(nom_fichier_html,TextMode!, Read!, Shared!)
+				FileReadEx(num_fichier_html, text_html)
+				fileclose(num_fichier_html)
+		
+				// Des champs spéciaux ne seront pas remplacés ensuite => remplacés AVANT !
+				text_html = gfx_tout_remplacer(text_html, "{email}", v_email)
+				text_html = gfx_tout_remplacer(text_html, "{mot_de_passe}", v_mot_de_passe)
+				text_html = gfx_tout_remplacer(text_html, "{site_portail}", v_site_portail)
+				
+				num_fichier_html = fileopen(nom_fichier_html,TextMode!, Write!, LockWrite!, Replace!)
+				FileWriteEx(num_fichier_html, text_html)
+				fileclose(num_fichier_html)
+				
+				boolean v_suite 
+				// On teste les erreurs .. surtout pour criptage et dispo du site www.arakis.fr
+				v_suite = email.set_body_html(nom_fichier_html)
+				
+				if v_suite then
+					// Envoi de l'email
+					v_suite =	 email_manager.envoyer_email(email.get_email())	
+				end if
+				
+				
+				if v_suite then
+					Messagebox("INFORMATION","Un email vient d'être envoyé à l'adresse : " + v_email )
+				else
+					Messagebox("ERREUR","Echec dans l'envoi de l'email")
+				end if
+			else
+					Messagebox("ERREUR","Vous devez d'abord renseigner une adresse email.")
+			end if
+		end if
+	end if
+end if
+
+end subroutine
+

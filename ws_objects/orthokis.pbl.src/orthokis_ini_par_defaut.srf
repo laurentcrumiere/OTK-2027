@@ -1,0 +1,235 @@
+﻿$PBExportHeader$orthokis_ini_par_defaut.srf
+global type orthokis_ini_par_defaut from function_object
+end type
+
+forward prototypes
+global subroutine orthokis_ini_par_defaut ()
+end prototypes
+
+global subroutine orthokis_ini_par_defaut ();// Mise en place des valeurs par défaut dans Orthokis.ini si besoin
+
+string valeur_string
+integer valeur_integer
+
+
+// SONS
+valeur_par_defaut_ini ("sons", "activer" , "true")
+valeur_par_defaut_ini ("sons", "son1" , "")
+valeur_par_defaut_ini ("sons", "son2" , "")
+valeur_par_defaut_ini ("sons", "son3" , "")
+valeur_par_defaut_ini ("sons", "son4" , "")
+valeur_par_defaut_ini ("sons", "son5" , "")
+valeur_par_defaut_ini ("sons", "son6" , "")
+valeur_par_defaut_ini ("sons", "son7" , "")
+
+// COULEURS
+valeur_par_defaut_ini ("COULEURS", "fond_fenetre" , "15780518")
+valeur_par_defaut_ini ("COULEURS","fond_barre_3","13335090")
+valeur_par_defaut_ini ("COULEURS","textes_barre_3",string(rgb(255,255,0)))
+valeur_par_defaut_ini ("COULEURS","fond_mdi","15780518")
+valeur_par_defaut_ini ("COULEURS","image_fond_mdi","")
+valeur_par_defaut_ini ("COULEURS","fond_barre_patient","13335090")
+valeur_par_defaut_ini ("COULEURS","fond_mdi_patient","15780518")
+valeur_par_defaut_ini ("COULEURS","image_fond_mdi_etiree","N") 
+valeur_par_defaut_ini ("COULEURS","image_fond_fenetres","Vert") 
+valeur_par_defaut_ini ("COULEURS","image_boutons","bleu")
+valeur_par_defaut_ini ("COULEURS","image_fond_barre_icones","Violet")
+valeur_par_defaut_ini ("COULEURS","animation_boutons","O")
+valeur_par_defaut_ini ("COULEURS", "desactiver_emoticones","N")
+//valeur_par_defaut_ini ("COULEURS", "nombre_boucles_st_transparent","1000")
+valeur_par_defaut_ini ("COULEURS","fond_datawindow","15780518")
+valeur_par_defaut_ini ("COULEURS","degrade_datawindow","15780518")
+valeur_par_defaut_ini ("COULEURS","brush_datawindow","1")
+
+
+// PHOTOS
+valeur_par_defaut_ini ("PHOTOS","dir","c:\power\photos\")
+valeur_par_defaut_ini ("PHOTOS","dir_replic","c:\power\photos\")
+valeur_par_defaut_ini ("PHOTOS","iden","true")
+valeur_par_defaut_ini ("PHOTOS","iden_clinique","true")
+valeur_par_defaut_ini ("PHOTOS","dir_acquis_courant","c:\")
+valeur_par_defaut_ini ("PHOTOS","dir_acquis_wifi","c:\")
+valeur_par_defaut_ini ("photos","page_clinique","")
+valeur_par_defaut_ini ("photos","page_clinique_presentation","true") 
+valeur_par_defaut_ini ("photos","iden","true") 
+valeur_par_defaut_ini ("photos","iden_clinique","true")
+valeur_par_defaut_ini ("photos","masquer_iden_dans_imagerie","false") 
+valeur_par_defaut_ini ("photos","images_sur_fond_noir","false") 
+valeur_par_defaut_ini ("photos","acquisition_imagerie","4")
+valeur_par_defaut_ini ("photos","mode_ocx","1")
+
+// COURRIERS
+valeur_par_defaut_ini ("COURRIERS","dir","c:\power\ortho\Lettres Types\")
+valeur_par_defaut_ini ("COURRIERS","dir_replic","c:\power\ortho\Lettres Types\")
+valeur_par_defaut_ini ("COURRIERS","local","true")
+
+
+// Rendez-vous
+valeur_par_defaut_ini ("rendez-vous","raffraichissement","180")
+valeur_par_defaut_ini ("rendez-vous","patients_devant_argent","true") 
+valeur_par_defaut_ini ("rendez-vous","ouverture_synthese","true")
+valeur_par_defaut_ini ("rendez-vous","nb_jours_alerte_dep","30")
+valeur_par_defaut_ini ("rendez-vous","minutes_retard_rdv_alerte","15")
+valeur_par_defaut_ini ("rendez-vous","alerte_dep","false") 
+valeur_par_defaut_ini ("rendez-vous","position_synthese","D")
+valeur_par_defaut_ini ("rendez-vous","photo_synthese","true")
+valeur_par_defaut_ini ("rendez-vous","position_post_it","H")
+valeur_par_defaut_ini ("rendez-vous","affichage_auto_salle_attente","true")
+valeur_par_defaut_ini ("rendez-vous","salle_attente_auto_tous","true")
+valeur_par_defaut_ini ("rendez-vous","mini_salle_attente_on_top","False")
+valeur_par_defaut_ini ("rendez-vous","graphique_gestion","C") 
+valeur_par_defaut_ini ("rendez-vous","graphique_gestion","C") 
+valeur_par_defaut_ini ("rendez-vous","ticket_largeur","3200")
+valeur_par_defaut_ini ("rendez-vous","ticket_hauteur","2900")
+valeur_par_defaut_ini ("rendez-vous","ticket_format","R")  
+valeur_par_defaut_ini ("rendez-vous","ticket_tous_rdv_futurs","O")  
+
+// Imprimantes 
+valeur_par_defaut_ini ("IMPRIMANTES","rdv_active","N")
+valeur_par_defaut_ini ("IMPRIMANTES","dep_active","N")
+valeur_par_defaut_ini ("IMPRIMANTES","feuilles_soins_active","N")
+
+
+// DEP-FSE
+valeur_par_defaut_ini ("DEP-FSE","dep_integre", "N") 
+valeur_par_defaut_ini ("DEP-FSE","fs_integre", "N")
+
+
+// Télévitale 
+valeur_par_defaut_ini ("televitale","nb_boucles","20")
+valeur_par_defaut_ini ("televitale","sleep_time","500")
+valeur_par_defaut_ini ("televitale","quitter_televitale","O") 
+
+// Word
+valeur_par_defaut_ini ("WORD","memo_automatique","O") 
+valeur_par_defaut_ini ("WORD","envoi_en_piece_jointe","N")
+valeur_par_defaut_ini ("WORD","arbre_eclate","N")
+
+// Admini
+valeur_par_defaut_ini ("admini","somme_due_famille","O")
+valeur_par_defaut_ini ("admini","onglets","3")
+valeur_par_defaut_ini ("admini","dir_acquis_courant_documents","c:\")
+
+
+// mdi_patient
+valeur_par_defaut_ini ("MDI_PATIENT","telecommande_x","0")
+valeur_par_defaut_ini ("MDI_PATIENT","telecommande_y","0")
+valeur_par_defaut_ini ("MDI_PATIENT","telecommande_width","1120")
+valeur_par_defaut_ini ("MDI_PATIENT","telecommande_height","540")
+
+
+// Commentaires_cliniques
+valeur_par_defaut_ini ("commentaires_cliniques","quatre_photos","false") 
+valeur_par_defaut_ini ("commentaires_cliniques","cadre_1","0")
+valeur_par_defaut_ini ("commentaires_cliniques","cadre_2","0")
+valeur_par_defaut_ini ("commentaires_cliniques","cadre_3","0")
+valeur_par_defaut_ini ("commentaires_cliniques","cadre_4","0")
+valeur_par_defaut_ini ("commentaires_cliniques","affichage_cadre","Q")
+valeur_par_defaut_ini ("commentaires_cliniques","table_predefinis","N") 
+valeur_par_defaut_ini ("commentaires_cliniques","avec_diag","N") 
+valeur_par_defaut_ini ("commentaires_cliniques","commentaires_2010","O") 
+valeur_par_defaut_ini ("commentaires_cliniques","message_rdv_sans_rtf","O") 
+
+// Commentaires Cliniques
+valeur_par_defaut_ini ("Commentaires Cliniques","commentaire_visible","1")
+valeur_par_defaut_ini ("Commentaires Cliniques","commentaire_largeur","1856")
+valeur_par_defaut_ini ("Commentaires Cliniques","hygiene_visible","1")
+valeur_par_defaut_ini ("Commentaires Cliniques","hygiene_largeur","155")
+valeur_par_defaut_ini ("Commentaires Cliniques","elastique_visible","1")
+valeur_par_defaut_ini ("Commentaires Cliniques","elastique_largeur","155")
+valeur_par_defaut_ini ("Commentaires Cliniques","acte_prevu_visible","1")
+valeur_par_defaut_ini ("Commentaires Cliniques","acte_prevu_largeur","1198")
+valeur_par_defaut_ini ("Commentaires Cliniques","type_rdv_visible","1")
+valeur_par_defaut_ini ("Commentaires Cliniques","type_rdv_largeur","389")
+valeur_par_defaut_ini ("Commentaires Cliniques","intervenant_visible","1")
+valeur_par_defaut_ini ("Commentaires Cliniques","intervenant_largeur","279")
+
+valeur_par_defaut_ini ("Commentaires Cliniques","com3_visible","0")
+valeur_par_defaut_ini ("Commentaires Cliniques","com3_largeur","279")
+valeur_par_defaut_ini ("Commentaires Cliniques","com4_visible","0")
+valeur_par_defaut_ini ("Commentaires Cliniques","com4_largeur","279")
+valeur_par_defaut_ini ("Commentaires Cliniques","com5_visible","0")
+valeur_par_defaut_ini ("Commentaires Cliniques","com5_largeur","279")
+valeur_par_defaut_ini ("Commentaires Cliniques","com6_visible","0")
+valeur_par_defaut_ini ("Commentaires Cliniques","com6_largeur","279")
+
+
+// Toolbar_3
+valeur_par_defaut_ini ("toolbar_3","acquisition","1")
+valeur_par_defaut_ini ("toolbar_3","presentation","T") 
+valeur_par_defaut_ini ("toolbar_3","visible","true") 
+valeur_par_defaut_ini ("toolbar_3","position","1") 
+
+
+// Recherche
+valeur_par_defaut_ini ("recherche","rechercher_par","1")
+
+// Connexion
+valeur_par_defaut_ini ("connexion","utilisateur","Arakis") 
+
+// SAINTS
+valeur_par_defaut_ini ("SAINTS","ouverture","1")
+
+// TACHES
+valeur_par_defaut_ini ("TACHES","ouverture","1")
+
+
+// CTI
+valeur_par_defaut_ini ("CTI","lien_active","N")
+valeur_par_defaut_ini ("CTI","numero_sortir","")
+valeur_par_defaut_ini ("CTI","ignorer","")
+valeur_par_defaut_ini ("CTI","verif_ligne_sortie","O") 
+
+
+// miniature
+valeur_par_defaut_ini ("miniature","taille","800")
+valeur_par_defaut_ini ("miniature","ordre","N° Image")
+
+
+// miniature
+valeur_par_defaut_ini ("miniature","ordre","N° Image")
+valeur_par_defaut_ini ("miniature","expl_media_x","0")
+valeur_par_defaut_ini ("miniature","expl_media_y","0")
+valeur_par_defaut_ini ("miniature","expl_media_w","274")
+valeur_par_defaut_ini ("miniature","expl_media_h","660")
+valeur_par_defaut_ini ("miniature","miniature_x","275")
+valeur_par_defaut_ini ("miniature","miniature_y","0")
+valeur_par_defaut_ini ("miniature","miniature_w","745")
+valeur_par_defaut_ini ("miniature","miniature_h","660")
+valeur_par_defaut_ini ("miniature","editeur_image_x","401")
+valeur_par_defaut_ini ("miniature","editeur_image_y","100")
+valeur_par_defaut_ini ("miniature","editeur_image_w","714")
+valeur_par_defaut_ini ("miniature","editeur_image_h","728")
+valeur_par_defaut_ini ("miniature","editeur_image_1_taille_maxi","O")
+valeur_par_defaut_ini ("miniature","expl_media_affichage_reduit","N")
+
+// Position_fenetres
+
+// ajout des lignes concernant les autres éditeur pour que les comparaisons marchent du 1er coup !!!
+integer nb_editeurs = 9
+integer i
+
+for i = 2 to nb_editeurs
+
+	valeur_par_defaut_ini ("Position_fenetres","editeur_image_"+string(i)+"_x","0")
+	valeur_par_defaut_ini ("Position_fenetres","editeur_image_"+string(i)+"_y","0")
+	valeur_par_defaut_ini ("Position_fenetres","editeur_image_"+string(i)+"_w","100")
+	valeur_par_defaut_ini ("Position_fenetres","editeur_image_"+string(i)+"_h","100")
+	valeur_par_defaut_ini ("Position_fenetres","editeur_image_"+string(i)+"_taille_maxi","N")
+
+next
+
+
+// SAUVEGARDE_BD
+valeur_par_defaut_ini ("SAUVEGARDE_BD","sauvegarde_base_auto","false")
+valeur_par_defaut_ini ("SAUVEGARDE_BD","chemin_sauvegarde_base","C:\Power\ortho\Save_db")
+
+// Explorateur imagerie 2013
+
+valeur_par_defaut_ini ("explorateur_photos_2013","actif","true")
+valeur_par_defaut_ini ("explorateur_photos_2013","position_outils","D")
+
+
+return
+end subroutine
+

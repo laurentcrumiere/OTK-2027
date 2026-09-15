@@ -1,0 +1,14 @@
+﻿$PBExportHeader$of_releasekey.srf
+global type of_releasekey from function_object
+end type
+
+forward prototypes
+global function integer of_releasekey (integer ai_key)
+end prototypes
+
+global function integer of_releasekey (integer ai_key);//Calls an API function to simulate a key release
+keybd_event(ai_key,0,2,0)   
+return 1
+
+end function
+

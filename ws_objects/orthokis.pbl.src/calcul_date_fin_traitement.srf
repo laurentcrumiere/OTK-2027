@@ -1,0 +1,46 @@
+﻿$PBExportHeader$calcul_date_fin_traitement.srf
+global type calcul_date_fin_traitement from function_object
+end type
+
+forward prototypes
+global function date calcul_date_fin_traitement (string date_debut, integer nb_semestres, integer nb_surveillances, string date_reprise, integer duree_apres_reprise, character unite)
+end prototypes
+
+global function date calcul_date_fin_traitement (string date_debut, integer nb_semestres, integer nb_surveillances, string date_reprise, integer duree_apres_reprise, character unite);
+// Calcul de la fin de traitement
+
+
+// ATTENTION
+// LES DATES SONT PASSEES EN STRING SINON CA BUG AU NIVEAU DE L'UTILISATION DE LA FONCTION DANS UNE DATAWINDOW
+
+date v_fin_estimee
+
+setnull(v_fin_estimee)
+
+// unité vaut S pour semeste, M pour mois
+
+integer v_coef
+
+if unite = "M" then 
+	v_coef = 1 
+else
+	if unite = "T" then 
+		v_coef = 3
+	else
+		v_coef = 6
+	end if
+end if
+
+if not isnull(date(date_reprise)) then
+	zeroi(duree_apres_reprise)
+	v_fin_estimee = ajout_x_mois ( date(date_reprise) , duree_apres_reprise * v_coef)
+else
+	zeroi(nb_semestres)
+	zeroi(nb_surveillances)
+	v_fin_estimee = ajout_x_mois ( date(date_debut) , (nb_semestres + nb_surveillances) * v_coef)
+end if
+	
+return v_fin_estimee
+
+end function
+

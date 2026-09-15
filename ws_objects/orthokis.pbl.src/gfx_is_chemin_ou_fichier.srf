@@ -1,0 +1,51 @@
+﻿$PBExportHeader$gfx_is_chemin_ou_fichier.srf
+global type gfx_is_chemin_ou_fichier from function_object
+end type
+
+forward prototypes
+global function boolean is_chemin_ou_fichier (string chemin_fichier)
+global function boolean gfx_is_chemin_ou_fichier (string chemin_fichier)
+end prototypes
+
+global function boolean is_chemin_ou_fichier (string chemin_fichier);// fx qui return TRUE si le param "chemin_fichier" est un path complet (càd présence d'un \ )
+// return FALSE sinon
+
+long	cpt
+string	aChar
+boolean	trouve
+
+
+cpt = len( chemin_fichier )
+
+if cpt > 0 then
+	do 
+		aChar = mid( chemin_fichier, cpt, 1)
+		if aChar = win_delimiter then trouve = true
+		cpt = cpt - 1
+	loop while ( not trouve ) AND  cpt > 0
+end if
+
+return trouve
+end function
+
+global function boolean gfx_is_chemin_ou_fichier (string chemin_fichier);// fx qui return TRUE si le param "chemin_fichier" est un chemin (càd présence d'un \ )
+// return FALSE sinon
+
+long	cpt
+string	aChar
+boolean	trouve
+
+
+cpt = len( chemin_fichier )
+
+if cpt > 0 then
+	do 
+		aChar = mid( chemin_fichier, cpt, 1)
+		if aChar = win_delimiter then trouve = true
+		cpt = cpt - 1
+	loop while ( not trouve ) AND  cpt > 0
+end if
+
+return trouve
+end function
+

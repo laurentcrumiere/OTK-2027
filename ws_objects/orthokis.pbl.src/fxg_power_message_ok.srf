@@ -1,0 +1,19 @@
+﻿$PBExportHeader$fxg_power_message_ok.srf
+global type fxg_power_message_ok from function_object
+end type
+
+forward prototypes
+global subroutine fxg_power_message_ok (string titre, string power_message)
+end prototypes
+
+global subroutine fxg_power_message_ok (string titre, string power_message);
+// Utilisation des PowerMessage ... 
+integer bouton_clique
+
+gnv_message.of_Register(w_mdi_2020)
+
+gnv_message.messagebox (titre, power_message)
+
+
+end subroutine
+

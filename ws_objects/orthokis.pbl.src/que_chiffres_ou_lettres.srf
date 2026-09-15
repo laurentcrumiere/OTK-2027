@@ -1,0 +1,46 @@
+﻿$PBExportHeader$que_chiffres_ou_lettres.srf
+global type que_chiffres_ou_lettres from function_object
+end type
+
+forward prototypes
+global function string que_chiffres_ou_lettres (string chaine)
+end prototypes
+
+global function string que_chiffres_ou_lettres (string chaine);// Fonction qui renvoie uniquement les chiffres et les lettres d'une chaine de caractères
+// utile pour les téléphones par exemple
+
+// Paramètres:
+// chaine : chaine de caractères à traiter
+// - elle peut contenir n'importe quel type de caractères
+// - le caractère "~n" est traduit en ""
+// - renvoie la chaine qui ne contient que des lettres et des chiffres
+
+
+long ind						// Indice de la chaine pour le parcours
+string nouvelle_chaine	// Nouvelle chaine de caractère qui sera renvoyée
+char	car_lu					// Caractère courant étudié
+char	car_ecrit				// Caractère courant modifié
+long	lg_chaine			// Longueur de la chaine à étudier
+
+chaine = trim(chaine)
+lg_chaine = len(chaine)
+nouvelle_chaine = ''
+
+for ind = 1 to lg_chaine
+	
+	car_lu = mid(chaine,ind,1)
+	
+	// On ne prend que les chiffres
+	if ( "0" <= car_lu and car_lu <= "9") or  ( "a" <= car_lu and car_lu <= "z") or  ( "A" <= car_lu and car_lu <= "Z") then
+			car_ecrit =  car_lu
+	 else
+			car_ecrit = ''
+	end if
+	
+	nouvelle_chaine = nouvelle_chaine + car_ecrit	
+next
+
+return(nouvelle_chaine)
+
+end function
+

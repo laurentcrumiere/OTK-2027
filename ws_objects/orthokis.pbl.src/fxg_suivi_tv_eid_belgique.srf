@@ -1,0 +1,200 @@
+﻿$PBExportHeader$fxg_suivi_tv_eid_belgique.srf
+global type fxg_suivi_tv_eid_belgique from function_object
+end type
+
+forward prototypes
+global subroutine fxg_suivi_tv_eid_belgique (double v_code_patient)
+end prototypes
+
+global subroutine fxg_suivi_tv_eid_belgique (double v_code_patient);
+// Si v_code_patient = 0 => on demande quel patient pour les fonctions de suivi Télévitale ou CC Vitale
+
+if Belgique then 
+	// Ouverture création selon la carte eID
+	
+	uo_lire_eid_belgique lecteur_carte_belge
+	lecteur_carte_belge = create uo_lire_eid_belgique
+	if lecteur_carte_belge.lire_carte() = 1 then
+		// La lecture s'est bien passée ... les éléments sont chargés
+		
+		string v_nom, v_prenom
+		date v_date_naissance
+		double v_code 
+		boolean v_ajout = false
+		v_nom  = trim(lecteur_carte_belge.nom)
+		v_prenom = trim(lecteur_carte_belge.prenom)
+		v_date_naissance = lecteur_carte_belge.date_naissance
+		
+		
+		// recherche si le patient nom + prénom + date_naissance existe
+		select top 1 isnull(code,0) into :v_code from patient 
+		where nom = :v_nom and prenom = :v_prenom and date_naissance = :v_date_naissance ;
+		
+		if v_code > 0 then 
+			var_code = v_code
+			memo_patient_courant(var_code)
+			m_orthokis_2020.m_patients.m_patientcourant.m_administratif.triggerevent(clicked!)
+		else
+			// recherche si le patient nom + prénom + date_naissance existe
+			date v_date_lue
+			string v_date_lue_string
+			select top 1 isnull(code,0), date_naissance into :v_code, :v_date_lue from patient 
+			where nom = :v_nom and prenom = :v_prenom  ;
+			if isnull(v_date_lue) then
+				v_date_lue_string = ""
+			else
+				v_date_lue_string = string(v_date_lue)
+			end if
+				
+			string lu_sur_la_carte
+			
+			lu_sur_la_carte = "Lu sur la carte : "+ lecteur_carte_belge.nom + " "+ lecteur_carte_belge.prenom + " ("+string(lecteur_carte_belge.date_naissance)+")~n~n"
+			
+			
+			if v_code > 0 then 
+				if Messagebox("ATTENTION", lu_sur_la_carte + "Un dossier a été trouvé pour ce nom mais avec une date de naissance différente (" +v_date_lue_string + ").~n~nSouhaitez-vous l'ouvrir ?", Question!, YesNo!, 1) = 1 then
+					var_code = v_code
+					memo_patient_courant(var_code)
+					m_orthokis_2020.m_patients.m_patientcourant.m_administratif.triggerevent(clicked!)
+				else
+					if utilisation_distante then
+						MessageBox("ATTENTION", lu_sur_la_carte + "Ce patient n'a pas été trouvé.")
+					else
+						if Messagebox("CONFIRMATION",lu_sur_la_carte + "Souhaitez-vous créer un dossier pour ce patient ?", Question!, YesNo!, 2) = 1 then
+							v_ajout = true
+						end if
+					end if
+				end if
+			else
+				if utilisation_distante then
+					MessageBox("ATTENTION", lu_sur_la_carte + "Ce patient n'a pas été trouvé.")
+				else
+					if Messagebox("CONFIRMATION",lu_sur_la_carte + "Souhaitez-vous créer un dossier pour ce patient ?", Question!, YesNo!, 2) = 1 then
+						v_ajout = true
+					end if
+				end if
+			end if
+			
+			if v_ajout then
+				// Ajout du patient à partir des éléments lu sur la carte
+			
+				int propo_auto
+				double v_numero_dossier, min, max
+				string v_masque_nom
+				string v_adulte
+				long v_age
+				
+				// Logique de numérotation de dossiers
+				select top 1 num_patient_auto_normale, masque_nom into :propo_auto, :v_masque_nom from param ;
+
+				//retrouve les numéro de dossier patient min et max ds base
+				SELECT min(numero_dossier),max(numero_dossier) INTO :min,:max 
+				FROM "patient" WHERE numero_dossier < 100000000;
+
+				
+				//rappel : si 1 => le plus grand +1 ; si 2 => le plus petit -1
+				choose case propo_auto
+					case 1
+						v_numero_dossier = max + 1
+					case 2
+						v_numero_dossier = min - 1
+				end choose
+
+				if ajout_nouveau_patient(v_numero_dossier) = 1 then
+					
+					// Le nom du patient doit être en majuscules 
+					
+					if v_masque_nom = 'M' then
+						lecteur_carte_belge.nom = upper(lecteur_carte_belge.nom)
+					end if
+					
+					
+					// Mise à jour de la fiche avec les valeurs de la carte ....
+					select top 1 code into :v_code from patient where numero_dossier = :v_numero_dossier ;
+					
+					// pour adulte OUI/NON selon 18 ans
+					IF month(today()) * 100 +  day(today()) < month( lecteur_carte_belge.date_naissance ) * 100 + day( lecteur_carte_belge.date_naissance ) THEN
+						v_age = year(today()) - year( lecteur_carte_belge.date_naissance ) - 1
+					ELSE
+						v_age = year(today()) - year( lecteur_carte_belge.date_naissance )
+					END IF
+					
+					if v_age >= 18 then 
+						v_adulte = "O" 
+					else
+						v_adulte = "N"
+					end if
+	
+					
+					
+					update patient set 
+					nom = :lecteur_carte_belge.nom, 
+					prenom = :lecteur_carte_belge.prenom ,
+					sexe = :lecteur_carte_belge.sexe ,
+					date_naissance = :lecteur_carte_belge.date_naissance ,
+					nom_parent1 = :lecteur_carte_belge.nom + ' '  ,
+					adr1_parent1 = :lecteur_carte_belge.adresse1 ,
+					adr2_parent1 = :lecteur_carte_belge.adresse2 ,
+					codep_parent1 = :lecteur_carte_belge.code_postal ,
+					ville_parent1 = :lecteur_carte_belge.ville ,
+					adulte = :v_adulte,
+					secu_patient = :lecteur_carte_belge.national_number 
+					
+					where code = :v_code ;
+					
+					if sqlca.sqlcode = 0 then 
+						commit ;
+						
+						// Patient créé .. on l'ouvre !!
+						var_code = v_code
+						memo_patient_courant(var_code)
+						m_orthokis_2020.ouvrir_mdi(2)
+						
+					else
+						rollback ;
+						Messagebox("ATTENTION","Erreur dans la mise à jour de la fiche du nouveau patient !")
+					end if
+					
+				end if
+
+				
+				
+				
+				
+				
+			end if
+			
+			
+		end if
+	
+	end if
+	
+else
+	
+	if CCVITALE then
+		
+		if fxg_get_version_ccvitale() <> "" then
+			IF v_code_patient = 0 then
+				//open(w_cherche)
+				guo_fenetre_modale.wf_ouvrir(w_cherche)
+			else
+				var_suite = true
+				var_code = v_code_patient
+			end if
+			if var_suite then
+				// Pas besoin d'ouvrir un dossier patient dans Orthokis
+				param_win[1] = "5"
+				param_win[2] = string(var_code)
+				open(w_cc_vitale_patience)
+				centrer(w_cc_vitale_patience)
+				open(w_cc_vitale)
+				close(w_cc_vitale_patience)
+			end if
+		else
+			Messagebox("ATTENTION","CC-VITALE doit être installé sur votre poste pour réaliser cette fonctionnalité.")
+		end if
+	end if
+
+end if
+end subroutine
+

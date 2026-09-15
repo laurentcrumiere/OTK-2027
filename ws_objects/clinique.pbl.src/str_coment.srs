@@ -1,0 +1,18 @@
+﻿$PBExportHeader$str_coment.srs
+global type str_coment from structure
+	double		code
+	long		ordre
+	datetime		date_modif
+	boolean		intervenant_visible
+	boolean		hygiene_visible
+	boolean		elastique_visible
+	boolean		com3_visible
+	boolean		com4_visible
+	boolean		com5_visible
+	boolean		com6_visible
+	boolean		avec_rtf
+	string		com
+	string		com_html
+	double		code_interne_rdv
+end type
+

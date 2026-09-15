@@ -1,0 +1,27 @@
+﻿$PBExportHeader$recherche_defaut_rdv.srf
+$PBExportComments$Permet de retrouver la durée et le fauteuil d'un rdv depuis son type
+global type recherche_defaut_rdv from function_object
+end type
+
+forward prototypes
+global subroutine recherche_defaut_rdv (string type_rdv, datawindow dw_nom)
+end prototypes
+
+global subroutine recherche_defaut_rdv (string type_rdv, datawindow dw_nom);//Declaration des variables locales
+//--------------------------------------------------
+integer duree_defaut, fauteuil_defaut
+
+//Selection des valeurs par défaut
+//-------------------------------------------------
+SELECT duree,fauteuil INTO :duree_defaut,:fauteuil_defaut FROM type_rdv WHERE code = :type_rdv ;
+
+//Positionne les valeurs par défaut dans la Dw
+//------------------------------------------------------------------
+dw_nom.setitem(1,"duree",duree_defaut)
+dw_nom.setitem(1,"fauteuil",fauteuil_defaut)
+
+
+
+
+end subroutine
+

@@ -1,0 +1,7 @@
+﻿$PBExportHeader$str_twostring.srs
+global type str_twostring from structure
+	string		code
+	string		message
+	string		auxiliaire
+end type
+

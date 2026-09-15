@@ -1,0 +1,38 @@
+﻿$PBExportHeader$courriers_word_type_impr.srf
+global type courriers_word_type_impr from function_object
+end type
+
+forward prototypes
+global function integer type_impr ()
+global function integer courriers_word_type_impr ()
+end prototypes
+
+global function integer type_impr ();// fonction qui donne le choix à l'utilisateur 
+// de choirsi un des 2 services d'impressions
+
+int	returnval = Service_MajEtVisualise
+int	recupval
+
+
+open( w_courriers_word_type_impr )
+recupval = message.DoubleParm
+if not isnull( recupval ) and recupval > 0 then returnval = recupval
+
+return returnval
+end function
+
+global function integer courriers_word_type_impr ();// fonction qui donne le choix à l'utilisateur 
+// de choirsi un des 2 services d'impressions
+
+//int	returnval = Service_MajEtVisualise
+int	recupval
+
+
+open( w_courriers_word_type_impr )
+recupval = message.DoubleParm
+
+//if not isnull( recupval ) and recupval > 0 then returnval = recupval
+
+return recupval
+end function
+

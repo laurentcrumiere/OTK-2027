@@ -1,0 +1,14 @@
+﻿$PBExportHeader$zeros.srf
+global type zeros from function_object
+end type
+
+forward prototypes
+global subroutine zeros (ref string para)
+end prototypes
+
+global subroutine zeros (ref string para);if isnull(para) then
+	para = ""
+end if
+
+end subroutine
+

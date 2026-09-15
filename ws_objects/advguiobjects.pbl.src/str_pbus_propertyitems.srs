@@ -1,0 +1,7 @@
+﻿$PBExportHeader$str_pbus_propertyitems.srs
+global type str_pbus_propertyitems from structure
+	string		as_type
+	n_cst_propertyitem		anv_items
+	string		title
+end type
+

@@ -1,0 +1,28 @@
+﻿$PBExportHeader$copier_dropdownlistbox.srf
+global type copier_dropdownlistbox from function_object
+end type
+
+forward prototypes
+global subroutine copier_dropdownlistbox (dropdownlistbox liste, ref dropdownlistbox destination)
+end prototypes
+
+global subroutine copier_dropdownlistbox (dropdownlistbox liste, ref dropdownlistbox destination);
+
+// copie les items d'une dropdown dans une autre
+
+ 
+
+integer total , i
+
+total = liste.totalitems()
+
+
+for i = 1 to total
+	liste.selectitem(i)
+	destination.additem(liste.text)
+next
+
+
+return 
+end subroutine
+

@@ -1,0 +1,39 @@
+﻿$PBExportHeader$fxg_get_infos_modifs.srf
+global type fxg_get_infos_modifs from function_object
+end type
+
+forward prototypes
+global subroutine fxg_get_infos_modifs (datawindow dw, long lig)
+end prototypes
+
+global subroutine fxg_get_infos_modifs (datawindow dw, long lig);
+
+// Affiche les informations de modification de la ligne courante d'une datawidow passée en paramètre
+
+// Attentionn, les champs doivent toujours se nommer 
+// - user_modif et date_modif
+
+
+
+if dw.rowcount() > 0 then
+	string v_user_code, v_user_nom
+	datetime v_dt
+	v_user_code = dw.getitemstring(lig, "user_modif")
+	v_dt = dw.getitemdatetime(lig, "date_modif")
+	
+//	messagebox("trace","Titre : " +dw.title+"   -  ligne : "+string(lig)  )
+	
+	if not isnull(v_user_code) then 
+		select nom into :v_user_nom from utilisateurs where code = :v_user_code ;
+	
+		Messagebox("Informations de modifications","Ces informations ont été saisies ou modifiées (dernier accès) ~n - par "+v_user_nom+"~n - le "+string( v_dt , 'dd/mm/yyyy') + " à "+string( v_dt , 'hh:mm') )
+	else
+		Messagebox("Attention","Pas d'information de modification disponible pour cette ligne." )
+	end if
+	
+end if
+
+
+return
+end subroutine
+

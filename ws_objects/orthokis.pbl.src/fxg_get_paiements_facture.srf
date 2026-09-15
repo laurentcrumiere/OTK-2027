@@ -1,0 +1,37 @@
+﻿$PBExportHeader$fxg_get_paiements_facture.srf
+global type fxg_get_paiements_facture from function_object
+end type
+
+forward prototypes
+global function double fxg_get_paiements_facture (double v_numero, date v_date_limite)
+end prototypes
+
+global function double fxg_get_paiements_facture (double v_numero, date v_date_limite);// renvoie la somme des règlements (patient / caisse / mutuelle) saisis pour une facture données
+// saisis avant la date limite 
+
+
+double v_total_paye = 0
+double v_paye_soins, v_code, v_cle
+
+// Soins composants la facture
+declare cursoins cursor for select code, cle 
+from soins where numero_facture = :v_numero ;
+
+open cursoins ;
+
+fetch cursoins  into :v_code, :v_cle ;
+
+do while sqlca.sqlcode = 0
+	
+	select isnull(sum(montant),0) into :v_paye_soins from paye where code = :v_code and cle = :v_cle and "date" <= :v_date_limite ;
+	v_total_paye = v_total_paye + v_paye_soins 
+	
+	fetch cursoins  into :v_code, :v_cle ;
+loop
+
+close cursoins ;
+
+
+return v_total_paye
+end function
+

@@ -1,0 +1,7 @@
+﻿$PBExportHeader$security_attributes.srs
+global type security_attributes from structure
+	long		nlength
+	long		lpsecuritydescriptor
+	boolean		binherithandle
+end type
+

@@ -1,0 +1,48 @@
+﻿$PBExportHeader$fxg_dir_2_format_dir.srf
+global type fxg_dir_2_format_dir from function_object
+end type
+
+forward prototypes
+global function string fxg_dir_2_format_dir (string ldir_complet)
+end prototypes
+
+global function string fxg_dir_2_format_dir (string ldir_complet);// fx qui return le chemin passé en param formaté comme sui
+// c:\power\ortho\entete.doc -> "c:\\power\\ortho\\entete.doc"
+
+string	return_string = ""
+
+long		lg_ldir_complet
+int		i
+string	lchar
+
+
+// récup de la lg de la chaine passée en param
+lg_ldir_complet = len(ldir_complet)
+
+if lg_ldir_complet >= 1 then
+// si le chemin passé en param n'est pas vide
+	// on insère un premier "
+	return_string += '"'
+	
+	for i = 1 to lg_ldir_complet
+	// pour chacun des caractères
+		// on le récup
+		lchar = mid(ldir_complet, i, 1)
+		
+		// on insère le char ds la string de retour
+		return_string += lchar
+		
+		// si le char sélect est un "win_Delimiter"
+		// (càd un "\" : cf les var globales) -> on le ré-insère
+		if lchar = win_Delimiter then return_string += lchar
+		
+	next
+	
+	// on insère le dernier "
+	return_string += '"'
+	
+end if
+
+return return_string
+end function
+

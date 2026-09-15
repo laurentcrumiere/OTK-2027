@@ -1,0 +1,65 @@
+﻿$PBExportHeader$get_filtre_fauteuils_specifiques.srf
+global type get_filtre_fauteuils_specifiques from function_object
+end type
+
+forward prototypes
+global function string get_filtre_fauteuils_specifiques (string s_fauteuils_specifiques)
+end prototypes
+
+global function string get_filtre_fauteuils_specifiques (string s_fauteuils_specifiques);// Renvoie le filtre à appliquer à la salle d'attente (ou volet salle d'attente) si fauteuils spécifiques
+
+integer cpt_fauteuils_specifiques, nb_fauteuils_specifiques, tab_fauteuils_specifiques[]
+string s_filtre = ""
+
+if s_fauteuils_specifiques <> "" then
+	// Analyse de la zone
+	nb_fauteuils_specifiques = 0
+	integer cpt_car, tot_car
+	char car = ""
+	string s_numero_fauteuil
+	tot_car = len(s_fauteuils_specifiques)
+	
+	cpt_car = 1
+	do while cpt_car <= tot_car
+		// on recherche le premier chiffre
+		do while integer(car) = 0 and cpt_car <= tot_car
+			car = mid(s_fauteuils_specifiques, cpt_car, 1)
+			cpt_car = cpt_car + 1
+		loop
+		if integer(car) > 0 then
+			s_numero_fauteuil = car
+			// On empile tous les chiffres qui suivent
+			do while integer(car) > 0 and cpt_car <= tot_car
+				car = mid(s_fauteuils_specifiques, cpt_car, 1)
+				if integer(car) > 0 then 
+					s_numero_fauteuil = s_numero_fauteuil + car
+				end if
+				cpt_car = cpt_car + 1
+			loop
+			nb_fauteuils_specifiques = nb_fauteuils_specifiques + 1
+			
+			tab_fauteuils_specifiques[nb_fauteuils_specifiques] = integer (s_numero_fauteuil)
+		end if
+	loop
+
+	if nb_fauteuils_specifiques > 0 then
+		// Application d'un filtre sur la liste 
+			
+		s_filtre = "("
+		
+		for cpt_fauteuils_specifiques = 1 to nb_fauteuils_specifiques
+			
+			if cpt_fauteuils_specifiques > 1 then
+				s_filtre = s_filtre + " or "
+			end if
+			s_filtre = s_filtre + " rdv_fauteuil = " + string(tab_fauteuils_specifiques[cpt_fauteuils_specifiques])
+			
+		next
+		s_filtre = s_filtre +  ")"
+
+	end if
+end if
+
+return s_filtre
+end function
+

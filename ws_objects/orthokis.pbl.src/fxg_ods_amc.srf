@@ -1,0 +1,25 @@
+﻿$PBExportHeader$fxg_ods_amc.srf
+global type fxg_ods_amc from function_object
+end type
+
+forward prototypes
+global subroutine fxg_ods_amc (double v_code)
+end prototypes
+
+global subroutine fxg_ods_amc (double v_code);
+
+// Affichage des infos AMC pour le patient 
+
+string v_action 
+
+// Toujours synchro car affichage
+v_action =  "action?type=hsim_den_patient_amc&code=" + string(v_code)
+
+fxg_lancer_commande_myorthokis(v_action, true, 3)
+
+
+// récupération des données et affichage
+
+return
+end subroutine
+

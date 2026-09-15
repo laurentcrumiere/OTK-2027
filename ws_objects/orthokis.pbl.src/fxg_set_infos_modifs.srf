@@ -1,0 +1,28 @@
+﻿$PBExportHeader$fxg_set_infos_modifs.srf
+global type fxg_set_infos_modifs from function_object
+end type
+
+forward prototypes
+global subroutine fxg_set_infos_modifs (datawindow dw, long lig)
+end prototypes
+
+global subroutine fxg_set_infos_modifs (datawindow dw, long lig);
+
+// Affiche les informations de modification de la ligne courante d'une datawidow passée en paramètre
+
+// Attentionn, les champs doivent toujours se nommer 
+// - user_modif et date_modif
+
+
+
+if dw.rowcount() > 0 then
+
+	dw.setitem(lig, "user_modif", utilisateur_code)
+	dw.setitem(lig, "date_modif", now())
+	
+end if
+
+
+return
+end subroutine
+

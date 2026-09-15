@@ -1,0 +1,8 @@
+﻿$PBExportHeader$struct_comparateur.srs
+global type struct_comparateur from structure
+	double		code_patient
+	uo_image		uoi[]
+	double		id_temps_utiles[]
+	string		libelle_temps_utiles[]
+end type
+

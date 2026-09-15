@@ -1,0 +1,25 @@
+﻿$PBExportHeader$pages_cliniques_mdi_patient.srf
+global type pages_cliniques_mdi_patient from function_object
+end type
+
+forward prototypes
+global subroutine pages_cliniques_mdi_patient (w_mdi_patient fenetre_mere)
+end prototypes
+
+global subroutine pages_cliniques_mdi_patient (w_mdi_patient fenetre_mere);
+// Fonction qui renvoie la fenêtre qui doit être ouvert
+// en fonction du N° de série ...
+
+window fenetre_a_ouvrir
+string type_de_fenetre
+
+h.chp()	//vérif la présence de la clef HASP
+
+type_de_fenetre = pages_cliniques_fenetre()
+
+open(fenetre_a_ouvrir,type_de_fenetre, fenetre_mere)
+fenetre_mere.place_fenetre(fenetre_a_ouvrir)
+
+return
+end subroutine
+

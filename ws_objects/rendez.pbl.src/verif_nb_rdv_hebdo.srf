@@ -1,0 +1,163 @@
+﻿$PBExportHeader$verif_nb_rdv_hebdo.srf
+global type verif_nb_rdv_hebdo from function_object
+end type
+
+forward prototypes
+global function boolean verif_nb_rdv_hebdo (string v_type_rdv, string v_code_praticien, date v_date_rdv, double v_code_interne_rdv)
+end prototypes
+
+global function boolean verif_nb_rdv_hebdo (string v_type_rdv, string v_code_praticien, date v_date_rdv, double v_code_interne_rdv);
+// Fonction qui renvoie 
+// true : si on peut accepter la saisie du rdv en fonction du nombre de rdv maxi autorisé
+// false sinon
+
+// A l'originie la faction travaillait uniquement sur la semaine, depuis 2016 elle travaille aussi sur le mois, et je jour !
+
+// v_code_interne_rdv permet de tester si le rdv a déjà été mémorisé ou pas !!
+
+
+boolean val_retour = true
+integer v_nb_rdv_maxi, v_nb_rdv, v_nb_rdv_maxi_mensuel, v_nb_rdv_maxi_jour
+string v_nb_rdv_pour_tous, v_nb_rdv_bloquant
+date v_date_min, v_date_max
+
+// Si le rdv est dans un etat éliminer de l'ag
+string v_elimine_agenda
+
+select elimine_agenda into :v_elimine_agenda from etat_rdv, rdv where round(rdv.code_interne, 0) = :v_code_interne_rdv and rdv.absent = etat_rdv.code ;
+
+if v_elimine_agenda = 'O' then 
+	// on vire le rdv de l'agenda => on s'en fout !!!
+	val_retour = true
+	
+else
+	// On vérifie si besoin
+
+	select isnull(min(nb_rdv_maxi),0) , min(nb_rdv_pour_tous), min(nb_rdv_bloquant) ,  isnull(min(nb_rdv_maxi_mensuel),0), isnull(min(nb_rdv_maxi_jour),0)
+	into :v_nb_rdv_maxi, :v_nb_rdv_pour_tous, :v_nb_rdv_bloquant , :v_nb_rdv_maxi_mensuel, :v_nb_rdv_maxi_jour
+	from type_rdv where type_rdv.code = :v_type_rdv ;
+	
+	if v_nb_rdv_maxi > 0 then
+		// Y a une limite hebdomadaire
+		
+		// Calcul de la semaine à étudier
+		// Pour le lundi précédent
+		v_date_min = relativedate(v_date_rdv, 2 - daynumber(v_date_rdv))
+		// Dimanche suivant
+		v_date_max = relativedate(v_date_min,6)
+	
+		if v_nb_rdv_pour_tous = 'O' then
+			// pour tous les praticiens
+			select isnull(count(*),0) into :v_nb_rdv from rdv, etat_rdv 
+			where cast(rdv as date) between :v_date_min and :v_date_max and "rdv"."type" = :v_type_rdv and code_interne <> :v_code_interne_rdv 
+			and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda <> 'O' ;
+		else
+			// uniquement pour le praticien passé en paramètre
+			select isnull(count(*),0) into :v_nb_rdv from rdv, etat_rdv 
+			where cast(rdv as date) between :v_date_min and :v_date_max and "rdv"."type" = :v_type_rdv and code_interne <> :v_code_interne_rdv and rdv.code_praticien = :v_code_praticien 
+			and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda <> 'O' ;
+		end if
+		
+		
+		// On ne comptabilise pas le rdv courant ... (si on est en rengistrement automatique) .. on teste donc  < (et non <=)
+		if v_nb_rdv < v_nb_rdv_maxi then
+			// Nombre non atteint 
+			val_retour = true
+		else
+			// Nombre atteint 
+			
+			if v_nb_rdv_bloquant = 'O' then
+				// Message bloquant
+				Messagebox("ATTENTION","Vous avez atteint le nombre maximum de rendez-vous de ce type autorisés dans la semaine ("+ string(v_nb_rdv_maxi)+").~n~nCe rendez-vous ne peut être ajouté/modifié !")
+				val_retour = false
+			else
+				v_nb_rdv = v_nb_rdv + 1 
+				Messagebox("ATTENTION","Vous aurez "+string(v_nb_rdv) +" rendez-vous de ce type dans la semaine, alors que le maximum autorisé est de "+ string(v_nb_rdv_maxi)+".~n~nCe rendez-vous est tout de même ajouté/modifié.")
+				val_retour = true
+			end if	
+		end if
+	end if
+	// Ok pour la semaine ... on teste le mois !
+	if val_retour  and v_nb_rdv_maxi_mensuel > 0  then
+		
+		
+		// Calcul du mois à étudier
+		v_date_min = date( year(v_date_rdv),  month(v_date_rdv), 1)
+		v_date_max = fin_mois( v_date_rdv )
+	
+		if v_nb_rdv_pour_tous = 'O' then
+			// pour tous les praticiens
+			select isnull(count(*),0) into :v_nb_rdv from rdv, etat_rdv 
+			where cast(rdv as date) between :v_date_min and :v_date_max and "rdv"."type" = :v_type_rdv and code_interne <> :v_code_interne_rdv 
+			and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda <> 'O' ;
+		else
+			// uniquement pour le praticien passé en paramètre
+			select isnull(count(*),0) into :v_nb_rdv from rdv, etat_rdv 
+			where cast(rdv as date) between :v_date_min and :v_date_max and "rdv"."type" = :v_type_rdv and code_interne <> :v_code_interne_rdv and rdv.code_praticien = :v_code_praticien 
+			and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda <> 'O' ;
+		end if
+		
+		
+		// On ne comptabilise pas le rdv courant ... (si on est en rengistrement automatique) .. on teste donc  < (et non <=)
+		if v_nb_rdv < v_nb_rdv_maxi_mensuel then
+			// Nombre non atteint 
+			val_retour = true
+		else
+			// Nombre atteint 
+			
+			if v_nb_rdv_bloquant = 'O' then
+				// Message bloquant
+				Messagebox("ATTENTION","Vous avez atteint le nombre maximum de rendez-vous de ce type autorisés dans le mois ("+ string(v_nb_rdv_maxi_mensuel)+").~n~nCe rendez-vous ne peut être ajouté/modifié !")
+				val_retour = false
+			else
+				v_nb_rdv = v_nb_rdv + 1 
+				Messagebox("ATTENTION","Vous aurez "+string(v_nb_rdv) +" rendez-vous de ce type dans le mois, alors que le maximum autorisé est de "+ string(v_nb_rdv_maxi_mensuel)+".~n~nCe rendez-vous est tout de même ajouté/modifié.")
+				val_retour = true
+			end if	
+		end if
+	end if
+
+	
+	// Ok pour la semaine , le mois... on teste le jour !
+	if val_retour  and v_nb_rdv_maxi_jour > 0  then
+		
+		// le jour à étudier est v_date_rdv
+	
+		if v_nb_rdv_pour_tous = 'O' then
+			// pour tous les praticiens
+			select isnull(count(*),0) into :v_nb_rdv from rdv, etat_rdv 
+			where cast(rdv as date) = :v_date_rdv and "rdv"."type" = :v_type_rdv and code_interne <> :v_code_interne_rdv 
+			and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda <> 'O' ;
+		else
+			// uniquement pour le praticien passé en paramètre
+			select isnull(count(*),0) into :v_nb_rdv from rdv, etat_rdv 
+			where cast(rdv as date)  = :v_date_rdv and "rdv"."type" = :v_type_rdv and code_interne <> :v_code_interne_rdv and rdv.code_praticien = :v_code_praticien 
+			and rdv.absent = etat_rdv.code and etat_rdv.elimine_agenda <> 'O' ;
+		end if
+		
+		
+		// On ne comptabilise pas le rdv courant ... (si on est en rengistrement automatique) .. on teste donc  < (et non <=)
+		if v_nb_rdv < v_nb_rdv_maxi_jour then
+			// Nombre non atteint 
+			val_retour = true
+		else
+			// Nombre atteint 
+			
+			if v_nb_rdv_bloquant = 'O' then
+				// Message bloquant
+				Messagebox("ATTENTION","Vous avez atteint le nombre maximum de rendez-vous de ce type autorisés dans la journée ("+ string(v_nb_rdv_maxi_jour)+").~n~nCe rendez-vous ne peut être ajouté/modifié !")
+				val_retour = false
+			else
+				v_nb_rdv = v_nb_rdv + 1 
+				Messagebox("ATTENTION","Vous aurez "+string(v_nb_rdv) +" rendez-vous de ce type dans la journée, alors que le maximum autorisé est de "+ string(v_nb_rdv_maxi_jour)+".~n~nCe rendez-vous est tout de même ajouté/modifié.")
+				val_retour = true
+			end if	
+		end if
+	end if
+
+	
+end if
+
+return val_retour
+end function
+

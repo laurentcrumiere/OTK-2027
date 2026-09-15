@@ -1,0 +1,40 @@
+﻿$PBExportHeader$centrer_selon_w_mdi_2020.srf
+$PBExportComments$Shani 1.0 / Centre une fenêtre de type Message
+global type centrer_selon_w_mdi_2020 from function_object
+end type
+
+forward prototypes
+global subroutine centrer_selon_w_mdi_2020 (window fenetre)
+end prototypes
+
+global subroutine centrer_selon_w_mdi_2020 (window fenetre);// Centre une fenêtre 
+
+// Centrale de la fenetre en fonction de la fenetre w_mdi_ouverte ... et non par rapport à l'écran
+
+if isvalid(w_mdi_2020) then
+	// pour eviter les pb de raffraissement
+	fenetre.hide()
+	
+	double haut,larg
+	environment env
+	
+	GetEnvironment(env)
+		
+	// Récupération de la taille de l'écran
+	larg = w_mdi_2020.Width
+	haut = w_mdi_2020.Height
+	
+	
+	
+	// Ajustement de la fenêtre au centre de l'écran
+	fenetre.x =  w_mdi_2020.x + (larg - fenetre.Width) / 2
+	fenetre.y = w_mdi_2020.y + (haut - fenetre.Height) / 2
+	
+	
+	// pour eviter les pb de raffraissement
+	fenetre.show()
+end if
+	
+
+end subroutine
+

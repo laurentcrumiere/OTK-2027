@@ -1,0 +1,34 @@
+﻿$PBExportHeader$maj_dddw_type_rdv_selon_praticien.srf
+global type maj_dddw_type_rdv_selon_praticien from function_object
+end type
+
+forward prototypes
+global subroutine maj_dddw_type_rdv_selon_praticien (datawindow dw, string v_praticien, string v_nom_colonne_type_rdv)
+end prototypes
+
+global subroutine maj_dddw_type_rdv_selon_praticien (datawindow dw, string v_praticien, string v_nom_colonne_type_rdv);
+// mise à jour d'une dddw du type de rdv  nommée , en fonction du code_praticien passé en paramètre
+
+DataWindowChild fille
+if dw.GetChild(v_nom_colonne_type_rdv , fille) <> -1 and dw.rowcount() > 0 then
+	fille.settransobject(sqlca)
+	fille.Reset()
+
+	double v_code_patient
+	string v_adulte
+
+	// depuis 2016, on gère aussi un filtre pour type de rdv enfant / adulte / les 2
+	v_code_patient = dw.GetItemNumber(dw.getrow(),"code")
+	select isnull(adulte, 'N') into :v_adulte from patient where code = :v_code_patient ;
+	
+	if v_adulte = "O" then
+		fille.SetFilter("enfant_adulte = 'A' or enfant_adulte = 'D' ")
+	else
+		fille.SetFilter("enfant_adulte = 'E' or enfant_adulte = 'D' ")
+	end if
+	fille.filter()
+	fille.Retrieve(v_praticien)
+	
+end if
+end subroutine
+

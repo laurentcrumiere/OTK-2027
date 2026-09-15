@@ -1,0 +1,41 @@
+﻿$PBExportHeader$maj_blocages.srf
+global type maj_blocages from function_object
+end type
+
+forward prototypes
+global subroutine maj_blocages (double code_interne_saisi)
+end prototypes
+
+global subroutine maj_blocages (double code_interne_saisi);// Mise en jour des éventuels blocages ...
+// le rdv peut avoir été supprimé ... on se sert de la fonction pour supprimer mais pas ressaisir de blocages
+
+
+string typ_saisi
+string v_blocages
+integer i
+
+// type de rdv ? ... 
+select isnull("type",'RDVSUPPRIME') into :typ_saisi from rdv where code_interne = :code_interne_saisi ;
+
+// suppression d'anciens blocages si besoin 
+delete from rdv_blocages where round(code_interne,0) = :code_interne_saisi ;
+
+if typ_saisi <> 'RDVSUPPRIME' then
+	// recherche de nouveaux ...
+	select blocages into  :v_blocages 
+	from type_rdv 
+	where code = :typ_saisi ;
+	
+	if v_blocages <> fill("N",30)  then 
+		for i = 1 to 30 
+			if mid(v_blocages, i, 1) = "O" then
+				insert into rdv_blocages (code_interne_rdv, fauteuil) values ( :code_interne_saisi, :i) ;
+			end if
+		next
+	end if
+end if
+
+
+commit ;
+end subroutine
+

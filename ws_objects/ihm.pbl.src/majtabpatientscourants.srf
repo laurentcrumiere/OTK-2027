@@ -1,0 +1,39 @@
+﻿$PBExportHeader$majtabpatientscourants.srf
+global type majtabpatientscourants from function_object
+end type
+
+forward prototypes
+global function integer majtabpatientscourants (double code_nouveaupatientcourant)
+end prototypes
+
+global function integer majtabpatientscourants (double code_nouveaupatientcourant);//met à jour les tableaux (tab_patientscourants & Tab_PatientsCourantsToolbar) en var globale
+//ainsi que l'affichage du menu principal de w_mdi
+//pour la gestion des patients en mémoire
+
+int 		i, j
+double	Tab_PatientsCourants_temp[11]
+string	Tab_PatientsCourantsToolbar_temp[11]
+boolean	sortir
+
+if code_nouveaupatientcourant > 0 then 
+	
+	//maj de la var globale var_numero_dossier selon le paramètre passé à la fonction
+	var_code = code_nouveaupatientcourant
+	
+	//mémo des autres infos du patient courant ds les divers vars globales et orthokis.ini pour module WORD
+	if memo_patient_courant(var_code) <> 1 then return -1
+		
+		
+
+	// 	Mise à jour uniquement de la télécommande de gauche !!
+	// pas d'odre ... sera mis à jour part l'ajout !
+	if isvalid(uo_volet_patients) then 
+		uo_volet_patients.ajouter_patient(code_nouveaupatientcourant, 0)
+	end if
+
+end if
+
+// pas de gestion d'erreur
+return 1
+end function
+

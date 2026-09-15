@@ -1,0 +1,27 @@
+﻿$PBExportHeader$get_id_document.srf
+global type get_id_document from function_object
+end type
+
+forward prototypes
+global function double get_id_document (string chemin_et_nom_fichier)
+end prototypes
+
+global function double get_id_document (string chemin_et_nom_fichier);
+// renvoie l'id en base de données du fichier passée en paramètre
+
+double v_id
+string v_nom_document , v_extension ,v_dossier 
+
+v_nom_document = gfx_fichier_sans_extension(chemin_et_nom_fichier)
+v_extension = gfx_extraire_extension_fichier(chemin_et_nom_fichier)
+v_dossier = gfx_extraire_path_fichier_en_relatif(chemin_et_nom_fichier, dir_courriers)
+
+//Messagebox("TRACE","v_nom_document : " + v_nom_document + "~n" + "v_extension : " + v_extension + "~n"+ "v_dossier : " + v_dossier + "~n"+ "nom_base : " + nom_base)
+
+// recup de l'id pour supprimer le reste
+select isnull(id, 0) into :v_id from courriers_word where nom_document = :v_nom_document and extension = :v_extension and 
+dossier = :v_dossier and base = :nom_base ;
+
+return v_id
+end function
+

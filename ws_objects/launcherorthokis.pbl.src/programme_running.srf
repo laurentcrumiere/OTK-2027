@@ -1,0 +1,34 @@
+﻿$PBExportHeader$programme_running.srf
+global type programme_running from function_object
+end type
+
+forward prototypes
+global function integer programme_running (string nom_du_programme)
+end prototypes
+
+global function integer programme_running (string nom_du_programme);
+
+OleObject locator,service,props
+
+String ls_query 
+
+ls_query = 'select name , description from Win32_Process where name = "' + nom_du_programme + '"'
+int num, ret, i
+
+try 
+	locator = CREATE OleObject
+	ret = locator.ConnectToNewObject("WbemScripting.SWbemLocator");
+	service = locator.ConnectServer();
+	props = service.ExecQuery(ls_query);
+	num = props.count()
+	
+Catch (RuntimeError er)
+	
+	// Pas de message ... juste pour éviter bug sur poste LC
+	
+End Try
+
+return num
+
+end function
+

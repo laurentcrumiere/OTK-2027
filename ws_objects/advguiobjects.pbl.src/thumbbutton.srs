@@ -1,0 +1,10 @@
+﻿$PBExportHeader$thumbbutton.srs
+global type thumbbutton from structure
+	integer		dwMask
+	uint		iId
+	uint		iBitmap
+	LongPtr		hIcon
+	string		szTip
+	integer		dwFlags
+end type
+

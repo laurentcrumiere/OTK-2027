@@ -1,0 +1,64 @@
+﻿$PBExportHeader$maj_droits_maj_rdv.srf
+global type maj_droits_maj_rdv from function_object
+end type
+
+forward prototypes
+global subroutine maj_droits_maj_rdv (datawindow dw)
+end prototypes
+
+global subroutine maj_droits_maj_rdv (datawindow dw);
+// rend modifiable ou non les zones .. en fonction du type de rdv et des droits !!
+
+string ret 
+string v_type_rdv 
+string v_modif_fauteuil, v_modif_duree, v_alerte_modif_fauteuil
+long v_fauteuil
+
+if dw.rowcount() > 0 then
+	
+	dw.accepttext()
+	
+	v_type_rdv = dw.GetItemString(dw.getrow(), "type")
+	
+	SELECt isnull(modif_duree, 'O'), isnull(modif_fauteuil, 'O') , fauteuil
+	INTO :v_modif_duree, :v_modif_fauteuil , :v_fauteuil
+	FROM "type_rdv" WHERE code = :v_type_rdv ;
+	
+	
+	if v_modif_fauteuil = "N" then
+		// Modif interdite ... 
+		dw.object.Fauteuil.TabSequence = 0	
+		
+		if dw.getItemNumber(1, "fauteuil") <> v_fauteuil then
+			// On a un fauteuil <> de celui qu'il faut => écrit en rouge et gras
+			dw.object.Fauteuil.Font.Weight = 700
+			dw.object.Fauteuil.color = couleur_rouge
+			dw.SetItem(1, "fauteuil", v_fauteuil)
+		else
+			// Normal, écriture noire
+			dw.object.Fauteuil.Font.Weight = 400
+			dw.object.Fauteuil.color = couleur_noire
+		end if
+		// fond gris
+		dw.object.Fauteuil.Background.color = couleur_jour_interdit
+		
+		
+	else
+		dw.object.Fauteuil.TabSequence = 50
+		dw.object.Fauteuil.Background.color = couleur_blanche
+	end if
+	
+	
+	//
+	if v_modif_duree = "N" then
+		dw.object.Duree.TabSequence = 0
+		dw.object.Duree.Background.color = couleur_jour_interdit
+	else
+		dw.object.Duree.TabSequence = 40
+		dw.object.Duree.Background.color = couleur_blanche
+	end if
+			
+end if
+		
+end subroutine
+

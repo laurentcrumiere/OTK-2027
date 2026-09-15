@@ -1,0 +1,30 @@
+﻿$PBExportHeader$wsh_ouvrir_pdf.srf
+global type wsh_ouvrir_pdf from function_object
+end type
+
+forward prototypes
+global subroutine wsh_ouvrir_pdf (string chemin_complet)
+end prototypes
+
+global subroutine wsh_ouvrir_pdf (string chemin_complet);OLEObject 	shell, fso, fichier
+
+
+shell = CREATE OLEObject
+shell.connecttoNEWobject("WScript.Shell")
+
+fso = CREATE OLEObject
+fso.connecttoNEWobject("Scripting.FileSystemObject")
+
+fichier = CREATE OLEObject
+
+if fileexists(chemin_complet) then
+	fichier = fso.getfile(chemin_complet)
+	shell.run(fichier.ShortPath, 1,false)
+else
+	Messagebox("ERREUR OUVERTURE PDF",'Attention, le fichier "'+ chemin_complet +'" est introuvable.')
+end if
+
+fso.disconnectobject()
+shell.disconnectobject()
+end subroutine
+

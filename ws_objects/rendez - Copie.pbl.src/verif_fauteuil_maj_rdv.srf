@@ -1,0 +1,52 @@
+﻿$PBExportHeader$verif_fauteuil_maj_rdv.srf
+global type verif_fauteuil_maj_rdv from function_object
+end type
+
+forward prototypes
+global function boolean verif_fauteuil_maj_rdv (datawindow dw)
+end prototypes
+
+global function boolean verif_fauteuil_maj_rdv (datawindow dw);
+// Selon le type de rendez-vous, on produit si besoin une alerte si changement de fauteuil
+// renvoie 1 ou 0 si le user confirme ou pas
+
+
+string ret 
+string v_type_rdv 
+string v_alerte_modif_fauteuil
+integer v_fauteuil_saisi, v_fauteuil_table
+
+if dw.rowcount() > 0 then
+	
+	dw.accepttext()
+	
+	v_type_rdv = dw.GetItemString(dw.getrow(), "type")
+	
+	SELECt fauteuil, isnull(alerte_modif_fauteuil , 'N')
+	INTO :v_fauteuil_table, :v_alerte_modif_fauteuil 
+	FROM "type_rdv" WHERE code = :v_type_rdv ;
+	
+	
+	if v_alerte_modif_fauteuil = "O" then
+		
+		v_fauteuil_saisi = dw.GetItemNumber(dw.getrow(), "Fauteuil" )
+		
+		if v_fauteuil_saisi <> v_fauteuil_table then
+			If MessageBox("ATTENTION","Vous avez saisi ce rendez-vous sur le fauteuil N°"+string(v_fauteuil_saisi)+", or, cet type de rendez-vous est configuré pour être sur le fauteuil N°" + string(v_fauteuil_table) + ".~n~nConfirmez-vous ?", Question!, YesNo!, 2) = 1 then
+				return true
+			else
+				return false
+			end if
+		else
+			return true
+		end if
+	else 
+		return true
+	end if
+			
+end if
+
+return true
+		
+end function
+

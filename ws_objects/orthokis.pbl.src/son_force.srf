@@ -1,0 +1,16 @@
+﻿$PBExportHeader$son_force.srf
+global type son_force from function_object
+end type
+
+forward prototypes
+global subroutine son_force (integer numero)
+end prototypes
+
+global subroutine son_force (integer numero);string ls_string  
+ls_string=space(500)  
+
+// Emet un son tout le temps
+//sndPlaySoundA (tson[numero], 3) 
+mcisendstringW("Play "+ tson[numero] ,ls_string,len(ls_string),0)
+end subroutine
+

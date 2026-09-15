@@ -1,0 +1,43 @@
+﻿$PBExportHeader$compte_email_a_utiliser.srf
+global type compte_email_a_utiliser from function_object
+end type
+
+forward prototypes
+global function integer compte_email_a_utiliser (string v_utilisateur, double v_patient)
+end prototypes
+
+global function integer compte_email_a_utiliser (string v_utilisateur, double v_patient);// Permet de savoir quel compte email utiliser pour l'envoi d'un email ...
+// Celui de l'utilisateur  ou  Celui du praticien du patient ?
+
+// renvoie -1 si pas de compte actif ... pourra être tester si besoin !!
+
+
+integer  v_cpt_a_utiliser, id_cpt
+string v_cpt_user
+
+select isnull(utiliser_compte_mail_perso, 'N'), cpt_mail into :v_cpt_user, :id_cpt from utilisateurs where code = :v_utilisateur ;
+
+if v_cpt_user = 'N' then
+	// compte du praticien 
+	
+	// recherche de l'ID du cpt mail par def du prati du patient
+	SELECT cpt_mail INTO :id_cpt FROM prati, patient
+	WHERE patient.code_praticien = prati.code and patient.code = :v_patient ;
+else
+	// compte de l'utilisateur 
+	// le resultat est déjà dans le select
+end if
+
+// pas de compte mail par defaut sur ce prati ou ce user
+// --> on choisi le premier actif de la liste des cpt order by ordre_tri, nom
+if isnull(id_cpt) then
+	select top 1 id into :id_cpt from email_comptes where actif = 1 order by ordre_tri, nom ;
+end if
+
+if isnull(id_cpt) then
+	return -1
+else
+	return id_cpt
+end if
+end function
+

@@ -1,0 +1,50 @@
+﻿$PBExportHeader$of_enumeratecomputes.srf
+global type of_enumeratecomputes from function_object
+end type
+
+forward prototypes
+global function integer of_enumeratecomputes (ref datawindow adw, ref string ls_computes[])
+end prototypes
+
+global function integer of_enumeratecomputes (ref datawindow adw, ref string ls_computes[]);//========================
+// of_enumerateComputes (reference datawindow adw,  reference string computes[])
+//
+// Renvoit le nombre de Compute Columun dans la datawindow passée en paramètre
+// Renvoit aussi le tableau ls_compute contenant la liste des champs compute
+
+//=======================
+string ls
+integer li_pos, li_pos1, li_pos2, li_count
+
+// obtain datawindow syntax
+ls = adw.object.datawindow.syntax
+// set start position for search
+li_pos = 1
+// initialize compute field counter
+li_count=0
+
+DO WHILE li_pos > 0
+	// see if a compute column is there
+	li_pos = Pos(ls, "compute(", li_pos)
+	
+	IF li_pos > 0 THEN
+		// locate name of compute
+		li_pos1 = Pos(ls, "name=", li_pos +1)
+		IF li_pos1 > 1 THEN
+			
+			// find end of name
+			li_pos2 = Pos(ls, " ", li_pos1)
+			li_count = li_count + 1
+			ls_computes[li_count] = Mid(ls, li_pos1+5, (li_pos2 - li_pos1 -5))
+			
+			// resume search from here
+			li_pos = li_pos2
+		END IF
+	END IF
+LOOP
+
+// return list of computes as_computes = ls_computes
+// return number of computes
+return li_count
+end function
+

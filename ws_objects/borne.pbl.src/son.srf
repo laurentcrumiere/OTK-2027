@@ -1,0 +1,35 @@
+﻿$PBExportHeader$son.srf
+global type son from function_object
+end type
+
+forward prototypes
+global subroutine son (integer numero_son)
+end prototypes
+
+global subroutine son (integer numero_son);//Joue un fichier son mémorisé dans le borne.ini
+
+// 1 : arrivée d'un patient à l'heure
+// 2 : patient non trouvé
+
+// 3 : arrivée d'un patient en retard
+// 4 : arrivée d'un patient en avance
+// 5 : alerte anniversaire
+// 6 : alerte règlement en retard
+
+
+string ls_string  , ls_fichier_son
+ls_string=space(500)  
+ 
+if  ProfileString (dir_ini+"orthokis.ini","Borne","activer_sons","O") = "O" then 
+	 ls_fichier_son =  profilestring(dir_ini+"orthokis.ini","Borne","son" + string(numero_son),"")
+	 
+	 if trim(ls_fichier_son) <> "" then
+		if FileExists(ls_fichier_son) then
+			// Function API Windows
+			//mcisendstringW("Play "+ ls_fichier_son ,ls_string,len(ls_string),0)
+			jouer_son(ls_fichier_son)
+		end if
+	end if
+ end if
+end subroutine
+

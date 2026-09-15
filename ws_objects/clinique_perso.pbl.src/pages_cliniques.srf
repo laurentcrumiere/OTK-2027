@@ -1,0 +1,30 @@
+﻿$PBExportHeader$pages_cliniques.srf
+global type pages_cliniques from function_object
+end type
+
+forward prototypes
+global subroutine pages_cliniques ()
+end prototypes
+
+global subroutine pages_cliniques ();
+// Fonction qui renvoie la fenêtre qui doit être ouvert
+// en fonction du N° de série ...
+
+window fenetre_a_ouvrir
+string type_de_fenetre
+
+//h.chp()	//vérif la présence de la clef HASP
+
+
+if ui_v2020 then
+	m_orthokis_2020.ouvrir_mdi(10)
+else
+	type_de_fenetre = pages_cliniques_fenetre()
+	OpenSheet(fenetre_a_ouvrir,type_de_fenetre, w_mdi,0,original!)
+end if
+
+return
+
+
+end subroutine
+

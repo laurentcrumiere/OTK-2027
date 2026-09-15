@@ -1,0 +1,30 @@
+﻿$PBExportHeader$fxg_string_to_url.srf
+global type fxg_string_to_url from function_object
+end type
+
+forward prototypes
+global function string fxg_string_to_url (string url_string)
+end prototypes
+
+global function string fxg_string_to_url (string url_string);// Converti une chaine en chaine compatible url
+
+//OleObject wsh
+//Integer  li_rc
+//string ls_temp
+//
+//wsh = CREATE OleObject
+//li_rc = wsh.ConnectToNewObject( "MSScriptControl.ScriptControl" )
+//wsh.language = "javascript"
+//
+//url_string = wsh.Eval("escape('"+ url_string + "')")
+//
+
+
+// pour convertir la licence
+CoderObject lnv_CoderObject
+lnv_CoderObject = Create CoderObject
+url_string = lnv_CoderObject.UrlEncode(blob(url_string, EncodingUTF8!))
+
+return url_string
+end function
+

@@ -1,0 +1,113 @@
+﻿$PBExportHeader$of_setcolumnorder.srf
+global type of_setcolumnorder from function_object
+end type
+
+forward prototypes
+global function integer of_setcolumnorder (datawindow adw, string as_order)
+end prototypes
+
+global function integer of_setcolumnorder (datawindow adw, string as_order);//=======================
+// Fonction qui met dans l'ordre les colomme d'une grid datawiondow adw
+// La string as_order a été générée par la fonction of_getcolumunorder 
+
+
+integer li_loop, li_max, li_work, li_pos, li_x
+integer li_tab, li_pos1, li_width, li_computes, li_cpt
+integer li_return=-1
+string ls_column, ls_work, ls_visible, ls, ls_computes[]
+
+//trace("  ------------ Set ColumOrder ---------------")
+
+IF IsNull(as_order) OR as_order = "" THEN return -1
+
+// inhibit redraw while working
+adw.setRedraw(false)
+
+//-------------------------
+// First make all columns invisible...
+//------------------------
+// determine number of columns
+li_max = Integer(adw.Object.DataWindow.Column.Count)
+FOR li_loop = 1 TO li_max STEP 1
+// make it invisible
+adw.Modify("#" + String(li_loop) + ".Visible='0'")
+NEXT
+
+//--------------------------
+// Next make all computed fields invisible...
+//--------------------------
+// obtain list of computed fields
+li_computes = of_EnumerateComputes(adw, ls_computes)
+FOR li_loop = 1 TO li_computes STEP 1
+	// make it invisible
+	adw.Modify(ls_computes[li_loop] + ".Visible='0'")
+NEXT
+
+//---------------------------
+// Now make all the columns visible in the proper order
+// input string: field=width,field=width...
+//---------------------------
+// put terminator for last field
+ls_work = as_order + ','
+// extract first token
+li_pos = Pos(ls_work, ',', 1)
+// initialize
+li_work = 1
+// initialize X position
+li_x = 10
+// initialize tab position
+li_tab = 0
+li_cpt = 0
+DO WHILE li_pos > 0
+	// extract first token from order string
+	ls_column = Mid(ls_work, li_work,(li_pos - li_work))
+	// find delimiter
+	li_pos1 = Pos(ls_column, '=', 1)
+	// improperly formatted string
+	IF li_pos1 = 0 THEN goto getout
+	// extract width from string
+	li_width = Integer(Mid(ls_column, li_pos1 +1))
+	// extract column name
+	ls_column = Mid(ls_column, 1, li_pos1 -1)
+	// make it visible
+	adw.Modify(ls_column + ".Visible='1'")
+	li_cpt ++
+	
+	//trace(string (li_cpt) + " - " + ls_column + ".Visible='1'")
+	
+	// set the X position (starts at 10)
+	adw.Modify(ls_column + ".X=" + string(li_x))
+	
+	//trace(ls_column + ".X=" + string(li_x))
+	
+	// keep track of running X position
+	li_x += li_width
+	// set the column width
+	adw.Modify(ls_column + ".Width=" + String(li_width))
+	
+	//trace(ls_column + ".Width=" + String(li_width))
+	
+	//----------------------------
+	// set the tab order corresponding with visible order
+	//----------------------------
+	IF Integer(adw.Describe(ls_column + ".TabSequence")) > 0 THEN
+		// start with 10 and bump by 10
+		li_tab += 10
+		adw.Modify(ls_column + ".TabSequence='" + string(li_tab) + "'")
+	END IF
+	// increment positing in input string 
+	li_work = li_pos +1
+	// locate next token
+	li_pos = Pos(ls_work, ',', li_work)
+LOOP
+// indicate normal return
+li_return = 0
+
+getout:
+// enable the datawindow
+adw.setRedraw(true)
+// return with 0 or -1 if failure
+
+return li_return
+end function
+

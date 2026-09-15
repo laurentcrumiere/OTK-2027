@@ -1,0 +1,1767 @@
+﻿$PBExportHeader$fxg_planification_taches.srf
+global type fxg_planification_taches from function_object
+end type
+
+forward prototypes
+global subroutine fxg_planification_taches ()
+end prototypes
+
+global subroutine fxg_planification_taches ();
+// PLANIFICATION DES TACHES 
+//--------------------------------------
+
+// verification si on doit la faire ou pas 
+if not PLANIFICATION_EN_COURS then
+	
+	date date_courante, date_prochaine
+	time heure_courante, heure_prochaine 
+	integer nb_exemplaires, cpt
+	boolean v_suite
+	
+	date_courante = today()
+	heure_courante = now()
+	
+	date_prochaine = date( profileString(dir_ini + inifile_orthokis , "PLANIFICATION","prochaine","01/01/1900"))
+	heure_prochaine = time( profileString(dir_ini + inifile_orthokis , "PLANIFICATION","heure","00:00"))
+
+	if  date_prochaine < date_courante or (date_courante = date_prochaine and  heure_prochaine <= heure_courante) then 
+		
+		
+		// Si on a dépassée le jour prévu, on pose la question !!! 
+		
+		if  date_prochaine < date_courante then
+			if messagebox("ATTENTION", "La planification aurait dû se lancer le " + string(date_prochaine, "dd/mm/yyyy") + " à " + string(heure_prochaine, "hh:mm") +".~nOr nous sommes le " + string(date_courante) +".~n~nConfirmez-vous l'exécution des tâches planifiées ?", Question!, YesNo!, 2) = 1 then
+				v_suite = true
+			else
+				v_suite = false
+			end if
+		else
+			v_suite = true
+		end if
+		
+		
+		if v_suite then 
+			// On passe au jour suivant pour la next fois de suite pour éviter qu'on relance
+			
+			SetprofileString(dir_ini + inifile_orthokis , "PLANIFICATION","prochaine",string( relativedate(date_courante,1), "dd/mm/yyyy"))
+			
+	
+			
+			// On lance la planification !!!!!!!!!!!!!!!!!!!!!
+			PLANIFICATION_EN_COURS = true
+			
+			// Par sécurité on ferme toutes les fenêtres
+			m_orthokis_2020.fermer_toutes_fenetres()
+			
+			datastore dw_config				// Liste des actions à mener
+			dw_config = CREATE DataStore
+			dw_config.DataObject = "dw_planification_config"
+			dw_config.SetTransObject(SQLCA)
+			dw_config.retrieve()
+			
+			
+			datastore dw_prati		// servira à boucler sur tous les pracitiens
+			dw_prati = CREATE DataStore
+			dw_prati.DataObject = "dw_prati_liste"
+			dw_prati.SetTransObject(SQLCA)
+			dw_prati.SetFilter("actif = 1")
+			dw_prati.filter()
+			dw_prati.retrieve()
+	
+			string v_code, v_periodicite, v_code_praticien, v_libelle
+			integer v_jour_semaine, v_jour_mois, lig, tot, ligpra, totpra
+			boolean on_doit_faire
+			integer v_j1, v_j2
+	
+	
+			tot = dw_config.rowcount()
+
+			trace ( "*** DEBUT DE L'EXAMEN DE LA PLANIFICATION ***")
+			
+			fxg_ajout_journal_planification('******', "*** DEBUT DE L'EXAMEN DE LA PLANIFICATION ***")
+			
+			// ce qu'il y a a faire ...
+			for lig = 1 to tot
+			
+				v_code = dw_config.getItemString(lig, "code")
+				v_libelle = dw_config.getItemString(lig, "libelle")
+				v_periodicite = dw_config.getItemString(lig, "periodicite")
+				v_jour_semaine = dw_config.getItemnumber(lig, "jour_semaine")
+				v_jour_mois   = dw_config.getItemnumber(lig, "jour_mois")
+				
+				zeroi(v_jour_semaine)
+				zeroi(v_jour_mois)
+				
+				Trace ( "- Code : " + v_code +  " - Libellé : " + v_libelle  + " - Périodicité : " + v_periodicite + " - Jour semaine : " + string(v_jour_semaine) +  " - Jour mois : " + string(v_jour_mois) )
+	
+				// test pour savoir si on doit ou non faire le truc 
+				on_doit_faire = false
+				
+				choose case v_periodicite
+					case 'N'
+						// Jamais
+						on_doit_faire = false
+					case 'J'
+						// toujours
+						on_doit_faire = true
+					case 'S'
+						if daynumber(today()) = v_jour_semaine then
+							on_doit_faire = true
+						end if
+					case 'M'
+						if day(today()) = v_jour_mois then
+							on_doit_faire = true
+						end if
+				end choose
+				
+				Trace ( "- Code : " + v_code + " - Périodicité : " + v_periodicite + " - Jour semaine : " + string(v_jour_semaine) +  " - Jour mois : " + string(v_jour_mois)  + " - On doit faire ? " + string(on_doit_faire) )
+	
+				
+				if on_doit_faire then 
+			
+					choose case v_code 
+									
+						case 'FTJ'					// Feuille de Travail Journalière
+							
+							open(w_rdv_feuille_travail)
+
+							
+							// lecture des paramètres
+							w_rdv_feuille_travail.em_faut_min.text = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTJ_fauteuil1","0")
+							w_rdv_feuille_travail.em_faut_max.text = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTJ_fauteuil2","99")
+	
+							nb_exemplaires = integer(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTJ_exemplaires","1"))
+							
+							if hour(now()) >= 12 then
+								// si lancé l'AM ou le soir, c'est pour le lendemain, 
+								w_rdv_feuille_travail.em_date.SetDate( relativedate(today() , 1 ))
+							else
+								w_rdv_feuille_travail.em_date.SetDate( today() )
+							end if
+							
+							
+							if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTJ_praticiens","T") =  "C"  then 
+								// On doit boucler sur tous les praticiens !!!
+								
+								totpra = dw_prati.rowcount()
+								w_rdv_feuille_travail.rb_un.checked = true
+								w_rdv_feuille_travail.rb_un.triggerevent(clicked!)
+	
+								for ligpra = 1 to totpra
+								
+									v_code_praticien = dw_prati.GetItemString(ligpra, "code")
+									w_rdv_feuille_travail.dw_prati.Setitem(1,"code", v_code_praticien)
+	
+									w_rdv_feuille_travail.cb_ecran.triggerevent(clicked!)
+									
+									if w_rdv_feuille_travail.dw_liste.rowcount() > 0 then
+										for cpt = 1 to nb_exemplaires 
+											w_rdv_feuille_travail.cb_imprimer.triggerevent(clicked!)
+										next
+										fxg_ajout_journal_planification(v_code, "Liste imprimée pour tous les praticiens")
+									else
+										fxg_ajout_journal_planification(v_code, "Aucune liste à imprimer pour le code praticien : " + v_code_praticien)
+									end if
+									
+								next
+	
+							else
+								
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTJ_praticiens","T") = "T" then
+									w_rdv_feuille_travail.rb_tous.checked = true
+									w_rdv_feuille_travail.rb_tous.triggerevent(clicked!)
+								else
+									w_rdv_feuille_travail.rb_un.checked = true
+									w_rdv_feuille_travail.rb_un.triggerevent(clicked!)
+									v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTJ_code_praticien","")
+									w_rdv_feuille_travail.dw_prati.Setitem(1,"code",v_code_praticien )
+								end if
+								
+								w_rdv_feuille_travail.cb_ecran.triggerevent(clicked!)
+								
+								if w_rdv_feuille_travail.dw_liste.rowcount() > 0 then
+									for cpt = 1 to nb_exemplaires 
+										w_rdv_feuille_travail.cb_imprimer.triggerevent(clicked!)
+									next
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTJ_praticiens","T") = "T" then
+										fxg_ajout_journal_planification(v_code, "Liste imprimée pour tous les praticiens")
+									else
+										fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+									end if
+								else
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTJ_praticiens","T") = "T" then
+										fxg_ajout_journal_planification(v_code, "Aucune liste à imprimer pour tous les praticiens")
+									else
+										fxg_ajout_journal_planification(v_code, "Aucune liste à imprimer pour le code praticien : " + v_code_praticien)
+									end if
+								end if
+							end if
+							
+							w_rdv_feuille_travail.cb_fermer.triggerevent(clicked!)
+							
+						//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+						
+						case 'FTF'					// Feuille de Travail Financière
+							
+							open(w_rdv_feuille_travail_financiere)
+
+							// lecture des paramètres
+							w_rdv_feuille_travail_financiere.em_faut_min.text = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTF_fauteuil1","0")
+							w_rdv_feuille_travail_financiere.em_faut_max.text = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTF_fauteuil2","99")
+							
+							nb_exemplaires = integer(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTF_exemplaires","1"))
+	
+							if hour(now()) >= 12 then
+								// si lancé l'AM ou le soir, c'est pour le lendemain, 
+								w_rdv_feuille_travail_financiere.em_date.SetDate( relativedate(today() , 1 ))
+							else
+								w_rdv_feuille_travail_financiere.em_date.SetDate( today() )
+							end if
+							
+							
+							if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTF_praticiens","T") =  "C"  then 
+								// On doit boucler sur tous les praticiens !!!
+								
+								totpra = dw_prati.rowcount()
+								
+								w_rdv_feuille_travail_financiere.rb_un.checked = true
+								w_rdv_feuille_travail_financiere.rb_un.triggerevent(clicked!)
+	
+								for ligpra = 1 to totpra
+								
+									v_code_praticien = dw_prati.GetItemString(ligpra, "code")
+									w_rdv_feuille_travail_financiere.dw_prati.Setitem(1,"code", v_code_praticien)
+	
+									w_rdv_feuille_travail_financiere.cb_ecran.triggerevent(clicked!)
+									
+									if w_rdv_feuille_travail_financiere.dw_liste.rowcount() > 0 then
+										for cpt = 1 to nb_exemplaires 
+											w_rdv_feuille_travail_financiere.cb_imprimer.triggerevent(clicked!)
+										next
+										fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+									else
+										fxg_ajout_journal_planification(v_code, "Aucune liste à imprimer pour le code praticien : " + v_code_praticien)
+									end if
+									
+								next
+	
+							else
+								
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTF_praticiens","T") = "T" then
+									w_rdv_feuille_travail_financiere.rb_tous.checked = true
+									w_rdv_feuille_travail_financiere.rb_tous.triggerevent(clicked!)
+								else
+									w_rdv_feuille_travail_financiere.rb_un.checked = true
+									w_rdv_feuille_travail_financiere.rb_un.triggerevent(clicked!)
+									v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTF_code_praticien","")
+									w_rdv_feuille_travail_financiere.dw_prati.Setitem(1,"code", v_code_praticien)
+								end if
+								
+								w_rdv_feuille_travail_financiere.cb_ecran.triggerevent(clicked!)
+								
+								if w_rdv_feuille_travail_financiere.dw_liste.rowcount() > 0 then
+									for cpt = 1 to nb_exemplaires 
+										w_rdv_feuille_travail_financiere.cb_imprimer.triggerevent(clicked!)
+									next
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTF_praticiens","T") = "T" then
+										fxg_ajout_journal_planification(v_code, "Liste imprimée pour tous les praticiens")
+									else
+										fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+									end if
+								else
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTF_praticiens","T") = "T" then
+										fxg_ajout_journal_planification(v_code, "Aucune liste à imprimer pour tous les praticiens")
+									else
+										fxg_ajout_journal_planification(v_code, "Aucune liste à imprimer pour le code praticien : " + v_code_praticien)
+									end if
+								end if
+							end if
+							
+							w_rdv_feuille_travail_financiere.cb_fermer.triggerevent(clicked!)
+							
+						//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+						
+						case 'FTP'					// Feuille de Travail Personnalisée
+							
+							open(w_rdv_feuille_perso)
+
+							// lecture des paramètres
+							w_rdv_feuille_perso.em_faut_min.text = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTP_fauteuil1","0")
+							w_rdv_feuille_perso.em_faut_max.text = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTP_fauteuil2","99")
+	
+							nb_exemplaires = integer(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTP_exemplaires","1"))
+	
+							if hour(now()) >= 12 then
+								// si lancé l'AM ou le soir, c'est pour le lendemain, 
+								w_rdv_feuille_perso.em_date.SetDate( relativedate(today() , 1 ))
+							else
+								w_rdv_feuille_perso.em_date.SetDate( today() )
+							end if
+							
+							
+							if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTP_praticiens","T") =  "C"  then 
+								// On doit boucler sur tous les praticiens !!!
+								
+								totpra = dw_prati.rowcount()
+								
+								w_rdv_feuille_perso.rb_un.checked = true
+								w_rdv_feuille_perso.rb_un.triggerevent(clicked!)
+	
+								for ligpra = 1 to totpra
+								
+									v_code_praticien = dw_prati.GetItemString(ligpra, "code")
+									w_rdv_feuille_perso.dw_prati.Setitem(1,"code", v_code_praticien)
+	
+									w_rdv_feuille_perso.cb_ecran.triggerevent(clicked!)
+									
+									if w_rdv_feuille_perso.dw_liste.rowcount() > 0 then
+										for cpt = 1 to nb_exemplaires 
+											w_rdv_feuille_perso.cb_imprimer.triggerevent(clicked!)
+										next
+										fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+									else
+										fxg_ajout_journal_planification(v_code, "Aucune liste à imprimer pour le code praticien : " + v_code_praticien)
+									end if
+									
+								next
+	
+							else
+								
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTP_praticiens","T") = "T" then
+									w_rdv_feuille_perso.rb_tous.checked = true
+									w_rdv_feuille_perso.rb_tous.triggerevent(clicked!)
+								else
+									w_rdv_feuille_perso.rb_un.checked = true
+									w_rdv_feuille_perso.rb_un.triggerevent(clicked!)
+									v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTP_code_praticien","")
+									w_rdv_feuille_perso.dw_prati.Setitem(1,"code", v_code_praticien)
+								end if
+								
+								w_rdv_feuille_perso.cb_ecran.triggerevent(clicked!)
+								
+								if w_rdv_feuille_perso.dw_liste.rowcount() > 0 then
+									for cpt = 1 to nb_exemplaires 
+										w_rdv_feuille_perso.cb_imprimer.triggerevent(clicked!)
+									next
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTP_praticiens","T") = "T" then
+										fxg_ajout_journal_planification(v_code, "Liste imprimée pour tous les praticiens")
+									else
+										fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+									end if
+								else
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTP_praticiens","T") = "T" then
+										fxg_ajout_journal_planification(v_code, "Aucune liste à imprimer pour tous les praticiens")
+									else
+										fxg_ajout_journal_planification(v_code, "Aucune liste à imprimer pour le code praticien : " + v_code_praticien)
+									end if
+								end if
+							end if
+							
+							w_rdv_feuille_perso.cb_fermer.triggerevent(clicked!)
+							
+						//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+						case 'PLA'					// Planning d'une journée
+							
+							open(w_rdv_planning)
+							
+							// lecture des paramètres
+							w_rdv_planning.em_faut_min.text = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","PLA_fauteuil1","0")
+							w_rdv_planning.em_faut_max.text = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","PLA_fauteuil2","99")
+	
+							nb_exemplaires = integer(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","FTA_exemplaires","1"))
+	
+							if hour(now()) >= 12 then
+								// si lancé l'AM ou le soir, c'est pour le lendemain, 
+								w_rdv_planning.em_date.SetDate( relativedate(today() , 1 ))
+							else
+								w_rdv_planning.em_date.SetDate( today() )
+							end if
+							
+							
+							if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","PLA_praticiens","T") =  "C"  then 
+								// On doit boucler sur tous les praticiens !!!
+								
+								totpra = dw_prati.rowcount()
+								
+								w_rdv_planning.rb_un.checked = true
+								w_rdv_planning.rb_un.triggerevent(clicked!)
+	
+								for ligpra = 1 to totpra
+								
+									v_code_praticien = dw_prati.GetItemString(ligpra, "code")
+									w_rdv_planning.dw_prati.Setitem(1,"code", v_code_praticien)
+	
+									w_rdv_planning.cb_ecran.triggerevent(clicked!)
+									
+									if w_rdv_planning.dw_liste.rowcount() > 0 then
+										for cpt = 1 to nb_exemplaires 
+											w_rdv_planning.cb_imprimer.triggerevent(clicked!)
+										next
+										fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+									else
+										fxg_ajout_journal_planification(v_code, "Aucune liste à imprimer pour le code praticien : " + v_code_praticien)
+									end if
+									
+								next
+	
+							else
+								
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","PLA_praticiens","T") = "T" then
+									w_rdv_planning.rb_tous.checked = true
+									w_rdv_planning.rb_tous.triggerevent(clicked!)
+								else
+									w_rdv_planning.rb_un.checked = true
+									w_rdv_planning.rb_un.triggerevent(clicked!)
+									v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","PLA_code_praticien","")
+									w_rdv_planning.dw_prati.Setitem(1,"code", ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","PLA_code_praticien",""))
+								end if
+								
+								w_rdv_planning.cb_ecran.triggerevent(clicked!)
+								
+								if w_rdv_planning.dw_liste.rowcount() > 0 then
+									for cpt = 1 to nb_exemplaires 
+										w_rdv_planning.cb_imprimer.triggerevent(clicked!)
+									next
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","PLA_praticiens","T") = "T" then
+										fxg_ajout_journal_planification(v_code, "Liste imprimée pour tous les praticiens")
+									else
+										fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+									end if
+								else
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","PLA_praticiens","T") = "T" then
+										fxg_ajout_journal_planification(v_code, "Aucune liste à imprimer pour tous les praticiens")
+									else
+										fxg_ajout_journal_planification(v_code, "Aucune liste à imprimer pour le code praticien : " + v_code_praticien)
+									end if
+								end if
+							end if
+							
+							w_rdv_planning.cb_fermer.triggerevent(clicked!)
+	
+	
+	
+						//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+						case 'DEP'					// Renouvellement des DEP
+							
+							open(w_liste_patients_renouve_nvlle)
+	
+							// pour les dates ...
+							if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_periode","M") = "M" then
+								// Mois prochain ...
+								w_liste_patients_renouve_nvlle.em_date_min.SetDate(debut_mois_suivant(today()))
+								w_liste_patients_renouve_nvlle.em_date_max.SetDate(fin_mois_suivant(today()))
+							else
+								// Semaine prochaine
+								integer numjour 
+								date lundi_prochain
+								numjour = daynumber(today())
+								lundi_prochain = relativedate(today() , 7 - numjour + 1)
+								w_liste_patients_renouve_nvlle.em_date_min.SetDate( lundi_prochain )
+								w_liste_patients_renouve_nvlle.em_date_max.SetDate(relativedate( lundi_prochain, 6))
+							end if
+							
+	
+							// Options
+	
+							// le reste
+							if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_commentaire","N") = "O" then
+								w_liste_patients_renouve_nvlle.cbx_commentaire.checked = true
+							else
+								w_liste_patients_renouve_nvlle.cbx_commentaire.checked = false
+							end if
+							if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_prochain_rdv","N") = "O" then
+								w_liste_patients_renouve_nvlle.cbx_prochain_rdv.checked = true
+							else
+								w_liste_patients_renouve_nvlle.cbx_prochain_rdv.checked = false
+							end if
+							if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_deja_imprime","O") = "O" then
+								w_liste_patients_renouve_nvlle.cbx_deja_imprime.checked = true
+							else
+								w_liste_patients_renouve_nvlle.cbx_deja_imprime.checked = false
+							end if
+							
+							if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_tri","P") = "P" then
+								w_liste_patients_renouve_nvlle.rb_patient.checked = true
+								w_liste_patients_renouve_nvlle.rb_caisse.checked = false
+							else
+								w_liste_patients_renouve_nvlle.rb_patient.checked = false
+								w_liste_patients_renouve_nvlle.rb_caisse.checked = true
+							end if
+							
+	
+							if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","DEP_praticiens","T") =  "C"  then 
+									// On doit boucler sur tous les praticiens !!!
+									
+									totpra = dw_prati.rowcount()
+									
+									w_liste_patients_renouve_nvlle.rb_un.checked = true
+									w_liste_patients_renouve_nvlle.rb_un.triggerevent(clicked!)
+	
+									for ligpra = 1 to totpra
+									
+										v_code_praticien = dw_prati.GetItemString(ligpra, "code")
+										w_liste_patients_renouve_nvlle.dw_prati.Setitem(1,"code", v_code_praticien)
+										w_liste_patients_renouve_nvlle.prepa_faite = false
+										w_liste_patients_renouve_nvlle.cb_ecran.triggerevent(clicked!)
+										
+									
+										if w_liste_patients_renouve_nvlle.dw_liste.rowcount() > 0 then
+											// Selon les actions !!!!!!!!
+											
+											// Liste
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_imprimer_liste","N") = "O" then
+												w_liste_patients_renouve_nvlle.cb_imprimer.triggerevent(clicked!)
+												fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+											end if
+											
+											// Recto
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_imprimer_recto","N") = "O" then
+												w_liste_patients_renouve_nvlle.cb_recto.triggerevent(clicked!)
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_renouve_nvlle.dw_liste.rowcount()) + " DEP imprimées Recto pour le code praticien : " + v_code_praticien)
+											end if
+											
+											// Recto Verco
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_imprimer_rectoverso","N") = "O" then
+												w_liste_patients_renouve_nvlle.cb_recto_verso.triggerevent(clicked!)
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_renouve_nvlle.dw_liste.rowcount()) + " DEP Recto/Verso imprimées pour le code praticien : " + v_code_praticien)
+											end if
+											
+											// Lettres internes
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_imprimer_lettres","N") = "O" then
+												w_liste_patients_renouve_nvlle.cb_lettres.triggerevent(clicked!)
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_renouve_nvlle.dw_liste.rowcount()) + " Lettres internes imprimées pour le code praticien : " + v_code_praticien)
+											end if
+											
+											
+											// Lettres Word
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_imprimer_word","N") = "O" then
+												w_liste_patients_renouve_nvlle.cb_lien_word.triggerevent(clicked!)
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_renouve_nvlle.dw_liste.rowcount()) + " Lettres Word imprimées pour le code praticien : " + v_code_praticien)
+											end if
+										else
+											fxg_ajout_journal_planification(v_code, "Aucune DEP à réaliser pour le code praticien : " + v_code_praticien)
+										end if
+	
+									next
+									
+									
+		
+								else
+									
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","DEP_praticiens","T") = "T" then
+										w_liste_patients_renouve_nvlle.rb_tous.checked = true
+										w_liste_patients_renouve_nvlle.rb_tous.triggerevent(clicked!)
+									else
+										w_liste_patients_renouve_nvlle.rb_un.checked = true
+										w_liste_patients_renouve_nvlle.rb_un.triggerevent(clicked!)
+										v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","DEP_code_praticien","")
+										w_liste_patients_renouve_nvlle.dw_prati.Setitem(1,"code", v_code_praticien )
+									end if
+									
+									w_liste_patients_renouve_nvlle.cb_ecran.triggerevent(clicked!)
+									
+									if w_liste_patients_renouve_nvlle.dw_liste.rowcount() > 0 then
+										
+										// Selon les actions !!!!!!!!
+										
+										// Liste
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_imprimer_liste","N") = "O" then
+											w_liste_patients_renouve_nvlle.cb_imprimer.triggerevent(clicked!)
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","DEP_praticiens","T") = "T" then
+												fxg_ajout_journal_planification(v_code, "Liste imprimée pour tous les praticiens")
+											else
+												fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+											end if
+										end if
+										
+										// Recto
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_imprimer_recto","N") = "O" then
+											w_liste_patients_renouve_nvlle.cb_recto.triggerevent(clicked!)
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","DEP_praticiens","T") = "T" then
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_renouve_nvlle.dw_liste.rowcount())+ " DEP imprimées Recto pour tous les praticiens")
+											else
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_renouve_nvlle.dw_liste.rowcount()) + " DEP imprimées Recto pour le code praticien : " + v_code_praticien)
+											end if 
+										end if
+										
+										// Recto Verco
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_imprimer_rectoverso","N") = "O" then
+											w_liste_patients_renouve_nvlle.cb_recto_verso.triggerevent(clicked!)
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","DEP_praticiens","T") = "T" then
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_renouve_nvlle.dw_liste.rowcount())+ " DEP Recto/Verso imprimées pour tous les praticiens")
+											else
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_renouve_nvlle.dw_liste.rowcount()) + " DEP Recto/Verso imprimées pour le code praticien : " + v_code_praticien)
+											end if
+										end if
+										
+										// Lettres internes
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_imprimer_lettres","N") = "O" then
+											w_liste_patients_renouve_nvlle.cb_lettres.triggerevent(clicked!)
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","DEP_praticiens","T") = "T" then
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_renouve_nvlle.dw_liste.rowcount())+ " Lettres internes imprimées pour tous les praticiens")
+											else
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_renouve_nvlle.dw_liste.rowcount()) + " Lettres internes imprimées pour le code praticien : " + v_code_praticien)
+											end if
+										end if
+										
+										
+										// Lettres Word
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "DEP_imprimer_word","N") = "O" then
+											w_liste_patients_renouve_nvlle.cb_lien_word.triggerevent(clicked!)
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","DEP_praticiens","T") = "T" then
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_renouve_nvlle.dw_liste.rowcount())+ " Lettres Word imprimées pour tous les praticiens")
+											else
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_renouve_nvlle.dw_liste.rowcount()) + " Lettres Word imprimées pour le code praticien : " + v_code_praticien)
+											end if
+										end if
+									else
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","DEP_praticiens","T") = "T" then
+											fxg_ajout_journal_planification(v_code, "Aucune DEP à réaliser pour tous les praticiens")
+										else
+											fxg_ajout_journal_planification(v_code, "Aucune DEP à réaliser pour le code praticien : " + v_code_praticien)
+										end if
+									end if
+									
+									
+								end if
+	
+								close(w_liste_patients_renouve_nvlle)
+									
+									
+							//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+							case 'TPF' 			// Tiers payants devant de l'argent
+									
+								open(w_liste_patients_devant_argent_tp)
+	
+								// pour les dates ...
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "TPF_periode","J") = "J" then
+									// Jusqu'au jour 
+									w_liste_patients_devant_argent_tp.em_date_ref2.SetDate(today())
+								else
+									// Jusqu'au 1er jour du mois
+								
+									w_liste_patients_devant_argent_tp.em_date_ref2.SetDate(date (year(today()), month(today()), 1))
+								end if
+								
+								// Options
+	
+	
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "TPF_que_fs","O") = "O" then
+									w_liste_patients_devant_argent_tp.cbx_que_fs.checked = true
+								else
+									w_liste_patients_devant_argent_tp.cbx_que_fs.checked = false
+								end if
+									
+								
+								// Actions 
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","TPF_praticiens","T") =  "C"  then 
+									// On doit boucler sur tous les praticiens !!!
+									
+									totpra = dw_prati.rowcount()
+									
+									w_liste_patients_devant_argent_tp.rb_un.checked = true
+									w_liste_patients_devant_argent_tp.rb_un.triggerevent(clicked!)
+	
+									for ligpra = 1 to totpra
+									
+										v_code_praticien = dw_prati.GetItemString(ligpra, "code")
+										w_liste_patients_devant_argent_tp.dw_prati.Setitem(1,"code", v_code_praticien )
+										w_liste_patients_devant_argent_tp.prepa_faite = false
+										w_liste_patients_devant_argent_tp.cb_ecran.triggerevent(clicked!)
+										
+									
+										if w_liste_patients_devant_argent_tp.dw_liste.rowcount() > 0 then
+											// Selon les actions !!!!!!!!
+											
+											// Liste
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "TPF_imprimer_liste","N") = "O" then
+												w_liste_patients_devant_argent_tp.cb_imprimer.triggerevent(clicked!)
+												fxg_ajout_journal_planification (v_code,  "Liste imprimée pour le code praticien : " + v_code_praticien)
+											end if
+											
+										
+											// Lettres internes
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "TPF_imprimer_lettres","N") = "O" then
+												w_liste_patients_devant_argent_tp.cb_lettres.triggerevent(clicked!)
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_devant_argent_tp.dw_liste.rowcount()) + " Lettres internes imprimées pour le code praticien : " + v_code_praticien)
+											end if
+	
+											
+										else
+												fxg_ajout_journal_planification(v_code, "Aucune Relance de Règlement TP à réaliser pour le code praticien : " + v_code_praticien)
+										end if
+	
+									next
+									
+									
+		
+								else
+									
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","TPF_praticiens","T") = "T" then
+										w_liste_patients_devant_argent_tp.rb_tous.checked = true
+										w_liste_patients_devant_argent_tp.rb_tous.triggerevent(clicked!)
+									else
+										w_liste_patients_devant_argent_tp.rb_un.checked = true
+										w_liste_patients_devant_argent_tp.rb_un.triggerevent(clicked!)
+										v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","TPF_code_praticien","")
+										w_liste_patients_devant_argent_tp.dw_prati.Setitem(1,"code", v_code_praticien )
+									end if
+									
+									w_liste_patients_devant_argent_tp.cb_ecran.triggerevent(clicked!)
+									
+									if w_liste_patients_devant_argent_tp.dw_liste.rowcount() > 0 then
+										
+										// Selon les actions !!!!!!!!
+										
+										// Liste
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "TPF_imprimer_liste","N") = "O" then
+											w_liste_patients_devant_argent_tp.cb_imprimer.triggerevent(clicked!)
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","TPF_praticiens","T") = "T" then
+												fxg_ajout_journal_planification(v_code, "Liste imprimée pour tous les praticiens")
+											else
+												fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+											end if
+										end if
+										
+										// Lettres internes
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "TPF_imprimer_lettres","N") = "O" then
+											w_liste_patients_devant_argent_tp.cb_lettres.triggerevent(clicked!)
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","TPF_praticiens","T") = "T" then
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_renouve_nvlle.dw_liste.rowcount())+ " Lettres internes imprimées pour tous les praticiens")
+											else
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_renouve_nvlle.dw_liste.rowcount()) + " Lettres internes imprimées pour le code praticien : " + v_code_praticien)
+											end if
+										end if
+										
+										
+								else
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","TPF_praticiens","T") = "T" then
+											fxg_ajout_journal_planification(v_code, "Aucune Relance de Règlement TP à réaliser pour tous les praticiens")
+										else
+											fxg_ajout_journal_planification(v_code, "Aucune Relance de Règlement TP à réaliser pour le code praticien : " + v_code_praticien)
+										end if
+									end if
+									
+									
+								end if
+								
+								close(w_liste_patients_devant_argent_tp)
+								
+								
+							//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+							case 'REL' 			// Relance de règlements pour les patients !
+								
+								long nb_lignes_rel, nb_lettres_rel
+								
+								
+								if ui_v2020 then
+									str_param_string param_passe  
+									param_passe.param = "1"
+									openWithParm(w_liste_patients_relance_reglements, param_passe )
+								else
+									openWithParm(w_liste_patients_relance_reglements, 1 )
+								end if
+								
+								// pour les dates ...
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "REL_periode","J") = "J" then
+									// Jusqu'au jour 
+									w_liste_patients_relance_reglements.em_date_ref2.SetDate(today())
+								else
+									// Jusqu'au 1er jour du mois
+								
+									w_liste_patients_relance_reglements.em_date_ref2.SetDate(date (year(today()), month(today()), 1))
+								end if
+								
+								// Options
+	
+								w_liste_patients_relance_reglements.em_montant.text =ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "REL_montant","0.00")
+								
+								
+								// Actions 
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","REL_praticiens","T") =  "C"  then 
+									// On doit boucler sur tous les praticiens !!!
+									
+									totpra = dw_prati.rowcount()
+									
+									w_liste_patients_relance_reglements.rb_un.checked = true
+									w_liste_patients_relance_reglements.rb_un.triggerevent(clicked!)
+	
+									for ligpra = 1 to totpra
+									
+										v_code_praticien = dw_prati.GetItemString(ligpra, "code")
+										w_liste_patients_relance_reglements.dw_prati.Setitem(1,"code", v_code_praticien )
+										w_liste_patients_relance_reglements.prepa_faite = false
+										w_liste_patients_relance_reglements.cb_ecran.triggerevent(clicked!)
+										
+										// Pour gérer selon groupé ou pas
+										if w_liste_patients_relance_reglements.var_groupe = "O" then
+											nb_lignes_rel  = w_liste_patients_relance_reglements.dw_liste_groupe.rowcount() 
+											w_liste_patients_relance_reglements.dw_liste_groupe.setfilter("lettre_relance > 0")
+											w_liste_patients_relance_reglements.dw_liste_groupe.filter()
+											nb_lettres_rel =  w_liste_patients_relance_reglements.dw_liste_groupe.rowcount() 
+											w_liste_patients_relance_reglements.dw_liste_groupe.setfilter("")
+											w_liste_patients_relance_reglements.dw_liste_groupe.filter()
+										else
+											nb_lignes_rel  = w_liste_patients_relance_reglements.dw_liste.rowcount() 
+											w_liste_patients_relance_reglements.dw_liste.setfilter("lettre_relance > 0")
+											w_liste_patients_relance_reglements.dw_liste.filter()
+											nb_lettres_rel =  w_liste_patients_relance_reglements.dw_liste.rowcount() 
+											w_liste_patients_relance_reglements.dw_liste.setfilter("")
+											w_liste_patients_relance_reglements.dw_liste.filter()
+										end if
+										
+										if nb_lignes_rel > 0 then
+											// Selon les actions !!!!!!!!
+											
+											// Liste
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "REL_imprimer_liste","N") = "O" then
+												w_liste_patients_relance_reglements.cb_imprimer.triggerevent(clicked!)
+												fxg_ajout_journal_planification (v_code,  "Liste imprimée pour le code praticien : " + v_code_praticien)
+											end if
+											
+										
+											// Lettres internes
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "REL_imprimer_lettres","N") = "O" then
+												w_liste_patients_relance_reglements.cb_lettres.triggerevent(clicked!)
+												fxg_ajout_journal_planification(v_code, string(nb_lettres_rel) + " Lettres internes imprimées pour le code praticien : " + v_code_praticien)
+											end if
+	
+											
+											// Lettres wORD
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "REL_imprimer_lettres8_word","N") = "O" then
+												w_liste_patients_relance_reglements.cb_lien_word.triggerevent(clicked!)
+												fxg_ajout_journal_planification(v_code, string(nb_lettres_rel) + " Lettres Word imprimées pour le code praticien : " + v_code_praticien)
+											end if
+										
+	
+										else
+												fxg_ajout_journal_planification(v_code, "Aucune Relance de Règlement Patients à réaliser pour le code praticien : " + v_code_praticien)
+										end if
+	
+									next
+									
+									
+		
+								else
+									
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","REL_praticiens","T") = "T" then
+										w_liste_patients_relance_reglements.rb_tous.checked = true
+										w_liste_patients_relance_reglements.rb_tous.triggerevent(clicked!)
+									else
+										w_liste_patients_relance_reglements.rb_un.checked = true
+										w_liste_patients_relance_reglements.rb_un.triggerevent(clicked!)
+										v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","REL_code_praticien","")
+										w_liste_patients_relance_reglements.dw_prati.Setitem(1,"code", v_code_praticien )
+									end if
+									
+									w_liste_patients_relance_reglements.cb_ecran.triggerevent(clicked!)
+									
+									// Pour gérer selon groupé ou pas
+									if w_liste_patients_relance_reglements.var_groupe = "O" then
+										nb_lignes_rel  = w_liste_patients_relance_reglements.dw_liste_groupe.rowcount() 
+										w_liste_patients_relance_reglements.dw_liste_groupe.setfilter("lettre_relance > 0")
+										w_liste_patients_relance_reglements.dw_liste_groupe.filter()
+										nb_lettres_rel =  w_liste_patients_relance_reglements.dw_liste_groupe.rowcount() 
+										w_liste_patients_relance_reglements.dw_liste_groupe.setfilter("")
+										w_liste_patients_relance_reglements.dw_liste_groupe.filter()
+									else
+										nb_lignes_rel  = w_liste_patients_relance_reglements.dw_liste.rowcount() 
+										w_liste_patients_relance_reglements.dw_liste.setfilter("lettre_relance > 0")
+										w_liste_patients_relance_reglements.dw_liste.filter()
+										nb_lettres_rel =  w_liste_patients_relance_reglements.dw_liste.rowcount() 
+										w_liste_patients_relance_reglements.dw_liste.setfilter("")
+										w_liste_patients_relance_reglements.dw_liste.filter()
+									end if
+								
+									if nb_lignes_rel > 0 then
+										
+										// Selon les actions !!!!!!!!
+										
+										// Liste
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "REL_imprimer_liste","N") = "O" then
+											w_liste_patients_relance_reglements.cb_imprimer.triggerevent(clicked!)
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","REL_praticiens","T") = "T" then
+												fxg_ajout_journal_planification(v_code, "Liste imprimée pour tous les praticiens")
+											else
+												fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+											end if
+										end if
+										
+										// Lettres internes
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "REL_imprimer_lettres","N") = "O" then
+											// On filtre les lettres à zéro pour avoir le bon nombre !!!
+											w_liste_patients_relance_reglements.cb_lettres.triggerevent(clicked!)
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","REL_praticiens","T") = "T" then
+												fxg_ajout_journal_planification(v_code, string(nb_lettres_rel)+ " Lettres internes imprimées pour tous les praticiens")
+											else
+												fxg_ajout_journal_planification(v_code, string(nb_lettres_rel) + " Lettres internes imprimées pour le code praticien : " + v_code_praticien)
+											end if
+										end if
+	
+										// Lettres wORD
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "REL_imprimer_lettres8_word","N") = "O" then
+											w_liste_patients_relance_reglements.cb_lien_word.triggerevent(clicked!)
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","REL_praticiens","T") = "T" then
+												fxg_ajout_journal_planification(v_code, string(nb_lettres_rel)+ " Lettres Word imprimées pour tous les praticiens")
+											else
+												fxg_ajout_journal_planification(v_code, string(nb_lettres_rel) + " Lettres Word imprimées pour le code praticien : " + v_code_praticien)
+											end if
+										end if
+										
+										
+								else
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","REL_praticiens","T") = "T" then
+											fxg_ajout_journal_planification(v_code, "Aucune Relance de Règlement patients à réaliser pour tous les praticiens")
+										else
+											fxg_ajout_journal_planification(v_code, "Aucune Relance de Règlement patients à réaliser pour le code praticien : " + v_code_praticien)
+										end if
+									end if
+									
+									
+								end if
+															
+								
+								close(w_liste_patients_relance_reglements)
+								
+								
+						//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+						case 'APP'					// Appels d'honoraires
+							
+							open(w_liste_patients_appelh)
+	
+							// pour les dates ...
+							if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "APP_periode","S") = "C" then
+								// Mois courant ...
+								w_liste_patients_appelh.em_date_min.SetDate(date(year(today()), month(today()), 1))
+								w_liste_patients_appelh.em_date_max.SetDate(fin_mois(today()))
+							else
+								// mois prochain
+								w_liste_patients_appelh.em_date_min.SetDate(debut_mois_suivant(today()))
+								w_liste_patients_appelh.em_date_max.SetDate(fin_mois_suivant(today()))
+							end if
+							
+	
+							// Options
+	
+							// le reste
+							if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "APP_pas_retard","N") = "O" then
+								w_liste_patients_appelh.cbx_pas_retard.checked = true
+							else
+								w_liste_patients_appelh.cbx_pas_retard.checked = false
+							end if
+							
+							w_liste_patients_appelh.em_montant_min.text = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "APP_montant1","0.00")
+							w_liste_patients_appelh.em_montant_max.text = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "APP_montant2","99999.99")
+	
+													
+	
+							if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","APP_praticiens","T") =  "C"  then 
+									// On doit boucler sur tous les praticiens !!!
+									
+									totpra = dw_prati.rowcount()
+									
+									w_liste_patients_appelh.rb_un.checked = true
+									w_liste_patients_appelh.rb_un.triggerevent(clicked!)
+	
+									for ligpra = 1 to totpra
+									
+										v_code_praticien = dw_prati.GetItemString(ligpra, "code")
+										w_liste_patients_appelh.dw_prati.Setitem(1,"code", v_code_praticien)
+										w_liste_patients_appelh.prepa_faite = false
+										w_liste_patients_appelh.cb_ecran.triggerevent(clicked!)
+										
+									
+										if w_liste_patients_appelh.dw_liste.rowcount() > 0 then
+											// Selon les actions !!!!!!!!
+											
+											// Liste
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "APP_imprimer_liste","N") = "O" then
+												w_liste_patients_appelh.cb_imprimer.triggerevent(clicked!)
+												fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+											end if
+											
+											// Lettres internes
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "APP_imprimer_lettres","N") = "O" then
+												w_liste_patients_appelh.cb_lettres.triggerevent(clicked!)
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_appelh.dw_liste.rowcount()) + " Lettres internes imprimées pour le code praticien : " + v_code_praticien)
+											end if
+											
+											
+											// Lettres Word
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "APP_imprimer_word","N") = "O" then
+												w_liste_patients_appelh.cb_lien_word.triggerevent(clicked!)
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_appelh.dw_liste.rowcount()) + " Lettres Word imprimées pour le code praticien : " + v_code_praticien)
+											end if
+										else
+											fxg_ajout_journal_planification(v_code, "Aucun Appel à réaliser pour le code praticien : " + v_code_praticien)
+										end if
+	
+									next
+									
+									
+		
+								else
+									
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","APP_praticiens","T") = "T" then
+										w_liste_patients_appelh.rb_tous.checked = true
+										w_liste_patients_appelh.rb_tous.triggerevent(clicked!)
+									else
+										w_liste_patients_appelh.rb_un.checked = true
+										w_liste_patients_appelh.rb_un.triggerevent(clicked!)
+										v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","APP_code_praticien","")
+										w_liste_patients_appelh.dw_prati.Setitem(1,"code", v_code_praticien )
+									end if
+									
+									w_liste_patients_appelh.cb_ecran.triggerevent(clicked!)
+									
+									if w_liste_patients_appelh.dw_liste.rowcount() > 0 then
+										
+										// Selon les actions !!!!!!!!
+										
+										// Liste
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "APP_imprimer_liste","N") = "O" then
+											w_liste_patients_appelh.cb_imprimer.triggerevent(clicked!)
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","APP_praticiens","T") = "T" then
+												fxg_ajout_journal_planification(v_code, "Liste imprimée pour tous les praticiens")
+											else
+												fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+											end if
+										end if
+										
+	
+										// Lettres internes
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "APP_imprimer_lettres","N") = "O" then
+											w_liste_patients_appelh.cb_lettres.triggerevent(clicked!)
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","APP_praticiens","T") = "T" then
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_appelh.dw_liste.rowcount())+ " Lettres internes imprimées pour tous les praticiens")
+											else
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_appelh.dw_liste.rowcount()) + " Lettres internes imprimées pour le code praticien : " + v_code_praticien)
+											end if
+										end if
+										
+										
+										// Lettres Word
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "APP_imprimer_word","N") = "O" then
+											w_liste_patients_appelh.cb_lien_word.triggerevent(clicked!)
+											if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","APP_praticiens","T") = "T" then
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_appelh.dw_liste.rowcount())+ " Lettres Word imprimées pour tous les praticiens")
+											else
+												fxg_ajout_journal_planification(v_code, string(w_liste_patients_appelh.dw_liste.rowcount()) + " Lettres Word imprimées pour le code praticien : " + v_code_praticien)
+											end if
+										end if
+									else
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","APP_praticiens","T") = "T" then
+											fxg_ajout_journal_planification(v_code, "Aucun Appel à réaliser pour tous les praticiens")
+										else
+											fxg_ajout_journal_planification(v_code, "Aucun Appel à réaliser pour le code praticien : " + v_code_praticien)
+										end if
+									end if
+									
+									
+								end if
+	
+								close(w_liste_patients_appelh)
+									
+						case "SMS"
+									
+							if OPERATEUR_SMS = 2 then
+									
+								open(w_sms)
+		
+		
+								// Options
+		
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code +"_rappel","O") = "O" then
+									w_sms.cbx_rdv.checked = true
+								else
+									w_sms.cbx_rdv.checked = false
+								end if
+								
+								integer sms_rappel_jours, sms_absence_jours
+								
+								sms_rappel_jours = integer(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code + "_rappel_jours","30"))
+								
+								// Dates rappel
+								w_sms.em_date_rdv_min.text =  string(today())
+								w_sms.em_date_rdv_max.text =  string(relativedate(today(),sms_rappel_jours ))
+								// elimination
+								if profilestring(dir_ini+inifile_orthokis,"PLANIFICATION","SMS_rdv_eliminer_email_patient","true") = "true" then
+									w_sms.cbx_rdv_eliminer_email_patient.checked = true
+								else
+									w_sms.cbx_rdv_eliminer_email_patient.checked = false
+								end if
+								if profilestring(dir_ini+inifile_orthokis,"PLANIFICATION","SMS_rdv_eliminer_email_parent1","true") = "true" then
+									w_sms.cbx_rdv_eliminer_email_parent1.checked = true
+								else
+									w_sms.cbx_rdv_eliminer_email_parent1.checked = false
+								end if
+								
+									
+								// Absences
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code + "_absence","O") = "O" then
+									w_sms.cbx_absent_rdv.checked = true
+								else
+									w_sms.cbx_absent_rdv.checked = false
+								end if
+								
+								sms_absence_jours = integer(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code+"_absence_jours","7"))
+								
+								// Dates absences
+								w_sms.em_date_absent_min.text =  string(relativedate(today(), - sms_absence_jours ))
+								w_sms.em_date_absent_max.text =  string(today())
+		
+								w_sms.sle_code_message_absent.text = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code+"_absence_code_message","")
+		
+								w_sms.dw_etat.SetItem(1, "code", ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code+"_absence_etat","A"))
+		
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code+"_absence_next","O") = "O" then
+									w_sms.cbx_next.checked = true
+								else
+									w_sms.cbx_next.checked = false
+								end if
+								
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code+"_absence_next_2","O") = "O" then
+									w_sms.cbx_next_2.checked = true
+								else
+									w_sms.cbx_next_2.checked = false
+								end if
+		
+		
+														
+		
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION",v_code+ + "_praticiens","T") =  "C"  then 
+										// On doit boucler sur tous les praticiens !!!
+										
+										totpra = dw_prati.rowcount()
+										
+										w_sms.rb_un.checked = true 
+										w_sms.rb_un.triggerevent(clicked!)
+		
+										for ligpra = 1 to totpra
+										
+											v_code_praticien = dw_prati.GetItemString(ligpra, "code")
+											w_sms.dw_prati.Setitem(1,"code", v_code_praticien)
+											w_sms.pb_envoi.triggerevent(clicked!)
+											
+											fxg_ajout_journal_planification(v_code, "Envoi des SMS pour le code praticien : " + v_code_praticien)
+		
+										next
+										
+										
+			
+									else
+										
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION",v_code + "_praticiens","T") = "T" then
+											w_sms.rb_tous.checked = true 
+											w_sms.rb_tous.triggerevent(clicked!)
+											fxg_ajout_journal_planification(v_code, "Envoi des SMS pour tous les praticiens")
+										else
+											w_sms.rb_un.checked = true 
+											w_sms.rb_un.triggerevent(clicked!)
+											v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code+ "_code_praticien","")
+											w_sms.dw_prati.Setitem(1,"code", v_code_praticien )
+											fxg_ajout_journal_planification(v_code, "Envoi des SMS pour le code praticien : " + v_code_praticien)
+										end if
+										
+										w_sms.pb_envoi.triggerevent(clicked!)
+										
+									
+									end if
+		
+									close(w_sms)
+								else
+									
+									fxg_ajout_journal_planification(v_code, "L'envoi de SMS en dehors de Dental SMS est désactivé !")
+									
+								end if
+								
+								
+							Case "RMR"
+								
+								// Règlements d'un mode de règlements
+								open(w_liste_patients_type_reglement)
+								
+								integer v_rmr_nb_jours
+								string v_mode_local
+								
+								// pour les dates ...
+								v_rmr_nb_jours = integer(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "RMR_nb_jours","1"))
+								w_liste_patients_type_reglement.em_date_min.SetDate( relativeDate(today() , - v_rmr_nb_jours ))
+								w_liste_patients_type_reglement.em_date_max.SetDate(today())
+	
+								// Pour le mode 
+								v_mode = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "RMR_code_mode_reglement","")
+								w_liste_patients_type_reglement.dw_type_regl.Setitem(1,"code", v_mode_local)
+	
+								
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","RMR_praticiens","T") =  "C"  then 
+									// On doit boucler sur tous les praticiens !!!
+									
+									totpra = dw_prati.rowcount()
+									
+									w_liste_patients_type_reglement.rb_un.checked = true
+									w_liste_patients_type_reglement.rb_un.triggerevent(clicked!)
+	
+									for ligpra = 1 to totpra
+									
+										v_code_praticien = dw_prati.GetItemString(ligpra, "code")
+										w_liste_patients_type_reglement.dw_prati.Setitem(1,"code", v_code_praticien)
+										w_liste_patients_type_reglement.prepa_faite = false
+										w_liste_patients_type_reglement.cb_ecran.triggerevent(clicked!)
+										
+									
+										if w_liste_patients_type_reglement.dw_liste.rowcount() > 0 then
+											// Impression de la liste
+											w_liste_patients_type_reglement.cb_imprimer.triggerEvent(clicked!)
+											w_liste_patients_type_reglement.cb_autre.triggerEvent(clicked!)
+											fxg_ajout_journal_planification(v_code, "Liste imprimée : mode '"+ v_mode_local  + "' pour le code praticien : " + v_code_praticien)
+										end if
+									next
+								else
+									// pour 1 ou tous les praticiens
+																		
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","RMR_praticiens","T") = "T" then
+										w_liste_patients_type_reglement.rb_tous.checked = true
+										w_liste_patients_type_reglement.rb_tous.triggerevent(clicked!)
+									else
+										w_liste_patients_type_reglement.rb_un.checked = true
+										w_liste_patients_type_reglement.rb_un.triggerevent(clicked!)
+										v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","RMR_code_praticien","")
+										w_liste_patients_type_reglement.dw_prati.Setitem(1,"code", v_code_praticien )
+									end if
+									
+									w_liste_patients_type_reglement.cb_ecran.triggerevent(clicked!)
+									
+									if w_liste_patients_type_reglement.dw_liste.rowcount() > 0 then
+										// Impression de la liste
+										w_liste_patients_type_reglement.cb_imprimer.triggerEvent(clicked!)
+								
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","RMR_praticiens","T") = "T" then
+											fxg_ajout_journal_planification(v_code, "Liste imprimée : mode '"+ v_mode_local  + "' pour tous les praticiens")
+										else
+											fxg_ajout_journal_planification(v_code, "Liste imprimée : mode '"+ v_mode_local  + "' pour le code praticien : " + v_code_praticien)
+										end if
+									end if
+								
+								end if
+								close(w_liste_patients_type_reglement)
+								
+							Case "RMU"
+								
+								// Rendez-vous saisis par un utilisateur
+								open(w_liste_patients_rdv_user)
+								
+								integer v_rmu_nb_jours
+								// pour les dates ...
+								v_rmu_nb_jours = integer(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "RMU_nb_jours","1"))
+								w_liste_patients_rdv_user.em_modif_min.SetDate( relativeDate(today() , - v_rmu_nb_jours ))
+								w_liste_patients_rdv_user.em_modif_max.SetDate(today())
+	
+								// Pour les users
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "RMU_users","T") = "T" then
+									w_liste_patients_rdv_user.rb_tous_users.checked = true
+									w_liste_patients_rdv_user.rb_un_user.checked = false
+								else
+									w_liste_patients_rdv_user.rb_tous_users.checked = false
+									w_liste_patients_rdv_user.rb_un_user.checked = true
+									w_liste_patients_rdv_user.dw_user.SetItem(1, "code", ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "RMU_code_user",""))
+								end if
+	
+								
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","RMU_praticiens","T") =  "C"  then 
+									// On doit boucler sur tous les praticiens !!!
+									
+									totpra = dw_prati.rowcount()
+									
+									w_liste_patients_rdv_user.rb_un.checked = true
+									w_liste_patients_rdv_user.rb_un.triggerevent(clicked!)
+	
+									for ligpra = 1 to totpra
+									
+										v_code_praticien = dw_prati.GetItemString(ligpra, "code")
+										w_liste_patients_rdv_user.dw_prati.Setitem(1,"code", v_code_praticien)
+										w_liste_patients_rdv_user.prepa_faite = false
+										w_liste_patients_rdv_user.cb_ecran.triggerevent(clicked!)
+										
+									
+										if w_liste_patients_type_reglement.dw_liste.rowcount() > 0 then
+											// Impression de la liste
+											w_liste_patients_rdv_user.cb_imprimer.triggerEvent(clicked!)
+											fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+											w_liste_patients_rdv_user.cb_autre.triggerEvent(clicked!)
+										end if
+									next
+								else
+									// pour 1 ou tous les praticiens
+																		
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","rmu_praticiens","T") = "T" then
+										w_liste_patients_rdv_user.rb_tous.checked = true
+										w_liste_patients_rdv_user.rb_tous.triggerevent(clicked!)
+									else
+										w_liste_patients_rdv_user.rb_un.checked = true
+										w_liste_patients_rdv_user.rb_un.triggerevent(clicked!)
+										v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","rmu_code_praticien","")
+										w_liste_patients_rdv_user.dw_prati.Setitem(1,"code", v_code_praticien )
+									end if
+									
+									w_liste_patients_rdv_user.cb_ecran.triggerevent(clicked!)
+									
+									if w_liste_patients_rdv_user.dw_liste.rowcount() > 0 then
+										// Impression de la liste
+										w_liste_patients_rdv_user.cb_imprimer.triggerEvent(clicked!)
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","rmu_praticiens","T") = "T" then
+											fxg_ajout_journal_planification(v_code, "Liste imprimée pour tous les praticiens")
+										else
+											fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+										end if
+									end if
+								
+								end if
+								
+								close(w_liste_patients_rdv_user)
+								
+								
+							Case "RRV"
+								
+								// Rappel de RDV par email
+								open(w_liste_patients_rappel_rdv_email)
+								
+								// pour les dates ...
+								v_j1 = integer(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "rrv_j1","1"))
+								v_j2 = integer(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "rrv_j2","1"))
+								
+								w_liste_patients_rappel_rdv_email.em_date_min.setDate ( Relativedate(today(), v_j1) )
+								w_liste_patients_rappel_rdv_email.em_date_max.setDate ( Relativedate(today(), v_j2) )
+								
+								// Exclusion d'un praticien ?
+								string v_exclus, v_praticien_exclus
+								
+								 v_exclus =  ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","rrv_exclus","N") 
+								 v_praticien_exclus = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","rrv_praticien_exclus","") 
+								 
+								 // masquer adresses ?
+							 	if  ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "rrv_maquer_adresse","N") = "O" then
+									w_liste_patients_rappel_rdv_email.cbx_masquer_email.checked = true
+								else 
+									w_liste_patients_rappel_rdv_email.cbx_masquer_email.checked = false
+								end if
+	
+								w_liste_patients_rappel_rdv_email.sle_fichier_pj.text =  ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "rrv_fichier_pj","")
+								
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","rrv_praticiens","T") =  "C"  then 
+									// On doit boucler sur tous les praticiens !!!
+									
+									totpra = dw_prati.rowcount()
+									
+									w_liste_patients_rappel_rdv_email.rb_un.checked = true
+									w_liste_patients_rappel_rdv_email.rb_un.triggerevent(clicked!)
+	
+									for ligpra = 1 to totpra
+									
+										v_code_praticien = dw_prati.GetItemString(ligpra, "code")
+										
+										if v_exclus = "N" or (v_exclus = "O" and v_praticien_exclus <> v_code_praticien) then 
+											w_liste_patients_rappel_rdv_email.dw_prati.Setitem(1,"code", v_code_praticien)
+											w_liste_patients_rappel_rdv_email.prepa_faite = false
+											w_liste_patients_rappel_rdv_email.cb_ecran.triggerevent(clicked!)
+											
+										
+											if w_liste_patients_rappel_rdv_email.dw_liste.rowcount() > 0 then
+												// Envoi des emails
+												w_liste_patients_rappel_rdv_email.pb_envoyer.triggerEvent(clicked!)
+												fxg_ajout_journal_planification(v_code, "Envoi des emails pour le code praticien : " + v_code_praticien)
+												w_liste_patients_rappel_rdv_email.cb_autre.triggerEvent(clicked!)
+											end if
+										end if
+									next
+								else
+									// pour 1 ou tous les praticiens
+									if v_exclus = "O" then
+										w_liste_patients_rappel_rdv_email.cbx_exclus.checked = true
+										w_liste_patients_rappel_rdv_email.dw_prati2.Setitem(1,"code", v_praticien_exclus )
+									end if
+									
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","rrv_praticiens","T") = "T" then
+										w_liste_patients_rappel_rdv_email.rb_tous.checked = true
+										w_liste_patients_rappel_rdv_email.rb_tous.triggerevent(clicked!)
+									else
+										w_liste_patients_rappel_rdv_email.rb_un.checked = true
+										
+//										v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","rmu_code_praticien","")
+//										w_liste_patients_rappel_rdv_email.dw_prati.Setitem(1,"code", v_code_praticien )
+//										w_liste_patients_rappel_rdv_email.rb_un.triggerevent(clicked!)
+	
+										v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","rrv_code_praticien","")
+										w_liste_patients_rappel_rdv_email.dw_prati.Setitem(1,"code", v_code_praticien )
+										w_liste_patients_rappel_rdv_email.rb_un.triggerevent(clicked!)
+									end if
+									
+									// La gestion de la pièce jointe est faite directement dans fxg_envoi_email_libre
+									
+									
+									w_liste_patients_rappel_rdv_email.cb_ecran.triggerevent(clicked!)
+									
+									if w_liste_patients_rappel_rdv_email.dw_liste.rowcount() > 0 then
+										// Envoi des email
+										w_liste_patients_rappel_rdv_email.pb_envoyer.triggerEvent(clicked!)
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","rrv_praticiens","T") = "T" then
+											fxg_ajout_journal_planification(v_code, "Envoi des emails pour tous les praticiens")
+										else
+											fxg_ajout_journal_planification(v_code, "Envoi des emails pour le code praticien : " + v_code_praticien)
+										end if
+									end if
+								
+								end if
+								
+								close(w_liste_patients_rappel_rdv_email)
+								
+							Case "QMV"
+								
+								// Liste des Questionnaires Médicaaux non validés
+								open(w_liste_patients_questionnaire_medical_non_valide)
+								
+								// pour les dates ...
+								v_j1 = integer(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "qmv_j1","1"))
+								v_j2 = integer(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", "qmv_j2","1"))
+								
+								w_liste_patients_questionnaire_medical_non_valide.em_date_min.setDate ( Relativedate(today(), v_j1) )
+								w_liste_patients_questionnaire_medical_non_valide.em_date_max.setDate ( Relativedate(today(), v_j2) )
+	
+						
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","qmv_praticiens","T") =  "C"  then 
+									// On doit boucler sur tous les praticiens !!!
+									
+									totpra = dw_prati.rowcount()
+									
+									w_liste_patients_questionnaire_medical_non_valide.rb_un.checked = true
+									w_liste_patients_questionnaire_medical_non_valide.rb_un.triggerevent(clicked!)
+	
+									for ligpra = 1 to totpra
+									
+										v_code_praticien = dw_prati.GetItemString(ligpra, "code")
+										w_liste_patients_questionnaire_medical_non_valide.dw_prati.Setitem(1,"code", v_code_praticien)
+										w_liste_patients_questionnaire_medical_non_valide.prepa_faite = false
+										w_liste_patients_questionnaire_medical_non_valide.cb_ecran.triggerevent(clicked!)
+										
+									
+										if w_liste_patients_questionnaire_medical_non_valide.dw_liste.rowcount() > 0 then
+											// Impression de la liste
+											w_liste_patients_questionnaire_medical_non_valide.cb_imprimer.triggerEvent(clicked!)
+											fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+											w_liste_patients_questionnaire_medical_non_valide.cb_autre.triggerEvent(clicked!)
+										end if
+									next
+								else
+									// pour 1 ou tous les praticiens
+																		
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","qmv_praticiens","T") = "T" then
+										w_liste_patients_questionnaire_medical_non_valide.rb_tous.checked = true
+										w_liste_patients_questionnaire_medical_non_valide.rb_tous.triggerevent(clicked!)
+									else
+										w_liste_patients_questionnaire_medical_non_valide.rb_un.checked = true
+										w_liste_patients_questionnaire_medical_non_valide.rb_un.triggerevent(clicked!)
+										v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","qmv_code_praticien","")
+										w_liste_patients_questionnaire_medical_non_valide.dw_prati.Setitem(1,"code", v_code_praticien )
+									end if
+									
+									w_liste_patients_questionnaire_medical_non_valide.cb_ecran.triggerevent(clicked!)
+									
+									if w_liste_patients_questionnaire_medical_non_valide.dw_liste.rowcount() > 0 then
+										// Impression
+										w_liste_patients_questionnaire_medical_non_valide.cb_imprimer.triggerEvent(clicked!)
+										if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","qmv_praticiens","T") = "T" then
+											fxg_ajout_journal_planification(v_code, "Liste imprimée pour tous les praticiens")
+										else
+											fxg_ajout_journal_planification(v_code, "Liste imprimée pour le code praticien : " + v_code_praticien)
+										end if
+									end if
+								
+								end if
+								
+								close(w_liste_patients_questionnaire_medical_non_valide)
+								
+								
+							Case "MAJDOS"
+								
+								// Correction des types de dossiers
+								open(w_liste_patients_incoherence_type_dossier)
+								
+								// pour 1 ou tous les praticiens
+																	
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","majdos_praticiens","T") = "T" then
+									w_liste_patients_incoherence_type_dossier.rb_tous.checked = true
+									w_liste_patients_incoherence_type_dossier.rb_tous.triggerevent(clicked!)
+								else
+									w_liste_patients_incoherence_type_dossier.rb_un.checked = true
+									w_liste_patients_incoherence_type_dossier.rb_un.triggerevent(clicked!)
+									v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","majdos_code_praticien","")
+									w_liste_patients_incoherence_type_dossier.dw_prati.Setitem(1,"code", v_code_praticien )
+								end if
+								
+								w_liste_patients_incoherence_type_dossier.cb_ecran.triggerevent(clicked!)
+								
+								if w_liste_patients_incoherence_type_dossier.dw_liste.rowcount() > 0 then
+									// correction
+									w_liste_patients_incoherence_type_dossier.pb_corriger.triggerEvent(clicked!)
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","majdos_praticiens","T") = "T" then
+										fxg_ajout_journal_planification(v_code, "Correction pour tous les praticiens")
+									else
+										fxg_ajout_journal_planification(v_code, "Correction pour le code praticien : " + v_code_praticien)
+									end if
+								end if
+								
+								
+								close(w_liste_patients_incoherence_type_dossier)
+								
+							Case "ARCDOS"
+								
+								// Archivage automatique des dossiers
+								open(w_archivage_automatique)
+								
+								// pour 1 ou tous les praticiens
+																	
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","arcdos_praticiens","T") = "T" then
+									w_archivage_automatique.rb_tous.checked = true
+									w_archivage_automatique.rb_tous.triggerevent(clicked!)
+								else
+									w_archivage_automatique.rb_un.checked = true
+									w_archivage_automatique.rb_un.triggerevent(clicked!)
+									v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","arcdos_code_praticien","")
+									w_archivage_automatique.dw_prati.Setitem(1,"code", v_code_praticien )
+								end if
+								
+								w_archivage_automatique.cb_ecran.triggerevent(clicked!)
+								
+								if w_archivage_automatique.dw_liste.rowcount() > 0 then
+									// archivage
+									w_archivage_automatique.cb_archivage.triggerEvent(clicked!)
+									if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION","arcdos_praticiens","T") = "T" then
+										fxg_ajout_journal_planification(v_code, "Archivage pour tous les praticiens")
+									else
+										fxg_ajout_journal_planification(v_code, "Archivage pour le code praticien : " + v_code_praticien)
+									end if
+								end if
+								
+								
+								close(w_archivage_automatique)							
+								
+						case 'ARV'  // Patient selon l'état de rdv => envoi de mail absents
+	
+								open(w_liste_patients_absents_rdv)
+								
+								// pour 1 ou tous les praticiens
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code + "_praticiens","T") = "T" then
+									w_liste_patients_absents_rdv.rb_tous.checked = true
+									w_liste_patients_absents_rdv.rb_tous.triggerevent(clicked!)
+								else
+									w_liste_patients_absents_rdv.rb_un.checked = true
+									w_liste_patients_absents_rdv.rb_un.triggerevent(clicked!)
+									v_code_praticien = ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION",v_code  + "_code_praticien","")
+									w_liste_patients_absents_rdv.dw_prati.Setitem(1,"code", v_code_praticien )
+								end if 
+							
+							
+								// pour les dates ...
+								v_j1 =  - integer(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code + "_j1","1"))
+								v_j2 = - integer(ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code + "_j2","1"))
+								
+								w_liste_patients_absents_rdv.em_date_min.setDate ( Relativedate(today(), v_j1) )
+								w_liste_patients_absents_rdv.em_date_max.setDate ( Relativedate(today(), v_j2) )
+								
+					
+								// Elimination prochains rdv
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code + "_absence_next","O") = "O"  then 
+									w_liste_patients_absents_rdv.cbx_next.checked = true
+								else
+									w_liste_patients_absents_rdv.cbx_next.checked = false
+								end if
+					
+								if ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code + "_absence_next_2","O") = "O"  then 
+									w_liste_patients_absents_rdv.cbx_next_2.checked = true
+								else
+									w_liste_patients_absents_rdv.cbx_next_2.checked = false
+								end if
+
+								// Etat de rendez-vous
+								w_liste_patients_absents_rdv.dw_etat.SetItem ( 1 , "code", ProfileString(dir_ini + inifile_orthokis , "PLANIFICATION", v_code +"_absence_etat","N"))
+								
+								// Liste à l''écran
+								w_liste_patients_absents_rdv.cb_ecran.triggerevent(clicked!)
+							
+								// Envoi du mail
+								fxg_envoi_email_libre(0, w_liste_patients_absents_rdv.dw_liste, 11)
+								
+								close(w_liste_patients_absents_rdv)
+	
+	
+						end choose
+				
+				end if		
+			
+			next
+			
+			trace ( "*** FIN DE LA PLANIFICATION ***")
+			
+			if SERIAL = '87432' then 
+				trace ( "*** DEBUT DE L'EXAMEN DE LA PLANIFICATION SPECIFIQUE POUR 87432 ***")
+				
+				fxg_ajout_journal_planification('******', "*** DEBUT DE L'EXAMEN DE LA PLANIFICATION POUR 87432 ***")
+				
+				
+				// Variables spécifiques pour le paramétrages
+			
+				integer i_jour_semaine_87432 = 2		// Exécution tous les lundi
+
+				
+				string s_nom_fichier_pdf_87432 , s_nom_fichier_xls_87432
+				string s_objet_email_87432  = "Envoi automatique - Livre de recettes S-1"
+ 				string s_texte_email_87432  = "Bonjour,~n~nVeuillez trouver ci-joint le livre de recettes de la semaine précédente.~n~nCordialement,~n~nLe Cabinet du Dr Fazaiee"
+ 				string s_adresse_email_destination_87432 = "vbonnefond@cabinetalcyon.fr; docteur@fazaiee.fr"
+			
+				// pour les tests
+				//	s_adresse_email_destination_87432 = "laurent.crumiere@arakis.fr"
+				//i_jour_semaine_87432 = 5
+				
+				integer i_compte_email_depart_87432 = 2	// compte en dur de cabinet_fin@fazaiee.fr
+				uo_email_compte cpt_email_87432
+				uo_email_manager email_manager_87432
+				uo_email_email email_email_87432
+				
+				s_nom_fichier_pdf_87432 = dir_ini + string(today(), "yyyy-mm-dd") + "-Livre_recettes_Dr_Fazaie.pdf"
+				s_nom_fichier_xls_87432 = dir_ini + string(today(), "yyyy-mm-dd") + "-Livre_recettes_Dr_Fazaie.xls"
+
+				if daynumber(today()) = i_jour_semaine_87432 then 
+					
+					
+					// Génération du livre de recettes en PDF
+					w_liste_patients_livre_recettes w1
+					open(w1)
+					w1.hide()
+					
+					// tous les praticiens
+					w1.rb_tous.checked = true
+					w1.rb_un.checked = false
+					
+					// Options d'impressions
+					w1.cbx_nom.checked = true
+					w1.cbx_dos.checked = true
+					w1.cbx_nom_payeur.checked = true
+					w1.cbx_moulage.checked = false
+					w1.cbx_facture.checked = false
+					w1.cbx_nomen.checked = false
+					w1.cbx_commentaire.checked = false
+					
+					
+					// type de soins
+					w1.rb_toussoins.checked = true
+					w1.rb_unsoin.checked = false
+					
+					// banque
+					w1.rb_toutes_banques.checked = true
+					w1.rb_une_banque.checked = false
+					
+					// Ordre de tri
+					w1.rb_tri_payeur.checked = true
+					w1.rb_tri_saisie.checked = false
+					
+					// Modes de paiement
+					w1.rb_tous_modes.checked = true
+					w1.rb_un_mode.checked = false
+					
+					// Dates .. de J-7 à J-1
+					w1.em_date_min.text = string(relativedate(today() ,  - 7))
+					w1.em_date_max.text = string(relativedate(today() ,  - 1))
+
+					w1.cb_ecran.triggerevent(clicked!)
+					FileDelete (s_nom_fichier_pdf_87432)
+					w1.dw_liste.saveas(s_nom_fichier_pdf_87432, pdf!, true )
+					if not FileExists(s_nom_fichier_pdf_87432) then 
+						
+						Messagebox("ATTENTION", "Erreur dans la génération du fichier PDF : " + s_nom_fichier_pdf_87432 )
+						fxg_ajout_journal_planification('******', "*** Erreur dans la génération du fichier PDF : " + s_nom_fichier_pdf_87432 +" ***")
+						trace("*** Erreur dans la génération du fichier PDF : " + s_nom_fichier_pdf_87432 +" ***")
+						
+					else
+						// Préparation de l'email 
+						
+						// on ajouter aussi une version Excel
+						w1.dw_liste.saveas(s_nom_fichier_xls_87432, Excel8!, true )
+						
+						cpt_email_87432 = create uo_email_compte
+						cpt_email_87432.charger(i_compte_email_depart_87432)
+						
+						email_manager_87432 = create uo_email_manager
+						email_manager_87432.set_compte(cpt_email_87432)
+						email_manager_87432.propos_objet = s_objet_email_87432
+						
+						// Initialisation du mail
+						email_email_87432 = create uo_email_email	
+						email_email_87432.add_destinataire_a(s_adresse_email_destination_87432, false)
+						email_email_87432.set_from(cpt_email_87432.my_alias,cpt_email_87432.my_adr)
+						email_email_87432.set_sujet(email_manager_87432.propos_objet)
+						email_email_87432.set_body(s_texte_email_87432)						
+						email_email_87432.add_fichier_joint(s_nom_fichier_pdf_87432)
+						email_email_87432.add_fichier_joint(s_nom_fichier_xls_87432)
+
+						// Envoi effectif du mail
+						if email_manager_87432.envoyer_email(email_email_87432.get_email()) then 
+								fxg_ajout_journal_planification('******', "*** Envoi livre de recettes par mail : " + s_nom_fichier_pdf_87432 +" ***")
+								trace("*** Envoi du livre de recettes par mail : " + s_nom_fichier_pdf_87432 +" ***")
+						else
+								fxg_ajout_journal_planification('******', "*** Erreur d'en l'envoi du livre de recettes par mail ! ***")
+								trace("*** Erreur d'en l'envoi du livre de recettes par mail ! ***")
+						
+						end if
+						
+						
+						// Suppression des fichiers PDF er Excel
+						FileDelete(s_nom_fichier_pdf_87432)
+						FileDelete(s_nom_fichier_xls_87432)
+						
+					end if
+					
+					close(w_liste_patients_livre_recettes)
+					
+				end if
+					
+				
+				
+				trace ( "*** FIN DE L'EXAMEN DE LA PLANIFICATION SPECIFIQUE POUR 87432 ***")
+				
+				fxg_ajout_journal_planification('******', "*** FIN DE L'EXAMEN DE LA PLANIFICATION POUR 87432 ***")
+
+			end if
+
+			
+			
+			// Fin de la planification !!!!!!!!!!!!!!!!!!!!!
+			PLANIFICATION_EN_COURS = false
+			
+			// On examine le journal pour réperer d'éventuelles erreurs ...
+			long nb_erreurs
+			string s_libelle_fin = 	"*** FIN DE L'EXAMEN DE LA PLANIFICATION ***"
+			string s_poste
+			datetime dt_derniere_fin
+			s_poste = get_nom_ordinateur()
+			
+			// Recherche de la date de fin de la dernière planification sur ce poste
+			select isnull(max("debut"), getdate()) into :dt_derniere_fin from "planification_journal" where commentaire = :s_libelle_fin and nom_poste = :s_poste ;
+			
+			
+			// Recherche des erreurs produits depuis la denière, sur ce poste
+			select isnull(count(*),0) into :nb_erreurs from "planification_journal" where cast(debut as date) > :dt_derniere_fin and commentaire like '%erreur%' and nom_poste = :s_poste ;
+
+			// Ajout de l'info pour ce traitement ....
+			fxg_ajout_journal_planification('******', s_libelle_fin )
+
+			if nb_erreurs > 0 then
+				if Messagebox("ATTENTION","Des erreurs se sont produites durant l'exécution des taches planifiées !~n~nSouhaitez-vous ouvrir le Journal d'Historisation des Actions ?", Question!, YesNo!, 1) = 1 then
+					w_mdi_2020.uo_powerdock.of_openDocument(w_planification_journal, "Journal de la planification", m_orthokis_2020.m_outils.m_traitements.toolbarItemName)
+				end if
+			end if
+		end if
+	end if
+end if
+
+end subroutine
+

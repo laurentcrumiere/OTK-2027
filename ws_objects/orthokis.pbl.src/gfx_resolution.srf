@@ -1,0 +1,28 @@
+﻿$PBExportHeader$gfx_resolution.srf
+global type gfx_resolution from function_object
+end type
+
+forward prototypes
+global function integer gfx_resolution (ref long x, ref long y)
+end prototypes
+
+global function integer gfx_resolution (ref long x, ref long y);// fx qui récup la résolution de l'écran
+// return 1 si OK + recup réso x et y ds les var en ref
+//		-1 si pb
+
+int	returnval = -1
+environment		env
+
+
+if getenvironment(env) = 1 then
+// si on a bien recu les info 
+	x = env.ScreenWidth
+	y = env.ScreenHeight
+	returnval = 1
+else
+	messagebox( "ERREUR ...", "Impossible de récupérer la résolution de l'écran ! ~n~nOpération annulée.", StopSign!)
+end if
+
+return returnval
+end function
+

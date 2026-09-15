@@ -1,0 +1,31 @@
+﻿$PBExportHeader$fxg_supprimer_liste_fichiers.srf
+global type fxg_supprimer_liste_fichiers from function_object
+end type
+
+forward prototypes
+global subroutine fxg_supprimer_liste_fichiers (string repertoire, string masque, uo_listbox lb_files)
+end prototypes
+
+global subroutine fxg_supprimer_liste_fichiers (string repertoire, string masque, uo_listbox lb_files);// Fonction qui surpprime TOUS les fichiers d'un répertoire
+// qui respecte le masque données
+// Pas de demande de confirmation / pas de gestion d'erreur
+
+string masque_suppression, fichier_a_supprimer
+integer nb_files, i, ret
+boolean retb
+
+masque_suppression = repertoire + masque
+ret = lb_files.reset()
+retb = lb_files.dirlist(masque_suppression, 1)
+
+nb_files = lb_files.TotalItems()
+
+for i = 1 to nb_files
+	fichier_a_supprimer = lb_files.text(i) 
+	if fileExists(fichier_a_supprimer) then
+		FileDelete(fichier_a_supprimer)
+	end if
+next	
+
+end subroutine
+

@@ -1,0 +1,42 @@
+﻿$PBExportHeader$fxg_bounoure_libelle_ecriture.srf
+global type fxg_bounoure_libelle_ecriture from function_object
+end type
+
+forward prototypes
+global function string fxg_bounoure_libelle_ecriture (double v_code_patient)
+end prototypes
+
+global function string fxg_bounoure_libelle_ecriture (double v_code_patient);
+
+// Construction dun libelle d'une écriture spciale Cile Bounoure
+
+string v_lib
+string v_nom_assure, v_nom_parent1, v_nom, v_prenom, v_nom_parent2, v_nom_payeur
+string v_assure
+
+select isnull(nom_assure,''), isnull(nom_parent1,''), isnull(assure, 1) , isnull(nom, ''), isnull(prenom, '') , isnull(nom_parent2,''), isnull(nom_payeur,'')
+into :v_nom_assure,  :v_nom_parent1 , :v_assure, :v_nom, :v_prenom, :v_nom_parent2, :v_nom_payeur
+from patient where code = :v_code_patient ;
+
+if v_nom_assure <> '' then 
+	v_lib = left(v_nom_assure, 12)
+else
+	choose case v_assure
+		case '1'
+			v_lib = left(v_nom_parent1, 12)
+		case '2'
+			v_lib = left(v_nom_parent2, 12)
+		case 'P'
+			v_lib = left(v_nom_payeur, 12)
+		case else
+			v_lib = left(v_nom_parent1, 12)
+		end choose
+end if
+
+v_lib = v_lib + "/"
+
+v_lib = left(v_lib + trim(v_nom)+' '+trim(v_prenom), 25)
+
+return v_lib
+end function
+

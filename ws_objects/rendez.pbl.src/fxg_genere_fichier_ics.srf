@@ -1,0 +1,101 @@
+﻿$PBExportHeader$fxg_genere_fichier_ics.srf
+global type fxg_genere_fichier_ics from function_object
+end type
+
+forward prototypes
+global subroutine fxg_genere_fichier_ics (double adb_rdv_code_interne, boolean ab_ajout)
+end prototypes
+
+global subroutine fxg_genere_fichier_ics (double adb_rdv_code_interne, boolean ab_ajout);// Génère un fichier Rendez-vous.ics dans le dossier d'installation contenant les élements du rdv passé en paramètre
+// ab_ajout = true : on ajoute le rdv à un fichier existant 
+// ab_ajout = false : on remplace le fichier 
+
+
+string ls_File, ls_Content, ls_Content_before
+integer li_File 
+ 
+ // infos du rdv
+ datetime ldt_rdv_debut, ldt_rdv_fin
+ string ls_libelle_type_rdv, ls_nom_praticien
+ integer li_duree
+ string ls_adresse , ls_prenom_patient, ls_nom_patient
+ 
+ // recherche des élément du rendez-vous 
+ 
+ select rdv.rdv, isnull(type_rdv.nom_mon_orthodontiste, isnull(type_rdv.nom,'')) , isnull(prati.nom , ''), rdv.duree , isnull(patient.nom, ''), isnull(patient.prenom, '')  
+ into :ldt_rdv_debut, :ls_libelle_type_rdv, :ls_nom_praticien, :li_duree, :ls_nom_patient, :ls_prenom_patient
+ from rdv, type_rdv, prati , patient 
+ where rdv.code_interne = :adb_rdv_code_interne and rdv."type" = type_rdv.code and rdv.code_praticien = prati.code and patient.code = rdv.code ;
+ 
+ // adresse du cabinet 
+ select top 1 isnull(adresse1, '') + ' ' + isnull(adresse2, '') + ' ' + isnull(code_postal, '') + ' ' + isnull(ville, '') into :ls_adresse from param ;
+ 
+ 
+// Nom du fichier ICS
+ls_File = dir_ini + nom_fichier_ics
+ 
+ 
+ ls_Content = ""
+ 
+ 
+// Construction du contenu ICS
+if not ab_ajout then 
+	// on remplace
+	ls_Content = "BEGIN:VCALENDAR~r~n"
+	ls_Content += "VERSION:2.0~r~n"
+	ls_Content += "PRODID:-//ORTHOKIS//FR~r~n"
+else
+	// on ajoute
+	
+	// il faut virer la dernière ligne du fichier 
+	li_File = FileOpen(ls_File, TextMode!, read!, LockWrite!, Replace!)
+	FileReadex(li_File, ls_Content_before)
+	ls_Content_before = left(ls_Content_before, len(ls_Content_before) - 17)
+	
+	FileClose(li_File)
+	
+	li_File = FileOpen(ls_File, TextMode!, write!, LockWrite!, Replace!)
+	FileWriteex(li_File, ls_Content_before)
+	FileClose(li_File)
+	
+	ls_Content += "~r~n"
+end if
+
+ls_Content += "BEGIN:VEVENT~r~n"
+ 
+// UID unique (tu peux utiliser un GUID)
+ls_Content += "UID:" + String(fxg_get_uuid()) + "~r~n"
+ 
+// Horodatage (UTC)
+ls_Content += "DTSTAMP:" + String(Now(), "yyyyMMdd'T'HHmmss'Z'") + "~r~n"
+ 
+// Début et fin du rendez-vous (UTC ou local sans Z)
+//ls_Content += "DTSTART:20240625T090000~r~n"
+ls_Content += "DTSTART:" + string(ldt_rdv_debut, "yyyyMMdd'T'HHmmss'Z'") + "~r~n"
+
+ldt_rdv_fin = datetime( date(ldt_rdv_debut) , relativetime( time(ldt_rdv_debut) , li_duree * 60 ) )
+//ls_Content += "DTEND:20240625T100000~r~n"
+ls_Content += "DTEND:" + string(ldt_rdv_fin, "yyyyMMdd'T'HHmmss'Z'") + "~r~n"
+
+
+// Titre, description, lieu
+ls_Content += "SUMMARY:Cabinet du Dr " + ls_nom_praticien + " - Rendez-vous d'Orthodontie~r~n"
+ls_Content += "DESCRIPTION:" + ls_libelle_type_rdv + " pour " + ls_prenom_patient + " " + ls_nom_patient+ "~r~n"
+ls_Content += "LOCATION:" + ls_adresse + "~r~n"
+ 
+ls_Content += "END:VEVENT~r~n"
+ls_Content += "END:VCALENDAR~r~n"
+ 
+// Écriture dans le fichier
+if ab_ajout then 
+	li_File = FileOpen(ls_File, LineMode!, Write!, LockWrite!, Append!)
+else
+	li_File = FileOpen(ls_File, LineMode!, Write!, LockWrite!, Replace!)
+end if
+
+FileWrite(li_File, ls_Content)
+FileClose(li_File)
+
+
+end subroutine
+

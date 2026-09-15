@@ -1,0 +1,22 @@
+﻿$PBExportHeader$chg_coord.srf
+global type chg_coord from function_object
+end type
+
+forward prototypes
+global subroutine chg_coord (ref datawindow dw, string colonne, double delta_x, double delta_y)
+end prototypes
+
+global subroutine chg_coord (ref datawindow dw, string colonne, double delta_x, double delta_y);
+// Change les coordonnées d'éléments d'une datawindows
+
+double x,y
+string rc
+
+x = double(dw.describe(colonne+".x")) + delta_x
+y = double(dw.describe(colonne+".y")) + delta_y
+
+rc = dw.modify(colonne+".x = "+string(x))
+rc = dw.modify(colonne+".y = "+string(y))
+
+end subroutine
+

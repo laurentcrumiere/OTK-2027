@@ -1,0 +1,21 @@
+﻿$PBExportHeader$string_non_nulle.srf
+global type string_non_nulle from function_object
+end type
+
+forward prototypes
+global function string string_non_nulle (string chaine)
+end prototypes
+
+global function string string_non_nulle (string chaine);
+
+// renvoie la chaine passée en paramètre si non nulle
+// renvoie "" sinon
+
+
+if isnull(chaine) then
+	return ""
+else
+	return chaine 
+end if
+end function
+

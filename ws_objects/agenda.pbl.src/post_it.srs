@@ -1,0 +1,10 @@
+﻿$PBExportHeader$post_it.srs
+global type post_it from structure
+	date		date
+	string		code_praticien
+	string		texte
+	long		couleur
+	boolean		modif_autorisee
+	string		alerte_prise_de_rdv
+end type
+

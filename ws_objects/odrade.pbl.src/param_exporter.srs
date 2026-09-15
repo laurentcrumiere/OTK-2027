@@ -1,0 +1,7 @@
+﻿$PBExportHeader$param_exporter.srs
+global type param_exporter from structure
+	integer		num_pour_trace
+	integer		num_pour_tableau
+	double		temps_traitement
+end type
+

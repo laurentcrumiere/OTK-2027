@@ -1,0 +1,71 @@
+﻿$PBExportHeader$fxg_formater_telephone_international.srf
+global type fxg_formater_telephone_international from function_object
+end type
+
+forward prototypes
+global function string fxg_formater_telephone_international (string v_numero, string v_type_numero, double v_patient)
+end prototypes
+
+global function string fxg_formater_telephone_international (string v_numero, string v_type_numero, double v_patient);
+// Transformation du numéro de téléphone en format internationnal avec + devant et indication
+// v_type_numero = P pour patient, P1 pour parent1, P2 pour parent2, PA pour payeur
+
+
+// Recherche du pays du parent1
+string v_pays
+integer v_pos, v_indicatif
+
+// on enleve tous les espaces ou signe au cas ou
+v_numero = espace(v_numero)
+
+ 
+choose case v_type_numero
+	case "P", "P1"
+		select isnull(pays_parent1,'') into :v_pays from patient where code = :v_patient ;
+	case "P2"
+		select isnull(pays_parent2,'') into :v_pays from patient where code = :v_patient ;
+	case "PA"
+		select isnull(pays_payeur,'') into :v_pays from patient where code = :v_patient ;
+	case else
+		select isnull(pays_parent1,'') into :v_pays from patient where code = :v_patient ;
+end choose
+
+if v_pays = '' then
+	if Belgique then
+		v_pays = 'B'
+	else
+		if Suisse then 
+			v_pays = 'S'
+		else
+			if luxembourg then
+				v_pays = 'L'
+			else
+				v_pays = 'F'
+			end if
+		end if
+	end if
+end if
+
+select isnull(indicatif_international, 33) into :v_indicatif from pays where code = :v_pays ;
+
+
+// Mise au format internationnal ... 
+// on vire les premiers 0
+
+
+integer  len
+
+// recherche du 1er chiffre non 0
+len = len(v_numero)
+v_pos = 1
+
+do while mid(v_numero, v_pos, 1) = '0'  and v_pos < len
+	v_pos = v_pos + 1
+loop
+
+v_numero = "+" + string(v_indicatif) + right(v_numero, len - v_pos + 1)
+
+
+return  v_numero
+end function
+

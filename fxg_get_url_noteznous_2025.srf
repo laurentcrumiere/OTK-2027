@@ -1,0 +1,144 @@
+$PBExportHeader$fxg_get_url_noteznous_2025.srf
+global type fxg_get_url_noteznous_2025 from function_object
+end type
+
+forward prototypes
+global function string fxg_get_url_noteznous_2025 (double db_code_patient, string s_formulaire)
+end prototypes
+
+global function string fxg_get_url_noteznous_2025 (double db_code_patient, string s_formulaire);// Interroge Notez-nous pour renvoyer l'url du formulaire du patient 
+// renvoie "" si pas besoin de formulaire pour le patient
+
+// Url qui sera renvoyée si OK
+string s_url_formulaire = ""
+
+
+// Accés internet
+Inet iinet_base_nn
+string url_wb, url_myo
+integer li_rc
+n_inetresult in_irdata_nn
+integer v_fichier_retour
+string v_ligne
+long v_pos1, v_pos2
+string v_code_erreur
+
+
+// Compte NotezNous
+string s_key 	// Mot de passe chez Notez Nous
+string url_NotezNous 
+string s_test_mode 			// 1 pour forcer l'envoi, 0 pour respecter les règles NotezNous
+
+GetContextService("Internet", iinet_base_nn)
+in_irdata_nn = CREATE n_inetresult
+
+// Retour 
+constant string nom_fichier_recu_nn = "NotezNous.txt"
+
+
+
+if SERIAL = "87001" or SERIAL = "88005" or SERIAL = "88036" then
+	// Numéros spéciaux ARAKIS
+	
+	// pour forcer l'envoi de message
+	//s_test_mode = "1"	
+	
+	// Pour être comme les clients !
+	//s_test_mode = "0"	
+	s_test_mode = profilestring(dir_ini+inifile_orthokis,"Arakis","Notez_Nous_Test","0") 
+
+	// URL de tests
+	url_NotezNous = "https://dev.noteznous.fr/assets/php/API/generateReviewOrthokis.php?"
+	s_key = "secureNotezNous"	// Notre mot de passe chez Notez Nous
+else
+	// respect Notez Nous
+	s_test_mode = "0"	
+	// Url de PROD
+	url_NotezNous = "https://noteznous.fr/assets/php/API/generateReviewOrthokis.php?"
+	s_key = "lEYuNAdxSuQIA5jQ"	// Notre mot de passe chez Notez Nous
+end if
+
+trace("=== DEBUT INTERROGATION NOTEZ-NOUS ===")
+
+// Récupération du compte client Notez Nous du praticien ou du cabinet
+string s_company = ''
+string s_nom, s_prenom, s_mail, s_tel
+
+select isnull(notez_nous_id_praticien, ''), isnull(patient.nom, ''), isnull(patient.prenom, ''), isnull(patient.email_patient, isnull(patient.email,'')) , isnull(patient.portable_patient, isnull(patient.portable, '') )
+into :s_company , :s_nom, :s_prenom, :s_mail, :s_tel
+from prati, patient where patient.code_praticien = prati.code and patient.code = :db_code_patient ;
+
+if s_company = '' then 
+	select top 1 isnull(notez_nous_id_cabinet, '') into :s_company 
+	from param  ;
+end if
+
+
+// on a testé la présence de l'id cabinet dans la fonction verif_supprime_alertes_auto_rdv() pour éviter d'envoyer un mail
+// => ici c'est bon en principe 
+if s_company <> "" then
+		
+	
+	// Mise en place des paramètres
+	string s_param 
+	
+	s_param = "key=" + s_key + "&company=" + s_company +"&idPatient=" + string(db_code_patient) + "&testMode=" + s_test_mode + "&formtypeKey=" + s_formulaire
+
+	// ajout des nouveaux paramètres
+	s_param = s_param + "&nom=" + enlever_accents(s_nom) + "&prenom=" + enlever_accents(s_prenom) + "&mail=" + s_mail + "&tel=" + s_tel
+
+	// effacement du fichier du dernier appel
+	FileDelete(dir_ini + nom_fichier_recu_nn)
+	
+	// Lancement du webservice qui va bien
+	url_wb = url_NotezNous + s_param
+	
+	li_rc = iinet_base_nn.GetURL(url_wb, in_irdata_nn)
+	
+	trace(" - Commande envoyée : " + url_wb )
+	trace(" - Code retour : " + string(li_rc))
+	
+	if li_rc = 1 then
+		
+		trace ("Le retour va être dans le fichier : " + dir_ini + nom_fichier_recu_nn )
+		// On écrit le résultat avec un tempo de 500 ms car sinon le fichier résultat reste vérrouillé
+		long v_tempo
+		v_tempo = long(profilestring(dir_ini+inifile_orthokis,"NOTEZ-NOUS", "tempo_ecriture_fichier", "500"))
+		trace ("Tempo écriture fichier : " + string(v_tempo) )
+		in_irdata_nn.of_WriteFile_tempo(dir_ini + nom_fichier_recu_nn, in_irdata_nn.iblob_data, v_tempo)
+		
+	end if
+	
+
+	if not FileExists(dir_ini + nom_fichier_recu_nn) then
+		trace ("Le fichier " + dir_ini + nom_fichier_recu_nn + " n'existe pas !")
+		Messagebox("ATTENTION","Erreur de communication avec Notez-Nous.")
+		
+	else
+		trace ("Décodage du fichier retour")
+		jsonpackage lnv_pack1
+		lnv_pack1 = create jsonpackage
+		string ls_json
+		integer numero_fichier_recu
+		
+		numero_fichier_recu = fileOpen(dir_ini + nom_fichier_recu_nn, LineMode!, Read! )
+		
+		FileRead(numero_fichier_recu, ls_json)
+		
+		FileClose(numero_fichier_recu)
+		
+		lnv_pack1.loadstring(ls_json)
+		
+		s_url_formulaire = lnv_pack1.getvalue("url")
+		
+		s_url_formulaire = string_non_nulle(s_url_formulaire)
+		trace("s_url_formulaire : " + s_url_formulaire)
+	end if
+
+end if
+
+trace("=== FIN INTERROGATION NOTEZ-NOUS ===")
+
+return s_url_formulaire
+end function
+

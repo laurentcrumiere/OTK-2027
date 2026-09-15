@@ -1,0 +1,197 @@
+﻿$PBExportHeader$maj_barre_patient.srf
+global type maj_barre_patient from function_object
+end type
+
+forward prototypes
+global subroutine maj_barre_patient (double v_code, ref statictext st_couleur, statictext st_couleur2, ref statictext st_nom, ref statictext st_cmu, ref statictext st_code, statictext st_praticien, ref picture p_sepa, uo_document_a_signer pb_signature, uo_questionnaire_en_attente pb_questionnaire, window fenetre, statictext st_couleur3, statictext st_couleur4)
+end prototypes
+
+global subroutine maj_barre_patient (double v_code, ref statictext st_couleur, statictext st_couleur2, ref statictext st_nom, ref statictext st_cmu, ref statictext st_code, statictext st_praticien, ref picture p_sepa, uo_document_a_signer pb_signature, uo_questionnaire_en_attente pb_questionnaire, window fenetre, statictext st_couleur3, statictext st_couleur4);
+// Mise à jour de la barre patient en haut de la fenêtre et replacement sur la fenêtre
+
+
+string v_mise_en_evidence, v_date_mise_en_evidence
+double v_couleur1 , v_numero_dossier, v_couleur2, v_couleur3, v_couleur4
+date v_date_cmu
+string v_praticien, v_afficher_code, v_nom
+long v_couleur_code
+string v_adulte, v_mode_reglement_habituel
+integer i_cpt_signatures
+
+select isnull(patient.mise_en_evidence, ''), patient.couleur1, patient.numero_dossier, patient.date_validite_cmu, patient.code_praticien, barre_afficher_code , barre_couleur_code  , isnull(patient.nom + ' ', '')+isnull(patient.prenom,''), 
+patient.adulte , patient.couleur2 , mode_reglement_habituel, patient.couleur3, patient.couleur4
+into :v_mise_en_evidence, :v_couleur1, :v_numero_dossier, :v_date_cmu, :v_praticien, :v_afficher_code, :v_couleur_code, :v_nom, 
+:v_adulte, :v_couleur2, :v_mode_reglement_habituel, :v_couleur3, :v_couleur4
+from patient, prati where patient.code = :v_code and patient.code_praticien = prati.code;
+
+select isnull(date_validite, 'N') into :v_date_mise_en_evidence from  mise_en_evidence where code = :v_mise_en_evidence ; 
+
+
+
+st_nom.text = v_nom
+
+if profilestring(dir_ini+inifile_orthokis,"admini","souligner_adultes","N")  = "O" and v_adulte = 'O'  then
+	st_nom.underline = true
+else
+	st_nom.underline = false
+end if
+st_code.text = string(v_numero_dossier)
+
+//if v_cmu = "O" then
+//	if belgique then
+//		st_cmu.text = "V"
+//	else
+//		st_cmu.text = "C"
+//		if isnull(v_date_cmu) or v_date_cmu < today() then
+//			st_cmu.Textcolor = 255
+//		end if
+//	end if
+//elseif v_cmu = "M" then
+//		st_cmu.text = "M"
+//else
+//	st_cmu.text = ""
+//end if
+
+st_cmu.text = v_mise_en_evidence
+
+if v_date_mise_en_evidence = "O" then 
+	// spécial CMU ou autre
+	if isnull(v_date_cmu) or v_date_cmu < today() then
+		st_cmu.Textcolor = 255
+	end if
+	// servira à l'affichage dynamique
+	st_cmu.tag = string(v_date_cmu)
+end if
+
+
+if not isnull(v_couleur1)  then
+	st_couleur.backcolor = v_couleur1 
+	st_couleur.text = ""
+else
+	//st_couleur.visible = false
+	st_couleur.backcolor = rgb(192,192,192)
+	st_couleur.text = "?"
+end if
+
+if not isnull(v_couleur2)  then
+	st_couleur2.backcolor = v_couleur2 
+	st_couleur2.text = ""
+else
+	//st_couleur.visible = false
+	st_couleur2.backcolor = rgb(192,192,192)
+	st_couleur2.text = "?"
+end if
+
+
+if not isnull(v_couleur3)  then
+	st_couleur3.backcolor = v_couleur3 
+	st_couleur3.text = ""
+else
+	//st_couleur.visible = false
+	st_couleur3.backcolor = rgb(192,192,192)
+	st_couleur3.text = "?"
+end if
+
+
+if not isnull(v_couleur4)  then
+	st_couleur4.backcolor = v_couleur4 
+	st_couleur4.text = ""
+else
+	//st_couleur.visible = false
+	st_couleur4.backcolor = rgb(192,192,192)
+	st_couleur4.text = "?"
+end if
+	
+
+
+if v_mode_reglement_habituel = "R" then
+	// Prelèvement
+	p_sepa.visible = true
+else
+	p_sepa.visible = false
+end if
+
+
+if multi and v_afficher_code = 'O' then
+	st_praticien.text = v_praticien
+	st_praticien.Textcolor = v_couleur_code
+else
+	st_praticien.visible = false
+end if
+ 
+
+// Taille des éléments pour déterminer la position en largeur
+integer position_y = 10
+integer espace_zones 
+integer taille_totale , x_depart
+
+if belgique then
+	// Dans la gestion des règlements on affiche aussi la date => besoin de place 
+	espace_zones = 150
+else
+	espace_zones = 200
+end if
+
+//messagebox("fenetre",fenetre.width)
+ 
+// pour les petites fenêtres, on cadre à gauche
+if fenetre.width < 4700 then
+	x_depart = 30
+	espace_zones = 30
+else
+	 espace_zones = 60	
+	 taille_totale = (st_couleur.width * 4 ) + st_nom.width + st_cmu.width + st_code.width + p_sepa.width+  st_praticien.width + 3 * espace_zones  // 4 x 200
+	x_depart = min(( fenetre.width - taille_totale ) / 2,100)
+end if
+
+
+
+if MON_ORTHODONTISTE or TEA then
+	// Y a il des documents en attente de signature pour le patient 
+	pb_signature.init(v_code)
+else
+	pb_signature.visible = false
+end if
+
+if MON_ORTHODONTISTE or TEA or QUESTIONNAIRE_MEDICAL then
+	// Y a il des questionnaire en attente pour le patient
+	pb_questionnaire.init(v_code)
+else
+	pb_questionnaire.visible = false
+end if
+
+
+
+
+st_praticien.x =  x_depart 
+st_couleur.x = x_depart + st_praticien.width + espace_zones
+st_couleur2.x = st_couleur.x + st_couleur.width + espace_zones / 2
+
+st_couleur3.x = st_couleur2.x + st_couleur.width + espace_zones / 2
+st_couleur4.x = st_couleur3.x + st_couleur.width + espace_zones / 2
+st_nom.x = st_couleur4.x + st_couleur4.width + espace_zones
+
+
+st_cmu.x = st_nom.x + st_nom.width + espace_zones
+st_code.x = st_cmu.x + st_cmu.width + espace_zones
+p_sepa.x = st_code.x + st_code.width + espace_zones
+pb_signature.x = p_sepa.x + pb_signature.width + espace_zones
+pb_questionnaire.x = pb_signature.x + pb_questionnaire.width + espace_zones
+
+
+st_couleur.y = position_y
+st_couleur2.y = position_y
+st_couleur3.y = position_y
+st_couleur4.y = position_y
+st_nom.y = position_y
+st_cmu.y = position_y
+st_code.y = position_y
+st_praticien.y = position_y 
+
+p_sepa.y = position_y  - 5
+pb_signature.y = position_y   - 5
+pb_questionnaire.y = position_y   - 5
+
+
+end subroutine
+

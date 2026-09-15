@@ -1,0 +1,17 @@
+﻿$PBExportHeader$fxg_get_uuid_luxembourg.srf
+global type fxg_get_uuid_luxembourg from function_object
+end type
+
+forward prototypes
+global function string fxg_get_uuid_luxembourg ()
+end prototypes
+
+global function string fxg_get_uuid_luxembourg ();string v_retour
+if fxg_lancer_commande_econnector("generate-uuid", "G", "" , v_retour) then 
+	return right(trim(v_retour), 36)
+else
+	return "?"
+end if
+
+end function
+

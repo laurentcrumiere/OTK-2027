@@ -1,0 +1,27 @@
+﻿$PBExportHeader$jour_ferie.srf
+global type jour_ferie from function_object
+end type
+
+forward prototypes
+global function boolean jour_ferie (date v_date_etudiee)
+end prototypes
+
+global function boolean jour_ferie (date v_date_etudiee);// Renvoie si une date tombe un jour férié
+// On ne gère que les jours fériés fixes
+
+// Sert d'alerte dans la génération d'une FSE
+
+string debut
+debut = left(string(v_date_etudiee,"dd/mm/yyyy"),5)
+	
+if debut = '01/01' or debut = '01/05' or debut = '08/05' or debut = '14/07' or debut = '15/08' or debut = '01/11' or debut = '11/11' or debut = '25/12' then
+	return true
+else
+	return false
+end if
+
+
+
+return true
+end function
+

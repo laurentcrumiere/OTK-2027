@@ -1,0 +1,30 @@
+﻿$PBExportHeader$fxg_ouvrir_editeur_2022.srf
+global type fxg_ouvrir_editeur_2022 from function_object
+end type
+
+forward prototypes
+global subroutine fxg_ouvrir_editeur_2022 (string fichier_photo, double code_patient)
+end prototypes
+
+global subroutine fxg_ouvrir_editeur_2022 (string fichier_photo, double code_patient);//	// ouverture de l'éditeur !!!
+// Passage de parametre
+param_win[1] = fichier_photo
+param_win[2] = string(code_patient)
+
+w_editeur_2022 w1
+
+Open( w1 )
+
+
+//OpenWithParm(w1, fenetre_explorateur_2013)
+
+if isvalid(w1) then
+	w1.hide()
+	fxg_fenetre_positionner(w1, "editeur_2022")
+	if profilestring(dir_ini+inifile_orthokis,"explorateur_photos_2013","ouverture_editeur","O") = "O" then
+		w1.windowstate = Maximized!
+	end if
+	w1.show()
+end if
+end subroutine
+

@@ -1,0 +1,51 @@
+﻿$PBExportHeader$get_pbus_color.srf
+global type get_pbus_color from function_object
+end type
+
+forward prototypes
+global function string get_pbus_color (string couleur)
+end prototypes
+
+global function string get_pbus_color (string couleur);// renvoie le nom de la couleur PB Ultimlate suite d'une couleur en français
+string couleur_pbus
+
+couleur = upper(couleur)
+
+choose case couleur
+		
+	case "ROUGE"
+		couleur_pbus = "RED"
+	case "NOIR"
+		couleur_pbus = "BLACK"
+	case "BLEU"
+		couleur_pbus = "BLUE"
+	case "MAGENTA"
+		couleur_pbus = "MAGENTA"
+	case "ORANGE"
+		couleur_pbus = "ORANGE"
+	case "ROSE"
+		couleur_pbus = "PINK"
+	case "VIOLET"
+		couleur_pbus = "PURPLE"
+	case "GRIS"
+		couleur_pbus = "CLASSIC"
+	case "VERT"
+		couleur_pbus = "EMERALD"
+	case else
+		couleur_pbus = "BLACK"
+
+end choose
+
+
+return couleur_pbus
+
+
+
+
+
+
+
+
+
+end function
+

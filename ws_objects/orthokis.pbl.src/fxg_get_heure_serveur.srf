@@ -1,0 +1,17 @@
+﻿$PBExportHeader$fxg_get_heure_serveur.srf
+global type fxg_get_heure_serveur from function_object
+end type
+
+forward prototypes
+global function datetime fxg_get_heure_serveur ()
+end prototypes
+
+global function datetime fxg_get_heure_serveur ();// renvoie l'heure du serveur (datetime)
+
+datetime v_now
+
+select getdate() into :v_now from param ;
+
+return (v_now)
+end function
+

@@ -1,0 +1,34 @@
+﻿$PBExportHeader$fxg_conversion_masque.srf
+global type fxg_conversion_masque from function_object
+end type
+
+forward prototypes
+global subroutine fxg_conversion_masque (ref string v_nom, ref string v_prenom)
+end prototypes
+
+global subroutine fxg_conversion_masque (ref string v_nom, ref string v_prenom);// Conversion masque nom et prénom du patient
+
+string v_masque_nom, v_masque_prenom
+select top 1 masque_nom, masque_prenom into :v_masque_nom, :v_masque_prenom from param ;
+
+
+// Nom
+if v_masque_nom = "T" then 
+	v_nom = upper(v_nom)
+else
+	if v_masque_nom = "P" then 
+		v_nom = upper(left(v_nom,1)) + mid(v_nom, 2, len(v_nom) - 1)
+	end if
+end if
+
+// Prenom
+if v_masque_prenom = "T" then 
+	v_prenom = upper(v_prenom)
+else
+	if v_masque_prenom = "P" then 
+		v_prenom = upper(left(v_prenom,1)) + mid(v_prenom, 2, len(v_prenom) - 1)
+	end if
+end if
+
+end subroutine
+

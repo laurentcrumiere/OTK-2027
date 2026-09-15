@@ -1,0 +1,11 @@
+﻿$PBExportHeader$str_scheduleprint.srs
+global type str_scheduleprint from structure
+	string		imagefile
+	integer		width
+	integer		height
+	string		title
+	string		theme
+	u_cst_powerschedule_core		powerschedule
+	u_cst_powerschedule_scheduleview		powerscheduleview
+end type
+

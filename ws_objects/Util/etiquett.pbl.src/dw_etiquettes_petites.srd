@@ -1,0 +1,14 @@
+﻿$PBExportHeader$dw_etiquettes_petites.srd
+release 7;
+datawindow(units=3 timer_interval=0 color=1090519039 processing=2 HTMLDW=no print.documentname="Etiquette - Small format" print.orientation = 2 print.margin.left = 1800 print.margin.right = 1800 print.margin.top = 400 print.margin.bottom = 300 print.paper.source = 0 print.paper.size = 11 print.prompt=yes print.buttons=no print.preview.buttons=no label.name="Laser Address 1.00 x 2.63 5160,5260" label.width=3800 label.height=1300 label.rows=16 label.rows.spacing=0 label.columns=3 label.columns.spacing=200 label.topdown=no label.sheet=yes label.shape=roundrectangle label.ellipse_height=176 label.ellipse_width=176 )
+detail(height=1296 color="536870912" )
+table(column=(type=char(30) update=yes updatewhereclause=yes name=nom dbname="patient.nom" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=code dbname="patient.code" )
+ column=(type=char(40) updatewhereclause=yes name=age dbname="etiquettes.zone1" )
+ retrieve="SELECT ~"etiquettes~".~"nom~", ~"etiquettes~".~"code~", ~"etiquettes~".~"zone1~" FROM ~"etiquettes~" " )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="264" y="79" height="343" width="2804" format="[general]"  name=nom edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="if( isnull(nom), ~"~", string(today(),~"dd/mm/yyyy~") )"border="0" color="0" x="264" y="449" height="343" width="1666" format="[GENERAL]"  name=compute_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="2169" y="449" height="343" width="978" format="0"  name=code edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="264" y="820" height="343" width="2857" format="[general]"  name=age edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

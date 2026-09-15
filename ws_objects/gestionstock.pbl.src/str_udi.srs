@@ -1,0 +1,8 @@
+﻿$PBExportHeader$str_udi.srs
+global type str_udi from structure
+	string		di		descriptor "comment" = "identifiant du dispositif"
+	string		numero_lot
+	date		date_peremption
+	date		date_fabrication
+end type
+

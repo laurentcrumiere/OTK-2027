@@ -1,0 +1,32 @@
+﻿$PBExportHeader$get_repertoire.srf
+global type get_repertoire from function_object
+end type
+
+forward prototypes
+global function string get_repertoire (string titre, string repertoire_defaut)
+end prototypes
+
+global function string get_repertoire (string titre, string repertoire_defaut);
+
+// Fonction de saisie d'un répertoire par l'interface Windows
+
+string retour 
+
+choose case getfolder(titre, repertoire_defaut)
+	case 1
+		// C'est bon !!
+	case 0
+		// opération annulée
+	case -1
+		messagebox("ERREUR ...", "La désignation du répertoire a échoué.", StopSign!)
+end choose
+
+repertoire_defaut = trim(repertoire_defaut)
+if right(repertoire_defaut, 1) <> '\' then
+	repertoire_defaut = repertoire_defaut + '\'
+end if
+
+return repertoire_defaut
+
+end function
+

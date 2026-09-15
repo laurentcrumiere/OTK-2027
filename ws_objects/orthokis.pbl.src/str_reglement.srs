@@ -1,0 +1,12 @@
+﻿$PBExportHeader$str_reglement.srs
+global type str_reglement from structure
+	date		date
+	date		dateremise
+	string		commentaire
+	string		payeur
+	string		mode
+	double		code
+	double		cle
+	decimal		montant
+end type
+

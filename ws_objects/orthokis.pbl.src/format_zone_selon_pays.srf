@@ -1,0 +1,79 @@
+﻿$PBExportHeader$format_zone_selon_pays.srf
+global type format_zone_selon_pays from function_object
+end type
+
+forward prototypes
+global function string format_zone_selon_pays (string code_pays, string type_zone)
+end prototypes
+
+global function string format_zone_selon_pays (string code_pays, string type_zone);
+
+// renvoie le format de la zone téléphone portable ou fise ou N° de sécu selon le pays
+
+
+
+string format = ""
+boolean v_suite 
+
+v_suite = true
+
+// recherche du format dans la table
+
+choose case type_zone
+	case 'T'
+		// zone de téléphone
+		select isnull(format_telephone, '') into :format from pays where code = :code_pays ;
+		if format = "" then 
+			// pas de format dans la table, on prend le format par défaut slon le pays du logiciel
+			if belgique then 
+				format = "## ### ## ##"
+			else
+				if luxembourg then
+					format =  '### ## ##'
+				else
+					// france
+					format =  '## ## ## ## ##'
+				end if
+			end if
+		end if
+				
+	case 'P'
+		// zone de téléphone GSM
+		select isnull(format_gsm,'') into :format from pays where code = :code_pays ;
+		if format = "" then 
+				// pas de format dans la table, on prend le format par défaut slon le pays du logiciel
+				if belgique then 
+					format = "#### ## ## ##"
+				else
+					if luxembourg then
+						format =  '### ### ###'
+					else
+						// france
+						format =  '## ## ## ## ##'
+					end if
+				end if
+			end if
+		case 'S'
+		// Zone N° de sécurité sociale
+		select isnull(format_secu, '')  into :format from pays where code = :code_pays ;
+		if format = "" then 
+			// pas de format dans la table, on prend le format par défaut slon le pays du logiciel
+			if belgique then 
+				format = "!!!!!!!!!!!!!!!!!!!!!!!!"
+			else
+				if luxembourg then
+					format =  '!!!!!!!!!!!'
+				else
+					// france
+					format =  '! !! !! !! !!! !!! / !!'
+				end if
+			end if
+		end if
+end choose
+
+return format
+		
+		
+
+end function
+

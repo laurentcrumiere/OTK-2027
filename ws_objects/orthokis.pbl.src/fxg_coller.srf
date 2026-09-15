@@ -1,0 +1,36 @@
+﻿$PBExportHeader$fxg_coller.srf
+global type fxg_coller from function_object
+end type
+
+forward prototypes
+global subroutine fxg_coller ()
+end prototypes
+
+global subroutine fxg_coller ();GraphicObject  Which
+
+SingleLineEdit Refsle
+MultiLineEdit Refmle
+Editmask Refem
+Datawindow Refdw
+
+which = getfocus()
+
+CHOOSE CASE typeof(Which)
+	CASE SingleLineEdit!
+		refsle = which
+		refsle.paste()
+	case MultiLineEdit!
+		refmle = which
+		refmle.paste()
+	CASE Editmask!
+		refem = which
+		refem.paste()
+	CASE Datawindow!
+		refdw = which
+		refdw.paste()
+	CASE ELSE
+		beep(1)
+END CHOOSE
+
+end subroutine
+

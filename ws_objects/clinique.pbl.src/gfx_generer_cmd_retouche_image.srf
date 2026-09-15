@@ -1,0 +1,41 @@
+﻿$PBExportHeader$gfx_generer_cmd_retouche_image.srf
+global type gfx_generer_cmd_retouche_image from function_object
+end type
+
+forward prototypes
+global function integer gfx_generer_cmd_retouche_image (string str_path_image, ref string str_cmd)
+end prototypes
+
+global function integer gfx_generer_cmd_retouche_image (string str_path_image, ref string str_cmd);// fonction qui construit une ligne de commande complète à passer
+// à une fonction type "run" ou "runwait"
+// la cmd est ds le param "str_cmd" passé en ref
+// return 1 si ok
+// 		-1 si pb
+
+int		lint_returnval = -1
+string	lstr_prg_edition
+string	lstr_prg_param
+
+
+// recup path de l'exe du prg de retouche
+lstr_prg_edition = ProfileString(dir_ini + inifile_orthokis, "photos", "editer_avec01", "")
+
+// recup des params optionnels du prg de retouche
+lstr_prg_param = ProfileString(dir_ini + inifile_orthokis, "photos", "param_editer_avec01", "")
+
+if lstr_prg_edition <> "" then
+// si un soft de retouche photo est indiqué ds paramétrage avancé de l'imagerie
+	if FileExists(str_path_image) then
+	// si le fichier image existe
+		// construction ligne de commande
+		str_cmd = lstr_prg_edition + " " + lstr_prg_param + " ~"" + str_path_image + "~""
+		
+		// maj val retour
+		lint_returnval = 1
+	end if
+end if
+
+return lint_returnval
+
+end function
+

@@ -1,0 +1,103 @@
+﻿$PBExportHeader$copie_ecran.srf
+global type copie_ecran from function_object
+end type
+
+forward prototypes
+global subroutine copie_ecran (ref window w1, double patient_courant, string destination)
+end prototypes
+
+global subroutine copie_ecran (ref window w1, double patient_courant, string destination);
+/* Pré réquis pour faire fonctionner correctement les copies d'écran de page clinique
+
+Si héritée de w_diagnos_maj_ : OK
+
+Sinon, 
+	0. Déclarer une variable d'instance 
+			integer secondes_attente
+			
+	1. placer le script ci dessous dans l'évent timer la fenêtre
+
+			secondes_attente = secondes_attente - 1
+			
+			if secondes_attente = 1 then
+				copie_ecran_fenetre_clipboard()
+			end if
+			
+			if secondes_attente = 0 then
+				close(this)
+			end if
+	2. Mettre la fenetre en type RESPONSE
+	
+	3.Mettre le script suivant dans l'event SHOW
+	
+		clinique_affichee = true
+		secondes_attente = 3
+		timer(1)
+		
+*/
+	
+	
+	
+	
+	clinique_affichee = false
+	
+	// Dans l'open
+	
+	openwithparm(w1,patient_courant)
+	
+//	do while not clinique_affichee 
+//		// patience !!
+//	loop 
+	
+	//sleep (1)
+
+//	keybd_event( 18, 0, 0, 0 )
+//	keybd_event( 44, 1, 0, 0 )
+	//keybd_event( 18, 0, 0, 0 )
+
+//	w_main.cb_1.triggerevent(clicked!)
+	
+	
+	//close(w1)
+
+	w_main.ole_image.object.delimage	= true
+	w_main.ole_image.object.clearimage = true
+	w_main.ole_image.object.ClipboardPaste	= true
+	w_main.ole_image.object.SaveFormat = IG_SAVE_JPG
+	w_main.ole_image.object.SaveImage = destination
+	
+
+/*
+	n_bitmap in_bitmap
+	Blob lblb_screen
+	string ls_fname
+	
+	ls_fname = "c:\power\ortho\ScreenShot.bmp"
+	lblb_screen = in_bitmap.of_WindowCapture(w1)
+	
+	close(w1)
+	
+	in_bitmap.of_WriteBlob(ls_fname, lblb_screen)
+	
+	Long Taille_Fichier
+	Taille_Fichier = FileLength64(ls_fname)
+
+	if taille_fichier = 0 then
+		if Messagebox("ATTENTION","Erreur dans la Copie d'Ecran !!~n~nVoulez-vous poursuivre ?",Question!,YesNo!,1) = 2 then
+			disconnect ;
+			halt close 
+		end if
+	else
+	
+		w_main.ole_image.object.delimage	= true
+		w_main.ole_image.object.clearimage = true
+		w_main.ole_image.object.loadimage = ls_fname
+		
+		w_main.ole_image.object.SaveFormat = IG_SAVE_JPG
+		w_main.ole_image.object.SaveImage = destination
+	end if
+	
+*/
+
+end subroutine
+
