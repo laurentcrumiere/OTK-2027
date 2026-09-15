@@ -1,0 +1,41 @@
+﻿$PBExportHeader$init_random.srf
+global type init_random from function_object
+end type
+
+forward prototypes
+global subroutine init_random (long lig)
+end prototypes
+
+global subroutine init_random (long lig);// initialise le random
+
+long result 
+
+long ll_total_ms
+integer li_result
+
+// 1. Extraction des composantes (0 à 59 min, 0 à 59 sec, 0 à 999 ms)
+long ll_min, ll_sec, ll_ms
+
+time at_time
+
+at_time = now()
+
+ll_min = Minute(at_time)
+ll_sec = Second(at_time)
+
+// Dans PowerBuilder, le type Time inclut les millisecondes après la virgule dans la seconde.
+// On extrait la partie fractionnaire de la seconde pour obtenir les millisecondes (0 - 999).
+ll_ms = Long( ( SecondsAfter(Time("00:00:00"), at_time) - Long(SecondsAfter(Time("00:00:00"), at_time)) ) * 1000 )
+
+// 2. Calcul du nombre total de millisecondes dans la minute courante (entre 0 et 59 999 ms)
+ll_total_ms = (ll_min * 60 * 1000) + (ll_sec * 1000) + ll_ms * lig
+
+// 3. Application du modulo 32 667 pour ramener la valeur entre 0 et 32 666
+//    puis +1 pour garantir un résultat entre 1 et 32 667.
+li_result = Mod(ll_total_ms, 32667) + 1
+
+
+
+randomize(li_result)
+end subroutine
+
