@@ -1,0 +1,15 @@
+﻿$PBExportHeader$melange_telephone.srf
+global type melange_telephone from function_object
+end type
+
+forward prototypes
+global function string melange_telephone (string as_numero, integer as_lig)
+end prototypes
+
+global function string melange_telephone (string as_numero, integer as_lig);double ll_numero
+
+ll_numero = long(as_numero) * second(now()) * as_lig 
+
+return right(string(ll_numero), 10)
+end function
+
