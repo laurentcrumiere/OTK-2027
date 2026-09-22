@@ -1022,10 +1022,7 @@ end if
 				em_date_impr.text =  string(dw_soins_prevus.getitemdate(lig_soin,"date_impr"),"dd/mm/yyyy")	//"date impression de DEP"
 				type_soin = dw_soins_prevus.getitemstring(lig_soin,"code_soins_code")
 				sle_association.text = dw_soins_prevus.getitemString(lig_soin,"code_association")
-				
-				if version_ce_logiciel >= "36.90" then 
-					sle_modificateurs.text = dw_soins_prevus.getitemString(lig_soin,"modificateurs")
-				end if
+				sle_modificateurs.text = dw_soins_prevus.getitemString(lig_soin,"modificateurs")
 				
 				ancien_soin = type_soin
 				
@@ -1149,9 +1146,7 @@ end if
 					em_tp.text = string(dw_soins.getitemnumber(lig_soin,"tp"))
 					em_num.text = string(dw_soins.getitemnumber(lig_soin,"numero"))
 					type_soin = dw_soins.getitemstring(lig_soin,"code_soins_code")
-					if version_ce_logiciel >= "36.90" then 
-						sle_modificateurs.text =  w_soins_reg_maj_parent.tab_1.tabpage_soins.dw_impression.getitemString(1,"modificateurs") 
-					end if
+					sle_modificateurs.text =  w_soins_reg_maj_parent.tab_1.tabpage_soins.dw_impression.getitemString(1,"modificateurs") 
 		
 					ancien_soin = type_soin
 					
@@ -1551,11 +1546,8 @@ end if
 
 v_code_association = trim(sle_association.text)
 
-if version_ce_logiciel < "36.90" then
-	v_modificateurs = ""
-else
-	v_modificateurs = sle_modificateurs.text
-end if
+v_modificateurs = sle_modificateurs.text
+
 	
 if type_gestion = "P" then
 	
@@ -1756,17 +1748,12 @@ CHOOSE CASE Action
 			
 			// soins prévus
 			
-			if version_ce_logiciel < "36.90" then 
+
 				INSERT INTO "soins_prevus"  ( "cle", "code", "type",  "numero", "date_demande", "scp_demande",  "hn",   "total", "tp", "date_accord", "scp_accord" ,
-				"date_impr","user_modif","date_modif", "code_devis", "code_association", "remboursement_exceptionnel", "exo", "dent")  
-				 VALUES ( :cle_max,   :var_code_local, :var_type,  :var_num,   :var_date_dem,   :var_scp_dem, :var_hn, :var_tot,    :var_tp , :var_date_acc,   :var_scp_acc , 
-				 :var_date_impr, :utilisateur_code, getdate(), :var_code_devis_local, :v_code_association, :v_remboursement_exceptionnel, :v_exoneration, :v_dent)  ;
-			else
-					INSERT INTO "soins_prevus"  ( "cle", "code", "type",  "numero", "date_demande", "scp_demande",  "hn",   "total", "tp", "date_accord", "scp_accord" ,
-				"date_impr","user_modif","date_modif", "code_devis", "code_association", "remboursement_exceptionnel", "exo", "dent", "modificateurs")  
-				 VALUES ( :cle_max,   :var_code_local, :var_type,  :var_num,   :var_date_dem,   :var_scp_dem, :var_hn, :var_tot,    :var_tp , :var_date_acc,   :var_scp_acc , 
-				 :var_date_impr, :utilisateur_code, getdate(), :var_code_devis_local, :v_code_association, :v_remboursement_exceptionnel, :v_exoneration, :v_dent, :v_modificateurs)  ;
-		end if
+			"date_impr","user_modif","date_modif", "code_devis", "code_association", "remboursement_exceptionnel", "exo", "dent", "modificateurs")  
+			 VALUES ( :cle_max,   :var_code_local, :var_type,  :var_num,   :var_date_dem,   :var_scp_dem, :var_hn, :var_tot,    :var_tp , :var_date_acc,   :var_scp_acc , 
+			 :var_date_impr, :utilisateur_code, getdate(), :var_code_devis_local, :v_code_association, :v_remboursement_exceptionnel, :v_exoneration, :v_dent, :v_modificateurs)  ;
+
 
 			ajout_histo_actions(var_code_local,"AJOSOP",today(),v_nom_soin +" - " + string(var_date_dem, "dd/mm/yyyy")+" - "+string(var_tot,'0.00'))
 
@@ -1910,48 +1897,28 @@ CHOOSE CASE Action
 
 		if type_gestion = 'P' then 
 			
-			if version_ce_logiciel < "36.90" then 
-			// Soins prévus
-				UPDATE "soins_prevus"  SET
-					"type" = :var_type,   
-					 "numero" = :var_num,   
-					 "date_demande" = :var_date_dem,   
-				 "scp_demande"= :var_scp_dem,   
-					 "date_accord" = :var_date_acc,   
-				 "scp_accord"= :var_scp_acc,   
-					"hn" = :var_hn,   
-					"total" = :var_tot,   
-					"tp" = :var_tp, 
-					"code_association" = :v_code_association,
-				"date_impr" = :var_date_impr,
-				"user_modif" = :utilisateur_code,
-				"date_modif" = getdate() ,
-				"remboursement_exceptionnel" = :v_remboursement_exceptionnel,
-				"exo" =  :v_exoneration,
-				"dent" = :v_dent 
-			  WHERE cle = :cle_manip and code = :var_code_local ;
-			else
-				UPDATE "soins_prevus"  SET
-					"type" = :var_type,   
-					 "numero" = :var_num,   
-					 "date_demande" = :var_date_dem,   
-				 "scp_demande"= :var_scp_dem,   
-					 "date_accord" = :var_date_acc,   
-				 "scp_accord"= :var_scp_acc,   
-					"hn" = :var_hn,   
-					"total" = :var_tot,   
-					"tp" = :var_tp, 
-					"code_association" = :v_code_association,
-				"date_impr" = :var_date_impr,
-				"user_modif" = :utilisateur_code,
-				"date_modif" = getdate() ,
-				"remboursement_exceptionnel" = :v_remboursement_exceptionnel,
-				"exo" =  :v_exoneration,
-				"dent" = :v_dent ,
-				"modificateurs" = :v_modificateurs
-			  WHERE cle = :cle_manip and code = :var_code_local ;
-				
-			end if
+	
+			UPDATE "soins_prevus"  SET
+				"type" = :var_type,   
+				 "numero" = :var_num,   
+				 "date_demande" = :var_date_dem,   
+			 "scp_demande"= :var_scp_dem,   
+				 "date_accord" = :var_date_acc,   
+			 "scp_accord"= :var_scp_acc,   
+				"hn" = :var_hn,   
+				"total" = :var_tot,   
+				"tp" = :var_tp, 
+				"code_association" = :v_code_association,
+			"date_impr" = :var_date_impr,
+			"user_modif" = :utilisateur_code,
+			"date_modif" = getdate() ,
+			"remboursement_exceptionnel" = :v_remboursement_exceptionnel,
+			"exo" =  :v_exoneration,
+			"dent" = :v_dent ,
+			"modificateurs" = :v_modificateurs
+		  WHERE cle = :cle_manip and code = :var_code_local ;
+			
+
 				
 
 			  
@@ -3149,21 +3116,14 @@ end if
 type_soin = v_code 
 
 	
-if version_ce_logiciel < "36.90" then 
-	SELECT "code_soins"."duree",            "code_soins"."date_dem",            "code_soins"."tp"  ,			"code_soins"."nb_lettre",			"code_soins"."depasse",			
-	"code_soins"."valeur", "code_soins"."duree" , "code_soins"."nature", isnull( "code_association" , '') ,  isnull("exo_defaut", '') , isnull("remboursement_exceptionnel_defaut",'N')
-		 INTO :v_duree,            :date_dem,            :tp  ,			:nb_lettre,			:depasse,			:valeur,  :v_duree, :v_nature_soin, 
-		 :v_code_association ,  :v_exo_defaut, :v_remboursement_exceptionnel_defaut
-		 FROM "code_soins"  
-		WHERE "code_soins"."code" = :v_code   ;
-else
-	SELECT "code_soins"."duree",            "code_soins"."date_dem",            "code_soins"."tp"  ,			"code_soins"."nb_lettre",			"code_soins"."depasse",			
-	"code_soins"."valeur", "code_soins"."duree" , "code_soins"."nature", isnull( "code_association", '') ,  isnull("exo_defaut", '') , isnull("remboursement_exceptionnel_defaut",'N'), "modificateurs_defaut"
-		 INTO :v_duree,            :date_dem,            :tp  ,			:nb_lettre,			:depasse,			:valeur,  :v_duree, :v_nature_soin, 
-		 :v_code_association ,  :v_exo_defaut, :v_remboursement_exceptionnel_defaut, :v_modificateurs_defaut
-		 FROM "code_soins"  
-		WHERE "code_soins"."code" = :v_code   ;
-end if
+
+SELECT "code_soins"."duree",            "code_soins"."date_dem",            "code_soins"."tp"  ,			"code_soins"."nb_lettre",			"code_soins"."depasse",			
+"code_soins"."valeur", "code_soins"."duree" , "code_soins"."nature", isnull( "code_association", '') ,  isnull("exo_defaut", '') , isnull("remboursement_exceptionnel_defaut",'N'), "modificateurs_defaut"
+	 INTO :v_duree,            :date_dem,            :tp  ,			:nb_lettre,			:depasse,			:valeur,  :v_duree, :v_nature_soin, 
+	 :v_code_association ,  :v_exo_defaut, :v_remboursement_exceptionnel_defaut, :v_modificateurs_defaut
+	 FROM "code_soins"  
+	WHERE "code_soins"."code" = :v_code   ;
+
 
 
 if v_nature_soin = 'C' then
@@ -3179,13 +3139,13 @@ if v_nature_soin = 'C' then
 		end if
 	end if
 	
-	if version_ce_logiciel >= "36.90" then 
-		st_modificateurs.visible = true
-		sle_modificateurs.visible = true
-		if ancien_soin <> v_code then 
-			sle_modificateurs.text = v_modificateurs_defaut
-		end if
+
+	st_modificateurs.visible = true
+	sle_modificateurs.visible = true
+	if ancien_soin <> v_code then 
+		sle_modificateurs.text = v_modificateurs_defaut
 	end if
+
 else
 	soin_saisi_ccam = false
 	st_association.visible = false

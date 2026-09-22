@@ -1452,16 +1452,16 @@ else
 	cbx_rdv_eliminer_email_parent1.checked = false
 end if
 
-if version_ce_logiciel >= "36.90" then 
-	if TEA then
-		cbx_eliminer_tea.visible = true
-		if profilestring(dir_ini+inifile_orthokis,"SMS","RDV_eliminer_tea","false") = "true" then
-			cbx_eliminer_tea.checked = true
-		else
-			cbx_eliminer_tea.checked = false
-		end if
+
+if TEA then
+	cbx_eliminer_tea.visible = true
+	if profilestring(dir_ini+inifile_orthokis,"SMS","RDV_eliminer_tea","false") = "true" then
+		cbx_eliminer_tea.checked = true
+	else
+		cbx_eliminer_tea.checked = false
 	end if
 end if
+
 	
 
 if profilestring(dir_ini+inifile_orthokis,"SMS","Anniversaire","true") = "true" then

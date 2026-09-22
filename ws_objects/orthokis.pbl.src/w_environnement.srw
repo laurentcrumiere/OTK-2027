@@ -3381,11 +3381,7 @@ end if
 
 if  CCVITALE then
 	tab_1.tabpage_administratif.cbx_quitter_televitale.visible = true
-	if version_ce_logiciel < "36.90" then 
-		tab_1.tabpage_administratif.cbx_forcer_adri.visible = false
-	else
-			tab_1.tabpage_administratif.cbx_forcer_adri.visible = true
-	end if
+	tab_1.tabpage_administratif.cbx_forcer_adri.visible = true
 else
 
 	tab_1.tabpage_administratif.cbx_quitter_televitale.visible = false
@@ -3474,11 +3470,6 @@ if  luxembourg then
 	tab_1.tabpage_divers.sle_exe_econnector.visible = true
 end if
 
-if version_ce_logiciel < "36.90" then
-	tab_1.tabpage_imagerie_2013.cbx_afficher_nom_fichier_survol.visible = false
-	tab_1.tabpage_administratif.st_table_predefinis_admini_largeur.visible = false
-	tab_1.tabpage_administratif.em_table_predefinis_admini_largeur.visible = false
-end if
 
 colore_tous_objets_tab(tab_1, couleur_fond_datawindow)
 
@@ -3565,10 +3556,8 @@ destroy uo_rayscan
 
 end event
 
-event timer;call super::timer;if version_ce_logiciel >= "36.90" then
-	Timer(0)
-	fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
-end if
+event timer;call super::timer;Timer(0)
+fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
 
 
 end event

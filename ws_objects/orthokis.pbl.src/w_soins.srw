@@ -83,10 +83,10 @@ call super::destroy
 destroy(this.pb_maj_internet)
 end on
 
-event timer;call super::timer;if version_ce_logiciel >= "36.90" then
-	Timer(0)
-	fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
-end if
+event timer;call super::timer;
+Timer(0)
+fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
+
 
 end event
 
@@ -153,7 +153,7 @@ integer height = 1796
 string dataobject = "dw_soins_liste"
 end type
 
-event dw_liste::rbuttondown;call super::rbuttondown;if row > 0 and droits_acces[31] <> "C" and version_ce_logiciel >= "36.90"  then
+event dw_liste::rbuttondown;call super::rbuttondown;if row > 0 and droits_acces[31] <> "C"  then
 	// Les positions seront utilisées dans le timer de la fenêtre	
 	ii_palette_x = xpos
 	ii_palette_y = ypos

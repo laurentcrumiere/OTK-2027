@@ -376,10 +376,7 @@ Trace ("- ORTHUP : " + string(ORTHUP) )
 Trace ("- TEA : " + string(TEA) ) 
 Trace ("- DENTAL_MONITORING : " + string(DENTAL_MONITORING) ) 
 Trace ("- VERIF_CONNEXION_BD : " + string(VERIF_CONNEXIONS_BD) ) 
-
-if version_ce_logiciel >= "36.90" then 
-	Trace ("- DENTAPOCHE : " + string(DENTAPOCHE) ) 
-end if
+Trace ("- DENTAPOCHE : " + string(DENTAPOCHE) ) 
 
 
 TRACE ( " ===  Fin de : w_initialisation_modules_dynamiques ===")

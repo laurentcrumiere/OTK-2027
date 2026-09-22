@@ -231,30 +231,21 @@ date_lu = w_cc_vitale.wf_findtvitem("m_cDateNaissance")
 nir_lu = w_cc_vitale.wf_findtvitem("m_cNIR")
 cle_nir_lu = w_cc_vitale.wf_findtvitem("m_cCleNIR")
 
-if version_ce_logiciel < "36.90" then 
-	dw_liste.object.t_assure.visible = 0
-	dw_liste.object.t_nom_assure.visible = 0
-	dw_liste.object.t_prenom_assure.visible = 0
-	dw_liste.object.nom_assure.visible = 0
-	dw_liste.object.prenom_assure.visible = 0
-	gb_1.text = "Mises à jour Noms + N° de Sécurité Sociale"
-	cb_maj_c2s.visible = false
-else
-	
-	// Assuré
-	nom_assure_lu = w_cc_vitale.wf_findtvitem("m_cNomAssure")
-	prenom_assure_lu = w_cc_vitale.wf_findtvitem("m_cPrenomAssure")
-	
-	// Adresse
-	adresse1_lu = w_cc_vitale.wf_findtvitem("m_cAdresseLigne3")
-	adresse2_lu = w_cc_vitale.wf_findtvitem("m_cAdresseLigne2")
-	code_postal_lu = left(w_cc_vitale.wf_findtvitem("m_cAdresseLigne5"), 5)
-	ls_m_cAdresseLigne5 = w_cc_vitale.wf_findtvitem("m_cAdresseLigne5")
-	ville_lu = right(trim(ls_m_cAdresseLigne5), len(trim(ls_m_cAdresseLigne5)) - 6)
-	
-	c2s_lu = w_cc_vitale.wf_findtvitem("m_bDroitsC2S")
-	
-end if
+
+// Assuré
+nom_assure_lu = w_cc_vitale.wf_findtvitem("m_cNomAssure")
+prenom_assure_lu = w_cc_vitale.wf_findtvitem("m_cPrenomAssure")
+
+// Adresse
+adresse1_lu = w_cc_vitale.wf_findtvitem("m_cAdresseLigne3")
+adresse2_lu = w_cc_vitale.wf_findtvitem("m_cAdresseLigne2")
+code_postal_lu = left(w_cc_vitale.wf_findtvitem("m_cAdresseLigne5"), 5)
+ls_m_cAdresseLigne5 = w_cc_vitale.wf_findtvitem("m_cAdresseLigne5")
+ville_lu = right(trim(ls_m_cAdresseLigne5), len(trim(ls_m_cAdresseLigne5)) - 6)
+
+c2s_lu = w_cc_vitale.wf_findtvitem("m_bDroitsC2S")
+
+
 
 
 numero_secu_lu = nir_lu + cle_nir_lu
@@ -264,29 +255,29 @@ dw_liste.setitem(1, "prenom", prenom_lu)
 dw_liste.setitem(1, "date_naissance", date_vitale_date(date_lu))
 dw_liste.setitem(1, "num_secu", nir_lu + "/" + cle_nir_lu )
 
-if version_ce_logiciel >= "36.90" then
-	dw_liste.setitem(1, "nom_assure", nom_assure_lu)
-	dw_liste.setitem(1, "prenom_assure", prenom_assure_lu)
-	
-	if adresse1_lu <> "?" then 
-		dw_liste.setitem(1, "adresse1", adresse1_lu)
-	end if
-	if adresse2_lu <> "?" then 
-		dw_liste.setitem(1, "adresse2", adresse2_lu)
-	end if
-	if code_postal_lu <> "?" then 
-		dw_liste.setitem(1, "code_postal", code_postal_lu)
-	end if
-	if ville_lu <> "?" then 
-		dw_liste.setitem(1, "ville", ville_lu)
-	end if
 
-	if c2s_lu = "1" then
-		dw_liste.setitem(1, "c2s", "O")
-		pb_tous.text = "Nom + Prénom + Date Nais + C2S"
-		cb_maj_c2s.enabled = true
-	end if
-end if 
+dw_liste.setitem(1, "nom_assure", nom_assure_lu)
+dw_liste.setitem(1, "prenom_assure", prenom_assure_lu)
+
+if adresse1_lu <> "?" then 
+	dw_liste.setitem(1, "adresse1", adresse1_lu)
+end if
+if adresse2_lu <> "?" then 
+	dw_liste.setitem(1, "adresse2", adresse2_lu)
+end if
+if code_postal_lu <> "?" then 
+	dw_liste.setitem(1, "code_postal", code_postal_lu)
+end if
+if ville_lu <> "?" then 
+	dw_liste.setitem(1, "ville", ville_lu)
+end if
+
+if c2s_lu = "1" then
+	dw_liste.setitem(1, "c2s", "O")
+	pb_tous.text = "Nom + Prénom + Date Nais + C2S"
+	cb_maj_c2s.enabled = true
+end if
+
 
 gb_patient.backcolor = this.backcolor
 gb_1.backcolor = this.backcolor
@@ -452,17 +443,14 @@ end type
 event clicked;call super::clicked;
 
 if dw_liste.rowcount() > 0 then
-	if version_ce_logiciel < "36.90" then 
-		// nom du patient
-		w_click_patient.tab_1.tabpage_1.dw_fiche1.setItem(1,"nom_parent1",  trim(dw_liste.getitemString(dw_liste.getrow(),"nom")) + " "+ trim(dw_liste.getitemString(dw_liste.getrow(),"prenom")) )
-	else
-		// Nom de l'assure
-		w_click_patient.tab_1.tabpage_1.dw_fiche1.setItem(1,"nom_parent1",  trim(nom_assure_lu) + " "+ trim(prenom_assure_lu) )
-		w_click_patient.tab_1.tabpage_1.dw_fiche1.setItem(1,"adr1_parent1",  trim(adresse1_lu) )
-		w_click_patient.tab_1.tabpage_1.dw_fiche1.setItem(1,"adr2_parent1",  trim(adresse2_lu) )
-		w_click_patient.tab_1.tabpage_1.dw_fiche1.setItem(1,"codep_parent1",  trim(code_postal_lu) )
-		w_click_patient.tab_1.tabpage_1.dw_fiche1.setItem(1,"ville_parent1",  trim(ville_lu) )
-end if
+
+	// Nom de l'assure
+	w_click_patient.tab_1.tabpage_1.dw_fiche1.setItem(1,"nom_parent1",  trim(nom_assure_lu) + " "+ trim(prenom_assure_lu) )
+	w_click_patient.tab_1.tabpage_1.dw_fiche1.setItem(1,"adr1_parent1",  trim(adresse1_lu) )
+	w_click_patient.tab_1.tabpage_1.dw_fiche1.setItem(1,"adr2_parent1",  trim(adresse2_lu) )
+	w_click_patient.tab_1.tabpage_1.dw_fiche1.setItem(1,"codep_parent1",  trim(code_postal_lu) )
+	w_click_patient.tab_1.tabpage_1.dw_fiche1.setItem(1,"ville_parent1",  trim(ville_lu) )
+
 	w_click_patient.tab_1.tabpage_1.dw_fiche1.setItem(1,"secu_parent1", numero_secu_lu )
 	if enregistrement_automatique then
 		w_click_patient.cb_enregister.triggerevent(clicked!)
@@ -481,16 +469,13 @@ string iconname = "ACTIONS_memoriser.png"
 end type
 
 event clicked;call super::clicked;if dw_liste.rowcount() > 0 then
-	if version_ce_logiciel < "36.90" then 
-	// nom du patient
-		w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"nom_parent2",  trim(dw_liste.getitemString(dw_liste.getrow(),"nom")) + " "+ trim(dw_liste.getitemString(dw_liste.getrow(),"prenom")) )
-	else
-		w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"nom_parent2",  trim(nom_assure_lu) + " "+ trim(prenom_assure_lu) )
-		w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"adr1_parent2",  trim(adresse1_lu) )
-		w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"adr2_parent2",  trim(adresse2_lu) )
-		w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"codep_parent2",  trim(code_postal_lu) )
-		w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"ville_parent2",  trim(ville_lu) )
-	end if
+
+	w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"nom_parent2",  trim(nom_assure_lu) + " "+ trim(prenom_assure_lu) )
+	w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"adr1_parent2",  trim(adresse1_lu) )
+	w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"adr2_parent2",  trim(adresse2_lu) )
+	w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"codep_parent2",  trim(code_postal_lu) )
+	w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"ville_parent2",  trim(ville_lu) )
+
 	w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"secu_parent2", numero_secu_lu )
 	if enregistrement_automatique then
 		w_click_patient.cb_enregister.triggerevent(clicked!)
@@ -509,16 +494,13 @@ string iconname = "ACTIONS_memoriser.png"
 end type
 
 event clicked;call super::clicked;if dw_liste.rowcount() > 0 then
-	if version_ce_logiciel < "36.90" then 
-	// nom du patient
-		w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"nom_parent2",  trim(dw_liste.getitemString(dw_liste.getrow(),"nom")) + " "+ trim(dw_liste.getitemString(dw_liste.getrow(),"prenom")) )
-	else
-		w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"nom_payeur",  trim(nom_assure_lu) + " "+ trim(prenom_assure_lu) )
-		w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"adr1_payeur",  trim(adresse1_lu) )
-		w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"adr2_payeur",  trim(adresse2_lu) )
-		w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"codep_payeur",  trim(code_postal_lu) )
-		w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"ville_payeur",  trim(ville_lu) )
-	end if
+
+	w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"nom_payeur",  trim(nom_assure_lu) + " "+ trim(prenom_assure_lu) )
+	w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"adr1_payeur",  trim(adresse1_lu) )
+	w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"adr2_payeur",  trim(adresse2_lu) )
+	w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"codep_payeur",  trim(code_postal_lu) )
+	w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"ville_payeur",  trim(ville_lu) )
+
 	w_click_patient.tab_1.tabpage_3.dw_parent2.setItem(1,"secu_payeur", numero_secu_lu )
 	if enregistrement_automatique then
 		w_click_patient.cb_enregister.triggerevent(clicked!)

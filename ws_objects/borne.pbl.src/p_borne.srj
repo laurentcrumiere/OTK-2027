@@ -26,6 +26,7 @@ OBJ:c:\power\v2027\advguiobjects.pbl,rect,s
 OBJ:c:\power\v2027\advguiobjects.pbl,gradient_rect,s
 OBJ:c:\power\v2027\borne_commun.pbl,w_sms_alertes_depart_arrivee,w
 OBJ:c:\power\v2027\borne_commun.pbl,fxg_get_message_httpclient_sendrequest,f
+OBJ:C:\Power\V2027\borne.pbl,borne,a
 OBJ:c:\power\v2027\borne_commun.pbl,uo_picturebutton_390x120,u
 OBJ:c:\power\v2027\advguiobjects.pbl,toolinfo,s
 OBJ:c:\power\v2027\borne_commun.pbl,string_non_nulle,f

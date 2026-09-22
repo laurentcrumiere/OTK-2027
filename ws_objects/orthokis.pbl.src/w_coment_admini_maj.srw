@@ -309,13 +309,13 @@ Try
 		
 		table_commentaires_predefinis = true
 		
-		if version_ce_logiciel >= "36.90" then 
-			if long(profilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","table_predefinis_largeur","0")) > 0 then
-				dw_commentaires_predefinis.width = long(profilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","table_predefinis_largeur", "1166"))
-			else
-				dw_commentaires_predefinis.width = 1166
-			end if
+
+		if long(profilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","table_predefinis_largeur","0")) > 0 then
+			dw_commentaires_predefinis.width = long(profilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","table_predefinis_largeur", "1166"))
+		else
+			dw_commentaires_predefinis.width = 1166
 		end if
+
 		
 		
 		if profilestring(dir_ini+inifile_orthokis,"commentaires_administratifs","table_predefinis_sans_rtf","N") = "O" then

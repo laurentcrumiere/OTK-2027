@@ -1,0 +1,2 @@
+$PBExportHeader$images_expert.srq
+PBSELECT( VERSION(400) TABLE(NAME="43images_30" ) COLUMN(NAME="43images_30.imt_typeimg_p") COLUMN(NAME="43images_30.imt_stadeimg_p") COLUMN(NAME="43images_30.imdate")WHERE(    EXP1 ="43images_30.imtraitmnt"   OP ="="    EXP2 ="511" ) ) 

@@ -92,10 +92,6 @@ event open;call super::open;
 string v_ordre_colonnes
 long cpt
 
-if version_ce_logiciel < "36.90" then 
-	dw_liste.dataobject = "dw_rdv_feuille_travail_perso_2025"
-end if
-
 dw_liste.settransobject(sqlca)
 
 

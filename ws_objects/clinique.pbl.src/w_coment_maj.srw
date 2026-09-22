@@ -1212,33 +1212,30 @@ if len( v_com ) > 0 then
 	
 	// Ajout de la ligne
 	if (b_avec_ajout or (not b_avec_ajout and dw_coment.rowcount() = 0)) and not mode_saisie_modif_a_part  then
-		if version_ce_logiciel < "36.90" then
-			cb_ajouter.triggerEvent(clicked!)
-		else
-			// On vérifier d'abors si pas une ligne déja ajoutée à cette date et vierge de commentaire ... si c'est le cas, pas d'ajout
-			if dw_coment.getrow() > 0 then 
-				
-				string ls_com_html
-				date ld_date 
+		// On vérifier d'abors si pas une ligne déja ajoutée à cette date et vierge de commentaire ... si c'est le cas, pas d'ajout
+		if dw_coment.getrow() > 0 then 
+			
+			string ls_com_html
+			date ld_date 
 
-				ld_date = dw_coment.getitemDate(dw_coment.getrow(), "dat")
-				ls_com_html = string_non_nulle( dw_coment.getitemString(dw_coment.getrow(), "com_html"))
-				
-				// il peut y avoir des caractères cachés pour saut de ligne selon config du poste => on les élimne pour le te
-				ls_com_html = gfx_tout_remplacer(ls_com_html, "~r", "")
-				ls_com_html = gfx_tout_remplacer(ls_com_html, "~n", "")
-				ls_com_html = gfx_tout_remplacer(ls_com_html, "~t", "")
-				ls_com_html = Trim(ls_com_html)
-				
-				if ld_date = today() and ls_com_html = ""  then 
-					// pas d'ajout
-				else
-					cb_ajouter.triggerEvent(clicked!)
-				end if
+			ld_date = dw_coment.getitemDate(dw_coment.getrow(), "dat")
+			ls_com_html = string_non_nulle( dw_coment.getitemString(dw_coment.getrow(), "com_html"))
+			
+			// il peut y avoir des caractères cachés pour saut de ligne selon config du poste => on les élimne pour le te
+			ls_com_html = gfx_tout_remplacer(ls_com_html, "~r", "")
+			ls_com_html = gfx_tout_remplacer(ls_com_html, "~n", "")
+			ls_com_html = gfx_tout_remplacer(ls_com_html, "~t", "")
+			ls_com_html = Trim(ls_com_html)
+			
+			if ld_date = today() and ls_com_html = ""  then 
+				// pas d'ajout
 			else
 				cb_ajouter.triggerEvent(clicked!)
 			end if
+		else
+			cb_ajouter.triggerEvent(clicked!)
 		end if
+
 	
 	end if
 	
@@ -3328,40 +3325,34 @@ try
 			// redimmensionnement du cadre patient selon remarques
 			if this.width > 5000 then
 				
-				if version_ce_logiciel < "36.90" then 
-					dw_patient.width = 4109
-					if profilestring(dir_ini+inifile_orthokis,"admini","zone_remarque_commentaires","N") = "O" then 
-						dw_patient.width = 5109
-					end if 
-				else
-					if profilestring(dir_ini+inifile_orthokis,"admini","zone_remarque_commentaires","N") = "O" then 
-						dw_patient.width = 5109
-					end if 
-				
-					// on élargit dw_patient au maximum
-					ll_largeur_dw_patient_initiale = dw_patient.width
-					dw_patient.width = this.width - dw_suivi.width - 830 
-					
-					if ll_largeur_dw_patient_initiale < dw_patient.width then 
-						// on élargit chacune des zones remarques de la moitié de la largeur supplémentaire
-						ll_moitie = (long(dw_patient.width) - long(ll_largeur_dw_patient_initiale) ) / 2
-						
-						// Zones texte
-						dw_patient.object.remarques_cliniques_html.width = long(dw_patient.object.remarques_cliniques_html.width) + ll_moitie
-						dw_patient.object.remarques_html.width = long(dw_patient.object.remarques_html.width) + ll_moitie
-						dw_patient.object.remarques_html.x = long(dw_patient.object.remarques_html.x) + ll_moitie
-						dw_patient.object.t_remarques_administratives.x = long(dw_patient.object.t_remarques_administratives.x) + ll_moitie
-						
-						// zones RTF
-						dw_patient.object.remarques_cliniques.width = dw_patient.object.remarques_cliniques_html.width
-						dw_patient.object.remarques.width = dw_patient.object.remarques_html.width
-						dw_patient.object.remarques.x = dw_patient.object.remarques_html.x
-
-						
-						
-					end if
-					
+				if profilestring(dir_ini+inifile_orthokis,"admini","zone_remarque_commentaires","N") = "O" then 
+					dw_patient.width = 5109
 				end if 
+			
+				// on élargit dw_patient au maximum
+				ll_largeur_dw_patient_initiale = dw_patient.width
+				dw_patient.width = this.width - dw_suivi.width - 830 
+				
+				if ll_largeur_dw_patient_initiale < dw_patient.width then 
+					// on élargit chacune des zones remarques de la moitié de la largeur supplémentaire
+					ll_moitie = (long(dw_patient.width) - long(ll_largeur_dw_patient_initiale) ) / 2
+					
+					// Zones texte
+					dw_patient.object.remarques_cliniques_html.width = long(dw_patient.object.remarques_cliniques_html.width) + ll_moitie
+					dw_patient.object.remarques_html.width = long(dw_patient.object.remarques_html.width) + ll_moitie
+					dw_patient.object.remarques_html.x = long(dw_patient.object.remarques_html.x) + ll_moitie
+					dw_patient.object.t_remarques_administratives.x = long(dw_patient.object.t_remarques_administratives.x) + ll_moitie
+					
+					// zones RTF
+					dw_patient.object.remarques_cliniques.width = dw_patient.object.remarques_cliniques_html.width
+					dw_patient.object.remarques.width = dw_patient.object.remarques_html.width
+					dw_patient.object.remarques.x = dw_patient.object.remarques_html.x
+
+					
+					
+				end if
+					
+				
 						
 			end if
 

@@ -651,15 +651,15 @@ else
 		
 		
 						
-		if version_ce_logiciel >= "36.90" then 
-			// Si rdv en attente, possibilité de prendre les valeurs par défaut
-			string ls_commentaire
-			if verifier_rdv_en_attente(var_code_local, v_param_type_rdv , v_prat_fauteuil, ls_commentaire) then 
-				dw_detail.setitem(dw_detail.getrow(),"type",v_param_type_rdv)
-				dw_detail.setitem(dw_detail.getrow(),"code_praticien",v_prat_fauteuil)
-				dw_detail.setitem(dw_detail.getrow(),"rdv_commentaire",ls_commentaire)	
-			end if
+	
+		// Si rdv en attente, possibilité de prendre les valeurs par défaut
+		string ls_commentaire
+		if verifier_rdv_en_attente(var_code_local, v_param_type_rdv , v_prat_fauteuil, ls_commentaire) then 
+			dw_detail.setitem(dw_detail.getrow(),"type",v_param_type_rdv)
+			dw_detail.setitem(dw_detail.getrow(),"code_praticien",v_prat_fauteuil)
+			dw_detail.setitem(dw_detail.getrow(),"rdv_commentaire",ls_commentaire)	
 		end if
+
 		
 		
 
@@ -1227,18 +1227,15 @@ else
 							ajout_histo_etat_rdv(dw_detail.GetItemNumber(i, "code_interne"),dw_detail.GetItemString(i, "absent") )
 							
 						else
-							if version_ce_logiciel < "36.90" then 
-								ajout_histo_actions(dw_detail.getitemnumber(i,"code"),"MODRDV",today(),"Rendez-vous du "+string(dw_detail.getitemdatetime(i,"rdv"), "dd/mm/yyyy à hh:mm" ))
-							else
 						
-								if idt_rdv_avant_modification <> dw_detail.getitemdatetime(i,"rdv") then
-									// Message explicite pour changement du rdv
-									ajout_histo_actions(dw_detail.getitemnumber(i,"code"),"MODRDV",today(),"Rendez-vous du "+string(idt_rdv_avant_modification, "dd/mm/yyyy à hh:mm" ) + " devient " + string(dw_detail.getitemdatetime(i,"rdv"), "dd/mm/yyyy à hh:mm" )  )
-								else
-									// La modif est autre que la date et l'heure
-									ajout_histo_actions(dw_detail.getitemnumber(i,"code"),"MODRDV",today(),"Rendez-vous du "+string(dw_detail.getitemdatetime(i,"rdv"), "dd/mm/yyyy à hh:mm" ))
-								end if
+							if idt_rdv_avant_modification <> dw_detail.getitemdatetime(i,"rdv") then
+								// Message explicite pour changement du rdv
+								ajout_histo_actions(dw_detail.getitemnumber(i,"code"),"MODRDV",today(),"Rendez-vous du "+string(idt_rdv_avant_modification, "dd/mm/yyyy à hh:mm" ) + " devient " + string(dw_detail.getitemdatetime(i,"rdv"), "dd/mm/yyyy à hh:mm" )  )
+							else
+								// La modif est autre que la date et l'heure
+								ajout_histo_actions(dw_detail.getitemnumber(i,"code"),"MODRDV",today(),"Rendez-vous du "+string(dw_detail.getitemdatetime(i,"rdv"), "dd/mm/yyyy à hh:mm" ))
 							end if
+						
 							ajout_histo_etat_rdv(dw_detail.GetItemNumber(i, "code_interne"),dw_detail.GetItemString(i, "absent") )
 						end if
 							

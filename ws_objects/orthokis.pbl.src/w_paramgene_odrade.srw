@@ -175,6 +175,5 @@ integer taborder = 10
 string title = "none"
 string dataobject = "dw_paramgene_odrade"
 boolean livescroll = true
-borderstyle borderstyle = styleraised!
 end type
 

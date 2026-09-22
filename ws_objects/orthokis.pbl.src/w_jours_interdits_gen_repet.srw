@@ -290,10 +290,9 @@ event resize;uo_1.retaille(this)
 
 end event
 
-event timer;call super::timer;if version_ce_logiciel >= "36.90" then
-	Timer(0)
-	fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
-end if
+event timer;call super::timer;Timer(0)
+fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
+
 end event
 
 type p_fond from w_fenetre_arakis`p_fond within w_jours_interdits_gen_repet

@@ -89,20 +89,20 @@ dw_liste_texte_email.Modify("Nom.tabsequence=0")
 dw_liste_texte_email.modify("actif.visible = 0")
 dw_liste_texte_email.retrieve()
 
-if version_ce_logiciel >= "36.90" then 
-	// Sélection mémorisée
-	if Profilestring(inifile_orthokis , "Email", "choix_categorie_toutes", "O") = "N"  then 
-		v_categorie = long(Profilestring(inifile_orthokis , "Email", "choix_categorie_une", "1"))
-		
-		dw_categorie.setitem(1, "id", v_categorie ) 
-		rb_toutes.checked = false
-		rb_une.checked = true
-		dw_liste_texte_email.setfilter("id_categorie = " + string(v_categorie) )
-		dw_liste_texte_email.filter()
+
+// Sélection mémorisée
+if Profilestring(inifile_orthokis , "Email", "choix_categorie_toutes", "O") = "N"  then 
+	v_categorie = long(Profilestring(inifile_orthokis , "Email", "choix_categorie_une", "1"))
 	
-		rb_une.postevent(clicked!)
-	end if
+	dw_categorie.setitem(1, "id", v_categorie ) 
+	rb_toutes.checked = false
+	rb_une.checked = true
+	dw_liste_texte_email.setfilter("id_categorie = " + string(v_categorie) )
+	dw_liste_texte_email.filter()
+
+	rb_une.postevent(clicked!)
 end if
+
 end event
 
 event close;call super::close;

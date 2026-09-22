@@ -1265,40 +1265,24 @@ if upperbound(ls_arg) > 0 then
 
 			if not lb_test then 
 				
-				if version_ce_logiciel < "36.90" and false then  // on libère 
-					trace("fenêtre : w_rdv_salle_attente_independante_2026 ")
-					// mode normal avant 2027
-					w_rdv_salle_attente_independante_2026 w_2026
-					open(w_2026)
+			
+				trace("fenêtre : w_rdv_salle_attente_independante ")
+				// mode normal après 2027
+				w_rdv_salle_attente_independante w1
+				open(w1)
 	
-					// de base la fenetre est invisible
-					w_2026.width = profileint(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_independante_width", 1943)
-					w_2026.height = profileint(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_independante_height", 1240)
-					w_2026.move( PixelsToUnits( win_x, xPixelsToUnits!) , PixelsToUnits( win_y, YPixelsToUnits!))
-					
-					If profilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_a_part_WindowState", "normal") = "maximized" then 
-						ShowWindow(Handle(w_2026), 3)
-					else
-						ShowWindow(Handle(w_2026), 1)
-					end if
+				// de base la fenetre est invisible
+				w1.width = profileint(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_independante_width", 1943)
+				w1.height = profileint(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_independante_height", 1240)
+				w1.move( PixelsToUnits( win_x, xPixelsToUnits!) , PixelsToUnits( win_y, YPixelsToUnits!))
+				
+				If profilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_a_part_WindowState", "normal") = "maximized" then 
+					ShowWindow(Handle(w1), 3)
 				else
-					trace("fenêtre : w_rdv_salle_attente_independante ")
-					// mode normal après 2027
-					w_rdv_salle_attente_independante w1
-					open(w1)
-	
-					// de base la fenetre est invisible
-					w1.width = profileint(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_independante_width", 1943)
-					w1.height = profileint(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_independante_height", 1240)
-					w1.move( PixelsToUnits( win_x, xPixelsToUnits!) , PixelsToUnits( win_y, YPixelsToUnits!))
-					
-					If profilestring(dir_ini+inifile_orthokis,"rendez-vous","salle_attente_a_part_WindowState", "normal") = "maximized" then 
-						ShowWindow(Handle(w1), 3)
-					else
-						ShowWindow(Handle(w1), 1)
-					end if
-					
+					ShowWindow(Handle(w1), 1)
 				end if
+					
+				
 			
 			else
 				trace("fenêtre : w_rdv_salle_attente_independante_test ")

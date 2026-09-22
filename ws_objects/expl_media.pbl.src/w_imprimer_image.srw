@@ -267,23 +267,19 @@ else
 end if
 
 
-if version_ce_logiciel < "36.90" then 
-	gb_baspage.visible = false
-	cbx_praticien.visible = false
-	cbx_adresse.visible = false
+
+if profilestring(dir_ini+inifile_orthokis,"photos","baspage_imprimer_praticien", "N") = "O" then
+	cbx_praticien.checked = true
 else
-	if profilestring(dir_ini+inifile_orthokis,"photos","baspage_imprimer_praticien", "N") = "O" then
-		cbx_praticien.checked = true
-	else
-		cbx_praticien.checked = false
-	end if
-	
-	if profilestring(dir_ini+inifile_orthokis,"photos","baspage_imprimer_adresse", "N") = "O" then
-		cbx_adresse.checked = true
-	else
-		cbx_adresse.checked = false
-	end if
+	cbx_praticien.checked = false
 end if
+
+if profilestring(dir_ini+inifile_orthokis,"photos","baspage_imprimer_adresse", "N") = "O" then
+	cbx_adresse.checked = true
+else
+	cbx_adresse.checked = false
+end if
+
 	
 
 maj_titre()

@@ -107,9 +107,6 @@ end on
 event open;call super::open;//récup du message d'ouverture
 var_code_local = message.doubleparm
 
-if version_ce_logiciel < "36.90" then 
-	dw_1.dataobject = "dw_patient_fiche2_2026"
-end if
 //retrieve de la datawindow
 dw_1.settransobject(SQLCA)
 dw_1.retrieve(var_code_local)

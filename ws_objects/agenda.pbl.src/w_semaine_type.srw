@@ -43,10 +43,6 @@ event open;call super::open;
 
 // Script à supprimer EN TOTALITE à la mise en prod de la V2027 car le script ancestor est OK
 
-if version_ce_logiciel < "36.90" then 
-	dw_liste.dataobject = "dw_liste_semaine_2026"
-end if
-
 dw_liste.settransobject(SQLCA)
 dw_liste.retrieve()
 
@@ -58,10 +54,9 @@ end if
 
 end event
 
-event timer;call super::timer;if version_ce_logiciel >= "36.90" then
-	Timer(0)
-	fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
-end if
+event timer;call super::timer;Timer(0)
+fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
+
 
 
 end event

@@ -1092,7 +1092,6 @@ OBJ:C:\Power\V2027\gestionstock.pbd,dw_lieu_liste,d
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_reception_basic_data,d
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_select_produit,d
 OBJ:C:\Power\V2027\pda.pbd,rdv_outlook,s
-OBJ:c:\power\v2027\salle_attente.pbl,w_rdv_salle_attente_independante_2026,w
 OBJ:C:\Power\V2027\orthokis.pbd,zeroi,f
 OBJ:C:\Power\V2027\ihm.pbd,placer_image_fond,f
 OBJ:C:\Power\V2027\advguiobjects.pbd,u_cst_tabcontrol_loadingcircle,u

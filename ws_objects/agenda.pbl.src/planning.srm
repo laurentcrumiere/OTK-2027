@@ -1897,11 +1897,7 @@ else
 				
 					ok_coller = true
 					// Mémo du déplacement 
-					if version_ce_logiciel < "36.90" then 
-						ajout_histo_actions(temp_code_patient,"MODRDV",today(),"Couper/Coller Agenda - Rendez-vous du "+string(temp_rdv_date, "dd/mm/yyyy à hh:mm" ))
-					else
-						ajout_histo_actions(temp_code_patient,"MODRDV",today(),"Couper/Coller Agenda - Rendez-vous du "+string(temp_rdv_date, "dd/mm/yyyy à hh:mm" ) + " vers " + string(temp_rdv_date2, "dd/mm/yyyy à hh:mm" ))
-					end if
+					ajout_histo_actions(temp_code_patient,"MODRDV",today(),"Couper/Coller Agenda - Rendez-vous du "+string(temp_rdv_date, "dd/mm/yyyy à hh:mm" ) + " vers " + string(temp_rdv_date2, "dd/mm/yyyy à hh:mm" ))
 				end if
 		
 			next

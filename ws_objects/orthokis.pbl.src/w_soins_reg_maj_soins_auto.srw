@@ -75,14 +75,14 @@ forward prototypes
 public subroutine visibilite_cbx_forcer_echeance ()
 end prototypes
 
-public subroutine visibilite_cbx_forcer_echeance ();if version_ce_logiciel >= "36.60" then 
-	if rb_echeances_fixes.checked and is_mode_reglement_habituel = "R" then 
-		cbx_forcer_echeance.visible = true
-	else
-		cbx_forcer_echeance.visible = false
-		cbx_forcer_echeance.checked = false
-	end if
+public subroutine visibilite_cbx_forcer_echeance ();
+if rb_echeances_fixes.checked and is_mode_reglement_habituel = "R" then 
+	cbx_forcer_echeance.visible = true
+else
+	cbx_forcer_echeance.visible = false
+	cbx_forcer_echeance.checked = false
 end if
+
 end subroutine
 
 on w_soins_reg_maj_soins_auto.create
@@ -180,12 +180,9 @@ Try
 	
 	this.y = y_min + (y_max - y_min) / 2
 	
-	if version_ce_logiciel >= "36.90" then 
-		// Est ce que le patient est en prélèvement ... si OUI .. si échéances fixe, on pourra lui proposer de commence les prélèvement le mois en cours
-		select isnull(mode_reglement_habituel, '') into :is_mode_reglement_habituel from patient where code = :var_code_local ; 
+	// Est ce que le patient est en prélèvement ... si OUI .. si échéances fixe, on pourra lui proposer de commence les prélèvement le mois en cours
+	select isnull(mode_reglement_habituel, '') into :is_mode_reglement_habituel from patient where code = :var_code_local ; 
 	
-	end if
-
 	trace("============ FIN OPEN SOINS / REGLEMENTS -  AJOUT SOINS AUTO  ============ ")
 
 
@@ -245,21 +242,15 @@ end if
 // insert effectif 
 if type_gestion = "P" then
 	// on passe le N° de devis
-	if version_ce_logiciel < "36.90" then 
-		ajout_soins_automatiques(var_code_local, type_gestion, v_soins_auto, v_num_deb, prem_date, false, true, var_code_devis_local, v_jour_echeance, false)
-	else
-		ajout_soins_automatiques(var_code_local, type_gestion, v_soins_auto, v_num_deb, prem_date, false, true, var_code_devis_local, v_jour_echeance, cbx_forcer_echeance.checked)
-	end if
+	ajout_soins_automatiques(var_code_local, type_gestion, v_soins_auto, v_num_deb, prem_date, false, true, var_code_devis_local, v_jour_echeance, cbx_forcer_echeance.checked)
+
 	// Si on change le titre du Devis faut qu'on le voit
 	w_soins_reg_maj_parent.tab_1.tabpage_soins_prevus.dw_devis.retrieve(var_code_local, v_jour_echeance)
 
 else
 	// Pas de devis
-	if version_ce_logiciel < "36.90" then 
-		ajout_soins_automatiques(var_code_local, type_gestion, v_soins_auto, v_num_deb, prem_date, false, true, 0,v_jour_echeance, false)
-	else
-		ajout_soins_automatiques(var_code_local, type_gestion, v_soins_auto, v_num_deb, prem_date, false, true, 0,v_jour_echeance, cbx_forcer_echeance.checked)
-	end if
+	ajout_soins_automatiques(var_code_local, type_gestion, v_soins_auto, v_num_deb, prem_date, false, true, 0,v_jour_echeance, cbx_forcer_echeance.checked)
+
 end if
 	
 

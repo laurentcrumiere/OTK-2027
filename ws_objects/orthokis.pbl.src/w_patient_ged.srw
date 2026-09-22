@@ -238,32 +238,17 @@ if type_gestion <> "A" then
 			end if
 		end if
 		
-		if version_ce_logiciel < "36.90" then 
-			// On ne propose l'enregistrement PDF pour publication pour que pour les courriers Word qui ont fichier physique
-			if dw_clic.getitemstring(row, "historique_editions_code_courrier") = "WORD" and  len(trim(dw_clic.getitemstring(row, "historique_editions_nom_courrier"))) > 0 then
-				menu.m_pdf.visible = true
-				menu.m_pdf2.visible = true
-			else
-				menu.m_pdf.visible = false
-				menu.m_pdf2.visible = false
-			end if
+			
+		// On ne propose l'enregistrement PDF pour publication pour que pour les courriers Word ou PPT ou les Documents WORD qui ont fichier physique
+		if (dw_clic.getitemstring(row, "historique_editions_code_courrier") = "WORD" or dw_clic.getitemstring(row, "historique_editions_code_courrier") = "DOCPPT" or dw_clic.getitemstring(row, "historique_editions_code_courrier") = "DOCWRD") and  len(trim(dw_clic.getitemstring(row, "historique_editions_nom_courrier"))) > 0 then
+			menu.m_pdf.visible = true
+			menu.m_pdf2.visible = true
 		else
-			
-			string sss
-			integer ll
-			ll = len(trim(dw_clic.getitemstring(row, "historique_editions_nom_courrier")))
-			sss =  dw_clic.getitemstring(row, "historique_editions_code_courrier")
-			
-			// On ne propose l'enregistrement PDF pour publication pour que pour les courriers Word ou PPT ou les Documents WORD qui ont fichier physique
-			if (dw_clic.getitemstring(row, "historique_editions_code_courrier") = "WORD" or dw_clic.getitemstring(row, "historique_editions_code_courrier") = "DOCPPT" or dw_clic.getitemstring(row, "historique_editions_code_courrier") = "DOCWRD") and  len(trim(dw_clic.getitemstring(row, "historique_editions_nom_courrier"))) > 0 then
-				menu.m_pdf.visible = true
-				menu.m_pdf2.visible = true
-			else
-				menu.m_pdf.visible = false
-				menu.m_pdf2.visible = false
-			end if
-				
+			menu.m_pdf.visible = false
+			menu.m_pdf2.visible = false
 		end if
+				
+		
 		// On ne propose l'information sur le fichier que lignes ....  qui on fichier physique
 		if  len(trim(dw_clic.getitemstring(row, "historique_editions_nom_courrier"))) > 0 then
 			menu.m_informations.enabled = true

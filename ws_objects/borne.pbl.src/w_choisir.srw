@@ -118,19 +118,14 @@ string v_message_specifique, v_message_specifique_adulte, v_son_specifique_borne
 string v_type_rdv
 datetime v_rdv
 
-if version_ce_logiciel_borne < "36.90" then 
-	// Recherche de l'heure à laquelle il avait rdv et d'un message spécifique éventuel
-	select hour(rdv) , minute(rdv), minutes(rdv, arrivee), isnull(type_rdv.message_salle_attente,''), isnull(type_rdv.message_addulte_salle_attente,''), rdv."type", "rdv"."rdv"
-	into :v_heure, :v_minute , :v_retard , :v_message_specifique, :v_message_specifique_adulte, :v_type_rdv, :v_rdv
-	from "rdv" , "type_rdv" 
-	where round(code_interne,0) = :v_code_interne and rdv."type" = type_rdv.code ;
-else
-	// Recherche de l'heure à laquelle il avait rdv et d'un message spécifique éventuel
-	select hour(rdv) , minute(rdv), minutes(rdv, arrivee), isnull(type_rdv.message_salle_attente,''), isnull(type_rdv.message_addulte_salle_attente,''), rdv."type", "rdv"."rdv", isnull(type_rdv.son_borne,'')
-	into :v_heure, :v_minute , :v_retard , :v_message_specifique, :v_message_specifique_adulte, :v_type_rdv, :v_rdv, :v_son_specifique_borne
-	from "rdv" , "type_rdv" 
-	where round(code_interne,0) = :v_code_interne and rdv."type" = type_rdv.code ;
-end if
+
+
+// Recherche de l'heure à laquelle il avait rdv et d'un message spécifique éventuel
+select hour(rdv) , minute(rdv), minutes(rdv, arrivee), isnull(type_rdv.message_salle_attente,''), isnull(type_rdv.message_addulte_salle_attente,''), rdv."type", "rdv"."rdv", isnull(type_rdv.son_borne,'')
+into :v_heure, :v_minute , :v_retard , :v_message_specifique, :v_message_specifique_adulte, :v_type_rdv, :v_rdv, :v_son_specifique_borne
+from "rdv" , "type_rdv" 
+where round(code_interne,0) = :v_code_interne and rdv."type" = type_rdv.code ;
+
 
 // Recherche de texte selon l'état du rendez-vous
 if dw_liste.getitemstring(ligne,"adulte") = "N" and v_message_specifique = "" and  v_etat_rdv_type_rdv <> "" and v_etat_rdv_type_rdv_message_enfant <> "" then

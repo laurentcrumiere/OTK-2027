@@ -102,9 +102,6 @@ dw_prati.retrieve()
 dw_oa_liste.settransobject(sqlca)
 dw_oa_liste.retrieve()
 
-if version_ce_logiciel < "36.90" then 
-	cb_ajouter_tous.visible = false
-end if
 
 
 end event

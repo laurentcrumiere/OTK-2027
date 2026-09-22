@@ -180,11 +180,7 @@ uo_pocket uo_poc
 
 end variables
 
-event open;call super::open;if version_ce_logiciel < "36.90" then 
-	tab_1.tabpage_10.dw_10.dataobject = "dw_paramgene_10_2026"
-end if
-
-
+event open;call super::open;
 tab_1.tabpage_1.dw_1.settransobject(SQLCA)
 tab_1.tabpage_2.dw_2.settransobject(SQLCA)
 tab_1.tabpage_3.dw_3.settransobject(SQLCA)

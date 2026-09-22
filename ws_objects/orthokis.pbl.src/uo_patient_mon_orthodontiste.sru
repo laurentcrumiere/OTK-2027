@@ -25,6 +25,7 @@ type variables
 
 double var_code_local
 string var_partie_a_ouvrir
+boolean ib_patient_dentapoche,  ib_parent1_dentapoche,  ib_patient2_dentapoche,  ib_payeur_dentapoche
 
 // pour Parsing de Téa
 
@@ -33,13 +34,13 @@ integer li_code, i, li_cpt
 boolean lb_success
 long ll_root, ll_data, ll_index_data, ll_cnt_data
 
-// Pour les patients rattachés
+// Pour les patients rattachés 
 string ls_firstname[], ls_phoneNumber[], ls_email[], ls_lastname[]
 string ls_tableau_vide[]
 long  ll_id[]
 
 
-// pour les appareils de signature
+// pour les appareils de signature 
 string ls_label[], ls_token[], ls_uuid[], ls_notificationType[]
 string ls_id[]
 
@@ -152,12 +153,20 @@ else
 			pb_1.PowerTipText = "Patient inscrit à Mon Orthodontiste"
 		end if
 	else
+		
+		
 		if DENTAPOCHE then 
-			pb_1.pictureName = "lc_dentapoche_rouge.png"
-			pb_1.PowerTipText = "Ce patient n'est pas inscrit à Dentapoche"
-		else
-			pb_1.pictureName = "lc_dentapoche.png"
-			pb_1.PowerTipText = "Patient inscrit à Dentapoche"
+			select isnull(count(*),0) into :v_cpt from dentapoche_liens  
+			where code_patient = :var_code_local ;
+			if v_cpt = 0 then
+				pb_1.pictureName = "lc_dentapoche_rouge.png"
+				pb_1.PowerTipText = "Ce patient n'est pas inscrit à Dentapoche"
+				ib_patient_dentapoche = false
+			else
+				pb_1.pictureName = "lc_dentapoche.png"
+				pb_1.PowerTipText = "Patient inscrit à Dentapoche"
+				ib_patient_dentapoche = true
+			end if
 		end if
 	end if
 		
@@ -1013,11 +1022,19 @@ event clicked;if MON_ORTHODONTISTE THEN
 	end if
 else
 	// TEA
-	if not SALLE_ATTENTE_INDEPENDANTE then
-		if droits_acces[82] = "O" then
-			fxg_ouvrir_tea(var_partie_a_ouvrir, var_code_local)
+	if TEA then 
+		if not SALLE_ATTENTE_INDEPENDANTE then
+			if droits_acces[82] = "O" then
+				fxg_ouvrir_tea(var_partie_a_ouvrir, var_code_local)
+			else
+				Messagebox("ATTENTION","Vous n'êtes pas autorisé(e) à utiliser " + '"' + LIBELLE_APPLICATION + '"' +" !")
+			end if
+		end if
+	else
+		// DENTAPOCHE
+		if not ib_patient_dentapoche then
+			
 		else
-			Messagebox("ATTENTION","Vous n'êtes pas autorisé(e) à utiliser " + '"' + LIBELLE_APPLICATION + '"' +" !")
 		end if
 	end if
 end if

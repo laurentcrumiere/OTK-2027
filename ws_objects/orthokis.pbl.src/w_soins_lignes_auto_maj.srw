@@ -199,10 +199,6 @@ SELECT "prati"."sc","prati"."pxcons","prati"."radio"
 INTO :prix_scp,:prix_cons,:prix_radio 
 FROM prati ;
 
-if version_ce_logiciel < "36.90" then 
-	dw_soins.dataobject = "dw_soins_auto_2026"
-end if
-
 dw_detail.settransobject(SQLCA)
 dw_impression.SettransObject(SQLCA)
 dw_soins.settransobject(SQLCA)
@@ -435,11 +431,10 @@ else
 			sle_association.text = dw_soins.getitemstring(dw_soins.getrow(),"soins_auto_code_association")
 			sle_association.visible = true
 			
-			if version_ce_logiciel >= "36.90" then 
-				st_modificateurs.visible = true
-				sle_modificateurs.visible = true
-				sle_modificateurs.text = dw_soins.getitemstring(dw_soins.getrow(),"soins_auto_modificateurs")
-			end if
+			st_modificateurs.visible = true
+			sle_modificateurs.visible = true
+			sle_modificateurs.text = dw_soins.getitemstring(dw_soins.getrow(),"soins_auto_modificateurs")
+
 		else
 			st_association.visible = false
 			sle_association.text = ""
@@ -574,13 +569,10 @@ else
 		nombre_decalage = dw_soins.getitemnumber(lig_soin,"soins_auto_nombre_decalage")
 		mode_decalage = dw_soins.getitemstring(lig_soin,"soins_auto_mode_decalage")
 		
-		if version_ce_logiciel >= "36.90" then 
-			v_association = dw_soins.getitemstring(lig_soin,"soins_auto_code_association")
-			v_modificateurs = dw_soins.getitemstring(lig_soin,"soins_auto_modificateurs")
-		else
-			setnull(v_association)
-			setnull(v_modificateurs)
-		end if
+
+		v_association = dw_soins.getitemstring(lig_soin,"soins_auto_code_association")
+		v_modificateurs = dw_soins.getitemstring(lig_soin,"soins_auto_modificateurs")
+
 		
 	  SELECT "code_soins"."duree"  
 		 INTO :duree
@@ -609,20 +601,14 @@ else
 		cle_max = cle_max + 1
 		numero = numero + 1
 		
-		if version_ce_logiciel < "36.90" then
-		  INSERT INTO "soins_auto"  
-         ( "cle", 			"code",              "type",              "numero",              "date_demande",              "scp_demande",              "date_accord",              "scp_accord",              "hn",   
-           "total",              "tp",              "date_cara",			"mode_decalage",			 "nombre_decalage" )  
- 			 VALUES ( :cle_max,              :var_code_local,              :v_type_soin,              :numero,              :demande,              :scp_demande,              null,              null,              :hn,   
-           :total,              :tp,              null,              :mode_decalage,		    :nombre_decalage)  ;
-		else
-			 INSERT INTO "soins_auto"  
-         ( "cle", 			"code",              "type",              "numero",              "date_demande",              "scp_demande",              "date_accord",              "scp_accord",              "hn",   
-           "total",              "tp",              "date_cara",			"mode_decalage",			 "nombre_decalage" , "code_association" , "modificateurs")  
- 			 VALUES ( :cle_max,              :var_code_local,              :v_type_soin,              :numero,              :demande,              :scp_demande,              null,              null,              :hn,   
-           :total,              :tp,              null,              :mode_decalage,		    :nombre_decalage, :v_association, :v_modificateurs)  ;	
+
+		 INSERT INTO "soins_auto"  
+      ( "cle", 			"code",              "type",              "numero",              "date_demande",              "scp_demande",              "date_accord",              "scp_accord",              "hn",   
+        "total",              "tp",              "date_cara",			"mode_decalage",			 "nombre_decalage" , "code_association" , "modificateurs")  
+		 VALUES ( :cle_max,              :var_code_local,              :v_type_soin,              :numero,              :demande,              :scp_demande,              null,              null,              :hn,   
+        :total,              :tp,              null,              :mode_decalage,		    :nombre_decalage, :v_association, :v_modificateurs)  ;	
 			
-		end if
+
 		
 		if sqlca.sqlcode <> 0 then 
 			messagebox("ATTENTION", "Erreur dans l'ajout de la ligne de soin !~n~n" + sqlca.sqlerrtext) 
@@ -770,19 +756,13 @@ code = this.getItemString(this.getRow(),"code")
 
 SELECT code INTO :type_soin FROM code_soins WHERE code = :code;
 
-if version_ce_logiciel < "36.90" then 
+
   SELECT "code_soins"."duree",           "code_soins"."date_dem",            "code_soins"."tp"  ,			"code_soins"."nb_lettre",			"code_soins"."depasse",
-			"code_soins"."valeur"    , "code_association" , "nature"
-	INTO :v_duree,            :date_dem,            :tp  ,			:nb_lettre,			:depasse,			:valeur    , :v_code_association, :v_nature
-	FROM "code_soins"  
-   WHERE "code_soins"."code" = :code   ;
-else
-	  SELECT "code_soins"."duree",           "code_soins"."date_dem",            "code_soins"."tp"  ,			"code_soins"."nb_lettre",			"code_soins"."depasse",
-			"code_soins"."valeur"    , "code_association" , "nature", "modificateurs_defaut"
-	INTO :v_duree,            :date_dem,            :tp  ,			:nb_lettre,			:depasse,			:valeur    , :v_code_association, :v_nature, :v_modificateurs
-	FROM "code_soins"  
-   WHERE "code_soins"."code" = :code   ;
-end if
+		"code_soins"."valeur"    , "code_association" , "nature", "modificateurs_defaut"
+INTO :v_duree,            :date_dem,            :tp  ,			:nb_lettre,			:depasse,			:valeur    , :v_code_association, :v_nature, :v_modificateurs
+FROM "code_soins"  
+WHERE "code_soins"."code" = :code   ;
+
 cb_enregistrer.enabled ( TRUE)
 
 IF type_soin <> ancien_soin THEN
@@ -827,11 +807,10 @@ IF type_soin <> ancien_soin THEN
 		sle_association.visible = true
 		sle_association.text = v_code_association
 		
-		if version_ce_logiciel >= "36.90" then 
-			st_modificateurs.visible = true
-			sle_modificateurs.visible = true
-			sle_modificateurs.text = v_code_association
-		end if
+		st_modificateurs.visible = true
+		sle_modificateurs.visible = true
+		sle_modificateurs.text = v_code_association
+
 		
 	else
 		st_association.visible = false
@@ -1401,55 +1380,34 @@ CHOOSE CASE Action
 
 		cle_manip = cle_max
 	
-		if version_ce_logiciel < "36.90" then 
-		  INSERT INTO "soins_auto"  
-	         ( "cle",  "code",  "type",  "numero",  "date_demande",  "scp_demande",   
-	           "date_accord",  "scp_accord",  "hn",  "total",  "tp", "mode_decalage", "nombre_decalage", "code_association" )  
-	 		 VALUES ( :cle_max,  :var_code_local,   :var_type,   :var_num,   :var_date_dem,   
-	           :var_scp_dem,   :var_date_acc,   :var_scp_acc,   :var_hn,   :var_tot,   
-	           :var_tp , :var_mode_decalage, :var_nombre_decalage , :var_association)  ;
-		else
-		  INSERT INTO "soins_auto"  
-	         ( "cle",  "code",  "type",  "numero",  "date_demande",  "scp_demande",   
-	           "date_accord",  "scp_accord",  "hn",  "total",  "tp", "mode_decalage", "nombre_decalage", "code_association", "modificateurs")  
-	 		 VALUES ( :cle_max,  :var_code_local,   :var_type,   :var_num,   :var_date_dem,   
-	           :var_scp_dem,   :var_date_acc,   :var_scp_acc,   :var_hn,   :var_tot,   
-	           :var_tp , :var_mode_decalage, :var_nombre_decalage , :var_association, :var_modificateurs)  ;
-			end if
+
+	  INSERT INTO "soins_auto"  
+         ( "cle",  "code",  "type",  "numero",  "date_demande",  "scp_demande",   
+           "date_accord",  "scp_accord",  "hn",  "total",  "tp", "mode_decalage", "nombre_decalage", "code_association", "modificateurs")  
+ 		 VALUES ( :cle_max,  :var_code_local,   :var_type,   :var_num,   :var_date_dem,   
+           :var_scp_dem,   :var_date_acc,   :var_scp_acc,   :var_hn,   :var_tot,   
+           :var_tp , :var_mode_decalage, :var_nombre_decalage , :var_association, :var_modificateurs)  ;
+
 
 	CASE "M"
 	// Modification de soins
 
-		if version_ce_logiciel < "36.90" then 
-			UPDATE "soins_auto"  SET
-	        		"type" = :var_type,  
-				"numero" = :var_num,   
-	      	     "date_demande" = :var_date_dem,   
-	      	     "scp_demande"= :var_scp_dem,   
-	      	     "scp_accord" = :var_scp_acc,   
-	      	     "hn" = :var_hn,   
-	      	     "total" = :var_tot,   
-	      	     "tp" = :var_tp ,
-				"code_association" = :var_association,
-				"mode_decalage" = :var_mode_decalage,
-				"nombre_decalage" = :var_nombre_decalage
-	 		  WHERE cle = :cle_manip and code = :var_code_local ;
-		else
-			UPDATE "soins_auto"  SET
-	        		"type" = :var_type,  
-				"numero" = :var_num,   
-	      	     "date_demande" = :var_date_dem,   
-	      	     "scp_demande"= :var_scp_dem,   
-	      	     "scp_accord" = :var_scp_acc,   
-	      	     "hn" = :var_hn,   
-	      	     "total" = :var_tot,   
-	      	     "tp" = :var_tp ,
-				"code_association" = :var_association,
-				"mode_decalage" = :var_mode_decalage,
-				"nombre_decalage" = :var_nombre_decalage,
-				"modificateurs" = :var_modificateurs
-	 		  WHERE cle = :cle_manip and code = :var_code_local ;
-		end if
+
+		UPDATE "soins_auto"  SET
+        		"type" = :var_type,  
+			"numero" = :var_num,   
+      	     "date_demande" = :var_date_dem,   
+      	     "scp_demande"= :var_scp_dem,   
+      	     "scp_accord" = :var_scp_acc,   
+      	     "hn" = :var_hn,   
+      	     "total" = :var_tot,   
+      	     "tp" = :var_tp ,
+			"code_association" = :var_association,
+			"mode_decalage" = :var_mode_decalage,
+			"nombre_decalage" = :var_nombre_decalage,
+			"modificateurs" = :var_modificateurs
+ 		  WHERE cle = :cle_manip and code = :var_code_local ;
+
 
 		if string(var_date_acc) <> "01/01/1900" then
 			UPDATE "soins_auto"  SET  "date_accord" = :var_date_acc   

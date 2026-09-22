@@ -570,35 +570,36 @@ else
 								dw_reg.setitem(1,"monnaie",v_monnaie)
 								dw_reg.setitem(1,"montant_monnaie",v_montant_monnaie)
 								
-								if version_ce_logiciel >= "36.90" then 
-									// Si v_coment se termine par un chiffre => c'est un numéro de chèque ; on l'extrait et on fait + 1
-									v_comment = trim(v_comment)
-									char lc_caractere_lu
-									integer li_index
-									string ls_numero_cheque = ""
-									boolean lb_ok_chiffre = true
-									lc_caractere_lu = right(v_comment, 1)
+								// Si v_coment se termine par un chiffre => c'est un numéro de chèque ; on l'extrait et on fait + 1
+								v_comment = trim(v_comment)
+								char lc_caractere_lu
+								integer li_index
+								string ls_numero_cheque = ""
+								boolean lb_ok_chiffre = true
+								lc_caractere_lu = right(v_comment, 1)
+								
+								if "0" <= lc_caractere_lu and lc_caractere_lu <= "9" then 
 									
-									if "0" <= lc_caractere_lu and lc_caractere_lu <= "9" then 
-										
-										li_index = len(v_comment)
-										
-										do while li_index > 0 and lb_ok_chiffre  
-											lc_caractere_lu = mid(v_comment, li_index, 1)
-											if "0" <= lc_caractere_lu and  lc_caractere_lu <= "9" then 
-												ls_numero_cheque = lc_caractere_lu + ls_numero_cheque
-											else
-												lb_ok_chiffre = false
-											end if
-											li_index = li_index - 1
-										loop
-										
-										// On modifie le numéro du chèque
-										v_comment = left(v_comment, len(v_comment) - len(ls_numero_cheque)) + string( long(ls_numero_cheque) + 1)
-										
-									end if
+									li_index = len(v_comment)
+									
+									do while li_index > 0 and lb_ok_chiffre  
+										lc_caractere_lu = mid(v_comment, li_index, 1)
+										if "0" <= lc_caractere_lu and  lc_caractere_lu <= "9" then 
+											ls_numero_cheque = lc_caractere_lu + ls_numero_cheque
+										else
+											lb_ok_chiffre = false
+										end if
+										li_index = li_index - 1
+									loop
+									
+									// On modifie le numéro du chèque
+									v_comment = left(v_comment, len(v_comment) - len(ls_numero_cheque)) + string( long(ls_numero_cheque) + 1)
 									
 								end if
+									
+
+								
+
 								dw_reg.setitem(1,"commentaire",v_comment)
 													
 												
@@ -610,7 +611,7 @@ else
 								dw_reg.setitem(1,"date_modif",now())
 								
 								
-								// si le renglement est du jour, on va odifier la date de remise
+								// si le réglement est du jour, on va modifier la date de remise
 								if v_date = date_du_jour then
 									dw_reg.setColumn("dateremise")
 									dw_reg.setFocus()

@@ -1619,7 +1619,9 @@ public subroutine wf_reponse_creation_fse ();// Exploitation des informations re
 //double var_code_local en instance
 
 // Dernier fse
-string	ls_derniere_fse_nom_assure, ls_derniere_fse_prenom_assure, ls_derniere_fse_secu
+string	ls_derniere_fse_nom_assure, ls_derniere_fse_prenom_assure, ls_derniere_fse_secu, nir_fse_du_jour, nom_assure_fse_du_jour, prenom_assure_fse_du_jour
+date ld_derniere_fse_date
+
 
 // Montants
 decimal{2} v_montant_patient1, v_montant_caisse1, v_montant_mutuelle1, v_montant1,  v_mMontantAmo, v_mMontantCompl
@@ -1700,30 +1702,42 @@ next
 
 ajout_histo_actions(var_code_local,"AJOFS", today(),"FSE N°" + string(v_numero_fse) + " - Soin(s) : " + s_libelle_histo )
 
-if version_ce_logiciel < "36.90" then
-	
-	// on met à jour identifiant_televitale pour montrer qu'on a déjà fait une facture pour ce patient => mode dégradé possible !
-	update patient set 	identifiant_televitale = code 
-	where code = :var_code_local ; 
 
-else
-	// on met à jour identifiant_televitale pour montrer qu'on a déjà fait une facture pour ce patient => mode dégradé possible !
-	// depuis V 2027, si CC Vitale est en version 4.50 ou supérieure, et qu'on a des infos sur l'assuré, on les met à jour aussi
+// on met à jour identifiant_televitale pour montrer qu'on a déjà fait une facture pour ce patient => mode dégradé possible !
+// depuis V 2027, si CC Vitale peut être en version 4.50 ou supérieure, et qu'on a des infos sur l'assuré, on les met à jour aussi
+nom_assure_fse_du_jour = wf_findtvitem("m_cNomAssure")
+prenom_assure_fse_du_jour = wf_findtvitem("m_cPrenomAssure")
+nir_fse_du_jour = wf_findtvitem("m_cNirAssure") + " " + wf_findtvitem("m_cCleNirAssure")
+
+if nir_fse_du_jour <> "?" then 
+	// CC Vitale renvoie l'info à partir de la version 4.50
+	// On vérifie si c'était le même NIR la dernière fois
+	select isnull(derniere_fse_nom_assure, ''), isnull(derniere_fse_prenom_assure, ''), isnull(derniere_fse_secu, ''), derniere_fse_date 
+	into :ls_derniere_fse_nom_assure, :ls_derniere_fse_prenom_assure, :ls_derniere_fse_secu, :ld_derniere_fse_date 
+	from patient 
+	where code = :var_code_local ; 
 	
+	if ls_derniere_fse_secu <> nir_fse_du_jour and ls_derniere_fse_secu <> "" then 
+		Messagebox("ATTENTION", "La FSE précédente, pour ce patient, a été faite avec un assuré différent : ~n~nFSE du jour :~n- Assuré : " + nom_assure_fse_du_jour + " " + prenom_assure_fse_du_jour + "~n- N° SS : " + nir_fse_du_jour + "~n~nFSE précédente :~n- Assuré : " + ls_derniere_fse_nom_assure + " " + ls_derniere_fse_prenom_assure + "~n- N° SS : " + ls_derniere_fse_secu + "~n- Date : " + string(ld_derniere_fse_date))
+	end if
+			
+	// on mets à jour tous les éléments
 	ls_derniere_fse_nom_assure = wf_findtvitem("m_cNomAssure")
 	ls_derniere_fse_prenom_assure = wf_findtvitem("m_cPrenomAssure")
 	ls_derniere_fse_secu = wf_findtvitem("m_cNirAssure") + " " + wf_findtvitem("m_cCleNirAssure")
-
-	if ls_derniere_fse_nom_assure <> "" then 
-		update patient set 	identifiant_televitale = code , derniere_fse_nom_assure = :ls_derniere_fse_nom_assure, derniere_fse_prenom_assure = :ls_derniere_fse_prenom_assure ,
-		derniere_fse_secu = :ls_derniere_fse_secu, derniere_fse_date = getdate() 
-		where code = :var_code_local ; 
-	else
-		update patient set 	identifiant_televitale = code 
-		where code = :var_code_local ; 
-	end if
 	
+	update patient set 	identifiant_televitale = code , derniere_fse_nom_assure = :ls_derniere_fse_nom_assure, derniere_fse_prenom_assure = :ls_derniere_fse_prenom_assure ,
+	derniere_fse_secu = :nir_fse_du_jour, derniere_fse_date = getdate() 
+	where code = :var_code_local ; 
+		
+
+else
+	// 
+	update patient set 	identifiant_televitale = code 
+	where code = :var_code_local ; 
 end if
+
+
 
 commit ;
 

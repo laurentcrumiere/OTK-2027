@@ -63,10 +63,9 @@ destroy(this.dw_edition)
 destroy(this.cb_1)
 end on
 
-event timer;call super::timer;if version_ce_logiciel >= "36.90" then
-	Timer(0)
-	fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
-end if
+event timer;call super::timer;Timer(0)
+fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
+
 
 end event
 

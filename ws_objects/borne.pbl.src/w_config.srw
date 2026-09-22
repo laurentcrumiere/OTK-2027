@@ -20,14 +20,6 @@ type tabpage_principale from userobject within tab_1
 end type
 type cbx_activer_sons from checkbox within tabpage_principale
 end type
-type pb_jouer_son1_2026 from picturebutton within tabpage_principale
-end type
-type pb_chercher_son1_2026 from uo_picturebutton within tabpage_principale
-end type
-type sle_son1_2026 from singlelineedit within tabpage_principale
-end type
-type st_son1_2026 from statictext within tabpage_principale
-end type
 type em_y from editmask within tabpage_principale
 end type
 type em_x from editmask within tabpage_principale
@@ -90,10 +82,6 @@ type gb_clavier from groupbox within tabpage_principale
 end type
 type tabpage_principale from userobject within tab_1
 cbx_activer_sons cbx_activer_sons
-pb_jouer_son1_2026 pb_jouer_son1_2026
-pb_chercher_son1_2026 pb_chercher_son1_2026
-sle_son1_2026 sle_son1_2026
-st_son1_2026 st_son1_2026
 em_y em_y
 em_x em_x
 st_24 st_24
@@ -545,45 +533,6 @@ if v_maj = "O" then
 end if
 
 
-if version_ce_logiciel_borne < "36.90" then 
-	
-// on libère les options de sons 2026 et masque les nouvelles de 2027
-	tab_1.tabpage_principale.st_son1_2026.visible = true
-	tab_1.tabpage_principale.sle_son1_2026.visible = true
-	tab_1.tabpage_principale.pb_jouer_son1_2026.visible = true
-	tab_1.tabpage_principale.pb_chercher_son1_2026.visible = true
-	
-	tab_1.tabpage_principale.cbx_activer_sons.visible = false
-
-	tab_1.tabpage_bienvenue.st_son1.visible = false
-	tab_1.tabpage_bienvenue.sle_son1.visible = false
-	tab_1.tabpage_bienvenue.pb_jouer_son1.visible = false
-	tab_1.tabpage_bienvenue.pb_chercher_son1.visible = false
-
-	tab_1.tabpage_retard.st_son3.visible = false
-	tab_1.tabpage_retard.sle_son3.visible = false
-	tab_1.tabpage_retard.pb_jouer_son3.visible = false
-	tab_1.tabpage_retard.pb_chercher_son3.visible = false
-	
-	tab_1.tabpage_avance.st_son4.visible = false
-	tab_1.tabpage_avance.sle_son4.visible = false
-	tab_1.tabpage_avance.pb_jouer_son4.visible = false
-	tab_1.tabpage_avance.pb_chercher_son4.visible = false
-	
-	tab_1.tabpage_anniversaire.st_son5.visible = false
-	tab_1.tabpage_anniversaire.sle_son5.visible = false
-	tab_1.tabpage_anniversaire.pb_jouer_son5.visible = false
-	tab_1.tabpage_anniversaire.pb_chercher_son5.visible = false
-	
-	tab_1.tabpage_reglement.st_son6.visible = false
-	tab_1.tabpage_reglement.sle_son6.visible = false
-	tab_1.tabpage_reglement.pb_jouer_son6.visible = false
-	tab_1.tabpage_reglement.pb_chercher_son6.visible = false
-	
-
-end if
-
-
 tab_1.tabpage_non_trouve.st_son2.visible = true
 tab_1.tabpage_non_trouve.sle_son2.visible = true
 tab_1.tabpage_non_trouve.pb_jouer_son2.visible = true
@@ -675,9 +624,7 @@ fichier_pour_touches = tab_1.tabpage_principale.ddplb_touches.PictureName[index_
 
 
 SetprofileString (dir_ini+"orthokis.ini","Borne","image_fond_principale",trim(tab_1.tabpage_principale.sle_image_de_fond.text))
-if version_ce_logiciel_borne < "36.90" then 
-	SetprofileString (dir_ini+"orthokis.ini","Borne","son1",trim(tab_1.tabpage_principale.sle_son1_2026.text))
-end if
+
 SetprofileString (dir_ini+"orthokis.ini","Borne","mot_pour_quitter",trim(tab_1.tabpage_principale.sle_mot_pour_quitter.text))
 SetprofileString (dir_ini+"orthokis.ini","Borne","fichier_pour_touches", fichier_pour_touches )
 SetprofileString (dir_ini+"orthokis.ini","Borne","index_fichier_pour_touches", string(index_fichier_pour_touches) )
@@ -703,9 +650,8 @@ tab_1.tabpage_bienvenue.uo_adulte.sauver("bienvenue_adulte")
 SetProfileString (dir_ini+"orthokis.ini","Borne","attente_bienvenue",tab_1.tabpage_bienvenue.em_attente.text)
 SetprofileString (dir_ini+"orthokis.ini","Borne","image_fond_bienvenue",trim(tab_1.tabpage_bienvenue.sle_image_de_fond_bienvenue.text))
 
-if version_ce_logiciel_borne >= "36.90" then 
-	SetprofileString (dir_ini+"orthokis.ini","Borne","son1",trim(tab_1.tabpage_bienvenue.sle_son1.text))
-end if
+SetprofileString (dir_ini+"orthokis.ini","Borne","son1",trim(tab_1.tabpage_bienvenue.sle_son1.text))
+
 
 
 // Onglet retard
@@ -839,9 +785,6 @@ tab_1.tabpage_principale.ddplb_touches.SelectItem (  ProfileInt (dir_ini+"orthok
 
 
 tab_1.tabpage_principale.sle_image_de_fond.text = ProfileString (dir_ini+"orthokis.ini","Borne","image_fond_principale","")
-if version_ce_logiciel_borne < "36.90" then 
-	tab_1.tabpage_principale.sle_son1_2026.text = ProfileString (dir_ini+"orthokis.ini","Borne","son1","")
-end if
 
 if  ProfileString (dir_ini+"orthokis.ini","Borne","avec_prenom","O") = "N" then
 	tab_1.tabpage_principale.cbx_masquer_prenom.checked = true
@@ -862,9 +805,8 @@ tab_1.tabpage_bienvenue.uo_adulte.charger("bienvenue_adulte","Bonjour {titre} {n
 
 tab_1.tabpage_bienvenue.em_attente.text = ProfileString (dir_ini+"orthokis.ini","Borne","attente_bienvenue","5")
 tab_1.tabpage_bienvenue.sle_image_de_fond_bienvenue.text = ProfileString (dir_ini+"orthokis.ini","Borne","image_fond_bienvenue","")
-if version_ce_logiciel_borne >= "36.90" then 
-	tab_1.tabpage_bienvenue.sle_son1.text = ProfileString (dir_ini+"orthokis.ini","Borne","son1","")
-end if
+tab_1.tabpage_bienvenue.sle_son1.text = ProfileString (dir_ini+"orthokis.ini","Borne","son1","")
+
 
 //--------------------------------- FENETRE RETARD  ----------------------
 tab_1.tabpage_retard.em_tolerance.text = ProfileString (dir_ini+"orthokis.ini","Borne","tolerance_retard","5")
@@ -1100,10 +1042,6 @@ long tabtextcolor = 33554432
 long tabbackcolor = 15780518
 long picturemaskcolor = 536870912
 cbx_activer_sons cbx_activer_sons
-pb_jouer_son1_2026 pb_jouer_son1_2026
-pb_chercher_son1_2026 pb_chercher_son1_2026
-sle_son1_2026 sle_son1_2026
-st_son1_2026 st_son1_2026
 em_y em_y
 em_x em_x
 st_24 st_24
@@ -1138,10 +1076,6 @@ end type
 
 on tabpage_principale.create
 this.cbx_activer_sons=create cbx_activer_sons
-this.pb_jouer_son1_2026=create pb_jouer_son1_2026
-this.pb_chercher_son1_2026=create pb_chercher_son1_2026
-this.sle_son1_2026=create sle_son1_2026
-this.st_son1_2026=create st_son1_2026
 this.em_y=create em_y
 this.em_x=create em_x
 this.st_24=create st_24
@@ -1173,10 +1107,6 @@ this.gb_15=create gb_15
 this.gb_16=create gb_16
 this.gb_clavier=create gb_clavier
 this.Control[]={this.cbx_activer_sons,&
-this.pb_jouer_son1_2026,&
-this.pb_chercher_son1_2026,&
-this.sle_son1_2026,&
-this.st_son1_2026,&
 this.em_y,&
 this.em_x,&
 this.st_24,&
@@ -1211,10 +1141,6 @@ end on
 
 on tabpage_principale.destroy
 destroy(this.cbx_activer_sons)
-destroy(this.pb_jouer_son1_2026)
-destroy(this.pb_chercher_son1_2026)
-destroy(this.sle_son1_2026)
-destroy(this.st_son1_2026)
 destroy(this.em_y)
 destroy(this.em_x)
 destroy(this.st_24)
@@ -1261,88 +1187,6 @@ string facename = "Arial"
 long textcolor = 33554432
 long backcolor = 15780518
 string text = "Activer les sons"
-end type
-
-type pb_jouer_son1_2026 from picturebutton within tabpage_principale
-boolean visible = false
-integer x = 3675
-integer y = 2148
-integer width = 174
-integer height = 152
-integer taborder = 90
-integer textsize = -10
-integer weight = 400
-fontpitch fontpitch = variable!
-fontfamily fontfamily = swiss!
-string facename = "Arial"
-string picturename = "lc_sons.png"
-alignment htextalign = left!
-long backcolor = 553648127
-end type
-
-event clicked;//string ls_string  
-//ls_string=space(500)  
- 
- 
-//// Function API Windows
-//mcisendstringW("Play "+ sle_son1_2026.text ,ls_string,len(ls_string),0)
-
-jouer_son(sle_son1_2026.text)
-end event
-
-type pb_chercher_son1_2026 from uo_picturebutton within tabpage_principale
-boolean visible = false
-integer x = 3474
-integer y = 2152
-integer width = 174
-integer height = 152
-integer taborder = 60
-boolean originalsize = false
-string picturename = "lc_explorer.png"
-end type
-
-event clicked;call super::clicked;string ficname,ficpath
-
-if GetFileOpenName("Fichiers Son",ficname,ficpath,"WAV","Fichiers Sons (*.wav;*.mp3),*.wav; *.mp3") = 1 then
-	sle_son1_2026.text = ficname
-end if
-end event
-
-type sle_son1_2026 from singlelineedit within tabpage_principale
-boolean visible = false
-integer x = 763
-integer y = 2176
-integer width = 2656
-integer height = 112
-integer taborder = 70
-integer textsize = -10
-integer weight = 400
-fontcharset fontcharset = ansi!
-fontpitch fontpitch = variable!
-fontfamily fontfamily = swiss!
-string facename = "Arial"
-long backcolor = 16777215
-boolean autohscroll = false
-borderstyle borderstyle = stylelowered!
-end type
-
-type st_son1_2026 from statictext within tabpage_principale
-boolean visible = false
-integer x = 466
-integer y = 2188
-integer width = 265
-integer height = 64
-integer textsize = -10
-integer weight = 400
-fontcharset fontcharset = ansi!
-fontpitch fontpitch = variable!
-fontfamily fontfamily = swiss!
-string facename = "Arial"
-long textcolor = 33554432
-long backcolor = 15780518
-string text = "Son :"
-alignment alignment = right!
-boolean focusrectangle = false
 end type
 
 type em_y from editmask within tabpage_principale

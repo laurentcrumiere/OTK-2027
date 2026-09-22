@@ -1270,6 +1270,8 @@ type m_parametresimagerie from menu within m_paramètres
 end type
 type m_environnementpostedetravail from menu within m_paramètres
 end type
+type m_dentapoche from menu within m_paramètres
+end type
 type m_5 from menu within m_paramètres
 end type
 type m_motdepasseadministrateur from menu within m_paramètres
@@ -1361,6 +1363,7 @@ m_parametrescourriers m_parametrescourriers
 m_parametresgeneraux m_parametresgeneraux
 m_parametresimagerie m_parametresimagerie
 m_environnementpostedetravail m_environnementpostedetravail
+m_dentapoche m_dentapoche
 m_5 m_5
 m_motdepasseadministrateur m_motdepasseadministrateur
 m_motdepasseutilisateur m_motdepasseutilisateur
@@ -18202,6 +18205,7 @@ m_parametrescourriers m_parametrescourriers
 m_parametresgeneraux m_parametresgeneraux
 m_parametresimagerie m_parametresimagerie
 m_environnementpostedetravail m_environnementpostedetravail
+m_dentapoche m_dentapoche
 m_5 m_5
 m_motdepasseadministrateur m_motdepasseadministrateur
 m_motdepasseutilisateur m_motdepasseutilisateur
@@ -18233,6 +18237,7 @@ this.m_parametrescourriers=create m_parametrescourriers
 this.m_parametresgeneraux=create m_parametresgeneraux
 this.m_parametresimagerie=create m_parametresimagerie
 this.m_environnementpostedetravail=create m_environnementpostedetravail
+this.m_dentapoche=create m_dentapoche
 this.m_5=create m_5
 this.m_motdepasseadministrateur=create m_motdepasseadministrateur
 this.m_motdepasseutilisateur=create m_motdepasseutilisateur
@@ -18242,6 +18247,7 @@ this.Item[UpperBound(this.Item)+1]=this.m_parametrescourriers
 this.Item[UpperBound(this.Item)+1]=this.m_parametresgeneraux
 this.Item[UpperBound(this.Item)+1]=this.m_parametresimagerie
 this.Item[UpperBound(this.Item)+1]=this.m_environnementpostedetravail
+this.Item[UpperBound(this.Item)+1]=this.m_dentapoche
 this.Item[UpperBound(this.Item)+1]=this.m_5
 this.Item[UpperBound(this.Item)+1]=this.m_motdepasseadministrateur
 this.Item[UpperBound(this.Item)+1]=this.m_motdepasseutilisateur
@@ -18255,6 +18261,7 @@ destroy(this.m_parametrescourriers)
 destroy(this.m_parametresgeneraux)
 destroy(this.m_parametresimagerie)
 destroy(this.m_environnementpostedetravail)
+destroy(this.m_dentapoche)
 destroy(this.m_5)
 destroy(this.m_motdepasseadministrateur)
 destroy(this.m_motdepasseutilisateur)
@@ -18466,6 +18473,46 @@ end on
 on m_environnementpostedetravail.destroy
 call super::destroy
 end on
+
+type m_dentapoche from menu within m_paramètres
+end type
+
+on m_dentapoche.create
+call super::create
+this.visible = false
+this.text = "Dentapoche"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217731
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_dentapoche.destroy
+call super::destroy
+end on
+
+event clicked;
+if isvalid(w_paramgene_dentapoche) then
+	// on selectionne
+	w_mdi_2020.uo_powerdock.of_activatedocument (w_paramgene_dentapoche)
+else
+	// on ouvre
+	if fxg_ouverture_onglet_possible() then
+		w_mdi_2020.uo_powerdock.of_openDocument(w_paramgene_dentapoche, "Paramètres Dentapoche", m_orthokis_2020.m_outils.m_paramètres.toolbarItemName)
+	end if
+end if
+end event
 
 type m_5 from menu within m_paramètres
 end type

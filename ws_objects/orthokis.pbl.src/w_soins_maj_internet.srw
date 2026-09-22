@@ -484,9 +484,6 @@ else
 	cbx_maj_code_inami_libelle.visible = false
 end if
 
-if version_ce_logiciel < "36.90" then 
-	dw_soin_fiche.dataobject = "dw_soins_fiche_2026"
-end if
 
 dw_soin_fiche.settransobject(sqlca)
 

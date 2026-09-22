@@ -170,20 +170,15 @@ em_date_limite.SetDate(post_it.date)
 
 rb_repeter_semaine.text = "Répéter ce Post-it tous les "+ jour[daynumber( post_it.date)] + "s jusqu'au"
 
-if version_ce_logiciel < "36.90" then 
-	this.height = 1800
-	
-end if
-	
+
 
 
 
 end event
 
-event timer;call super::timer;if version_ce_logiciel >= "36.90" then
-	Timer(0)
-	fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
-end if
+event timer;call super::timer;Timer(0)
+fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
+
 
 end event
 

@@ -406,12 +406,6 @@ event open;
 
 code = message.stringparm
 
-if version_ce_logiciel < "36.90" then
-	tab_1.tabpage_1.dw_1.dataobject = "dw_type_rdv_fiche_param_2025" 
-	tab_1.tabpage_2.dw_2.dataobject = "dw_type_rdv_fiche_auto_2025" 
-	tab_1.tabpage_3.dw_3.dataobject = "dw_type_rdv_fiche_contraintes_2025" 
-end if
-
 tab_1.tabpage_1.dw_1.settransobject(SQLCA)
 tab_1.tabpage_2.dw_2.settransobject(SQLCA)
 tab_1.tabpage_3.dw_3.settransobject(SQLCA)
@@ -539,10 +533,10 @@ tab_1.tabpage_2.dw_2.object.notez_nous_actif.visible = NotezNous
 
 end event
 
-event timer;call super::timer;if version_ce_logiciel >= "36.90" then
-	Timer(0)
-	fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
-end if
+event timer;call super::timer;
+Timer(0)
+fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
+
 
 end event
 
@@ -618,31 +612,31 @@ if dental_sms then
 	end if
 end if
 	
-if version_ce_logiciel >= "36.90" then
-	// Vérification de la cohérence des contraintes sur les N° de fauteuils 
-	
-	v_fauteuil = tab_1.tabpage_1.dw_1.getitemnumber(1,"fauteuil" )
-	v_fauteuil_min = tab_1.tabpage_3.dw_3.getitemnumber(1,"fauteuil_min" )
-	v_fauteuil_max = tab_1.tabpage_3.dw_3.getitemnumber(1,"fauteuil_max" )
-	
-	zeroi(v_fauteuil)
-	zeroi(v_fauteuil_min)
-	zeroi(v_fauteuil_max)
-	
-	if  v_fauteuil_max < v_fauteuil_min then 
-		Messagebox("ERREUR DANS LES FAUTEUILS OBLIGATOIRES", "Vous devez indiqué des fauteuils obligatoires cohérents (minimun <= maximum) !~n~nVeuillez corriger !")
-		tab_1.selecttab(3)
-		ok_fermer = false
-	else
-		if v_fauteuil_max > 0 then 
-			if v_fauteuil < v_fauteuil_min or v_fauteuil > v_fauteuil_max then 
-				Messagebox("ERREUR DANS LES FAUTEUILS OBLIGATOIRES", "Vous avez indiqué des fauteuils obligatoires (entre " + string(v_fauteuil_min) + " et " + string(v_fauteuil_max )+ ") !~n~nOr vous avez indiqué un N° de fauteuil par défaut en dehors de ce créneau : " + string(v_fauteuil) + "~n~nVeuillez corriger !")
-				tab_1.selecttab(1)
-				ok_fermer = false
-			end if
+
+// Vérification de la cohérence des contraintes sur les N° de fauteuils 
+
+v_fauteuil = tab_1.tabpage_1.dw_1.getitemnumber(1,"fauteuil" )
+v_fauteuil_min = tab_1.tabpage_3.dw_3.getitemnumber(1,"fauteuil_min" )
+v_fauteuil_max = tab_1.tabpage_3.dw_3.getitemnumber(1,"fauteuil_max" )
+
+zeroi(v_fauteuil)
+zeroi(v_fauteuil_min)
+zeroi(v_fauteuil_max)
+
+if  v_fauteuil_max < v_fauteuil_min then 
+	Messagebox("ERREUR DANS LES FAUTEUILS OBLIGATOIRES", "Vous devez indiqué des fauteuils obligatoires cohérents (minimun <= maximum) !~n~nVeuillez corriger !")
+	tab_1.selecttab(3)
+	ok_fermer = false
+else
+	if v_fauteuil_max > 0 then 
+		if v_fauteuil < v_fauteuil_min or v_fauteuil > v_fauteuil_max then 
+			Messagebox("ERREUR DANS LES FAUTEUILS OBLIGATOIRES", "Vous avez indiqué des fauteuils obligatoires (entre " + string(v_fauteuil_min) + " et " + string(v_fauteuil_max )+ ") !~n~nOr vous avez indiqué un N° de fauteuil par défaut en dehors de ce créneau : " + string(v_fauteuil) + "~n~nVeuillez corriger !")
+			tab_1.selecttab(1)
+			ok_fermer = false
 		end if
 	end if
 end if
+
 
 
 if ok_fermer then

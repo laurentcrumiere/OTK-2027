@@ -1001,13 +1001,6 @@ event open;call super::open;// On passe en paramètre si on veut un resize autom
 // OUI en mode normal
 // NON en mode MDI patient pour éviter 3 Resize
 
-if version_ce_logiciel < "36.90" then 
-	tab_1.tabpage_1.dw_fiche1.dataobject = "dw_patient_fiche1_2026"
-	tab_1.tabpage_2.dw_fiche2.dataobject = "dw_patient_fiche2_2026"
-	tab_1.tabpage_3.dw_parent2.dataobject = "dw_patient_fiche3_2026"
-	tab_1.tabpage_7.dw_fiche_dates.dataobject = "dw_patient_fiche_dates_2026"
-end if
-
 resize_automatique = integer(param_win[2])
 double v_identifiant_ods
 
@@ -2124,10 +2117,10 @@ event activate;//if ui_v2020 and not event_show_fait then
 event_show_fait  = true 
 end event
 
-event timer;call super::timer;if version_ce_logiciel >= "36.90" then
-	Timer(0)
-	fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
-end if
+event timer;call super::timer;
+Timer(0)
+fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
+
 
 end event
 

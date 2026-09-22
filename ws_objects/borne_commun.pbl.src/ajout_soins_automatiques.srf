@@ -128,18 +128,13 @@ double tab_cle_soins_auto[]
 integer v_indice_tab_cle_soins_auto
 
 // Curseur sur les soins (tous les soins du modèle)
-if version_ce_logiciel < "36.90" then
-	DECLARE Cur_soins_2026 CURSOR FOR  
-	  SELECT "cle","type","numero","date_demande","scp_demande","date_accord","scp_accord","hn",  
-		  "soins_auto"."total", "soins_auto"."tp" ,  "mode_decalage", "nombre_decalage", "execution_immediate" , "soins_auto". "code_association" , isnull("code_soins"."remboursement_exceptionnel_defaut",'N')
-	 FROM "soins_auto", "code_soins" WHERE "soins_auto"."type" = code_soins.code and soins_auto.code = :v_soins_auto order by "date_demande", "cle" ;
- else
+
 	 	DECLARE Cur_soins CURSOR FOR  
 	  SELECT "cle","type","numero","date_demande","scp_demande","date_accord","scp_accord","hn",  
 		  "soins_auto"."total", "soins_auto"."tp" ,  "mode_decalage", "nombre_decalage", "execution_immediate" , "soins_auto". "code_association" , isnull("code_soins"."remboursement_exceptionnel_defaut",'N'),  "soins_auto". "modificateurs"
 	 FROM "soins_auto", "code_soins" WHERE "soins_auto"."type" = code_soins.code and soins_auto.code = :v_soins_auto order by "date_demande", "cle" ;
 
- end if
+
 	
 
 // Curseur sur les lignes de soins auto (du soin en cours)
@@ -148,19 +143,13 @@ DECLARE Cur_lsoins CURSOR FOR
 	 FROM "ligne_soins_auto" WHERE code = :v_soins_auto and cle = :v_cle_soins_auto ;
 	 
 	 
-if version_ce_logiciel < "36.90" then 
-	OPEN cur_soins_2026 ;
-	
-	FETCH cur_soins_2026 INTO :v_cle_soins_auto,:v_type,:v_numero,:v_date_demande,
-				:v_scp_demande,:v_date_accord,:v_scp_accord,:v_hn,   
-					 :v_total,:v_tp, :v_mode_decalage, :v_nombre_decalage, :v_execution_immediate , :v_code_association , :v_remboursement_exceptionnel;
-else
-	OPEN cur_soins ;
-	
-	FETCH cur_soins INTO :v_cle_soins_auto,:v_type,:v_numero,:v_date_demande,
-				:v_scp_demande,:v_date_accord,:v_scp_accord,:v_hn,   
-					 :v_total,:v_tp, :v_mode_decalage, :v_nombre_decalage, :v_execution_immediate , :v_code_association , :v_remboursement_exceptionnel , :v_modificateurs ;
-end if
+
+OPEN cur_soins ;
+
+FETCH cur_soins INTO :v_cle_soins_auto,:v_type,:v_numero,:v_date_demande,
+			:v_scp_demande,:v_date_accord,:v_scp_accord,:v_hn,   
+				 :v_total,:v_tp, :v_mode_decalage, :v_nombre_decalage, :v_execution_immediate , :v_code_association , :v_remboursement_exceptionnel , :v_modificateurs ;
+
 
 v_indice_tab_cle_soins_auto = 0
 
@@ -172,23 +161,16 @@ Do while SQLCA.sqlcode = 0
 	
 	tab_cle_soins_auto[v_indice_tab_cle_soins_auto] = v_cle_soins_auto
 	 
-	 if version_ce_logiciel < "36.90" then 
-		 FETCH cur_soins_2026 INTO :v_cle_soins_auto,:v_type,:v_numero,:v_date_demande,
-			:v_scp_demande,:v_date_accord,:v_scp_accord,:v_hn,   
-				 :v_total,:v_tp, :v_mode_decalage, :v_nombre_decalage, :v_execution_immediate , :v_code_association , :v_remboursement_exceptionnel;
-	 else
-		 FETCH cur_soins INTO :v_cle_soins_auto,:v_type,:v_numero,:v_date_demande,
-			:v_scp_demande,:v_date_accord,:v_scp_accord,:v_hn,   
-				 :v_total,:v_tp, :v_mode_decalage, :v_nombre_decalage, :v_execution_immediate , :v_code_association , :v_remboursement_exceptionnel, :v_modificateurs;
-	 end if
+	
+ FETCH cur_soins INTO :v_cle_soins_auto,:v_type,:v_numero,:v_date_demande,
+	:v_scp_demande,:v_date_accord,:v_scp_accord,:v_hn,   
+		 :v_total,:v_tp, :v_mode_decalage, :v_nombre_decalage, :v_execution_immediate , :v_code_association , :v_remboursement_exceptionnel, :v_modificateurs;
+
 
 loop
 
-if version_ce_logiciel < "36.90" then 
-	close cur_soins_2026 ;
-else
-	close cur_soins ;
-end if
+close cur_soins ;
+
 
 
 
@@ -202,20 +184,14 @@ for v_indice_tab_cle_soins_auto = 1 to upperbound(tab_cle_soins_auto)
 	
 	v_cle_soins_auto = tab_cle_soins_auto[v_indice_tab_cle_soins_auto]
 	
-	if version_ce_logiciel < "36.90" then
-	  SELECT "type","numero","date_demande","scp_demande","date_accord","scp_accord","hn",  
-		  "soins_auto"."total", "soins_auto"."tp" ,  "mode_decalage", "nombre_decalage", "execution_immediate" , "soins_auto". "code_association" , isnull("code_soins"."remboursement_exceptionnel_defaut",'N')
-		INTO :v_type,:v_numero,:v_date_demande, :v_scp_demande,:v_date_accord,:v_scp_accord,:v_hn,   
-					 :v_total,:v_tp, :v_mode_decalage, :v_nombre_decalage, :v_execution_immediate , :v_code_association , :v_remboursement_exceptionnel
-		FROM "soins_auto", "code_soins" WHERE "soins_auto"."type" = code_soins.code and soins_auto.code = :v_soins_auto and "cle" = :v_cle_soins_auto ;
-	else
-	  SELECT "type","numero","date_demande","scp_demande","date_accord","scp_accord","hn",  
-		  "soins_auto"."total", "soins_auto"."tp" ,  "mode_decalage", "nombre_decalage", "execution_immediate" , "soins_auto". "code_association" , isnull("code_soins"."remboursement_exceptionnel_defaut",'N'), "soins_auto". "modificateurs"
-		INTO :v_type,:v_numero,:v_date_demande, :v_scp_demande,:v_date_accord,:v_scp_accord,:v_hn,   
-					 :v_total,:v_tp, :v_mode_decalage, :v_nombre_decalage, :v_execution_immediate , :v_code_association , :v_remboursement_exceptionnel, :v_modificateurs
-		FROM "soins_auto", "code_soins" WHERE "soins_auto"."type" = code_soins.code and soins_auto.code = :v_soins_auto and "cle" = :v_cle_soins_auto ;
+
+  SELECT "type","numero","date_demande","scp_demande","date_accord","scp_accord","hn",  
+	  "soins_auto"."total", "soins_auto"."tp" ,  "mode_decalage", "nombre_decalage", "execution_immediate" , "soins_auto". "code_association" , isnull("code_soins"."remboursement_exceptionnel_defaut",'N'), "soins_auto". "modificateurs"
+	INTO :v_type,:v_numero,:v_date_demande, :v_scp_demande,:v_date_accord,:v_scp_accord,:v_hn,   
+				 :v_total,:v_tp, :v_mode_decalage, :v_nombre_decalage, :v_execution_immediate , :v_code_association , :v_remboursement_exceptionnel, :v_modificateurs
+	FROM "soins_auto", "code_soins" WHERE "soins_auto"."type" = code_soins.code and soins_auto.code = :v_soins_auto and "cle" = :v_cle_soins_auto ;
 	
-	end if
+
 		
 
 	
@@ -319,21 +295,14 @@ for v_indice_tab_cle_soins_auto = 1 to upperbound(tab_cle_soins_auto)
 			if type_gestion = 'P' then
 				// prevus
 				
-				if version_ce_logiciel < "36.90" then
-						INSERT INTO "soins_prevus"  
-					( "cle",    "code",   "type",    "numero",   "date_demande",   "scp_demande",   
-					  "date_accord",   "scp_accord",   "hn",    "total",   "tp","user_modif","date_modif" , "code_devis", "code_association", "remboursement_exceptionnel", "exo")  
-					VALUES ( :v_cle_soins,   :var_code_local,  :v_type,   :v_numero,   
-					  :v_date_temp ,   :v_scp_demande,   null ,   :v_scp_accord,   
-					  :v_hn,  :v_total,   :v_tp , :utilisateur_code, getdate(), :devis, :v_code_association, :v_remboursement_exceptionnel, :v_exo)  ;
-				else
-						INSERT INTO "soins_prevus"  
-					( "cle",    "code",   "type",    "numero",   "date_demande",   "scp_demande",   
-					  "date_accord",   "scp_accord",   "hn",    "total",   "tp","user_modif","date_modif" , "code_devis", "code_association", "remboursement_exceptionnel", "exo", "modificateurs")  
-					VALUES ( :v_cle_soins,   :var_code_local,  :v_type,   :v_numero,   
-					  :v_date_temp ,   :v_scp_demande,   null ,   :v_scp_accord,   
-					  :v_hn,  :v_total,   :v_tp , :utilisateur_code, getdate(), :devis, :v_code_association, :v_remboursement_exceptionnel, :v_exo, :v_modificateurs)  ;
-				end if
+
+					INSERT INTO "soins_prevus"  
+				( "cle",    "code",   "type",    "numero",   "date_demande",   "scp_demande",   
+				  "date_accord",   "scp_accord",   "hn",    "total",   "tp","user_modif","date_modif" , "code_devis", "code_association", "remboursement_exceptionnel", "exo", "modificateurs")  
+				VALUES ( :v_cle_soins,   :var_code_local,  :v_type,   :v_numero,   
+				  :v_date_temp ,   :v_scp_demande,   null ,   :v_scp_accord,   
+				  :v_hn,  :v_total,   :v_tp , :utilisateur_code, getdate(), :devis, :v_code_association, :v_remboursement_exceptionnel, :v_exo, :v_modificateurs)  ;
+
 				
 			else
 				// Normaux
@@ -348,21 +317,13 @@ for v_indice_tab_cle_soins_auto = 1 to upperbound(tab_cle_soins_auto)
 					v_exo = "3"
 				end if
 					
-				if version_ce_logiciel < "36.90" then 
 					INSERT INTO "soins"  
-					( "cle",    "code",   "type",    "numero",   "date_demande",   "scp_demande",   
-					  "date_accord",   "scp_accord",   "hn",    "total",   "tp" , "date_exe", "user_modif","date_modif", "motif_depassement", "code_association", "exo")  
-					VALUES ( :v_cle_soins,   :var_code_local,  :v_type,   :v_numero,   
-					  :v_date_temp ,   :v_scp_demande,   null ,   :v_scp_accord,   
-					  :v_hn,  :v_total,   :v_tp , :date_execution,  :utilisateur_code, getdate() , :v_motif, :v_code_association, :v_exo)  ;
-				else
-						INSERT INTO "soins"  
-					( "cle",    "code",   "type",    "numero",   "date_demande",   "scp_demande",   
-					  "date_accord",   "scp_accord",   "hn",    "total",   "tp" , "date_exe", "user_modif","date_modif", "motif_depassement", "code_association", "exo", "modificateurs")  
-					VALUES ( :v_cle_soins,   :var_code_local,  :v_type,   :v_numero,   
-					  :v_date_temp ,   :v_scp_demande,   null ,   :v_scp_accord,   
-					  :v_hn,  :v_total,   :v_tp , :date_execution,  :utilisateur_code, getdate() , :v_motif, :v_code_association, :v_exo, :v_modificateurs)  ;
-				end if
+				( "cle",    "code",   "type",    "numero",   "date_demande",   "scp_demande",   
+				  "date_accord",   "scp_accord",   "hn",    "total",   "tp" , "date_exe", "user_modif","date_modif", "motif_depassement", "code_association", "exo", "modificateurs")  
+				VALUES ( :v_cle_soins,   :var_code_local,  :v_type,   :v_numero,   
+				  :v_date_temp ,   :v_scp_demande,   null ,   :v_scp_accord,   
+				  :v_hn,  :v_total,   :v_tp , :date_execution,  :utilisateur_code, getdate() , :v_motif, :v_code_association, :v_exo, :v_modificateurs)  ;
+
 			end if
 		end if
 	else
@@ -417,17 +378,12 @@ for v_indice_tab_cle_soins_auto = 1 to upperbound(tab_cle_soins_auto)
 			// Décalage par mois
 			if type_gestion = 'P' then
 				// Prévus
-				if version_ce_logiciel < "36.90" then 
-					INSERT INTO "soins_prevus"  ( "cle", "code", "type",    "numero",   "date_demande",   "scp_demande",   
-					 "date_accord",   "scp_accord",   "hn",    "total",   "tp", "user_modif", "date_modif", "code_devis", "code_association" , "remboursement_exceptionnel", "exo"  )    
-					VALUES ( :v_cle_soins,   :var_code_local,  	:v_type,   :v_numero,  
-					  :v_date_temp ,   :v_scp_demande,   null,   :v_scp_accord,   :v_hn,  :v_total,   :v_tp, :utilisateur_code, getdate() , :devis, :v_code_association 	, :v_remboursement_exceptionnel, :v_exo  )  ;
-				else
-					INSERT INTO "soins_prevus"  ( "cle", "code", "type",    "numero",   "date_demande",   "scp_demande",   
-					 "date_accord",   "scp_accord",   "hn",    "total",   "tp", "user_modif", "date_modif", "code_devis", "code_association" , "remboursement_exceptionnel", "exo", "modificateurs"  )    
-					VALUES ( :v_cle_soins,   :var_code_local,  	:v_type,   :v_numero,  
-					  :v_date_temp ,   :v_scp_demande,   null,   :v_scp_accord,   :v_hn,  :v_total,   :v_tp, :utilisateur_code, getdate() , :devis, :v_code_association 	, :v_remboursement_exceptionnel, :v_exo , :v_modificateurs )  ;
-				end if
+
+				INSERT INTO "soins_prevus"  ( "cle", "code", "type",    "numero",   "date_demande",   "scp_demande",   
+				 "date_accord",   "scp_accord",   "hn",    "total",   "tp", "user_modif", "date_modif", "code_devis", "code_association" , "remboursement_exceptionnel", "exo", "modificateurs"  )    
+				VALUES ( :v_cle_soins,   :var_code_local,  	:v_type,   :v_numero,  
+				  :v_date_temp ,   :v_scp_demande,   null,   :v_scp_accord,   :v_hn,  :v_total,   :v_tp, :utilisateur_code, getdate() , :devis, :v_code_association 	, :v_remboursement_exceptionnel, :v_exo , :v_modificateurs )  ;
+
 						
 
 			else
@@ -441,18 +397,13 @@ for v_indice_tab_cle_soins_auto = 1 to upperbound(tab_cle_soins_auto)
 				if CCVITALE and v_scp_demande = 45 and (v_lettre = 'TO' or v_lettre = 'ORT') then 
 					v_exo = "3"
 				end if
-				if version_ce_logiciel < "36.90" then 
-					INSERT INTO "soins"  ( "cle", "code", "type",    "numero",   "date_demande",   "scp_demande",   
-					 "date_accord",   "scp_accord",   "hn",    "total",   "tp" ,"date_exe", "user_modif", "date_modif", "motif_depassement", "code_association", "exo", "remboursement_exceptionnel")  
-					VALUES ( :v_cle_soins,   :var_code_local,  	:v_type,   :v_numero,  
-					  :v_date_temp ,   :v_scp_demande,   null,   :v_scp_accord,   :v_hn,  :v_total,   :v_tp , :date_execution, :utilisateur_code, getdate(), :v_motif, :v_code_association, :v_exo, :v_remboursement_exceptionnel)  ;
-				else
-					INSERT INTO "soins"  ( "cle", "code", "type",    "numero",   "date_demande",   "scp_demande",   
-					 "date_accord",   "scp_accord",   "hn",    "total",   "tp" ,"date_exe", "user_modif", "date_modif", "motif_depassement", "code_association", "exo", "remboursement_exceptionnel", "modificateurs")  
-					VALUES ( :v_cle_soins,   :var_code_local,  	:v_type,   :v_numero,  
-					  :v_date_temp ,   :v_scp_demande,   null,   :v_scp_accord,   :v_hn,  :v_total,   :v_tp , :date_execution, :utilisateur_code, getdate(), :v_motif, :v_code_association, :v_exo, :v_remboursement_exceptionnel, :v_modificateurs)  ;
+
+				INSERT INTO "soins"  ( "cle", "code", "type",    "numero",   "date_demande",   "scp_demande",   
+				 "date_accord",   "scp_accord",   "hn",    "total",   "tp" ,"date_exe", "user_modif", "date_modif", "motif_depassement", "code_association", "exo", "remboursement_exceptionnel", "modificateurs")  
+				VALUES ( :v_cle_soins,   :var_code_local,  	:v_type,   :v_numero,  
+				  :v_date_temp ,   :v_scp_demande,   null,   :v_scp_accord,   :v_hn,  :v_total,   :v_tp , :date_execution, :utilisateur_code, getdate(), :v_motif, :v_code_association, :v_exo, :v_remboursement_exceptionnel, :v_modificateurs)  ;
 					
-				end if
+
 			end if
 		end if
 	end if
@@ -494,11 +445,13 @@ for v_indice_tab_cle_soins_auto = 1 to upperbound(tab_cle_soins_auto)
 				end if
 				
 				// Correction de l'échéance si jour fixe et par tiers payant 
-				if version_ce_logiciel < "36.90" then 
-					// on ne tient pas compte de forcer_premiere_echeance_premier_mois
-					if jour_echeance <> 0 and v_tp2 <> "O" then
-						// L'écheance patient doit être à jour fixe => on prend le jour fixe qui suis la date .. .
-						
+
+				// En 2027 on tient compte de forcer_premiere_echeance_premier_mois
+				if jour_echeance <> 0 and v_tp2 <> "O" then
+					// L'écheance patient doit être à jour fixe 
+					
+					if not forcer_premiere_echeance_premier_mois then 
+						// => on prend le jour fixe qui suis la date .. .
 						// Pour février ... 
 						if month(v_date_echeance) = 2 and (day(v_date_echeance) = 28 or day(v_date_echeance) = 29) and jour_echeance >= 28 then
 							// on ne fait rien car on est déja en fin de mois 
@@ -516,47 +469,22 @@ for v_indice_tab_cle_soins_auto = 1 to upperbound(tab_cle_soins_auto)
 	 							LOOP
 							end if
 						end if
-					end if
-				else
-					// En 2027 on tient compte de forcer_premiere_echeance_premier_mois
-					if jour_echeance <> 0 and v_tp2 <> "O" then
-						// L'écheance patient doit être à jour fixe 
-						
-						if not forcer_premiere_echeance_premier_mois then 
-							// => on prend le jour fixe qui suis la date .. .
-							// Pour février ... 
-							if month(v_date_echeance) = 2 and (day(v_date_echeance) = 28 or day(v_date_echeance) = 29) and jour_echeance >= 28 then
-								// on ne fait rien car on est déja en fin de mois 
-							else
-								if month(v_date_echeance) = 2 and jour_echeance >= 28 then 
-									// On est en févirier .. on limite au 28
-									v_jour_limite = 28
-								else
-									v_jour_limite = jour_echeance
-								end if
-								// on refait un test en principe inutile ... pas sécurité
-								if 1 <= v_jour_limite and v_jour_limite <= 31 then
-		 							DO WHILE day(v_date_echeance) <> v_jour_limite  
-										v_date_echeance = relativedate(v_date_echeance,1)
-		 							LOOP
-								end if
-							end if
+					else
+						// on force la première écheance le 1er mois
+
+						// verification selon le dernier jour du mois 
+						li_dernier_jour_du_mois = day( fin_mois (v_date_echeance) )
+						ls_date_echeance = string(v_date_echeance, "jj/mm/yyyy")
+						if jour_echeance <= li_dernier_jour_du_mois then 
+							v_date_echeance = date(string(jour_echeance) + right(ls_date_echeance, 8))
 						else
-							// on force la première écheance le 1er mois
-
-							// verification selon le dernier jour du mois 
-							li_dernier_jour_du_mois = day( fin_mois (v_date_echeance) )
-							ls_date_echeance = string(v_date_echeance, "jj/mm/yyyy")
-							if jour_echeance <= li_dernier_jour_du_mois then 
-								v_date_echeance = date(string(jour_echeance) + right(ls_date_echeance, 8))
-							else
-								v_date_echeance = date(string(li_dernier_jour_du_mois) + right(ls_date_echeance, 8))
-							end if
-
+							v_date_echeance = date(string(li_dernier_jour_du_mois) + right(ls_date_echeance, 8))
 						end if
-					end if					
+
+					end if
+				end if					
 					
-				end if
+
 
 
 				

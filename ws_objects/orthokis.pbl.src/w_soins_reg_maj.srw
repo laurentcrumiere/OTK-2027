@@ -2016,14 +2016,7 @@ Try
 	tab_1.tabpage_soins_prevus.dw_devis.settransobject(SQLCA)
 	tab_1.tabpage_soins.dw_impression.settransobject(SQLCA)
 	tab_1.tabpage_reglements.dw_reglements.settransobject(SQLCA)
-	
-	
-	if version_ce_logiciel < "36.90" then 
-		dw_soins_prevus.dataobject = "dw_soins_prevus_2026"
-	else
-		dw_soins_prevus.dataobject = "dw_soins_prevus"
-	end if
-	
+
 	dw_soins_prevus.settransobject(SQLCA)
 	dw_detail_soins_prevus.settransobject(SQLCA)
 	
@@ -7522,52 +7515,52 @@ if v_nom_mode_reglement_habituel <> '' then
 end if
 
 
-if version_ce_logiciel >= "36.90" then
-	decimal{2} total_soins_caisse, total_soins_mutuelle, total_soins_patient
-	decimal{2} du_caisse, du_mutuelle, du_patient
-	decimal{2} total_paye_caisse, total_paye_mutuelle, total_paye_patient
-	
-	if rowcount > 0 then 
-		total_paye_caisse = this.getitemNumber(1,"total_paye_caisse")
-		total_paye_mutuelle = this.getitemNumber(1,"total_paye_mutuelle")
-		total_paye_patient = this.getitemNumber(1,"total_paye_patient")
-	else
-		total_paye_caisse = 0
-		total_paye_mutuelle = 0
-		total_paye_patient = 0
+// Affichage des infos de dûs TP
+decimal{2} total_soins_caisse, total_soins_mutuelle, total_soins_patient
+decimal{2} du_caisse, du_mutuelle, du_patient
+decimal{2} total_paye_caisse, total_paye_mutuelle, total_paye_patient
+
+if rowcount > 0 then 
+	total_paye_caisse = this.getitemNumber(1,"total_paye_caisse")
+	total_paye_mutuelle = this.getitemNumber(1,"total_paye_mutuelle")
+	total_paye_patient = this.getitemNumber(1,"total_paye_patient")
+else
+	total_paye_caisse = 0
+	total_paye_mutuelle = 0
+	total_paye_patient = 0
+end if
+
+// Analyse des sommes dues patient / caisse / mutuelle
+SELECT
+   isnull( SUM(CASE WHEN TP = 'O' AND origine_tp = 'C' THEN montant ELSE 0 END) , 0),
+	 isnull(  SUM(CASE WHEN TP = 'O' AND origine_tp = 'M' THEN montant ELSE 0 END) , 0) ,
+    isnull(  SUM(CASE WHEN TP <> 'O' THEN montant ELSE 0 END) , 0) 
+	 into :total_soins_caisse, :total_soins_mutuelle, :total_soins_patient
+FROM ligne_soins where code = :var_code_local and cle = :var_cle and ligne_soins."date" <= cast(getdate() as date);
+
+du_caisse = total_soins_caisse - total_paye_caisse
+du_mutuelle = total_soins_mutuelle - total_paye_mutuelle
+du_patient = total_soins_patient - total_paye_patient
+
+this.object.t_du_patient.visible = 0
+this.object.t_du_mutuelle.visible = 0
+this.object.t_du_caisse.visible = 0	
+
+// uniquement si la caisse ou la mutuelle doit .. on explicite
+if du_caisse > 0 or du_mutuelle > 0 then 
+	if du_patient > 0 then 
+		this.object.t_du_patient.visible = 1
+		this.object.t_du_patient.text = "Dû patient : " + string(du_patient, "0.00") + " " + ls_symbole_monnaie
 	end if
-	
-	// Analyse des sommes dues patient / caisse / mutuelle
-	SELECT
-	   isnull( SUM(CASE WHEN TP = 'O' AND origine_tp = 'C' THEN montant ELSE 0 END) , 0),
-		 isnull(  SUM(CASE WHEN TP = 'O' AND origine_tp = 'M' THEN montant ELSE 0 END) , 0) ,
-	    isnull(  SUM(CASE WHEN TP <> 'O' THEN montant ELSE 0 END) , 0) 
-		 into :total_soins_caisse, :total_soins_mutuelle, :total_soins_patient
-	FROM ligne_soins where code = :var_code_local and cle = :var_cle and ligne_soins."date" <= cast(getdate() as date);
-	
-	du_caisse = total_soins_caisse - total_paye_caisse
-	du_mutuelle = total_soins_mutuelle - total_paye_mutuelle
-	du_patient = total_soins_patient - total_paye_patient
-	
-	this.object.t_du_patient.visible = 0
-	this.object.t_du_mutuelle.visible = 0
-	this.object.t_du_caisse.visible = 0	
-	
-	// uniquement si la caisse ou la mutuelle doit .. on explicite
-	if du_caisse > 0 or du_mutuelle > 0 then 
-		if du_patient > 0 then 
-			this.object.t_du_patient.visible = 1
-			this.object.t_du_patient.text = "Dû patient : " + string(du_patient, "0.00") + " " + ls_symbole_monnaie
-		end if
-		if du_caisse > 0 then 
-			this.object.t_du_caisse.visible = 1
-			this.object.t_du_caisse.text = "Dû caisse : " + string(du_caisse, "0.00") + " " + ls_symbole_monnaie
-		end if
-		if du_mutuelle > 0 then 
-			this.object.t_du_mutuelle.visible = 1
-			this.object.t_du_mutuelle.text = "Dû mutuelle : " + string(du_mutuelle, "0.00") + " " + ls_symbole_monnaie
-		end if
+	if du_caisse > 0 then 
+		this.object.t_du_caisse.visible = 1
+		this.object.t_du_caisse.text = "Dû caisse : " + string(du_caisse, "0.00") + " " + ls_symbole_monnaie
 	end if
+	if du_mutuelle > 0 then 
+		this.object.t_du_mutuelle.visible = 1
+		this.object.t_du_mutuelle.text = "Dû mutuelle : " + string(du_mutuelle, "0.00") + " " + ls_symbole_monnaie
+	end if
+
 	
 	
 

@@ -149,10 +149,9 @@ else
 end if
 
 
-if version_ce_logiciel >= "36.90" then 
-	gb_fichier_pj.text = "Fichier(s) joint(s)"
+gb_fichier_pj.text = "Fichier(s) joint(s)"
 	cbx_joindre_ics.visible = true
-end if
+
 end event
 
 on w_liste_patients_rappel_rdv_email.create

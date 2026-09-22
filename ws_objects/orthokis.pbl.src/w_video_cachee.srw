@@ -34,11 +34,7 @@ end variables
 
 event open;string v_nom_fichier_video
 
-if version_ce_logiciel < "36.90" then
-	v_nom_fichier_video = dir_ini + "V2026.mp4"
-else
-	v_nom_fichier_video = dir_ini + "V2027.mp4"
-end if
+v_nom_fichier_video = dir_ini + "V2027.mp4"
 
 if not fileexists(v_nom_fichier_video) then 
 	Messagebox("ATTENTION", "Impossible de localiser le fichier vidéo : " + v_nom_fichier_video)

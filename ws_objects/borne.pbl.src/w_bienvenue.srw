@@ -114,9 +114,8 @@ if long(v_patient.retard) > retard_tolere then
 
 	end if
 	
-	if version_ce_logiciel_borne >= "36.90" then 
-		son(3)
-	end if
+	son(3)
+
 else
 	
 	// On regarde s'il est en avance ou pas 
@@ -133,9 +132,7 @@ else
 				charger_statictext(st_avance,v_patient)
 		end if
 		
-		if version_ce_logiciel_borne >= "36.90" then 
-			son(4)
-		end if
+		son(4)
 		
 	else
 		
@@ -152,15 +149,15 @@ else
 				charger_statictext(st_bienvenue,v_patient)
 		end if
 		
-		if version_ce_logiciel_borne >= "36.90" then 
-			if v_patient.son_specifique <> "" then 
-				// son spécifique dans le type de rendez-vous
-				jouer_son(v_patient.son_specifique)
-			else
-				// son normal d'arrivée
-				son(1)
-			end if
+
+		if v_patient.son_specifique <> "" then 
+			// son spécifique dans le type de rendez-vous
+			jouer_son(v_patient.son_specifique)
+		else
+			// son normal d'arrivée
+			son(1)
 		end if
+
 		
 	end if
 end if
@@ -168,10 +165,6 @@ end if
 // pour le compte à rebours de fermeture
 temps_attente = Integer(ProfileString (dir_ini+"orthokis.ini","Borne","attente_bienvenue","5"))
 
-if version_ce_logiciel_borne < "36.90" then 
-	// son unique avant 2027
-	son(1)
-end if
 
 Timer(1)
 

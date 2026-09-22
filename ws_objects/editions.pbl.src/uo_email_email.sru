@@ -563,47 +563,25 @@ else
 	string ls_format
 	
 	string ls_rdv_email_joindre_fichier_ics
+
+	// Recherche des éléments du patient
+	select isnull(patient.nom,''), isnull(patient.prenom, ''), isnull(prati.nom ,'') , isnull((select nom from titre_personnes where titre_personnes.code = patient.titre_patient) , ''), patient.date_naissance, patient.numero_dossier ,
+	isnull(prati.id1_questionnaire_medical,1), isnull(prati.id2_questionnaire_medical,1), patient.adulte, isnull((select nom from titre_personnes where titre_personnes.code = patient.titre_parent1), '') , isnull(nom_parent1, '') ,
+	isnull(prati.chemin_complet_logo, '') ,  isnull(cor1.nom,''),  isnull(cor1.prenom,''),  isnull(cor1.formule_politesse,'') ,   isnull(cor2.nom, ''),  isnull(cor2.prenom, ''),  isnull(cor2.formule_politesse, '') , isnull(prati.prenom ,''), 
+	cor1.titre, cor2.titre, isnull(secu_patient, ''),isnull(patient.email_patient,''),isnull(patient.email, ''), patient.code_praticien , isnull(prati.chemin_complet_signature, ''),
+	isnull(prati.chemin_complet_logo2, ''), isnull(prati.chemin_complet_logo3, ''), isnull(portable_patient, ''), isnull(portable, ''),  isnull(cor1.email, ''), isnull(cor1.tel, ''), isnull(cor2.email, ''), isnull(cor2.tel, ''), isnull(pays_parent1, ''), isnull(cor1.pays, ''), isnull(cor2.pays, '')
 	
-	if version_ce_logiciel < "36.90" then 
-		// Recherche des éléments du patient
-		select isnull(patient.nom,''), isnull(patient.prenom, ''), isnull(prati.nom ,'') , isnull((select nom from titre_personnes where titre_personnes.code = patient.titre_patient) , ''), patient.date_naissance, patient.numero_dossier ,
-		isnull(prati.id1_questionnaire_medical,1), isnull(prati.id2_questionnaire_medical,1), patient.adulte, isnull((select nom from titre_personnes where titre_personnes.code = patient.titre_parent1), '') , isnull(nom_parent1, '') ,
-		isnull(prati.chemin_complet_logo, '') ,  isnull(cor1.nom,''),  isnull(cor1.prenom,''),  isnull(cor1.formule_politesse,'') ,   isnull(cor2.nom, ''),  isnull(cor2.prenom, ''),  isnull(cor2.formule_politesse, '') , isnull(prati.prenom ,''), 
-		cor1.titre, cor2.titre, isnull(secu_patient, ''),isnull(patient.email_patient,''),isnull(patient.email, ''), patient.code_praticien , isnull(prati.chemin_complet_signature, ''),
-		isnull(prati.chemin_complet_logo2, ''), isnull(prati.chemin_complet_logo3, '')
-		
-		into :v_nom_patient, :v_prenom_patient, :v_nom_praticien , :v_titre_patient, :v_date_naissance_patient, :v_numero_dossier_patient, 
-		:v_id1_questionnaire_medical, :v_id2_questionnaire_medical, :v_adulte, :v_titre_parent1, :v_nom_parent1, :v_fichier_logo, :v_nom_correspondant, :v_prenom_correspondant, :v_formule_politesse_correspondant, 
-		:v_nom_dentiste, :v_prenom_dentiste, :v_formule_politesse_dentiste, :v_prenom_praticien, :v_code_titre_correspondant, :v_code_titre_dentiste, :v_secu_patient, :v_email_patient, :v_email_parent1, :v_code_praticien , :v_fichier_signature,
-		:v_fichier_logo2, :v_fichier_logo3
-		from patient, prati, type_rdv, correspondants as cor1,  correspondants as cor2
-		where patient.code = :var_code_local and patient.code_praticien = prati.code and patient.code_correspondant = cor1.code and patient.code_dentiste = cor2.code  ;
-	else
-		// Recherche des éléments du patient
-		select isnull(patient.nom,''), isnull(patient.prenom, ''), isnull(prati.nom ,'') , isnull((select nom from titre_personnes where titre_personnes.code = patient.titre_patient) , ''), patient.date_naissance, patient.numero_dossier ,
-		isnull(prati.id1_questionnaire_medical,1), isnull(prati.id2_questionnaire_medical,1), patient.adulte, isnull((select nom from titre_personnes where titre_personnes.code = patient.titre_parent1), '') , isnull(nom_parent1, '') ,
-		isnull(prati.chemin_complet_logo, '') ,  isnull(cor1.nom,''),  isnull(cor1.prenom,''),  isnull(cor1.formule_politesse,'') ,   isnull(cor2.nom, ''),  isnull(cor2.prenom, ''),  isnull(cor2.formule_politesse, '') , isnull(prati.prenom ,''), 
-		cor1.titre, cor2.titre, isnull(secu_patient, ''),isnull(patient.email_patient,''),isnull(patient.email, ''), patient.code_praticien , isnull(prati.chemin_complet_signature, ''),
-		isnull(prati.chemin_complet_logo2, ''), isnull(prati.chemin_complet_logo3, ''), isnull(portable_patient, ''), isnull(portable, ''),  isnull(cor1.email, ''), isnull(cor1.tel, ''), isnull(cor2.email, ''), isnull(cor2.tel, ''), isnull(pays_parent1, ''), isnull(cor1.pays, ''), isnull(cor2.pays, '')
-		
-		into :v_nom_patient, :v_prenom_patient, :v_nom_praticien , :v_titre_patient, :v_date_naissance_patient, :v_numero_dossier_patient, 
-		:v_id1_questionnaire_medical, :v_id2_questionnaire_medical, :v_adulte, :v_titre_parent1, :v_nom_parent1, :v_fichier_logo, :v_nom_correspondant, :v_prenom_correspondant, :v_formule_politesse_correspondant, 
-		:v_nom_dentiste, :v_prenom_dentiste, :v_formule_politesse_dentiste, :v_prenom_praticien, :v_code_titre_correspondant, :v_code_titre_dentiste, :v_secu_patient, :v_email_patient, :v_email_parent1, :v_code_praticien , :v_fichier_signature,
-		:v_fichier_logo2, :v_fichier_logo3, :ls_portable_patient, :ls_portable1_parent1, :ls_email_correspondant, :ls_telephone_correspondant, :ls_email_dentiste, :ls_telephone_dentiste, :ls_pays_parent1, :ls_pays_correspondant, :ls_pays_dentiste
-		
-		from patient, prati, type_rdv, correspondants as cor1,  correspondants as cor2
-		where patient.code = :var_code_local and patient.code_praticien = prati.code and patient.code_correspondant = cor1.code and patient.code_dentiste = cor2.code  ;
-	end if
+	into :v_nom_patient, :v_prenom_patient, :v_nom_praticien , :v_titre_patient, :v_date_naissance_patient, :v_numero_dossier_patient, 
+	:v_id1_questionnaire_medical, :v_id2_questionnaire_medical, :v_adulte, :v_titre_parent1, :v_nom_parent1, :v_fichier_logo, :v_nom_correspondant, :v_prenom_correspondant, :v_formule_politesse_correspondant, 
+	:v_nom_dentiste, :v_prenom_dentiste, :v_formule_politesse_dentiste, :v_prenom_praticien, :v_code_titre_correspondant, :v_code_titre_dentiste, :v_secu_patient, :v_email_patient, :v_email_parent1, :v_code_praticien , :v_fichier_signature,
+	:v_fichier_logo2, :v_fichier_logo3, :ls_portable_patient, :ls_portable1_parent1, :ls_email_correspondant, :ls_telephone_correspondant, :ls_email_dentiste, :ls_telephone_dentiste, :ls_pays_parent1, :ls_pays_correspondant, :ls_pays_dentiste
 	
-	//  € 
-	if version_ce_logiciel < "36.90" then 
-		select top 1 symbole_euro into :v_symbole_euro  from param ;
-		ls_rdv_email_joindre_fichier_ics = "N"
-	else
-		//  € et ICS
-		select top 1 isnull(symbole_euro, '€'), isnull(rdv_email_joindre_fichier_ics, 'N') into :v_symbole_euro, :ls_rdv_email_joindre_fichier_ics from param ;
-	end if
+	from patient, prati, type_rdv, correspondants as cor1,  correspondants as cor2
+	where patient.code = :var_code_local and patient.code_praticien = prati.code and patient.code_correspondant = cor1.code and patient.code_dentiste = cor2.code  ;
+
 	
+	//  € et ICS
+	select top 1 isnull(symbole_euro, '€'), isnull(rdv_email_joindre_fichier_ics, 'N') into :v_symbole_euro, :ls_rdv_email_joindre_fichier_ics from param ;
 	
 	texte = gfx_tout_remplacer(texte, "{nom_patient}", v_nom_patient)
 	texte = gfx_tout_remplacer(texte, "{titre_patient}", v_titre_patient)
@@ -978,30 +956,27 @@ else
 		texte = gfx_tout_remplacer(texte, "{covid_questionnaire}", v_lien_complet)
 	end if
 	
-	// Nouvelle information 2027 
-	if version_ce_logiciel >= "36.90" then 
-	//		string ls_portable_patient, ls_portable1_parent1, ls_telephone_correspondant, ls_telephone_dentiste, ls_email_correspondant, ls_email_dentiste
-	//string ls_pays_parent1, ls_pays_correspondant, ls_pays_dentiste
+	// Nouvelles informations 2027 
 	
-		ls_format = format_zone_selon_pays(ls_pays_parent1, "P")
-		// Pour une String, on utilise le caractère @ comme substitut
-		ls_format = gfx_tout_remplacer(ls_format, "#", "@")
-		texte = gfx_tout_remplacer(texte, "{portable_patient}", string(ls_portable_patient, ls_format))
-		texte = gfx_tout_remplacer(texte, "{portable1_parent1}", string(ls_portable1_parent1, ls_format)) 
-		
-		ls_format = format_zone_selon_pays(ls_pays_correspondant, "T")
-		// Pour une String, on utilise le caractère @ comme substitut
-		ls_format = gfx_tout_remplacer(ls_format, "#", "@")
-		texte = gfx_tout_remplacer(texte, "{telephone_correspondant}", string(ls_telephone_correspondant, ls_format))
-		texte = gfx_tout_remplacer(texte, "{email_correspondant}", ls_email_correspondant)
+	ls_format = format_zone_selon_pays(ls_pays_parent1, "P")
+	// Pour une String, on utilise le caractère @ comme substitut
+	ls_format = gfx_tout_remplacer(ls_format, "#", "@")
+	texte = gfx_tout_remplacer(texte, "{portable_patient}", string(ls_portable_patient, ls_format))
+	texte = gfx_tout_remplacer(texte, "{portable1_parent1}", string(ls_portable1_parent1, ls_format)) 
+	
+	ls_format = format_zone_selon_pays(ls_pays_correspondant, "T")
+	// Pour une String, on utilise le caractère @ comme substitut
+	ls_format = gfx_tout_remplacer(ls_format, "#", "@")
+	texte = gfx_tout_remplacer(texte, "{telephone_correspondant}", string(ls_telephone_correspondant, ls_format))
+	texte = gfx_tout_remplacer(texte, "{email_correspondant}", ls_email_correspondant)
 
-		ls_format = format_zone_selon_pays(ls_pays_dentiste, "T")
-		// Pour une String, on utilise le caractère @ comme substitut
-		ls_format = gfx_tout_remplacer(ls_format, "#", "@")
-		texte = gfx_tout_remplacer(texte, "{telephone_dentiste}", string(ls_telephone_dentiste, ls_format))
-		texte = gfx_tout_remplacer(texte, "{email_dentiste}", ls_email_dentiste)
+	ls_format = format_zone_selon_pays(ls_pays_dentiste, "T")
+	// Pour une String, on utilise le caractère @ comme substitut
+	ls_format = gfx_tout_remplacer(ls_format, "#", "@")
+	texte = gfx_tout_remplacer(texte, "{telephone_dentiste}", string(ls_telephone_dentiste, ls_format))
+	texte = gfx_tout_remplacer(texte, "{email_dentiste}", ls_email_dentiste)
 
-	end if
+
 	
 	
 	if NOTEZNOUS then

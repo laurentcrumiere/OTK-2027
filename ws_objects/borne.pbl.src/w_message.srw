@@ -85,9 +85,8 @@ choose case param_win[1]
 			nom_du_statictext  = "st_anniversaire"
 		end if
 		SetProfileString (dir_ini+"orthokis.ini","Borne","st_message_texte",ProfileString (dir_ini+"orthokis.ini","Borne", nom_du_statictext + "_texte","") )
-		if version_ce_logiciel_borne >= "36.90" then 
-			son(5)
-		end if
+		son(5)
+	
 	case "R"
 		// Retard de règlement
 		p_bienvenue.Picturename = ProfileString (dir_ini+"orthokis.ini","Borne","image_fond_reglement","")
@@ -111,9 +110,7 @@ choose case param_win[1]
 			commit ;
 		end if
 		SetProfileString (dir_ini+"orthokis.ini","Borne","st_message_texte", v_message)
-		if version_ce_logiciel_borne >= "36.90" then 
-			son(6)
-		end if
+		son(6)
 end choose
 
 

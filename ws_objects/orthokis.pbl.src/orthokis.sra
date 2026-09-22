@@ -1103,6 +1103,8 @@ event open;
 // Version = "2026 (36.00i) du 31.08.2026"
 
 Version = "2027 (36.90) du 14.09.2026"
+Version = "2027 (36.90) du 16.09.2026"
+// Suppression des if version_ce_logiciel
 
 
 

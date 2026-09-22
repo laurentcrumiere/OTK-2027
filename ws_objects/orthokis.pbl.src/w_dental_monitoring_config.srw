@@ -114,16 +114,16 @@ dw_liste.sort()
 dw_liste.groupcalc()
 
 
-if version_ce_logiciel >= "36.90" then 
-	gb_options.visible = true
-	cbx_verifier_presence.visible = true
-	if uo_dm.get_verification_presence() = "O" then 
-		cbx_verifier_presence.checked = true
-	else
-		cbx_verifier_presence.checked = false
-	end if
-	gb_options.backcolor = couleur_fond_datawindow
+// vérification ou pas de la présence chez DM
+gb_options.visible = true
+cbx_verifier_presence.visible = true
+if uo_dm.get_verification_presence() = "O" then 
+	cbx_verifier_presence.checked = true
+else
+	cbx_verifier_presence.checked = false
 end if
+gb_options.backcolor = couleur_fond_datawindow
+
 end subroutine
 
 on w_dental_monitoring_config.create

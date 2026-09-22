@@ -92,10 +92,6 @@ code = message.stringparm
 
 uo_1.taille(this)
 
-if version_ce_logiciel < "36.90" then
-	dw_fiche.dataobject = "dw_soins_fiche_2026"
-end if
-
 dw_fiche.settransobject(SQLCA)
 dw_codes_soins_specialites.settransobject(sqlca)
 
@@ -206,11 +202,9 @@ if belgique or suisse or luxembourg then
 	dw_fiche.object.exo_defaut.visible = false
 	dw_fiche.object.t_exo_defaut.visible = false
 	
-	if version_ce_logiciel >= "36.90" then
-		// pas de modificateurs
-		dw_fiche.object.modificateurs_defaut.visible = false
-		dw_fiche.object.t_modificateurs_defaut.visible = false
-	end if
+	// pas de modificateurs
+	dw_fiche.object.modificateurs_defaut.visible = false
+	dw_fiche.object.t_modificateurs_defaut.visible = false
 	
 	// Pas de remboursement exceptionnel
 	dw_fiche.object.remboursement_exceptionnel_defaut.visible = false
@@ -267,10 +261,9 @@ event resize;
 //
 end event
 
-event timer;call super::timer;if version_ce_logiciel >= "36.90" then
-	Timer(0)
-	fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
-end if
+event timer;call super::timer;
+Timer(0)
+fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
 
 end event
 

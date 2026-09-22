@@ -131,11 +131,6 @@ Trace( "W_MDI - OPEN  / Dans la fonction Activationdesmenus")
 // Module Money
 m_orthokis_2020.m_outils.m_traitements.m_money.visible = money
 
-if version_ce_logiciel < "36.90" then 
-	m_orthokis_2020.m_outils.m_traitements.m_importationdoctolib.visible = false
-	m_orthokis_2020.m_outils.m_autres.m_requetes_sql.visible = false
-end if
-
 // Module Replication
 if utilisation_distante then
 	m_orthokis_2020.m_outils.m_autres.m_replication.enabled = replication
@@ -389,17 +384,9 @@ if Belgique or Luxembourg then
 
 end if
 
-// Libellés de menus selon les dates
-//m_orthokis_2020.m_listes.m_listesdepatients.m_entre2dates.m_debutdetraitement.text = "Entre 2 dates de " + libelle_debut_traitement
-//m_orthokis_2020.m_listes.m_listesdepatients.m_entre2dates.m_premierevisite.text = "Entre 2 dates de " + libelle_date_prem_demande
-//m_orthokis_2020.m_listes.m_listesdepatients.m_entre2dates.m_interruption.text = "Entre 2 dates de " + libelle_date_interruption
-//m_orthokis_2020.m_listes.m_listesdepatients.m_entre2dates.m_reprise.text = "Entre 2 dates de " + libelle_date_reprise
-//m_orthokis_2020.m_listes.m_listesdepatients.m_entre2dates.m_findetraitement.text = "Entre 2 dates de " + libelle_fin_traitement
 
 m_orthokis_2020.m_listes.m_listesdepatients.m_entre2dates.m_debutdetraitement.text =  libelle_debut_traitement
 m_orthokis_2020.m_listes.m_listesdepatients.m_entre2dates.m_premièredemande.text = libelle_date_prem_demande
-//m_orthokis_2020.m_listes.m_listesdepatients.m_entre2dates.m_interruption.text = libelle_date_interruption
-//m_orthokis_2020.m_listes.m_listesdepatients.m_entre2dates.m_reprise.text =  libelle_date_reprise
 m_orthokis_2020.m_listes.m_listesdepatients.m_entre2dates.m_findetraitement.text =  libelle_fin_traitement
 
 // Questionnaires médicaux 
@@ -420,6 +407,10 @@ m_orthokis_2020.m_listes.m_divers.m_historiquedesappelscti.visible = CTI
 m_orthokis_2020.m_tables.m_tables_cliniques.m_scanners3shape.visible = SHAPE or SHAPE_2026
 m_orthokis_2020.m_tables.m_tables_cliniques.m_trait_avant_scanners3shape.visible = SHAPE or SHAPE_2026
 
+// DENTAPOCHE
+if DENTAPOCHE then 
+	m_orthokis_2020.m_outils.m_paramètres.m_dentapoche.visible = true
+end if
 
 Trace( "W_MDI - OPEN  / Fin de la fonction Activationdesmenus")
 
@@ -775,8 +766,10 @@ end if
 // Outils -> mot de passe admini, param généraux, env PWO, env courrier, param Agenda, ............. + PDA
 if droits_acces[41] = 'N'  then
 	m_orthokis_2020.m_outils.m_paramètres.enabled = false
+	m_orthokis_2020.m_outils.m_paramètres.m_dentapoche.enabled = false
 else
 	m_orthokis_2020.m_outils.m_paramètres.enabled = true
+	m_orthokis_2020.m_outils.m_paramètres.m_dentapoche.enabled = true
 end if
 
 // Outils -> Soins Auto, Lettres Types, Effacement RDV 
@@ -863,11 +856,8 @@ public subroutine maj_titre_mdi ();
 
 // **** 
 // Mise dans le Show event pour que ça fonctionne aussi après un reconnexion
-if version_ce_logiciel < "36.90" then 
-	this.title = "ORTHOkis 2026 - Utilisateur : "+utilisateur_nom+" ("+utilisateur_code+")"
-else
-	this.title = "ORTHOkis 2027 - Utilisateur : "+utilisateur_nom+" ("+utilisateur_code+")"
-end if
+this.title = "ORTHOkis 2027 - Utilisateur : "+utilisateur_nom+" ("+utilisateur_code+")"
+
 
 //****
 
@@ -1373,49 +1363,31 @@ save_dev_specifiques	= dev_specifiques
 
 //pour la vidéo cachée -> il faut taper "ARAKIS" avant 2027, "DENTALSOFT" après
 
-if version_ce_logiciel < "36.90" then
-	choose case video_cachee
-		case 0
-			if key = KeyA! then video_cachee++
-		case 1
-			if key = KeyR! then video_cachee++
-		case 2
-			if key = KeyA! then video_cachee++
-		case 3
-			if key = KeyK! then video_cachee++
-		case 4
-			if key = KeyI! then video_cachee++
-		case 5
-			if key = KeyS! then
-				open(w_video_cachee)
-			end if
-	end choose
-else
-	choose case video_cachee
-		case 0
-			if key = KeyD! then video_cachee++
-		case 1
-			if key = KeyE! then video_cachee++
-		case 2
-			if key = KeyN! then video_cachee++
-		case 3
-			if key = KeyT! then video_cachee++
-		case 4
-			if key = KeyA! then video_cachee++
-		case 5
-			if key = KeyL! then video_cachee++
-		case 6
-			if key = KeyS! then video_cachee++
-		case 7
-			if key = KeyO! then video_cachee++
-		case 8
-			if key = KeyF! then video_cachee++
-		case 9
-			if key = KeyT! then
-				open(w_video_cachee)
-			end if
-	end choose	
-end if
+choose case video_cachee
+	case 0
+		if key = KeyD! then video_cachee++
+	case 1
+		if key = KeyE! then video_cachee++
+	case 2
+		if key = KeyN! then video_cachee++
+	case 3
+		if key = KeyT! then video_cachee++
+	case 4
+		if key = KeyA! then video_cachee++
+	case 5
+		if key = KeyL! then video_cachee++
+	case 6
+		if key = KeyS! then video_cachee++
+	case 7
+		if key = KeyO! then video_cachee++
+	case 8
+		if key = KeyF! then video_cachee++
+	case 9
+		if key = KeyT! then
+			open(w_video_cachee)
+		end if
+end choose	
+
 //pour la fenètre de test des devellopements spécifique -> il faut taper "WOOFER"
 choose case dev_specifiques
 	case 0

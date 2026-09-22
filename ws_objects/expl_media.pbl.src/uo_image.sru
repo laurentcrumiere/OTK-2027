@@ -298,11 +298,9 @@ else
 	end if
 end if
 
-if version_ce_logiciel >= "36.90" then 
-	if profilestring(dir_ini+inifile_orthokis,"photos","afficher_nom_fichier_survol","false") = "true" then
-		p_mots.PowerTipText = p_mots.PowerTipText + " (" +  nom_fichier_seul +")"
-	end if 
-end if
+if profilestring(dir_ini+inifile_orthokis,"photos","afficher_nom_fichier_survol","false") = "true" then
+	p_mots.PowerTipText = p_mots.PowerTipText + " (" +  nom_fichier_seul +")"
+end if 
 
 
 if isvalid (w_fenetre_mere ) then
