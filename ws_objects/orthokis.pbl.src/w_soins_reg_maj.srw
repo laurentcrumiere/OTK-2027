@@ -338,7 +338,9 @@ constant string dw_soins_tri_initial = 	"date_demande, date_ligne, code_soins_no
 
 uo_barre_traitement uo_traitement
 
-
+// PID Luxemnourg
+long il_dernier_numero_memoire
+boolean ib_correction_ememoire_luxembourg = false
 end variables
 
 forward prototypes
@@ -5263,9 +5265,7 @@ string text = "eMém."
 string tiptext = "eMémoire - Paiement Immédiat Direct - Remboursement Digitalisé"
 end type
 
-event clicked;call super::clicked;
-long l_numero_memoire
-
+event clicked;call super::clicked;long ll_numero_memoire
 string v_code_praticien_patient, v_code_praticien_soin, v_code_praticien_courant
 string v_matricule_patient
 double cle_soin
@@ -5323,17 +5323,23 @@ if l_premier_soin > 0 then
 	
 	cle_soin  = dw_soins.getitemnumber(l_premier_soin,"cle")
 	select isnull(derniere_efacture, 0) 
-	into  :l_numero_memoire from soins where code = :var_code_local and cle = :cle_soin ;
+	into  :ll_numero_memoire from soins where code = :var_code_local and cle = :cle_soin ;
 	
-	if l_numero_memoire > 0 then 
-		// Mise à jour de l'ememoire
-		param_win[1] = "M"
-		openwithparm(w_ememoire_luxembourg_maj, l_numero_memoire)
+	if ll_numero_memoire > 0 then 
+		if not ib_correction_ememoire_luxembourg then 
+			param_win[1] = "M"
+		else
+			// demande de simulation automatique
+			param_win[1] = "S"
+		end if
+		il_dernier_numero_memoire = ll_numero_memoire
+		openwithparm(w_ememoire_luxembourg_maj, ll_numero_memoire)
 		
-		// On raffraichit tout le temps
-//		if message.DoubleParm = 1 then
-			
-//			// l'ememoire a été supprimée on raffraichit
+		if message.DoubleParm = -1 then 
+				// demande de correction automatique
+				fxg_correction_soins_ememoire_simule(w_click_soins_reg, ll_numero_memoire)
+		else
+			ib_correction_ememoire_luxembourg = false
 			dw_soins.retrieve(var_code_local)
 			
 			// repositionnement sur la ligne courante AVANT ....
@@ -5341,7 +5347,7 @@ if l_premier_soin > 0 then
 				dw_soins.setrow(ligne_courante)
 				dw_soins.scrolltorow(ligne_courante)
 			end if
-//		end if
+		end if
 		
 	else
 		
@@ -5385,7 +5391,7 @@ if l_premier_soin > 0 then
 					// verification du praticien et de la facturation
 					cle_soin  = dw_soins.getitemnumber(lig,"cle")
 					select isnull(code_praticien, :v_code_praticien_patient) , isnull(derniere_efacture, 0) 
-					into :v_code_praticien_courant, :l_numero_memoire from soins where code = :var_code_local and cle = :cle_soin ;
+					into :v_code_praticien_courant, :ll_numero_memoire from soins where code = :var_code_local and cle = :cle_soin ;
 					
 					if v_code_praticien_soin = "" then
 						// c'est le premier soin
@@ -5396,7 +5402,7 @@ if l_premier_soin > 0 then
 						meme_praticien = false
 					end if
 					
-					if l_numero_memoire > 0 then
+					if ll_numero_memoire > 0 then
 						deja_facture = true
 						// on désactive la ligne
 						dw_soins.Setitem(lig,"fse", "N")
@@ -5435,16 +5441,21 @@ if l_premier_soin > 0 then
 					
 				else
 			
-					
-					// La fenetre renvoie un numéro de mémoire  à créer ... -1 si abandon
+					// Si on corrige un ememoire, on garde le même numéro et on ne passe pas par la fenêtre
+					if not ib_correction_ememoire_luxembourg then 
+						// La fenetre renvoie un numéro de mémoire  à créer ... -1 si abandon
 	
-					open(w_ememoire_luxembourg_numero)
+						open(w_ememoire_luxembourg_numero)
 					
-					l_numero_memoire = Message.DoubleParm
+						ll_numero_memoire = Message.DoubleParm
+					else
+						ll_numero_memoire = il_dernier_numero_memoire 
+					end if
 				
+					w_click_soins_reg = tab_1.getparent()
 					
 					// création de la facture !
-					if l_numero_memoire > 0 then 
+					if ll_numero_memoire > 0 then 
 						
 	
 						// Infos praticien
@@ -5459,7 +5470,7 @@ if l_premier_soin > 0 then
 							ls_identifiant_externe_document =  fxg_get_uuid_luxembourg()
 							
 							insert into ememoire_luxembourg ("numero_memoire", "code_praticien", "code_patient", "etat", "numero_memoire_uuid", "date", "identifiant_facturier", "matricule_patient", "validation_praticien", "validation_patient", "paiement_patient" , "identifiant_externe_document", "etat_rd") 
-							values (:l_numero_memoire, :v_code_praticien_courant, :var_code_local, 'N', :ls_numero_memoire_uuid, getdate() , :ls_code_prestataire , :v_matricule_patient, 'O', 'O', 'O' , :ls_identifiant_externe_document, 'N') ;
+							values (:ll_numero_memoire, :v_code_praticien_courant, :var_code_local, 'N', :ls_numero_memoire_uuid, getdate() , :ls_code_prestataire , :v_matricule_patient, 'O', 'O', 'O' , :ls_identifiant_externe_document, 'N') ;
 						
 						
 							if sqlca.sqlcode = 0 then 
@@ -5491,12 +5502,12 @@ if l_premier_soin > 0 then
 											from ligne_soins where code = :var_code_local and cle = :cle_soin and tp = 'N' ;
 					
 											insert into ligne_ememoire_luxembourg ("numero_memoire", "cle", "prestation_uuid", "numero_seance", "lieu_execution", "identifiant_executant", "date_execution", "code_acte", "nombre_acte", "montant_total", "montant_caisse" , "montant_patient", "dent", "sufix") 
-											values (:l_numero_memoire, :cle_soin, :ls_prestation_uuid, :li_numero_seance, '01', :ls_code_prestataire, :d_date_prestation,  :s_type_soins , 1, :d_montant_total, :d_montant_caisse, :d_montant_patient , :s_dent, :s_sufix) ;
+											values (:ll_numero_memoire, :cle_soin, :ls_prestation_uuid, :li_numero_seance, '01', :ls_code_prestataire, :d_date_prestation,  :s_type_soins , 1, :d_montant_total, :d_montant_caisse, :d_montant_patient , :s_dent, :s_sufix) ;
 											
 											if sqlca.sqlcode = 0 then 
 												commit ;
 												
-												update soins set derniere_efacture = :l_numero_memoire where code = :var_code_local and cle = :cle_soin ;
+												update soins set derniere_efacture = :ll_numero_memoire where code = :var_code_local and cle = :cle_soin ;
 												commit ;
 												
 											else
@@ -5511,28 +5522,39 @@ if l_premier_soin > 0 then
 					
 								
 								// Vérification s'il reste encore au moins une ligne dans l'ememoire 
-								select isnull(count(*),0) into :v_cpt from 	ligne_ememoire_luxembourg 	where numero_memoire = :l_numero_memoire  ; 
+								select isnull(count(*),0) into :v_cpt from 	ligne_ememoire_luxembourg 	where numero_memoire = :ll_numero_memoire  ; 
 								
 								
 								if v_cpt > 0 then 
 									// mise à jour du ememoire
-									param_win[1] = "M"
-	
-									openwithparm(w_ememoire_luxembourg_maj, l_numero_memoire)
+									if not ib_correction_ememoire_luxembourg then 
+										param_win[1] = "M"
+									else
+										// demande de simulation automatique
+										param_win[1] = "S"
+									end if
+									il_dernier_numero_memoire = ll_numero_memoire
+									openwithparm(w_ememoire_luxembourg_maj, ll_numero_memoire)	
 									
-									//guo_fenetre_modale.wf_ouvrir_param_nombre(w_efacturation_belgique_maj, l_numero_memoire)
-									
-									dw_soins.retrieve(var_code_local)
-									
-									// repositionnement sur la ligne courante AVANT ....
-									if ligne_courante > 0 then
-										dw_soins.setrow(ligne_courante)
-										dw_soins.scrolltorow(ligne_courante)
+									if message.doubleparm = -1 then
+										// demande de correction automatique
+										fxg_correction_soins_ememoire_simule(w_click_soins_reg, ll_numero_memoire)
+									else
+										// tout est normal
+										ib_correction_ememoire_luxembourg = false
+										dw_soins.retrieve(var_code_local)
+										
+										// repositionnement sur la ligne courante AVANT ....
+										if ligne_courante > 0 then
+											dw_soins.setrow(ligne_courante)
+											dw_soins.scrolltorow(ligne_courante)
+										end if
+						
 									end if
 								else
 									
 									// plus de ligne dans l'ememoire
-									delete from ememoire_luxembourg 	where numero_memoire = :l_numero_memoire  ; 
+									delete from ememoire_luxembourg 	where numero_memoire = :ll_numero_memoire  ; 
 									commit ; 
 									
 									messagebox("ATTENTION","Erreur N°3 - Il n'y a plus de ligne dans l'eMémoire !~n~nIl est supprimé !")
@@ -5551,11 +5573,6 @@ if l_premier_soin > 0 then
 						end if
 						
 					end if
-	
-					
-	
-					
-					
 				end if
 			end if
 			end if
