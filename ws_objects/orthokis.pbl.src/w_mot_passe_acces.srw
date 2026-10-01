@@ -6,13 +6,9 @@ type st_sql_server from statictext within w_mot_passe_acces
 end type
 type cb_reset from commandbutton within w_mot_passe_acces
 end type
-type p_2 from picture within w_mot_passe_acces
-end type
 type st_version from statictext within w_mot_passe_acces
 end type
 type p_1 from picture within w_mot_passe_acces
-end type
-type p_3 from picture within w_mot_passe_acces
 end type
 type dw_1 from datawindow within w_mot_passe_acces
 end type
@@ -33,8 +29,8 @@ end type
 end forward
 
 global type w_mot_passe_acces from window
-integer width = 2981
-integer height = 1720
+integer width = 2249
+integer height = 1536
 windowtype windowtype = response!
 long backcolor = 16777215
 boolean center = true
@@ -43,10 +39,8 @@ windowanimationstyle closeanimation = topslide!
 integer animationtime = 1200
 st_sql_server st_sql_server
 cb_reset cb_reset
-p_2 p_2
 st_version st_version
 p_1 p_1
-p_3 p_3
 dw_1 dw_1
 cbx_distant cbx_distant
 cb_annuler cb_annuler
@@ -73,10 +67,8 @@ end variables
 on w_mot_passe_acces.create
 this.st_sql_server=create st_sql_server
 this.cb_reset=create cb_reset
-this.p_2=create p_2
 this.st_version=create st_version
 this.p_1=create p_1
-this.p_3=create p_3
 this.dw_1=create dw_1
 this.cbx_distant=create cbx_distant
 this.cb_annuler=create cb_annuler
@@ -87,10 +79,8 @@ this.st_utilisateur=create st_utilisateur
 this.st_mdp=create st_mdp
 this.Control[]={this.st_sql_server,&
 this.cb_reset,&
-this.p_2,&
 this.st_version,&
 this.p_1,&
-this.p_3,&
 this.dw_1,&
 this.cbx_distant,&
 this.cb_annuler,&
@@ -104,10 +94,8 @@ end on
 on w_mot_passe_acces.destroy
 destroy(this.st_sql_server)
 destroy(this.cb_reset)
-destroy(this.p_2)
 destroy(this.st_version)
 destroy(this.p_1)
-destroy(this.p_3)
 destroy(this.dw_1)
 destroy(this.cbx_distant)
 destroy(this.cb_annuler)
@@ -203,8 +191,8 @@ end event
 
 type st_sql_server from statictext within w_mot_passe_acces
 boolean visible = false
-integer x = 1669
-integer y = 1308
+integer x = 800
+integer y = 996
 integer width = 955
 integer height = 64
 integer textsize = -10
@@ -221,8 +209,8 @@ end type
 
 type cb_reset from commandbutton within w_mot_passe_acces
 boolean visible = false
-integer x = 1230
-integer y = 1596
+integer x = 398
+integer y = 1568
 integer width = 402
 integer height = 88
 integer taborder = 60
@@ -266,17 +254,9 @@ DISCONNECT ;
 cb_reset.visible = true
 end event
 
-type p_2 from picture within w_mot_passe_acces
-integer x = 2377
-integer y = 72
-integer width = 466
-integer height = 236
-string picturename = "logo_dentalsoft.png"
-boolean focusrectangle = false
-end type
-
 type st_version from statictext within w_mot_passe_acces
-integer y = 1640
+integer x = 18
+integer y = 1412
 integer width = 1093
 integer height = 64
 integer textsize = -8
@@ -322,32 +302,22 @@ dw_1.setfocus()
 DISCONNECT ;
 
 cb_reset.visible = true
+parent.height = 1712
 end event
 
 type p_1 from picture within w_mot_passe_acces
-integer x = 110
-integer y = 912
-integer width = 1371
-integer height = 616
+integer x = 133
+integer y = 108
+integer width = 1934
+integer height = 408
 string picturename = "logo_orthokis.png"
-boolean border = true
-borderstyle borderstyle = styleraised!
-boolean focusrectangle = false
-end type
-
-type p_3 from picture within w_mot_passe_acces
-integer x = 667
-integer y = 48
-integer width = 1518
-integer height = 744
-string picturename = "logo_arakis.png"
 boolean focusrectangle = false
 end type
 
 type dw_1 from datawindow within w_mot_passe_acces
 boolean visible = false
-integer x = 1650
-integer y = 1608
+integer x = 837
+integer y = 1580
 integer width = 1198
 integer height = 80
 integer taborder = 50
@@ -391,8 +361,8 @@ end if
 end event
 
 type cbx_distant from checkbox within w_mot_passe_acces
-integer x = 1637
-integer y = 1312
+integer x = 800
+integer y = 1000
 integer width = 754
 integer height = 56
 integer textsize = -10
@@ -407,8 +377,8 @@ string text = "Utillisation Autonome"
 end type
 
 type cb_annuler from uo_picturebutton_390x120 within w_mot_passe_acces
-integer x = 2185
-integer y = 1448
+integer x = 1193
+integer y = 1180
 integer width = 530
 integer height = 148
 integer taborder = 40
@@ -432,8 +402,8 @@ halt
 end event
 
 type cb_ok from uo_picturebutton_390x120 within w_mot_passe_acces
-integer x = 1637
-integer y = 1448
+integer x = 645
+integer y = 1180
 integer width = 530
 integer height = 148
 integer taborder = 30
@@ -819,8 +789,8 @@ end if
 end event
 
 type sle_nom from singlelineedit within w_mot_passe_acces
-integer x = 1637
-integer y = 968
+integer x = 800
+integer y = 676
 integer width = 1179
 integer height = 96
 integer taborder = 10
@@ -835,8 +805,8 @@ borderstyle borderstyle = stylelowered!
 end type
 
 type em_passe from singlelineedit within w_mot_passe_acces
-integer x = 1637
-integer y = 1176
+integer x = 800
+integer y = 812
 integer width = 1179
 integer height = 96
 integer taborder = 20
@@ -853,8 +823,8 @@ borderstyle borderstyle = stylelowered!
 end type
 
 type st_utilisateur from statictext within w_mot_passe_acces
-integer x = 1637
-integer y = 872
+integer x = 334
+integer y = 684
 integer width = 439
 integer height = 84
 integer textsize = -10
@@ -863,11 +833,12 @@ fontcharset fontcharset = ansi!
 string facename = "Tahoma"
 long backcolor = 553648127
 string text = "Utilisateur : "
+alignment alignment = right!
 end type
 
 type st_mdp from statictext within w_mot_passe_acces
-integer x = 1637
-integer y = 1096
+integer x = 334
+integer y = 828
 integer width = 439
 integer height = 68
 integer textsize = -10
@@ -876,5 +847,6 @@ fontcharset fontcharset = ansi!
 string facename = "Tahoma"
 long backcolor = 553648127
 string text = "Mot de Passe : "
+alignment alignment = right!
 end type
 

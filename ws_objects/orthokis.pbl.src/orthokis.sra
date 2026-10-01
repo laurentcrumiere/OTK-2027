@@ -1105,7 +1105,8 @@ event open;
 Version = "2027 (36.90) du 14.09.2026"
 Version = "2027 (36.90) du 16.09.2026"
 // Suppression des if version_ce_logiciel
-
+Version = "2027 (36.90) du 28.09.2026"
+Version = "2027 (36.90) du 30.09.2026"
 
 
 Version_ce_logiciel = "36.90"
@@ -1251,17 +1252,17 @@ uo_infos_systeme  uo_infos
 uo_infos = create uo_infos_systeme
 
 s_ip_externe = fxg_get_ip_externe()
-s_adresse_ip = uo_infos.of_get_my_ip()
-s_adresse_mac = uo_infos.of_getmac(s_adresse_ip)
-s_nom_du_poste = get_nom_ordinateur()
-
-trace("- Nom du poste : " + s_nom_du_poste)
 trace("- IP Externe : " + s_ip_externe)
+s_adresse_ip = uo_infos.of_get_my_ip()
 trace("- IP Interne : " + s_adresse_ip)
+s_adresse_mac = uo_infos.of_getmac(s_adresse_ip)
 trace("- Adresse Mac : " + s_adresse_mac)
+s_nom_du_poste = get_nom_ordinateur()
+trace("- Nom du poste : " + s_nom_du_poste)
+
 
 //if upper(profilestring(dir_ini+inifile_orthokis,"ARAKIS","verifier_adresse_ip_arakis","N")) = "O" then
-	if s_ip_externe = "91.169.241.7" or s_ip_externe = "193.251.1.215" or s_ip_externe = "185.163.138.254" or s_ip_externe = "90.63.220.252" or s_ip_externe = "81.250.224.58"  or s_ip_externe = "185.147.67.35" or s_ip_externe = "46.18.224.156" or s_nom_du_poste = "LPVAL06" then 
+	if s_ip_externe = "91.169.241.7" or s_ip_externe = "193.251.1.215" or s_ip_externe = "185.163.138.254" or s_ip_externe = "90.63.220.252" or s_ip_externe = "81.250.224.58"  or s_ip_externe = "185.147.67.35" or s_ip_externe = "46.18.224.156" or s_nom_du_poste = "LPVAL06" or s_nom_du_poste = "LPDIJ20" then 
 		// ip externes de Valence ou Dijon ou adresse mac de portable de laurent
 		trace("- IP externe ou PC Dentalsoft détecté => NO HASP")
 		NO_HASP = true

@@ -10,6 +10,8 @@ type cb_fermer from uo_picturebutton_390x120 within w_paramgene_dentapoche
 end type
 type dw_fiche from datawindow within w_paramgene_dentapoche
 end type
+type uo_1 from resize_fenetre within w_paramgene_dentapoche
+end type
 end forward
 
 global type w_paramgene_dentapoche from w_fenetre_arakis
@@ -29,10 +31,13 @@ cb_enregistrer cb_enregistrer
 cb_annuler cb_annuler
 cb_fermer cb_fermer
 dw_fiche dw_fiche
+uo_1 uo_1
 end type
 global w_paramgene_dentapoche w_paramgene_dentapoche
 
-event open;dw_fiche.settransobject(sqlca)
+event open;
+uo_1.taille(this)
+dw_fiche.settransobject(sqlca)
 
 
 colore_datawindow(dw_fiche)
@@ -40,7 +45,6 @@ backcolor = couleur_fond_fenetre
 
 cb_annuler.triggerevent(clicked!)
 
-centrer(this)
 
 
 
@@ -59,11 +63,13 @@ this.cb_enregistrer=create cb_enregistrer
 this.cb_annuler=create cb_annuler
 this.cb_fermer=create cb_fermer
 this.dw_fiche=create dw_fiche
+this.uo_1=create uo_1
 iCurrent=UpperBound(this.Control)
 this.Control[iCurrent+1]=this.cb_enregistrer
 this.Control[iCurrent+2]=this.cb_annuler
 this.Control[iCurrent+3]=this.cb_fermer
 this.Control[iCurrent+4]=this.dw_fiche
+this.Control[iCurrent+5]=this.uo_1
 end on
 
 on w_paramgene_dentapoche.destroy
@@ -72,7 +78,18 @@ destroy(this.cb_enregistrer)
 destroy(this.cb_annuler)
 destroy(this.cb_fermer)
 destroy(this.dw_fiche)
+destroy(this.uo_1)
 end on
+
+event close;call super::close;
+if enregistrement_automatique and cb_enregistrer.enabled then
+	cb_enregistrer.triggerevent(clicked!)
+end if
+end event
+
+event resize;call super::resize;uo_1.retaille(this)
+
+end event
 
 type p_fond from w_fenetre_arakis`p_fond within w_paramgene_dentapoche
 integer x = 2363
@@ -163,10 +180,10 @@ event clicked;call super::clicked;dw_fiche.accepttext()
 
 if dw_fiche.modifiedcount() > 0  then
 	If MessageBox("ATTENTION","Vous avez fait des modifications !~n~nVoulez-vous vraiment fermer cette fenêtre sans enregistrer (et ainsi perdre les modifications) ?",Question!,YesNo!, 2) = 1 Then
-		Close(parent)
+		fermer_fenetre(parent)
 	end if
 else
-	close(parent)
+	fermer_fenetre(parent)
 end if
 end event
 
@@ -175,10 +192,23 @@ string tag = "brush"
 integer x = 64
 integer y = 72
 integer width = 3150
-integer height = 1400
+integer height = 620
 integer taborder = 10
 string title = "none"
 string dataobject = "dw_paramgene_dentapoche"
 boolean livescroll = true
 end type
+
+type uo_1 from resize_fenetre within w_paramgene_dentapoche
+boolean visible = false
+integer x = 2738
+integer y = 1404
+integer taborder = 60
+boolean bringtotop = true
+long backcolor = 1090519039
+end type
+
+on uo_1.destroy
+call resize_fenetre::destroy
+end on
 

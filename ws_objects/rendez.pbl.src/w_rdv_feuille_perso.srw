@@ -10,6 +10,8 @@ type cb_exporter from uo_picturebutton_390x120 within w_rdv_feuille_perso
 end type
 type dw_conversion from datawindow within w_rdv_feuille_perso
 end type
+type st_statut_export from statictext within w_rdv_feuille_perso
+end type
 end forward
 
 global type w_rdv_feuille_perso from w_rdv_planning
@@ -20,6 +22,7 @@ pb_perso pb_perso
 dw_liste_export dw_liste_export
 cb_exporter cb_exporter
 dw_conversion dw_conversion
+st_statut_export st_statut_export
 end type
 global w_rdv_feuille_perso w_rdv_feuille_perso
 
@@ -71,11 +74,13 @@ this.pb_perso=create pb_perso
 this.dw_liste_export=create dw_liste_export
 this.cb_exporter=create cb_exporter
 this.dw_conversion=create dw_conversion
+this.st_statut_export=create st_statut_export
 iCurrent=UpperBound(this.Control)
 this.Control[iCurrent+1]=this.pb_perso
 this.Control[iCurrent+2]=this.dw_liste_export
 this.Control[iCurrent+3]=this.cb_exporter
 this.Control[iCurrent+4]=this.dw_conversion
+this.Control[iCurrent+5]=this.st_statut_export
 end on
 
 on w_rdv_feuille_perso.destroy
@@ -84,6 +89,7 @@ destroy(this.pb_perso)
 destroy(this.dw_liste_export)
 destroy(this.cb_exporter)
 destroy(this.dw_conversion)
+destroy(this.st_statut_export)
 end on
 
 event open;call super::open;
@@ -610,32 +616,89 @@ string text = "Exporter"
 string iconname = "ACTIONS_Exporter.png"
 end type
 
-event clicked;call super::clicked;// Principe .. on copie la liste entièrement dans la liste export
-// on rebalaie la liste export pour convertir les valeur HTML en text
+event clicked;call super::clicked;// Principe .. 
+// on balaie la liste pour convertir les valeur HTML en text
+// depuis v2026 on n'utilise plus la liste export qui ne fonctionne pas dans certains cas .. lesquels ?
+// => c'est plus long mais la fonctionnalité est peut utilisé
+open(w_patience)
 
-long lig, tot
-
-tot = dw_liste.rowcount()
-
-if tot > 0 then
-	dw_liste.RowsCopy(1 , 	dw_liste.RowCount(), Primary!, dw_liste_export, 1, Primary!)
+if messagebox("ATTENTION", "Cette operation est (bien) plus longue que les exportations via le menu clic-droit (mais elle épure les zones de textes formatés).~n~nConfirmez-vous ?", Question!, YesNo!, 2) = 1 then 
+	long lig, tot, err 
 	
-	for lig = 1 to tot
-		
-		dw_liste_export.setitem(lig, "patient_remarques", rtf_to_texte( dw_liste_export.getitemString(lig, "patient_remarques")))
-		dw_liste_export.setitem(lig, "commentaire_dernier_commentaire", rtf_to_texte( dw_liste_export.getitemString(lig, "commentaire_dernier_commentaire")))
-		dw_liste_export.setitem(lig, "acte_prevu_dernier_commentaire", rtf_to_texte( dw_liste_export.getitemString(lig, "acte_prevu_dernier_commentaire")))
-		dw_liste_export.setitem(lig, "com3_dernier_commentaire", rtf_to_texte( dw_liste_export.getitemString(lig, "com4_dernier_commentaire")))
-		dw_liste_export.setitem(lig, "com4_dernier_commentaire", rtf_to_texte( dw_liste_export.getitemString(lig, "com4_dernier_commentaire")))
-		dw_liste_export.setitem(lig, "com5_dernier_commentaire", rtf_to_texte( dw_liste_export.getitemString(lig, "com5_dernier_commentaire")))
-		dw_liste_export.setitem(lig, "com6_dernier_commentaire", rtf_to_texte( dw_liste_export.getitemString(lig, "com6_dernier_commentaire")))
-		dw_liste_export.setitem(lig, "commentaire_administratif", rtf_to_texte( dw_liste_export.getitemString(lig, "commentaire_administratif")))
-		dw_liste_export.setitem(lig, "prevu_commentaire_administratif", rtf_to_texte( dw_liste_export.getitemString(lig, "prevu_commentaire_administratif")))
-		
-	next
+	tot = dw_liste.rowcount()
 	
-	dw_liste_export.saveas()
+	if tot > 0 then
+	
+		dw_liste.visible = false
+		st_statut_export.visible = true
+	
+		for lig = 1 to tot
+			
+			st_statut_export.text = string(lig) + " / " + string(tot)
+			
+			yield()
+			
+			
+			dw_liste.setitem(lig, "patient_remarques", rtf_to_texte( dw_liste.getitemString(lig, "patient_remarques")))
+			dw_liste.setitem(lig, "commentaire_dernier_commentaire", rtf_to_texte( dw_liste.getitemString(lig, "commentaire_dernier_commentaire")))
+			dw_liste.setitem(lig, "acte_prevu_dernier_commentaire", rtf_to_texte( dw_liste.getitemString(lig, "acte_prevu_dernier_commentaire")))
+			dw_liste.setitem(lig, "com3_dernier_commentaire", rtf_to_texte( dw_liste.getitemString(lig, "com4_dernier_commentaire")))
+			dw_liste.setitem(lig, "com4_dernier_commentaire", rtf_to_texte( dw_liste.getitemString(lig, "com4_dernier_commentaire")))
+			dw_liste.setitem(lig, "com5_dernier_commentaire", rtf_to_texte( dw_liste.getitemString(lig, "com5_dernier_commentaire")))
+			dw_liste.setitem(lig, "com6_dernier_commentaire", rtf_to_texte( dw_liste.getitemString(lig, "com6_dernier_commentaire")))
+			dw_liste.setitem(lig, "commentaire_administratif", rtf_to_texte( dw_liste.getitemString(lig, "commentaire_administratif")))
+			dw_liste.setitem(lig, "prevu_commentaire_administratif", rtf_to_texte( dw_liste.getitemString(lig, "prevu_commentaire_administratif")))
+			
+		next
+		
+		close(w_patience)
+		dw_liste.saveas()
+		
+		st_statut_export.visible = false
+		cb_ecran.postevent( clicked!)
+	end if
+	
+
 end if
+
+
+
+
+
+//// Principe .. on copie la liste entièrement dans la liste export
+//// on rebalaie la liste export pour convertir les valeur HTML en text
+//string v_ordre_colonnes
+
+//dw_liste_export.settransobject(sqlca)
+
+//v_ordre_colonnes = profilestring(dir_ini+inifile_orthokis,"rendez-vous","ordre_colonnes_feuille_perso","patient_mise_en_evidence=73,rdv_rdv=206,nom_patient=814,type_rdv_symbole=640,rdv_fauteuil=96,rdv_duree=128,rdv_commentaire=635,dossier_nom=489,rdv_code_praticien=174,patient_moulage=261,date_dernier_commentaire=352,commentaire_dernier_commentaire=946,acte_prevu_dernier_commentaire=759,alertes=100")
+//of_setColumnOrder(dw_liste_export, v_ordre_colonnes)
+
+//long lig, tot, err 
+
+//tot = dw_liste.rowcount()
+
+//if tot > 0 then
+//	err = dw_liste.RowsCopy(1 , 	dw_liste.RowCount(), Primary!, dw_liste_export, 1, Primary!)
+	
+//	tot = dw_liste_export.rowcount()
+	
+//	for lig = 1 to tot
+		
+//		dw_liste_export.setitem(lig, "patient_remarques", rtf_to_texte( dw_liste_export.getitemString(lig, "patient_remarques")))
+//		dw_liste_export.setitem(lig, "commentaire_dernier_commentaire", rtf_to_texte( dw_liste_export.getitemString(lig, "commentaire_dernier_commentaire")))
+//		dw_liste_export.setitem(lig, "acte_prevu_dernier_commentaire", rtf_to_texte( dw_liste_export.getitemString(lig, "acte_prevu_dernier_commentaire")))
+//		dw_liste_export.setitem(lig, "com3_dernier_commentaire", rtf_to_texte( dw_liste_export.getitemString(lig, "com4_dernier_commentaire")))
+//		dw_liste_export.setitem(lig, "com4_dernier_commentaire", rtf_to_texte( dw_liste_export.getitemString(lig, "com4_dernier_commentaire")))
+//		dw_liste_export.setitem(lig, "com5_dernier_commentaire", rtf_to_texte( dw_liste_export.getitemString(lig, "com5_dernier_commentaire")))
+//		dw_liste_export.setitem(lig, "com6_dernier_commentaire", rtf_to_texte( dw_liste_export.getitemString(lig, "com6_dernier_commentaire")))
+//		dw_liste_export.setitem(lig, "commentaire_administratif", rtf_to_texte( dw_liste_export.getitemString(lig, "commentaire_administratif")))
+//		dw_liste_export.setitem(lig, "prevu_commentaire_administratif", rtf_to_texte( dw_liste_export.getitemString(lig, "prevu_commentaire_administratif")))
+		
+//	next
+	
+//	dw_liste_export.saveas()
+//end if
 end event
 
 type dw_conversion from datawindow within w_rdv_feuille_perso
@@ -650,5 +713,23 @@ string title = "none"
 string dataobject = "dw_conversion_rtf_texte"
 boolean livescroll = true
 borderstyle borderstyle = stylelowered!
+end type
+
+type st_statut_export from statictext within w_rdv_feuille_perso
+boolean visible = false
+integer x = 1518
+integer y = 744
+integer width = 855
+integer height = 128
+boolean bringtotop = true
+integer textsize = -16
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 65535
+alignment alignment = center!
+boolean focusrectangle = false
 end type
 

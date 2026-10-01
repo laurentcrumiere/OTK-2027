@@ -925,14 +925,20 @@ Try
 //	uo_traitement.maj(var_code_local)
 	
 	// Mon Ortho
-	if MON_ORTHODONTISTE or TEA then
+	if MON_ORTHODONTISTE or TEA or DENTAPOCHE then
 		uo_mon_orthodontiste.visible = true
 		uo_mon_orthodontiste.pb_1.width = uo_mon_orthodontiste.width
 		uo_mon_orthodontiste.pb_1.height = uo_mon_orthodontiste.height
 		if MON_ORTHODONTISTE then
 			uo_mon_orthodontiste.init(var_code_local, "PR")
 		else
-			uo_mon_orthodontiste.init(var_code_local, "P")
+			if TEA then 
+				uo_mon_orthodontiste.init(var_code_local, "P")
+			else
+				if DENTAPOCHE then
+					uo_mon_orthodontiste.init(var_code_local, "P")
+				end if
+			end if
 		end if
 	else
 		uo_mon_orthodontiste.visible = false

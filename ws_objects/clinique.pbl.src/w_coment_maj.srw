@@ -1889,12 +1889,18 @@ end if
 	
 	
 	// Mon orthodontiste 
-	uo_mon_orthodontiste.visible = MON_ORTHODONTISTE or TEA 
-	if MON_ORTHODONTISTE or TEA then 
+	uo_mon_orthodontiste.visible = MON_ORTHODONTISTE or TEA or DENTAPOCHE
+	if MON_ORTHODONTISTE or TEA or DENTAPOCHE then 
 		if MON_ORTHODONTISTE then
 			uo_mon_orthodontiste.init(var_code_local, "PM")
 		else
-			uo_mon_orthodontiste.init(var_code_local, "M")
+			if TEA then 
+				uo_mon_orthodontiste.init(var_code_local, "M")
+			else
+				if DENTAPOCHE then
+					uo_mon_orthodontiste.init(var_code_local, "P")
+				end if
+			end if
 		end if
 		uo_mon_orthodontiste.width = boutons_width
 		uo_mon_orthodontiste.height = boutons_height

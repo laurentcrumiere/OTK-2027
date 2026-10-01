@@ -1,12 +1,12 @@
 Save Format v3.0(19990112)
 @begin Targets
  0 "orthokis.pbt";
- 1 "salle_attente.pbt";
- 2 "borne.pbt";
- 3 "..\\Maj_bd_pwo\\V2027\\majbd.pbt";
- 4 "Util\\anonymisation.pbt";
- 5 "S:\\Orthokis\\Devpt\\Specif client\\Poitel\\Repartition_2026b\\repartition.pbt";
+ 1 "borne.pbt";
+ 2 "..\\Maj_bd_pwo\\V2027\\majbd.pbt";
+ 3 "Util\\anonymisation.pbt";
+ 4 "Salle_attente\\salle_attente.pbt";
+ 5 "Maj60\\maj60.pbt";
 @end;
-DefaultTarget "orthokis.pbt";
+DefaultTarget "Maj60\\maj60.pbt";
 DefaultExportEncode "UTF-8";
-DefaultRemoteTarget "orthokis.pbt";
+DefaultRemoteTarget "Maj60\\maj60.pbt";

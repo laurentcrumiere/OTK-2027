@@ -67,15 +67,15 @@ ls_Content += "BEGIN:VEVENT~r~n"
 ls_Content += "UID:" + String(fxg_get_uuid()) + "~r~n"
  
 // Horodatage (UTC)
-ls_Content += "DTSTAMP:" + String(Now(), "yyyyMMdd'T'HHmmss'Z'") + "~r~n"
+ls_Content += "DTSTAMP:" + String(Now(), "yyyyMMdd'T'HHmmss") + "~r~n"
  
 // Début et fin du rendez-vous (UTC ou local sans Z)
 //ls_Content += "DTSTART:20240625T090000~r~n"
-ls_Content += "DTSTART:" + string(ldt_rdv_debut, "yyyyMMdd'T'HHmmss'Z'") + "~r~n"
+ls_Content += "DTSTART:" + string(ldt_rdv_debut, "yyyyMMdd'T'HHmmss") + "~r~n"
 
 ldt_rdv_fin = datetime( date(ldt_rdv_debut) , relativetime( time(ldt_rdv_debut) , li_duree * 60 ) )
 //ls_Content += "DTEND:20240625T100000~r~n"
-ls_Content += "DTEND:" + string(ldt_rdv_fin, "yyyyMMdd'T'HHmmss'Z'") + "~r~n"
+ls_Content += "DTEND:" + string(ldt_rdv_fin, "yyyyMMdd'T'HHmmss") + "~r~n"
 
 
 // Titre, description, lieu

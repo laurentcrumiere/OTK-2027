@@ -25,7 +25,7 @@ type variables
 
 double var_code_local
 string var_partie_a_ouvrir
-boolean ib_patient_dentapoche,  ib_parent1_dentapoche,  ib_patient2_dentapoche,  ib_payeur_dentapoche
+boolean ib_patient_dentapoche
 
 // pour Parsing de Téa
 
@@ -107,6 +107,8 @@ ls_phoneNumber = ls_tableau_vide
 ls_email = ls_tableau_vide
 ls_lastname = ls_tableau_vide
 
+string ls_code_praticien
+
 
 
 if TEA then
@@ -156,16 +158,69 @@ else
 		
 		
 		if DENTAPOCHE then 
-			select isnull(count(*),0) into :v_cpt from dentapoche_liens  
-			where code_patient = :var_code_local ;
-			if v_cpt = 0 then
-				pb_1.pictureName = "lc_dentapoche_rouge.png"
-				pb_1.PowerTipText = "Ce patient n'est pas inscrit à Dentapoche"
-				ib_patient_dentapoche = false
+			// si patient 
+			//				var_code_local = code interne du patient 
+			//				v_partie_a_ouvrir = ""
+			//
+			// si correspondant 
+			//				var_code_local = 0
+			//				v_partie_a_ouvrir = "C" + code du correspondant
+			//
+			// si praticien 
+			//				var_code_local = 0
+			//				v_partie_a_ouvrir = "P" + code du praticien
+
+			
+			if var_code_local > 0 then 
+				// Cas Patient
+				select isnull(count(*),0) into :v_cpt from dentapoche_liens  
+				where code_patient = :var_code_local ;
+				
+				if v_cpt = 0 then
+					pb_1.pictureName = "lc_dentapoche_rouge.png"
+					pb_1.PowerTipText = "Ce patient n'est pas inscrit à Dentapoche"
+					ib_patient_dentapoche = false
+				else
+					pb_1.pictureName = "lc_dentapoche.png"
+					pb_1.PowerTipText = "Patient inscrit à Dentapoche"
+					ib_patient_dentapoche = true
+				end if
 			else
-				pb_1.pictureName = "lc_dentapoche.png"
-				pb_1.PowerTipText = "Patient inscrit à Dentapoche"
-				ib_patient_dentapoche = true
+				if left(v_partie_a_ouvrir, 1) = "P" then
+					// praticien
+					ls_code_praticien = right(v_partie_a_ouvrir, len(v_partie_a_ouvrir) - 1)
+					
+					select isnull(count(*),0) into :v_cpt from dentapoche_personnes
+					where code_praticien = :ls_code_praticien and "type" = 'D'   ;
+					
+					if v_cpt = 0 then
+						pb_1.pictureName = "lc_dentapoche_rouge.png"
+						pb_1.PowerTipText = "Ce praticien n'est pas inscrit à Dentapoche"
+						ib_patient_dentapoche = false
+					else
+						pb_1.pictureName = "lc_dentapoche.png"
+						pb_1.PowerTipText = "Praticien inscrit à Dentapoche"
+						ib_patient_dentapoche = true
+					end if
+				else
+					if left(v_partie_a_ouvrir, 1) = "C" then
+						// Correspondant
+						ls_code_praticien = right(v_partie_a_ouvrir, len(v_partie_a_ouvrir) - 1)
+						
+						select isnull(count(*),0) into :v_cpt from dentapoche_personnes
+						where code_praticien = :ls_code_praticien and "type" = 'C'   ;
+						
+						if v_cpt = 0 then
+							pb_1.pictureName = "lc_dentapoche_rouge.png"
+							pb_1.PowerTipText = "Ce praticien n'est pas inscrit à Dentapoche"
+							ib_patient_dentapoche = false
+						else
+							pb_1.pictureName = "lc_dentapoche.png"
+							pb_1.PowerTipText = "Praticien inscrit à Dentapoche"
+							ib_patient_dentapoche = true
+						end if
+					end if
+				end if
 			end if
 		end if
 	end if
@@ -1032,9 +1087,17 @@ else
 		end if
 	else
 		// DENTAPOCHE
-		if not ib_patient_dentapoche then
-			
+		if var_code_local <> 0 then 
+			// patient
+			OpenWithParm(w_dentapoche_logins_patient, var_code_local)
 		else
+			if left(var_partie_a_ouvrir, 1) = "P" then
+				// praticien
+			else
+				if left(var_partie_a_ouvrir, 1) = "C" then
+					// Correspondant
+				end if
+			end if
 		end if
 	end if
 end if

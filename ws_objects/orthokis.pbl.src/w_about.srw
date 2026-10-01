@@ -1040,10 +1040,10 @@ string text = "Cabinet enregistré"
 end type
 
 type p_orthokis from picture within tabpage_licence
-integer x = 745
-integer y = 836
-integer width = 1371
-integer height = 616
+integer x = 663
+integer y = 1224
+integer width = 1817
+integer height = 358
 string picturename = "logo_orthokis.png"
 boolean focusrectangle = false
 end type
@@ -2588,12 +2588,12 @@ Messagebox("Information","Remise à zéro des options dynamimques effectué !")
 end event
 
 type p_1 from picture within w_about
-integer x = 105
-integer y = 40
-integer width = 1161
-integer height = 504
+integer x = 91
+integer y = 172
+integer width = 1074
+integer height = 226
 boolean bringtotop = true
-string picturename = "logo_arakis.png"
+string picturename = "logo_dentalsoft.png"
 boolean focusrectangle = false
 end type
 

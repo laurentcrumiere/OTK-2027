@@ -2254,14 +2254,20 @@ Try
 		tab_1.tabpage_soins.cb_annuler_impr.visible = false
 	end if
 	
-	if  MON_ORTHODONTISTE or TEA  then
+	if  MON_ORTHODONTISTE or TEA  or DENTAPOCHE then
 		uo_mon_orthodontiste.visible = true
 		if MON_ORTHODONTISTE then
 			uo_mon_orthodontiste.init(var_code_local, "PP")
 		else
-			uo_mon_orthodontiste.init(var_code_local, "R")
-			uo_mon_orthodontiste.pb_1.width = uo_mon_orthodontiste.width
-			uo_mon_orthodontiste.pb_1.height = uo_mon_orthodontiste.height
+			if TEA then 
+				uo_mon_orthodontiste.init(var_code_local, "R")
+				uo_mon_orthodontiste.pb_1.width = uo_mon_orthodontiste.width
+				uo_mon_orthodontiste.pb_1.height = uo_mon_orthodontiste.height
+			else
+				if DENTAPOCHE then
+					uo_mon_orthodontiste.init(var_code_local, "P")
+				end if
+			end if
 		end if
 	end if
 	trace("============ FIN OPEN SOINS / REGLEMENTS ============ ")

@@ -600,10 +600,20 @@ if column = "tp" then
 							if  nb_lettre >= 50 or nb_lettre = 45 then
 								v_pourcent = 100
 							else
-								v_pourcent = 60
+								if today() < date("2027-01-01") then
+									v_pourcent = 60
+								else
+									v_pourcent = 50
+								end if
+
 							end if
 						case "C", "CS", "CD", "CSD", "Z"
-							v_pourcent = 60
+								if today() < date("2027-01-01") then
+									v_pourcent = 60
+								else
+									v_pourcent = 50
+								end if
+
 					end choose
 				else
 					v_pourcent = 100

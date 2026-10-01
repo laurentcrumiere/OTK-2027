@@ -1314,6 +1314,10 @@ Try
 			else
 				if TEA then 
 					uo_mon_orthodontiste.init(var_code_local, "P")
+				else
+					if DENTAPOCHE then
+						uo_mon_orthodontiste.init(var_code_local, "P")
+					end if
 				end if
 			end if
 		end if

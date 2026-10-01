@@ -40,8 +40,12 @@ additem("{numero_secu_patient}")
 additem("{age_patient}")
 additem("{date_naissance_patient}")
 additem("{email_patient}")
-
 additem("{portable_patient}")
+
+if DENTAPOCHE then
+	additem("{login_dentapoche_patient}")
+	additem("{mot_de_passe_dentapoche_patient}")
+end if
 
 additem("-")
 
@@ -99,8 +103,20 @@ additem("-")
 additem("{titre_parent1}")
 additem("{nom_parent1}")
 additem("{email_parent1}")
-
 additem("{portable1_parent1}")
+if DENTAPOCHE then
+	additem("{login_dentapoche_parent1}")
+	additem("{mot_de_passe_dentapoche_parent1}")
+end if
+
+if DENTAPOCHE then
+	additem("-")
+	additem("{login_dentapoche_parent2}")
+	additem("{mot_de_passe_dentapoche_parent2}")
+	additem("-")
+	additem("{login_dentapoche_payeur}")
+	additem("{mot_de_passe_dentapoche_payeur}")
+end if
 
 additem("-")
 

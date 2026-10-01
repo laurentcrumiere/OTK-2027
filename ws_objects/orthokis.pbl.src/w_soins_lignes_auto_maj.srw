@@ -1082,7 +1082,11 @@ if dwo.name = "tp" then
 				if (v_lettre = "TO" or v_lettre = "ORT") and (nb_lettre >= 50 or nb_lettre = 45) then
 					v_pourcent = 100
 				else
-					v_pourcent = 70
+					if today() < date("2027-01-01") then
+						v_pourcent = 60
+					else
+						v_pourcent = 50
+					end if
 				end if
 				
 				// On modifie le montant ...

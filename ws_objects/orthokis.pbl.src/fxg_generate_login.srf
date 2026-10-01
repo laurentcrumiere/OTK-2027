@@ -1,0 +1,37 @@
+﻿$PBExportHeader$fxg_generate_login.srf
+global type fxg_generate_login from function_object
+end type
+
+forward prototypes
+global function string fxg_generate_login (string as_nom)
+end prototypes
+
+global function string fxg_generate_login (string as_nom);string ls_nom_clean
+string ls_prefixe
+string ls_chiffres
+integer li_longueur, li_random
+
+// 1. Nettoyage du nom (suppression des espaces)
+ls_nom_clean = Trim(as_nom)
+// Remplacer les espaces internes si nécessaire
+do while Pos(ls_nom_clean, " ") > 0
+	ls_nom_clean = Replace(ls_nom_clean, Pos(ls_nom_clean, " "), 1, "")
+loop
+
+// Vérification si la chaîne est vide
+if IsNull(ls_nom_clean) or ls_nom_clean = "" then
+	ls_prefixe = "USER"
+else
+	// 2. Extraction des 6 premières lettres au maximum
+	ls_prefixe = Upper(Left(ls_nom_clean, 6))
+end if
+
+// 3. Génération de 4 chiffres aléatoires (entre 1000 et 9999)
+Randomize(0) // Initialise le générateur aléatoire
+li_random = Rand(8999) + 1000
+ls_chiffres = String(li_random)
+
+// 4. Concaténation et retour du résultat
+return ls_prefixe + ls_chiffres
+end function
+

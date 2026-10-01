@@ -522,13 +522,19 @@ Try
 	end if
 	
 	
-	uo_mon_orthodontiste.visible = (MON_ORTHODONTISTE or TEA)
+	uo_mon_orthodontiste.visible = (MON_ORTHODONTISTE or TEA or DENTAPOCHE)
 	
-	if MON_ORTHODONTISTE or TEA then
+	if MON_ORTHODONTISTE or TEA or DENTAPOCHE then
 		if MON_ORTHODONTISTE then
 			uo_mon_orthodontiste.init(var_code_local, "PD")
 		else
-			uo_mon_orthodontiste.init(var_code_local, "S")
+			if TEA then 
+				uo_mon_orthodontiste.init(var_code_local, "S")
+			else
+				if DENTAPOCHE then
+					uo_mon_orthodontiste.init(var_code_local, "P")
+				end if
+			end if
 		end if
 	end if
 	

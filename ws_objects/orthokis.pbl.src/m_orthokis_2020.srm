@@ -1417,6 +1417,10 @@ type m_exporterundossierpatient from menu within m_traitements
 end type
 type m_importationdoctolib from menu within m_traitements
 end type
+type m_businessintelligence from menu within m_traitements
+end type
+type m_iavocale from menu within m_traitements
+end type
 type m_planificationencours from menu within m_traitements
 end type
 type m_traitements from menu within m_outils
@@ -1432,6 +1436,8 @@ m_gestionpda m_gestionpda
 m_décalagedesoins m_décalagedesoins
 m_exporterundossierpatient m_exporterundossierpatient
 m_importationdoctolib m_importationdoctolib
+m_businessintelligence m_businessintelligence
+m_iavocale m_iavocale
 m_planificationencours m_planificationencours
 end type
 type m_logicielsexternes from menu within m_outils
@@ -19996,6 +20002,8 @@ m_gestionpda m_gestionpda
 m_décalagedesoins m_décalagedesoins
 m_exporterundossierpatient m_exporterundossierpatient
 m_importationdoctolib m_importationdoctolib
+m_businessintelligence m_businessintelligence
+m_iavocale m_iavocale
 m_planificationencours m_planificationencours
 end type
 
@@ -20031,6 +20039,8 @@ this.m_gestionpda=create m_gestionpda
 this.m_décalagedesoins=create m_décalagedesoins
 this.m_exporterundossierpatient=create m_exporterundossierpatient
 this.m_importationdoctolib=create m_importationdoctolib
+this.m_businessintelligence=create m_businessintelligence
+this.m_iavocale=create m_iavocale
 this.m_planificationencours=create m_planificationencours
 this.Item[UpperBound(this.Item)+1]=this.m_traitementdesretoursnoémie
 this.Item[UpperBound(this.Item)+1]=this.m_planificationdetâches
@@ -20044,6 +20054,8 @@ this.Item[UpperBound(this.Item)+1]=this.m_gestionpda
 this.Item[UpperBound(this.Item)+1]=this.m_décalagedesoins
 this.Item[UpperBound(this.Item)+1]=this.m_exporterundossierpatient
 this.Item[UpperBound(this.Item)+1]=this.m_importationdoctolib
+this.Item[UpperBound(this.Item)+1]=this.m_businessintelligence
+this.Item[UpperBound(this.Item)+1]=this.m_iavocale
 this.Item[UpperBound(this.Item)+1]=this.m_planificationencours
 end on
 
@@ -20061,6 +20073,8 @@ destroy(this.m_gestionpda)
 destroy(this.m_décalagedesoins)
 destroy(this.m_exporterundossierpatient)
 destroy(this.m_importationdoctolib)
+destroy(this.m_businessintelligence)
+destroy(this.m_iavocale)
 destroy(this.m_planificationencours)
 end on
 
@@ -20554,6 +20568,77 @@ else
 end if
 
 end event
+
+type m_businessintelligence from menu within m_traitements
+end type
+
+event clicked;if isvalid(w_ia_bi) then
+	// on selectionne
+	w_mdi_2020.uo_powerdock.of_activatedocument (w_ia_bi)
+else
+	if fxg_ouverture_onglet_possible() then
+		w_mdi_2020.uo_powerdock.of_openDocument(w_ia_bi, "Business Intelligence", m_orthokis_2020.m_outils.m_traitements.toolbarItemName)
+	end if
+end if
+
+end event
+
+on m_businessintelligence.create
+call super::create
+this.text = "Business Intelligence"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217731
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_businessintelligence.destroy
+call super::destroy
+end on
+
+type m_iavocale from menu within m_traitements
+end type
+
+event clicked;
+
+open(w_ia_vocale)
+end event
+
+on m_iavocale.create
+call super::create
+this.visible = false
+this.text = "IA Vocale"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217731
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_iavocale.destroy
+call super::destroy
+end on
 
 type m_planificationencours from menu within m_traitements
 end type
