@@ -3459,7 +3459,7 @@ if s_ip_externe = "185.163.138.254" or s_ip_externe = "90.63.220.252" or s_ip_ex
 end if
 
 
-if  luxembourg then
+if  LUXEMBOURG and PID_LUXEMBOURG then
 	
 	tab_1.tabpage_divers.gb_econnector.visible = true
 	tab_1.tabpage_divers.st_url_econnector.visible = true

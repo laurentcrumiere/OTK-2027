@@ -13,6 +13,8 @@ type dw_liste from datawindow within w_corres_fiche
 end type
 type rte_1 from richtextedit within w_corres_fiche
 end type
+type uo_dentapoche from uo_patient_mon_orthodontiste within w_corres_fiche
+end type
 end forward
 
 global type w_corres_fiche from w_param_fiche
@@ -24,6 +26,7 @@ lb_codep lb_codep
 uo_appel uo_appel
 dw_liste dw_liste
 rte_1 rte_1
+uo_dentapoche uo_dentapoche
 end type
 global w_corres_fiche w_corres_fiche
 
@@ -43,12 +46,14 @@ this.lb_codep=create lb_codep
 this.uo_appel=create uo_appel
 this.dw_liste=create dw_liste
 this.rte_1=create rte_1
+this.uo_dentapoche=create uo_dentapoche
 iCurrent=UpperBound(this.Control)
 this.Control[iCurrent+1]=this.lb_ville
 this.Control[iCurrent+2]=this.lb_codep
 this.Control[iCurrent+3]=this.uo_appel
 this.Control[iCurrent+4]=this.dw_liste
 this.Control[iCurrent+5]=this.rte_1
+this.Control[iCurrent+6]=this.uo_dentapoche
 end on
 
 on w_corres_fiche.destroy
@@ -58,6 +63,7 @@ destroy(this.lb_codep)
 destroy(this.uo_appel)
 destroy(this.dw_liste)
 destroy(this.rte_1)
+destroy(this.uo_dentapoche)
 end on
 
 event open;// Passage de paramètre entre fenêtre
@@ -105,6 +111,11 @@ if trim(code) = "" then
 	dw_fiche.SetFocus()
 
 else
+	
+	if DENTAPOCHE then 
+		uo_dentapoche.visible = true 
+		uo_dentapoche.init(0, "C" + code )
+	end if
 	
 	// Modif
 	dw_fiche.Modify("Code.Edit.DisplayOnly = Yes")
@@ -433,4 +444,16 @@ long init_rightmargin = 10
 long init_bottommargin = 20
 borderstyle borderstyle = stylelowered!
 end type
+
+type uo_dentapoche from uo_patient_mon_orthodontiste within w_corres_fiche
+string tag = ""
+integer x = 375
+integer y = 2472
+integer taborder = 90
+boolean bringtotop = true
+end type
+
+on uo_dentapoche.destroy
+call uo_patient_mon_orthodontiste::destroy
+end on
 

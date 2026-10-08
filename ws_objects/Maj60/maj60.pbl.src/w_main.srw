@@ -21,8 +21,6 @@ type st_4 from statictext within w_main
 end type
 type st_3 from statictext within w_main
 end type
-type st_2 from statictext within w_main
-end type
 type st_1 from statictext within w_main
 end type
 end forward
@@ -45,7 +43,6 @@ cb_3 cb_3
 st_5 st_5
 st_4 st_4
 st_3 st_3
-st_2 st_2
 st_1 st_1
 end type
 global w_main w_main
@@ -76,7 +73,6 @@ this.cb_3=create cb_3
 this.st_5=create st_5
 this.st_4=create st_4
 this.st_3=create st_3
-this.st_2=create st_2
 this.st_1=create st_1
 this.Control[]={this.pb_1,&
 this.dw_lignes,&
@@ -87,7 +83,6 @@ this.cb_3,&
 this.st_5,&
 this.st_4,&
 this.st_3,&
-this.st_2,&
 this.st_1}
 end on
 
@@ -101,7 +96,6 @@ destroy(this.cb_3)
 destroy(this.st_5)
 destroy(this.st_4)
 destroy(this.st_3)
-destroy(this.st_2)
 destroy(this.st_1)
 end on
 
@@ -164,8 +158,8 @@ end event
 
 type dw_lignes from datawindow within w_main
 boolean visible = false
-integer x = 2651
-integer y = 488
+integer x = 2793
+integer y = 896
 integer width = 686
 integer height = 400
 integer taborder = 20
@@ -243,16 +237,16 @@ if b_poursuivre then
 		open(w_patience)
 		
 		
-		// Ajout des nouveaux actes 
-		INSERT INTO code_soins VALUES (	'CD-202310',	'Consultation Dentiste',	'CD',	23.000000,	1.00,	'N',	0,	'N',	'O',	0,
-			'N',	1,	100,	'N',	'O',	'D',	0,	NULL,	NULL,	23.00,
-			'M',	'COL',	'2023-08-02',	4259584,	134217730,	NULL,	NULL,	NULL,	NULL,	NULL,	'O');
+//		// Ajout des nouveaux actes 
+//		INSERT INTO code_soins VALUES (	'CD-202310',	'Consultation Dentiste',	'CD',	23.000000,	1.00,	'N',	0,	'N',	'O',	0,
+//			'N',	1,	100,	'N',	'O',	'D',	0,	NULL,	NULL,	23.00,
+//			'M',	'COL',	'2023-08-02',	4259584,	134217730,	NULL,	NULL,	NULL,	NULL,	NULL,	'O');
 			
-		teste_erreur_bd(1)
+//		teste_erreur_bd(1)
 		
-		INSERT INTO code_soins VALUES (	'CSD-202310',	'Consultation Spécialiste Dentiste',	'CSD',	23.000000,	1.00,	'N',	0,	'N',	'O',	0,
-			'N',	1,	100,	'N',	'O',	'D',	0,	NULL,	NULL,	23.00,
-			'M',	'COL',	'2023-08-02',	4259584,	134217730,	NULL,	NULL,	NULL,	NULL,	NULL,	'O');
+//		INSERT INTO code_soins VALUES (	'CSD-202310',	'Consultation Spécialiste Dentiste',	'CSD',	23.000000,	1.00,	'N',	0,	'N',	'O',	0,
+//			'N',	1,	100,	'N',	'O',	'D',	0,	NULL,	NULL,	23.00,
+//			'M',	'COL',	'2023-08-02',	4259584,	134217730,	NULL,	NULL,	NULL,	NULL,	NULL,	'O');
 			
 		teste_erreur_bd(2)
 		
@@ -288,7 +282,7 @@ if b_poursuivre then
 				// On duplique le soins
 				nom_soin_depart = dw_titres.getitemString(lig , "nom")
 
-				nom_soin_arrivee = left("MAJ60 - "+nom_soin_depart,40)
+				nom_soin_arrivee = left("MAJ50 - "+nom_soin_depart,40)
 
 				// Récupération du code du soin d'arrivée ..
 				SELECT max(code) INTO :code_soin_arrivee FROM "dba"."titres_soins_auto" ;
@@ -349,26 +343,28 @@ if b_poursuivre then
 		
 		// Modification ses soins dupliqués
 		
-		// Soins automatiques C -> CD CS -> CSD
-		update "soins_auto", "code_soins", "titres_soins_auto" 
-		set "soins_auto"."type" = 'CSD-202310' 
-		where "code_soins"."lettre" = 'CS' and "code_soins"."code" = "soins_auto"."type" 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+//		// Soins automatiques C -> CD CS -> CSD
+//		update "soins_auto", "code_soins", "titres_soins_auto" 
+//		set "soins_auto"."type" = 'CSD-202310' 
+//		where "code_soins"."lettre" = 'CS' and "code_soins"."code" = "soins_auto"."type" 
+//		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
 		
-		teste_erreur_bd(3)
+//		teste_erreur_bd(3)
 		
-		update "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "soins_auto"."type" = 'CD-202310' 
-		where "code_soins"."lettre" = 'C' and "code_soins"."code" = "soins_auto"."type"
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+//		update "soins_auto", "code_soins" , "titres_soins_auto" 
+//		set "soins_auto"."type" = 'CD-202310' 
+//		where "code_soins"."lettre" = 'C' and "code_soins"."code" = "soins_auto"."type"
+//		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
 		
 		
 		
 		teste_erreur_bd(4)
 		
+		// Consultations 23 €
+		
 		// Consulations Caisse 
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 13.80 where "ligne_soins_auto"."montant" = 16.10 and 
+		set "ligne_soins_auto"."montant" = 11.50 where "ligne_soins_auto"."montant" = 13.80 and 
 		"code_soins"."lettre" in ('CD', 'CSD') and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 1 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='C'
@@ -379,7 +375,7 @@ if b_poursuivre then
 		
 		// Consultations Mutuelle 
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 9.20 where "ligne_soins_auto"."montant" = 6.90 and 
+		set "ligne_soins_auto"."montant" = 11.50 where "ligne_soins_auto"."montant" = 9.20 and 
 		"code_soins"."lettre" in ('CD', 'CSD') and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 1 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='M' 
@@ -388,6 +384,8 @@ if b_poursuivre then
 		
 		
 		teste_erreur_bd(6)
+		
+		// Z15 : 19.95
 		
 		// Z15 Caisse
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
@@ -412,6 +410,8 @@ if b_poursuivre then
 		
 		teste_erreur_bd(8)
 		
+		// Z 20 => 26.60
+		
 		// Z20 Caisse
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
 		set "ligne_soins_auto"."montant" = 15.96 where "ligne_soins_auto"."montant" = 18.62 and 
@@ -434,6 +434,7 @@ if b_poursuivre then
 		
 		teste_erreur_bd(10)
 		
+		// Z25 => 33.25
 		// Z25 Caisse
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
 		set "ligne_soins_auto"."montant" = 19.95 where "ligne_soins_auto"."montant" = 23.28 and 
@@ -707,23 +708,6 @@ string facename = "Tahoma"
 long textcolor = 33554432
 long backcolor = 553648127
 string text = "- Mettre à jour les Soins Automatiques utilisant des Tiers Payants (montants Caisse / Mutuelle)"
-boolean focusrectangle = false
-end type
-
-type st_2 from statictext within w_main
-integer x = 133
-integer y = 392
-integer width = 1737
-integer height = 88
-integer textsize = -12
-integer weight = 400
-fontcharset fontcharset = ansi!
-fontpitch fontpitch = variable!
-fontfamily fontfamily = swiss!
-string facename = "Tahoma"
-long textcolor = 33554432
-long backcolor = 553648127
-string text = "- Créer 2 nouveaux soins de Consultations (CD, CSD)"
 boolean focusrectangle = false
 end type
 

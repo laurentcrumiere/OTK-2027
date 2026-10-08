@@ -1,0 +1,172 @@
+﻿$PBExportHeader$fxg_correction_soins_ememoire_simule.srf
+global type fxg_correction_soins_ememoire_simule from function_object
+end type
+
+forward prototypes
+global subroutine fxg_correction_soins_ememoire_simule (w_soins_reg_maj aw_fenetre_soins, long al_numero_ememoire)
+end prototypes
+
+global subroutine fxg_correction_soins_ememoire_simule (w_soins_reg_maj aw_fenetre_soins, long al_numero_ememoire);// Corrige des échéances de soins à la suite d'une simulation de eMémoire échouée
+
+double var_code_local, var_cle
+decimal {2} var_part_statutaire, var_montant_caisse, var_montant_patient, var_participation_personnelle, var_montant_total, var_montant_total_corrige, var_montant_corrige
+date var_date_execution
+long lig, tot, lig_soins
+
+// Parcours des lignes du ememoire pour corriger les échéances 
+declare cur_ligne cursor for select code_patient, cle, isnull(part_statutaire,0), isnull(montant_caisse,0), isnull(montant_patient,0), date_execution, isnull(participation_personnelle,0) , isnull(montant_total,0)
+from ememoire_luxembourg, ligne_ememoire_luxembourg 
+where ememoire_luxembourg.numero_memoire = :al_numero_ememoire and ememoire_luxembourg.numero_memoire = ligne_ememoire_luxembourg.numero_memoire ;
+
+//open cur_ligne ;
+//fetch cur_ligne into :var_code_local, :var_cle, :var_part_statutaire, :var_montant_caisse, :var_montant_patient, :var_date_execution, :var_participation_personnelle, :var_montant_total ;
+
+//do while sqlca.sqlcode = 0 
+datastore dw_liste
+dw_liste = create datastore
+dw_liste.DataObject = "dw_ememoire_luxembourg_lignes"
+dw_liste.settransobject(sqlca)
+
+
+
+dw_liste.retrieve(al_numero_ememoire)
+tot = dw_liste.rowcount()
+
+for lig = 1 to tot
+	var_code_local = w_click_soins_reg.var_code_local
+	var_cle = dw_liste.getitemnumber(lig, "cle")
+	var_part_statutaire = dw_liste.getitemnumber(lig, "part_statutaire")
+	var_montant_caisse = dw_liste.getitemnumber(lig, "montant_caisse")
+	var_montant_patient = dw_liste.getitemnumber(lig, "montant_patient")
+	var_date_execution = dw_liste.getitemDate(lig, "date_execution")
+	var_participation_personnelle = dw_liste.getitemnumber(lig, "participation_personnelle")
+	var_montant_total = dw_liste.getitemnumber(lig, "montant_total")
+	
+	
+	
+	if var_part_statutaire > 0 then 
+		if var_part_statutaire <> var_montant_caisse then 
+			// faut corriger 
+			if var_montant_caisse > 0 then 
+				// il y a déjà une échéance caisse .. on corrige juste le montant
+				update ligne_soins set montant = :var_part_statutaire where code = :var_code_local and cle = :var_cle and tp = 'O' and origine_tp = 'C' ;
+			else
+				// on ajoute une échéance TP Caisse 
+				insert into ligne_soins ("code", "cle", "montant", "date", "tp", "origine_tp") 
+				values (:var_code_local, :var_cle, :var_part_statutaire, :var_date_execution, 'O', 'C') ;
+			end if
+			if sqlca.sqlcode <> 0 then 
+				Messagebox("ATTENTION", "Erreur dans la correction d'un montant Caisse !~n~nDate : " + string(var_date_execution) + "~nAncien Montant : " + string(var_montant_caisse) +"~nNouveau Montant : " + string(var_part_statutaire) +"~n~n" + sqlca.sqlerrtext)
+				rollback ;
+			else
+				commit ;
+			end if
+		else
+			// pas de TP 
+			if var_montant_caisse > 0 then 
+				// il y avait une échéance, on supprime ...
+				delete from ligne_soins where code = :var_code_local and cle = :var_cle and tp = 'O' and origine_tp = 'C' ;
+				commit ;
+			else
+				// pas d'échéance avant ... rien à faire
+			end if
+		end if
+		
+		// régularisartion de la part patient ???
+		if var_part_statutaire + var_participation_personnelle > var_montant_total then 
+			// faut augmenter le montant du soin
+			var_montant_total_corrige = var_part_statutaire + var_participation_personnelle
+			update soins set total = :var_montant_total_corrige, hn = :var_montant_total_corrige - :var_montant_total 
+			where code = :var_code_local and cle = :var_cle ;
+			
+			// nouveau montant total du soin :
+			var_montant_total = var_part_statutaire + var_participation_personnelle
+		end if
+		
+		// Y a t il une part patient à mette
+		if var_montant_total > var_part_statutaire then
+			if var_montant_patient > 0 then 
+				// il y en avait déjà une ... on corrige le montant
+				var_montant_corrige = var_montant_total - var_part_statutaire
+				update ligne_soins set montant = :var_montant_corrige where code = :var_code_local and cle = :var_cle and tp <> 'O' ;
+			else
+				// on ajoute une échéance Patient
+				var_montant_corrige = var_montant_total - var_part_statutaire
+				insert into ligne_soins ("code", "cle", "montant", "date", "tp", "origine_tp") 
+				values (:var_code_local, :var_cle, :var_montant_corrige, :var_date_execution, 'N', '') ;
+			end if
+			if sqlca.sqlcode <> 0 then 
+				Messagebox("ATTENTION", "Erreur dans la correction d'un montant Patient !~n~nDate : " + string(var_date_execution) + "~nAncien Montant : " + string(var_montant_caisse) +"~nNouveau Montant : " + string(var_part_statutaire) +"~n~n" + sqlca.sqlerrtext)
+				rollback ;
+			else
+				commit ;
+			end if
+			
+			
+			
+		else
+			// il ne doit pas y avoir de part patient
+			if var_montant_patient > 0 then 
+				// on supprime
+				delete from ligne_soins where code = :var_code_local and cle = :var_cle and tp <> 'O'  ;
+				commit ;
+			else
+				// pas d'échéance avant ... rien à faire
+			end if	
+		end if
+	end if
+	
+next
+//	fetch cur_ligne into :var_code_local, :var_cle, :var_part_statutaire, :var_montant_caisse, :var_montant_patient, :var_date_execution, :var_participation_personnelle, :var_montant_total ;
+//loop
+//close cur_ligne ;
+
+// raffraichissement de l'affichage
+aw_fenetre_soins.dw_soins.retrieve(var_code_local)
+
+// On re sélection des lignes 
+open cur_ligne ;
+fetch cur_ligne into :var_code_local, :var_cle, :var_part_statutaire, :var_montant_caisse, :var_montant_patient, :var_date_execution, :var_participation_personnelle, :var_montant_total ;
+
+do while sqlca.sqlcode = 0 
+//lig = 1
+	
+//for lig = 1 to tot
+	
+	//var_cle = dw_liste.getitemnumber(lig, "cle")	
+
+	lig = aw_fenetre_soins.dw_soins.find("cle = " + string(var_cle), 1, 999999)
+	
+	if lig > 0 then 
+		aw_fenetre_soins.dw_soins.setitem(lig, "fse", "O")
+	else
+		Messagebox("ATTENTION", "Erreur pour sélectionner la ligne de valeur de clé : " + string(var_cle))
+	end if
+//next 
+	fetch cur_ligne into :var_code_local, :var_cle, :var_part_statutaire, :var_montant_caisse, :var_montant_patient, :var_date_execution, :var_participation_personnelle, :var_montant_total ;
+loop
+close cur_ligne ;
+
+// suppresion de l'ememoire
+delete from ememoire_luxembourg where numero_memoire = :al_numero_ememoire ;
+if sqlca.sqlcode = 0 then 
+	
+	// suppression de l'info dans la soins
+	update soins set derniere_efacture = null where code = :var_code_local and derniere_efacture = :al_numero_ememoire ; 
+	
+	if sqlca.sqlcode = 0 then 
+		commit ;
+	else
+		Messagebox("ATTENTION", "Erreur dans la suppression de l'information de l'ancien eMémoire dans les soins !~n~n" + sqlca.sqlerrtext)
+		rollback ;
+	end if
+end if
+
+
+// création du emémoire corrigé grace au boolean
+aw_fenetre_soins.ib_correction_ememoire_luxembourg = true
+aw_fenetre_soins.tab_1.tabpage_reglements.cb_pid.postevent(clicked!) 
+
+
+end subroutine
+

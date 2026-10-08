@@ -593,7 +593,7 @@ else
 									loop
 									
 									// On modifie le numéro du chèque
-									v_comment = left(v_comment, len(v_comment) - len(ls_numero_cheque)) + string( long(ls_numero_cheque) + 1)
+									v_comment = left(v_comment, len(v_comment) - len(ls_numero_cheque)) + string( double(ls_numero_cheque) + 1)
 									
 								end if
 									

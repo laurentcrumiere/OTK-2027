@@ -156,6 +156,8 @@ else
 		end if
 	else
 		
+		pb_1.width = 163
+		pb_1.height = 148
 		
 		if DENTAPOCHE then 
 			// si patient 
@@ -186,7 +188,7 @@ else
 					ib_patient_dentapoche = true
 				end if
 			else
-				if left(v_partie_a_ouvrir, 1) = "P" then
+				if left(v_partie_a_ouvrir, 1) = "D" then
 					// praticien
 					ls_code_praticien = right(v_partie_a_ouvrir, len(v_partie_a_ouvrir) - 1)
 					
@@ -212,11 +214,11 @@ else
 						
 						if v_cpt = 0 then
 							pb_1.pictureName = "lc_dentapoche_rouge.png"
-							pb_1.PowerTipText = "Ce praticien n'est pas inscrit à Dentapoche"
+							pb_1.PowerTipText = "Ce correspondant n'est pas inscrit à Dentapoche"
 							ib_patient_dentapoche = false
 						else
 							pb_1.pictureName = "lc_dentapoche.png"
-							pb_1.PowerTipText = "Praticien inscrit à Dentapoche"
+							pb_1.PowerTipText = "Correspondant inscrit à Dentapoche"
 							ib_patient_dentapoche = true
 						end if
 					end if
@@ -1030,8 +1032,8 @@ destroy(this.tv_1)
 destroy(this.pb_1)
 end on
 
-event constructor;pb_1.height = this.height
-pb_1.width = this.width
+event constructor;//pb_1.height = this.height
+//pb_1.width = this.width
 end event
 
 type tv_1 from treeview within uo_patient_mon_orthodontiste
@@ -1087,18 +1089,96 @@ else
 		end if
 	else
 		// DENTAPOCHE
+		double ldb_id_personne
+		string ls_code_praticien
+		string ls_nom, ls_prenom, ls_telephone, ls_login, ls_mot_passe
+		boolean lb_suite = false
+
 		if var_code_local <> 0 then 
 			// patient
 			OpenWithParm(w_dentapoche_logins_patient, var_code_local)
 		else
-			if left(var_partie_a_ouvrir, 1) = "P" then
-				// praticien
+			// on se sert de la même variable pour les praticiens et les correspondants
+			ls_code_praticien = right(var_partie_a_ouvrir, len(var_partie_a_ouvrir) - 1)
+			
+			if left(var_partie_a_ouvrir, 1) = "D" then
+		
+				select isnull(id_personne,0) into :ldb_id_personne from dentapoche_personnes where "code_praticien" = :ls_code_praticien and "type" = 'D' ;
+
+				if ldb_id_personne = 0 then 
+					// Faut le créer
+					// praticien
+					select isnull(nom, ''), isnull(prenom, '') , isnull(telephone, '') 
+					into :ls_nom, :ls_prenom, :ls_telephone
+					from prati  
+					where code = :ls_code_praticien ;
+					
+					ls_login = fxg_generate_login(ls_nom)
+					ls_mot_passe = fxg_generate_password()
+					
+					insert into dentapoche_personnes ("nom", "prenom", "telephone", "type", "login", "mot_passe", "code_praticien") 
+					values (:ls_nom, :ls_prenom, :ls_telephone, 'D', :ls_login, :ls_mot_passe, :ls_code_praticien) ;
+					
+					if sqlca.sqlcode = 0 then 
+						commit ; 
+						// récupération de l'ID du login UNIQUE qu'on vient de crééer
+						select id_personne into :ldb_id_personne from dentapoche_personnes where "login" = :ls_login ;
+						lb_suite = true
+					else
+						Messagebox("ATTENTION", "Erreur dans la création du PRATICIEN dans DENTAPOCHE !~n~n" + sqlca.sqlerrtext)
+						rollback ;
+						lb_suite = false
+					end if
+				else
+					lb_suite = true
+				end if
+				if lb_suite then 
+					//guo_fenetre_modale.wf_ouvrir_param_nombre(w_dentapoche_personne_fiche, ldb_id_personne)	
+					openwithparm(w_dentapoche_personne_fiche, ldb_id_personne)	
+				end if
+				 
 			else
 				if left(var_partie_a_ouvrir, 1) = "C" then
 					// Correspondant
+					select isnull(id_personne,0) into :ldb_id_personne from dentapoche_personnes where "code_praticien" = :ls_code_praticien and "type" = 'C' ;
+			
+					if ldb_id_personne = 0 then 
+						// Faut le créer
+						// Correspondant
+						select isnull(nom, ''), isnull(prenom, '') , isnull(tel, '') 
+						into :ls_nom, :ls_prenom, :ls_telephone
+						from correspondants  
+						where code = :ls_code_praticien ;
+						
+						ls_login = fxg_generate_login(ls_nom)
+						ls_mot_passe = fxg_generate_password()
+						
+						insert into dentapoche_personnes ("nom", "prenom", "telephone", "type", "login", "mot_passe", "code_praticien") 
+						values (:ls_nom, :ls_prenom, :ls_telephone, 'C', :ls_login, :ls_mot_passe, :ls_code_praticien) ;
+						
+						if sqlca.sqlcode = 0 then 
+							commit ; 
+							// récupération de l'ID du login UNIQUE qu'on vient de crééer
+							select id_personne into :ldb_id_personne from dentapoche_personnes where "login" = :ls_login ;
+							lb_suite = true
+						else
+							Messagebox("ATTENTION", "Erreur dans la création du CORRESPONDANT dans DENTAPOCHE !~n~n" + sqlca.sqlerrtext)
+							rollback ;
+							lb_suite = false
+						end if
+					else
+						lb_suite = true
+					end if
+					if lb_suite then 
+						//guo_fenetre_modale.wf_ouvrir_param_nombre(w_dentapoche_personne_fiche, ldb_id_personne)	
+						openwithparm(w_dentapoche_personne_fiche, ldb_id_personne)	
+					end if
 				end if
 			end if
 		end if
+		
+		// on refait un init pour actualiser l'icone si besoin
+		init(var_code_local, var_partie_a_ouvrir)
 	end if
 end if
 end event
@@ -1108,36 +1188,37 @@ event rbuttondown;if MON_ORTHODONTISTE THEN
 		OpenWithParm(w_patient_mon_orthodontiste, var_code_local)
 	end if
 else
+	if TEA then 
+		// Actualisation de la table mon ortho .. au cas ou
+		//if SERIAL = "87001" or SERIAL = "88005" or SERIAL = "88036" then 
+			
+			// Actualisation de la table des connexions à Téa
+			actualisation_connexions(true)
+			trace (" - Actualisation MANUELLE des appareils connectés à Téa pour " + string(var_code_local)  + " - Partie à ouvrir : " + var_partie_a_ouvrir)
+			
+			// Mise à jour du logo si besoin !
+			
+			integer v_cpt
+			
+			// Présence dans la table suite à mise à jour ?
+			select isnull(count(*),0) into :v_cpt from patient_mon_orthodontiste 
+			where code = :var_code_local ;
+			
+			if v_cpt = 0 then
+				pb_1.pictureName = "lc_tea_rouge.png"
+				pb_1.PowerTipText = "Ce patient n'est pas inscrit à " + LIBELLE_APPLICATION
+			else
+				pb_1.pictureName = "lc_tea.png"
+				pb_1.PowerTipText = "Patient inscrit à " + LIBELLE_APPLICATION
+			end if
 	
-	// Actualisation de la table mon ortho .. au cas ou
-	//if SERIAL = "87001" or SERIAL = "88005" or SERIAL = "88036" then 
-		
-		// Actualisation de la table des connexions à Téa
-		actualisation_connexions(true)
-		trace (" - Actualisation MANUELLE des appareils connectés à Téa pour " + string(var_code_local)  + " - Partie à ouvrir : " + var_partie_a_ouvrir)
-		
-		// Mise à jour du logo si besoin !
-		
-		integer v_cpt
-		
-		// Présence dans la table suite à mise à jour ?
-		select isnull(count(*),0) into :v_cpt from patient_mon_orthodontiste 
-		where code = :var_code_local ;
-		
-		if v_cpt = 0 then
-			pb_1.pictureName = "lc_tea_rouge.png"
-			pb_1.PowerTipText = "Ce patient n'est pas inscrit à " + LIBELLE_APPLICATION
-		else
-			pb_1.pictureName = "lc_tea.png"
-			pb_1.PowerTipText = "Patient inscrit à " + LIBELLE_APPLICATION
-		end if
-
-//		Route supprimée
-//		if lancer_commande_dsapi("patient/synchronize/" + string(var_code_local) , "",  "SY", "G", var_code_local ) then
-//			Messagebox("INFORMATION","Le patient a été actualisé dans Téa !")
-//		end if
-
-	//end if
+	//		Route supprimée
+	//		if lancer_commande_dsapi("patient/synchronize/" + string(var_code_local) , "",  "SY", "G", var_code_local ) then
+	//			Messagebox("INFORMATION","Le patient a été actualisé dans Téa !")
+	//		end if
+	
+		//end if
+	end if
 end if
 end event
 

@@ -50,7 +50,7 @@ end on
 event open;call super::open;uo_1.taille(this)
 
 String ls_url
-ls_url = "https://www.arakis.fr"
+ls_url = "https://dentalsoft-poc.magic-lemp.com/"
 
 wb_1.Navigate(ls_url)
 end event

@@ -348,6 +348,12 @@ if daysAfter ( d_date_validite , d_date_du_jour ) <= 15 then
 	end if
 
 
+	if pos(s_libelle_consignation, LIBELLE_MODULE_PID_LUXEMBOURG + ":TOUS:1") > 0 then
+		PID_LUXEMBOURG = true
+	else
+		PID_LUXEMBOURG = false
+	end if
+
 else
 	
 	// TOUTES LES OPTIONS SONT A FALSE 	
@@ -363,6 +369,7 @@ else
 	DENTAL_MONITORING = false
 	VERIF_CONNEXIONS_BD = false
 	DENTAPOCHE = false
+	PID_LUXEMBOURG = false
 end if
 
 
@@ -377,6 +384,7 @@ Trace ("- TEA : " + string(TEA) )
 Trace ("- DENTAL_MONITORING : " + string(DENTAL_MONITORING) ) 
 Trace ("- VERIF_CONNEXION_BD : " + string(VERIF_CONNEXIONS_BD) ) 
 Trace ("- DENTAPOCHE : " + string(DENTAPOCHE) ) 
+Trace ("- PID_LUXEMBOURG : " + string(PID_LUXEMBOURG) ) 
 
 
 TRACE ( " ===  Fin de : w_initialisation_modules_dynamiques ===")

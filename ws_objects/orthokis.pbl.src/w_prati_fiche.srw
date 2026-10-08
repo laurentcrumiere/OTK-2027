@@ -2,6 +2,8 @@
 forward
 global type w_prati_fiche from window
 end type
+type uo_dentapoche from uo_patient_mon_orthodontiste within w_prati_fiche
+end type
 type pb_generation_entete from uo_picturebutton_390x120 within w_prati_fiche
 end type
 type pb_1 from uo_picturebutton_390x120 within w_prati_fiche
@@ -85,6 +87,7 @@ string title = "Fiche Praticien"
 boolean controlmenu = true
 windowtype windowtype = response!
 long backcolor = 16777215
+uo_dentapoche uo_dentapoche
 pb_generation_entete pb_generation_entete
 pb_1 pb_1
 tab_1 tab_1
@@ -120,10 +123,10 @@ event open;
 code = message.stringparm
 
 
-tab_1.tabpage_1.dw_1.dataobject = "dw_prati_fiche_pincipale"
-tab_1.tabpage_2.dw_2.dataobject = "dw_prati_fiche_admini"
-tab_1.tabpage_3.dw_3.dataobject = "dw_prati_fiche_courriers"
-tab_1.tabpage_4.dw_4.dataobject = "dw_prati_fiche_tea"
+//tab_1.tabpage_1.dw_1.dataobject = "dw_prati_fiche_pincipale"
+//tab_1.tabpage_2.dw_2.dataobject = "dw_prati_fiche_admini"
+//tab_1.tabpage_3.dw_3.dataobject = "dw_prati_fiche_courriers"
+//tab_1.tabpage_4.dw_4.dataobject = "dw_prati_fiche_tea"
 
 
 tab_1.tabpage_1.dw_1.settransobject(SQLCA)
@@ -137,7 +140,6 @@ tab_1.tabpage_1.dw_1.ShareData(tab_1.tabpage_3.dw_3)
 tab_1.tabpage_1.dw_1.ShareData(tab_1.tabpage_4.dw_4)
 
 tab_1.tabpage_4.visible = TEA
-
 
 
 // Modification du terme "Dépassement"
@@ -198,6 +200,11 @@ else
 	// dw_fiche.Modify("Code.Edit.DisplayOnly = Yes")
 
 	tab_1.tabpage_1.dw_1.retrieve(code)
+	
+	if DENTAPOCHE then 
+		uo_dentapoche.visible = true 
+		uo_dentapoche.init(0, "D" + code )
+	end if
 
 end if
 
@@ -367,6 +374,7 @@ tab_1.tabpage_1.dw_1.setfocus()
 end event
 
 on w_prati_fiche.create
+this.uo_dentapoche=create uo_dentapoche
 this.pb_generation_entete=create pb_generation_entete
 this.pb_1=create pb_1
 this.tab_1=create tab_1
@@ -378,7 +386,8 @@ this.cb_fermer=create cb_fermer
 this.cb_annuler=create cb_annuler
 this.uo_1=create uo_1
 this.uo_word=create uo_word
-this.Control[]={this.pb_generation_entete,&
+this.Control[]={this.uo_dentapoche,&
+this.pb_generation_entete,&
 this.pb_1,&
 this.tab_1,&
 this.pb_87644,&
@@ -391,6 +400,7 @@ this.uo_1}
 end on
 
 on w_prati_fiche.destroy
+destroy(this.uo_dentapoche)
 destroy(this.pb_generation_entete)
 destroy(this.pb_1)
 destroy(this.tab_1)
@@ -440,10 +450,22 @@ fxg_set_position_palette_windows(this, ii_palette_x, ii_palette_y)
 
 end event
 
+type uo_dentapoche from uo_patient_mon_orthodontiste within w_prati_fiche
+string tag = ""
+boolean visible = false
+integer x = 1801
+integer y = 2096
+integer taborder = 80
+end type
+
+on uo_dentapoche.destroy
+call uo_patient_mon_orthodontiste::destroy
+end on
+
 type pb_generation_entete from uo_picturebutton_390x120 within w_prati_fiche
 boolean visible = false
-integer x = 1719
-integer y = 2152
+integer x = 1445
+integer y = 2188
 integer width = 274
 integer height = 152
 integer taborder = 80

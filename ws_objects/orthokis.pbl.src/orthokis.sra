@@ -719,6 +719,14 @@ string version_dsapi = ""
 boolean DENTAPOCHE
 constant string LIBELLE_MODULE_DENTAPOCHE = "DENTAPOCHE"
 constant string nom_fichier_ics =  "Rendez-vous.ics" 
+// Luxembourg
+boolean PID_LUXEMBOURG
+constant string LIBELLE_MODULE_PID_LUXEMBOURG = "PID_LUXEMBOURG"
+
+// Belgique
+boolean EHEALTH_BELGIQUE
+constant string LIBELLE_MODULE_EHEALTH_BELGIQUE = "EHEALTH"
+
 end variables
 
 global type orthokis from application
@@ -1107,6 +1115,7 @@ Version = "2027 (36.90) du 16.09.2026"
 // Suppression des if version_ce_logiciel
 Version = "2027 (36.90) du 28.09.2026"
 Version = "2027 (36.90) du 30.09.2026"
+Version = "2027 (36.90) du 08.10.2026"
 
 
 Version_ce_logiciel = "36.90"

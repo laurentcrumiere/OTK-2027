@@ -365,9 +365,11 @@ if Belgique or Luxembourg then
 		m_orthokis_2020.m_listes.m_listesdepatients.m_entre2dates.m_premierevisite.visible = False
 	
 		// PID & RD
-		m_orthokis_2020.m_listes.m_tiers-payant.m_tp.visible = true
-		m_orthokis_2020.m_listes.m_tiers-payant.m_pidlistedesememoires.visible = true
-		m_orthokis_2020.m_listes.m_tiers-payant.m_pidlistedesoperations.visible = true
+		if PID_LUXEMBOURG then 
+			m_orthokis_2020.m_listes.m_tiers-payant.m_tp.visible = true
+			m_orthokis_2020.m_listes.m_tiers-payant.m_pidlistedesememoires.visible = true
+			m_orthokis_2020.m_listes.m_tiers-payant.m_pidlistedesoperations.visible = true
+		end if
 
 	end if
 

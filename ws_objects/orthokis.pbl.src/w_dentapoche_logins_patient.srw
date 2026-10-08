@@ -399,7 +399,7 @@ else
 		dw_liste.setitem(lig, "dentapoche_personnes_nom", ls_nom)
 		dw_liste.setitem(lig, "dentapoche_personnes_prenom", ls_prenom)
 		dw_liste.setitem(lig, "dentapoche_personnes_telephone", ls_telephone)
-		dw_liste.setitem(lig, "dentapoche_personnes_type", '1')
+		dw_liste.setitem(lig, "dentapoche_personnes_type", 'P')
 	
 		ls_login = fxg_generate_login(ls_nom)
 		ls_mot_passe = fxg_generate_password()
@@ -476,7 +476,7 @@ else
 		dw_liste.setitem(lig, "dentapoche_personnes_nom", ls_nom)
 		dw_liste.setitem(lig, "dentapoche_personnes_prenom", ls_prenom)
 		dw_liste.setitem(lig, "dentapoche_personnes_telephone", ls_telephone)
-		dw_liste.setitem(lig, "dentapoche_personnes_type", '2')
+		dw_liste.setitem(lig, "dentapoche_personnes_type", 'P')
 	
 		ls_login = fxg_generate_login(ls_nom)
 		ls_mot_passe = fxg_generate_password()
@@ -553,7 +553,7 @@ else
 		dw_liste.setitem(lig, "dentapoche_personnes_nom", ls_nom)
 		dw_liste.setitem(lig, "dentapoche_personnes_prenom", ls_prenom)
 		dw_liste.setitem(lig, "dentapoche_personnes_telephone", ls_telephone)
-		dw_liste.setitem(lig, "dentapoche_personnes_type", '3')
+		dw_liste.setitem(lig, "dentapoche_personnes_type", 'P')
 	
 		ls_login = fxg_generate_login(ls_nom)
 		ls_mot_passe = fxg_generate_password()

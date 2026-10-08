@@ -778,11 +778,11 @@ choose case module
 				newmenu.m_soins.m_feuilledesoins2014verso.visible = false
 				newmenu.m_soins.m_feuilledesoins2014rectoverso.visible = false
 				newmenu.m_soins.m_fs2014.visible = false
-				newmenu.m_soins.m_ouvrirleattest.visible = true
+				newmenu.m_soins.m_ouvrirleattest.visible = ehealth_belgique
 				// Mise en place pour agrément mais finalement pas utile 
 				// newmenu.m_soins.m_duplicatadeleattest.visible = true
-				newmenu.m_soins.m_annulerleattest.visible = true
-				newmenu.m_soins.m_inscriptioneattest.visible = true
+				newmenu.m_soins.m_annulerleattest.visible = ehealth_belgique
+				newmenu.m_soins.m_inscriptioneattest.visible = ehealth_belgique
 			else
 				if luxembourg or Suisse then
 					newmenu.m_soins.m_imprimerrecto.visible =  false
@@ -1969,7 +1969,9 @@ Try
 		dw_soins.dataobject = "dw_soins"
 		tab_1.tabpage_soins.dw_impression.dataobject = "dw_detail_soin_impression_efact_belgique"
 		tab_1.tabpage_soins.dw_impression.width = 3730
-		tab_1.tabpage_reglements.cb_efact.visible = true
+		if EHEALTH_BELGIQUE then
+			tab_1.tabpage_reglements.cb_efact.visible = true
+		end if
 		tab_1.tabpage_reglements.cb_pid.visible = false
 				
 		
@@ -1978,7 +1980,11 @@ Try
 		
 		if LUXEMBOURG  then 
 			// Gestion du PID
-			tab_1.tabpage_reglements.cb_pid.visible = true
+			if PID_LUXEMBOURG then 
+				tab_1.tabpage_reglements.cb_pid.visible = true
+			else
+				tab_1.tabpage_reglements.cb_pid.visible = false
+			end if
 		else
 			tab_1.tabpage_reglements.cb_pid.visible = false
 		end if
@@ -2047,7 +2053,12 @@ Try
 		end if
 	else
 		// Pays étranger 
-		tab_1.tabpage_reglements.cb_fse.enabled ( true )
+		if Belgique then 
+			tab_1.tabpage_reglements.cb_fse.visible =  eHealth_belgique 
+		else
+			tab_1.tabpage_reglements.cb_fse.visible = true 
+		end if
+				
 	end if
 	
 	if APPEL_VISIODENT then
@@ -2642,7 +2653,9 @@ event resize;Try
 			tab_1.tabpage_reglements.cb_bis_reglement.width = tab_1.tabpage_reglements.cb_ajouter_reglement.width
 			tab_1.tabpage_reglements.cb_modifier_reglement.width = tab_1.tabpage_reglements.cb_ajouter_reglement.width
 			tab_1.tabpage_reglements.cb_supprimer_reglement.width = tab_1.tabpage_reglements.cb_ajouter_reglement.width
-			tab_1.tabpage_reglements.cb_tarif.visible = true
+			if ehealth_belgique then 
+				tab_1.tabpage_reglements.cb_tarif.visible = true
+			end if
 		end if
 		
 		// positionnement en hauteur

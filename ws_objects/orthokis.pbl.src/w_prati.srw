@@ -174,8 +174,9 @@ if cbx_avec_les_inactifs.visible  then
 end if
 
 
-// cb_eHealth
-cb_eHealth.visible = BELGIQUE
+if Belgique then 
+	cb_eHealth.visible = ehealth_belgique
+end if
 
 
 end event

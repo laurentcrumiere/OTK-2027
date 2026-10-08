@@ -507,36 +507,38 @@ string dataobject = "dw_rdv_en_attente"
 end type
 
 event doubleclicked;call super::doubleclicked;
-if v_mode_ouverture = "M" then 
-	// double clic, comme dans la salle d'attente !!
-	
-	if row > 0 then
-	
-		var_code 				= 	this.getitemnumber(row,"code")
-		var_numero_dossier 	= 	this.getitemnumber(row,"numero_dossier")
-		var_nom 				= this.getitemstring(row,"patient_nom")
-		var_nomp 				= ""
-		var_pay 					= ""
-		var_moul 				= ""
-	
-		ouverture_salle_attente()
-	end if
-	
-else
-	// Selection => on mémorise les infos et on les renvoie à l'agenda
-	st_rdv v_rdv_a_donner
-	
-	v_rdv_a_donner.code_patient_courant = this.getitemnumber(row,"code")
-	v_rdv_a_donner.praticien_a = this.getitemString(row,"code_praticien")
-	v_rdv_a_donner.type_rdv = this.getitemString(row,"type_rdv")
-	
-	var_suite = true
-	CloseWithReturn(parent, v_rdv_a_donner)
-	
-	
-	//close(parent)
-end if 
-
+if rowcount() > 0 then 
+		
+	if v_mode_ouverture = "M" then 
+		// double clic, comme dans la salle d'attente !!
+		
+		if row > 0 then
+		
+			var_code 				= 	this.getitemnumber(row,"code")
+			var_numero_dossier 	= 	this.getitemnumber(row,"numero_dossier")
+			var_nom 					= this.getitemstring(row,"patient_nom")
+			var_nomp 				= ""
+			var_pay 					= ""
+			var_moul 					= ""
+		
+			ouverture_salle_attente()
+		end if
+		
+	else
+		// Selection => on mémorise les infos et on les renvoie à l'agenda
+		st_rdv v_rdv_a_donner
+		
+		v_rdv_a_donner.code_patient_courant = this.getitemnumber(row,"code")
+		v_rdv_a_donner.praticien_a = this.getitemString(row,"code_praticien")
+		v_rdv_a_donner.type_rdv = this.getitemString(row,"type_rdv")
+		
+		var_suite = true
+		CloseWithReturn(parent, v_rdv_a_donner)
+		
+		
+		//close(parent)
+	end if 
+end if
 end event
 
 event rbuttondown;if row > 0 then
