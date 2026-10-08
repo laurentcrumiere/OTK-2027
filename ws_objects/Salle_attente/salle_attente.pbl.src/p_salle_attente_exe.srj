@@ -1,6 +1,6 @@
 ﻿$PBExportHeader$p_salle_attente_exe.srj
 $PBExportComments$Generated Application Executable Project
-EXE:salle_attente.exe,,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.0.0.3726
+EXE:salle_attente.exe,,0,1,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.0.0.3726
 CMP:0,0,0,2,0,0,1
 COM:ARAKIS - Groupe Dentalsoft
 DES:Salle d'Attente Orthokis 2026 - Gestion de Cabinet d'Orthodontie
@@ -11,8 +11,8 @@ PVN:2025,0,0,1
 FVS:36
 FVN:2026,0,0,1
 MAN:0,asInvoker,0
-PBD:salle_attente.pbl,..\orthokis.pbr,0
-PBD:..\orthokis.pbd,,1
+PBD:salle_attente.pbl,,0
+PBD:..\orthokis.pbd,..\orthokis.pbr,1
 PBD:..\agenda.pbd,,1
 PBD:..\clinique.pbd,,1
 PBD:..\clinique_perso.pbd,,1
@@ -25,10 +25,10 @@ PBD:..\mdi_patient.pbd,,1
 PBD:..\ihm.pbd,,1
 PBD:..\pda.pbd,,1
 PBD:..\odrade.pbd,,1
-PBD:advguicontrols2.pbl,,1
-PBD:advguiobjects2.pbl,,1
-PBD:advguithemes2.pbl,,1
-PBD:advguicharts2.pbl,,1
+PBD:advguicontrols2.pbd,,1
+PBD:advguiobjects2.pbd,,1
+PBD:advguithemes2.pbd,,1
+PBD:advguicharts2.pbd,,1
 PBD:advguibase2.pbl,,0
 PBD:..\pbdom250.pbd,,1
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbl,w_imagelist,w
