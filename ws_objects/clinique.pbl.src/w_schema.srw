@@ -1510,7 +1510,7 @@ fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 33554432
-long backcolor = 553648127
+long backcolor = 16777215
 string text = "Sextant Supérieur Droit (03)"
 end type
 
@@ -1527,7 +1527,7 @@ fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 33554432
-long backcolor = 553648127
+long backcolor = 16777215
 string text = "Sextant Antéro-Supérieur (04)"
 end type
 
@@ -1544,7 +1544,7 @@ fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 33554432
-long backcolor = 553648127
+long backcolor = 16777215
 string text = "Sextant Supérieur Gauche (05)"
 end type
 
@@ -1561,7 +1561,7 @@ fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 33554432
-long backcolor = 553648127
+long backcolor = 16777215
 string text = "Cadran Supérieur Droit (10)"
 end type
 
@@ -1578,7 +1578,7 @@ fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 33554432
-long backcolor = 553648127
+long backcolor = 16777215
 string text = "Cadran Supérieur Gauche (20)"
 end type
 
@@ -1595,7 +1595,7 @@ fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 33554432
-long backcolor = 553648127
+long backcolor = 16777215
 string text = "Arcade Supérieure (01)"
 end type
 
@@ -1612,7 +1612,7 @@ fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 33554432
-long backcolor = 553648127
+long backcolor = 16777215
 string text = "Sextant Inférieur Droit (08)"
 end type
 
@@ -1629,7 +1629,7 @@ fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 33554432
-long backcolor = 553648127
+long backcolor = 16777215
 string text = "Sextant Antéro-Inférieur (07)"
 end type
 
@@ -1646,7 +1646,7 @@ fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 33554432
-long backcolor = 553648127
+long backcolor = 16777215
 string text = "Sextant Inférieur Gauche (06)"
 end type
 
@@ -1663,7 +1663,7 @@ fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 33554432
-long backcolor = 553648127
+long backcolor = 16777215
 string text = "Cadran Inférieur Droit (40)"
 end type
 
@@ -1680,7 +1680,7 @@ fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 33554432
-long backcolor = 553648127
+long backcolor = 16777215
 string text = "Cadran Inférieur Gauche (30)"
 end type
 
@@ -1697,7 +1697,7 @@ fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 33554432
-long backcolor = 553648127
+long backcolor = 16777215
 string text = "Arcade Inférieure (01)"
 end type
 

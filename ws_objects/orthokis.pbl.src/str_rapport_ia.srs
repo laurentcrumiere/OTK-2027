@@ -1,0 +1,6 @@
+﻿$PBExportHeader$str_rapport_ia.srs
+global type str_rapport_ia from structure
+	double		code_patient
+	string		json_ia_complet
+end type
+

@@ -18,7 +18,6 @@ boolean minbox = true
 boolean resizable = true
 windowtype windowtype = child!
 long backcolor = 134217741
-string icon = "UserObject5_icon_2!"
 boolean toolbarvisible = false
 st_tooltips st_tooltips
 st_tooltips1 st_tooltips1
@@ -75,6 +74,8 @@ w_expl_media W12
 w_explorateur_2013 w12_2013
 w_courriers_word_patient w13
 w_patient_ged w16
+
+w_ia_vocale w17
 
 // pour savoir si le user veut ouvrir ou pas la télécommade
 string ouvrir_telecommande
@@ -332,6 +333,7 @@ end if
 // 14 : acquisition d'image
 // 15 : agenda
 // 16 : Ged du patient 
+// 17 : AI Dictée vocale
 // 20 : création de patient 
 
 
@@ -500,7 +502,12 @@ else
 				selectionne_bouton("16")
 				w16.setposition(toTop!)
 				w16.setFocus()
-		end choose
+			case 17
+				selectionne_bouton("17")
+				w17.setposition(toTop!)
+				w17.setFocus()
+				
+			end choose
 		
 		trace("Fin de SetPosition To Top! " )
 
@@ -728,7 +735,15 @@ else
 				place_fenetre(w16)
 				//w16.triggerevent(resize!)
 				w16.setFocus()
-
+				
+			case 17
+				// IA dictée vocale
+				selectionne_bouton("17")
+				openwithparm(w17, var_code_local , this)
+				place_fenetre(w17)
+				//w16.triggerevent(resize!)
+				w17.setFocus()
+				
 			case 20
 				// Fiche administrative - CREATION DE PATIENT
 				if ui_v2020 then 

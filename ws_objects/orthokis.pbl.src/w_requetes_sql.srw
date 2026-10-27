@@ -4,8 +4,6 @@ global type w_requetes_sql from window
 end type
 type cb_1 from uo_picturebutton_390x120 within w_requetes_sql
 end type
-type pb_aide from uo_bouton_aide within w_requetes_sql
-end type
 type uo_resize from resize_fenetre within w_requetes_sql
 end type
 type cb_ajouter from uo_picturebutton_390x120 within w_requetes_sql
@@ -31,7 +29,6 @@ long backcolor = 67108864
 string icon = "AppIcon!"
 boolean center = true
 cb_1 cb_1
-pb_aide pb_aide
 uo_resize uo_resize
 cb_ajouter cb_ajouter
 cb_executer cb_executer
@@ -54,14 +51,12 @@ end event
 
 on w_requetes_sql.create
 this.cb_1=create cb_1
-this.pb_aide=create pb_aide
 this.uo_resize=create uo_resize
 this.cb_ajouter=create cb_ajouter
 this.cb_executer=create cb_executer
 this.cb_fermer=create cb_fermer
 this.uo_query=create uo_query
 this.Control[]={this.cb_1,&
-this.pb_aide,&
 this.uo_resize,&
 this.cb_ajouter,&
 this.cb_executer,&
@@ -71,7 +66,6 @@ end on
 
 on w_requetes_sql.destroy
 destroy(this.cb_1)
-destroy(this.pb_aide)
 destroy(this.uo_resize)
 destroy(this.cb_ajouter)
 destroy(this.cb_executer)
@@ -102,16 +96,6 @@ end type
 
 event clicked;call super::clicked;uo_query.of_newquery()
 end event
-
-type pb_aide from uo_bouton_aide within w_requetes_sql
-string tag = "Requeteur SQL"
-integer x = 4018
-integer y = 1744
-integer width = 142
-integer height = 124
-integer taborder = 50
-boolean bringtotop = true
-end type
 
 type uo_resize from resize_fenetre within w_requetes_sql
 event destroy ( )

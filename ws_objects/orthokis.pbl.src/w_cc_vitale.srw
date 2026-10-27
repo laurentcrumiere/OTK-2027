@@ -213,9 +213,9 @@ public subroutine wf_ecrire_fichier_version_orthokis ()
 public subroutine wf_supprimer_facture ()
 public subroutine wf_terminer_suppression_facture ()
 public subroutine wf_demander_lecture_cps (string v_rpps, string v_facturation, string v_nom_carte_cps)
-public subroutine wf_ecrire_m_pstidentpatient (double var_code_local, integer v_numero_fichier)
 public function long wf_find_next_item_child (string as_code, ref string valeur_trouve, long handle_depart)
 public subroutine w_gestion_retour_noemies_v2 (string v_code_praticien)
+public subroutine wf_ecrire_m_pstidentpatient (double v_code_local, integer v_numero_fichier)
 end prototypes
 
 public subroutine wf_lecture_xml (pbdom_object apbdom_obj[], integer al_parent);
@@ -386,15 +386,13 @@ string handle_fenetre_hex, handle_cc_vitale_str
 //					nb_boucles = 20
 
 
-//// Recherche dans base de registre 64 bits
-//SetProfileString(inifile_orthokis, "Registre", "valeur", "")
-//runwait ( dir_ini + 'getreg64.exe  "HKEY_LOCAL_MACHINE\SOFTWARE\Couleur et Connection\CC-Vitale#exe#' +inifile_orthokis + '"'  , 1)
-//CCVITALE_exe = ProfileString(inifile_orthokis, "Registre", "valeur", "")
-//
-//if CCVITALE_exe = "" then
-	// Recherche en 32 bits
+// En V4.50 la clef dans la base de registre change 
+CCVITALE_exe = ""
+RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Dentalsoft\CC-Vitale","exe",CCVITALE_exe)
+
+if CCVITALE_exe = "" then 
 	RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Couleur et Connection\CC-Vitale","exe",CCVITALE_exe)
-//end if
+end if
 
 // l'exe est dans un sous dossier \programme ... nous on veut le dossier au dessu
 dir_cc_vitale = gfx_extraire_path_fichier(CCVITALE_exe)
@@ -445,19 +443,24 @@ if CCVITALE_exe <> "" then
 		
 		Trace( "CC-Vitale running !")
 		
+		// En V4.50 la clef dans la base de registre change 
+		RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Dentalsoft\CC-Vitale","Handle",handle_cc_vitale_str)
+		handle_cc_vitale = long(handle_cc_vitale_str)
 		
-		// En V4.10 CC Vitale met l'info en base de registre
-		RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Couleur et Connection\CC-Vitale","Handle",handle_cc_vitale_str)
-		if handle_cc_vitale_str = "" then
-			// Compatibilité pour ancienne version
-			// l'exe est dans un sous dossier \programme ... nous on veut le dossier au dessus
-			dir_cc_vitale = gfx_extraire_path_fichier(CCVITALE_exe)
-			dir_cc_vitale = left(dir_cc_vitale, len(dir_cc_vitale) - 10)
-			// CC-Vitale lancé, on récupère le handle qu'il nous écrit 
-			handle_cc_vitale = long(profilestring(dir_cc_vitale + "programme.ini", "MOTEUR FACTURATION", "handle", "0"))
-			Trace( "handle_cc_vitale = " + string(handle_cc_vitale))
-		else
-			handle_cc_vitale = long(handle_cc_vitale_str)
+		if handle_cc_vitale = 0 then 
+			// En V4.10 CC Vitale met l'info en base de registre
+			RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Couleur et Connection\CC-Vitale","Handle",handle_cc_vitale_str)
+			if handle_cc_vitale_str = "" then
+				// Compatibilité pour ancienne version
+				// l'exe est dans un sous dossier \programme ... nous on veut le dossier au dessus
+				dir_cc_vitale = gfx_extraire_path_fichier(CCVITALE_exe)
+				dir_cc_vitale = left(dir_cc_vitale, len(dir_cc_vitale) - 10)
+				// CC-Vitale lancé, on récupère le handle qu'il nous écrit 
+				handle_cc_vitale = long(profilestring(dir_cc_vitale + "programme.ini", "MOTEUR FACTURATION", "handle", "0"))
+				Trace( "handle_cc_vitale = " + string(handle_cc_vitale))
+			else
+				handle_cc_vitale = long(handle_cc_vitale_str)
+			end if
 		end if
 		
 		if handle_cc_vitale > 0 then 			
@@ -563,8 +566,9 @@ return v_retour
 end function
 
 public subroutine wf_ecrire_infos_orthokis (integer v_numero_fichier, long v_numero_message);// Ecrit la structure d'identification du logiciel appelant
-
-wf_ecrire_valeur_xml(v_numero_fichier, "m_cNomLogicielClient","ORTHOKIS")
+if s_version_ccvitale < "4.50" then 
+	wf_ecrire_valeur_xml(v_numero_fichier, "m_cNomLogicielClient","ORTHOKIS")
+end if
 
 // La valeur qu'on met ici est la valeur de la version agréée .. pas forcément la denière
 if s_version_ccvitale < "4.10" then
@@ -579,7 +583,21 @@ else
 			if s_version_ccvitale < "4.40" then
 				wf_ecrire_valeur_xml(v_numero_fichier, "m_cVersionLogicielClient","2024")
 			else
-				wf_ecrire_valeur_xml(v_numero_fichier, "m_cVersionLogicielClient","2025")
+				if  s_version_ccvitale < "4.50" then
+					wf_ecrire_valeur_xml(v_numero_fichier, "m_cVersionLogicielClient","2025")
+				else
+					
+					FileWrite(v_numero_fichier,"<m_pstIntegrateur>")
+
+					wf_ecrire_valeur_xml(v_numero_fichier,"cNomSociete", "DENTALSOFT")
+					wf_ecrire_valeur_xml(v_numero_fichier,"cNomLogiciel", "ORTHOKIS")
+					wf_ecrire_valeur_xml(v_numero_fichier,"cVersionLogiciel", version)
+						wf_ecrire_valeur_xml(v_numero_fichier,"cCompilLogiciel", version_ce_logiciel)
+				
+					wf_ecrire_valeur_xml(v_numero_fichier,"cVersionAgrement", "2025")
+
+					FileWrite(v_numero_fichier,"</m_pstIntegrateur>")
+				end if
 			end if
 		end if
 	end if
@@ -808,16 +826,23 @@ end subroutine
 
 public subroutine wf_preparation_dialogue_ccv ();Timer(0, this) 
 
-string handle_cc_vitale_str
+string handle_cc_vitale_str = ""
 
 // CC-Vitale lancé, on récupère le handle qu'il nous écrit 
-// En V 4.10 CC Vitale écrit en base de registre
-RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Couleur et Connection\CC-Vitale","Handle",handle_cc_vitale_str)
+
+// En V4.50 la clef dans la base de registre change 
+RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Dentalsoft\CC-Vitale","Handle",handle_cc_vitale_str)
 handle_cc_vitale = long(handle_cc_vitale_str)
-if handle_cc_vitale = 0 then handle_cc_vitale = long(profilestring(dir_cc_vitale + "programme.ini", "MOTEUR FACTURATION", "handle", "0"))
+
 if handle_cc_vitale = 0 then 
-	Messagebox("ATTENTION !", "Erreur dans la récupération de Handle de CC-Vitale")
-	return
+	// En V 4.10 CC Vitale écrit en base de registre
+	RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Couleur et Connection\CC-Vitale","Handle",handle_cc_vitale_str)
+	handle_cc_vitale = long(handle_cc_vitale_str)
+	if handle_cc_vitale = 0 then handle_cc_vitale = long(profilestring(dir_cc_vitale + "programme.ini", "MOTEUR FACTURATION", "handle", "0"))
+	if handle_cc_vitale = 0 then 
+		Messagebox("ATTENTION !", "Erreur dans la récupération de Handle de CC-Vitale")
+		return
+	end if
 end if
 
 if not DirectoryExists(cc_vitale_dossier_xml) then		
@@ -2320,7 +2345,11 @@ wf_lecture_message("clMsgO_DonneesIns")
 
 eidentifiant_patient = double(param_win[2])
 v_ins_nom = trim(string_non_nulle(w_cc_vitale.wf_findtvitem("cNom")))
-v_ins_prenom = trim(string_non_nulle(w_cc_vitale.wf_findtvitem("cPrenoms")))
+if s_version_ccvitale < "4.50" then
+	v_ins_prenom = trim(string_non_nulle(w_cc_vitale.wf_findtvitem("cPrenoms")))
+else
+	v_ins_prenom = trim(string_non_nulle(w_cc_vitale.wf_findtvitem("cPrenom1")))
+end if
 v_ins_sexe = trim(string_non_nulle(w_cc_vitale.wf_findtvitem("cSexe")))
 v_ins_date_naissance_str =trim(string_non_nulle( w_cc_vitale.wf_findtvitem("cDateNaissance")))
 v_ins_lieu_naissance = trim(string_non_nulle(w_cc_vitale.wf_findtvitem("cLieuNaissance")))
@@ -2653,62 +2682,6 @@ FileClose(v_numero_fichier)
 // Envoie du message  à CC
 
 PostMessageA( handle_cc_vitale, clMsgI_LectureCps, 1, 0)
-end subroutine
-
-public subroutine wf_ecrire_m_pstidentpatient (double var_code_local, integer v_numero_fichier);// patient
-
-string v_nom_patient,   v_prenom_patient, v_naissance
-date v_dn_patient, v_dt_patient
-string v_dv_patient
-double v_id_cc_vitale 
-
-
-// Recherche des éléments du Patient
-SELECT 	"patient"."nom",   
-			"patient"."date_naissance",   
-			isnull("patient"."prenom", ''),   
-			"patient"."debut_traitement" ,
-			isnull("patient"."date_naissance_vitale", ''), 
-			isnull("patient"."identifiant_televitale", 0)   
-INTO :v_nom_patient,   
-		:v_dn_patient,   
-		:v_prenom_patient,   
-		:v_dt_patient ,
-		:v_dv_patient,
-		:v_id_cc_vitale
-FROM 
-	"patient"  
-WHERE 
-	"patient"."code" = :var_code_local   ;
-
-
-// On enlève les accents et autres caractères
-//---------------------------------------------------
-v_prenom_patient = enlever_accents(v_prenom_patient)
-v_nom_patient = enlever_accents(v_nom_patient)
-
-FileWrite(v_numero_fichier, '<m_pstIdentPatient>')
-wf_ecrire_valeur_xml(v_numero_fichier, "eCleLiaison", string(var_code_local))
-wf_ecrire_valeur_xml(v_numero_fichier, "cNom", v_nom_patient)
-wf_ecrire_valeur_xml(v_numero_fichier, "cPrenom" , v_prenom_patient)
-
-// la date de naissance n'est pas forcement une date
-if v_dv_patient = '' then
-	// Date de naissance normale !
-	v_Naissance = wf_date_cc_vitale (v_dn_patient)
-else
-	// Date de naissance lunaire ... pas une vraie date
-	// On extrait les parties pour obtenir un yyyy-mm-dd
-	v_Naissance = mid(v_dv_patient,5,4) + "-" + mid(v_dv_patient,3,2) + "-" + mid(v_dv_patient,1,2)
-	//v_naissance = "merdre pour faire une erreur"
-end if
-wf_ecrire_valeur_xml(v_numero_fichier, "cDateNaissance" , v_Naissance)
-
-// ATTENTION - UNIQUEMENT POUR LES TESTS - A VIRE ENSUITE
-//wf_ecrire_valeur_xml(v_numero_fichier, "cRangNaissance" , '1')
-
-FileWrite(v_numero_fichier, '</m_pstIdentPatient>')
-
 end subroutine
 
 public function long wf_find_next_item_child (string as_code, ref string valeur_trouve, long handle_depart);//====================================================================
@@ -3057,6 +3030,105 @@ end if
 
 close(w_cc_vitale_patience)
 close(this)
+end subroutine
+
+public subroutine wf_ecrire_m_pstidentpatient (double v_code_local, integer v_numero_fichier);// patient
+
+string v_nom_patient,   v_prenom_patient, v_naissance
+date v_dn_patient, v_dt_patient
+string v_dv_patient
+double v_id_cc_vitale 
+string 		v_assure, v_secu_parent1 , v_secu_parent2, v_secu_payeur, v_secu_patient
+string v_nir_assure, v_cle_nir_assure
+
+// Recherche des éléments du Patient
+SELECT 	"patient"."nom",   
+			"patient"."date_naissance",   
+			isnull("patient"."prenom", ''),   
+			"patient"."debut_traitement" ,
+			isnull("patient"."date_naissance_vitale", ''), 
+			isnull("patient"."identifiant_televitale", 0)   ,
+			isnull(assure,'1' ), 
+			trim(isnull(secu_parent1, '')),
+			trim(isnull(secu_parent2, '')),
+			trim(isnull(secu_payeur, '')),
+			trim(isnull(secu_patient, ''))
+
+INTO :v_nom_patient,   
+		:v_dn_patient,   
+		:v_prenom_patient,   
+		:v_dt_patient ,
+		:v_dv_patient,
+		:v_id_cc_vitale,
+		:v_assure, 
+		:v_secu_parent1 , 
+		:v_secu_parent2, 
+		:v_secu_payeur, 
+		:v_secu_patient
+FROM 
+	"patient"  
+WHERE 
+	"patient"."code" = :v_code_local   ;
+
+
+// On enlève les accents et autres caractères
+//---------------------------------------------------
+v_prenom_patient = enlever_accents(v_prenom_patient)
+v_nom_patient = enlever_accents(v_nom_patient)
+
+FileWrite(v_numero_fichier, '<m_pstIdentPatient>')
+wf_ecrire_valeur_xml(v_numero_fichier, "eCleLiaison", string(v_code_local))
+wf_ecrire_valeur_xml(v_numero_fichier, "cNom", v_nom_patient)
+wf_ecrire_valeur_xml(v_numero_fichier, "cPrenom" , v_prenom_patient)
+
+// la date de naissance n'est pas forcement une date
+if v_dv_patient = '' then
+	// Date de naissance normale !
+	v_Naissance = wf_date_cc_vitale (v_dn_patient)
+else
+	// Date de naissance lunaire ... pas une vraie date
+	// On extrait les parties pour obtenir un yyyy-mm-dd
+	v_Naissance = mid(v_dv_patient,5,4) + "-" + mid(v_dv_patient,3,2) + "-" + mid(v_dv_patient,1,2)
+	//v_naissance = "merdre pour faire une erreur"
+end if
+wf_ecrire_valeur_xml(v_numero_fichier, "cDateNaissance" , v_Naissance)
+
+// ATTENTION - UNIQUEMENT POUR LES TESTS - A VIRE ENSUITE
+//wf_ecrire_valeur_xml(v_numero_fichier, "cRangNaissance" , '1')
+
+if s_version_ccvitale >= "4.50" then 
+	// Ajout du Nir Assuré
+	choose case v_assure
+	case '1'
+		v_nir_assure = left(v_secu_parent1, len(v_secu_parent1) - 2)
+		v_cle_nir_assure = right(v_secu_parent1, 2)
+
+	case '2'
+		v_nir_assure = left(v_secu_parent1, len(v_secu_parent2) - 2)
+		v_cle_nir_assure = right(v_secu_parent2, 2)
+
+	case '3'
+		v_nir_assure = left(v_secu_parent1, len(v_secu_payeur) - 2)
+		v_cle_nir_assure = right(v_secu_payeur, 2)
+
+	case '4'
+		v_nir_assure = left(v_secu_parent1, len(v_secu_patient) - 2)
+		v_cle_nir_assure = right(v_secu_patient, 2)
+
+		
+	case else
+		// en principe impossible !
+		v_nir_assure = left(v_secu_parent1, len(v_secu_parent1) - 2)
+		v_cle_nir_assure = right(v_secu_parent1, 2)
+
+	end choose
+	wf_ecrire_valeur_xml(v_numero_fichier, "cNirAssure" , v_nir_assure)
+	wf_ecrire_valeur_xml(v_numero_fichier, "cCleNirAssure" , v_cle_nir_assure)
+
+end if
+
+FileWrite(v_numero_fichier, '</m_pstIdentPatient>')
+
 end subroutine
 
 on w_cc_vitale.create

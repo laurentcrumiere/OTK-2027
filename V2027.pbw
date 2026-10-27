@@ -6,6 +6,7 @@ Save Format v3.0(19990112)
  3 "Util\\anonymisation.pbt";
  4 "Salle_attente\\salle_attente.pbt";
  5 "Maj60\\maj60.pbt";
+ 6 "..\\Tests\\emailxv.pbt";
 @end;
 DefaultTarget "orthokis.pbt";
 DefaultExportEncode "UTF-8";

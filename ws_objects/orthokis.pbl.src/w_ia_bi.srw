@@ -11,8 +11,12 @@ end type
 end forward
 
 global type w_ia_bi from w_fenetre_arakis
-integer width = 4279
-integer height = 2424
+integer width = 2610
+integer height = 1384
+string title = "Demandez à Adent ..."
+windowtype windowtype = child!
+string icon = "lc_ia_bi.png"
+boolean clientedge = true
 boolean center = true
 cb_fermer cb_fermer
 wb_1 wb_1
@@ -50,17 +54,31 @@ end on
 event open;call super::open;uo_1.taille(this)
 
 String ls_url
-ls_url = "https://dentalsoft-poc.magic-lemp.com/"
+ls_url = "https://demonstrateur-bi-ia.magic-lemp.com/bi/?auth_token=c59be6ae162bbf30ae16c70e26676be37eb750b380865a36"
 
 wb_1.Navigate(ls_url)
 end event
 
-event resize;call super::resize;uo_1.retaille(this)
+event resize;call super::resize;//uo_1.retaille(this)
+
+//wb_1.height = this.height - 100
+//wb_1.width = this.width - 1000
+
+//cb_fermer.x = this.width - 800
 
 wb_1.height = this.height - 100
-wb_1.width = this.width - 1000
+wb_1.width = this.width
+end event
 
-cb_fermer.x = this.width - 800
+event close;call super::close;
+
+// Mémorisation des coordonnées de la fenêtre en sortant
+setprofilestring(dir_ini+inifile_orthokis,"IA","w_ia_bi_x",string(UnitsToPixels( this.x, XUnitsToPixels!)))
+setprofilestring(dir_ini+inifile_orthokis,"IA","w_ia_bi_y",string(UnitsToPixels( this.y, YUnitsToPixels!)))
+setprofilestring(dir_ini+inifile_orthokis,"IA","w_ia_bi_width", string(this.width))
+setprofilestring(dir_ini+inifile_orthokis,"IA","w_ia_bi_height", string(this.height))
+
+
 
 end event
 
@@ -81,10 +99,8 @@ fermer_fenetre(parent)
 end event
 
 type wb_1 from webbrowser within w_ia_bi
-integer x = 32
-integer y = 28
-integer width = 3538
-integer height = 2236
+integer width = 2551
+integer height = 1256
 boolean bringtotop = true
 end type
 

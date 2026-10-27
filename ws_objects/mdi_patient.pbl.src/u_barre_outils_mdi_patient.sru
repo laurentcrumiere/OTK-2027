@@ -2,6 +2,8 @@
 forward
 global type u_barre_outils_mdi_patient from userobject
 end type
+type pb_ia_vocale from picturebutton within u_barre_outils_mdi_patient
+end type
 type uo_liste_bouton from u_cst_buttonlistbar within u_barre_outils_mdi_patient
 end type
 type pb_agenda from picturebutton within u_barre_outils_mdi_patient
@@ -37,12 +39,13 @@ end type
 end forward
 
 global type u_barre_outils_mdi_patient from userobject
-integer width = 229
+integer width = 224
 integer height = 4188
 long backcolor = 15780518
 long tabtextcolor = 33554432
 long picturemaskcolor = 536870912
 event mouse_move pbm_mousemove
+pb_ia_vocale pb_ia_vocale
 uo_liste_bouton uo_liste_bouton
 pb_agenda pb_agenda
 pb_word pb_word
@@ -86,6 +89,7 @@ string noeffect = "N"
 end variables
 
 on u_barre_outils_mdi_patient.create
+this.pb_ia_vocale=create pb_ia_vocale
 this.uo_liste_bouton=create uo_liste_bouton
 this.pb_agenda=create pb_agenda
 this.pb_word=create pb_word
@@ -102,7 +106,8 @@ this.pb_reglements=create pb_reglements
 this.pb_admini=create pb_admini
 this.pb_commentaires_administratifs=create pb_commentaires_administratifs
 this.pb_quitter=create pb_quitter
-this.Control[]={this.uo_liste_bouton,&
+this.Control[]={this.pb_ia_vocale,&
+this.uo_liste_bouton,&
 this.pb_agenda,&
 this.pb_word,&
 this.pb_images,&
@@ -121,6 +126,7 @@ this.pb_quitter}
 end on
 
 on u_barre_outils_mdi_patient.destroy
+destroy(this.pb_ia_vocale)
 destroy(this.uo_liste_bouton)
 destroy(this.pb_agenda)
 destroy(this.pb_word)
@@ -185,7 +191,10 @@ partie[14] = false
 partie [15] =m_orthokis_2020.m_patients.m_agendagraphique.enabled
 // Editions / Documents
 partie[16] =  m_orthokis_2020.m_patients.m_miseàjour.enabled 
-
+// IA Vocale
+if SERIAL = "88052" then 
+	partie[17] = true
+end if
 
 // On passe en 3ème argument la partie de mdi à ouvrir
 
@@ -279,18 +288,41 @@ if partie[12] then
 	ToolTips[upperbound(ToolTips) + 1] = "Imagerie"
 end if 
 
+if partie[17] then
+	uo_liste_bouton.of_AddItem("", "lc_ia_vocale.png", "17")
+	ToolTips[upperbound(ToolTips) + 1] = "Adent : Dictée Vocale"
+end if
 
 integer dernier 
 dernier = uo_liste_bouton.of_AddItem("", icone_fermer_24 , "Q")
 ToolTips[upperbound(ToolTips) + 1] = "Fermer"
 
-
-
-
 // Ajustement de la hauteur
 uo_liste_bouton.height = dernier * 160
 
 
+
+end event
+
+type pb_ia_vocale from picturebutton within u_barre_outils_mdi_patient
+string tag = "Acquisition de Photos"
+boolean visible = false
+integer x = 603
+integer y = 2028
+integer width = 160
+integer height = 136
+integer taborder = 70
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "lc_ia_vocale.png"
+string powertiptext = "Acquisition de Photos"
+end type
+
+event clicked;w_mdi_patient_instance.ouvre_partie(17)
 
 end event
 

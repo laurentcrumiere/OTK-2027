@@ -116,28 +116,10 @@ dw_fiche.accepttext()
 
 // vérification des valeurs saisie
 
-if dw_fiche.getItemString(1,"odrade_import_trace") = 'O' and dw_fiche.getItemNumber(1,"odrade_cadre_import_trace") = 0 then
-	Messagebox("ATTENTION","Vous devez indiquer une valeur différente de 0 pour la cadre de destination pour le tracé.")
-end if
-
-if dw_fiche.getItemString(1,"odrade_import_tableau") = 'O' and dw_fiche.getItemNumber(1,"odrade_cadre_import_tableau") = 0 then
-	Messagebox("ATTENTION","Vous devez indiquer une valeur différente de 0 pour la cadre de destination pour le tableau de mesures.")
-end if
-
-
-if dw_fiche.getItemString(1,"odrade_import_trace") = 'O' and dw_fiche.getItemString(1,"odrade_import_tableau") = 'O' then
-	if dw_fiche.getItemNumber(1,"odrade_cadre_import_trace") = dw_fiche.getItemNumber(1,"odrade_cadre_import_tableau") then
-		Messagebox("ATTENTION","Vous devez indiquer 2 valeurs différentes pour les cadres de destination.")
-	end if
-end if
-
-
-if v_suite then
-	if dw_fiche.update() = 1   then
-		commit ;
-	else
-		Rollback ;
-	end if
+if dw_fiche.update() = 1   then
+	commit ;
+else
+	Rollback ;
 end if
 
 

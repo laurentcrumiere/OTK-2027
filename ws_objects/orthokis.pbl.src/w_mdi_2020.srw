@@ -416,8 +416,8 @@ end if
 
 // Spéciale prototypes JO 2027
 if serial = "88052" then 
-	m_orthokis_2020.m_outils.m_traitements.m_iavocale.visible = true
-	m_orthokis_2020.m_outils.m_traitements.m_businessintelligence.visible = true
+	m_orthokis_2020.m_outils.m_businessintelligence.visible = true
+	m_orthokis_2020.m_patients.m_adent.visible = true
 end if
 Trace( "W_MDI - OPEN  / Fin de la fonction Activationdesmenus")
 

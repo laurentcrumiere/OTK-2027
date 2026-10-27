@@ -904,7 +904,7 @@ Version = "2027 (36.90) du 14.09.2026"
 
 version_ce_logiciel_borne = "36.90"
 
-Version_base_autorisee = 2026		// Gérée dans w_mot_pass_acces depuis 2015
+Version_base_autorisee = 2027		// Gérée dans w_mot_pass_acces depuis 2015
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////

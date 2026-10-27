@@ -169,11 +169,11 @@ boolean focusrectangle = false
 end type
 
 type p_1 from picture within w_mot_passe_acces
-integer x = 338
-integer y = 4
-integer width = 1175
-integer height = 540
-string picturename = "Logo_arakis.png"
+integer x = 55
+integer y = 124
+integer width = 1741
+integer height = 367
+string picturename = "logo_orthokis.png"
 boolean focusrectangle = false
 end type
 

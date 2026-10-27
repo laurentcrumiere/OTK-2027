@@ -108,8 +108,8 @@ lc_coment_admini.png
 lc_coment_admini_plein.png
 lc_divers.png
 lc_explorer.png
-
-
+lc_ia_vocale.png
+lc_ia_bi.png
 
 lc_fiche_admini1.png
 lc_fiche_admini2.png
@@ -560,6 +560,7 @@ ACTIONS_sms_suivi_envoi.png
 ACTIONS_sms_config_envoi_direct.png
 ACTIONS_tracabilite.png
 ACTIONS_changement_numero_dossier.png
+ACTIONS_pause.png
 
 flag_allemagne.png
 flag_france.png

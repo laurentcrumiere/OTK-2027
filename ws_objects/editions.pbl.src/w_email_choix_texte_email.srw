@@ -37,6 +37,83 @@ gb_categorie gb_categorie
 end type
 global w_email_choix_texte_email w_email_choix_texte_email
 
+forward prototypes
+public subroutine choisir (long row)
+end prototypes
+
+public subroutine choisir (long row);double v_id
+string texte , v_objet
+integer v_categorie
+DataWindowChild dw_fille
+string v_fichier_pj
+boolean v_suite 
+
+texte = dw_liste_texte_email.GetItemString(row,"texte")
+v_objet = dw_liste_texte_email.GetItemString(row,"objet")
+v_categorie =  dw_liste_texte_email.GetItemNumber(row, "id_categorie")
+
+if len(trim(v_objet)) > 0 then
+	w_email_choix_adr_pat.sle_objet.text = v_objet
+end if
+
+// Catégorie par défaut
+w_email_choix_adr_pat.dw_categorie.setItem(1, "id", v_categorie )
+
+
+
+// on va passer par un fichier RTF
+integer  num_fichier_texte_rtf
+num_fichier_texte_rtf = FileOpen( w_email_choix_adr_pat.v_fichier_temporaire_rtf, StreamMode! , Write! , LockWrite! , replace!)
+FileWrite(num_fichier_texte_rtf, texte)
+FileClose(num_fichier_texte_rtf)
+
+
+// Insertion du nouveau
+w_email_choix_adr_pat.rte_1.selecttextall()
+w_email_choix_adr_pat.rte_1.clear()
+w_email_choix_adr_pat.rte_1.insertdocument(w_email_choix_adr_pat.v_fichier_temporaire_rtf, True, FileTypeRichText!)
+w_email_choix_adr_pat.rte_1.modified = False
+
+
+// Si pas déjà de pJ sélectionnée avant
+if not (w_email_choix_adr_pat.type_email = "I" or  w_email_choix_adr_pat.type_email = "W"  or w_email_choix_adr_pat.type_email = "O"  or  w_email_choix_adr_pat.type_email = "D"  or  w_email_choix_adr_pat.type_email = "P" )  then
+
+	
+	// Vérification si piece jointe par défaut
+	v_id =  dw_liste_texte_email.GetItemNumber(row, "id")
+	select isnull(nom_complet_fichier_pj, '') into :v_fichier_pj 
+	from email_texte_defaut where id = :v_id ;
+	
+	if v_fichier_pj <> "" then
+		if fileExists(v_fichier_pj) then 
+			// La pj existe ... 
+			
+			if trim(w_email_choix_adr_pat.sle_fichier_pj.text) <> "" then 
+				
+				if MessageBox("ATTENTION", "Une pièce jointe par défaut est associée à ce texte de mail  : ~n~n" + v_fichier_pj + "~n~nSoutaitez-vous remplacer la pièce jointe actuelle de ce mail par ce fichier ?", Question!, Yesno!, 2)  = 1 then
+					v_suite = true
+				else
+					v_suite = false
+				end if
+			else
+				
+				v_suite = true
+				
+			end if
+			
+			if v_suite then
+				w_email_choix_adr_pat.frm_output.pj[1] = v_fichier_pj
+				w_email_choix_adr_pat.sle_fichier_pj.text = gfx_extraire_nom_fichier ( v_fichier_pj )
+			end if
+		else
+			MessageBox("ATTENTION", "Une pièce jointe par défaut est associée à ce texte de mail mais le fichier est introuvable : ~n~n" + v_fichier_pj ) 
+		end if
+	end if
+end if
+
+close(this)
+end subroutine
+
 on w_email_choix_texte_email.create
 int iCurrent
 call super::create
@@ -134,7 +211,11 @@ string text = "Choisir"
 string iconname = "ACTIONS_modifier.png"
 end type
 
-event clicked;call super::clicked;dw_liste_texte_email.triggerevent( doubleclicked!)
+event clicked;call super::clicked;//dw_liste_texte_email.postevent( doubleclicked!)
+
+if dw_liste_texte_email.rowcount() > 0 then 
+	choisir(dw_liste_texte_email.getrow())
+end if
 end event
 
 type cb_annuler from uo_picturebutton_390x120 within w_email_choix_texte_email
@@ -177,78 +258,81 @@ event doubleclicked;
 
 if this.rowcount() > 0 then
 
-	double v_id
-	string texte , v_objet
-	integer v_categorie
-	DataWindowChild dw_fille
-	string v_fichier_pj
-	boolean v_suite 
-	
-	texte = this.GetItemString(row,"texte")
-	v_objet = this.GetItemString(row,"objet")
-	v_categorie =  this.GetItemNumber(row, "id_categorie")
-	
-	if len(trim(v_objet)) > 0 then
-		w_email_choix_adr_pat.sle_objet.text = v_objet
-	end if
-
-	// Catégorie par défaut
-	w_email_choix_adr_pat.dw_categorie.setItem(1, "id", v_categorie )
-
-
-
-	// on va passer par un fichier RTF
-	integer  num_fichier_texte_rtf
-	num_fichier_texte_rtf = FileOpen( w_email_choix_adr_pat.v_fichier_temporaire_rtf, StreamMode! , Write! , LockWrite! , replace!)
-	FileWrite(num_fichier_texte_rtf, texte)
-	FileClose(num_fichier_texte_rtf)
-
-
-	// Insertion du nouveau
-	w_email_choix_adr_pat.rte_1.selecttextall()
-	w_email_choix_adr_pat.rte_1.clear()
-	w_email_choix_adr_pat.rte_1.insertdocument(w_email_choix_adr_pat.v_fichier_temporaire_rtf, True, FileTypeRichText!)
-	w_email_choix_adr_pat.rte_1.modified = False
-	
-	
-	// Si pas déjà de pJ sélectionnée avant
-	if not (w_email_choix_adr_pat.type_email = "I" or  w_email_choix_adr_pat.type_email = "W"  or w_email_choix_adr_pat.type_email = "O"  or  w_email_choix_adr_pat.type_email = "D"  or  w_email_choix_adr_pat.type_email = "P" )  then
-
-		
-		// Vérification si piece jointe par défaut
-		v_id =  this.GetItemNumber(row, "id")
-		select isnull(nom_complet_fichier_pj, '') into :v_fichier_pj 
-		from email_texte_defaut where id = :v_id ;
-		
-		if v_fichier_pj <> "" then
-			if fileExists(v_fichier_pj) then 
-				// La pj existe ... 
-				
-				if trim(w_email_choix_adr_pat.sle_fichier_pj.text) <> "" then 
-					
-					if MessageBox("ATTENTION", "Une pièce jointe par défaut est associée à ce texte de mail  : ~n~n" + v_fichier_pj + "~n~nSoutaitez-vous remplacer la pièce jointe actuelle de ce mail par ce fichier ?", Question!, Yesno!, 2)  = 1 then
-						v_suite = true
-					else
-						v_suite = false
-					end if
-				else
-					
-					v_suite = true
-					
-				end if
-				
-				if v_suite then
-					w_email_choix_adr_pat.frm_output.pj[1] = v_fichier_pj
-					w_email_choix_adr_pat.sle_fichier_pj.text = gfx_extraire_nom_fichier ( v_fichier_pj )
-				end if
-			else
-				MessageBox("ATTENTION", "Une pièce jointe par défaut est associée à ce texte de mail mais le fichier est introuvable : ~n~n" + v_fichier_pj ) 
-			end if
-		end if
-	end if
+	choisir(row)
 
 end if
-close(parent)
+//	double v_id
+//	string texte , v_objet
+//	integer v_categorie
+//	DataWindowChild dw_fille
+//	string v_fichier_pj
+//	boolean v_suite 
+	
+//	texte = this.GetItemString(row,"texte")
+//	v_objet = this.GetItemString(row,"objet")
+//	v_categorie =  this.GetItemNumber(row, "id_categorie")
+	
+//	if len(trim(v_objet)) > 0 then
+//		w_email_choix_adr_pat.sle_objet.text = v_objet
+//	end if
+
+//	// Catégorie par défaut
+//	w_email_choix_adr_pat.dw_categorie.setItem(1, "id", v_categorie )
+
+
+
+//	// on va passer par un fichier RTF
+//	integer  num_fichier_texte_rtf
+//	num_fichier_texte_rtf = FileOpen( w_email_choix_adr_pat.v_fichier_temporaire_rtf, StreamMode! , Write! , LockWrite! , replace!)
+//	FileWrite(num_fichier_texte_rtf, texte)
+//	FileClose(num_fichier_texte_rtf)
+
+
+//	// Insertion du nouveau
+//	w_email_choix_adr_pat.rte_1.selecttextall()
+//	w_email_choix_adr_pat.rte_1.clear()
+//	w_email_choix_adr_pat.rte_1.insertdocument(w_email_choix_adr_pat.v_fichier_temporaire_rtf, True, FileTypeRichText!)
+//	w_email_choix_adr_pat.rte_1.modified = False
+	
+	
+//	// Si pas déjà de pJ sélectionnée avant
+//	if not (w_email_choix_adr_pat.type_email = "I" or  w_email_choix_adr_pat.type_email = "W"  or w_email_choix_adr_pat.type_email = "O"  or  w_email_choix_adr_pat.type_email = "D"  or  w_email_choix_adr_pat.type_email = "P" )  then
+
+		
+//		// Vérification si piece jointe par défaut
+//		v_id =  this.GetItemNumber(row, "id")
+//		select isnull(nom_complet_fichier_pj, '') into :v_fichier_pj 
+//		from email_texte_defaut where id = :v_id ;
+		
+//		if v_fichier_pj <> "" then
+//			if fileExists(v_fichier_pj) then 
+//				// La pj existe ... 
+				
+//				if trim(w_email_choix_adr_pat.sle_fichier_pj.text) <> "" then 
+					
+//					if MessageBox("ATTENTION", "Une pièce jointe par défaut est associée à ce texte de mail  : ~n~n" + v_fichier_pj + "~n~nSoutaitez-vous remplacer la pièce jointe actuelle de ce mail par ce fichier ?", Question!, Yesno!, 2)  = 1 then
+//						v_suite = true
+//					else
+//						v_suite = false
+//					end if
+//				else
+					
+//					v_suite = true
+					
+//				end if
+				
+//				if v_suite then
+//					w_email_choix_adr_pat.frm_output.pj[1] = v_fichier_pj
+//					w_email_choix_adr_pat.sle_fichier_pj.text = gfx_extraire_nom_fichier ( v_fichier_pj )
+//				end if
+//			else
+//				MessageBox("ATTENTION", "Une pièce jointe par défaut est associée à ce texte de mail mais le fichier est introuvable : ~n~n" + v_fichier_pj ) 
+//			end if
+//		end if
+//	end if
+
+//end if
+//close(parent)
 
 
 

@@ -107,7 +107,7 @@ of_setColumnOrder(dw_liste, v_ordre_colonnes)
 
 // Colonnes paramétrables
 
-nombre_colonnes = 54
+nombre_colonnes = 56
 
 nom_colonne[1] = "rdv_rdv"
 libelle_colonne[1] = "Heure Rendez-vous"
@@ -266,14 +266,20 @@ libelle_colonne[50] = "Date Prochain Reglement Tiers Payant"
 nom_colonne[51] = "patient_couleur2"
 libelle_colonne[51] = "Pastille de Couleur 2"
 
-nom_colonne[52] = "patient_nom_parent1"
-libelle_colonne[52] = "Nom Parent 1"
+nom_colonne[52] = "patient_couleur3"
+libelle_colonne[52] = "Pastille de Couleur 3"
 
-nom_colonne[53] = "patient_codep_parent1"
-libelle_colonne[53] = "Code Postal Parent 1"
+nom_colonne[53] = "patient_couleur4"
+libelle_colonne[53] = "Pastille de Couleur 4"
 
-nom_colonne[54] = "patient_ville_parent1"
-libelle_colonne[54] = "Ville Parent 1"
+nom_colonne[54] = "patient_nom_parent1"
+libelle_colonne[54] = "Nom Parent 1"
+
+nom_colonne[55] = "patient_codep_parent1"
+libelle_colonne[55] = "Code Postal Parent 1"
+
+nom_colonne[56] = "patient_ville_parent1"
+libelle_colonne[56] = "Ville Parent 1"
 
 
 

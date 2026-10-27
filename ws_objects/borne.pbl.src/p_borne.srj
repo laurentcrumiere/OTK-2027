@@ -1,5 +1,5 @@
 ﻿$PBExportHeader$p_borne.srj
-EXE:borne.exe,borne.pbr,0,1,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.0.0.3726
+EXE:borne.exe,borne.pbr,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.0.0.3726
 CMP:0,0,0,2,0,0,1
 COM:ARAKIS - Groupe Dentalsoft
 DES:Borne Salle d'Attente Orthokis

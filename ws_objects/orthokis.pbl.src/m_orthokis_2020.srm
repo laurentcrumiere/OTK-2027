@@ -73,7 +73,9 @@ type m_17 from menu within m_patients
 end type
 type m_courriers from menu within m_patients
 end type
-type m_9 from menu within m_patients
+type m_adent from menu within m_patients
+end type
+type m_trait_adent from menu within m_patients
 end type
 type m_patientcourant from menu within m_patients
 end type
@@ -156,7 +158,8 @@ m_salledattentedoctolib m_salledattentedoctolib
 m_salledattenteindependante m_salledattenteindependante
 m_17 m_17
 m_courriers m_courriers
-m_9 m_9
+m_adent m_adent
+m_trait_adent m_trait_adent
 m_patientcourant m_patientcourant
 end type
 type m_listes from menu within m_orthokis_2020
@@ -1417,10 +1420,6 @@ type m_exporterundossierpatient from menu within m_traitements
 end type
 type m_importationdoctolib from menu within m_traitements
 end type
-type m_businessintelligence from menu within m_traitements
-end type
-type m_iavocale from menu within m_traitements
-end type
 type m_planificationencours from menu within m_traitements
 end type
 type m_traitements from menu within m_outils
@@ -1436,8 +1435,6 @@ m_gestionpda m_gestionpda
 m_décalagedesoins m_décalagedesoins
 m_exporterundossierpatient m_exporterundossierpatient
 m_importationdoctolib m_importationdoctolib
-m_businessintelligence m_businessintelligence
-m_iavocale m_iavocale
 m_planificationencours m_planificationencours
 end type
 type m_logicielsexternes from menu within m_outils
@@ -1540,6 +1537,8 @@ m_calculatrice m_calculatrice
 m_copiedecran m_copiedecran
 m_requetes_sql m_requetes_sql
 end type
+type m_businessintelligence from menu within m_outils
+end type
 type m_selecteur from menu within m_outils
 end type
 type m_toutfermer from menu within m_outils
@@ -1554,6 +1553,7 @@ m_dossiers m_dossiers
 m_traitements m_traitements
 m_logicielsexternes m_logicielsexternes
 m_autres m_autres
+m_businessintelligence m_businessintelligence
 m_selecteur m_selecteur
 m_toutfermer m_toutfermer
 m_déconnexiondorthokis m_déconnexiondorthokis
@@ -2026,7 +2026,8 @@ m_salledattentedoctolib m_salledattentedoctolib
 m_salledattenteindependante m_salledattenteindependante
 m_17 m_17
 m_courriers m_courriers
-m_9 m_9
+m_adent m_adent
+m_trait_adent m_trait_adent
 m_patientcourant m_patientcourant
 end type
 
@@ -2077,7 +2078,8 @@ this.m_salledattentedoctolib=create m_salledattentedoctolib
 this.m_salledattenteindependante=create m_salledattenteindependante
 this.m_17=create m_17
 this.m_courriers=create m_courriers
-this.m_9=create m_9
+this.m_adent=create m_adent
+this.m_trait_adent=create m_trait_adent
 this.m_patientcourant=create m_patientcourant
 this.Item[UpperBound(this.Item)+1]=this.m_nouveaudossier
 this.Item[UpperBound(this.Item)+1]=this.m_miseàjour
@@ -2107,7 +2109,8 @@ this.Item[UpperBound(this.Item)+1]=this.m_salledattentedoctolib
 this.Item[UpperBound(this.Item)+1]=this.m_salledattenteindependante
 this.Item[UpperBound(this.Item)+1]=this.m_17
 this.Item[UpperBound(this.Item)+1]=this.m_courriers
-this.Item[UpperBound(this.Item)+1]=this.m_9
+this.Item[UpperBound(this.Item)+1]=this.m_adent
+this.Item[UpperBound(this.Item)+1]=this.m_trait_adent
 this.Item[UpperBound(this.Item)+1]=this.m_patientcourant
 end on
 
@@ -2141,7 +2144,8 @@ destroy(this.m_salledattentedoctolib)
 destroy(this.m_salledattenteindependante)
 destroy(this.m_17)
 destroy(this.m_courriers)
-destroy(this.m_9)
+destroy(this.m_adent)
+destroy(this.m_trait_adent)
 destroy(this.m_patientcourant)
 end on
 
@@ -3357,6 +3361,7 @@ call super::create
 this.tag = "group:Rendez-vous"
 this.visible = false
 this.text = "Salle d~'Attente Indépendante"
+this.microhelp = "Salle d~'Attente Indépendante"
 this.toolbaritemname = "lc_mini_salle_attente.png"
 this.menutextcolor = 134217735
 this.menubackcolor = 134217732
@@ -3441,6 +3446,7 @@ on m_courriers.create
 call super::create
 this.tag = "group:Word;size:Large"
 this.text = "Courriers"
+this.microhelp = "Courriers Word"
 this.toolbaritemname = "lc_winword.png"
 this.menutextcolor = 134217735
 this.menubackcolor = 134217732
@@ -3463,10 +3469,50 @@ on m_courriers.destroy
 call super::destroy
 end on
 
-type m_9 from menu within m_patients
+type m_adent from menu within m_patients
 end type
 
-on m_9.create
+event clicked;if fxg_ouverture_onglet_possible() then
+	var_suite = false
+	guo_fenetre_modale.wf_ouvrir(w_cherche)
+	if var_suite then
+		ouvrir_mdi(17)
+	end if
+end if
+end event
+
+on m_adent.create
+call super::create
+this.tag = "group:Adent;size:Large"
+this.visible = false
+this.text = "Adent"
+this.microhelp = "IA : Dictée Vocale"
+this.toolbaritemname = "lc_ia_vocale.png"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217731
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_adent.destroy
+call super::destroy
+end on
+
+type m_trait_adent from menu within m_patients
+end type
+
+on m_trait_adent.create
 call super::create
 this.text = "-"
 this.menutextcolor = 134217735
@@ -3486,7 +3532,7 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_9.destroy
+on m_trait_adent.destroy
 call super::destroy
 end on
 
@@ -3515,6 +3561,7 @@ on m_patientcourant.create
 call super::create
 this.tag = "group:Courant;size:Large"
 this.text = "Patient"
+this.microhelp = "Dossier Patient"
 this.toolbaritemname = "lc_admini.png"
 this.menutextcolor = 134217735
 this.menubackcolor = 134217732
@@ -18144,6 +18191,7 @@ m_dossiers m_dossiers
 m_traitements m_traitements
 m_logicielsexternes m_logicielsexternes
 m_autres m_autres
+m_businessintelligence m_businessintelligence
 m_selecteur m_selecteur
 m_toutfermer m_toutfermer
 m_déconnexiondorthokis m_déconnexiondorthokis
@@ -18174,6 +18222,7 @@ this.m_dossiers=create m_dossiers
 this.m_traitements=create m_traitements
 this.m_logicielsexternes=create m_logicielsexternes
 this.m_autres=create m_autres
+this.m_businessintelligence=create m_businessintelligence
 this.m_selecteur=create m_selecteur
 this.m_toutfermer=create m_toutfermer
 this.m_déconnexiondorthokis=create m_déconnexiondorthokis
@@ -18183,6 +18232,7 @@ this.Item[UpperBound(this.Item)+1]=this.m_dossiers
 this.Item[UpperBound(this.Item)+1]=this.m_traitements
 this.Item[UpperBound(this.Item)+1]=this.m_logicielsexternes
 this.Item[UpperBound(this.Item)+1]=this.m_autres
+this.Item[UpperBound(this.Item)+1]=this.m_businessintelligence
 this.Item[UpperBound(this.Item)+1]=this.m_selecteur
 this.Item[UpperBound(this.Item)+1]=this.m_toutfermer
 this.Item[UpperBound(this.Item)+1]=this.m_déconnexiondorthokis
@@ -18196,6 +18246,7 @@ destroy(this.m_dossiers)
 destroy(this.m_traitements)
 destroy(this.m_logicielsexternes)
 destroy(this.m_autres)
+destroy(this.m_businessintelligence)
 destroy(this.m_selecteur)
 destroy(this.m_toutfermer)
 destroy(this.m_déconnexiondorthokis)
@@ -20002,8 +20053,6 @@ m_gestionpda m_gestionpda
 m_décalagedesoins m_décalagedesoins
 m_exporterundossierpatient m_exporterundossierpatient
 m_importationdoctolib m_importationdoctolib
-m_businessintelligence m_businessintelligence
-m_iavocale m_iavocale
 m_planificationencours m_planificationencours
 end type
 
@@ -20039,8 +20088,6 @@ this.m_gestionpda=create m_gestionpda
 this.m_décalagedesoins=create m_décalagedesoins
 this.m_exporterundossierpatient=create m_exporterundossierpatient
 this.m_importationdoctolib=create m_importationdoctolib
-this.m_businessintelligence=create m_businessintelligence
-this.m_iavocale=create m_iavocale
 this.m_planificationencours=create m_planificationencours
 this.Item[UpperBound(this.Item)+1]=this.m_traitementdesretoursnoémie
 this.Item[UpperBound(this.Item)+1]=this.m_planificationdetâches
@@ -20054,8 +20101,6 @@ this.Item[UpperBound(this.Item)+1]=this.m_gestionpda
 this.Item[UpperBound(this.Item)+1]=this.m_décalagedesoins
 this.Item[UpperBound(this.Item)+1]=this.m_exporterundossierpatient
 this.Item[UpperBound(this.Item)+1]=this.m_importationdoctolib
-this.Item[UpperBound(this.Item)+1]=this.m_businessintelligence
-this.Item[UpperBound(this.Item)+1]=this.m_iavocale
 this.Item[UpperBound(this.Item)+1]=this.m_planificationencours
 end on
 
@@ -20073,8 +20118,6 @@ destroy(this.m_gestionpda)
 destroy(this.m_décalagedesoins)
 destroy(this.m_exporterundossierpatient)
 destroy(this.m_importationdoctolib)
-destroy(this.m_businessintelligence)
-destroy(this.m_iavocale)
 destroy(this.m_planificationencours)
 end on
 
@@ -20568,77 +20611,6 @@ else
 end if
 
 end event
-
-type m_businessintelligence from menu within m_traitements
-end type
-
-event clicked;if isvalid(w_ia_bi) then
-	// on selectionne
-	w_mdi_2020.uo_powerdock.of_activatedocument (w_ia_bi)
-else
-	if fxg_ouverture_onglet_possible() then
-		w_mdi_2020.uo_powerdock.of_openDocument(w_ia_bi, "Business Intelligence", m_orthokis_2020.m_outils.m_traitements.toolbarItemName)
-	end if
-end if
-
-end event
-
-on m_businessintelligence.create
-call super::create
-this.text = "Business Intelligence"
-this.menutextcolor = 134217735
-this.menubackcolor = 134217732
-this.menuhighlightcolor = 134217741
-this.textsize = 8
-this.weight = 400
-this.facename = "Tahoma"
-this.titlebackcolor = 134217731
-this.bitmapbackcolor = 12632256
-this.menubitmaps = true
-this.titlegradient = true
-this.toolbartextcolor = 134217746
-this.toolbarbackcolor = 67108864
-this.toolbarhighlightcolor = 134217741
-this.toolbargradient = true
-this.bitmapgradient = true
-end on
-
-on m_businessintelligence.destroy
-call super::destroy
-end on
-
-type m_iavocale from menu within m_traitements
-end type
-
-event clicked;
-
-open(w_ia_vocale)
-end event
-
-on m_iavocale.create
-call super::create
-this.visible = false
-this.text = "IA Vocale"
-this.menutextcolor = 134217735
-this.menubackcolor = 134217732
-this.menuhighlightcolor = 134217741
-this.textsize = 8
-this.weight = 400
-this.facename = "Tahoma"
-this.titlebackcolor = 134217731
-this.bitmapbackcolor = 12632256
-this.menubitmaps = true
-this.titlegradient = true
-this.toolbartextcolor = 134217746
-this.toolbarbackcolor = 67108864
-this.toolbarhighlightcolor = 134217741
-this.toolbargradient = true
-this.bitmapgradient = true
-end on
-
-on m_iavocale.destroy
-call super::destroy
-end on
 
 type m_planificationencours from menu within m_traitements
 end type
@@ -21598,7 +21570,7 @@ end event
 
 on m_replicationdesphotos.create
 call super::create
-this.text = "Réplication des Photos + Courriers + Documents) (depuis Serveur)"
+this.text = "Réplication des Photos + Courriers + Documents (depuis Serveur)"
 this.menutextcolor = 134217735
 this.menubackcolor = 134217732
 this.menuhighlightcolor = 134217741
@@ -22180,6 +22152,71 @@ event clicked;if isvalid(w_requetes_sql) then
 	end if
 end if
 end event
+
+type m_businessintelligence from menu within m_outils
+end type
+
+event clicked;w_ia_bi w1 
+
+if isvalid (w1) then 
+	w1.setposition(toTop!)
+else
+	// on ouvre 
+	
+	open(w1)
+	
+	
+	// lecture du dernier emplacement de la fenêtre
+	long win_x, win_y 
+	win_x = profileint(dir_ini+inifile_orthokis,"IA","w_ia_bi_x",0)
+	win_y = profileint(dir_ini+inifile_orthokis,"IA","w_ia_bi_y",0)
+	
+	open(w1)
+	
+	// Possitionnement de retaillage de la fenêtre
+	
+	w1.move( PixelsToUnits( win_x, xPixelsToUnits!) , PixelsToUnits( win_y, YPixelsToUnits!))
+	w1.width = profileint(dir_ini+inifile_orthokis,"IA","w_ia_bi_width", 2555)
+	w1.height = profileint(dir_ini+inifile_orthokis,"IA","w_ia_bi_height", 1264)
+	
+	// Au cas ou .... pour etre sur que ... toujours dans le même écran
+	if w1.x < 0 or w1.y < 0 or w1.width <= 0 or w1.height <= 0 then
+		w1.x = 100
+		w1.y = 100
+		w1.width = 2555
+		w1.height = 1264
+	end if
+
+end if
+
+end event
+
+on m_businessintelligence.create
+call super::create
+this.tag = "size:large;quickaccess:TRUE"
+this.text = "Adent"
+this.microhelp = "Adent : Business Intelligence"
+this.toolbaritemname = "lc_ia_bi.png"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217731
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_businessintelligence.destroy
+call super::destroy
+end on
 
 type m_selecteur from menu within m_outils
 end type

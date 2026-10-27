@@ -1,0 +1,444 @@
+﻿$PBExportHeader$fxg_transcription_envoyer.srf
+global type fxg_transcription_envoyer from function_object
+end type
+
+forward prototypes
+global function integer fxg_transcription_envoyer (string as_fichier, ref string as_json_complet, ref string as_erreur, ref statictext ast_status_magic_lemp)
+end prototypes
+
+global function integer fxg_transcription_envoyer (string as_fichier, ref string as_json_complet, ref string as_erreur, ref statictext ast_status_magic_lemp);// =====================================================================
+// Fonction globale : f_transcription_envoyer
+// Envoie un fichier audio à POST /api/transcription/jobs (multipart/form-data)
+//
+// Prototype :
+//   integer f_transcription_envoyer ( string as_fichier, string as_form_id, &
+//                                     ref string ls_job_id, ref string as_erreur )
+// Retour : 1 = OK (ls_job_id renseigné), -1 = erreur (as_erreur renseigné)
+//
+// Nécessite PowerBuilder 2017 R2 ou plus récent (objets HttpClient et JsonParser).
+// Le jeton est lu dans un fichier .ini, jamais écrit en dur dans le code.
+// =====================================================================
+
+HttpClient lnv_http
+JsonParser lnv_json
+Blob    lblb_fichier, lblb_corps
+String  ls_url, ls_jeton, ls_boundary, ls_entete, ls_fin, ls_nom, ls_reponse, ls_commande, ls_body, ls_job_id
+Integer li_fic, li_rc
+Long    ll_lus, ll_statut, ll_racine
+boolean lb_fin
+
+string ls_job_status, ls_job_current_step, ls_transcription, ls_job_current_step_fr
+
+ls_url   =  ProfileString(dir_ini + "Orthokis.ini" , "IA", "url_magic_lemp", "")  
+
+//"https://dentalsoft-poc.magic-lemp.com/api/transcription/jobs"
+
+ast_status_magic_lemp.visible = true
+ast_status_magic_lemp.text = "Envoi du fichier - Veuillez patienter ..."
+yield()
+
+ls_jeton = ProfileString(dir_ini + "Orthokis.ini" , "IA", "jeton_magic_lemp", "")
+
+
+IF ls_jeton = "" THEN
+	as_erreur = "Jeton d'accès absent (Orthokis.ini, section [api], clé jeton)"
+	RETURN -1
+END IF
+
+// ---- 1. Lire le fichier audio en binaire --------------------------------
+IF NOT FileExists(as_fichier) THEN
+	as_erreur = "Fichier introuvable : " + as_fichier
+	RETURN -1
+END IF
+
+li_fic = FileOpen(as_fichier, StreamMode!, Read!, LockWrite!)
+IF li_fic = -1 THEN
+	as_erreur = "Impossible d'ouvrir " + as_fichier
+	RETURN -1
+END IF
+ll_lus = FileReadEx(li_fic, lblb_fichier)   // lit le fichier entier
+FileClose(li_fic)
+IF ll_lus <= 0 THEN
+	as_erreur = "Lecture du fichier impossible ou fichier vide"
+	RETURN -1
+END IF
+
+// Nom du fichier sans le chemin (ex. toto.mp3)
+ls_nom = Mid(as_fichier, LastPos(as_fichier, "\") + 1)
+
+// ---- 2. Construire le corps multipart/form-data -------------------------
+ls_boundary = "----PBBoundary" + String(Today(), "yyyymmdd") + String(Now(), "hhmmss")
+
+ls_entete = ""
+//// Champ facultatif form_id (modèle de compte rendu)
+//IF Trim(as_form_id) <> "" THEN
+//	ls_entete += "--" + ls_boundary + "~r~n" + &
+//	             'Content-Disposition: form-data; name="form_id"~r~n~r~n' + &
+//	             as_form_id + "~r~n"
+//END IF
+//// Champ facultatif language
+//ls_entete += "--" + ls_boundary + "~r~n" + &
+//             'Content-Disposition: form-data; name="language"~r~n~r~n' + &
+//             "fr~r~n"
+// Champ file
+ls_entete += "--" + ls_boundary + "~r~n" + &
+             'Content-Disposition: form-data; name="file"; filename="' + ls_nom + '"~r~n' + &
+             "Content-Type: audio/mpeg~r~n~r~n"
+
+ls_fin = "~r~n--" + ls_boundary + "--~r~n"
+
+lblb_corps = Blob(ls_entete, EncodingUTF8!) + lblb_fichier + Blob(ls_fin, EncodingUTF8!)
+
+// ---- 3. Envoyer ---------------------------------------------------------
+lnv_http = CREATE HttpClient
+lnv_http.TimeOut = 600   // secondes : l'envoi d'un gros fichier peut être long
+
+lnv_http.SetRequestHeader("Authorization", "Bearer " + ls_jeton)
+lnv_http.SetRequestHeader("Content-Type", "multipart/form-data; boundary=" + ls_boundary)
+
+ls_commande = ls_url + "transcription/jobs"
+trace("==== ENVOI DE COMMANDE MAGIC LEMP ====")
+trace("Commande : " + ls_commande )
+trace("Entete Body : " + ls_entete)
+trace("Corps Body : " + string(lblb_fichier))
+trace("Fin Body : " + ls_fin)
+
+li_rc = lnv_http.SendRequest("POST", ls_commande , lblb_corps)
+IF li_rc <> 1 THEN
+	as_erreur = "Échec de l'appel HTTP (code " + String(li_rc) + ")"
+	DESTROY lnv_http
+	RETURN -1
+END IF
+
+ll_statut = lnv_http.GetResponseStatusCode()
+lnv_http.GetResponseBody(ls_reponse, EncodingUTF8!)
+DESTROY lnv_http
+
+trace("Réponse : " + ls_reponse)
+
+
+// 201 attendu ; 401 jeton, 413 fichier trop gros, 415 type refusé, 400 form_id inconnu...
+IF ll_statut <> 201 THEN
+	as_erreur = "HTTP " + String(ll_statut) + " : " + ls_reponse
+	RETURN -1
+END IF
+
+
+// ---- 4. Lire l'identifiant du job --------------------------------------
+lnv_json = CREATE JsonParser
+IF lnv_json.LoadString(ls_reponse) <> "" THEN
+	as_erreur = "Réponse JSON illisible : " + ls_reponse
+	DESTROY lnv_json
+	RETURN -1
+END IF
+
+
+ll_racine = lnv_json.GetRootItem()
+ls_job_id = lnv_json.GetItemString(ll_racine, "id")
+
+Trace ("Job : " + ls_job_id )
+DESTROY lnv_json
+
+
+// Interrogattion du status 
+
+
+ast_status_magic_lemp.text = "Traitement du fichier - Veuillez patienter ..."
+yield()
+
+// interrogation du statut du job
+
+lnv_http = CREATE HttpClient
+lnv_http.SetRequestHeader("Authorization", "Bearer " + ls_jeton)
+lnv_http.SetRequestHeader("Content-Type", "application/json")
+
+ls_commande = ls_url + "transcription/jobs/"+ ls_job_id
+ls_body = ""
+
+trace("--- ENVOI DE COMMANDE MAGIC LEMP ---")
+trace("Commande : " + ls_commande )
+trace("Body : " + ls_body)
+
+	
+	
+lb_fin = false 
+do while not lb_fin 
+	
+	li_rc = lnv_http.SendRequest("GET", ls_commande, ls_body)
+	
+	IF li_rc <> 1 THEN
+		as_erreur = "Échec de l'appel HTTP (code " + String(li_rc) + ")"
+		DESTROY lnv_http
+		lb_fin = true
+	else
+		// traitement du fichier Json pour obtenir le statut
+		ll_statut = lnv_http.GetResponseStatusCode()
+		lnv_http.GetResponseBody(ls_reponse, EncodingUTF8!)
+	
+		trace("Réponse : " + ls_reponse)
+		
+		
+		// 200 attendu ;  422 erreur de validation...
+		IF ll_statut <> 200 THEN
+			as_erreur = "HTTP " + String(ll_statut) + " : " + ls_reponse
+			lb_fin = true
+		else
+		
+			
+			// ---- 4. Lire l'identifiant du job --------------------------------------
+			lnv_json = CREATE JsonParser
+			IF lnv_json.LoadString(ls_reponse) <> "" THEN
+				as_erreur = "Réponse JSON illisible : " + ls_reponse
+				DESTROY lnv_json
+				lb_fin = true
+			else
+				ll_racine = lnv_json.GetRootItem()
+			
+				
+				ls_job_status = lnv_json.GetItemString(ll_racine, "status") 
+				ls_job_current_step = lnv_json.GetItemString(ll_racine, "current_step") 
+				
+				Trace ("Job Status : " + ls_job_status )
+				Trace ("Job Current Step : " + ls_job_current_step )
+				
+				choose case ls_job_current_step
+					case "raw_transcript"
+						ls_job_current_step_fr = "Transcription écrite"
+					case "speakers"
+						ls_job_current_step_fr = "Analyse des interlocteurs"
+					case "reformuation"
+						ls_job_current_step_fr = "Reformulation"
+					case "personal_data"
+						ls_job_current_step_fr = "Information personnelles"
+					case "report"
+						ls_job_current_step_fr = "Rédaction du rapport"
+					case else
+						ls_job_current_step_fr = ls_job_current_step_fr
+				end choose
+
+	//			ast_status_magic_lemp.text = upper(ls_job_status) + " - " + ls_job_current_step + " - Veuillez patienter ..."
+				ast_status_magic_lemp.text = ls_job_current_step_fr + " - Veuillez patienter ..."
+				yield()
+				
+				if ls_job_status = "ready" or ls_job_status = "failed" then 
+					lb_fin = true
+				end if
+			END IF
+		end if
+		
+	END IF
+	
+	sleep(500)
+loop 
+
+DESTROY lnv_http
+
+
+if ls_job_status = "ready" then 
+	
+	// récupération et analyse des résultats
+
+	ast_status_magic_lemp.text = "Récupration de la transcription - Veuillez patienter ..."
+
+	lnv_http = CREATE HttpClient
+
+	
+	lnv_http.SetRequestHeader("Authorization", "Bearer " + ls_jeton)
+	lnv_http.SetRequestHeader("Content-Type", "application/json")
+	
+	ls_commande = ls_url + "transcription/jobs/"+ ls_job_id+"/transcript"
+	ls_body = ""
+	
+	trace("--- ENVOI DE COMMANDE MAGIC LEMP ---")
+	trace("Commande : " + ls_commande )
+	trace("Body : " + ls_body)
+	
+	li_rc = lnv_http.SendRequest("GET", ls_commande, ls_body)	
+		
+		IF li_rc <> 1 THEN
+		as_erreur = "Échec de l'appel HTTP (code " + String(li_rc) + ")"
+		DESTROY lnv_http
+		lb_fin = true
+	else
+		// traitement du fichier Json pour obtenir le statut
+		ll_statut = lnv_http.GetResponseStatusCode()
+		lnv_http.GetResponseBody(ls_reponse, EncodingUTF8!)
+	
+		trace("Réponse : " + ls_reponse)
+		
+		
+		// 200 attendu ; 422 validation erreur
+		IF ll_statut <> 200 THEN
+			as_erreur = "HTTP " + String(ll_statut) + " : " + ls_reponse
+			lb_fin = true
+		else
+		
+			
+			// ---- 4. Lire l'identifiant du job --------------------------------------
+			lnv_json = CREATE JsonParser
+			IF lnv_json.LoadString(ls_reponse) <> "" THEN
+				as_erreur = "Réponse JSON illisible : " + ls_reponse
+				DESTROY lnv_json
+				lb_fin = true
+			else
+				
+				// Parcours des tours de parole
+				long ll_turns, ll_nb, ll_i, ll_turn
+				string ls_source, ls_texte, ls_speaker, ls_phrase
+				
+				ll_racine   = lnv_json.GetRootItem()
+				ls_source = lnv_json.GetItemString(ll_racine, "source")
+				ls_texte  = lnv_json.GetItemString(ll_racine, "text")
+				
+				ls_transcription = ""
+				// Parcours des tours de parole
+				ll_turns = lnv_json.GetItemArray(ll_racine, "turns")
+				ll_nb = lnv_json.GetChildCount(ll_turns)
+				FOR ll_i = 1 TO ll_nb
+					ll_turn    = lnv_json.GetChildItem(ll_turns, ll_i)
+					ls_speaker = lnv_json.GetItemString(ll_turn, "speaker")
+					ls_phrase  = lnv_json.GetItemString(ll_turn, "text")
+//					ld_start   = lnv_json.GetItemNumber(ll_turn, "start")
+//					ld_end     = lnv_json.GetItemNumber(ll_turn, "end")
+					// À insérer dans une DataWindow, par exemple :
+					// dw_transcript.InsertRow(0) ...
+					ls_transcription = ls_transcription +  ls_speaker + " : " + ls_phrase + "~n~n"
+				NEXT
+				
+				Destroy lnv_json
+				
+//				MessageBox("Texte brute (" + ls_source + ")", ls_texte)
+//				Messagebox("Transcription", ls_transcription)
+
+				Trace ("Transcription : " + ls_transcription )
+				
+				
+				
+				
+				
+				// récupération du reporting des Datas
+				ast_status_magic_lemp.text = "Récupération des données - Veuillez patienter ..."
+		
+				lnv_http = CREATE HttpClient
+				lnv_http.SetRequestHeader("Authorization", "Bearer " + ls_jeton)
+				lnv_http.SetRequestHeader("Content-Type", "application/json")
+				
+				ls_commande = ls_url + "transcription/jobs/"+ ls_job_id+"/report"
+				ls_body = ""
+				
+				trace("--- ENVOI DE COMMANDE MAGIC LEMP ---")
+				trace("Commande : " + ls_commande )
+				trace("Body : " + ls_body)
+				
+				li_rc = lnv_http.SendRequest("GET", ls_commande, ls_body)	
+					
+					IF li_rc <> 1 THEN
+					as_erreur = "Échec de l'appel HTTP (code " + String(li_rc) + ")"
+					DESTROY lnv_http
+					lb_fin = true
+				else
+					// traitement du fichier Json pour obtenir le statut
+					ll_statut = lnv_http.GetResponseStatusCode()
+					lnv_http.GetResponseBody(ls_reponse, EncodingUTF8!)
+				
+					trace("Réponse : " + ls_reponse)
+					
+					
+					// 200 attendu ; 422 validation erreur
+					IF ll_statut <> 200 THEN
+						as_erreur = "HTTP " + String(ll_statut) + " : " + ls_reponse
+						lb_fin = true
+					else
+						
+						string ls_summary, ls_form_id, ls_transcript, ls_cle, ls_valeur, ls_champs, ls_incertitudes
+						long ll_fields, ll_field, ll_nb2, ll_j, ll_item, ll_unc
+						
+						// ---- 4. Lire l'identifiant du job --------------------------------------
+						lnv_json = CREATE JsonParser
+						IF lnv_json.LoadString(ls_reponse) <> "" THEN
+							as_erreur = "Réponse JSON illisible : " + ls_reponse
+							DESTROY lnv_json
+							lb_fin = true
+						else
+							// renvoie du Json pour traitement final dans fenêtre appelante
+							as_json_complet = ls_reponse
+							
+							
+							
+//							// Lecture du JSON
+							
+//							ll_racine      = lnv_json.GetRootItem()
+//							ls_summary    = lnv_json.GetItemString(ll_racine, "summary")
+//							ls_form_id    = lnv_json.GetItemString(ll_racine, "form_id")
+//							ls_transcript = lnv_json.GetItemString(ll_racine, "transcript_text")
+							
+//							// Champs du modèle : chaque valeur est un texte ou une liste de textes
+//							ll_fields = lnv_json.GetItemObject(ll_racine, "fields")
+//							ll_nb = lnv_json.GetChildCount(ll_fields)
+							
+//							ls_champs = "" 
+//							FOR ll_i = 1 TO ll_nb
+//								ls_cle   = string_non_nulle(lnv_json.GetChildKey(ll_fields, ll_i))
+//								ll_field = lnv_json.GetChildItem(ll_fields, ll_i)
+							
+//								CHOOSE CASE lnv_json.GetItemType(ll_field)
+//									CASE JsonStringItem!
+//										ls_valeur = string_non_nulle(lnv_json.GetItemString(ll_field))
+//									CASE JsonArrayItem!
+//										ls_valeur = ""
+//										ll_nb2 = lnv_json.GetChildCount(ll_field)
+//										FOR ll_j = 1 TO ll_nb2
+//											ll_item = lnv_json.GetChildItem(ll_field, ll_j)
+//											ls_valeur = ls_valeur +  "~r~n  - " + string_non_nulle(lnv_json.GetItemString(ll_item))
+//										NEXT
+//									CASE ELSE
+//										ls_valeur = "" // champ vide (null)
+//								END CHOOSE
+							
+//								ls_champs = ls_champs + ls_cle + " : " + ls_valeur + "~r~n"
+//							NEXT
+							
+//							// Points que le praticien devrait vérifier
+//							ll_unc = lnv_json.GetItemArray(ll_racine, "uncertainties")
+//							ll_nb = lnv_json.GetChildCount(ll_unc)
+//							FOR ll_i = 1 TO ll_nb
+//								ll_item = lnv_json.GetChildItem(ll_unc, ll_i)
+//								ls_incertitudes += "- " + lnv_json.GetItemString(ll_item) + "~r~n"
+//							NEXT
+							
+//							Destroy lnv_json
+							
+//							trace("ls_form_id : " + ls_form_id)
+//							trace("ls_summary : " + ls_summary)
+//							trace("ls_champs : " + ls_champs)
+//							trace("ls_incertitudes : " + ls_incertitudes)
+
+//							MessageBox("Compte rendu (" + ls_form_id + ")", &
+//								ls_summary + "~r~n~r~n" + ls_champs + "~r~nÀ vérifier :~r~n" + ls_incertitudes)						
+								
+								
+	
+							Destroy lnv_json
+						end if
+					end if
+				
+				end if
+			end if
+		end if
+	end if 
+	
+	
+else
+	
+	as_erreur = "Erreur dans le traitement du fichier !"
+	
+end if
+
+
+
+
+
+RETURN 1
+
+end function
+
