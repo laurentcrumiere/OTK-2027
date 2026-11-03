@@ -3,10 +3,10 @@ global type fxg_transcription_envoyer from function_object
 end type
 
 forward prototypes
-global function integer fxg_transcription_envoyer (string as_fichier, ref string as_json_complet, ref string as_erreur, ref statictext ast_status_magic_lemp)
+global function integer fxg_transcription_envoyer (string as_fichier, ref string as_json_complet, ref string as_erreur, ref statictext as_status_magic_lemp, ref string as_transcription)
 end prototypes
 
-global function integer fxg_transcription_envoyer (string as_fichier, ref string as_json_complet, ref string as_erreur, ref statictext ast_status_magic_lemp);// =====================================================================
+global function integer fxg_transcription_envoyer (string as_fichier, ref string as_json_complet, ref string as_erreur, ref statictext as_status_magic_lemp, ref string as_transcription);// =====================================================================
 // Fonction globale : f_transcription_envoyer
 // Envoie un fichier audio à POST /api/transcription/jobs (multipart/form-data)
 //
@@ -33,8 +33,8 @@ ls_url   =  ProfileString(dir_ini + "Orthokis.ini" , "IA", "url_magic_lemp", "")
 
 //"https://dentalsoft-poc.magic-lemp.com/api/transcription/jobs"
 
-ast_status_magic_lemp.visible = true
-ast_status_magic_lemp.text = "Envoi du fichier - Veuillez patienter ..."
+as_status_magic_lemp.visible = true
+as_status_magic_lemp.text = "Envoi du fichier - Veuillez patienter ..."
 yield()
 
 ls_jeton = ProfileString(dir_ini + "Orthokis.ini" , "IA", "jeton_magic_lemp", "")
@@ -143,7 +143,7 @@ DESTROY lnv_json
 // Interrogattion du status 
 
 
-ast_status_magic_lemp.text = "Traitement du fichier - Veuillez patienter ..."
+as_status_magic_lemp.text = "Traitement du fichier - Veuillez patienter ..."
 yield()
 
 // interrogation du statut du job
@@ -216,8 +216,8 @@ do while not lb_fin
 						ls_job_current_step_fr = ls_job_current_step_fr
 				end choose
 
-	//			ast_status_magic_lemp.text = upper(ls_job_status) + " - " + ls_job_current_step + " - Veuillez patienter ..."
-				ast_status_magic_lemp.text = ls_job_current_step_fr + " - Veuillez patienter ..."
+	//			as_status_magic_lemp.text = upper(ls_job_status) + " - " + ls_job_current_step + " - Veuillez patienter ..."
+				as_status_magic_lemp.text = ls_job_current_step_fr + " - Veuillez patienter ..."
 				yield()
 				
 				if ls_job_status = "ready" or ls_job_status = "failed" then 
@@ -238,7 +238,7 @@ if ls_job_status = "ready" then
 	
 	// récupération et analyse des résultats
 
-	ast_status_magic_lemp.text = "Récupration de la transcription - Veuillez patienter ..."
+	as_status_magic_lemp.text = "Récupration de la transcription - Veuillez patienter ..."
 
 	lnv_http = CREATE HttpClient
 
@@ -312,12 +312,12 @@ if ls_job_status = "ready" then
 
 				Trace ("Transcription : " + ls_transcription )
 				
-				
+				as_transcription = ls_transcription
 				
 				
 				
 				// récupération du reporting des Datas
-				ast_status_magic_lemp.text = "Récupération des données - Veuillez patienter ..."
+				as_status_magic_lemp.text = "Récupération des données - Veuillez patienter ..."
 		
 				lnv_http = CREATE HttpClient
 				lnv_http.SetRequestHeader("Authorization", "Bearer " + ls_jeton)

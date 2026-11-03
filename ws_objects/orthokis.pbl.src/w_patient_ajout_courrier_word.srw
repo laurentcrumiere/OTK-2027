@@ -1265,7 +1265,7 @@ string facename = "Arial"
 boolean italic = true
 long textcolor = 16711680
 long backcolor = 553648127
-string text = "Vous pouvez glisser / déplacer un fichier (depuis Windows)"
+string text = "Vous pouvez glisser / déposer un fichier (depuis Windows)"
 boolean focusrectangle = false
 end type
 
@@ -1285,7 +1285,7 @@ string facename = "Arial"
 boolean italic = true
 long textcolor = 16711680
 long backcolor = 553648127
-string text = "Vous pouvez glisser / déplacer un fichier (depuis Windows)"
+string text = "Vous pouvez glisser / déposer un fichier (depuis Windows)"
 boolean focusrectangle = false
 end type
 
@@ -1361,7 +1361,7 @@ type st_drag3 from statictext within w_patient_ajout_courrier_word
 boolean visible = false
 integer x = 96
 integer y = 1604
-integer width = 1358
+integer width = 1477
 integer height = 68
 boolean bringtotop = true
 integer textsize = -8
@@ -1373,7 +1373,7 @@ string facename = "Arial"
 boolean italic = true
 long textcolor = 16711680
 long backcolor = 553648127
-string text = "Vous pouvez glisser / déplacer un fichier (depuis Windows)"
+string text = "Vous pouvez glisser / déposer un fichier (depuis Windows)"
 boolean focusrectangle = false
 end type
 

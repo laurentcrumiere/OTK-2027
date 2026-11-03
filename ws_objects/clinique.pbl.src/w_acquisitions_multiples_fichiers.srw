@@ -718,7 +718,7 @@ end event
 type st_payeur from statictext within w_acquisitions_multiples_fichiers
 integer x = 1810
 integer y = 1880
-integer width = 919
+integer width = 832
 integer height = 120
 boolean bringtotop = true
 integer textsize = -8
@@ -730,7 +730,7 @@ string facename = "Arial"
 boolean italic = true
 long textcolor = 16711680
 long backcolor = 553648127
-string text = "Vous pouvez glisser / déplacer des fichiers dans liste (depuis Windows)"
+string text = "Vous pouvez glisser / déposer des fichiers dans liste (depuis Windows)"
 alignment alignment = center!
 boolean focusrectangle = false
 end type

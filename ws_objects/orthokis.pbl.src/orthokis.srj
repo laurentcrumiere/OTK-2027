@@ -271,6 +271,7 @@ OBJ:C:\Power\V2027\orthokis.pbl,w_jours_interdits,w
 OBJ:C:\Power\V2027\gestionstock.pbl,dw_reception_livraison_data,d
 OBJ:C:\Power\V2027\orthokis.pbl,w_numeros_moulages_inutilises,w
 OBJ:C:\Power\V2027\orthokis.pbl,fxg_transcription_envoyer,f
+OBJ:C:\Power\V2027\orthokis.pbl,str_ia_rapport,s
 OBJ:C:\Power\V2027\clinique_perso.pbd,pages_cliniques_mdi_patient,f
 OBJ:C:\Power\V2027\orthokis.pbl,paintstruct,s
 OBJ:C:\Power\V2027\advguiobjects.pbd,clsid,s
@@ -305,6 +306,7 @@ OBJ:C:\Power\V2027\gestionstock.pbl,dw_code_type_taxe,d
 OBJ:C:\Power\V2027\orthokis.pbl,dw_param_courrier,d
 OBJ:C:\Power\V2027\expl_media.pbl,w_type_image_mots_clefs_config,w
 OBJ:C:\Power\V2027\orthokis.pbl,w_saints_du_jour,w
+OBJ:C:\Power\V2027\orthokis.pbl,w_ia_rapport,w
 OBJ:C:\Power\V2027\orthokis.pbl,orthokis,a
 OBJ:C:\Power\V2027\advguiobjects.pbd,gdiplusstartupoutput,s
 OBJ:C:\Power\V2027\advguiobjects.pbd,n_cst_ui_imagelist,u
@@ -810,6 +812,7 @@ OBJ:C:\Power\V2027\orthokis.pbl,dw_diagnostic_liste_edition,d
 OBJ:C:\Power\V2027\orthokis.pbl,w_groupes_utilisateurs,w
 OBJ:C:\Power\V2027\gestionstock.pbl,dw_stock_produit,d
 OBJ:C:\Power\V2027\advguiobjects.pbd,s_monitorinfoex,s
+OBJ:C:\Power\V2027\orthokis.pbl,dw_ia_diag,d
 OBJ:C:\Power\V2027\advguiobjects.pbd,point,s
 OBJ:C:\Power\V2027\advguiobjects.pbd,u_cst_tabstripnavigate,u
 OBJ:C:\Power\V2027\advguiobjects.pbd,d_powerfilter_customfilter,d
@@ -836,6 +839,7 @@ OBJ:C:\Power\V2027\clinique_perso.pbd,dw_alexandre_ca_selarl,d
 OBJ:C:\Power\V2027\orthokis.pbl,dw_titre_personnes_liste,d
 OBJ:C:\Power\V2027\gestionstock.pbl,dw_edition_bon_commande,d
 OBJ:C:\Power\V2027\orthokis.pbl,dw_numeros_moulages_inutilises,d
+OBJ:C:\Power\V2027\orthokis.pbl,dw_ia_autres,d
 OBJ:C:\Power\V2027\ihm.pbl,uo_fenetre_modale,u
 OBJ:C:\Power\V2027\editions.pbl,dw_appelh_edition,d
 OBJ:C:\Power\V2027\editions.pbl,dw_liste_patients_report_rdv_edition,d
@@ -890,6 +894,7 @@ OBJ:C:\Power\V2027\gestionstock.pbl,w_modification_entree,w
 OBJ:C:\Power\V2027\gestionstock.pbl,dw_select_type_gestion,d
 OBJ:C:\Power\V2027\clinique.pbl,dw_comment_edition,d
 OBJ:C:\Power\V2027\orthokis.pbl,w_taches_purge,w
+OBJ:C:\Power\V2027\orthokis.pbl,dw_ia_rapport,d
 OBJ:C:\Power\V2027\advguiobjects.pbd,gradient_triangle,s
 OBJ:C:\Power\V2027\orthokis.pbl,jour_et_mois_francais,f
 OBJ:C:\Power\V2027\expl_media.pbl,nca_dragdrop,u
@@ -1308,6 +1313,7 @@ OBJ:C:\Power\V2027\gestionstock.pbl,w_table_categorie_produit,w
 OBJ:C:\Power\V2027\expl_media.pbl,dw_migration_imagerie_2013_cadres,d
 OBJ:C:\Power\V2027\orthokis.pbl,demande_telemaintenance,f
 OBJ:C:\Power\V2027\clinique_perso.pbd,w_dumu_export,w
+OBJ:C:\Power\V2027\orthokis.pbl,dw_ia_dep,d
 OBJ:C:\Power\V2027\advguiobjects.pbd,n_cst_base_painter,u
 OBJ:C:\Power\V2027\advguiobjects.pbd,n_cst_pbus_string,u
 OBJ:C:\Power\V2027\orthokis.pbl,gfx_creer_rep,f
@@ -1333,7 +1339,6 @@ OBJ:C:\Power\V2027\orthokis.pbl,w_soins_lignes_auto_maj,w
 OBJ:C:\Power\V2027\orthokis.pbl,dw_detail_soin_impression,d
 OBJ:C:\Power\V2027\agenda.pbl,w_duplication_annee_semaine_type,w
 OBJ:C:\Power\V2027\clinique.pbl,dw_assistant_diagnostic_dentaire,d
-OBJ:C:\Power\V2027\orthokis.pbl,str_rapport_ia,s
 OBJ:C:\Power\V2027\orthokis.pbl,fxg_generate_login,f
 OBJ:C:\Power\V2027\orthokis.pbl,fxg_get_uuid,f
 OBJ:C:\Power\V2027\editions.pbl,get_id_document,f
@@ -1367,7 +1372,6 @@ OBJ:C:\Power\V2027\editions.pbl,dw_tableau_bord_recettes_modes,d
 OBJ:C:\Power\V2027\orthokis.pbl,dw_saints_du_jour_rdv,d
 OBJ:C:\Power\V2027\orthokis.pbl,w_taches,w
 OBJ:C:\Power\V2027\orthokis.pbl,fxg_kill_process,f
-OBJ:C:\Power\V2027\orthokis.pbl,w_rapport_ia,w
 OBJ:C:\Power\V2027\advguiobjects.pbd,n_cst_powerpanelheader_painter,u
 OBJ:C:\Power\V2027\advguicontrols.pbd,u_cst_toolbarstrip,u
 OBJ:C:\Power\V2027\advguiobjects.pbd,u_cst_tabstrip,u
@@ -1596,7 +1600,6 @@ OBJ:C:\Power\V2027\orthokis.pbl,dw_motif_fin_traitement,d
 OBJ:C:\Power\V2027\orthokis.pbl,w_clinique_type,w
 OBJ:C:\Power\V2027\gestionstock.pbl,dw_reference_produit_bague,d
 OBJ:C:\Power\V2027\orthokis.pbl,w_envoi_vers_ciel_classique_factures,w
-OBJ:C:\Power\V2027\orthokis.pbl,dw_rapport_ia,d
 OBJ:C:\Power\V2027\advguiobjects.pbd,d_powerfilter_warn,d
 OBJ:C:\Power\V2027\ihm.pbl,w_patience,w
 OBJ:C:\Power\V2027\ihm.pbl,openmenupatient_listes,f
@@ -1655,6 +1658,7 @@ OBJ:C:\Power\V2027\editions.pbl,dw_tableau_bord_mensu_remises_mois,d
 OBJ:C:\Power\V2027\orthokis.pbl,dw_specialites_cabinet_liste,d
 OBJ:C:\Power\V2027\orthokis.pbl,dw_utilisateur_liste,d
 OBJ:C:\Power\V2027\gestionstock.pbl,w_maj_stock_produit,w
+OBJ:C:\Power\V2027\orthokis.pbl,dw_ia_transcription,d
 OBJ:C:\Power\V2027\advguiobjects.pbd,coloradjustment,s
 OBJ:C:\Power\V2027\orthokis.pbl,fxg_fenetre_sauver_positions,f
 OBJ:C:\Power\V2027\orthokis.pbl,verif_bullzip_printer,f

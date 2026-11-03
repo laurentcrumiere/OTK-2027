@@ -14,8 +14,7 @@ global type w_ia_bi from w_fenetre_arakis
 integer width = 2610
 integer height = 1384
 string title = "Demandez à Adent ..."
-windowtype windowtype = child!
-string icon = "lc_ia_bi.png"
+windowtype windowtype = popup!
 boolean clientedge = true
 boolean center = true
 cb_fermer cb_fermer

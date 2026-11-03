@@ -3485,8 +3485,9 @@ on m_adent.create
 call super::create
 this.tag = "group:Adent;size:Large"
 this.visible = false
-this.text = "Adent"
-this.microhelp = "IA : Dictée Vocale"
+this.text = "Adent~tCtrl+I"
+this.shortcut = 329
+this.microhelp = "Transcription Vocale"
 this.toolbaritemname = "lc_ia_vocale.png"
 this.menutextcolor = 134217735
 this.menubackcolor = 134217732
@@ -22195,7 +22196,7 @@ on m_businessintelligence.create
 call super::create
 this.tag = "size:large;quickaccess:TRUE"
 this.text = "Adent"
-this.microhelp = "Adent : Business Intelligence"
+this.microhelp = "Assistant Numérique"
 this.toolbaritemname = "lc_ia_bi.png"
 this.menutextcolor = 134217735
 this.menubackcolor = 134217732

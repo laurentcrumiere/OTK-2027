@@ -290,7 +290,7 @@ end if
 
 if partie[17] then
 	uo_liste_bouton.of_AddItem("", "lc_ia_vocale.png", "17")
-	ToolTips[upperbound(ToolTips) + 1] = "Adent : Dictée Vocale"
+	ToolTips[upperbound(ToolTips) + 1] = "Adent : Transcription Vocale"
 end if
 
 integer dernier 

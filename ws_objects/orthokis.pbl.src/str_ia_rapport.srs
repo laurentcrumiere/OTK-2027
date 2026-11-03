@@ -1,0 +1,8 @@
+﻿$PBExportHeader$str_ia_rapport.srs
+global type str_ia_rapport from structure
+	double		code_patient
+	string		json_ia_complet
+	string		fichier_audio
+	string		transcription
+end type
+

@@ -155,6 +155,7 @@ OBJ:C:\Power\V2027\gestionstock.pbd,dw_table_fournisseur_liste_edition,d
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_produit_liste_recherche,d
 OBJ:C:\Power\V2027\gestionstock.pbd,openmenuproduit_liste_reference,f
 OBJ:C:\Power\V2027\expl_media.pbd,dw_types_images,d
+OBJ:C:\Power\V2027\orthokis.pbd,str_ia_rapport,s
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,trivertex,s
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,u_cst_toolbarmenu,u
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,strgroupbox,s
@@ -341,6 +342,7 @@ OBJ:C:\Power\V2027\gestionstock.pbd,dw_impr_liste_produit,d
 OBJ:C:\Power\V2027\orthokis.pbd,w_patient_archivage_multiple,w
 OBJ:C:\Power\V2027\orthokis.pbd,dw_numeros_moulages_inutilises,d
 OBJ:C:\Power\V2027\orthokis.pbd,fxg_transcription_envoyer,f
+OBJ:C:\Power\V2027\orthokis.pbd,w_ia_rapport,w
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,w_powerdockdocumentselector,w
 OBJ:c:\power\v2027\salle_attente\advguibase2.pbl,w_ribbonwindow_advanced,w
 OBJ:C:\Power\V2027\editions.pbd,w_email_choix_adr_pat,w
@@ -871,6 +873,7 @@ OBJ:C:\Power\V2027\gestionstock.pbd,w_reference_bague,w
 OBJ:C:\Power\V2027\gestionstock.pbd,w_liste_produit_stock_insuffisant,w
 OBJ:C:\Power\V2027\pda.pbd,w_synchronisation,w
 OBJ:C:\Power\V2027\orthokis.pbd,dw_doctolib_statut,d
+OBJ:C:\Power\V2027\orthokis.pbd,dw_ia_autres,d
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,u_cst_ribbonmenuadvanced,u
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,nmcustomdrawinfo,s
 OBJ:C:\Power\V2027\orthokis.pbd,jour_et_mois_francais,f
@@ -959,6 +962,7 @@ OBJ:C:\Power\V2027\gestionstock.pbd,dw_table_fournisseur_liste,d
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_reference_produit_fiche,d
 OBJ:C:\Power\V2027\orthokis.pbd,w_planification,w
 OBJ:C:\Power\V2027\orthokis.pbd,w_export_patient,w
+OBJ:C:\Power\V2027\orthokis.pbd,dw_ia_rapport,d
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,toolinfo,s
 OBJ:C:\Power\V2027\orthokis.pbd,uo_document_a_signer,u
 OBJ:C:\Power\V2027\orthokis.pbd,dw_patient_fiche_dates,d
@@ -1017,6 +1021,7 @@ OBJ:C:\Power\V2027\orthokis.pbd,dw_numeros_moulages_inter,d
 OBJ:C:\Power\V2027\orthokis.pbd,w_email_choix_pj,w
 OBJ:C:\Power\V2027\clinique.pbd,w_diagnos_maj_standard,w
 OBJ:C:\Power\V2027\editions.pbd,w_courriers_word_patient,w
+OBJ:C:\Power\V2027\orthokis.pbd,dw_ia_dep,d
 OBJ:C:\Power\V2027\orthokis.pbd,appel_palette,f
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,m_powerdocktabmenu,m
 OBJ:C:\Power\V2027\orthokis.pbd,fxg_premier_plan,f
@@ -1092,6 +1097,7 @@ OBJ:C:\Power\V2027\gestionstock.pbd,dw_lieu_liste,d
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_reception_basic_data,d
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_select_produit,d
 OBJ:C:\Power\V2027\pda.pbd,rdv_outlook,s
+OBJ:C:\Power\V2027\orthokis.pbd,dw_ia_transcription,d
 OBJ:C:\Power\V2027\orthokis.pbd,zeroi,f
 OBJ:C:\Power\V2027\ihm.pbd,placer_image_fond,f
 OBJ:C:\Power\V2027\orthokis.pbd,son,f
@@ -1194,7 +1200,6 @@ OBJ:C:\Power\V2027\gestionstock.pbd,dw_impr_liste_fournisseur_achat,d
 OBJ:C:\Power\V2027\expl_media.pbd,w_temps_traitement,w
 OBJ:C:\Power\V2027\orthokis.pbd,dw_prati_imprimantes,d
 OBJ:C:\Power\V2027\expl_media.pbd,gearbox_speciale_diag,u
-OBJ:C:\Power\V2027\orthokis.pbd,str_rapport_ia,s
 OBJ:C:\Power\V2027\ihm.pbd,init_fonds_et_boutons,f
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,n_cst_ribbon_tooltip,u
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,n_ribbonwindow_advanced,u
@@ -1349,6 +1354,7 @@ OBJ:C:\Power\V2027\gestionstock.pbd,str_format_planche,s
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_fournisseur_produit_basic_data,d
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_reference_produit_fiche_ajout,d
 OBJ:C:\Power\V2027\gestionstock.pbd,w_liste_produit_reference,w
+OBJ:C:\Power\V2027\orthokis.pbd,dw_ia_diag,d
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,n_cst_generic_timer,u
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,u_cst_tabstripnavigate,u
 OBJ:C:\Power\V2027\orthokis.pbd,gfx_creer_rep,f
@@ -1379,7 +1385,6 @@ OBJ:C:\Power\V2027\editions.pbd,dw_liste_historique_appels,d
 OBJ:C:\Power\V2027\clinique_perso.pbd,w_liste_patients_auneau,w
 OBJ:C:\Power\V2027\orthokis.pbd,w_commentaire_image,w
 OBJ:C:\Power\V2027\gestionstock.pbd,m_btdroit_liste_produit,m
-OBJ:C:\Power\V2027\orthokis.pbd,w_rapport_ia,w
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,d_powerfilter_pictureparm,d
 OBJ:C:\Power\V2027\ihm.pbd,majtabpatientscourants,f
 OBJ:C:\Power\V2027\orthokis.pbd,fxg_envoi_email_libre,f
@@ -1645,7 +1650,6 @@ OBJ:C:\Power\V2027\gestionstock.pbd,get_next_code_produit,f
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_modif_sortie,d
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_impr_liste_patient_traca_periode,d
 OBJ:C:\Power\V2027\orthokis.pbd,w_fauteuils,w
-OBJ:C:\Power\V2027\orthokis.pbd,dw_rapport_ia,d
 OBJ:C:\Power\V2027\ihm.pbd,u_color_bar,u
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,u_cst_tabstrip,u
 OBJ:C:\Power\V2027\editions.pbd,uo_email_compte,u

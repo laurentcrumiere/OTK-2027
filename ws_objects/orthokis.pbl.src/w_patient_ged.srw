@@ -306,15 +306,6 @@ tot = dw.rowcount()
 trace(string(tot) + " lignes à mettre à jour")
 
 
-//for lig = 1 to tot
-//	
-//	if string_non_nulle(dw.getItemString( lig, "codes_editions_module")) <> "" then
-//		dw.SetItem( lig, "codes_editions_module", dir_ini + "Boutons - Fonds\" + dw.getItemString( lig, "codes_editions_module") )
-//	end if
-//
-//next
-//
-
 for lig = 1 to tot
 	
 	s_module = lower(string_non_nulle(dw.getItemString( lig, "codes_editions_module") ))
@@ -325,6 +316,8 @@ for lig = 1 to tot
 			// on va essayer de le déduire , utile pour les Word, pdf ou email qu'on envoi
 			s_extention = upper(gfx_extraire_extension_fichier(dw.getItemString( lig, "historique_editions_nom_courrier")))
 			
+			
+			// Les fichiers gif doivent être dans le sous dossier "Boutons - Fonds"
 			choose case s_extention
 				case "DOC", "DOCX"
 					s_module = "lc_winword.gif"
@@ -332,6 +325,8 @@ for lig = 1 to tot
 					s_module = "lc_mail.gif"
 				case "PDF"
 					s_module = "lc_pdf.gif"
+				case "WAV", "MP3"
+					s_module = "lc_sons.gif"
 				case else
 					s_module = ""
 			end choose
