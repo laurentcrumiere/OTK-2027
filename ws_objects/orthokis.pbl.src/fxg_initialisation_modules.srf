@@ -143,7 +143,10 @@ else
 		// OPTIONS LUES EN DYNAMIQUE 
 		//**********************************************************************************************************
 		
-		open(w_initialisation_modules_dynamiques)
+		// L'initialisation des options dynamiques pose soucis dans la salle d'attente indépendante et ne sont pas utiles
+		if not SALLE_ATTENTE_INDEPENDANTE then 
+			open(w_initialisation_modules_dynamiques)
+		end if
 		
 	end if
 end if

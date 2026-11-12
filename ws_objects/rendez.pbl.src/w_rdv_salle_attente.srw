@@ -1670,12 +1670,13 @@ if SALLE_ATTENTE_INDEPENDANTE then
 end if
 
 
+if not salle_attente_parametrable then 
+	dw_liste.object.date_t.text = "H"
+	dw_liste.object.date_t.x = 82
+	dw_liste.object.date_t.width = 91
 
-dw_liste.object.date_t.text = "H"
-dw_liste.object.date_t.x = 82
-dw_liste.object.date_t.width = 91
-
-dw_liste.object.patient_couleur1_t.visible = 1
+	dw_liste.object.patient_couleur1_t.visible = 1
+end if
 	
 
 end event

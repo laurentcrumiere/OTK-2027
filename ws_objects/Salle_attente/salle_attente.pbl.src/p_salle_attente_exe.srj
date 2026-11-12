@@ -1,6 +1,7 @@
 ﻿$PBExportHeader$p_salle_attente_exe.srj
 $PBExportComments$Generated Application Executable Project
-EXE:salle_attente.exe,,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.0.0.3726
+EXE:salle_attente.exe,,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.1.0.6464
+EXT:0
 CMP:0,0,0,2,0,0,1
 COM:ARAKIS - Groupe Dentalsoft
 DES:Salle d'Attente Orthokis 2026 - Gestion de Cabinet d'Orthodontie
@@ -10,7 +11,7 @@ PVS:2026
 PVN:2025,0,0,1
 FVS:36
 FVN:2026,0,0,1
-MAN:0,asInvoker,0
+MAN:0,asInvoker,0,0,0,0,0,0,,0,0,,0,,,,SHA256,http://timestamp.digicert.com,
 PBD:salle_attente.pbl,,0
 PBD:..\orthokis.pbd,..\orthokis.pbr,1
 PBD:..\agenda.pbd,,1
@@ -341,7 +342,6 @@ OBJ:C:\Power\V2027\gestionstock.pbd,dw_reception_livraison_data,d
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_impr_liste_produit,d
 OBJ:C:\Power\V2027\orthokis.pbd,w_patient_archivage_multiple,w
 OBJ:C:\Power\V2027\orthokis.pbd,dw_numeros_moulages_inutilises,d
-OBJ:C:\Power\V2027\orthokis.pbd,fxg_transcription_envoyer,f
 OBJ:C:\Power\V2027\orthokis.pbd,w_ia_rapport,w
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,w_powerdockdocumentselector,w
 OBJ:c:\power\v2027\salle_attente\advguibase2.pbl,w_ribbonwindow_advanced,w

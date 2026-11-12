@@ -1,20 +1,21 @@
 ﻿$PBExportHeader$envoi_soins_erasme.srj
-EXE:envoi_soins_erasme.exe,,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.0.0.3726
+EXE:envoi_soins_erasme.exe,,0,1,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.1.0.6464
+EXT:0
 CMP:0,0,0,2,0,0,1
-COM:ARAKIS - Groupe Dentalsoft
+COM:Dentalsoft
 DES:Envoi de soins
-CPY:(c) 1985-2025 ARAKIS
+CPY:(c) 1985-2027 Dentalsoft
 PRD:Envoi de soins Erasme
-PVS:2025
-PVN:2025,0,0,1
-FVS:2025
-FVN:2025,0,0,1
-MAN:0,asInvoker,0
+PVS:2027
+PVN:2027,0,0,1
+FVS:2027
+FVN:2027,0,0,1
+MAN:0,asInvoker,0,0,0,0,0,0,,0,0,,0,,,,SHA256,http://timestamp.digicert.com,
 PBD:envoi_soins_erasme.pbl,,0
-OBJ:c:\power\v2026\envoi_soins_erasme.pbl,dw_erasme_liste_soins_export,d
-OBJ:c:\power\v2026\envoi_soins_erasme.pbl,dw_erasme_liste_soins,d
-OBJ:c:\power\v2026\envoi_soins_erasme.pbl,zero,f
-OBJ:C:\Power\V2026\envoi_soins_erasme.pbl,envoi_soins_erasme,a
-OBJ:c:\power\v2026\envoi_soins_erasme.pbl,zeroi,f
-OBJ:c:\power\v2026\envoi_soins_erasme.pbl,w_envoi_soins_erasme,w
-OBJ:c:\power\v2026\envoi_soins_erasme.pbl,w_patience,w
+OBJ:c:\power\v2027\envoi_soins_erasme.pbl,w_envoi_soins_erasme,w
+OBJ:c:\power\v2027\envoi_soins_erasme.pbl,zero,f
+OBJ:c:\power\v2027\envoi_soins_erasme.pbl,dw_erasme_liste_soins,d
+OBJ:c:\power\v2027\envoi_soins_erasme.pbl,zeroi,f
+OBJ:C:\Power\V2027\envoi_soins_erasme.pbl,envoi_soins_erasme,a
+OBJ:c:\power\v2027\envoi_soins_erasme.pbl,w_patience,w
+OBJ:c:\power\v2027\envoi_soins_erasme.pbl,dw_erasme_liste_soins_export,d

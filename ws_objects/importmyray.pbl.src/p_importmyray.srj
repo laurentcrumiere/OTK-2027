@@ -1,27 +1,28 @@
 ﻿$PBExportHeader$p_importmyray.srj
-EXE:importmyray.exe,,0,1,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.0.0.3726
+EXE:importmyray.exe,,0,1,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.1.0.6464
+EXT:0
 CMP:0,0,0,2,0,0,1
-COM:ARAKIS - Groupe Dentalsoft
+COM:DentalSoft
 DES:Importation Radios Myray
-CPY:(c) 1985-2025 ARAKIS
+CPY:(c) 1985-2027 DentalSoft
 PRD:Importation Radios Myray
-PVS:2025
-PVN:2025,0,0,1
-FVS:2025
-FVN:2025,0,0,1
-MAN:0,asInvoker,0
+PVS:2027
+PVN:2027,0,0,1
+FVS:2027
+FVN:2027,0,0,1
+MAN:0,asInvoker,0,0,0,0,0,0,,0,0,,0,,,,SHA256,http://timestamp.digicert.com,
 PBD:importmyray.pbl,,0
-OBJ:c:\power\v2026\importmyray.pbl,centrer,f
-OBJ:c:\power\v2026\importmyray.pbl,gfx_extraire_nom_fichier,f
-OBJ:c:\power\v2026\importmyray.pbl,importmyray,a
-OBJ:c:\power\v2026\importmyray.pbl,gfx_fichier_sans_extension,f
-OBJ:c:\power\v2026\importmyray.pbl,colore_datawindow,f
-OBJ:c:\power\v2026\importmyray.pbl,num_nom_photo,f
-OBJ:c:\power\v2026\importmyray.pbl,w_main,w
-OBJ:c:\power\v2026\importmyray.pbl,gfx_extraire_extension_fichier,f
-OBJ:c:\power\v2026\importmyray.pbl,uo_exif_jhead,u
-OBJ:c:\power\v2026\importmyray.pbl,get_nom_prochain_cadre_image,f
-OBJ:C:\Power\V2026\importmyray.pbl,importmyray,a
-OBJ:c:\power\v2026\importmyray.pbl,deduire_date_image,f
-OBJ:c:\power\v2026\importmyray.pbl,proposition_temps_traitement,f
-OBJ:c:\power\v2026\importmyray.pbl,dw_affectations_type_temps_image,d
+OBJ:c:\power\v2027\importmyray.pbl,w_main,w
+OBJ:c:\power\v2027\importmyray.pbl,importmyray,a
+OBJ:c:\power\v2027\importmyray.pbl,proposition_temps_traitement,f
+OBJ:c:\power\v2027\importmyray.pbl,gfx_extraire_nom_fichier,f
+OBJ:c:\power\v2027\importmyray.pbl,gfx_extraire_extension_fichier,f
+OBJ:c:\power\v2027\importmyray.pbl,deduire_date_image,f
+OBJ:c:\power\v2027\importmyray.pbl,gfx_fichier_sans_extension,f
+OBJ:c:\power\v2027\importmyray.pbl,centrer,f
+OBJ:c:\power\v2027\importmyray.pbl,num_nom_photo,f
+OBJ:c:\power\v2027\importmyray.pbl,get_nom_prochain_cadre_image,f
+OBJ:C:\Power\V2027\importmyray.pbl,importmyray,a
+OBJ:c:\power\v2027\importmyray.pbl,uo_exif_jhead,u
+OBJ:c:\power\v2027\importmyray.pbl,colore_datawindow,f
+OBJ:c:\power\v2027\importmyray.pbl,dw_affectations_type_temps_image,d

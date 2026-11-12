@@ -135,7 +135,7 @@ public subroutine traiter (string as_fichier_vocal);// Si renseigné, on mémori
 String ls_json_complet, ls_err
 string ls_transcription
 
-if fxg_transcription_envoyer(as_fichier_vocal, ls_json_complet, ls_err, st_status_magic_lemp, ls_transcription) = 1 then
+//if fxg_transcription_envoyer(as_fichier_vocal, ls_json_complet, ls_err, st_status_magic_lemp, ls_transcription) = 1 then
 	st_status_magic_lemp.visible = false
 	str_ia_rapport lstr_ia_rapport
 	lstr_ia_rapport.code_patient = var_code_locale
@@ -151,9 +151,9 @@ if fxg_transcription_envoyer(as_fichier_vocal, ls_json_complet, ls_err, st_statu
 
 
 	openWithParm(w_ia_rapport, lstr_ia_rapport)
-else
-	MessageBox("Erreur dans la Transcription", ls_err, StopSign!)
-end if
+//else
+//	MessageBox("Erreur dans la Transcription", ls_err, StopSign!)
+//end if
 
 end subroutine
 

@@ -2,12 +2,9 @@ Save Format v3.0(19990112)
 @begin Targets
  0 "orthokis.pbt";
  1 "borne.pbt";
- 2 "..\\Maj_bd_pwo\\V2027\\majbd.pbt";
- 3 "Util\\anonymisation.pbt";
- 4 "Salle_attente\\salle_attente.pbt";
- 5 "Maj60\\maj60.pbt";
- 6 "..\\Tests\\emailxv.pbt";
+ 2 "Salle_attente\\salle_attente.pbt";
+ 3 "..\\Maj_bd_pwo\\V2027\\majbd.pbt";
 @end;
-DefaultTarget "orthokis.pbt";
+DefaultTarget "Salle_attente\\salle_attente.pbt";
 DefaultExportEncode "UTF-8";
-DefaultRemoteTarget "orthokis.pbt";
+DefaultRemoteTarget "Salle_attente\\salle_attente.pbt";

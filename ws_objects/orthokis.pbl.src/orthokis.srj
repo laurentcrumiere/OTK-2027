@@ -1,19 +1,20 @@
 ﻿$PBExportHeader$orthokis.srj
-EXE:orthokis.exe,orthokis.pbr,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.0.0.3726
+EXE:orthokis.exe,orthokis.pbr,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.1.0.6464
+EXT:0
 CMP:0,0,0,2,0,0,1
-COM:Dentalsoft
+COM:DentalSoft
 DES:Orthokis 2027 - Gestion de Cabinet d'Orthodontie
-CPY:(c) ARAKIS 1987-2027
+CPY:(c) DentalSoft 1987-2027
 PRD:Orthokis 2027
 PVS:2027
 PVN:2027,0,0,0
 FVS:37
 FVN:2027,0,0,0
-MAN:0,asInvoker,0
+MAN:0,asInvoker,0,0,0,0,0,0,,0,0,,0,,,,SHA256,http://timestamp.digicert.com,
 PBD:orthokis.pbl,orthokis.pbr,1
 PBD:agenda.pbl,,1
 PBD:clinique.pbl,,1
-PBD:clinique_perso.pbd,,1
+PBD:clinique_perso.pbd,clinique_perso.pbr,1
 PBD:cti.pbl,,1
 PBD:editions.pbl,,1
 PBD:expl_media.pbl,,1
@@ -270,7 +271,6 @@ OBJ:C:\Power\V2027\orthokis.pbl,w_mises_en_evidence,w
 OBJ:C:\Power\V2027\orthokis.pbl,w_jours_interdits,w
 OBJ:C:\Power\V2027\gestionstock.pbl,dw_reception_livraison_data,d
 OBJ:C:\Power\V2027\orthokis.pbl,w_numeros_moulages_inutilises,w
-OBJ:C:\Power\V2027\orthokis.pbl,fxg_transcription_envoyer,f
 OBJ:C:\Power\V2027\orthokis.pbl,str_ia_rapport,s
 OBJ:C:\Power\V2027\clinique_perso.pbd,pages_cliniques_mdi_patient,f
 OBJ:C:\Power\V2027\orthokis.pbl,paintstruct,s

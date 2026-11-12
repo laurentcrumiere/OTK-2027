@@ -194,6 +194,8 @@ partie[16] =  m_orthokis_2020.m_patients.m_miseàjour.enabled
 // IA Vocale
 if SERIAL = "88052" then 
 	partie[17] = true
+else
+	partie[17] = false
 end if
 
 // On passe en 3ème argument la partie de mdi à ouvrir

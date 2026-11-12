@@ -1042,8 +1042,8 @@ end type
 type p_orthokis from picture within tabpage_licence
 integer x = 663
 integer y = 1224
-integer width = 1817
-integer height = 358
+integer width = 1815
+integer height = 360
 string picturename = "logo_orthokis.png"
 boolean focusrectangle = false
 end type
@@ -2591,7 +2591,7 @@ type p_1 from picture within w_about
 integer x = 91
 integer y = 172
 integer width = 1074
-integer height = 226
+integer height = 228
 boolean bringtotop = true
 string picturename = "logo_dentalsoft.png"
 boolean focusrectangle = false
@@ -2621,7 +2621,7 @@ end event
 type st_16 from statictext within w_about
 integer x = 1655
 integer y = 296
-integer width = 1019
+integer width = 1207
 integer height = 56
 boolean bringtotop = true
 integer textsize = -8
@@ -2632,7 +2632,7 @@ fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 33554432
 long backcolor = 16777215
-string text = "Tél : +33 4 75 78 50 70 - planete@arakis.fr"
+string text = "Tél : +33 4 75 78 50 70 - assistance@dentalsoft.fr"
 alignment alignment = center!
 boolean focusrectangle = false
 end type

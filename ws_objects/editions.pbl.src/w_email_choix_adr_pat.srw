@@ -1290,7 +1290,7 @@ end if
 
 if id_patient = 0 then
 	// pour dire qu'on est OK en cas d'emailing
-	a_adr = "planete@arakis.fr"
+	a_adr = "assistance@dentalsoft.fr"
 end if
 
 

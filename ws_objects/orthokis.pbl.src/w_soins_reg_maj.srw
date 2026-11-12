@@ -948,6 +948,10 @@ if dw_soins.rowcount() > 0 then
 	if tab_1.tabpage_reglements.dw_reglements.rowcount() > 0 then
 		tab_1.tabpage_reglements.dw_reglements.Setrow(tab_1.tabpage_reglements.dw_reglements.rowcount())
 	end if
+else
+	// Plus de ligne de soins
+	tab_1.tabpage_reglements.dw_reglements.reset()
+	dw_detail.reset()
 end if
 
 

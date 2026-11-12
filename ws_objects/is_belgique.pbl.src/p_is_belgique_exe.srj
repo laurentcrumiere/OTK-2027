@@ -1,8 +1,9 @@
 ﻿$PBExportHeader$p_is_belgique_exe.srj
 $PBExportComments$Generated Application Executable Project
-EXE:is_belgique.exe,,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.0.0.3726
+EXE:is_belgique.exe,,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.1.0.6464
+EXT:0
 CMP:0,0,0,2,0,0,1
-COM:Appeon
+COM:DentalSoft
 DES:Appeon Product File
 CPY:
 PRD:PowerBuilder Enterprise Series
@@ -10,8 +11,8 @@ PVS:1.0.0.1
 PVN:1,0,0,1
 FVS:1.0.0.1
 FVN:1,0,0,1
-MAN:0,asInvoker,0
+MAN:0,asInvoker,0,0,0,0,0,0,,0,0,,0,,,,SHA256,http://timestamp.digicert.com,
 PBD:is_belgique.pbl,,0
-OBJ:c:\power\v2026\is_belgique.pbl,n_is_belgique_connectservice,u
-OBJ:C:\Power\V2026\is_belgique.pbl,is_belgique,a
-OBJ:c:\power\v2026\is_belgique.pbl,hasp,u
+OBJ:c:\power\v2027\is_belgique.pbl,n_is_belgique_connectservice,u
+OBJ:c:\power\v2027\is_belgique.pbl,hasp,u
+OBJ:C:\Power\V2027\is_belgique.pbl,is_belgique,a

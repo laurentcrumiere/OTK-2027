@@ -1,5 +1,6 @@
 ﻿$PBExportHeader$p_borne.srj
-EXE:borne.exe,borne.pbr,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.0.0.3726
+EXE:borne.exe,borne.pbr,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.1.0.6464
+EXT:0
 CMP:0,0,0,2,0,0,1
 COM:ARAKIS - Groupe Dentalsoft
 DES:Borne Salle d'Attente Orthokis
@@ -9,7 +10,7 @@ PVS:2026
 PVN:2026,0,0,0
 FVS:36
 FVN:2026,0,0,0
-MAN:0,asInvoker,0
+MAN:0,asInvoker,0,0,0,0,0,0,,0,0,,0,,,,SHA256,http://timestamp.digicert.com,
 PBD:borne.pbl,borne.pbr,0
 PBD:borne_commun.pbl,,0
 PBD:advguicontrols.pbl,,0

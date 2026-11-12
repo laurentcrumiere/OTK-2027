@@ -219,7 +219,7 @@ end if
 
 //ouverture de la dialogbox
 if GetFileOpenName("Fichier import Doctolib",file_path, file_name, "CSV" , "Fichiers CSV (*.csv),*.csv", init_dir) = 1 then
-	sle_fichier_import.text = file_path + file_name
+	sle_fichier_import.text = file_path 
 end if
 end event
 

@@ -274,8 +274,6 @@ if tab_1.tabpage_rapport.dw_rapport.getitemstring(1, "dep_aa_man_vertical") = "i
 	tab_1.tabpage_dep.dw_dep.SetItem(1, "infraclusion", "X")
 end if
 
-tab_1.tabpage_rapport.dw_rapport.getitemstring(1, "dep_cl_molaire") 
-
 // CLASSES DENTAIRES
  choose case tab_1.tabpage_rapport.dw_rapport.getitemstring(1, "dep_cl_molaire") 
 	 case "Cl. I"
@@ -611,18 +609,311 @@ end type
 
 event clicked;call super::clicked;if messagebox("ATTENTION", "Vous allez mettre à jour le dossier du patient avec les informations présentées.~n~nCette opération est irrémédiable.~n~nConfirmez-vous ?", Question!, yesNo!, 2) = 1 then
 	
-	
+	open(w_patience)
 	string ls_dossier_patient, ls_nom_fichier_patient, ls_nom_fichier_patient_complet
 	boolean lb_var_suite
 	integer li_id_categorie
 	
 	// Diagnostiques 
-	string 	ls_diagsquelettique
+	string 	ls_traitement_effectue_html, ls_diag_alveolaire_html, ls_diag_dentaire_html,  ls_plan_traitement_html, ls_plan_complement_html, ls_diag_fonctionnel_html
+	string ls_duree_traitement, ls_duree_traitement_unite
+	string 	ls_traitement_effectue,  ls_plan_traitement
+	string ls_extraction, ls_dents_soins, ls_plan_imprime
 	
-	//ls_diagsquelettique = dw_rapport.getitemstring(1, "diagsquelettique")
+	// Zones textes
+	ls_traitement_effectue_html = tab_1.tabpage_diag.dw_diag.getitemstring(1, "traitement_effectue_html")
+	ls_diag_alveolaire_html = tab_1.tabpage_diag.dw_diag.getitemstring(1, "diag_alveolaire_html")
+	ls_diag_dentaire_html = tab_1.tabpage_diag.dw_diag.getitemstring(1, "diag_dentaire_html")
+	ls_plan_traitement_html = tab_1.tabpage_diag.dw_diag.getitemstring(1, "plan_traitement_html")
+	ls_plan_complement_html = tab_1.tabpage_diag.dw_diag.getitemstring(1, "plan_complement_html")
+	ls_diag_fonctionnel_html = tab_1.tabpage_diag.dw_diag.getitemstring(1, "diag_fonctionnel_html")
+	
+	// Zones RTF
+	ls_traitement_effectue = string_To_Rtf(ls_traitement_effectue_html, couleur_noire, couleur_blanche)
+	ls_plan_traitement = string_To_Rtf(ls_plan_traitement_html, couleur_noire, couleur_blanche)
+
+	
+	
+	ls_duree_traitement = tab_1.tabpage_diag.dw_diag.getitemstring(1, "duree_traitement")
+	ls_duree_traitement_unite = tab_1.tabpage_diag.dw_diag.getitemstring(1, "duree_traitement_unite")
+	
+	ls_extraction = tab_1.tabpage_diag.dw_diag.getitemstring(1, "extraction")
+	ls_dents_soins = tab_1.tabpage_diag.dw_diag.getitemstring(1, "dents_soins")
+	ls_plan_imprime = tab_1.tabpage_diag.dw_diag.getitemstring(1, "plan_imprime")
+	
+	
+	// DEP
+	string ls_basal_max_pro, ls_basal_max_retro, ls_basal_max_endo, ls_basal_max_exo
+	string ls_basal_mand_pro, ls_basal_mand_retro, ls_basal_mand_endo, ls_basal_mand_exo
+	string ls_hypodivergence, ls_hyperdivergence
+
+	string ls_alveo_max_pro, ls_alveo_max_retro, ls_alveo_max_endo, ls_alveo_max_exo
+	string ls_alveo_mand_pro, ls_alveo_mand_retro, ls_alveo_mand_endo, ls_alveo_mand_exo
+	string ls_supraclusion, ls_infraclusion
+	
+	string ls_mol_cl1, ls_mol_cl2, ls_mol_cl3, ls_molaire
+	string ls_can_cl1, ls_can_cl2, ls_can_cl3, ls_canine
+
+	string ls_dento_max, ls_dento_dent, ls_occl_dte, ls_occl_gche, ls_occl_ant
+	string ls_surnum, ls_malposition, ls_agenesie, ls_facteur
+	string ls_commentaire, ls_dep_imprime
+
+	// BASALE MAXILLAIRE
+	ls_basal_max_pro = tab_1.tabpage_dep.dw_dep.getitemstring(1, "basal_max_pro")
+	ls_basal_max_retro = tab_1.tabpage_dep.dw_dep.getitemstring(1, "basal_max_retro")
+
+	ls_basal_max_endo = tab_1.tabpage_dep.dw_dep.getitemstring(1, "basal_max_endo")
+	ls_basal_max_exo = tab_1.tabpage_dep.dw_dep.getitemstring(1, "basal_max_exo")
+
+	
+	// BASALE MANDIBULE
+	ls_basal_mand_pro = tab_1.tabpage_dep.dw_dep.getitemstring(1, "basal_mand_pro")
+	ls_basal_mand_retro = tab_1.tabpage_dep.dw_dep.getitemstring(1, "basal_mand_retro")
+
+	ls_basal_mand_endo = tab_1.tabpage_dep.dw_dep.getitemstring(1, "basal_mand_endo")
+	ls_basal_mand_exo = tab_1.tabpage_dep.dw_dep.getitemstring(1, "basal_mand_exo")
+
+	ls_hypodivergence = tab_1.tabpage_dep.dw_dep.getitemstring(1, "hypodivergence")
+	ls_hyperdivergence = tab_1.tabpage_dep.dw_dep.getitemstring(1, "hyperdivergence")
+
+	// ALVEOLAIRE MAXILLAIRE
+	ls_alveo_max_pro = tab_1.tabpage_dep.dw_dep.getitemstring(1, "alveo_max_pro")
+	ls_alveo_max_retro = tab_1.tabpage_dep.dw_dep.getitemstring(1, "alveo_max_retro")
+
+	ls_alveo_max_endo = tab_1.tabpage_dep.dw_dep.getitemstring(1, "alveo_max_endo")
+	ls_alveo_max_exo = tab_1.tabpage_dep.dw_dep.getitemstring(1, "alveo_max_exo")
+
+	// ALVEOLAIRE MANDIBULE
+	ls_alveo_mand_pro = tab_1.tabpage_dep.dw_dep.getitemstring(1, "alveo_mand_pro")
+	ls_alveo_mand_retro = tab_1.tabpage_dep.dw_dep.getitemstring(1, "alveo_mand_retro")
+
+	ls_alveo_mand_endo = tab_1.tabpage_dep.dw_dep.getitemstring(1, "alveo_mand_endo")
+	ls_alveo_mand_exo = tab_1.tabpage_dep.dw_dep.getitemstring(1, "alveo_mand_exo")
+
+	ls_supraclusion = tab_1.tabpage_dep.dw_dep.getitemstring(1, "supraclusion")
+	ls_infraclusion = tab_1.tabpage_dep.dw_dep.getitemstring(1, "infraclusion")
+
+	// CLASSES DENTAIRES
+	
+	ls_mol_cl1 =  tab_1.tabpage_dep.dw_dep.GetItemString(1, "mol_cl1") 
+	ls_mol_cl2 =  tab_1.tabpage_dep.dw_dep.GetItemString(1, "mol_cl2")  
+	ls_mol_cl3 =  tab_1.tabpage_dep.dw_dep.GetItemString(1, "mol_cl3") 
+	ls_molaire =  tab_1.tabpage_dep.dw_dep.GetItemString(1, "molaire") 
+	
+	ls_can_cl1 =  tab_1.tabpage_dep.dw_dep.GetItemString(1, "can_cl1") 
+	ls_can_cl2 =  tab_1.tabpage_dep.dw_dep.GetItemString(1, "can_cl2")  
+	ls_can_cl3 =  tab_1.tabpage_dep.dw_dep.GetItemString(1, "can_cl3") 
+	ls_canine =  tab_1.tabpage_dep.dw_dep.GetItemString(1, "canine") 
+
+
+	// DEP AUTRES
+	ls_dento_max =  tab_1.tabpage_dep.dw_dep.GetItemString(1, "dento_max") 
+	ls_dento_dent =  tab_1.tabpage_dep.dw_dep.GetItemString(1, "dento_dent") 
+	ls_occl_dte =  tab_1.tabpage_dep.dw_dep.GetItemString(1, "occl_dte") 
+	ls_occl_gche =  tab_1.tabpage_dep.dw_dep.GetItemString(1, "occl_gche") 
+	ls_occl_ant =  tab_1.tabpage_dep.dw_dep.GetItemString(1, "occl_ant") 
+
+
+	ls_surnum =  tab_1.tabpage_dep.dw_dep.getitemstring(1, "surnum")
+	ls_malposition =  tab_1.tabpage_dep.dw_dep.getitemstring(1, "malposition")
+	ls_agenesie =  tab_1.tabpage_dep.dw_dep.getitemstring(1, "agenesie")
+	ls_facteur =  tab_1.tabpage_dep.dw_dep.getitemstring(1, "facteur")
+	
+	ls_commentaire =  tab_1.tabpage_dep.dw_dep.getitemstring(1, "commentaire")
+	ls_dep_imprime =  tab_1.tabpage_dep.dw_dep.getitemstring(1, "dep_imprime")
+
+		
+	//  ------------------------- Mises à jour de la base
+	
+	// Diag 
+	update patient set 
+	traitement_effectue_html = :ls_traitement_effectue_html, 
+	diag_alveolaire_html = :ls_diag_alveolaire_html, 
+	diag_dentaire_html = :ls_diag_dentaire_html,  
+	plan_traitement_html = :ls_plan_traitement_html, 
+	plan_complement_html = :ls_plan_complement_html, 
+	diag_fonctionnel_html = :ls_diag_fonctionnel_html, 
+	duree_traitement = :ls_duree_traitement, 
+	duree_traitement_unite = :ls_duree_traitement_unite ,
+	traitement_effectue = :ls_traitement_effectue, 
+	plan_traitement = :ls_plan_traitement, 
+	extraction = :ls_extraction, 
+	dents_soins = :ls_dents_soins, 
+	plan_imprime = :ls_plan_imprime
+	where code = :var_code_local ;
+	
+	if sqlca.sqlcode = 0 then 
+		commit ;
+	else
+		messagebox("ATTENTION", "Erreur dans la mise à jour des informations du Diagnotic !~n~n" + sqlca.sqlerrtext)
+		rollback ;
+	end if
+	
+	
+	// Eléments de la DEP
+	update patient set
+	basal_max_pro = :ls_basal_max_pro, 
+	basal_max_retro = :ls_basal_max_retro, 
+	basal_max_endo = :ls_basal_max_endo, 
+	basal_max_exo = :ls_basal_max_exo,
+	basal_mand_pro = :ls_basal_mand_pro, 
+	basal_mand_retro = :ls_basal_mand_retro, 
+	basal_mand_endo = :ls_basal_mand_endo, 
+	basal_mand_exo = :ls_basal_mand_exo,
+	hypodivergence = :ls_hypodivergence,
+	hyperdivergence = :ls_hyperdivergence,
+	alveo_max_pro = :ls_alveo_max_pro, 
+	alveo_max_retro = :ls_alveo_max_retro, 
+	alveo_max_endo = :ls_alveo_max_endo, 
+	alveo_max_exo = :ls_alveo_max_exo,
+	alveo_mand_pro = :ls_alveo_mand_pro, 
+	alveo_mand_retro = :ls_alveo_mand_retro, 
+	alveo_mand_endo = :ls_alveo_mand_endo, 
+	alveo_mand_exo = :ls_alveo_mand_exo,
+	supraclusion = :ls_supraclusion, 
+	infraclusion = :ls_infraclusion,
+	mol_cl1 = :ls_mol_cl1, 
+	mol_cl2 = :ls_mol_cl2, 
+	mol_cl3 = :ls_mol_cl3, 
+	molaire = :ls_molaire,
+	can_cl1 = :ls_can_cl1,
+	can_cl2 = :ls_can_cl2, 
+	can_cl3 = :ls_can_cl3, 
+	canine = :ls_canine,
+	dento_max = :ls_dento_max, 
+	dento_dent = :ls_dento_dent, 
+	occl_dte = :ls_occl_dte, 
+	occl_gche = :ls_occl_gche, 
+	occl_ant = :ls_occl_ant,
+	surnum = :ls_surnum, 
+	malposition = :ls_malposition, 
+	agenesie = :ls_agenesie, 
+	facteur = :ls_facteur,
+	commentaire = :ls_commentaire, 
+	dep_imprime = :ls_dep_imprime
+	
+		where code = :var_code_local ;
+	
+	if sqlca.sqlcode = 0 then 
+		commit ;
+	else
+		messagebox("ATTENTION", "Erreur dans la mise à jour des informations de la DEP !~n~n" + sqlca.sqlerrtext)
+		rollback ;
+	end if
+
+	
+	// AUTRES INFORMATION ... 
+	
+	string ls_contre_indic, ls_allergies
+	
+	
+	ls_allergies = string_non_nulle(tab_1.tabpage_autres.dw_autres.getitemstring(1, "allergies"))
+	
+	if ls_allergies <> "" then 
+		// S'il y a déjà une info, on l'ajoute !
+		select isnull(contre_indic, '') into :ls_contre_indic from patient where code = :var_code_local ;
+		
+		if ls_contre_indic <> "" then 
+			ls_contre_indic = ls_contre_indic + "~n~n"
+		end if
+		
+		ls_contre_indic = ls_contre_indic + ls_allergies
+		
+		update patient set contre_indic = :ls_contre_indic, alerte_contre_indic = 'O' where code = var_code_local ;
+		
+		
+		if sqlca.sqlcode = 0 then 
+			commit ;
+		else
+			messagebox("ATTENTION", "Erreur dans la mise à jour des Allergies (Contre Indications)  !~n~n" + sqlca.sqlerrtext)
+			rollback ;
+		end if
+		
+		
+	end if
+	
+	
+	string ls_remarques, ls_remarques_cliniques, ls_remarques_cliniques_html
+		
+	ls_remarques = string_non_nulle(tab_1.tabpage_autres.dw_autres.getitemstring(1, "remarques"))
+	
+	if ls_remarques <> "" then 
+		
+		// S'il y a déjà une info, on l'ajoute !
+		select isnull(remarques_cliniques, '') into :ls_remarques_cliniques_html from patient where code = :var_code_local ;
+		
+		if ls_remarques_cliniques_html <> "" then 
+			ls_remarques_cliniques_html = ls_remarques_cliniques_html + "~n~n"
+		end if
+		
+		ls_remarques_cliniques = string_to_rtf(ls_remarques_cliniques_html, couleur_noire, couleur_blanche)
+		
+		
+		update patient set remarques_cliniques = :ls_remarques_cliniques, remarques_cliniques_html = :ls_remarques_cliniques_html where code = var_code_local ;
+		
+		
+		if sqlca.sqlcode = 0 then 
+			commit ;
+		else
+			messagebox("ATTENTION", "Erreur dans la mise à jour des la Remarques Cliniques  !~n~n" + sqlca.sqlerrtext)
+			rollback ;
+		end if
+		
+		
+	end if
 	
 	
 	
+	
+	// Motif de consultation => Commentaire clinique
+	string ls_motif_consultation, ls_motif_consultation_html, ls_com, ls_com_html, ls_acte_prevu, ls_acte_prevu_html
+	long ll_couleur_noire, ll_couleur_blanche
+	double v_code_interne_rdv
+	
+	ll_couleur_noire = couleur_noire
+	ll_couleur_blanche = couleur_blanche
+	
+	ls_motif_consultation_html = string_non_nulle(tab_1.tabpage_autres.dw_autres.getitemstring(1, "motifconsultation"))
+	ls_motif_consultation = string_to_rtf(ls_motif_consultation_html, ll_couleur_noire, ll_couleur_blanche)
+	
+	if ls_motif_consultation_html <> "" then 
+		
+			v_code_interne_rdv = fxg_rdv_pour_commentaire(var_code_local,datetime(today(), now()))
+		
+			insert into coment (code, dat, ordre, date_modif, user_modif, com, com_html, coul_texte, coul_fond, code_interne_rdv)
+			values (:var_code_local, cast(getdate() as date), 1, getdate(), :utilisateur_code , :ls_motif_consultation , :ls_motif_consultation_html, :ll_couleur_noire, :ll_couleur_blanche ) ;
+			
+			if sqlca.sqlcode = 0 then 
+				commit ;
+			else
+				messagebox("ATTENTION", "Erreur dans l'ajout du motif de consultation (Commentaire Clinique) !~n~n" + sqlca.sqlerrtext)
+				rollback ;
+			end if
+		
+		
+	end if
+	
+	// Motif de consultation => Commentaire clinique
+	 ls_com_html = string_non_nulle(tab_1.tabpage_autres.dw_autres.getitemstring(1, "commentaireclinique"))
+	 ls_com = string_to_rtf(ls_com_html, ll_couleur_noire, ll_couleur_blanche)
+	 ls_acte_prevu_html = string_non_nulle(tab_1.tabpage_autres.dw_autres.getitemstring(1, "prochaincomclinique"))
+	 ls_acte_prevu = string_to_rtf(ls_acte_prevu_html, ll_couleur_noire, ll_couleur_blanche)
+	
+	if ls_com_html <> "" or ls_acte_prevu_html <> "" then 
+			v_code_interne_rdv = fxg_rdv_pour_commentaire(var_code_local,datetime(today(), now()))
+		
+			insert into coment (code, dat, ordre, date_modif, user_modif, com, com_html, coul_texte, coul_fond, code_interne_rdv, acte_prevu, acte_prevu_html)
+			values (:var_code_local, cast(getdate() as date), 2, getdate(), :utilisateur_code , :ls_com , :ls_com_html, :ll_couleur_noire, :ll_couleur_blanche, :ls_acte_prevu, :ls_acte_prevu_html ) ;
+			
+			if sqlca.sqlcode = 0 then 
+				commit ;
+			else
+				messagebox("ATTENTION", "Erreur dans l'ajout du Commentaire Clinique !~n~n" + sqlca.sqlerrtext)
+				rollback ;
+			end if
+		
+	end if
+
 	
 	
 	// Mémorisation du fichier vocal
@@ -674,9 +965,13 @@ event clicked;call super::clicked;if messagebox("ATTENTION", "Vous allez mettre 
 		else
 			Setprofilestring(dir_ini+inifile_orthokis,"IA","sauvegarder_fichier_vocal","N") 
 		end if
+		
+		close(w_patience)
 else
 	cbx_memo_fichier_vocal.checked = false
 end if
+
+
 
 
 		
