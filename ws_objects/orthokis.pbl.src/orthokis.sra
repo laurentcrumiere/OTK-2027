@@ -1121,14 +1121,20 @@ Version = "2027 (36.90) du 15.10.2026"
 Version = "2027 (36.90) du 27.10.2026"
 Version = "2027 (36.90) du 28.10.2026"
 Version = "2027 (36.90) du 29.10.2026"
-Version = "2027 (36.90) du 10.11.2026"
+Version = "2027 (36.90) du 12.11.2026"
+Version = "2027 (36.90) du 18.11.2026"
 
 
 Version_ce_logiciel = "36.90"
 
 
 
-Version_base_autorisee = 2027		// Gérée dans w_mot_pass_acces 
+Version_base_autorisee = 2027 // Gérée dans w_mot_pass_acces 
+
+// Runtime Français
+if SetLanguage(French!) <> 1 then 
+	SetLanguage(English!)
+end if
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1154,10 +1160,10 @@ end if
 //commande_en_parametre = "TRACE"
 
 // Affichage de trace 
-if left(commande_en_parametre,5) = "TRACE" then
+if left(commande_en_parametre, 5) = "TRACE" then
 	TRACE = true
 	// Détection du niveau de tracae
-	if len(commande_en_parametre) > 5 then 
+	if len(commande_en_parametre) > 5 then
 		niveau_trace = integer(right(commande_en_parametre, len(commande_en_parametre) - 5))
 	else
 		niveau_trace = 0
@@ -1171,7 +1177,7 @@ end if
 // trace = true
 
 if TRACE then
-	if MessageBox("TRACE","Vous lancez le logiciel en mode TRACE !~n~nConfirmez-vous ?",Question!,YesNo!,2) = 2 then
+	if MessageBox("TRACE", "Vous lancez le logiciel en mode TRACE !~n~nConfirmez-vous ?", Question!, YesNo!, 2) = 2 then
 		TRACE = false
 	end if
 end if
@@ -1179,7 +1185,7 @@ end if
  
 
 // Ouverture automatique par programme externe 
-if left(commande_en_parametre,4) = "AUTO" then
+if left(commande_en_parametre, 4) = "AUTO" then
 	OUVERTURE_AUTOMATIQUE = true
 else
 	OUVERTURE_AUTOMATIQUE = false
@@ -1188,9 +1194,9 @@ end if
 //--------------------------------------------------------------------------------------------------------------------------
 
 
-string 	s
-date		dlocale
-String		poubelle, s_ip_externe, s_adresse_ip, s_adresse_mac, s_nom_du_poste
+string s
+date dlocale
+String poubelle, s_ip_externe, s_adresse_ip, s_adresse_mac, s_nom_du_poste
 
 //on sait jamais ! (si plantage de l'ordi à un moment non prévu ...)
 destroy h
@@ -1203,44 +1209,44 @@ couleur_fond_fenetre = 15780518
 
 
 // On va chercher le répertoire d'installation d'ORTHOkis
-RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Orthokis.exe","path",dir_ini)
+RegistryGet("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Orthokis.exe", "path", dir_ini)
 
 if dir_ini = '' or isnull(dir_ini) then
 	messagebox("ERREUR DE DEMARRAGE", "Sur cet ordinateur, le répertoire d'installation de ORTHOkis(r) est mal référencé dans le registre Windows.~nIl est nécessaire d'y remédier, merci.")
-	halt close	//fermeture du programme
+	halt close //fermeture du programme
 else
 	// Il faut prendre le premier chemin, avant le ";"
-	if pos(dir_ini,";") > 0 then
-		dir_ini = left(dir_ini, pos(dir_ini,";") - 1)
+	if pos(dir_ini, ";") > 0 then
+		dir_ini = left(dir_ini, pos(dir_ini, ";") - 1)
 	end if
 	dir_ini = dir_ini + "\"
 	
-	h = create hasp	//on crée l'objet HASP
+	h = create hasp //on crée l'objet HASP
 	
 	//on test si fichier de conf inifile_orthokis est bien présent, sinon message ...
 	if not FileExists(dir_ini + inifile_orthokis) then
 		messagebox("ERREUR DE DEMARRAGE", "Sur cet ordinateur, ORTHOkis(r) a rencontré une erreur d'initialisation.~n~nCauses possibles :~n*** Répertoire d'installation mal référencé dans le Registre Windows~n*** Absence du fichier ~"Orthokis.ini~" dans le répertoire d'installation~n~nIl est nécessaire d'y remédier, merci.")
-		halt close	//fermeture du programme
+		halt close //fermeture du programme
 	end if
 	
 	//h.grv()	//init VWrd[] pour HASP
 	
 end if
 
-string v_nom_trace 
+string v_nom_trace
 
 // on prépare le nom du fichier avant car 2 ouvertures possibles ensuite
-v_nom_trace = "\Trace_Orthokis - " + string(today(),"yy-mm-dd")+ "-" + string(now(),"hh-mm-ss") + ".txt"
+v_nom_trace = "\Trace_Orthokis - " + string(today(), "yy-mm-dd") + "-" + string(now(), "hh-mm-ss") + ".txt"
 
 if TRACE then
 	// Ouverture d'un fichier TRACE
-	Fichier_Trace = FileOpen(dir_ini + v_nom_trace  , LineMode! , Write!, LockWrite! , Replace!, EncodingANSI! )
+	Fichier_Trace = FileOpen(dir_ini + v_nom_trace, LineMode!, Write!, LockWrite!, Replace!, EncodingANSI!)
 end if
 
 Trace("**********************************************************")
 Trace("*                                  DEBUT DE TRACE")
 Trace("**********************************************************")
-Trace ("Build : " + version_ce_logiciel)
+Trace("Build : " + version_ce_logiciel)
 Trace("**********************************************************")
 
 //////////////////// pour les tests /////////////////////////////
@@ -1253,17 +1259,17 @@ Trace("**********************************************************")
 NO_HASP = FALSE
 
 // Depuis 2023 on ne maintient plus l'ancienne interface
-ui_v2020 = true		
+ui_v2020 = true
 
-open(w_patience_locale)
+open (w_patience_locale)
 
-if upper(profilestring(dir_ini+inifile_orthokis,"ARAKIS","sql_server","N")) = "O" then
-	SQL_Server= true
+if upper(profilestring(dir_ini + inifile_orthokis, "ARAKIS", "sql_server", "N")) = "O" then
+	SQL_Server = true
 else
-	SQL_Server= false
+	SQL_Server = false
 end if
 
-uo_infos_systeme  uo_infos
+uo_infos_systeme uo_infos
 uo_infos = create uo_infos_systeme
 
 s_ip_externe = fxg_get_ip_externe()
@@ -1277,16 +1283,16 @@ trace("- Nom du poste : " + s_nom_du_poste)
 
 
 //if upper(profilestring(dir_ini+inifile_orthokis,"ARAKIS","verifier_adresse_ip_arakis","N")) = "O" then
-	if s_ip_externe = "91.169.241.7" or s_ip_externe = "193.251.1.215" or s_ip_externe = "185.163.138.254" or s_ip_externe = "90.63.220.252" or s_ip_externe = "81.250.224.58"  or s_ip_externe = "185.147.67.35" or s_ip_externe = "46.18.224.156" or s_nom_du_poste = "LPVAL06" or s_nom_du_poste = "LPDIJ20" then 
-		// ip externes de Valence ou Dijon ou adresse mac de portable de laurent
-		trace("- IP externe ou PC Dentalsoft détecté => NO HASP")
-		NO_HASP = true
-	end if
+if s_ip_externe = "91.169.241.7" or s_ip_externe = "193.251.1.215" or s_ip_externe = "185.163.138.254" or s_ip_externe = "90.63.220.252" or s_ip_externe = "81.250.224.58" or s_ip_externe = "185.147.67.35" or s_ip_externe = "46.18.224.156" or s_nom_du_poste = "LPVAL06" or s_nom_du_poste = "LPDIJ20" then
+	// ip externes de Valence ou Dijon ou adresse mac de portable de laurent
+	trace("- IP externe ou PC Dentalsoft détecté => NO HASP")
+	NO_HASP = true
+end if
 //end if
 	
 
 if not NO_HASP then
-	if Profilestring(dir_ini+inifile_orthokis,"connexion","licence_logicielle","O") = "O"   then
+	if Profilestring(dir_ini + inifile_orthokis, "connexion", "licence_logicielle", "O") = "O" then
 	
 		NO_HASP = fxg_verif_licence_logicielle()
 		
@@ -1299,9 +1305,9 @@ end if
 
 // Pour le format des étiquettes
 fichier_formats_etiquettes = dir_ini + "etiquettes.ini"
-if not FileExists(fichier_formats_etiquettes) then 
+if not FileExists(fichier_formats_etiquettes) then
 	// recopie du fichier Sybase
-	FileCopy( dir_ini + "pblab115.ini", fichier_formats_etiquettes)
+	FileCopy(dir_ini + "pblab115.ini", fichier_formats_etiquettes)
 end if
 
 
@@ -1312,14 +1318,14 @@ Trace(". Open avant orthokis_ini_par_defaut()")
 orthokis_ini_par_defaut()
 
 
-if profilestring(dir_ini+inifile_orthokis,"UI_V2020","active","O") = "N" then
+if profilestring(dir_ini + inifile_orthokis, "UI_V2020", "active", "O") = "N" then
 	Messagebox("NOUVELLE INTERFACE", "L'ancienne interface (présente avant 2020) n'est plus disponible avec cette nouvelle version.~n~nOrthokis va donc s'ouvrir dans cette présentation beaucoup plus ergonomique !")
-	Setprofilestring(dir_ini+inifile_orthokis,"UI_V2020","active","O")
+	Setprofilestring(dir_ini + inifile_orthokis, "UI_V2020", "active", "O")
 end if
 
 
 Trace(". Open avanth.GAH()")
-h.GAH()	// init du hasp avec détection hasp M1 ou 4net
+h.GAH() // init du hasp avec détection hasp M1 ou 4net
 
 
 Trace(". Open avant charge_couleurs()")
@@ -1333,8 +1339,8 @@ init_fonds_et_boutons()
 
 
 // Initialisation des sons : partie 1
-tson[1] = profilestring(dir_ini+inifile_orthokis,"sons","son1","")	// Entrée du logiciel
-tson[2] = profilestring(dir_ini+inifile_orthokis,"sons","son2","")	// Sortie
+tson[1] = profilestring(dir_ini + inifile_orthokis, "sons", "son1", "") // Entrée du logiciel
+tson[2] = profilestring(dir_ini + inifile_orthokis, "sons", "son2", "") // Sortie
 
 // on met la date du jour
 // c un leurre
@@ -1342,27 +1348,27 @@ tson[2] = profilestring(dir_ini+inifile_orthokis,"sons","son2","")	// Sortie
 //h.ww(37,long(h.cd(today(),false)))
 
 // Initialisation des sons : partie 2
-tson[3] = profilestring(dir_ini+inifile_orthokis,"sons","son3","")	// Enregistrement d'un reglement
-tson[4] = profilestring(dir_ini+inifile_orthokis,"sons","son4","")	// Erreur de données
+tson[3] = profilestring(dir_ini + inifile_orthokis, "sons", "son3", "") // Enregistrement d'un reglement
+tson[4] = profilestring(dir_ini + inifile_orthokis, "sons", "son4", "") // Erreur de données
 
-close(w_patience_locale)
+close (w_patience_locale)
 
 // la fenêtre W_mot_passe_acces gère :
 // 	- l'init de la connection à la base ORTHOKIS
 // 	- le mode de connexion .. distant ou local
 // 	- la validation du USER et du mot de passe
-open(w_mot_passe_acces)
+open (w_mot_passe_acces)
 
 
 // Initialisation des sons : partie 3
-tson[5] = profilestring(dir_ini+inifile_orthokis,"sons","son5","")	// Alerte
-tson[6] = profilestring(dir_ini+inifile_orthokis,"sons","son6","")	// A propos de
-tson[7] = profilestring(dir_ini+inifile_orthokis,"sons","son7","")	// Suppression
-tson[8] = profilestring(dir_ini+inifile_orthokis,"sons","son8","")	// Réception d'un message interne
-if profilestring(dir_ini+inifile_orthokis,"sons","activer","") = "true" then avec_son = true
+tson[5] = profilestring(dir_ini + inifile_orthokis, "sons", "son5", "") // Alerte
+tson[6] = profilestring(dir_ini + inifile_orthokis, "sons", "son6", "") // A propos de
+tson[7] = profilestring(dir_ini + inifile_orthokis, "sons", "son7", "") // Suppression
+tson[8] = profilestring(dir_ini + inifile_orthokis, "sons", "son8", "") // Réception d'un message interne
+if profilestring(dir_ini + inifile_orthokis, "sons", "activer", "") = "true" then avec_son = true
 
 // Initialisation du "Rechercher par ..."
-rechercher_par = profileInt(dir_ini+inifile_orthokis,"recherche","rechercher_par",1)
+rechercher_par = profileInt(dir_ini + inifile_orthokis, "recherche", "rechercher_par", 1)
 
 // Initialisation de mode ocx global (quel OCX pour les Photo)
 // 1 -> Imagegear
@@ -1386,53 +1392,53 @@ Jour[7] = "Samedi"
 
 
 // Mise à jour du nom du logiciel connecté
-update param set clef_logiciel = 'Orthokis' ; 
-commit ;
+update param set clef_logiciel = 'Orthokis';
+commit;
 
 
 // test de mise à jour centralisée ou pas !!
 
 string v_maj_orthokis_centralisee, v_chemin_maj_orthokis_centralisee, v_version_logiciel
-string fichier_mise_a_jour 
+string fichier_mise_a_jour
 
 // Lecture de la monnaie de base ... et des symboles ... et autres dans la table PARAM 
-SELECT maj_orthokis_centralisee, isnull(chemin_maj_orthokis_centralisee,''), version_logiciel
-INTO :v_maj_orthokis_centralisee, :v_chemin_maj_orthokis_centralisee , :v_version_logiciel
-FROM "param"  ;
+SELECT maj_orthokis_centralisee, isnull(chemin_maj_orthokis_centralisee, ''), version_logiciel
+INTO :v_maj_orthokis_centralisee, :v_chemin_maj_orthokis_centralisee, :v_version_logiciel
+FROM "param";
 
 if v_maj_orthokis_centralisee = 'O' then
 	if v_chemin_maj_orthokis_centralisee = 'INITIALISATION' then
-		open(w_maj_centralisee_config)
+		open (w_maj_centralisee_config)
 	else
 		// y a un vrai chemin, on va voir s'il faut ou pas mettre à jour le soft
 		if trim(version_ce_logiciel) < trim(v_version_logiciel) then
 			// Il faut mettre à jour le logiciel ...
 			// Y a t il e fichier dispo ????
 			
-			fichier_mise_a_jour = trim(v_chemin_maj_orthokis_centralisee)+"Orthokis-maj-"+trim(v_version_logiciel)+".exe" 
+			fichier_mise_a_jour = trim(v_chemin_maj_orthokis_centralisee) + "Orthokis-maj-" + trim(v_version_logiciel) + ".exe"
 			
 			if FileExists(fichier_mise_a_jour) then
-				MessageBox("UNE MISE A JOUR EST NECESSAIRE","Orthokis vient de détecter qu'une mise à jour plus récente était disponible sur votre serveur.~n~nLe logiciel va donc s'arrêter et lancer automatiquement la procédure de mise à jour que nous vous invitons à réaliser jusqu'à son terme.")
-				run (fichier_mise_a_jour)
-				halt  ;
+				MessageBox("UNE MISE A JOUR EST NECESSAIRE", "Orthokis vient de détecter qu'une mise à jour plus récente était disponible sur votre serveur.~n~nLe logiciel va donc s'arrêter et lancer automatiquement la procédure de mise à jour que nous vous invitons à réaliser jusqu'à son terme.")
+				run(fichier_mise_a_jour)
+				halt;
 			else
-				MessageBox("UNE MISE A JOUR EST NECESSAIRE","Orthokis vient de détecter qu'une mise à jour d'Orthokis est nécessaire : ~n~n- Version actuelle de ce poste : " + string(version_ce_logiciel) + "~n- Version du cabinet : " + string(v_version_logiciel)+" ~n~nCependant, le fichier de mise à jour (" + fichier_mise_a_jour+") ne semble pas disponible.~n~nVous allez tout de même accéder au logiciel mais nous vous recommandons de réaliser une mise à jour au plus tôt.")
+				MessageBox("UNE MISE A JOUR EST NECESSAIRE", "Orthokis vient de détecter qu'une mise à jour d'Orthokis est nécessaire : ~n~n- Version actuelle de ce poste : " + string(version_ce_logiciel) + "~n- Version du cabinet : " + string(v_version_logiciel) + " ~n~nCependant, le fichier de mise à jour (" + fichier_mise_a_jour + ") ne semble pas disponible.~n~nVous allez tout de même accéder au logiciel mais nous vous recommandons de réaliser une mise à jour au plus tôt.")
 			end if
 		end if
 		
 		// Depuis 2018 on copie en automatique le fichier Orthokis.ini s'il n'existe pas
 		string v_fic_local, v_fic_destination
 		v_fic_local = dir_ini + "Orthokis.ini"
-		v_fic_destination = v_chemin_maj_orthokis_centralisee + "Orthokis-"+trim(get_nom_ordinateur())+".ini" 
+		v_fic_destination = v_chemin_maj_orthokis_centralisee + "Orthokis-" + trim(get_nom_ordinateur()) + ".ini"
 		if not FileExists(v_fic_destination) then
-			FileCopy(v_fic_local, v_fic_destination, true )
+			FileCopy(v_fic_local, v_fic_destination, true)
 		else
 			// Depuis 2020, on le copie automatique tous les 7 jours !
 			datetime v_file_datetime
-			v_file_datetime = fxg_get_file_date (v_fic_destination) 
-			if daysafter( date(v_file_datetime) , today()) >= 7 then
+			v_file_datetime = fxg_get_file_date(v_fic_destination)
+			if daysafter(date(v_file_datetime), today()) >= 7 then
 				// Trop vieux, on copie
-				FileCopy(v_fic_local, v_fic_destination, true )
+				FileCopy(v_fic_local, v_fic_destination, true)
 			end if
 		end if
 		
@@ -1440,14 +1446,14 @@ if v_maj_orthokis_centralisee = 'O' then
 	end if
 end if
 
-SERIAL = string(h.rns())	//lecture num série (codé ds num authenticité)
+SERIAL = string(h.rns()) //lecture num série (codé ds num authenticité)
 
 
 // =========================================================================== BUILD SUPERIEUR ET TRACE POUR NOUS
-if SERIAL = "87001" or SERIAL = "88005"  or SERIAL = "88036" or SERIAL = "88052" then
+if SERIAL = "87001" or SERIAL = "88005" or SERIAL = "88036" or SERIAL = "88052" then
 	// on regarde dans le .ini un build de test supérieur
 	string v_build
-	v_build = profilestring(dir_ini+inifile_orthokis,"arakis","build","") 
+	v_build = profilestring(dir_ini + inifile_orthokis, "arakis", "build", "")
 	if v_build > Version_ce_logiciel then
 		Version_ce_logiciel = v_build
 	end if
@@ -1455,9 +1461,9 @@ if SERIAL = "87001" or SERIAL = "88005"  or SERIAL = "88036" or SERIAL = "88052"
 end if
 
 // fichier d'aide
-fichier_aide_orthokis = dir_ini + "Orthokis_" + left(version,4) + ".chm"
+fichier_aide_orthokis = dir_ini + "Orthokis_" + left(version, 4) + ".chm"
 
-if not fileexists(fichier_aide_orthokis) then 
+if not fileexists(fichier_aide_orthokis) then
 	Messagebox("ATTENTION", "Impossible de localiser le fichier d'aide d'Orthokis !~n~n(" + fichier_aide_orthokis + ")")
 end if
 
@@ -1466,7 +1472,7 @@ end if
 double version_bd
 
 // Version de la base de données
-SELECT version_base INTO :version_bd FROM "param"  ;
+SELECT version_base INTO :version_bd FROM "param";
 
 
 if version_bd <> version_base_autorisee then
@@ -1478,28 +1484,28 @@ if version_bd <> version_base_autorisee then
 		v_libelle_mise_a_jour = "base de données"
 	else
 		v_libelle_mise_a_jour = "logiciel Orthokis"
-	end if	
+	end if
 
 	if utilisation_distante and replication then
 		
-		MessageBox("ERREUR DE VERSION DE BASE DE DONNEES","Votre base de données actuelle est en version "+string(version_bd)+".~n~nCette version d'ORTHOkis fonctionne avec une version "+string(version_base_autorisee)+".~n~nNous allons lancer une réplication pour synchroniser votre base de données.")
+		MessageBox("ERREUR DE VERSION DE BASE DE DONNEES", "Votre base de données actuelle est en version " + string(version_bd) + ".~n~nCette version d'ORTHOkis fonctionne avec une version " + string(version_base_autorisee) + ".~n~nNous allons lancer une réplication pour synchroniser votre base de données.")
 		
 		// On fait une réplication et on testera ensuite !!
 		replication()
 		
 		// Verification de la nouvelle base de données
-		SELECT "dernier", "passe", "version_base" INTO :var_dernier, :passe, :version_bd FROM "param" ;
+		SELECT "dernier", "passe", "version_base" INTO :var_dernier, :passe, :version_bd FROM "param";
 		if version_bd <> version_base_autorisee then
-			MessageBox("ERREUR DE VERSION DE BASE DE DONNEES","Votre base de données actuelle est en version "+string(version_bd)+".~n~nCette version de ORTHOkis fonctionne avec une version "+string(version_base_autorisee)+".~n~nVeuillez faire la mise à jour de votre "+v_libelle_mise_a_jour+".")
-			close(w_patience_locale)
-			Disconnect ;
-			Halt  
+			MessageBox("ERREUR DE VERSION DE BASE DE DONNEES", "Votre base de données actuelle est en version " + string(version_bd) + ".~n~nCette version de ORTHOkis fonctionne avec une version " + string(version_base_autorisee) + ".~n~nVeuillez faire la mise à jour de votre " + v_libelle_mise_a_jour + ".")
+			close (w_patience_locale)
+			Disconnect;
+			Halt
 		end if
 	else
-		MessageBox("ERREUR DE VERSION DE BASE DE DONNEES","Votre base de données actuelle est en version "+string(version_bd)+".~n~nCette version de ORTHOkis fonctionne avec une version "+string(version_base_autorisee)+".~n~nVeuillez faire la mise à jour de votre "+v_libelle_mise_a_jour+".")
-		close(w_patience_locale)
-		Disconnect ;
-		Halt  
+		MessageBox("ERREUR DE VERSION DE BASE DE DONNEES", "Votre base de données actuelle est en version " + string(version_bd) + ".~n~nCette version de ORTHOkis fonctionne avec une version " + string(version_base_autorisee) + ".~n~nVeuillez faire la mise à jour de votre " + v_libelle_mise_a_jour + ".")
+		close (w_patience_locale)
+		Disconnect;
+		Halt
 	end if
 end if
 
@@ -1509,33 +1515,33 @@ end if
 
 
 if (trim(h.rak(0)) = "INITIALISATION") OR (h.cp(h.rak()) <> 1) then
-// si bd non initialisée
+	// si bd non initialisée
 	if (h.rw(19) = h.rw(28)) then
-	// si clef non initialisée
+		// si clef non initialisée
 		do
 			// init du w28 : codage de D1 + w19
 			// avec d1 = date premier lancement (w38) OU date premier lancement (w38) +30
 			// avec w19 = num client
-			h.ww(28,long(h.cd(dlocale, h.gbcd())) + h.rw(19))
+			h.ww(28, long(h.cd(dlocale, h.gbcd())) + h.rw(19))
 			// on est ds un do ... loop pour éviter les mauvaises surprises
 			// de dépassement de capasité d'un mot de 16bits
 		loop while h.rw(28) > 55535
 	end if
 	
 	// force l'ouverture de la fenêtre d'init
-	SignalError(2006,"First Init Num Authenticité")
+	SignalError(2006, "First Init Num Authenticité")
 	
 else
-// bd déjà init
-	if h.tm1o(2,2) then
-	// si num authenticité provisoire
+	// bd déjà init
+	if h.tm1o(2, 2) then
+		// si num authenticité provisoire
 		if (h.rw(19) = h.rw(28)) then
-		// si clef non init
+			// si clef non init
 			do
 				// init du w28 : codage de D1 + w19
 				// avec d1 = date premier lancement (w38) OU date premier lancement (w38) +30
 				// avec w19 = num client
-				h.ww(28,long(h.cd(dlocale, h.gbcd())) + h.rw(19))
+				h.ww(28, long(h.cd(dlocale, h.gbcd())) + h.rw(19))
 				// on est ds un do ... loop pour éviter les mauvaises surprises
 				// de dépassement de capasité d'un mot de 16bits
 			loop while h.rw(28) > 55535
@@ -1563,74 +1569,74 @@ GetEnvironment(Ge_Environment)
 
 
 //recup grace à cette fonction les divers infos du registre
-if get_info_registre(info_registre) = 0 then messagebox("ATTENTION","Problème dans la fonction ~"get_info_registre~".")
+if get_info_registre(info_registre) = 0 then messagebox("ATTENTION", "Problème dans la fonction ~"get_info_registre~".")
 
-toolbartext = False	//Pas de mode showtext
+toolbartext = False //Pas de mode showtext
 
 
 //************************ préparation transaction pour ODRADE ************************//
 
-if not utilisation_distante or profilestring(dir_ini+inifile_orthokis,"odrade","base_replic","C") = "C" then 
+if not utilisation_distante or profilestring(dir_ini + inifile_orthokis, "odrade", "base_replic", "C") = "C" then
 	
 	//Transaction pour la base ODRADE Cabinet
-	t_Odrade = Create transaction  
+	t_Odrade = Create transaction
 	t_Odrade.DBMS = "ODBC"
 	t_Odrade.database = "Odrade"
 	t_Odrade.userid = "dba"
 	t_Odrade.dbpass = "SQL"
 	t_Odrade.autocommit = false
-	t_Odrade.dbparm="Block = 1,ConnectString='DSN=Odrade'"
+	t_Odrade.dbparm = "Block = 1,ConnectString='DSN=Odrade'"
 
 else
 
 
 	//Transaction pour la base ODRADE Locale
-	t_Odrade = Create transaction  
+	t_Odrade = Create transaction
 	t_Odrade.DBMS = "ODBC"
 	t_Odrade.database = "Odrade_local"
 	t_Odrade.userid = "dba"
 	t_Odrade.dbpass = "SQL"
 	t_Odrade.autocommit = false
-	t_Odrade.dbparm="Block = 1,ConnectString='DSN=Odrade_local'"
+	t_Odrade.dbparm = "Block = 1,ConnectString='DSN=Odrade_local'"
 
 end if
 
 
 //************************ préparation transaction pour ORACLE DU CHU DE LIEGE ************************//
 // on ne se connecte que quand besoin ....
-T_CHU_LIEGE = Create Transaction 
+T_CHU_LIEGE = Create Transaction
 //T_CHU_LIEGE.DBMS 		= "ODBC"
-T_CHU_LIEGE.DBMS 		= "O90"
-T_CHU_LIEGE.servername = "OAZPAIX.st.chulg" 
+T_CHU_LIEGE.DBMS = "O90"
+T_CHU_LIEGE.servername = "OAZPAIX.st.chulg"
 //T_CHU_LIEGE.servername = "OAZPX.ST.CHULG" 
-T_CHU_LIEGE.logid 			= "nu_arakis"	
-T_CHU_LIEGE.logpass 		= "NU_783KIS"
-T_CHU_LIEGE.dbparm	= "Block = 1,ConnectString='DSN=Oazis;logid=nu_arakis;logpass=NU_783KIS'"
+T_CHU_LIEGE.logid = "nu_arakis"
+T_CHU_LIEGE.logpass = "NU_783KIS"
+T_CHU_LIEGE.dbparm = "Block = 1,ConnectString='DSN=Oazis;logid=nu_arakis;logpass=NU_783KIS'"
 //************************ préparation transaction pour  ORACLE DU CHU DE LIEGE ************************//
 
 
 
 // on ressort la date d'init de la clef stockée ds w38
-h.dcd(h.rw(38),dlocale)
+h.dcd(h.rw(38), dlocale)
 
 // Initialisation des répertoires
 if utilisation_distante then
 	// rep photo en utilisation distante --> Module Réplication
 	// uniquement dans le .INI
-		dir_photos = profilestring(dir_ini + inifile_orthokis,"photos","dir_replic","")
+	dir_photos = profilestring(dir_ini + inifile_orthokis, "photos", "dir_replic", "")
 else
 	// rep photo en utilisation cabinet
-	s = profilestring(dir_ini + inifile_orthokis,"photos","local",par_défaut)
+	s = profilestring(dir_ini + inifile_orthokis, "photos", "local", par_défaut)
 	choose case s
 		case par_défaut
-			setprofilestring(dir_ini + inifile_orthokis,"photos","local",oui)
-			dir_photos = profilestring(dir_ini + inifile_orthokis,"photos","dir","")
+			setprofilestring(dir_ini + inifile_orthokis, "photos", "local", oui)
+			dir_photos = profilestring(dir_ini + inifile_orthokis, "photos", "dir", "")
 		case oui
-			dir_photos = profilestring(dir_ini + inifile_orthokis,"photos","dir","")
+			dir_photos = profilestring(dir_ini + inifile_orthokis, "photos", "dir", "")
 		case non
 			select rep_photos
 			into :dir_photos
-			from param ;
+			from param;
 	end choose
 end if
 
@@ -1639,52 +1645,52 @@ end if
 //Messagebox("ATTENTION", "N° de Série spécial !~n~n" +  SERIAL)
 
 
-NOMBRE_POSTES_AUTORISES = h.rnP()	// Nombre de postes codés
+NOMBRE_POSTES_AUTORISES = h.rnP() // Nombre de postes codés
 
 string im_2013
-SELECT "nom_licence", "imagerie_2013" INTO :licence , :im_2013 FROM "param" ;
+SELECT "nom_licence", "imagerie_2013" INTO :licence, :im_2013 FROM "param";
 
 if utilisation_distante then
 	// rep courriers en utilisation distante --> Module Réplication
 	// uniquement dans le .INI
-	dir_courriers = profilestring(dir_ini + inifile_orthokis,"courriers","dir_replic","")
+	dir_courriers = profilestring(dir_ini + inifile_orthokis, "courriers", "dir_replic", "")
 else
 	//rep courriers
-	dir_courriers = profilestring(dir_ini+inifile_orthokis,"courriers","dir","")
+	dir_courriers = profilestring(dir_ini + inifile_orthokis, "courriers", "dir", "")
 	choose case s
-	case par_défaut
-		setprofilestring(dir_ini + inifile_orthokis,"courriers","local",oui)
-		dir_courriers = profilestring(dir_ini + inifile_orthokis,"courriers","dir","")
-	case oui
-		dir_courriers = profilestring(dir_ini + inifile_orthokis,"courriers","dir","")
-	case non
-		select rep_courriers
-		into :dir_courriers
-		from param ;
+		case par_défaut
+			setprofilestring(dir_ini + inifile_orthokis, "courriers", "local", oui)
+			dir_courriers = profilestring(dir_ini + inifile_orthokis, "courriers", "dir", "")
+		case oui
+			dir_courriers = profilestring(dir_ini + inifile_orthokis, "courriers", "dir", "")
+		case non
+			select rep_courriers
+			into :dir_courriers
+			from param;
 	end choose
 end if
 
 // Vérification de l'existense du fichier PwoPhotos.ini (version 9.10) dans le dossier des photos
 // S'il n'y est pas, on le copie du répertoire d'installation de PWO
-if not FileExists(dir_photos+"PwoPhotos.ini") then									// le 0 : permet d'écraser le fichier si déjà existant
-	FileCopy (dir_ini+"PwoPhotos.ini", dir_photos+"PwoPhotos.ini", false ) 	// le 1 : permet de ne pas écraser le fichier si déjà existant
+if not FileExists(dir_photos + "PwoPhotos.ini") then // le 0 : permet d'écraser le fichier si déjà existant
+	FileCopy(dir_ini + "PwoPhotos.ini", dir_photos + "PwoPhotos.ini", false) // le 1 : permet de ne pas écraser le fichier si déjà existant
 end if
 
 // init opts générales imagerie
 // afficher les "anciennes" zones de date des cadres images des pages standards
 if ProfileString(dir_photos + inifile_photo, "opt_imagerie", "old_img_date", "1") = "1" then date_img_show = true
 // déduction auto dates des cadres images
-if profilestring(dir_photos + inifile_photo, "opt_imagerie", "deduire_date","1") = "1" then deduire_date = true
+if profilestring(dir_photos + inifile_photo, "opt_imagerie", "deduire_date", "1") = "1" then deduire_date = true
 
 // Mémorisation du pas de déplacement vertical des photos dans .INI pour next time
-pas_deplacement_vertical_photos = profileInt(dir_ini+inifile_orthokis,"photos","pas_deplacement_vertical",1)
+pas_deplacement_vertical_photos = profileInt(dir_ini + inifile_orthokis, "photos", "pas_deplacement_vertical", 1)
 
 // Imagerie 2013
 if im_2013 = "O" then
 	imagerie_2013 = true
 else
 	imagerie_2013 = false
-	open(w_avertissement_imagerie_2013)
+	open (w_avertissement_imagerie_2013)
 end if
 
 
@@ -1693,7 +1699,7 @@ libelle_depassement = "Dépas."
 libelle_depassement_abrege = "Dép"
 
 // Pour l'envoi des emails
-email_manager = create uo_email_manager	// email
+email_manager = create uo_email_manager // email
 
 // Mettre une trace ... à l'entrée et teste le  nombre de postes connectés
 ajout_histo_connexion("E")
@@ -1701,18 +1707,18 @@ ajout_histo_connexion("E")
 // Verification si document de facture Word est en place
 double v_id_facture_word
 
-select max(id_facture_word) into :v_id_facture_word from param ;
+select max(id_facture_word) into :v_id_facture_word from param;
 zerodb(v_id_facture_word)
 
-if v_id_facture_word = 0 then 
+if v_id_facture_word = 0 then
 	// Le docu n'est pas en place ... on mets en place sous 2 noms possible différents
 	string v_courrier_destination
 	boolean ok_copie = false
-	if Not FileExists(dir_courriers+"Facture.doc") then
+	if Not FileExists(dir_courriers + "Facture.doc") then
 		v_courrier_destination = "Facture"
 		ok_copie = true
 	else
-		if Not FileExists(dir_courriers+"Facture_2019.doc") then
+		if Not FileExists(dir_courriers + "Facture_2019.doc") then
 			v_courrier_destination = "Facture_2019"
 			ok_copie = true
 		end if
@@ -1720,7 +1726,7 @@ if v_id_facture_word = 0 then
 	
 	if ok_copie then
 		// on peut mettre en place
-		string v_courrier_depart 
+		string v_courrier_depart
 		v_courrier_depart = dir_ini + "Facture_2019.doc"
 		
 		if Belgique then
@@ -1730,54 +1736,54 @@ if v_id_facture_word = 0 then
 		end if
 
 		
-		if FileCopy(v_courrier_depart , dir_courriers + v_courrier_destination + ".doc") = 1 then 
+		if FileCopy(v_courrier_depart, dir_courriers + v_courrier_destination + ".doc") = 1 then
 			// Mémo dans les infos courriers
-			insert into courriers_word ("nom_document", "extension", "memorisation", "copie_pdf", "dossier", "type_docu", "base","couleur")
-			values (:v_courrier_destination, 'doc', 'O', 'N', '', 'W', 'Cabinet', 1) ;
+			insert into courriers_word("nom_document", "extension", "memorisation", "copie_pdf", "dossier", "type_docu", "base", "couleur")
+			values (:v_courrier_destination, 'doc', 'O', 'N', '', 'W', 'Cabinet', 1);
 			
-			commit ;
+			commit;
 			
-			select max(id) into :v_id_facture_word from courriers_word where nom_document = :v_courrier_destination and dossier = '' ;
+			select max(id) into :v_id_facture_word from courriers_word where nom_document = :v_courrier_destination and dossier = '';
 			
 			// récupération de l'ID ajoutée
-			update param set id_facture_word = :v_id_facture_word ;
-			commit ;
+			update param set id_facture_word = :v_id_facture_word;
+			commit;
 
 		end if
 	end if
 end if
 
 
-Trace( "Avant Ouverture de W_MDI")
+Trace("Avant Ouverture de W_MDI")
 
 
-open(w_mdi_2020)
+open (w_mdi_2020)
 
 // =========================================================================== TRACE POUR NOUS
 
-if SERIAL = "87001" or SERIAL = "88005"  or SERIAL = "88036" or SERIAL = "88052" then
+if SERIAL = "87001" or SERIAL = "88005" or SERIAL = "88036" or SERIAL = "88052" then
 	// Pour les tests
-	OUTIL_ENVOI_EMAIL = profilestring(dir_ini+inifile_orthokis,"arakis","outil_envoi_email","O") 
-	if not trace then	// Mode trace par défaut pour nous
+	OUTIL_ENVOI_EMAIL = profilestring(dir_ini + inifile_orthokis, "arakis", "outil_envoi_email", "O")
+	if not trace then // Mode trace par défaut pour nous
 		trace = true
-		uo_listbox lb_files	
+		uo_listbox lb_files
 		w_mdi_2020.OpenUserObject(lb_files)
-		fxg_supprimer_liste_fichiers(dir_ini,  "*trace_orthokis*", lb_files)
-		Fichier_Trace = FileOpen(dir_ini + v_nom_trace  , LineMode! , Write!, LockWrite! , Replace!, EncodingANSI! )
+		fxg_supprimer_liste_fichiers(dir_ini, "*trace_orthokis*", lb_files)
+		Fichier_Trace = FileOpen(dir_ini + v_nom_trace, LineMode!, Write!, LockWrite!, Replace!, EncodingANSI!)
 	end if
 end if
 
 
 if ORTHOKIS_OK then
-	open(w_patience_locale)		
+	open (w_patience_locale)
 	
 	
-	w_mdi_2020.init_ui_2020 (true)
+	w_mdi_2020.init_ui_2020(true)
 	w_mdi_2020.visible = true
 	w_mdi_2020.WindowState = Maximized!
 	
 	// pour le volet dynamique salle d'attente
-	if Profilestring(dir_ini+inifile_orthokis,"UI_V2020","pinned_volet_sa","N") = "O"  then
+	if Profilestring(dir_ini + inifile_orthokis, "UI_V2020", "pinned_volet_sa", "N") = "O" then
 		// On actualise car va être visible
 		uo_volet_salle_attente.resize()
 		uo_volet_salle_attente.prepa()
@@ -1786,13 +1792,13 @@ if ORTHOKIS_OK then
 	
 	
 	// Load des 10 derniers patients courants
-	if profileString(dir_ini+inifile_orthokis,"Patients_Courants","Memo","N") = "O" then
+	if profileString(dir_ini + inifile_orthokis, "Patients_Courants", "Memo", "N") = "O" then
 		load_patients_courants_ini()
 	end if
 	
 	
 	// Ouverture des éléments qui peuvent l'être au démarrage
-	if profilestring(dir_ini+inifile_orthokis,"rendez-vous","ouverture_salle_attente_lancement","false") = "true"   then
+	if profilestring(dir_ini + inifile_orthokis, "rendez-vous", "ouverture_salle_attente_lancement", "false") = "true" then
 		m_orthokis_2020.m_patients.m_salledattente0.triggerevent(clicked!)
 	end if
 	
@@ -1800,42 +1806,42 @@ if ORTHOKIS_OK then
 	
 	
 	// Vérification seuil d'alerte des produits en stock ?
-	if profileString(dir_ini+inifile_orthokis,"Stock_Tracabilité","verif_seuil_alerte","N") = "O"  then
+	if profileString(dir_ini + inifile_orthokis, "Stock_Tracabilité", "verif_seuil_alerte", "N") = "O" then
 		// Vérification si seuil d'alerte ou pas
 		m_orthokis_2020.m_gestion_de_stock.m_listesstock.m_alerte.triggerevent(clicked!)
-	//	w_liste_produit_stock_insuffisant.hide()
+		//	w_liste_produit_stock_insuffisant.hide()
 		w_liste_produit_stock_insuffisant.cb_ecran.triggerEvent(clicked!)
-		if w_liste_produit_stock_insuffisant.dw_liste.rowcount() = 0 then 
+		if w_liste_produit_stock_insuffisant.dw_liste.rowcount() = 0 then
 			//close(w_liste_produit_stock_insuffisant)
-			w_mdi_2020.uo_powerDock.of_closedocument (w_liste_produit_stock_insuffisant)
+			w_mdi_2020.uo_powerDock.of_closedocument(w_liste_produit_stock_insuffisant)
 		end if
 	end if
 	
 	w_patience_locale.Wf_AddValue(10)
 	
 	// Liste des patients à recontacter
-	if profileString(dir_ini+inifile_orthokis,"Ouverture","liste_patients_a_recontacter","N") = "O" then
+	if profileString(dir_ini + inifile_orthokis, "Ouverture", "liste_patients_a_recontacter", "N") = "O" then
 		m_orthokis_2020.m_listes.m_listesdepatients.m_arelancer.triggerevent(clicked!)
-	//	w_liste_patients_date_relance.hide()
-		w_liste_patients_date_relance.em_date_min.SetDate(date(1900,1,1))
+		//	w_liste_patients_date_relance.hide()
+		w_liste_patients_date_relance.em_date_min.SetDate(date(1900, 1, 1))
 		w_liste_patients_date_relance.em_date_max.setDate(today())
 		w_liste_patients_date_relance.cb_ecran.triggerEvent(clicked!)
-		if w_liste_patients_date_relance.dw_liste.rowcount() = 0 then 
-			w_mdi_2020.uo_powerDock.of_closedocument (w_liste_patients_date_relance)
+		if w_liste_patients_date_relance.dw_liste.rowcount() = 0 then
+			w_mdi_2020.uo_powerDock.of_closedocument(w_liste_patients_date_relance)
 		end if
 	end if
 	
 	w_patience_locale.Wf_AddValue(10)
 	
 	// DOIT ETRE A LA FIN POUR ETRE AU DESSUS DE TOUS
-	Trace( "W_MDI - OPEN  / ouverture_taches()")
+	Trace("W_MDI - OPEN  / ouverture_taches()")
 	
 	if not OUVERTURE_AUTOMATIQUE then
 		// Gestion de taches
 		w_mdi_2020.ouverture_taches()
 	
 		//Ouverture de l'agenda ?
-		if profilestring(dir_ini+inifile_orthokis,"agenda","ouverture_demarrage","N") = "O" then
+		if profilestring(dir_ini + inifile_orthokis, "agenda", "ouverture_demarrage", "N") = "O" then
 			m_orthokis_2020.m_patients.m_agendagraphique.postevent(clicked!)
 		end if
 	
@@ -1851,7 +1857,7 @@ if ORTHOKIS_OK then
 		
 		// Ecrit le handle de l'application dans Orthokis.ini
 		ulong handle_application, handle_application_appelante
-		string  lpClassName
+		string lpClassName
 		string titre_application
 		
 		
@@ -1859,12 +1865,12 @@ if ORTHOKIS_OK then
 		titre_application = w_mdi_2020.title
 		
 		// Memo du handle de l'application
-		handle_application = FindWindowA ( lpClassName, titre_application ) 
-		setProfileString(dir_ini + inifile_orthokis ,"Communication","handle",string(handle_application))
+		handle_application = FindWindowA(lpClassName, titre_application)
+		setProfileString(dir_ini + inifile_orthokis, "Communication", "handle", string(handle_application))
 		
 		// envoi d'un message au logiciel appelant pour dire que PRET !!!
-		handle_application_appelante = long(profilestring( dir_ini + inifile_orthokis  ,"Communication","handle_appelant","-1"))
-		SendMessageA( handle_application_appelante , 1094 , 1 , 0 )
+		handle_application_appelante = long(profilestring(dir_ini + inifile_orthokis, "Communication", "handle_appelant", "-1"))
+		SendMessageA(handle_application_appelante, 1094, 1, 0)
 		
 	end if
 	
@@ -1873,8 +1879,8 @@ if ORTHOKIS_OK then
 	
 	w_patience_locale.Wf_AddValue(10)
 	
-	if not utilisation_distante then 
-		if Profilestring(dir_ini+inifile_orthokis,"MESSAGERIE","ouverture_Orthokis","O") = "O" then 
+	if not utilisation_distante then
+		if Profilestring(dir_ini + inifile_orthokis, "MESSAGERIE", "ouverture_Orthokis", "O") = "O" then
 			fxg_lancement_messagerie()
 		end if
 	end if
@@ -1911,7 +1917,7 @@ if ORTHOKIS_OK then
 
 	w_patience_locale.Wf_AddValue(10)
 	
-	Trace( "W_MDI - OPEN  / ouverture_saints()")
+	Trace("W_MDI - OPEN  / ouverture_saints()")
 	
 	if not OUVERTURE_AUTOMATIQUE then
 		// ouverture de l'éphéméride
@@ -1920,15 +1926,15 @@ if ORTHOKIS_OK then
 	
 	// pour le passage en 28.00f on décoche le quitter CCVITALE 
 	if CCVITALE then
-		if profilestring(dir_ini+inifile_orthokis,"televitale","quitter_televitale","N") = "O" and  profilestring(dir_ini+inifile_orthokis,"televitale","passage_28.00f","N") = "N" then 
-			SetProfilestring(dir_ini+inifile_orthokis,"televitale","quitter_televitale","N")
-			SetProfilestring(dir_ini+inifile_orthokis,"televitale","passage_28.00f","O")
+		if profilestring(dir_ini + inifile_orthokis, "televitale", "quitter_televitale", "N") = "O" and profilestring(dir_ini + inifile_orthokis, "televitale", "passage_28.00f", "N") = "N" then
+			SetProfilestring(dir_ini + inifile_orthokis, "televitale", "quitter_televitale", "N")
+			SetProfilestring(dir_ini + inifile_orthokis, "televitale", "passage_28.00f", "O")
 		end if
 	end if
 	
 
 	// Mise en places des Chart JS si pas désactivé
-	if profilestring(dir_ini+inifile_orthokis,"UI_V2020","desactiver_graphiques_anime","N") = "N" then
+	if profilestring(dir_ini + inifile_orthokis, "UI_V2020", "desactiver_graphiques_anime", "N") = "N" then
 		gnv_pbwc_core_engine.of_init("")
 	end if
 	
@@ -1937,16 +1943,16 @@ if ORTHOKIS_OK then
 	OPERATEUR_SMS = fxg_verif_dental_sms()
 	
 	// VERSION DE DSAPI ?
-	if TEA then 
+	if TEA then
 		// Mise à jour de la variable globale version_dsapi
-		fxg_lancer_commande_dsapi("version", "", "V", "G", 0  )
+		fxg_lancer_commande_dsapi("version", "", "V", "G", 0)
 		trace("- Version DSAPI : " + version_dsapi)
-	end if 
+	end if
 
 	
 	
 	
-	close(w_patience_locale)
+	close (w_patience_locale)
 	
 	
 	// pour les tests
@@ -1991,7 +1997,7 @@ Trace( "APPLICATION - Close" )
  
 
 if not isnull(h) then  
-	h.logout( )
+	h.logout( ) 
 end if
 
 //destroy email_manager
@@ -2049,7 +2055,7 @@ choose case numero_erreur
 			case -100, -101, -110, -111
 				MessageBox("ERREUR ...","Les 'Drivers' de la clef matérielle ne sont pas installés.~nORTHOkis ne peut pas continuer son initialisation.~n~nVeuillez en avertir ARAKIS.",StopSign!)
 			case -3
-				MessageBox("ERREUR ...","Aucune clef matérielle ARAKIS connectée à cet ordinateur. ~nExécution de ORTHOkis impossible. ~n~nVeuillez connecter une clef ARAKIS avant de relancer ORTHOkis", StopSign!)
+				MessageBox("ERREUR ...","Aucune clef matérielle DentalSoft connectée à cet ordinateur. ~nExécution de ORTHOkis impossible. ~n~nVeuillez connecter une clef ARAKIS avant de relancer ORTHOkis", StopSign!)
 			case else
 				MessageBox("ERREUR ...","La clef matérielle a provoqué une erreur ~nde numéro : " +  string(h.VWrd[3]) + "~n~nVeuillez en avertir ARAKIS.",StopSign!)
 		end choose

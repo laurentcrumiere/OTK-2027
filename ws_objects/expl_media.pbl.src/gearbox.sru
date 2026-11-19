@@ -3156,7 +3156,7 @@ try
 
 Catch (RuntimeError er)
 	
-	Messagebox("ERREUR INATTENDUE","Une erreur inattendue s'est produite durant la sauvegarde de l'image.~n~nEléments Techniques pour ARAKIS :~n~nClasse : " + er.class +"~nRoutine : "+er.RoutineName + "~nLigne : " + string(er.line) + "~nTexte : "  + er.text )
+	Messagebox("ERREUR INATTENDUE","Une erreur inattendue s'est produite durant la sauvegarde de l'image.~n~nEléments Techniques pour DentalSoft :~n~nClasse : " + er.class +"~nRoutine : "+er.RoutineName + "~nLigne : " + string(er.line) + "~nTexte : "  + er.text )
 	
 	returnval = -1
 End Try

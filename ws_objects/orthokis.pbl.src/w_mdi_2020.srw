@@ -1800,7 +1800,7 @@ if ORTHOKIS_OK then
 	
 	
 	if SIGNATURE_NUMERIQUE and SIGNATURE_DENTALSIGN then
-		Messagebox("ATTENTION", "Il semblerait que plusieurs modules de signature soient activés.~n~nCe n'est pas normal !~n~nMerci de contacter ARAKIS au plus tôt !~n~n(Seule la Signature Dentalsign est activée)")
+		Messagebox("ATTENTION", "Il semblerait que plusieurs modules de signature soient activés.~n~nCe n'est pas normal !~n~nMerci de contacter DentalSoft au plus tôt !~n~n(Seule la Signature Dentalsign est activée)")
 		SIGNATURE_NUMERIQUE = false
 	end if
 	

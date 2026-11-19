@@ -247,6 +247,7 @@ integer taborder = 30
 boolean bringtotop = true
 boolean enabled = false
 string text = "&Importer RDV"
+string tiptext = "Importe ou modifier les rendez-vous et crée les nouveaux patients"
 string iconname = "lc_stepin.png"
 end type
 
@@ -300,6 +301,7 @@ event clicked;call super::clicked;if messagebox("ATTENTION", "Vous allez importe
 				ls_email = dw_liste.getitemString(lig, "email")
 				ld_date_naissance = dw_liste.getitemDate(lig, "date_naissance")
 				li_titre = dw_liste.getitemNumber(lig, "titre")
+				ls_code_praticien = dw_liste.getitemString(lig, "code_praticien")
 				
 				update patient set nom = :ls_nom, prenom = :ls_prenom, nom_parent1 = trim(:ls_nom) + ' ' + trim(:ls_prenom), 
 				adr1_parent1 = left(:ls_adresse, 35), adr2_parent1 = SUBSTRING (:ls_adresse, 36), codep_parent1 = :ls_code_postal, ville_parent1 = :ls_ville , 

@@ -3,67 +3,67 @@ global type fxg_program_is_running from function_object
 end type
 
 forward prototypes
-global function integer fxg_program_is_running (string v_nom_exe)
+global function integer fxg_program_is_running (string as_nom_exe)
 end prototypes
 
-global function integer fxg_program_is_running (string v_nom_exe);
+global function integer fxg_program_is_running (string as_nom_exe);
 
-OleObject locator,service,props
-int num, ret, i
-locator = CREATE OleObject
+OleObject lo_locator, lo_service, lo_props
+int li_num, li_ret, li_i
+lo_locator = CREATE OleObject
 
-try 
-	ret = locator.ConnectToNewObject("WbemScripting.SWbemLocator");
-	service = locator.ConnectServer("");
-	props = service.ExecQuery('select name , description from Win32_Process where name = "' + v_nom_exe + '"');
-	num = props.count()
+try
+	li_ret = lo_locator.ConnectToNewObject("WbemScripting.SWbemLocator");
+	lo_service = lo_locator.ConnectServer("");
+	lo_props = lo_service.ExecQuery('select name , description from Win32_Process where name = "' + as_nom_exe + '"');
+	li_num = lo_props.count()
 	
-	IF num > 0 THEN
+	IF li_num > 0 THEN
 		return 1
 	ELSE
 		return 0
 	END IF
 catch (OleRuntimeError lore_001)
 	// 30/08/2023 : je mets un try catch car, soucis sur mon poste de dev 
-//	Messagebox("ATTENTION",'An error has occurred while connecting to WMI Scripting Locator.~r~n~r~n' + &
-//	'Error number: ' + string(lore_001.Number) + '~r~n' + &
-//	'Description: ' + lore_001.Description + '~r~n' + &
-//	'Source: ' + lore_001.Source + '~r~n' + &
-//	'Message: ' + lore_001.Text)
-	trace( "******* Erreur dans WMI pour déterminer si '" + v_nom_exe + "' est lancé ! ***************")
+	//	Messagebox("ATTENTION",'An error has occurred while connecting to WMI Scripting Locator.~r~n~r~n' + &
+	//	'Error number: ' + string(lore_001.Number) + '~r~n' + &
+	//	'Description: ' + lore_001.Description + '~r~n' + &
+	//	'Source: ' + lore_001.Source + '~r~n' + &
+	//	'Message: ' + lore_001.Text)
+	trace("******* Erreur dans WMI pour déterminer si '" + as_nom_exe + "' est lancé ! ***************")
 	
-	// On fait pas autre moyen moins "classe" mais efficace 
-	string v_commande 
-	string v_fichier_resultat = "result.tmp"
-	integer i_fichier_resultat
-	string v_ligne = ""
-	v_commande = 'cmd /c tasklist.exe /nh /fi "IMAGENAME eq  ' + v_nom_exe + '" > ' + dir_ini + v_fichier_resultat
+	// On fait par autre moyen moins "classe" mais efficace 
+	string ls_commande
+	string ls_fichier_resultat = "result.tmp"
+	integer li_fichier_resultat
+	string ls_ligne = ""
+	ls_commande = 'cmd /c tasklist.exe /nh /fi "IMAGENAME eq  ' + as_nom_exe + '" > ' + dir_ini + ls_fichier_resultat
 
-	trace( "Commande : " + v_commande)
+	trace("Commande : " + ls_commande)
 	
-	Run(v_commande, Minimized!)
+	Run(ls_commande, Minimized!)
 
 	sleep(200)
 
-	i_fichier_resultat = fileopen(dir_ini + v_fichier_resultat, LineMode!, Read!)
+	li_fichier_resultat = fileopen(dir_ini + ls_fichier_resultat, LineMode!, Read!)
 
 
 	// La première ligne est vide
-	ret = FileRead(i_fichier_resultat, v_ligne)
+	li_ret = FileRead(li_fichier_resultat, ls_ligne)
 	
 	// La deuxième est la bonne
-	ret = FileRead(i_fichier_resultat, v_ligne)
+	li_ret = FileRead(li_fichier_resultat, ls_ligne)
 	
-	trace( "Résultat : " + v_ligne)
+	trace("Résultat : " + ls_ligne)
 	
-	fileClose(i_fichier_resultat)
-	fileDelete(dir_ini + v_fichier_resultat)
+	fileClose(li_fichier_resultat)
+	fileDelete(dir_ini + ls_fichier_resultat)
 
 
-	if v_ligne = "" then
+	if ls_ligne = "" then
 		return 0
 	else
-		if pos( upper(v_ligne) , upper(v_nom_exe) ) > 0 then
+		if pos(upper(ls_ligne), upper(as_nom_exe)) > 0 then
 			return 1
 		else
 			return 0

@@ -1,0 +1,29 @@
+﻿$PBExportHeader$p_maj_70_60_exe.srj
+$PBExportComments$Generated Application Executable Project
+EXE:maj60.exe,,0,1,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.1.0.6464
+EXT:0
+CMP:0,0,0,2,0,0,1
+COM:ARAKIS
+DES:Appeon Product File
+CPY:
+PRD:Mise à jour
+PVS:1.0.0.1
+PVN:1,0,0,1
+FVS:1.0.0.1
+FVN:1,0,0,1
+MAN:0,asInvoker,0,0,0,0,0,0,,0,0,,0,,,,SHA256,http://timestamp.digicert.com,
+PBD:maj50.pbl,,0
+OBJ:C:\Power\V2027\Maj50\maj50.pbl,maj_60_50,a
+OBJ:c:\power\v2027\maj50\maj50.pbl,n_maj_70_60_connectservice,u
+OBJ:c:\power\v2027\maj50\maj50.pbl,teste_erreur_bd,f
+OBJ:c:\power\v2027\maj50\maj50.pbl,dw_lignes_soins_auto,d
+OBJ:c:\power\v2027\maj50\maj50.pbl,w_main,w
+OBJ:c:\power\v2027\maj50\maj50.pbl,uo_picturebutton_390x120,u
+OBJ:c:\power\v2027\maj50\maj50.pbl,dw_titres_soins_autto,d
+OBJ:c:\power\v2027\maj50\maj50.pbl,w_fenetre_arakis,w
+OBJ:c:\power\v2027\maj50\maj50.pbl,fxg_get_mot_passe_administrateur,f
+OBJ:c:\power\v2027\maj50\maj50.pbl,gfx_open_connection_ole,f
+OBJ:c:\power\v2027\maj50\maj50.pbl,w_mot_passe_administrateur,w
+OBJ:c:\power\v2027\maj50\maj50.pbl,nombre_user_connectes,f
+OBJ:c:\power\v2027\maj50\maj50.pbl,gfx_close_connection_ole,f
+OBJ:c:\power\v2027\maj50\maj50.pbl,w_patience,w

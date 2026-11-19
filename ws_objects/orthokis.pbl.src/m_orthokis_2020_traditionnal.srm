@@ -3385,7 +3385,7 @@ if fileExists( s_prog) then
 	
 else
 	
-	Messagebox ("ERREUR", "Impossible de localiser le programme de Salle d'Attente indépendante.~n~nVeuillez contacter ARAKIS !")
+	Messagebox ("ERREUR", "Impossible de localiser le programme de Salle d'Attente indépendante.~n~nVeuillez contacter DentalSoft !")
 	
 end if
 end event

@@ -2290,7 +2290,7 @@ Try
 
 Catch (RuntimeError er)
 	
-	Messagebox("ERREUR INATTENDUE","Une erreur inattendue s'est produite.~nLa fenêtre n'a pas pu s'ouvrir normalement.~n~nNous vous conseillons de fermer puis rouvrir le dossier.~n~nEléments Techniques pour ARAKIS :~n~nClasse : " + er.class +"~nRoutine : "+er.RoutineName + "~nLigne : " + string(er.line) + "~nTexte : "  + er.text )
+	Messagebox("ERREUR INATTENDUE","Une erreur inattendue s'est produite.~nLa fenêtre n'a pas pu s'ouvrir normalement.~n~nNous vous conseillons de fermer puis rouvrir le dossier.~n~nEléments Techniques pour DentalSoft :~n~nClasse : " + er.class +"~nRoutine : "+er.RoutineName + "~nLigne : " + string(er.line) + "~nTexte : "  + er.text )
 	
 	
 End Try
@@ -2768,7 +2768,7 @@ event resize;Try
 
 Catch (RuntimeError er)
 	
-	Messagebox("ERREUR INATTENDUE","Une erreur inattendue s'est produite.~nLa fenêtre n'a pas pu s'ouvrir normalement.~n~nNous vous conseillons de fermer puis rouvrir le dossier.~n~nEléments Techniques pour ARAKIS :~n~nClasse : " + er.class +"~nRoutine : "+er.RoutineName + "~nLigne : " + string(er.line) + "~nTexte : "  + er.text )
+	Messagebox("ERREUR INATTENDUE","Une erreur inattendue s'est produite.~nLa fenêtre n'a pas pu s'ouvrir normalement.~n~nNous vous conseillons de fermer puis rouvrir le dossier.~n~nEléments Techniques pour DentalSoft :~n~nClasse : " + er.class +"~nRoutine : "+er.RoutineName + "~nLigne : " + string(er.line) + "~nTexte : "  + er.text )
 	
 	
 End Try
@@ -2794,7 +2794,7 @@ event show;Try
 	
 Catch (RuntimeError er)
 	
-	Messagebox("ERREUR INATTENDUE","Une erreur inattendue s'est produite.~nLa fenêtre n'a pas pu s'ouvrir normalement.~n~nNous vous conseillons de fermer puis rouvrir le dossier.~n~nEléments Techniques pour ARAKIS :~n~nClasse : " + er.class +"~nRoutine : "+er.RoutineName + "~nLigne : " + string(er.line) + "~nTexte : "  + er.text )
+	Messagebox("ERREUR INATTENDUE","Une erreur inattendue s'est produite.~nLa fenêtre n'a pas pu s'ouvrir normalement.~n~nNous vous conseillons de fermer puis rouvrir le dossier.~n~nEléments Techniques pour DentalSoft :~n~nClasse : " + er.class +"~nRoutine : "+er.RoutineName + "~nLigne : " + string(er.line) + "~nTexte : "  + er.text )
 	
 	
 End Try
@@ -8682,7 +8682,7 @@ event dberror;CHOOSE CASE sqldbcode
 	CASE -3
 		MessageBox("Alerte Base de Données","Les données que vous manipulez ont été~nmodifées par un autre utilisateur~nou dans une autre fenêtre.~n~nVeuillez annuler votre opération ....",Information!)
 	CASE ELSE
-		MessageBox("Alerte Base de Données Non Référencée","N° "+String(sqldbcode)+"~nText : "+sqlerrtext+"~n~nVeuillez en avertir ARAKIS ...",Information!)
+		MessageBox("Alerte Base de Données Non Référencée","N° "+String(sqldbcode)+"~nText : "+sqlerrtext+"~n~nVeuillez en avertir DentalSoft ...",Information!)
 END CHOOSE
 return 1
 

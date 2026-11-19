@@ -1,0 +1,17 @@
+﻿$PBExportHeader$fxg_get_mot_passe_admisnistrateur.srf
+global type fxg_get_mot_passe_admisnistrateur from function_object
+end type
+
+forward prototypes
+global function string fxg_get_mot_passe_admisnistrateur ()
+end prototypes
+
+global function string fxg_get_mot_passe_admisnistrateur ();string v_passe
+
+// recherche du mot de passe actuel
+SELECT trim(isnull( "passe", '')) INTO :v_passe FROM "dba"."param" ;
+
+return v_passe
+
+end function
+

@@ -799,7 +799,7 @@ uo_1.taille(this)
 
 if blocage then
 	if date_blocage <= today() then
-		Messagebox("ATTENTION !","Vous n'avez plus le droit d'utiliser le logiciel !~n~nVeuillez en avertir ARAKIS !")
+		Messagebox("ATTENTION !","Vous n'avez plus le droit d'utiliser le logiciel !~n~nVeuillez en avertir DentalSoft !")
 		halt close
 	end if
 end if

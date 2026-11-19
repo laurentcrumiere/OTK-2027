@@ -174,7 +174,11 @@ if not mode_vdds then
 		Trace( "- lien NEOWISE : " + cde )
 	else
 		// C'est NNT la passerelle
-		cde = v_exe + " /OPENPATIENT /patid "+v_id+" /name "+v_nom+" /surname "+v_prenom +" /sex "+v_sexe+" /dateb "+date_naissance_myray +" /operator "+v_praticien+" /DIR "+v_rep_radio+v_id
+		// 12/11/2026 : A la demande de Cefla on supprime le /DIR pour utiliser la base commune
+		// cde = v_exe + " /OPENPATIENT /patid "+v_id+" /name "+v_nom+" /surname "+v_prenom +" /sex "+v_sexe+" /dateb "+date_naissance_myray +" /operator "+v_praticien+" /DIR "+v_rep_radio+v_id
+
+		cde = v_exe + " /OPENPATIENT /patid "+v_id+" /name "+v_nom+" /surname "+v_prenom +" /sex "+v_sexe+" /dateb "+date_naissance_myray +" /operator "+v_praticien
+		
 		Trace( "- lien NNT : " + cde )
 end if
 	

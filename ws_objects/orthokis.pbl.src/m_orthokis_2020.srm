@@ -3399,7 +3399,7 @@ if fileExists( s_prog) then
 	
 else
 	
-	Messagebox ("ERREUR", "Impossible de localiser le programme de Salle d'Attente indépendante.~n~nVeuillez contacter ARAKIS !")
+	Messagebox ("ERREUR", "Impossible de localiser le programme de Salle d'Attente indépendante.~n~nVeuillez contacter DentalSoft !")
 	
 end if
 end event
@@ -22157,7 +22157,7 @@ end event
 type m_businessintelligence from menu within m_outils
 end type
 
-event clicked;w_ia_bi w1 
+event clicked;w_ia_chat w1 
 
 if isvalid (w1) then 
 	w1.setposition(toTop!)
@@ -22166,26 +22166,25 @@ else
 	
 	open(w1)
 	
-	
-	// lecture du dernier emplacement de la fenêtre
-	long win_x, win_y 
-	win_x = profileint(dir_ini+inifile_orthokis,"IA","w_ia_bi_x",0)
-	win_y = profileint(dir_ini+inifile_orthokis,"IA","w_ia_bi_y",0)
-	
-	open(w1)
-	
-	// Possitionnement de retaillage de la fenêtre
-	
-	w1.move( PixelsToUnits( win_x, xPixelsToUnits!) , PixelsToUnits( win_y, YPixelsToUnits!))
-	w1.width = profileint(dir_ini+inifile_orthokis,"IA","w_ia_bi_width", 2555)
-	w1.height = profileint(dir_ini+inifile_orthokis,"IA","w_ia_bi_height", 1264)
-	
-	// Au cas ou .... pour etre sur que ... toujours dans le même écran
-	if w1.x < 0 or w1.y < 0 or w1.width <= 0 or w1.height <= 0 then
-		w1.x = 100
-		w1.y = 100
-		w1.width = 2555
-		w1.height = 1264
+	if isvalid(w1) then 
+		// lecture du dernier emplacement de la fenêtre
+		long win_x, win_y 
+		win_x = profileint(dir_ini+inifile_orthokis,"IA","w_ia_bi_x",0)
+		win_y = profileint(dir_ini+inifile_orthokis,"IA","w_ia_bi_y",0)
+		
+		// Possitionnement de retaillage de la fenêtre
+		
+		w1.move( PixelsToUnits( win_x, xPixelsToUnits!) , PixelsToUnits( win_y, YPixelsToUnits!))
+		w1.width = profileint(dir_ini+inifile_orthokis,"IA","w_ia_bi_width", 2555)
+		w1.height = profileint(dir_ini+inifile_orthokis,"IA","w_ia_bi_height", 1264)
+		
+		// Au cas ou .... pour etre sur que ... toujours dans le même écran
+		if w1.x < 0 or w1.y < 0 or w1.width <= 0 or w1.height <= 0 then
+			w1.x = 100
+			w1.y = 100
+			w1.width = 2555
+			w1.height = 1264
+		end if
 	end if
 
 end if

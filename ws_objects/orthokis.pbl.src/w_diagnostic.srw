@@ -271,7 +271,7 @@ end type
 
 event clicked;call super::clicked;
 if MessageBox("ATTENTION","Vous allez importer des Diagnostics types saisis par nos soins.~n~nIls sont particulièrement destinés à l'Assistant de Diagnostic (ils remplissent automatiquement les éléments de la DEP)." + &
-"~n~nSi besoin vous pourrez ensuite les modifier et/ou les supprimer~n~nSi d'autres Diagnostics fournis par Arakis sont présents (code sour la forme 'araxxx'), ils seront automatiquement supprimés~n~nLe mode 'Travailler en Texte Brut' sera activé~n~nConfirmez-vous ?", Question!, YesNo!, 2) = 1 then 
+"~n~nSi besoin vous pourrez ensuite les modifier et/ou les supprimer~n~nSi d'autres Diagnostics fournis par DentalSoft sont présents (code sour la forme 'araxxx'), ils seront automatiquement supprimés~n~nLe mode 'Travailler en Texte Brut' sera activé~n~nConfirmez-vous ?", Question!, YesNo!, 2) = 1 then 
 
 cbx_brut.checked = true
 

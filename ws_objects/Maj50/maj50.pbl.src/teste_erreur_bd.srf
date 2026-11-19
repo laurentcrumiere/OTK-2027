@@ -1,0 +1,19 @@
+﻿$PBExportHeader$teste_erreur_bd.srf
+global type teste_erreur_bd from function_object
+end type
+
+forward prototypes
+global subroutine teste_erreur_bd (integer numero_erreur)
+end prototypes
+
+global subroutine teste_erreur_bd (integer numero_erreur);
+
+// test si erreur en BD .. et affiche message si besoin .. 
+
+if sqlca.sqlcode = 0  then 
+	commit ;
+else
+	messagebox("ATTENTION", "Erreur N°" + string(numero_erreur) + " durant la mise à jour de la base de données.~n~n" + sqlca.sqlerrtext + "~n~nLa mise à jour va tout de même se poursuivre !")
+end if
+end subroutine
+

@@ -1,0 +1,57 @@
+﻿$PBExportHeader$nombre_user_connectes.srf
+global type nombre_user_connectes from function_object
+end type
+
+forward prototypes
+global function integer nombre_user_connectes ()
+end prototypes
+
+global function integer nombre_user_connectes ();// renvoie le nombre de personnes connectées sur la base Orthokis
+// on doit nous meme être connecté AVANT
+
+long numero_propriete, numero_base, numero_base_orthokis, nombre_de_connexion
+string nom_propriete, description_propriete, valeur;
+
+numero_base_orthokis = -1
+nombre_de_connexion = -1
+
+
+// Vérification si quelqu'un est déjà connecté dans la base ... si oui... on sort
+//--------------------------------------------------------------------------
+
+
+// En sybase 11 l'ordre des proprité est modifié => pour être sur, on fait 2 boucles !!!
+
+DECLARE procedure_info PROCEDURE FOR   sa_db_properties;
+
+EXECUTE  procedure_info ;
+FETCH NEXT procedure_info into :numero_base, :numero_propriete, :nom_propriete, :description_propriete, :valeur;
+
+Do while sqlca.sqlcode=0 and numero_base_orthokis = -1
+	if nom_propriete = 'Name' and upper(valeur) = 'ORTHOKIS' then
+		numero_base_orthokis = numero_base
+	end if
+
+	FETCH NEXT procedure_info into :numero_base, :numero_propriete, :nom_propriete, :description_propriete, :valeur;
+loop
+
+CLOSE procedure_info;
+
+
+EXECUTE  procedure_info ;
+FETCH NEXT procedure_info into :numero_base, :numero_propriete, :nom_propriete, :description_propriete, :valeur;
+
+Do while sqlca.sqlcode=0 and nombre_de_connexion = -1
+	if nom_propriete = 'ConnCount' and numero_base = numero_base_orthokis then
+		nombre_de_connexion = long(valeur)
+	end if
+
+	FETCH NEXT procedure_info into :numero_base, :numero_propriete, :nom_propriete, :description_propriete, :valeur;
+loop
+
+CLOSE procedure_info;
+
+
+return nombre_de_connexion
+end function
+

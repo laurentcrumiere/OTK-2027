@@ -1,0 +1,17 @@
+﻿$PBExportHeader$fxg_get_mot_passe_administrateur.srf
+global type fxg_get_mot_passe_administrateur from function_object
+end type
+
+forward prototypes
+global function string fxg_get_mot_passe_administrateur ()
+end prototypes
+
+global function string fxg_get_mot_passe_administrateur ();string v_passe
+
+// recherche du mot de passe actuel
+SELECT top 1 trim(isnull( "passe", '')) INTO :v_passe FROM "param" ;
+
+return v_passe
+
+end function
+

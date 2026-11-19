@@ -153,10 +153,10 @@ else
 					if code_retour = "true" then
 						choose case  Profilestring(dir_ini + nom_fichier_recu,"0","errorCode","") 
 							case "201" 
-								MessageBox("ATTENTION","Activation provisoire pendant 30 jours.~n~nVeuillez contacter rapidement ARAKIS car le certificat est erroné !")
+								MessageBox("ATTENTION","Activation provisoire pendant 30 jours.~n~nVeuillez contacter rapidement DentalSoft car le certificat est erroné !")
 								licence_ok = true
 							case "202" 
-								MessageBox("ATTENTION","Activation provisoire pendant 7 jours.~n~nVeuillez contacter rapidement ARAKIS car le nombre de licences utilisées est dépassé !")
+								MessageBox("ATTENTION","Activation provisoire pendant 7 jours.~n~nVeuillez contacter rapidement DentalSoft car le nombre de licences utilisées est dépassé !")
 								licence_ok = true
 							case 	else
 								// Est ce que le code reçu est le bon ?

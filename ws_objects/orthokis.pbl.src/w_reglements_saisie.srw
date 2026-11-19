@@ -1280,7 +1280,7 @@ event dberror;CHOOSE CASE sqldbcode
 	CASE -3
 		MessageBox("Alerte Base de Données","Les données que vous manipulez ont été~nmodifées par un autre utilisateur~nou dans une autre fenêtre.~n~nVeuillez annuler votre opération ....",Information!)
 	CASE ELSE
-		MessageBox("Alerte Base de Données Non Référencée","N° "+String(sqldbcode)+"~nText : "+sqlerrtext+"~n~nVeuillez en avertir ARAKIS ...",Information!)
+		MessageBox("Alerte Base de Données Non Référencée","N° "+String(sqldbcode)+"~nText : "+sqlerrtext+"~n~nVeuillez en avertir DentalSoft ...",Information!)
 END CHOOSE
 return 1
 

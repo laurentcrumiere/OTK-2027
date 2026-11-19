@@ -70,7 +70,7 @@ destroy(this.p_2)
 destroy(this.p_3)
 end on
 
-event open;call super::open;if Profilestring(dir_ini+inifile_orthokis,"connexion","orthokis_tour_2026","O")  = "N" then
+event open;call super::open;if Profilestring(dir_ini+inifile_orthokis,"connexion","orthokis_tour_2027","O")  = "N" then
 	
 	cbx_ne_plus_afficher.checked = true
 	
@@ -108,9 +108,9 @@ close(parent)
 end event
 
 type st_nouveau from statictext within w_orthokis_tour_2027
-integer x = 453
+integer x = 370
 integer y = 24
-integer width = 2473
+integer width = 2843
 integer height = 192
 boolean bringtotop = true
 integer textsize = -28
@@ -121,7 +121,7 @@ fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 134217856
 long backcolor = 65535
-string text = "INFO ORTHOKIS TOUR 2027"
+string text = "INFORMATION Dental Tour 2027"
 alignment alignment = center!
 boolean focusrectangle = false
 end type

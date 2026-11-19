@@ -144,7 +144,7 @@ event dw_liste::dberror;CHOOSE CASE sqldbcode
 	CASE -198
 		MessageBox("Alerte Base de Données","Vous n'avez pas le droit de supprimer cette ligne !~n~nElle est utilisée dans un rendez-vous.",Information!)
 	CASE ELSE
-		MessageBox("Alerte Base de Données Non Référencée","N° "+String(sqldbcode)+"~nText : "+sqlerrtext+"~n~nVeuillez en avertir ARAKIS ...",Information!)
+		MessageBox("Alerte Base de Données Non Référencée","N° "+String(sqldbcode)+"~nText : "+sqlerrtext+"~n~nVeuillez en avertir DentalSoft ...",Information!)
 END CHOOSE
 return 1
 end event
