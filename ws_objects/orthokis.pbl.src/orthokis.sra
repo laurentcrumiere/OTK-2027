@@ -2002,9 +2002,7 @@ if not isnull(h) then
 	h.logout( ) 
 end if
 
-//destroy email_manager
-//destroy h //tue l'obj hasp
-//
+
 disconnect ;
 
 
