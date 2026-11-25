@@ -1,9 +1,9 @@
 Save Format v3.0(19990112)
 @begin Targets
  0 "orthokis.pbt";
- 1 "Salle_attente\\salle_attente.pbt";
- 2 "Maj50\\maj50.pbt";
- 3 "Borne\\borne.pbt";
+ 1 "Borne\\borne.pbt";
+ 2 "Salle_attente\\salle_attente.pbt";
+ 3 "Maj50\\maj50.pbt";
 @end;
 DefaultTarget "orthokis.pbt";
 DefaultExportEncode "UTF-8";
