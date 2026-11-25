@@ -5,6 +5,6 @@ Save Format v3.0(19990112)
  2 "Salle_attente\\salle_attente.pbt";
  3 "Maj50\\maj50.pbt";
 @end;
-DefaultTarget "orthokis.pbt";
+DefaultTarget "Borne\\borne.pbt";
 DefaultExportEncode "UTF-8";
-DefaultRemoteTarget "orthokis.pbt";
+DefaultRemoteTarget "Borne\\borne.pbt";

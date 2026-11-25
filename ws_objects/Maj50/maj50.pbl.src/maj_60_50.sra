@@ -349,11 +349,11 @@ If lnv_connectserv.of_ConnectDB ( ) = 0 Then
 	
 	select top 1 version_base into :v_version from param ;
 	
-	if v_version < 2023 then 
-		Messagebox("ATTENTION", "Pour réaliser cette mise à jour de vos soins vous devez être en version 2023 d'Orthokis.~n~nCe n'est pas le cas !~n~nVeuillez contacter notre hotline au (33) 4 75 78 50 70.")
+	if v_version < 2026 then 
+		Messagebox("ATTENTION", "Pour réaliser cette mise à jour de vos soins vous devez être (au moins) en version 2026 d'Orthokis.~n~nCe n'est pas le cas !~n~nVeuillez contacter notre hotline au (33) 4 75 78 50 70.")
 	
 	else
-		select top 1 isnull(maj_70_60, 'N') into :s_deja_executee  from agenda ;
+		select top 1 isnull(maj_60_50, 'N') into :s_deja_executee  from agenda ;
 		
 		if s_deja_executee = 'N' or s_deja_executee = '' then
 

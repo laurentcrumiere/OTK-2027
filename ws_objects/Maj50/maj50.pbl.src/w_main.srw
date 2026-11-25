@@ -347,14 +347,14 @@ if b_poursuivre then
 //		update "soins_auto", "code_soins", "titres_soins_auto" 
 //		set "soins_auto"."type" = 'CSD-202310' 
 //		where "code_soins"."lettre" = 'CS' and "code_soins"."code" = "soins_auto"."type" 
-//		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+//		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 //		teste_erreur_bd(3)
 		
 //		update "soins_auto", "code_soins" , "titres_soins_auto" 
 //		set "soins_auto"."type" = 'CD-202310' 
 //		where "code_soins"."lettre" = 'C' and "code_soins"."code" = "soins_auto"."type"
-//		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+//		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		
@@ -368,7 +368,7 @@ if b_poursuivre then
 		"code_soins"."lettre" in ('CD', 'CSD') and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 1 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='C'
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(5)
@@ -379,7 +379,7 @@ if b_poursuivre then
 		"code_soins"."lettre" in ('CD', 'CSD') and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 1 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='M' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		
@@ -389,22 +389,22 @@ if b_poursuivre then
 		
 		// Z15 Caisse
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 11.97 where "ligne_soins_auto"."montant" = 13.97 and 
+		set "ligne_soins_auto"."montant" = 9.98 where "ligne_soins_auto"."montant" = 11.97 and 
 		"code_soins"."lettre" = 'Z' and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 15 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='C' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(7)
 		
 		// Z15 Mutuelle
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 7.98 where "ligne_soins_auto"."montant" = 5.99 and 
+		set "ligne_soins_auto"."montant" = 9.97 where "ligne_soins_auto"."montant" = 7.98 and 
 		"code_soins"."lettre" = 'Z' and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 15 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='M' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		
@@ -414,22 +414,22 @@ if b_poursuivre then
 		
 		// Z20 Caisse
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 15.96 where "ligne_soins_auto"."montant" = 18.62 and 
+		set "ligne_soins_auto"."montant" = 13.30  where "ligne_soins_auto"."montant" = 15.96 and 
 		"code_soins"."lettre" = 'Z' and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 20 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='C' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(9)
 		
 		// Z20 Mutuelle
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 10.64 where "ligne_soins_auto"."montant" = 7.98 and 
+		set "ligne_soins_auto"."montant" = 13.30 where "ligne_soins_auto"."montant" = 10.64 and 
 		"code_soins"."lettre" = 'Z' and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 20 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='M' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(10)
@@ -437,66 +437,66 @@ if b_poursuivre then
 		// Z25 => 33.25
 		// Z25 Caisse
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 19.95 where "ligne_soins_auto"."montant" = 23.28 and 
+		set "ligne_soins_auto"."montant" = 16.63 where "ligne_soins_auto"."montant" = 19.95 and 
 		"code_soins"."lettre" = 'Z' and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 25 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='C' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(91)
 		
 		// Z25 Mutuelle
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 13.30 where "ligne_soins_auto"."montant" = 9.97 and 
+		set "ligne_soins_auto"."montant" = 16.62 where "ligne_soins_auto"."montant" = 13.30 and 
 		"code_soins"."lettre" = 'Z' and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 25 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='M' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(101)
 
 		// Z30 Caisse
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 23.94 where "ligne_soins_auto"."montant" = 27.93 and 
+		set "ligne_soins_auto"."montant" = 19.95 where "ligne_soins_auto"."montant" = 23.94 and 
 		"code_soins"."lettre" = 'Z' and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 30 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='C' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(11)
 		
 		// Z30 Mutuelle
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 15.96 where "ligne_soins_auto"."montant" = 11.97 and 
+		set "ligne_soins_auto"."montant" = 19.95 where "ligne_soins_auto"."montant" = 15.96 and 
 		"code_soins"."lettre" = 'Z' and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 30 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='M' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(12)
 
 		// Z35 Caisse
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 27.93 where "ligne_soins_auto"."montant" = 32.59 and 
+		set "ligne_soins_auto"."montant" = 23.28 where "ligne_soins_auto"."montant" = 27.93 and 
 		"code_soins"."lettre" = 'Z' and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 35 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='C' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(111)
 		
 		// Z35 Mutuelle
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 18.62 where "ligne_soins_auto"."montant" = 13.97 and 
+		set "ligne_soins_auto"."montant" = 23.27 where "ligne_soins_auto"."montant" = 18.62 and 
 		"code_soins"."lettre" = 'Z' and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 35 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='M' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(112)	
@@ -504,22 +504,22 @@ if b_poursuivre then
 		
 		// TO 5 - ORT 5 - Caisse
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 6.45 where "ligne_soins_auto"."montant" = 7.53 and 
+		set "ligne_soins_auto"."montant" = 5.38 where "ligne_soins_auto"."montant" = 6.45 and 
 		"code_soins"."lettre" in ('ORT', 'TO') and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 5 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='C' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(13)
 		
 		// TO 5 - ORT 5 - Mutuelle
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 4.30 where "ligne_soins_auto"."montant" = 3.23 and 
+		set "ligne_soins_auto"."montant" = 5.37 where "ligne_soins_auto"."montant" = 4.30 and 
 		"code_soins"."lettre" in ('ORT', 'TO') and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 5 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='M' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		
@@ -528,22 +528,22 @@ if b_poursuivre then
 		
 		// TO 10 - ORT 10 - Caisse
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 12.90 where "ligne_soins_auto"."montant" = 15.05 and 
+		set "ligne_soins_auto"."montant" = 10.75 where "ligne_soins_auto"."montant" = 12.90 and 
 		"code_soins"."lettre" in ('ORT', 'TO') and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 10 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='C' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(15)
 		
 		// TO 10 - ORT 10 - Mutuelle
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 8.60 where "ligne_soins_auto"."montant" = 6.45 and 
+		set "ligne_soins_auto"."montant" = 10.75 where "ligne_soins_auto"."montant" = 8.60 and 
 		"code_soins"."lettre" in ('ORT', 'TO') and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 10 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='M' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		
@@ -551,22 +551,22 @@ if b_poursuivre then
 		
 		// TO 15 - ORT 15 - Caisse
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 19.35 where "ligne_soins_auto"."montant" = 22.58 and 
+		set "ligne_soins_auto"."montant" = 16.13 where "ligne_soins_auto"."montant" = 19.35 and 
 		"code_soins"."lettre" in ('ORT', 'TO') and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 15 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='C' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(117)
 		
 		// TO 15 - ORT 15 - Mutuelle
 		update "ligne_soins_auto",  "soins_auto", "code_soins" , "titres_soins_auto" 
-		set "ligne_soins_auto"."montant" = 12.90 where "ligne_soins_auto"."montant" = 9.68 and 
+		set "ligne_soins_auto"."montant" = 16.12 where "ligne_soins_auto"."montant" = 12.90 and 
 		"code_soins"."lettre" in ('ORT', 'TO') and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 15 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='M' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(118)
@@ -577,7 +577,7 @@ if b_poursuivre then
 		"code_soins"."lettre" in ('ORT', 'TO') and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 20 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='C' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(17)
@@ -588,7 +588,7 @@ if b_poursuivre then
 		"code_soins"."lettre" in ('ORT', 'TO') and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 20 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='M' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(18)
@@ -599,7 +599,7 @@ if b_poursuivre then
 		"code_soins"."lettre" in ('ORT', 'TO') and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 50 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='C' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 		
 		teste_erreur_bd(19)
@@ -610,7 +610,7 @@ if b_poursuivre then
 		"code_soins"."lettre" in ('ORT', 'TO') and "code_soins"."code" = "soins_auto"."type" and "code_soins"."nb_lettre" = 50 and 
 		"ligne_soins_auto"."code" = "soins_auto"."code" and "ligne_soins_auto"."cle" = "soins_auto"."cle" 
 		and "ligne_soins_auto"."tp" ='O' and "ligne_soins_auto"."origine_tp" ='M' 
-		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ60' ;
+		and "titres_soins_auto"."code"  = "soins_auto"."code" and left("titres_soins_auto"."nom", 5) = 'MAJ50' ;
 		
 			
 		teste_erreur_bd(20)
@@ -622,15 +622,15 @@ if b_poursuivre then
 		
 		// on met un marqueur en base de données pour ne pas le lancer 2 fois
 		
-		execute_commande_sql("alter table agenda add maj_70_60 char(1) ;")
+		execute_commande_sql("alter table agenda add maj_60_50 char(1) ;")
 		
-		update agenda set maj_70_60 = 'O' ;
+		update agenda set maj_60_50 = 'O' ;
 
 		teste_erreur_bd(21)
 		
 		commit ;
 
-		teste_erreur_bd(20)
+		teste_erreur_bd(22)
 
 		close(w_patience)
 		

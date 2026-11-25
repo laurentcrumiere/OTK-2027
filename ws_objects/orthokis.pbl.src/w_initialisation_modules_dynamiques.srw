@@ -353,6 +353,13 @@ if daysAfter ( d_date_validite , d_date_du_jour ) <= 15 then
 	else
 		PID_LUXEMBOURG = false
 	end if
+	
+	if pos(s_libelle_consignation, LIBELLE_MODULE_EHEALTH_BELGIQUE + ":TOUS:1") > 0 then
+		EHEALTH_BELGIQUE = true
+	else
+		EHEALTH_BELGIQUE = false
+	end if
+	
 
 else
 	
@@ -370,6 +377,7 @@ else
 	VERIF_CONNEXIONS_BD = false
 	DENTAPOCHE = false
 	PID_LUXEMBOURG = false
+	EHEALTH_BELGIQUE = false
 end if
 
 
@@ -385,7 +393,7 @@ Trace ("- DENTAL_MONITORING : " + string(DENTAL_MONITORING) )
 Trace ("- VERIF_CONNEXION_BD : " + string(VERIF_CONNEXIONS_BD) ) 
 Trace ("- DENTAPOCHE : " + string(DENTAPOCHE) ) 
 Trace ("- PID_LUXEMBOURG : " + string(PID_LUXEMBOURG) ) 
-
+Trace ("- EHEALTH_BELGIQUE : " + string(EHEALTH_BELGIQUE) ) 
 
 TRACE ( " ===  Fin de : w_initialisation_modules_dynamiques ===")
 

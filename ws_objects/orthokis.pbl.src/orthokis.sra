@@ -1127,7 +1127,13 @@ Version = "2027 (36.90) du 24.11.2026"
 Version = "2027 (36.90) du 25.11.2026"
 
 
-Version_ce_logiciel = "36.90"
+Version = "2027 (36.90a) du 25.11.2026"
+// CORRECTIONS  :
+// MODULE eHEALTH Belgique optionnel mal implémenté
+
+
+
+Version_ce_logiciel = "36.90a"
 
 
 
