@@ -1,0 +1,6 @@
+﻿$PBExportHeader$str_scheduleeventmore.srs
+global type str_scheduleeventmore from structure
+	date		eventdate
+	s_rect		rectregion
+end type
+

@@ -1,0 +1,9 @@
+﻿$PBExportHeader$st_rdv2.srs
+global type st_rdv2 from structure
+	double		code_patient
+	double		code_interne_rdv
+	datetime		rdv
+	string		etat
+	boolean		afficher_message_confirmation
+end type
+

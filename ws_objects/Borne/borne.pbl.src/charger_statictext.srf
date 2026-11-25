@@ -1,0 +1,79 @@
+﻿$PBExportHeader$charger_statictext.srf
+global type charger_statictext from function_object
+end type
+
+forward prototypes
+global subroutine charger_statictext (ref statictext st_param, patient v_patient)
+end prototypes
+
+global subroutine charger_statictext (ref statictext st_param, patient v_patient);
+
+// Chargement des valeurs dans un statictext
+
+
+
+// Affichage du message de bienvenue avec remplacement des champs
+
+string v_taille, v_position, v_police
+boolean v_gras, v_italique
+string v_texte
+long v_couleur
+
+string nom_du_statictext 
+
+nom_du_statictext = st_param.tag
+
+
+if v_patient.adulte = 'O' then
+	if len(trim(v_patient.message_specifique_adulte)) > 0 and nom_du_statictext ="st_bienvenue_adulte"  then
+		v_texte = v_patient.message_specifique_adulte
+	else
+		v_texte = ProfileString (dir_ini+"orthokis.ini","Borne",nom_du_statictext+"_texte","")
+		v_texte = remplace(v_texte,"char(10)",char(10))
+		v_texte = remplace(v_texte,"char(13)",char(13))
+	end if
+else
+	if len(trim(v_patient.message_specifique)) > 0 and nom_du_statictext ="st_bienvenue"  then
+		v_texte = v_patient.message_specifique
+	else
+		v_texte = ProfileString (dir_ini+"orthokis.ini","Borne",nom_du_statictext+"_texte","")
+		v_texte = remplace(v_texte,"char(10)",char(10))
+		v_texte = remplace(v_texte,"char(13)",char(13))
+	end if
+end if
+
+
+v_texte = remplace(v_texte,"{prenom}",v_patient.prenom)
+v_texte = remplace(v_texte,"{nom}",v_patient.nom)
+v_texte = remplace(v_texte,"{titre}",v_patient.titre)
+v_texte = remplace(v_texte,"{heure_rdv}",v_patient.heure)
+v_texte = remplace(v_texte,"{retard}",v_patient.retard)
+v_texte = remplace(v_texte,"{numero_dossier}",string(v_patient.numero_dossier))
+v_texte = remplace(v_texte,"{numero_moulage}",v_patient.moulage)
+
+
+st_param.text = v_texte
+
+
+v_taille = ProfileString (dir_ini+"orthokis.ini","Borne",nom_du_statictext+"_taille","14")
+
+if ProfileString (dir_ini+"orthokis.ini","Borne",nom_du_statictext+"_gras","N") = 'O' then
+	v_gras = true
+else 
+	v_gras  = false
+end if
+
+if ProfileString (dir_ini+"orthokis.ini","Borne",nom_du_statictext+"_italique","N") = 'O' then
+	v_italique = true
+else
+	v_italique = false
+end if
+
+v_position = ProfileString (dir_ini+"orthokis.ini","Borne",nom_du_statictext+"_position","Cent")
+v_police = ProfileString (dir_ini+"orthokis.ini","Borne",nom_du_statictext+"_police","Tahoma")
+v_couleur = long(ProfileString (dir_ini+"orthokis.ini","Borne",nom_du_statictext+"_couleur","0"))
+
+appliquer_police( st_param, v_police, integer(v_taille), v_gras, v_italique, v_position, v_couleur)
+
+end subroutine
+

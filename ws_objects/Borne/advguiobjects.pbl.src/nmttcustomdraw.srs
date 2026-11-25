@@ -1,0 +1,6 @@
+﻿$PBExportHeader$nmttcustomdraw.srs
+global type nmttcustomdraw from structure
+	NMCUSTOMDRAWINFO		nmcd
+	uint		uDrawFlags
+end type
+

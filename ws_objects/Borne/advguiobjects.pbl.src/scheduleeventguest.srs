@@ -1,0 +1,8 @@
+﻿$PBExportHeader$scheduleeventguest.srs
+global type scheduleeventguest from structure
+	long		eventguestid
+	long		resourceid
+	string		name
+	string		email
+end type
+

@@ -1,0 +1,75 @@
+﻿$PBExportHeader$appliquer_police.srf
+global type appliquer_police from function_object
+end type
+
+forward prototypes
+global subroutine appliquer_police (any obj, string police, integer taille, boolean gras, boolean italic, string position, long couleur)
+end prototypes
+
+global subroutine appliquer_police (any obj, string police, integer taille, boolean gras, boolean italic, string position, long couleur);
+dragobject temp
+
+
+temp = obj
+
+choose case typeof(temp)
+	case statictext!
+		statictext st_texte
+		st_texte = temp
+		st_texte.FaceName = police
+		st_texte.TextSize = taille
+		if gras then
+			st_texte.weight = 700
+		else
+			st_texte.weight = 400
+		end if
+		if italic then
+			st_texte.italic = true
+		else
+			st_texte.italic = false
+		end if
+		
+		choose case left(position,3)
+			case "Cen"
+				st_texte.Alignment = Center!
+			case "Dro"
+				st_texte.Alignment = Right!
+			case "Gau"
+				st_texte.Alignment = Left!
+		end choose
+		
+		st_texte.TextColor = couleur
+		
+	case multilineedit!
+		multilineedit mle_texte
+		mle_texte = temp
+		mle_texte.FaceName = police
+		mle_texte.TextSize = taille
+		if gras then
+			mle_texte.weight = 700
+		else
+			mle_texte.weight = 400
+		end if
+		if italic then
+			mle_texte.italic = true
+		else
+			mle_texte.italic = false
+		end if
+		
+		choose case left(position,3)
+			case "Cen"
+				mle_texte.Alignment = Center!
+			case "Dro"
+				mle_texte.Alignment = Right!
+			case "Gau"
+				mle_texte.Alignment = Left!
+		end choose			
+
+		mle_texte.TextColor = couleur
+end choose
+
+
+
+return
+end subroutine
+

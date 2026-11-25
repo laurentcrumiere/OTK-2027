@@ -1,5 +1,5 @@
 ﻿$PBExportHeader$orthokis.srj
-EXE:orthokis.exe,orthokis.pbr,0,0,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.1.0.6464
+EXE:orthokis.exe,orthokis.pbr,0,1,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.1.0.6464
 EXT:0
 CMP:0,0,0,2,0,0,1
 COM:DentalSoft
@@ -14,7 +14,7 @@ MAN:0,asInvoker,0,0,0,0,0,0,,0,0,,0,,,,SHA256,http://timestamp.digicert.com,
 PBD:orthokis.pbl,orthokis.pbr,1
 PBD:agenda.pbl,,1
 PBD:clinique.pbl,,1
-PBD:clinique_perso.pbd,clinique_perso.pbr,1
+PBD:clinique_perso.pbd,,1
 PBD:cti.pbl,,1
 PBD:editions.pbl,,1
 PBD:expl_media.pbl,,1
@@ -748,7 +748,7 @@ OBJ:C:\Power\V2027\orthokis.pbl,dw_corresp_liste_sans_patient_actif,d
 OBJ:C:\Power\V2027\gestionstock.pbl,dw_type_produit_liste,d
 OBJ:C:\Power\V2027\gestionstock.pbl,gearbox_fournisseur,u
 OBJ:C:\Power\V2027\gestionstock.pbl,openmenuproduit_liste,f
-OBJ:C:\Power\V2027\orthokis.pbl,w_ia_bi,w
+OBJ:C:\Power\V2027\orthokis.pbl,w_ia_chat,w
 OBJ:C:\Power\V2027\clinique_perso.pbd,dw_dumu_export_rdv,d
 OBJ:C:\Power\V2027\advguiobjects.pbd,n_uspb_crypto,u
 OBJ:C:\Power\V2027\advguiobjects.pbd,u_cst_buttonlistbarscroll,u
@@ -1010,6 +1010,7 @@ OBJ:C:\Power\V2027\gestionstock.pbl,w_impr_etiq_sterilisation,w
 OBJ:C:\Power\V2027\gestionstock.pbl,w_liste_produit_historique_es,w
 OBJ:C:\Power\V2027\gestionstock.pbl,dw_impr_liste_produit_valorisation,d
 OBJ:C:\Power\V2027\agenda.pbl,dw_agenda_option_praticien,d
+OBJ:C:\Power\V2027\orthokis.pbl,n_bi_client,u
 OBJ:C:\Power\V2027\orthokis.pbl,w_quitter_orthokis,w
 OBJ:C:\Power\V2027\orthokis.pbl,w_ia_vocale,w
 OBJ:C:\Power\V2027\advguiobjects.pbd,n_hashtable,u
@@ -1456,6 +1457,7 @@ OBJ:C:\Power\V2027\gestionstock.pbl,dw_table_liste_produit_edition,d
 OBJ:C:\Power\V2027\gestionstock.pbl,w_table_liste_produit,w
 OBJ:C:\Power\V2027\gestionstock.pbl,w_commande_impression,w
 OBJ:C:\Power\V2027\orthokis.pbl,dw_emails_entrants,d
+OBJ:C:\Power\V2027\orthokis.pbl,n_ia_historique,u
 OBJ:C:\Power\V2027\orthokis.pbl,w_connexions,w
 OBJ:C:\Power\V2027\advguiobjects.pbd,n_uspb_colors,u
 OBJ:C:\Power\V2027\advguicontrols.pbd,f_pbus_get_popmenu_cords,f
@@ -1978,6 +1980,7 @@ OBJ:C:\Power\V2027\editions.pbl,dw_tableau_bord_mensu_rdv_etat,d
 OBJ:C:\Power\V2027\orthokis.pbl,dw_categorie_commentaire_cherche,d
 OBJ:C:\Power\V2027\orthokis.pbl,dw_groupes_utilisateurs,d
 OBJ:C:\Power\V2027\gestionstock.pbl,w_liste_produit_valorisation,w
+OBJ:C:\Power\V2027\orthokis.pbl,w_ia_historique,w
 OBJ:C:\Power\V2027\ihm.pbl,w_maj_ftp,w
 OBJ:C:\Power\V2027\advguiobjects.pbd,w_powerdockfloat,w
 OBJ:C:\Power\V2027\advguiobjects.pbd,n_cst_loadingcircle_timer,u

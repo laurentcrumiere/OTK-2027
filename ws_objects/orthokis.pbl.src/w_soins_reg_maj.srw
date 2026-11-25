@@ -4462,11 +4462,11 @@ for cpt = 1 to nb_lignes
 			// Depuis v2025, les codes exo et autres sont gérés dans les soins prévisionnels
 		
 			INSERT INTO "soins" ("cle","code","type","numero","date_demande","scp_demande","hn","total","tp","date_accord","scp_accord", "date_impr", "date_exe","user_modif","date_modif" , "motif_depassement",
-			"code_association", "dent", "exo", "remboursement_exceptionnel")
+			"code_association", "dent", "exo", "remboursement_exceptionnel", "modificateurs")
 			SELECT :cle_max, "soins_prevus"."code","soins_prevus"."type","soins_prevus"."numero","soins_prevus"."date_demande","soins_prevus"."scp_demande","soins_prevus"."hn","soins_prevus"."total",
 			"soins_prevus"."tp","soins_prevus"."date_accord","soins_prevus"."scp_accord" , "soins_prevus"."date_impr", 
 			(select dateadd (month, "code_soins"."duree","soins_prevus"."date_demande") from "code_soins" where "code_soins"."code" = "soins_prevus"."type" ), "soins_prevus"."user_modif","soins_prevus"."date_modif" , :v_motif,
-			"soins_prevus"."code_association" , "dent", "exo", "remboursement_exceptionnel"
+			"soins_prevus"."code_association" , "dent", "exo", "remboursement_exceptionnel", "modificateurs" 
 			FROM "soins_prevus" , "code_soins"
 			WHERE "soins_prevus"."code" = :var_code_local and "soins_prevus"."cle" = :cle_prevu  and "code_soins"."code" = "soins_prevus"."type" and "code_soins"."execution_immediate" <> 'O' ;
 				
@@ -4484,18 +4484,18 @@ for cpt = 1 to nb_lignes
 				// Exo 3 pour les TO 45 et les TO >= 60
 				if CCVITALE and (v_scp_demande = 45 or v_scp_demande >=60 ) and (v_lettre = 'TO' or v_lettre = 'ORT') then
 					// pour les soins AVEC exécution immédiate
-					INSERT INTO "soins" ("cle","code","type","numero","date_demande","scp_demande","hn","total","tp","date_accord","scp_accord", "date_impr", "date_exe","user_modif","date_modif" , "motif_depassement", "code_association", "exo")
+					INSERT INTO "soins" ("cle","code","type","numero","date_demande","scp_demande","hn","total","tp","date_accord","scp_accord", "date_impr", "date_exe","user_modif","date_modif" , "motif_depassement", "code_association", "exo", "modificateurs")
 					SELECT :cle_max, "soins_prevus"."code","soins_prevus"."type","soins_prevus"."numero","soins_prevus"."date_demande","soins_prevus"."scp_demande","soins_prevus"."hn","soins_prevus"."total",
 					"soins_prevus"."tp","soins_prevus"."date_accord","soins_prevus"."scp_accord" , "soins_prevus"."date_impr", "soins_prevus"."date_demande", "soins_prevus"."user_modif","soins_prevus"."date_modif" , :v_motif,
-					"soins_prevus"."code_association" , '3'
+					"soins_prevus"."code_association" , '3', "modificateurs"
 					FROM "soins_prevus" , "code_soins"
 					WHERE "soins_prevus"."code" = :var_code_local and "soins_prevus"."cle" = :cle_prevu  and "code_soins"."code" = "soins_prevus"."type" and "code_soins"."execution_immediate" = 'O' ;
 				else
 					// pour les soins AVEC exécution immédiate
-					INSERT INTO "soins" ("cle","code","type","numero","date_demande","scp_demande","hn","total","tp","date_accord","scp_accord", "date_impr", "date_exe","user_modif","date_modif" , "motif_depassement", "code_association")
+					INSERT INTO "soins" ("cle","code","type","numero","date_demande","scp_demande","hn","total","tp","date_accord","scp_accord", "date_impr", "date_exe","user_modif","date_modif" , "motif_depassement", "code_association", "modificateurs")
 					SELECT :cle_max, "soins_prevus"."code","soins_prevus"."type","soins_prevus"."numero","soins_prevus"."date_demande","soins_prevus"."scp_demande","soins_prevus"."hn","soins_prevus"."total",
 					"soins_prevus"."tp","soins_prevus"."date_accord","soins_prevus"."scp_accord" , "soins_prevus"."date_impr", "soins_prevus"."date_demande", "soins_prevus"."user_modif","soins_prevus"."date_modif" , :v_motif,
-					"soins_prevus"."code_association" 
+					"soins_prevus"."code_association" , "modificateurs"
 					FROM "soins_prevus" , "code_soins"
 					WHERE "soins_prevus"."code" = :var_code_local and "soins_prevus"."cle" = :cle_prevu  and "code_soins"."code" = "soins_prevus"."type" and "code_soins"."execution_immediate" = 'O' ;
 				end if
@@ -7520,11 +7520,6 @@ if rowcount = 0 then
 	// Utilisation de la procédure stockée 
 	select dba.lignes_soins_dues_un_soin(:var_code_local,:var_cle, cast(getdate() as date), 'O') into :doit  from param ; 
 	
-
-			 
-
-
-	
 	this.modify ('t_somme_due.text = "Dû à ce jour : ' +string(doit,"0.00")+" "+ls_symbole_monnaie+ '"' )
 	this.modify ('t_total_paye.text = "0.00 '+ ls_symbole_monnaie+'"' )
 	
@@ -7588,6 +7583,7 @@ this.object.t_du_caisse.visible = 0
 
 // uniquement si la caisse ou la mutuelle doit .. on explicite
 if du_caisse > 0 or du_mutuelle > 0 then 
+	
 	if du_patient > 0 then 
 		this.object.t_du_patient.visible = 1
 		this.object.t_du_patient.text = "Dû patient : " + string(du_patient, "0.00") + " " + ls_symbole_monnaie
@@ -7600,9 +7596,6 @@ if du_caisse > 0 or du_mutuelle > 0 then
 		this.object.t_du_mutuelle.visible = 1
 		this.object.t_du_mutuelle.text = "Dû mutuelle : " + string(du_mutuelle, "0.00") + " " + ls_symbole_monnaie
 	end if
-
-	
-	
 
 end if
 

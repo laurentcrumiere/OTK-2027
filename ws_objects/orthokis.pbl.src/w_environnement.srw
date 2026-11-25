@@ -11647,9 +11647,9 @@ event rbuttondown;
 	couleur_choisie = this.backcolor
 	
 	// Les positions seront utilisées dans le timer de la fenêtre	
-	ii_palette_x = pointerx()
-	ii_palette_y = pointery()
-		
+	ii_palette_x = unitstopixels( w_mdi_2020.pointerx() , XUnitsToPixels! ) 
+	ii_palette_y = unitstopixels( w_mdi_2020.pointery() , YUnitsToPixels! ) 
+	
 	Timer(0.05)	// pour déclencher le repositionnement de la palette
 
 	//Appel de la fenetre couleur et au retour, met la couleur de fond

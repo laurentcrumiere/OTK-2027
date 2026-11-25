@@ -1,0 +1,10 @@
+﻿$PBExportHeader$featuretour.srs
+global type featuretour from structure
+	graphicobject		target
+	string		content
+	integer		position
+	featuretouroffset		offsetrect
+	boolean		useoffset
+	string		color
+end type
+

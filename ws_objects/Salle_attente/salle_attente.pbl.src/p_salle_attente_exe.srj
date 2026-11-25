@@ -252,7 +252,6 @@ OBJ:C:\Power\V2027\gestionstock.pbd,dw_produit_prati_liste,d
 OBJ:C:\Power\V2027\gestionstock.pbd,resize_tag,u
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_commande_liste,d
 OBJ:C:\Power\V2027\orthokis.pbd,dw_paramgene_dentapoche,d
-OBJ:C:\Power\V2027\orthokis.pbd,w_ia_bi,w
 OBJ:C:\Power\V2027\clinique_perso.pbd,dw_dumu_export_patients,d
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,w_powerdockdocker,w
 OBJ:C:\Power\V2027\expl_media.pbd,gearbox,u
@@ -479,6 +478,7 @@ OBJ:C:\Power\V2027\gestionstock.pbd,dw_contact_data,d
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_contact_liste,d
 OBJ:C:\Power\V2027\orthokis.pbd,ajout_histo_connexion,f
 OBJ:C:\Power\V2027\ihm.pbd,n_choosefont,u
+OBJ:C:\Power\V2027\orthokis.pbd,w_ia_chat,w
 OBJ:C:\Power\V2027\orthokis.pbd,w_coment_admini_2010_maj,w
 OBJ:C:\Power\V2027\orthokis.pbd,dw_coment_admini_2010_maj,d
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,u_cst_toolbarchevron,u
@@ -1681,6 +1681,7 @@ OBJ:C:\Power\V2027\orthokis.pbd,w_commentaire_dep,w
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_format_planche,d
 OBJ:C:\Power\V2027\orthokis.pbd,n_osversion,u
 OBJ:C:\Power\V2027\orthokis.pbd,w_doctolib_agenda,w
+OBJ:C:\Power\V2027\orthokis.pbd,n_ia_historique,u
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,n_cst_pbusexternal,u
 OBJ:c:\power\v2027\salle_attente\advguibase2.pbl,st_uspb_base,u
 OBJ:c:\power\v2027\salle_attente\advguibase2.pbl,n_uspb_base,u
@@ -2099,6 +2100,7 @@ OBJ:C:\Power\V2027\orthokis.pbd,dw_saisie_montant_soin_auto,d
 OBJ:C:\Power\V2027\orthokis.pbd,dw_etat_rdv_message_borne,d
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_modif_entree,d
 OBJ:C:\Power\V2027\gestionstock.pbd,openmenuproduit_liste_commande,f
+OBJ:C:\Power\V2027\orthokis.pbd,n_bi_client,u
 OBJ:C:\Power\V2027\orthokis.pbd,w_ia_vocale,w
 OBJ:C:\Power\V2027\orthokis.pbd,str_size,s
 OBJ:C:\Power\V2027\ihm.pbd,w_patience,w
@@ -2193,6 +2195,7 @@ OBJ:C:\Power\V2027\orthokis.pbd,dw_saints_maj,d
 OBJ:C:\Power\V2027\orthokis.pbd,w_vacances_scolaires,w
 OBJ:C:\Power\V2027\gestionstock.pbd,w_saisie_libelle_commande,w
 OBJ:C:\Power\V2027\gestionstock.pbd,dw_impr_liste_commandes,d
+OBJ:C:\Power\V2027\orthokis.pbd,w_ia_historique,w
 OBJ:C:\Power\V2027\orthokis.pbd,w_reconnexion,w
 OBJ:C:\Power\V2027\clinique.pbd,w_diagnos_maj_std_2009_,w
 OBJ:C:\Power\V2027\Salle_attente\advguiobjects2.pbd,n_cst_toolbarstrip_painter,u

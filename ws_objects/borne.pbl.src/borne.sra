@@ -1185,7 +1185,9 @@ libelle_depassement_abrege = "Dép"
 	OPERATEUR_SMS = fxg_verif_pocket()
 	CCVITALE =  h.checkoption(34)   // opt34 : CC Vitale
 
-	open(w_initialisation_modules_dynamiques)
+	
+	// Inutile pour la borne
+	// open(w_initialisation_modules_dynamiques)
 
 	image_fond = ProfileString (dir_ini+"orthokis.ini","Borne","image_fond","")
 

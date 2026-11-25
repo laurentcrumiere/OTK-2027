@@ -1,0 +1,55 @@
+﻿$PBExportHeader$remplace.srf
+global type remplace from function_object
+end type
+
+forward prototypes
+global function string remplace (string chaine_complete, string chaine_cherchee, string chaine_remplacement)
+end prototypes
+
+global function string remplace (string chaine_complete, string chaine_cherchee, string chaine_remplacement);
+
+// remplace une chaine par une autre à l'intérieur d'une chaine
+
+long len_chaine_complete, len_chaine_cherchee, len_chaine_remplacement
+long pos_trouve, last_post_trouve
+string nouvelle_chaine = ""
+
+
+chaine_cherchee = trim(chaine_cherchee)
+chaine_remplacement = trim(chaine_remplacement)
+
+len_chaine_complete = len(chaine_complete)
+len_chaine_cherchee = len(chaine_cherchee)
+len_chaine_remplacement = len(chaine_remplacement)
+
+
+pos_trouve = pos(chaine_complete,chaine_cherchee)
+
+last_post_trouve = 0
+
+if pos_trouve > 0 then
+	do while pos_trouve > 0
+		if last_post_trouve = 0 then
+			// première fois
+			nouvelle_chaine = nouvelle_chaine + mid(chaine_complete, 1 , pos_trouve - last_post_trouve - 1) + chaine_remplacement
+		else
+//			nouvelle_chaine = nouvelle_chaine + mid(chaine_complete, last_post_trouve + len_chaine_cherchee , pos_trouve - last_post_trouve - 2 ) + chaine_remplacement
+			nouvelle_chaine = nouvelle_chaine + mid(chaine_complete, last_post_trouve + len_chaine_cherchee , pos_trouve - ( last_post_trouve + len_chaine_cherchee ) ) + chaine_remplacement
+		end if
+		last_post_trouve = pos_trouve
+		pos_trouve = pos(chaine_complete,chaine_cherchee,last_post_trouve + 1)
+	loop
+	
+	nouvelle_chaine = nouvelle_chaine + mid(chaine_complete, last_post_trouve + len_chaine_cherchee , len_chaine_complete -  last_post_trouve )
+	
+else
+	nouvelle_chaine = chaine_complete
+end if
+
+
+
+
+
+return nouvelle_chaine
+end function
+

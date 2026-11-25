@@ -1,0 +1,8 @@
+﻿$PBExportHeader$featuretouroffset.srs
+global type featuretouroffset from structure
+	long		x
+	long		y
+	long		width
+	long		height
+end type
+

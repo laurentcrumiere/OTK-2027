@@ -1,0 +1,167 @@
+﻿$PBExportHeader$fxg_verif_licence_logicielle.srf
+global type fxg_verif_licence_logicielle from function_object
+end type
+
+forward prototypes
+global function boolean fxg_verif_licence_logicielle ()
+end prototypes
+
+global function boolean fxg_verif_licence_logicielle ();string v_url_licences_ini, v_cle_logiciel_2013, v_url_licences_base, v_url_licences
+boolean licence_ok = false
+date v_today_serveur
+
+Trace("=== Début fxg_verif_licence_logicielle () ===")
+
+// url_licences en local ?
+v_url_licences_ini =  trim(Profilestring(dir_ini+inifile_orthokis,"connexion","url_licences",""))
+
+v_url_licences_ini = upper(trim(v_url_licences_ini))
+
+if v_url_licences_ini = "HASP" then 
+	// pas d'outils logiciel 
+	licence_ok = false
+else
+	// Connexion rapide la base du cabinet si on peut pour recup URL Licences
+
+	//************************ Connection à la base ************************//
+	//Prépa transaction pour la base ORTHOKIS
+	SQLCA.DBMS 			= "ODBC"
+	SQLCA.database 	= "Orthokis"
+	SQLCA.userid 		= "dba"
+//	SQLCA.dbpass 		= "Dent@lsoft26"
+	SQLCA.dbpass 		= "SQL"
+	SQLCA.autocommit 	= false
+	
+	if replication then 
+		// On regarde comment on s'est connecté la dernière fois !
+		if profilestring(dir_ini+inifile_orthokis,"replication","connexion_distante","N")  = "O" then
+			SQLCA.dbparm	= "Block = 1,ConnectString='DSN=Orthokis'_local"
+		else
+			SQLCA.dbparm	= "Block = 1,ConnectString='DSN=Orthokis'"
+		end if
+	else
+		SQLCA.dbparm	= "Block = 1,ConnectString='DSN=Orthokis'"
+	end if
+	CONNECT;	//connection
+	If SQLCA.sqlcode = 0 Then
+		select top 1 isnull(url_autre,''), isnull(clef_logiciel_2013, ''), cast(getdate() as date) 
+		into :v_url_licences_base, :v_cle_logiciel_2013, :v_today_serveur
+		from param ;
+		disconnect ;
+	end if
+	if v_url_licences_base = "" then 
+		v_url_licences = v_url_licences_ini
+	else
+		v_url_licences = v_url_licences_base
+	end if
+	
+	if v_cle_logiciel_2013 = "" then
+		// on est dans le cas du 1er lancement
+		licence_ok = true
+	else
+		if v_url_licences <> "" then
+			// On essaie de s'authentifier 
+			Trace("- v_url_licences : " + v_url_licences)
+			
+			uo_infos_systeme  uo_infos
+			uo_infos = create uo_infos_systeme
+			
+			Trace("- avant check des ip, mac ..")
+			
+			
+			// Récup des infos systemes utiles
+			string v_adresse_ip, v_adresse_mac, v_computer_name
+			string v_commande
+			
+			v_adresse_ip = uo_infos.of_get_my_ip()
+			Trace("- v_adresse_ip : " + v_adresse_ip)
+			
+			v_adresse_mac = uo_infos.of_getmac( v_adresse_ip )
+			Trace("- v_adresse_mac : " + v_adresse_mac)
+			
+			v_computer_name = uo_infos.of_get_my_computername()
+			Trace("- v_computer_name : " + v_computer_name)
+			
+			v_commande =  v_url_licences + "licence?ip=" + v_adresse_ip + "&poste=" + v_computer_name + "&mac=" + v_adresse_mac + "&soft=ORT&format=INI" 
+			
+			Trace("- v_commande : " + v_commande)
+
+			Inet iinet_base
+			GetContextService("Internet", iinet_base)
+			integer li_rc
+			n_inetresult in_irdata
+			in_irdata = CREATE n_inetresult
+			string code_retour,code_retour2
+		
+			// Retour XML
+			constant string nom_fichier_recu = "wb.xml"
+		
+			// effacement du fichier du dernier appel
+			FileDelete(dir_ini + nom_fichier_recu)
+		
+			Trace("- Avant lancement commande" )
+			// Lancement du webservice qui va bien
+			li_rc = iinet_base.GetURL(v_commande, in_irdata)
+		
+			if li_rc = 1 then
+				Trace(" - Commande OK ")
+				
+				in_irdata.of_WriteFile(dir_ini + nom_fichier_recu, in_irdata.iblob_data)
+			
+				if FileExists(dir_ini + nom_fichier_recu) then
+					code_retour =  Profilestring(dir_ini + nom_fichier_recu,"0","success","")
+					
+					Trace(" - code_retour : " + code_retour)
+					if code_retour = "true" then
+						choose case  Profilestring(dir_ini + nom_fichier_recu,"0","errorCode","") 
+							case "201" 
+								MessageBox("ATTENTION","Activation provisoire pendant 30 jours.~n~nVeuillez contacter rapidement ARAKIS car le certificat est erroné !")
+								licence_ok = true
+							case "202" 
+								MessageBox("ATTENTION","Activation provisoire pendant 7 jours.~n~nVeuillez contacter rapidement ARAKIS car le nombre de licences utilisées est dépassé !")
+								licence_ok = true
+							case 	else
+								// Est ce que le code reçu est le bon ?
+								long v_recu
+								integer v_d, v_m, v_y
+								v_recu = long ( Profilestring(dir_ini + nom_fichier_recu,"0","authCode","") )
+								
+								// Modif 27.00f
+								//v_d = day(today())
+								//v_m = month(today())
+								//v_y = year(today())
+								
+								v_d = day(v_today_serveur)
+								v_m = month(v_today_serveur)
+								v_y = year(v_today_serveur)
+							
+								if v_recu = (v_d * v_m) + (v_y * v_m) - v_d then
+									// C'est OK ... on débloque la clef HASP
+									licence_ok = true
+								end if
+						end choose
+					else
+						if code_retour = "false" then
+							 choose case Profilestring(dir_ini + nom_fichier_recu,"0","errorCode","") 
+								case "101"
+									MessageBox("ATTENTION","Votre certificat n'est pas valide  !~n~nUtilisation impossible !")
+								Case "102" 
+									MessageBox("ATTENTION","Vous avez atteint la limite du nombre de connexions autorisées !")
+								Case else
+									MessageBox("ATTENTION",Profilestring(dir_ini + nom_fichier_recu,"0","errorMsg",""))
+							end choose
+							HALT CLOSE ;
+						end if
+					end if
+				end if
+			end if
+		end if
+	end if
+end if
+
+Trace(" - licence_ok : "+ string(licence_ok))
+Trace("=== Fin fxg_verif_licence_logicielle () ===")
+
+return licence_ok
+end function
+

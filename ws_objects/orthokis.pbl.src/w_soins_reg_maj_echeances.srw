@@ -1032,7 +1032,11 @@ end if
 				em_date_impr.text =  string(dw_soins_prevus.getitemdate(lig_soin,"date_impr"),"dd/mm/yyyy")	//"date impression de DEP"
 				type_soin = dw_soins_prevus.getitemstring(lig_soin,"code_soins_code")
 				sle_association.text = dw_soins_prevus.getitemString(lig_soin,"code_association")
-				sle_modificateurs.text = dw_soins_prevus.getitemString(lig_soin,"modificateurs")
+				if FRANCE and fxg_get_version_ccvitale() >= "4.40" then 
+					sle_modificateurs.text = dw_soins_prevus.getitemString(lig_soin,"modificateurs")
+				else
+					sle_modificateurs.text = ""
+				end if
 				
 				ancien_soin = type_soin
 				
@@ -1156,8 +1160,11 @@ end if
 					em_tp.text = string(dw_soins.getitemnumber(lig_soin,"tp"))
 					em_num.text = string(dw_soins.getitemnumber(lig_soin,"numero"))
 					type_soin = dw_soins.getitemstring(lig_soin,"code_soins_code")
-					sle_modificateurs.text =  w_soins_reg_maj_parent.tab_1.tabpage_soins.dw_impression.getitemString(1,"modificateurs") 
-		
+					if FRANCE and fxg_get_version_ccvitale() > "4.40" then
+						sle_modificateurs.text =  w_soins_reg_maj_parent.tab_1.tabpage_soins.dw_impression.getitemString(1,"modificateurs") 
+					else
+						sle_modificateurs.text = ""
+					end if
 					ancien_soin = type_soin
 					
 					// Le code association peut être mise à jour dans la DW de l'onglet 
@@ -1846,11 +1853,11 @@ CHOOSE CASE Action
 			INSERT INTO "soins"  
 				( "cle", "code", "type",  "numero", "date_demande",   
 				  "scp_demande",  "date_accord",   "scp_accord",   
-				  "hn",   "total", "tp","date_exe" , "user_modif", "date_modif", "motif_depassement", "code_association", "exo", "remboursement_exceptionnel")  
+				  "hn",   "total", "tp","date_exe" , "user_modif", "date_modif", "motif_depassement", "code_association", "exo", "remboursement_exceptionnel", "modificateurs")  
 			 VALUES ( :cle_max,   :var_code_local, :var_type,   
 				  :var_num,   :var_date_dem,   :var_scp_dem,   
 				  :var_date_acc,   :var_scp_acc,    :var_hn,   
-				  :var_tot,    :var_tp , : date_execution , :utilisateur_code,getdate(), :v_motif, :v_code_association , :v_exoneration_defaut, :v_remboursement_exceptionnel_defaut)  ;
+				  :var_tot,    :var_tp , : date_execution , :utilisateur_code,getdate(), :v_motif, :v_code_association , :v_exoneration_defaut, :v_remboursement_exceptionnel_defaut, :v_modificateurs)  ;
 				
 				ajout_histo_actions(var_code_local,"AJOSOI",today(),v_nom_soin +" - " + string(var_date_dem, "dd/mm/yyyy")+" - "+string(var_tot,'0.00'))
 			
@@ -1951,7 +1958,11 @@ CHOOSE CASE Action
 				  "tp" = :var_tp,
 					"code_association" = :v_code_association,
 				"user_modif" = :utilisateur_code,
-				"date_modif" = getdate() 
+				"date_modif" = getdate() ,
+				"remboursement_exceptionnel" = :v_remboursement_exceptionnel,
+				"dent" = :v_dent ,
+				"modificateurs" = :v_modificateurs
+
 			  WHERE cle = :cle_manip and code = :var_code_local ;
 				
 			if isnull(var_date_acc) then

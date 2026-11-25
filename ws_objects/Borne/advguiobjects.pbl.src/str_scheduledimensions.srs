@@ -1,0 +1,10 @@
+﻿$PBExportHeader$str_scheduledimensions.srs
+global type str_scheduledimensions from structure
+	date		startdate
+	date		enddate
+	integer		columnwidth
+	integer		rowheight
+	integer		daysinmonth
+	integer		gridrows
+end type
+

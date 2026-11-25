@@ -1,15 +1,15 @@
 ﻿$PBExportHeader$w_ia_chat.srw
-$PBExportComments$Assistant BI : questions en français sur la base du cabinet (API BI Magic LEMP)
+$PBExportComments$Assistant BI : questions en franÃ§ais sur la base du cabinet (API BI Magic LEMP)
 forward
 global type w_ia_chat from window
+end type
+type cb_historique from uo_picturebutton_390x120 within w_ia_chat
 end type
 type cb_fermer from picturebutton within w_ia_chat
 end type
 type cb_send from picturebutton within w_ia_chat
 end type
 type shl_1 from statichyperlink within w_ia_chat
-end type
-type cb_sendz from picture within w_ia_chat
 end type
 type st_base from statictext within w_ia_chat
 end type
@@ -41,7 +41,7 @@ end forward
 
 global type w_ia_chat from window
 integer width = 2181
-integer height = 2584
+integer height = 2528
 boolean titlebar = true
 string title = "Adent"
 boolean resizable = true
@@ -49,10 +49,10 @@ windowtype windowtype = child!
 long backcolor = 67108864
 string icon = "lc_ia_bi.png"
 boolean center = true
+cb_historique cb_historique
 cb_fermer cb_fermer
 cb_send cb_send
 shl_1 shl_1
-cb_sendz cb_sendz
 st_base st_base
 ddlb_base ddlb_base
 cb_new cb_new
@@ -79,13 +79,13 @@ type variables
 string is_ini = "orthokis.ini"
 
 n_bi_client inv_bi
-graph igr_chart                // contrôle Graph facultatif, repéré à l'ouverture
+graph igr_chart                // contrôle Graph facultatif, repéré à  l'ouverture
 
 string is_ds_ids[]             // identifiants des bases, dans l'ordre de la liste
 boolean ib_ds_ready[]
 integer ii_base = 0            // base choisie
 
-string is_conv_id = ""         // conversation en cours ("" = à ouvrir)
+string is_conv_id = ""         // conversation en cours ("" = à  ouvrir)
 long il_answer_idx = 0
 long il_chart = 0
 long il_charts = 0
@@ -100,9 +100,12 @@ constant integer MAX_POLLS = 120   // 3 minutes
 string is_roles[]
 string is_texts[]
 long il_msgs = 0
-boolean ib_pending = false     // affiche « … » en attente de la réponse
+boolean ib_pending = false     // affiche Â« â€¦ Â» en attente de la réponse
 string is_html_file            // page HTML de l'historique, dans le dossier temporaire
 long il_render = 0
+
+// Historique local : conversations ouvertes sur ce poste et questions posées
+n_ia_historique inv_hist
 end variables
 
 forward prototypes
@@ -114,10 +117,13 @@ public subroutine wf_busy (boolean ab_busy)
 public subroutine wf_show_answer ()
 public subroutine wf_show_chart ()
 public subroutine wf_reset_conversation ()
+public subroutine wf_send ()
+public subroutine wf_open_conversation (string as_conv_id)
+public subroutine wf_show_history ()
 end prototypes
 
-public subroutine wf_append (string as_role, string as_text);// Ajoute un message à l'historique et réaffiche la page
-// as_role : "user" (question, bleu, à droite), "assistant" (réponse Markdown, noir, à gauche),
+public subroutine wf_append (string as_role, string as_text);// Ajoute un message à  l'historique et réaffiche la page
+// as_role : "user" (question, bleu, à  droite), "assistant" (réponse Markdown, noir, à  gauche),
 //           "error" (échec, rouge) ou "info" (mention grise centrée)
 il_msgs++
 is_roles[il_msgs] = as_role
@@ -125,7 +131,7 @@ is_texts[il_msgs] = as_text
 wf_render()
 end subroutine
 
-public subroutine wf_render ();// Écrit la page HTML de l'historique (messages intégrés en JSON) et l'affiche
+public subroutine wf_render ();// à‰crit la page HTML de l'historique (messages intégrés en JSON) et l'affiche
 JsonGenerator lnv_gen
 long ll_root, ll_list, ll_item, ll_i, ll_pos
 integer li_file
@@ -144,7 +150,7 @@ next
 ls_json = lnv_gen.GetJsonString()
 destroy lnv_gen
 
-// Un texte contenant « </script> » ne doit pas fermer le script de la page
+// Un texte contenant Â« </script> Â» ne doit pas fermer le script de la page
 ls_json = wf_replace_all(ls_json, "</", "<\/")
 
 ls_html = wf_template()
@@ -159,7 +165,7 @@ end if
 FileWriteEx(li_file, ls_html)
 FileClose(li_file)
 
-// Paramètre v : force le rechargement de la page à chaque affichage
+// Paramètre v : force le rechargement de la page à  chaque affichage
 il_render++
 ls_url = wf_replace_all(is_html_file, "\", "/")
 ls_url = wf_replace_all(ls_url, " ", "%20")
@@ -233,7 +239,7 @@ ls += "  return row.split('|').map(function (c) { return c.trim(); });~n"
 ls += "}~n"
 ls += "~n"
 ls += "function isNumber(c) {~n"
-ls += "  return /^[-+]?[\d\s  ]+([.,]\d+)?\s?(%|€)?$/.test(c);~n"
+ls += "  return /^[-+]?[\d\sÂ â€¯]+([.,]\d+)?\s?(%|â‚¬)?$/.test(c);~n"
 ls += "}~n"
 ls += "~n"
 ls += "function table(rows) {~n"
@@ -376,11 +382,12 @@ loop
 return as_text
 end function
 
-public subroutine wf_busy (boolean ab_busy);// Pendant le traitement : une seule question à la fois par conversation
+public subroutine wf_busy (boolean ab_busy);// Pendant le traitement : une seule question à  la fois par conversation
 cb_send.Enabled = not ab_busy
 cb_cancel.Enabled = ab_busy
 cb_new.Enabled = not ab_busy
 ddlb_base.Enabled = not ab_busy
+cb_historique.Enabled = not ab_busy
 mle_question.DisplayOnly = ab_busy
 ib_pending = ab_busy           // pris en compte au prochain affichage de l'historique
 if ab_busy then
@@ -451,7 +458,7 @@ cb_prev_chart.Enabled = (il_chart > 1)
 cb_next_chart.Enabled = (il_chart < il_charts)
 end subroutine
 
-public subroutine wf_reset_conversation ();// Repart d'une conversation vide (la suivante sera ouverte à la première question)
+public subroutine wf_reset_conversation ();// Repart d'une conversation vide (la suivante sera ouverte à  la première question)
 is_conv_id = ""
 il_answer_idx = 0
 il_charts = 0
@@ -464,11 +471,150 @@ cb_sql.Enabled = false
 wf_show_chart()
 end subroutine
 
+public subroutine wf_send ();// Envoie la question saisie (boutons cb_send et cb_sendz)
+string ls_question, ls_ds_id
+
+ls_question = Trim(mle_question.Text)
+if ls_question = "" then return
+
+if ii_base < 1 then
+	MessageBox(This.Title, "Choisir une base.")
+	return
+end if
+ls_ds_id = is_ds_ids[ii_base]
+
+// Première question : ouvrir la conversation sur la base choisie
+if is_conv_id = "" then
+	if inv_bi.of_open_conversation(ls_ds_id, "", is_conv_id) <> 1 then
+		MessageBox(This.Title, inv_bi.is_last_error, StopSign!)
+		return
+	end if
+	// Historique : la conversation est retenue sur ce poste, avec sa première question pour titre
+	inv_hist.of_add_conversation(is_conv_id, ls_ds_id, ddlb_base.Text(ii_base), ls_question)
+end if
+
+if inv_bi.of_ask(is_conv_id, ls_question) <> 1 then
+	if inv_bi.il_last_status = 409 then
+		MessageBox(This.Title, inv_bi.is_last_error + "~r~n~r~nSi la question précédente est terminée, ouvrir une nouvelle conversation.", Exclamation!)
+	else
+		MessageBox(This.Title, inv_bi.is_last_error, StopSign!)
+	end if
+	return
+end if
+
+// Historique : question retenue, conversation remontée en tête de liste
+inv_hist.of_add_question(ls_question, ls_ds_id)
+inv_hist.of_touch_conversation(is_conv_id)
+
+mle_question.Text = ""
+il_answer_idx = 0
+ib_cancelled = false
+ii_polls = 0
+ii_poll_errors = 0
+wf_busy(true)                  // avant wf_append : la page affiche Â« â€¦ Â» sous la question
+wf_append("user", ls_question)
+st_status.Text = "Analyse en coursâ€¦"
+Timer(1.5)
+end subroutine
+
+public subroutine wf_open_conversation (string as_conv_id);// Réaffiche une conversation de l'historique ; les questions suivantes la poursuivent
+string ls_status, ls_ds_id, ls_roles[], ls_texts[]
+long ll_n
+integer li_i
+
+if inv_bi.of_get_conversation(as_conv_id, ls_status, ls_ds_id) <> 1 then
+	if inv_bi.il_last_status = 404 then
+		inv_hist.of_remove_conversation(as_conv_id)
+		MessageBox(This.Title, "Cette conversation n'existe plus sur le serveur (supprimée après 90 jours sans question).~r~nElle est retirée de l'historique.", Information!)
+	else
+		MessageBox(This.Title, inv_bi.is_last_error, StopSign!)
+	end if
+	return
+end if
+
+ll_n = inv_bi.of_load_messages(as_conv_id, ls_roles, ls_texts)
+if ll_n < 0 then
+	MessageBox(This.Title, inv_bi.is_last_error, StopSign!)
+	return
+end if
+
+// Une conversation = une base : on sélectionne la sienne (sans déclencher selectionchanged)
+for li_i = 1 to UpperBound(is_ds_ids)
+	if is_ds_ids[li_i] = ls_ds_id then
+		ii_base = li_i
+		ddlb_base.SelectItem(li_i)
+		exit
+	end if
+next
+
+is_conv_id = as_conv_id
+is_roles = ls_roles
+is_texts = ls_texts
+il_msgs = ll_n
+il_answer_idx = 0
+il_charts = 0
+cb_ok.Enabled = false
+cb_ko.Enabled = false
+cb_sql.Enabled = false
+
+// Question encore en cours (ouverte ailleurs ou avant une fermeture) : on attend sa réponse
+if ls_status = "running" then
+	ib_cancelled = false
+	ii_polls = 0
+	ii_poll_errors = 0
+	wf_busy(true)
+	wf_render()
+	wf_show_chart()
+	st_status.Text = "Analyse en coursâ€¦"
+	Timer(1.5)
+	return
+end if
+
+wf_busy(false)
+wf_render()
+
+// Outils de la dernière réponse : SQL, graphiques, évaluation
+if inv_bi.of_load_answer(is_conv_id) = 1 then
+	il_answer_idx = inv_bi.of_answer_idx()
+	cb_ok.Enabled = (il_answer_idx > 0)
+	cb_ko.Enabled = (il_answer_idx > 0)
+	cb_sql.Enabled = (inv_bi.of_answer_sql() <> "")
+	il_charts = inv_bi.of_chart_count()
+	il_chart = 1
+end if
+wf_show_chart()
+st_status.Text = "Conversation rouverte : vous pouvez la poursuivre."
+mle_question.SetFocus()
+end subroutine
+
+public subroutine wf_show_history ();// Ouvre la fenêtre d'historique et applique le choix fait
+string ls_choice
+
+OpenWithParm(w_ia_historique, inv_hist)
+ls_choice = Message.StringParm
+
+// La conversation affichée a pu être supprimée depuis l'historique
+if is_conv_id <> "" then
+	if not inv_hist.of_has_conversation(is_conv_id) then
+		wf_reset_conversation()
+		st_status.Text = "Prêt"
+	end if
+end if
+
+if Left(ls_choice, 5) = "conv:" then
+	wf_open_conversation(Mid(ls_choice, 6))
+elseif Left(ls_choice, 9) = "question:" then
+	mle_question.Text = Mid(ls_choice, 10)
+	mle_question.SetFocus()
+	mle_question.SelectText(Len(mle_question.Text) + 1, 0)
+end if
+end subroutine
+
 on w_ia_chat.create
+this.cb_historique=create cb_historique
 this.cb_fermer=create cb_fermer
 this.cb_send=create cb_send
 this.shl_1=create shl_1
-this.cb_sendz=create cb_sendz
 this.st_base=create st_base
 this.ddlb_base=create ddlb_base
 this.cb_new=create cb_new
@@ -482,10 +628,10 @@ this.cb_ok=create cb_ok
 this.cb_ko=create cb_ko
 this.mle_question=create mle_question
 this.cb_cancel=create cb_cancel
-this.Control[]={this.cb_fermer,&
+this.Control[]={this.cb_historique,&
+this.cb_fermer,&
 this.cb_send,&
 this.shl_1,&
-this.cb_sendz,&
 this.st_base,&
 this.ddlb_base,&
 this.cb_new,&
@@ -502,10 +648,10 @@ this.cb_cancel}
 end on
 
 on w_ia_chat.destroy
+destroy(this.cb_historique)
 destroy(this.cb_fermer)
 destroy(this.cb_send)
 destroy(this.shl_1)
-destroy(this.cb_sendz)
 destroy(this.st_base)
 destroy(this.ddlb_base)
 destroy(this.cb_new)
@@ -524,8 +670,9 @@ end on
 event open;string ls_url, ls_token, ls_tmp, ls_labels[]
 integer li_i, li_n, li_first
 
+
 // Graphique : ajouter dans le painter un contrôle Graph (nom libre, ex. gr_chart)
-// à droite de l'historique ; il est repéré ici par son type.
+// à  droite de l'historique ; il est repéré ici par son type.
 for li_i = 1 to UpperBound(Control[])
 	if Control[li_i].TypeOf() = Graph! then
 		igr_chart = Control[li_i]
@@ -544,7 +691,12 @@ end if
 inv_bi = create n_bi_client
 inv_bi.of_init(ls_url, ls_token)
 
-// Page de l'historique : un fichier par fenêtre ouverte, supprimé à la fermeture
+// Historique local du poste (fichier JSON à  côté du fichier ini)
+inv_hist = create n_ia_historique
+inv_hist.inv_bi = inv_bi
+inv_hist.of_init(dir_ini + "orthokis_ia_historique.json")
+
+// Page de l'historique : un fichier par fenêtre ouverte, supprimé à  la fermeture
 ls_tmp = Space(520)
 if GetTempPathW(260, ls_tmp) > 0 then
 	ls_tmp = Trim(ls_tmp)
@@ -557,13 +709,16 @@ is_html_file = ls_tmp + "orthokis_bi_" + String(Handle(this)) + ".html"
 
 wf_busy(false)
 cb_cancel.Enabled = false
-wf_reset_conversation()
 
-st_status.Text = "Chargement des bases…"
+
+// On garde tout l'ihistorique
+// wf_reset_conversation()
+
+st_status.Text = "Chargement des bases ..."
 li_n = inv_bi.of_list_datasources(is_ds_ids, ls_labels, ib_ds_ready)
 if li_n < 0 then
 	st_status.Text = inv_bi.is_last_error
-	Messagebox("ATTENTION", "Impossible d'accéder à la base de données ! ")
+	Messagebox("ATTENTION", "Impossible d'accéder à  la base de données ! ")
 	cb_send.Enabled = false
 	return
 end if
@@ -582,13 +737,13 @@ if li_first > 0 then
 	ii_base = li_first
 	st_status.Text = "Prêt"
 else
-	st_status.Text = "Aucune base prête à recevoir des questions."
+	st_status.Text = "Aucune base prête à  recevoir des questions."
 	cb_send.Enabled = false
 end if
 mle_question.SetFocus()
 end event
 
-event timer;// Interroge l'état de la conversation jusqu'à ce qu'il ne soit plus "running"
+event timer;// Interroge l'état de la conversation jusqu'à  ce qu'il ne soit plus "running"
 string ls_status
 
 ii_polls++
@@ -605,9 +760,9 @@ ii_poll_errors = 0
 
 if ls_status = "running" then
 	if ib_cancelled then
-		st_status.Text = "Arrêt en cours…"
+		st_status.Text = "Arrêt en coursâ€¦"
 	else
-		st_status.Text = "Analyse en cours… (" + String(Integer(ii_polls * 1.5)) + " s)"
+		st_status.Text = "Analyse en coursâ€¦ (" + String(Integer(ii_polls * 1.5)) + " s)"
 	end if
 	if ii_polls >= MAX_POLLS then
 		Timer(0)
@@ -632,6 +787,7 @@ mle_question.SetFocus()
 end event
 
 event close;Timer(0)
+if IsValid(inv_hist) then destroy inv_hist
 if IsValid(inv_bi) then destroy inv_bi
 // Les réponses contiennent des chiffres du cabinet : on ne laisse pas la page sur le disque
 if is_html_file <> "" then
@@ -647,9 +803,32 @@ setprofilestring(dir_ini+inifile_orthokis,"IA","w_ia_bi_height", string(this.hei
 
 end event
 
+event resize;
+
+wb_history.width = this.width - 130
+
+mle_question.width = wb_history.width - 200
+st_status.width = wb_history.width
+
+cb_send.x = wb_history.x  + wb_history.width - cb_send.width
+cb_fermer.x = cb_send.x
+end event
+
+type cb_historique from uo_picturebutton_390x120 within w_ia_chat
+integer x = 567
+integer y = 2260
+integer width = 512
+integer taborder = 105
+string text = "Historique"
+end type
+
+event clicked;call super::clicked;wf_show_history()
+end event
+
 type cb_fermer from picturebutton within w_ia_chat
+string tag = "no resizeall"
 integer x = 1915
-integer y = 2028
+integer y = 2012
 integer width = 160
 integer height = 140
 integer taborder = 100
@@ -669,8 +848,9 @@ event clicked;close(parent)
 end event
 
 type cb_send from picturebutton within w_ia_chat
+string tag = "no resizeall"
 integer x = 1915
-integer y = 1876
+integer y = 1860
 integer width = 160
 integer height = 140
 integer taborder = 60
@@ -686,48 +866,13 @@ alignment htextalign = left!
 long backcolor = 553648127
 end type
 
-event clicked;string ls_question
-
-ls_question = Trim(mle_question.Text)
-if ls_question = "" then return
-
-if ii_base < 1 then
-	MessageBox(Parent.Title, "Choisir une base.")
-	return
-end if
-
-// Première question : ouvrir la conversation sur la base choisie
-if is_conv_id = "" then
-	if inv_bi.of_open_conversation(is_ds_ids[ii_base], "", is_conv_id) <> 1 then
-		MessageBox(Parent.Title, inv_bi.is_last_error, StopSign!)
-		return
-	end if
-end if
-
-if inv_bi.of_ask(is_conv_id, ls_question) <> 1 then
-	if inv_bi.il_last_status = 409 then
-		MessageBox(Parent.Title, inv_bi.is_last_error + "~r~n~r~nSi la question précédente est terminée, ouvrir une nouvelle conversation.", Exclamation!)
-	else
-		MessageBox(Parent.Title, inv_bi.is_last_error, StopSign!)
-	end if
-	return
-end if
-
-mle_question.Text = ""
-il_answer_idx = 0
-ib_cancelled = false
-ii_polls = 0
-ii_poll_errors = 0
-wf_busy(true)                  // avant wf_append : la page affiche « … » sous la question
-wf_append("user", ls_question)
-st_status.Text = "Analyse en cours…"
-Timer(1.5)
+event clicked;wf_send()
 end event
 
 type shl_1 from statichyperlink within w_ia_chat
-integer x = 59
-integer y = 2152
-integer width = 1746
+integer x = 32
+integer y = 2160
+integer width = 1861
 integer height = 64
 integer textsize = -10
 integer weight = 400
@@ -741,54 +886,6 @@ long backcolor = 67108864
 string text = "L~'assistant peut se tromper. Vérifiez les informations importantes."
 boolean focusrectangle = false
 end type
-
-type cb_sendz from picture within w_ia_chat
-integer x = 1289
-integer y = 2528
-integer width = 146
-integer height = 128
-boolean originalsize = true
-string picturename = "Fleche-H.png"
-boolean focusrectangle = false
-end type
-
-event clicked;string ls_question
-
-ls_question = Trim(mle_question.Text)
-if ls_question = "" then return
-
-if ii_base < 1 then
-	MessageBox(Parent.Title, "Choisir une base.")
-	return
-end if
-
-// Première question : ouvrir la conversation sur la base choisie
-if is_conv_id = "" then
-	if inv_bi.of_open_conversation(is_ds_ids[ii_base], "", is_conv_id) <> 1 then
-		MessageBox(Parent.Title, inv_bi.is_last_error, StopSign!)
-		return
-	end if
-end if
-
-if inv_bi.of_ask(is_conv_id, ls_question) <> 1 then
-	if inv_bi.il_last_status = 409 then
-		MessageBox(Parent.Title, inv_bi.is_last_error + "~r~n~r~nSi la question précédente est terminée, ouvrir une nouvelle conversation.", Exclamation!)
-	else
-		MessageBox(Parent.Title, inv_bi.is_last_error, StopSign!)
-	end if
-	return
-end if
-
-mle_question.Text = ""
-il_answer_idx = 0
-ib_cancelled = false
-ii_polls = 0
-ii_poll_errors = 0
-wf_busy(true)                  // avant wf_append : la page affiche « … » sous la question
-wf_append("user", ls_question)
-st_status.Text = "Analyse en cours…"
-Timer(1.5)
-end event
 
 type st_base from statictext within w_ia_chat
 integer x = 1531
@@ -808,8 +905,8 @@ boolean focusrectangle = false
 end type
 
 type ddlb_base from dropdownlistbox within w_ia_chat
-integer x = 1792
-integer y = 2504
+integer x = 1234
+integer y = 2728
 integer width = 1207
 integer height = 640
 integer taborder = 10
@@ -828,7 +925,7 @@ end type
 event selectionchanged;// Une conversation = une base : changer de base repart d'une nouvelle conversation
 if index < 1 or index > UpperBound(is_ds_ids) then return
 if not ib_ds_ready[index] then
-	MessageBox(Parent.Title, "Cette base n'est pas encore prête à recevoir des questions.")
+	MessageBox(Parent.Title, "Cette base n'est pas encore prête à  recevoir des questions.")
 	if ii_base > 0 then this.SelectItem(ii_base)
 	return
 end if
@@ -840,9 +937,9 @@ end if
 end event
 
 type cb_new from commandbutton within w_ia_chat
-integer x = 1381
-integer y = 2720
-integer width = 640
+integer x = 1115
+integer y = 2332
+integer width = 713
 integer height = 96
 integer taborder = 20
 integer textsize = -10
@@ -862,7 +959,7 @@ end event
 type st_status from statictext within w_ia_chat
 integer x = 37
 integer y = 1764
-integer width = 1975
+integer width = 2043
 integer height = 64
 integer textsize = -9
 integer weight = 700
@@ -879,14 +976,14 @@ end type
 type wb_history from webbrowser within w_ia_chat
 integer x = 37
 integer y = 40
-integer width = 2002
+integer width = 2062
 integer height = 1700
 integer taborder = 30
 end type
 
 type cb_prev_chart from commandbutton within w_ia_chat
-integer x = 174
-integer y = 2248
+integer x = 279
+integer y = 2464
 integer width = 160
 integer height = 96
 integer taborder = 40
@@ -906,8 +1003,8 @@ end if
 end event
 
 type st_chart from statictext within w_ia_chat
-integer x = 361
-integer y = 2264
+integer x = 466
+integer y = 2480
 integer width = 1015
 integer height = 64
 integer textsize = -9
@@ -923,8 +1020,8 @@ boolean focusrectangle = false
 end type
 
 type cb_next_chart from commandbutton within w_ia_chat
-integer x = 1408
-integer y = 2248
+integer x = 1513
+integer y = 2464
 integer width = 160
 integer height = 96
 integer taborder = 50
@@ -944,8 +1041,8 @@ end if
 end event
 
 type cb_sql from commandbutton within w_ia_chat
-integer x = 174
-integer y = 2380
+integer x = 279
+integer y = 2596
 integer width = 549
 integer height = 96
 integer taborder = 60
@@ -963,8 +1060,8 @@ MessageBox("Requêtes SQL exécutées", inv_bi.of_answer_sql())
 end event
 
 type cb_ok from commandbutton within w_ia_chat
-integer x = 750
-integer y = 2380
+integer x = 795
+integer y = 2560
 integer width = 393
 integer height = 96
 integer taborder = 70
@@ -974,7 +1071,7 @@ fontcharset fontcharset = ansi!
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Tahoma"
-string text = "✓ Correct"
+string text = "Correct"
 end type
 
 event clicked;if il_answer_idx <= 0 then return
@@ -986,8 +1083,8 @@ end if
 end event
 
 type cb_ko from commandbutton within w_ia_chat
-integer x = 1166
-integer y = 2380
+integer x = 1271
+integer y = 2596
 integer width = 402
 integer height = 96
 integer taborder = 80
@@ -997,7 +1094,7 @@ fontcharset fontcharset = ansi!
 fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Tahoma"
-string text = "✗ Incorrect"
+string text = "Incorrect"
 end type
 
 event clicked;if il_answer_idx <= 0 then return
@@ -1028,8 +1125,8 @@ borderstyle borderstyle = stylelowered!
 end type
 
 type cb_cancel from commandbutton within w_ia_chat
-integer x = 608
-integer y = 2576
+integer x = 594
+integer y = 2696
 integer width = 462
 integer height = 160
 integer taborder = 110
@@ -1042,7 +1139,7 @@ string facename = "Tahoma"
 string text = "Arrêter"
 end type
 
-event clicked;// L'appel en cours au modèle va à son terme, puis rien n'est enregistré
+event clicked;// L'appel en cours au modèle va à  son terme, puis rien n'est enregistré
 if is_conv_id = "" then return
 if inv_bi.of_cancel(is_conv_id) <> 1 then
 	st_status.Text = inv_bi.is_last_error
@@ -1050,7 +1147,7 @@ if inv_bi.of_cancel(is_conv_id) <> 1 then
 end if
 ib_cancelled = true
 this.Enabled = false
-st_status.Text = "Arrêt en cours…"
+st_status.Text = "Arrêt en coursâ€¦"
 // Si l'attente avait été abandonnée après 3 minutes, on la reprend pour voir l'arrêt aboutir
 ii_polls = 0
 Timer(1.5)

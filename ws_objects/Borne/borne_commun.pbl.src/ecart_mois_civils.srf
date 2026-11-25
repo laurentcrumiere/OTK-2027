@@ -1,0 +1,37 @@
+﻿$PBExportHeader$ecart_mois_civils.srf
+global type ecart_mois_civils from function_object
+end type
+
+forward prototypes
+global function long ecart_mois_civils (date v_date1, date v_date2)
+end prototypes
+
+global function long ecart_mois_civils (date v_date1, date v_date2);long v_nb_mois
+long v_nb_annee
+
+
+// renvoie le nombre de mois "civils" entre dates (soins belges)
+//
+// Exemple : 25/1 et 14/4 ... on comptera 4 mois ... les mois contenant les dates sont compris
+
+
+if year(v_date1) = year(v_date2) then
+	// Les 2 dates sont dans la même année 
+	v_nb_mois = month(v_date2) - month(v_date1) + 1
+else
+	// Pas la même année mais le mois 2 est >=
+	if month(v_date2) >= month(v_date1) then
+		v_nb_annee = year(v_date2) - year(v_date1)
+		v_nb_mois = 12 * v_nb_annee + month(v_date2) - month(v_date1) + 1
+	else
+		// Pas la même année et le mois 2 est <
+		v_nb_annee = year(v_date2) - year(v_date1) - 1
+		v_nb_mois = 12 * v_nb_annee + month(v_date2) + 12 - month(v_date1) + 1
+	end if
+end if
+
+
+
+return v_nb_mois
+end function
+

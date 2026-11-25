@@ -1,0 +1,15 @@
+﻿$PBExportHeader$son.srf
+global type son from function_object
+end type
+
+forward prototypes
+global subroutine son (integer numero)
+end prototypes
+
+global subroutine son (integer numero);
+// Emet un son si on a cocher qu'on veut émettre un son
+if avec_son then
+		sndPlaySoundA (tson[numero], 3) 
+end if
+end subroutine
+

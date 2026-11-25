@@ -1,0 +1,48 @@
+﻿$PBExportHeader$fxg_crypte_decrypte.srf
+global type fxg_crypte_decrypte from function_object
+end type
+
+forward prototypes
+global function string fxg_crypte_decrypte (string s_chaine_a_crypter_decrypter, character c_mode)
+end prototypes
+
+global function string fxg_crypte_decrypte (string s_chaine_a_crypter_decrypter, character c_mode);
+// Fonction pour écrypter et/ou décrypter une chaine 
+// c_mode = "C" pour Crypter / "D" pour Décrypter
+
+string s_chaine_retour
+
+
+string s_key = "0408196614081997"
+string s_iv = "Swap+Arakis+1985"
+
+
+if s_chaine_a_crypter_decrypter <> "" then
+
+blob				lblb_data, lblb_encrypted, lblb_decrypted
+CrypterObject 	crypto
+CoderObject 	co
+crypto = Create CrypterObject
+co = Create CoderObject
+
+choose case c_mode
+	case "C" 
+		lblb_data = Blob ( s_chaine_a_crypter_decrypter, EncodingUTF8! )
+		lblb_encrypted = crypto.SymmetricEncrypt( AES!, lblb_data, blob(s_key) , OperationModeECB! , blob(s_iv) , PKCSPadding! )
+		s_chaine_retour = co.base64encode( lblb_encrypted )
+	case "D"
+		lblb_data = co.base64decode( s_chaine_a_crypter_decrypter )
+		lblb_decrypted = crypto.SymmetricDecrypt( AES!, lblb_data, blob(s_key) , OperationModeECB! , blob(s_iv) , PKCSPadding! )
+		s_chaine_retour = String ( lblb_decrypted, EncodingUTF8! )
+end choose
+
+Destroy crypto
+Destroy co
+
+else
+	// En principe pas possible mais ?
+	s_chaine_retour = ""
+end if
+return s_chaine_retour
+end function
+

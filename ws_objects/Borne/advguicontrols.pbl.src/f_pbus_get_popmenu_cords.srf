@@ -1,0 +1,59 @@
+﻿$PBExportHeader$f_pbus_get_popmenu_cords.srf
+global type f_pbus_get_popmenu_cords from function_object
+end type
+
+forward prototypes
+global function point f_pbus_get_popmenu_cords (longptr al_parent)
+end prototypes
+
+global function point f_pbus_get_popmenu_cords (longptr al_parent);LongPtr ll_parent, ll_temp, ll_winlong
+Long ll_xpos, ll_ypos, ll_leftpos, ll_toppos
+Point lpPoint, lpReturn
+Rect lrect
+n_cst_pbus_numerical lnv_numerical
+n_cst_win32 lnv_win32
+
+CONSTANT Long WS_POPUP = 2147483648
+
+lnv_win32 = CREATE n_cst_win32
+
+ll_parent = lnv_win32.GetParent(al_parent)
+ll_temp = ll_parent
+
+DO WHILE ll_temp > 0
+	
+	ll_temp = lnv_win32.GetParent(ll_parent)
+	
+	IF ll_temp > 0 THEN
+		ll_parent = ll_temp
+		
+		ll_winlong = lnv_win32.GetWindowLong(ll_parent, -16)
+		
+		//If we hit a popup window, we need to take it and stop searching.
+		IF ll_winlong = lnv_numerical.of_BitWiseOr(ll_winlong, WS_POPUP) THEN
+			EXIT
+		END IF
+		
+	END IF
+LOOP
+
+lnv_win32.GetCursorPos (ref lpPoint)
+ll_xpos = PixelsToUnits(lpPoint.px, XPixelsToUnits!)
+ll_ypos = PixelsToUnits(lpPoint.py, YPixelsToUnits!)
+	
+IF ll_parent > 0 THEN
+	lnv_win32.GetWindowRect(ll_parent, lrect)
+	ll_leftpos = PixelsToUnits(lrect.left, XPixelsToUnits!)
+	ll_toppos = PixelsToUnits(lrect.top, YPixelsToUnits!)
+END IF
+
+lpReturn.px = ll_xpos - ll_leftpos
+lpReturn.py = ll_ypos - ll_toppos
+
+DESTROY lnv_win32
+
+RETURN lpReturn
+
+
+end function
+

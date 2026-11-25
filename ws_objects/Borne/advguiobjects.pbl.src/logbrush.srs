@@ -1,0 +1,6 @@
+﻿$PBExportHeader$logbrush.srs
+global TYPE LOGBRUSH FROM STRUCTURE
+    uint lbStyle
+    long lbColor
+    ulong lbHatch
+END TYPE

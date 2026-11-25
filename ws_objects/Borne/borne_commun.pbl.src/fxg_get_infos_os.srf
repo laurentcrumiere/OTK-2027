@@ -1,0 +1,45 @@
+﻿$PBExportHeader$fxg_get_infos_os.srf
+global type fxg_get_infos_os from function_object
+end type
+
+forward prototypes
+global function string fxg_get_infos_os ()
+end prototypes
+
+global function string fxg_get_infos_os ();//*****************************
+n_osversion in_osver
+String ls_version, ls_edition, ls_csd, ls_pbvmname, ls_uaclevel
+String infos
+
+in_osver.of_GetOSVersion(ls_version, ls_edition, ls_csd)
+
+
+infos = ls_version + " (" + String(in_osver.of_GetOSBits()) + " bits) - " + ls_csd
+
+
+//If in_osver.of_GetFileVersionInfo(ls_pbvmname) Then
+//	wf_Display()
+//End If
+
+//If in_osver.of_RemoteSession() Then
+//	st_remote.text = "True"
+//Else
+//	st_remote.text = "False"
+//End If
+//
+//choose case in_osver.of_GetUACLevel()
+//	case 1
+//		st_uaclevel.text = "Low - Never notify me when programs try to install software or make changes to my computer"
+//	case 2
+//		st_uaclevel.text = "Medium - Notify me only when apps try to make changes to my computer and will NOT dim computer"
+//	case 3
+//		st_uaclevel.text = "Default - Notify me only when apps try to make changes to my computer and will dim computer"
+//	case 4
+//		st_uaclevel.text = "High - Always notify me about any changes"
+//end choose
+
+
+
+return infos
+end function
+

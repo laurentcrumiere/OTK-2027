@@ -336,6 +336,8 @@ event clicked;call super::clicked;if messagebox("ATTENTION", "Vous allez importe
 				ls_etat_rdv = dw_liste.getitemString(lig, "etat_rdv")
 				
 				ldb_code_interne_rdv = dw_liste.getitemNumber(lig, "code_interne_rdv")
+				
+				zerodb(ldb_code_interne_rdv)
 				// recherche si le rdv n'existe pas déjà ... si c'est le cas, on fera une une modification de l'état
 
 				if ldb_code_interne_rdv = 0 then 
@@ -702,9 +704,10 @@ if tot_import > 0 then
 				dw_liste.setitem(lig_liste, "code_patient", var_code_local) 
 				
 				// recherche si le rdv n'existe pas déjà ... si c'est le cas, on fera une une modification de l'état
-				select isnull(code_interne, 0) into :ldb_code_interne_rdv from rdv where code = :var_code_local and code_praticien = :ls_code_praticien and "type" = :ls_type_rdv  and rdv = :ldt_rdv ;
+				select isnull(code_interne, 0) into :ldb_code_interne_rdv 
+				from rdv where code = :var_code_local and code_praticien = :ls_code_praticien and "type" = :ls_type_rdv  and rdv = :ldt_rdv ;
 
-				if ldb_code_interne_rdv > 0 then 
+				if sqlca.sqlcode = 0 and ldb_code_interne_rdv > 0 then 
 					dw_liste.setitem(lig_liste, "couleur_fond_rdv", couleur_verte)
 					dw_liste.setitem(lig_liste, "code_interne_rdv", ldb_code_interne_rdv)
 					

@@ -1,0 +1,41 @@
+﻿$PBExportHeader$save_couleur_personnalisee.srf
+global type save_couleur_personnalisee from function_object
+end type
+
+forward prototypes
+global function integer save_couleur_personnalisee ()
+end prototypes
+
+global function integer save_couleur_personnalisee ();// pour ajouter la première ligne !!!
+long nb 
+select count(*) into :nb from couleurs_personnalisees ;
+
+if nb = 0 then
+	insert into couleurs_personnalisees (couleur_1) values (0) ;
+end if
+
+
+UPDATE		couleurs_personnalisees
+SET			couleur_1=:couleur_personnalisee[1],
+				couleur_2=:couleur_personnalisee[2],
+				couleur_3=:couleur_personnalisee[3],
+				couleur_4=:couleur_personnalisee[4],
+				couleur_5=:couleur_personnalisee[5],
+				couleur_6=:couleur_personnalisee[6],
+				couleur_7=:couleur_personnalisee[7],
+				couleur_8=:couleur_personnalisee[8],
+				couleur_9=:couleur_personnalisee[9],
+				couleur_10=:couleur_personnalisee[10],
+				couleur_11=:couleur_personnalisee[11],
+				couleur_12=:couleur_personnalisee[12],
+				couleur_13=:couleur_personnalisee[13],
+				couleur_14=:couleur_personnalisee[14],
+				couleur_15=:couleur_personnalisee[15],
+				couleur_16=:couleur_personnalisee[16]
+USING		SQLCA;
+
+commit;
+				
+return 1		
+end function
+

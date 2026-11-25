@@ -1,0 +1,8 @@
+﻿$PBExportHeader$str_scheduleeventmorelist.srs
+global type str_scheduleeventmorelist from structure
+	date		eventdate
+	str_schedulemappedevents		s_loadedevents[]
+	string		theme
+	u_cst_powerschedule_core		parentschedule
+end type
+

@@ -1,0 +1,8 @@
+﻿$PBExportHeader$dwm_blurbehind.srs
+global type dwm_blurbehind from structure
+  Long dwFlags
+  Boolean  fEnable
+  ULong  hRgnBlur
+  Boolean  fTransitionOnMaximized
+end type
+

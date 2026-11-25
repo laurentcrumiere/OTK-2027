@@ -1,0 +1,12 @@
+﻿$PBExportHeader$f_pbus_get_global_theme.srf
+global type f_pbus_get_global_theme from function_object
+end type
+
+forward prototypes
+global function string f_pbus_get_global_theme ()
+end prototypes
+
+global function string f_pbus_get_global_theme ();n_cst_ui_imagelist lnv_theme
+RETURN lnv_theme.of_GetGlobalTheme()
+end function
+

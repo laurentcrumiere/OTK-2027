@@ -1,0 +1,7 @@
+﻿$PBExportHeader$str_scheduleeventcolor.srs
+global type str_scheduleeventcolor from structure
+	string		colorname
+	unsignedlong		colorvalue
+	unsignedlong		colorvaluergb
+end type
+

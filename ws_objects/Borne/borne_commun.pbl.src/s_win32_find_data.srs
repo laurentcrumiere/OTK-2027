@@ -1,0 +1,14 @@
+﻿$PBExportHeader$s_win32_find_data.srs
+global type s_win32_find_data from structure
+	unsignedlong		fileattributes
+	s_filetime		creationtime
+	s_filetime		lastaccesstime
+	s_filetime		lastwritetime
+	unsignedlong		filesizehigh
+	unsignedlong		filesizelow
+	unsignedlong		reserved0
+	unsignedlong		reserved1
+	character		filename[260]
+	character		alternatefilename[14]
+end type
+

@@ -1,0 +1,6 @@
+﻿$PBExportHeader$s_filetime.srs
+global type s_filetime from structure
+	ulong		lowdatetime
+	ulong		highdatetime
+end type
+

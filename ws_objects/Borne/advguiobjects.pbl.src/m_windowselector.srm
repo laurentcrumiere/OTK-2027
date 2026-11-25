@@ -1,0 +1,196 @@
+﻿$PBExportHeader$m_windowselector.srm
+forward
+global type m_windowselector from menu
+end type
+type m_tab from menu within m_windowselector
+end type
+type m_enter from menu within m_windowselector
+end type
+type m_esc from menu within m_windowselector
+end type
+type m_shifttab from menu within m_windowselector
+end type
+global type m_windowselector from menu
+m_tab m_tab
+m_enter m_enter
+m_esc m_esc
+m_shifttab m_shifttab
+end type
+end forward
+
+global type m_windowselector from menu
+m_tab m_tab
+m_enter m_enter
+m_esc m_esc
+m_shifttab m_shifttab
+end type
+global m_windowselector m_windowselector
+
+event clicked;PARENTWINDOW.TriggerEvent("ue_esc")
+end event
+
+on m_windowselector.create
+m_windowselector=this
+call super::create
+this.text = "m_windowselector"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_tab=create m_tab
+this.m_enter=create m_enter
+this.m_esc=create m_esc
+this.m_shifttab=create m_shifttab
+this.Item[UpperBound(this.Item)+1]=this.m_tab
+this.Item[UpperBound(this.Item)+1]=this.m_enter
+this.Item[UpperBound(this.Item)+1]=this.m_esc
+this.Item[UpperBound(this.Item)+1]=this.m_shifttab
+end on
+
+on m_windowselector.destroy
+call super::destroy
+destroy(this.m_tab)
+destroy(this.m_enter)
+destroy(this.m_esc)
+destroy(this.m_shifttab)
+end on
+
+type m_tab from menu within m_windowselector
+end type
+
+on m_tab.create
+call super::create
+this.visible = false
+this.text = "tab"
+this.shortcut = 9
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_tab.destroy
+call super::destroy
+end on
+
+event clicked;PARENTWINDOW.TriggerEvent("ue_tab")
+end event
+
+type m_enter from menu within m_windowselector
+end type
+
+on m_enter.create
+call super::create
+this.visible = false
+this.text = "enter"
+this.shortcut = 13
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_enter.destroy
+call super::destroy
+end on
+
+event clicked;PARENTWINDOW.TriggerEvent("ue_enter")
+end event
+
+type m_esc from menu within m_windowselector
+end type
+
+on m_esc.create
+call super::create
+this.visible = false
+this.text = "esc"
+this.shortcut = 27
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_esc.destroy
+call super::destroy
+end on
+
+event clicked;PARENTWINDOW.TriggerEvent("ue_esc")
+end event
+
+type m_shifttab from menu within m_windowselector
+end type
+
+on m_shifttab.create
+call super::create
+this.visible = false
+this.text = "shifttab"
+this.shortcut = 1033
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_shifttab.destroy
+call super::destroy
+end on
+
+event clicked;PARENTWINDOW.TriggerEvent("ue_shifttab")
+end event
+

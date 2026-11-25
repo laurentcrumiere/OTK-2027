@@ -1,0 +1,142 @@
+﻿$PBExportHeader$fxg_lancer_commande_myorthokis_simple.srf
+global type fxg_lancer_commande_myorthokis_simple from function_object
+end type
+
+forward prototypes
+global function boolean fxg_lancer_commande_myorthokis_simple (string v_commande, boolean b_commande_en_clair, string s_type_commande)
+end prototypes
+
+global function boolean fxg_lancer_commande_myorthokis_simple (string v_commande, boolean b_commande_en_clair, string s_type_commande);//  EXECUTION D'UNE COMMANDE SIMPLE PAR MYORTHOKIS AVEC GESTION DES ERREURS
+
+// Paramètres :
+// v_commande : commande à placer après l'url de type    http://localhost:5000/myorthokis/
+// b_commande_en_clair permet de savoir la syntaxe utilisée ... si faux, on code la comande en base 64
+// s_type_commande : 
+//           - M pour Member Data (eFacturation Belgique)
+//           - T pour Tarification (eFacturation Belgique)
+//           - A pour Autre
+
+
+
+// Accés internet
+Inet iinet_base
+string url_wb, url_myo
+integer li_rc
+n_inetresult in_irdata
+integer i_fichier_retour
+string s_ligne, s_tout
+long v_pos1, v_pos2
+string v_code_erreur
+
+boolean retour
+
+if not Utilisation_distante then
+	
+	GetContextService("Internet", iinet_base)
+	in_irdata = CREATE n_inetresult
+	
+	// Retour XML
+	constant string nom_fichier_recu = "wb.xml"
+	
+	// myo ?
+	select top 1 url_my_orthokis into :url_myo from param ;
+	
+	
+	if len(trim(url_myo)) > 0 then
+		// effacement du fichier du dernier appel
+		FileDelete(dir_ini + nom_fichier_recu)
+		
+		Trace (" *** ENVOI D'UNE COMMANDE (SIMPLE) A MY ORTHOKIS ***")
+		
+		// Lancement du webservice qui va bien
+		if b_commande_en_clair then
+			// Commande simple
+			url_wb = url_myo + "myorthokis/" +  v_commande
+			Trace("Commande : " + url_wb )
+		else
+			// Codage de la commande avec syntaxe specifique
+			// pour codage en base 64
+			n_winsock_base64 uo_base64
+		
+			url_wb = url_myo + "myorthokis/action?type=sendCloudGet&param=" +  uo_base64.of_encode64(v_commande)
+			Trace("Commande : " + url_wb )
+			Trace("En clair : " + url_myo + "myorthokis/action?type=sendCloudGet&param=" + v_commande )
+		end if
+		
+		
+		
+		li_rc = iinet_base.GetURL(url_wb, in_irdata)
+		
+		if li_rc = 1 then
+			
+			in_irdata.of_WriteFile(dir_ini + nom_fichier_recu, in_irdata.iblob_data)
+			
+		end if
+		
+		if not FileExists(dir_ini + nom_fichier_recu) then
+			
+			Messagebox("ATTENTION","Erreur de communication N°1 avec myOrthokis.~n~nMerci de contacter l'administrateur du réseau.~n~nCauses probables : ~n- l'URL de myorthokis est mal indiquée dans les Paramètres Généraux~n- les services Apache sont arrétés")
+			retour = false
+			Trace(" *** Erreur de communication N°1 avec myOrthokis ***" )
+		else
+			
+			if s_type_commande = "A" then
+				i_fichier_retour = FileOpen(dir_ini + nom_fichier_recu, Linemode!, read!)
+				FileRead(i_fichier_retour, s_ligne)
+				FileClose(i_fichier_retour)
+				
+				// On doit avoir [0] sur la première ligne si myOrthokis à bien répondu
+				if s_ligne <> "[0]" and upper(s_ligne) <> "SUCCESS" then
+					retour = false
+					i_fichier_retour = FileOpen(dir_ini + nom_fichier_recu, TextMode!, read!)
+					FileReadEx(i_fichier_retour, s_tout)
+					FileClose(i_fichier_retour)
+					Messagebox("ATTENTION","Erreur de communication N°2 avec myOrthokis.~n~nMerci de contacter l'administrateur du réseau.~n~nCauses probables : ~n- l'URL de myorthokis est mal indiquée dans les Paramètres Généraux~n- les services Apache sont arrétés~n~nTexte : " + s_tout)
+					Trace(" *** Erreur de communication N°2 avec myOrthokis ***" )
+					
+				
+				else 
+					
+					if ProfileString(dir_ini + nom_fichier_recu,"0", "CodeErreur", "") <> "0" then
+						MessageBox("ERREUR DANS L'EXECUTION DE LA COMMANDE", "Erreur N° : " +  ProfileString(dir_ini + nom_fichier_recu,"0", "CodeErreur", "")  +&
+						"~n~Message : " +  ProfileString(dir_ini + nom_fichier_recu,"0", "LibelleErreur", ""))
+						retour = false
+						Trace(" *** Erreur dans l'exécution de la commande : "+ "Erreur N° : " +  ProfileString(dir_ini + nom_fichier_recu,"0", "CodeErreur", "") + " ***" )
+					else
+						if ProfileString(dir_ini + nom_fichier_recu,"0", "code_retour", "200") <> "200" and ProfileString(dir_ini + nom_fichier_recu,"0", "code_retour", "200") <> "0" then
+							MessageBox("ERREUR DANS L'EXECUTION DE LA COMMANDE", "Erreur de communication avec le Cloud !~n~nCode retour : " + ProfileString(dir_ini + nom_fichier_recu,"0", "code_retour", "")  )
+							retour = false
+							Trace(" *** Erreur Erreur de communication avec le Cloud : "+ "Code retour : " +  ProfileString(dir_ini + nom_fichier_recu,"0", "code_retour", "") + " ***" )
+						else
+							retour = true
+						end if
+					end if
+				end if
+			else
+				
+				if s_type_commande = "M" then 
+					// Member Data .. retour en Json 
+					
+					// Sera exploité par la fonction appelante
+					retour = true
+					
+				end if
+			end if
+		end if
+	else
+		Trace (" *** AUCUNE URL  : PAS D'ENVOI DE COMMANDE A MY ORTHOKIS ***")
+		trace("  Commande : " + v_commande)
+		retour = false
+	end if
+
+else
+	Trace (" *** UTIILISATION DISTANTE : PAS D'ENVOI DE COMMANDE A MY ORTHOKIS ***")
+	trace("  Commande : " + v_commande)
+	retour = false
+
+end if
+
+
+return retour
+end function
+

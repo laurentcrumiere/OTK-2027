@@ -1,0 +1,8 @@
+﻿$PBExportHeader$str_scheduleeventresources.srs
+global type str_scheduleeventresources from structure
+	long		resourceid
+	string		resourcename
+	integer		resourceheight
+	boolean		resourcegroup
+end type
+

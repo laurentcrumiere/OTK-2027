@@ -1,0 +1,8 @@
+﻿$PBExportHeader$imageeditorhist.srs
+global type imageeditorhist from structure
+	integer		action
+	rect		cropregion
+	integer		intvalue
+	imageeditorhistscale		scalevalues
+end type
+

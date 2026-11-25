@@ -1,0 +1,60 @@
+﻿$PBExportHeader$calcul_anniversaire.srf
+global type calcul_anniversaire from function_object
+end type
+
+forward prototypes
+global function integer calcul_anniversaire (string naissance_string)
+end prototypes
+
+global function integer calcul_anniversaire (string naissance_string);// But de la fonction :
+// Calculer l'anniversaire d'une personne
+
+// Explications des variables : 
+//				 naissance_string : date de naissance sous forme de string
+//				 anni : retourne si c'est son anniversaire : -1 on est avant ou le jour même, 0 pas d'anni, 1 on est après
+
+// ATTENTION
+// LA DATE EST PASSEE EN STRING SINON CA BUG AU NIVEAU DE L'UTILISATION DE LA FONCTION DANS UNE DATAWINDOW
+
+
+integer anni
+long  an, v_mois, jour_anni, nb_jours
+date naissance, date_hier, date_demain, date_anni
+
+// Convertit la date de naissance en format date
+naissance = date(naissance_string)
+
+// Recherche le nombre de jours avant ou après l'anniversaire  
+  SELECT "param"."jours_anni"  
+    INTO :nb_jours  
+    FROM "param"  ;
+	 
+//Calcul de la date d'hier et de demain en fonction du nb de jours avant et après l'anniversaire
+date_hier = RelativeDate(Today(),-nb_jours)
+date_demain = RelativeDate(Today(),nb_jours)
+
+anni = 0
+
+IF naissance = date('00/00/0000') OR IsNull(naissance)  THEN
+	anni = 0
+ELSE	
+	jour_anni = day (naissance)
+	v_mois = month(naissance)
+	an = year(today())
+	// on construit sa date d'anniversaire avec l'année en cours
+	naissance = date (an,v_mois,jour_anni)
+	IF date_hier <= naissance AND naissance <= date_demain THEN
+		if today() < naissance then
+			anni = -1
+		else
+			if today() = naissance then
+				anni = 2
+			else
+				anni = 1
+			end if
+		end if
+	END IF		
+END IF	
+return anni
+end function
+

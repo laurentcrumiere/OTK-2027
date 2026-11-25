@@ -1,0 +1,29 @@
+﻿$PBExportHeader$fxg_ods_envoi_soin.srf
+global type fxg_ods_envoi_soin from function_object
+end type
+
+forward prototypes
+global function boolean fxg_ods_envoi_soin (double v_code, long v_clef, boolean v_synchro)
+end prototypes
+
+global function boolean fxg_ods_envoi_soin (double v_code, long v_clef, boolean v_synchro);
+
+// envoi d'un soin dans ODS - Ajout ou modification
+// Pas de synchronisation, sauf pour le renvoi forcé du soin
+
+
+string v_action 
+boolean retour
+
+
+if v_synchro then
+	v_action =  "action?type=hsim_den_acte_sync&code=" + string(v_code) + "&clef=" + string(v_clef)+"&synchro=1"
+else
+	v_action =  "action?type=hsim_den_acte_sync&code=" + string(v_code) + "&clef=" + string(v_clef)+"&synchro=0"
+end if
+
+retour = fxg_lancer_commande_myorthokis(v_action,  v_synchro, 4)
+
+return retour
+end function
+

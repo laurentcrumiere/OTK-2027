@@ -1,0 +1,9 @@
+﻿$PBExportHeader$tagmonitorinfo.srs
+$PBExportComments$Data from GetMonitorInfo.
+global type tagmonitorinfo from structure
+	long		cbsize
+	rect		rcmonitor
+	rect		rcwork
+	long		dwflags
+end type
+

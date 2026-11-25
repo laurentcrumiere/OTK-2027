@@ -1,0 +1,27 @@
+﻿$PBExportHeader$fxg_get_clef_historique_editions.srf
+global type fxg_get_clef_historique_editions from function_object
+end type
+
+forward prototypes
+global function string fxg_get_clef_historique_editions ()
+end prototypes
+
+global function string fxg_get_clef_historique_editions ();
+// Génération d'une clef primaire pour l'historique des éditions 
+// nom ordinateur + date / heure + 4 chiffres aléatoires
+string v_clef_primaire
+
+string v_date_heure
+long l_cpt
+
+//select top 1 convert( varchar(23), getdate(), 123) into :v_date_heure from param ;
+select top 1 convert( varchar(30), getdate(), 123) into :v_date_heure from param ;
+
+//select isnull(count(*),0) into :l_cpt from "historique_editions_pieces_jointes" ;
+//l_cpt = l_cpt + 1
+//
+v_clef_primaire = left(trim(get_nom_ordinateur()), 50) + v_date_heure+string(rand(9999))
+
+return v_clef_primaire
+end function
+

@@ -1,0 +1,23 @@
+﻿$PBExportHeader$jouer_son.srf
+global type jouer_son from function_object
+end type
+
+forward prototypes
+global subroutine jouer_son (string as_fichier_son)
+end prototypes
+
+global subroutine jouer_son (string as_fichier_son);string ls_string  
+ls_string=space(500)  
+
+ if fileExists(as_fichier_son) then
+	 
+	// Function API Windows
+	mcisendstringW('Play "' + as_fichier_son +'"',ls_string,len(ls_string),0)
+	
+ else
+	 
+	 Messagebox("ATTENTION", "Impossible de localiser le fichier : " + as_fichier_son)
+	 
+ end if
+end subroutine
+

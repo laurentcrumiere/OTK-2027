@@ -1,0 +1,30 @@
+﻿$PBExportHeader$ajout_histo_alertes.srf
+global type ajout_histo_alertes from function_object
+end type
+
+forward prototypes
+global subroutine ajout_histo_alertes (double code_patient, double code_alerte, date date_alerte, character type_action, character automatique)
+end prototypes
+
+global subroutine ajout_histo_alertes (double code_patient, double code_alerte, date date_alerte, character type_action, character automatique);
+
+
+// Mise en historique des éditions
+// Automatiquement nom de l'utilisateur
+
+
+INSERT INTO "historique_alertes"  
+         ( "code_patient",              "code_alerte",       "date",        "date_action",            "type_action",		  "user",			  "automatique")  
+  VALUES ( :code_patient,   :code_alerte,              :date_alerte,    getdate(),           :type_action,				 :utilisateur_code			,'O' )  ;
+			  
+			  
+	if sqlca.sqlcode <> 0 then
+		MessageBox("Problème d'ajout dans Historique des Alertes",Sqlca.sqlerrtext)
+		rollback ;
+	else
+		commit ;
+	end if
+
+
+end subroutine
+

@@ -1,5 +1,5 @@
 ﻿$PBExportHeader$n_bi_client.sru
-$PBExportComments$Client de l'API BI conversationnelle Magic LEMP (conversations, questions, réponses, graphiques)
+$PBExportComments$Client de l'API BI conversationnelle Magic LEMP (conversations, questions, rÃ©ponses, graphiques)
 forward
 global type n_bi_client from nonvisualobject
 end type
@@ -10,17 +10,17 @@ end type
 global n_bi_client n_bi_client
 
 type variables
-// Dernière erreur lisible (à afficher) et dernier code HTTP reçu
+// DerniÃ¨re erreur lisible (Ã  afficher) et dernier code HTTP reÃ§u
 public string is_last_error
 public long il_last_status
 
-// Délai maximal d'un appel HTTP, en secondes
+// DÃ©lai maximal d'un appel HTTP, en secondes
 public long il_timeout = 60
 
 protected string is_base_url
 protected string is_token
 
-// Dernière réponse chargée par of_load_answer
+// DerniÃ¨re rÃ©ponse chargÃ©e par of_load_answer
 protected JsonParser inv_answer
 protected boolean ib_answer_loaded = false
 end variables
@@ -31,6 +31,8 @@ public function integer of_list_datasources (ref string as_ids[], ref string as_
 public function integer of_open_conversation (string as_datasource_id, string as_title, ref string as_conv_id)
 public function integer of_ask (string as_conv_id, string as_question)
 public function integer of_get_status (string as_conv_id, ref string as_status)
+public function integer of_get_conversation (string as_conv_id, ref string as_status, ref string as_datasource_id)
+public function long of_load_messages (string as_conv_id, ref string as_roles[], ref string as_texts[])
 public function integer of_load_answer (string as_conv_id)
 public function string of_answer_content ()
 public function string of_answer_error ()
@@ -54,7 +56,7 @@ protected function string of_replace_all (string as_text, string as_old, string 
 end prototypes
 
 public function integer of_init (string as_base_url, string as_token);// as_base_url : https://dentalsoft-poc.magic-lemp.com/api/bi (sans / final)
-// as_token    : jeton d'accès, lu dans la configuration (jamais écrit dans le code)
+// as_token    : jeton d'accÃ¨s, lu dans la configuration (jamais Ã©crit dans le code)
 as_base_url = Trim(as_base_url)
 if Right(as_base_url, 1) = "/" then as_base_url = Left(as_base_url, Len(as_base_url) - 1)
 is_base_url = as_base_url
@@ -83,7 +85,7 @@ if not of_check(ll_status, 200) then return -1
 lnv_json = create JsonParser
 ls_err = lnv_json.LoadString(ls_body)
 if ls_err <> "" then
-	is_last_error = "Réponse illisible : " + ls_err
+	is_last_error = "RÃ©ponse illisible : " + ls_err
 	destroy lnv_json
 	return -1
 end if
@@ -103,7 +105,7 @@ elseif lnv_json.GetItemType(ll_root) = JsonObjectItem! then
 	next
 end if
 if ll_list = 0 then
-	is_last_error = "Liste des bases introuvable dans la réponse."
+	is_last_error = "Liste des bases introuvable dans la rÃ©ponse."
 	destroy lnv_json
 	return -1
 end if
@@ -158,14 +160,14 @@ end if
 destroy lnv_json
 
 if as_conv_id = "" then
-	is_last_error = "Identifiant de conversation absent de la réponse."
+	is_last_error = "Identifiant de conversation absent de la rÃ©ponse."
 	return -1
 end if
 return 1
 end function
 
 public function integer of_ask (string as_conv_id, string as_question);// POST /conversations/{id}/messages : 202 attendu
-// En cas de 409 (question déjà en cours, autre fournisseur, base non prête), il_last_status vaut 409
+// En cas de 409 (question dÃ©jÃ  en cours, autre fournisseur, base non prÃªte), il_last_status vaut 409
 JsonGenerator lnv_gen
 long ll_root, ll_status
 string ls_body, ls_response
@@ -176,7 +178,7 @@ if as_question = "" then
 	return -1
 end if
 if Len(as_question) > 4000 then
-	is_last_error = "Question trop longue (4 000 caractères au plus)."
+	is_last_error = "Question trop longue (4 000 caractÃ¨res au plus)."
 	return -1
 end if
 
@@ -207,13 +209,110 @@ end if
 destroy lnv_json
 
 if as_status = "" then
-	is_last_error = "État de la conversation illisible."
+	is_last_error = "Ã‰tat de la conversation illisible."
 	return -1
 end if
 return 1
 end function
 
-public function integer of_load_answer (string as_conv_id);// GET /conversations/{id}/answer : 1 chargée, 0 pas encore disponible (404), -1 erreur
+public function integer of_get_conversation (string as_conv_id, ref string as_status, ref string as_datasource_id);// GET /conversations/{id} : Ã©tat et base de la conversation (404 si elle n'existe plus)
+JsonParser lnv_json
+long ll_status, ll_root
+string ls_response
+
+as_status = ""
+as_datasource_id = ""
+ll_status = of_request("GET", "/conversations/" + as_conv_id, "", ls_response)
+if not of_check(ll_status, 200) then return -1
+
+lnv_json = create JsonParser
+if lnv_json.LoadString(ls_response) = "" then
+	ll_root = lnv_json.GetRootItem()
+	as_status = of_str(lnv_json, ll_root, "status")
+	as_datasource_id = of_str(lnv_json, ll_root, "datasource_id")
+end if
+destroy lnv_json
+
+if as_status = "" then
+	is_last_error = "Ã‰tat de la conversation illisible."
+	return -1
+end if
+return 1
+end function
+
+public function long of_load_messages (string as_conv_id, ref string as_roles[], ref string as_texts[]);// GET /conversations/{id}/messages : toute la conversation, dans l'ordre.
+// Remplit as_roles[] ("user", "assistant", "error") et as_texts[] ; retourne le nombre de messages ou -1.
+// Une rÃ©ponse en Ã©chec donne son texte Ã©ventuel ("assistant") suivi d'un message "error".
+JsonParser lnv_json
+long ll_status, ll_root, ll_list, ll_item, ll_i, ll_n
+string ls_response, ls_err, ls_role, ls_content, ls_error, ls_empty[]
+
+as_roles = ls_empty
+as_texts = ls_empty
+ll_status = of_request("GET", "/conversations/" + as_conv_id + "/messages", "", ls_response)
+if not of_check(ll_status, 200) then return -1
+
+lnv_json = create JsonParser
+ls_err = lnv_json.LoadString(ls_response)
+if ls_err <> "" then
+	is_last_error = "RÃ©ponse illisible : " + ls_err
+	destroy lnv_json
+	return -1
+end if
+
+// La liste est la racine, ou le premier tableau de l'objet racine (ex. "messages")
+ll_root = lnv_json.GetRootItem()
+ll_list = 0
+if lnv_json.GetItemType(ll_root) = JsonArrayItem! then
+	ll_list = ll_root
+elseif lnv_json.GetItemType(ll_root) = JsonObjectItem! then
+	ll_list = of_find(lnv_json, ll_root, "messages")
+	if ll_list = 0 then
+		for ll_i = 1 to lnv_json.GetChildCount(ll_root)
+			ll_item = lnv_json.GetChildItem(ll_root, ll_i)
+			if lnv_json.GetItemType(ll_item) = JsonArrayItem! then
+				ll_list = ll_item
+				exit
+			end if
+		next
+	end if
+end if
+if ll_list = 0 then
+	is_last_error = "Messages introuvables dans la rÃ©ponse."
+	destroy lnv_json
+	return -1
+end if
+
+ll_n = 0
+for ll_i = 1 to lnv_json.GetChildCount(ll_list)
+	ll_item = lnv_json.GetChildItem(ll_list, ll_i)
+	if lnv_json.GetItemType(ll_item) <> JsonObjectItem! then continue
+	ls_role = Lower(of_str(lnv_json, ll_item, "role"))
+	ls_content = of_str(lnv_json, ll_item, "content")
+	ls_error = of_str(lnv_json, ll_item, "error")
+	if ls_role = "user" then
+		ll_n++
+		as_roles[ll_n] = "user"
+		as_texts[ll_n] = ls_content
+	elseif ls_role = "assistant" then
+		if ls_content <> "" then
+			ll_n++
+			as_roles[ll_n] = "assistant"
+			as_texts[ll_n] = ls_content
+		end if
+		if ls_error <> "" then
+			ll_n++
+			as_roles[ll_n] = "error"
+			as_texts[ll_n] = "Je n'ai pas pu rÃ©pondre (" + ls_error + ")."
+		end if
+	end if
+next
+
+destroy lnv_json
+return ll_n
+end function
+
+public function integer of_load_answer (string as_conv_id);// GET /conversations/{id}/answer : 1 chargÃ©e, 0 pas encore disponible (404), -1 erreur
 long ll_status
 string ls_response, ls_err
 
@@ -224,24 +323,24 @@ if not of_check(ll_status, 200) then return -1
 
 ls_err = inv_answer.LoadString(ls_response)
 if ls_err <> "" then
-	is_last_error = "Réponse illisible : " + ls_err
+	is_last_error = "RÃ©ponse illisible : " + ls_err
 	return -1
 end if
 ib_answer_loaded = true
 return 1
 end function
 
-public function string of_answer_content ();// Texte de la réponse, en Markdown
+public function string of_answer_content ();// Texte de la rÃ©ponse, en Markdown
 if not ib_answer_loaded then return ""
 return of_str(inv_answer, inv_answer.GetRootItem(), "content")
 end function
 
-public function string of_answer_error ();// Renseigné quand le modèle n'a pas pu répondre (ce n'est pas une erreur HTTP)
+public function string of_answer_error ();// RenseignÃ© quand le modÃ¨le n'a pas pu rÃ©pondre (ce n'est pas une erreur HTTP)
 if not ib_answer_loaded then return ""
 return of_str(inv_answer, inv_answer.GetRootItem(), "error")
 end function
 
-public function long of_answer_idx ();// Rang de la réponse dans la conversation (sert à l'évaluation)
+public function long of_answer_idx ();// Rang de la rÃ©ponse dans la conversation (sert Ã  l'Ã©valuation)
 string ls_idx
 if not ib_answer_loaded then return 0
 ls_idx = of_str(inv_answer, inv_answer.GetRootItem(), "idx")
@@ -249,7 +348,7 @@ if IsNumber(ls_idx) then return Long(ls_idx)
 return 0
 end function
 
-public function string of_answer_bases ();// Bases (cabinets) réellement interrogées, séparées par des virgules
+public function string of_answer_bases ();// Bases (cabinets) rÃ©ellement interrogÃ©es, sÃ©parÃ©es par des virgules
 long ll_list, ll_i, ll_item
 string ls_out, ls_name
 
@@ -274,7 +373,7 @@ next
 return ls_out
 end function
 
-public function string of_answer_sql ();// Requêtes SQL exécutées pour la réponse, mises en forme pour affichage
+public function string of_answer_sql ();// RequÃªtes SQL exÃ©cutÃ©es pour la rÃ©ponse, mises en forme pour affichage
 long ll_list, ll_i, ll_item
 string ls_out, ls_line, ls_base, ls_ms, ls_rows, ls_err
 
@@ -290,7 +389,7 @@ for ll_i = 1 to inv_answer.GetChildCount(ll_list)
 	ls_ms = of_str(inv_answer, ll_item, "ms")
 	ls_rows = of_str(inv_answer, ll_item, "rows")
 	ls_err = of_str(inv_answer, ll_item, "error")
-	ls_line = "-- Requête " + String(ll_i)
+	ls_line = "-- RequÃªte " + String(ll_i)
 	if ls_base <> "" then ls_line += " sur " + ls_base
 	if ls_ms <> "" then ls_line += " (" + ls_ms + " ms"
 	if ls_rows <> "" then ls_line += ", " + ls_rows + " ligne(s)"
@@ -302,7 +401,7 @@ next
 return ls_out
 end function
 
-public function long of_chart_count ();// Nombre de graphiques fournis avec la réponse
+public function long of_chart_count ();// Nombre de graphiques fournis avec la rÃ©ponse
 long ll_list
 if not ib_answer_loaded then return 0
 ll_list = of_find(inv_answer, inv_answer.GetRootItem(), "charts")
@@ -311,7 +410,7 @@ if inv_answer.GetItemType(ll_list) <> JsonArrayItem! then return 0
 return inv_answer.GetChildCount(ll_list)
 end function
 
-public function integer of_fill_graph (long al_chart, graph agr_target);// Dessine le graphique n° al_chart (à partir de 1) dans un contrôle Graph.
+public function integer of_fill_graph (long al_chart, graph agr_target);// Dessine le graphique nÂ° al_chart (Ã  partir de 1) dans un contrÃ´le Graph.
 // Forme attendue : {type, title, labels: [...], datasets: [{label, data: [...]}, ...]}
 long ll_charts, ll_chart, ll_labels, ll_sets, ll_set, ll_data, ll_i, ll_j
 integer li_series
@@ -340,7 +439,7 @@ else
 	agr_target.GraphType = ColGraph!
 end if
 
-// Catégories (axe des X)
+// CatÃ©gories (axe des X)
 ll_labels = of_find(inv_answer, ll_chart, "labels")
 if ll_labels > 0 then
 	for ll_i = 1 to inv_answer.GetChildCount(ll_labels)
@@ -349,14 +448,14 @@ if ll_labels > 0 then
 	next
 end if
 
-// Séries
+// SÃ©ries
 ll_sets = of_find(inv_answer, ll_chart, "datasets")
 if ll_sets > 0 then
 	for ll_i = 1 to inv_answer.GetChildCount(ll_sets)
 		ll_set = inv_answer.GetChildItem(ll_sets, ll_i)
 		if inv_answer.GetItemType(ll_set) <> JsonObjectItem! then continue
 		ls_series = of_str(inv_answer, ll_set, "label")
-		if ls_series = "" then ls_series = "Série " + String(ll_i)
+		if ls_series = "" then ls_series = "SÃ©rie " + String(ll_i)
 		li_series = agr_target.AddSeries(ls_series)
 		ll_data = of_find(inv_answer, ll_set, "data")
 		if ll_data = 0 then continue
@@ -364,7 +463,7 @@ if ll_sets > 0 then
 			if ll_j > UpperBound(ls_labels) then exit
 			agr_target.AddData(li_series, of_value_number(inv_answer, inv_answer.GetChildItem(ll_data, ll_j)), ls_labels[ll_j])
 		next
-		// Un camembert n'affiche qu'une série
+		// Un camembert n'affiche qu'une sÃ©rie
 		if agr_target.GraphType = PieGraph! then exit
 	next
 end if
@@ -373,7 +472,7 @@ agr_target.SetRedraw(true)
 return 1
 end function
 
-public function integer of_cancel (string as_conv_id);// POST /conversations/{id}/cancel : la question en cours s'arrête sans rien enregistrer
+public function integer of_cancel (string as_conv_id);// POST /conversations/{id}/cancel : la question en cours s'arrÃªte sans rien enregistrer
 long ll_status
 string ls_response
 ll_status = of_request("POST", "/conversations/" + as_conv_id + "/cancel", "", ls_response)
@@ -410,7 +509,7 @@ if not of_check(ll_status, 200) then return -1
 return 1
 end function
 
-public function string of_markdown_to_text (string as_markdown);// Conversion simple du Markdown de la réponse en texte lisible dans un MultiLineEdit
+public function string of_markdown_to_text (string as_markdown);// Conversion simple du Markdown de la rÃ©ponse en texte lisible dans un MultiLineEdit
 string ls_md, ls_line, ls_trim, ls_out, ls_rest
 long ll_start, ll_end
 boolean lb_first = true
@@ -435,10 +534,10 @@ do while ll_start <= Len(ls_md)
 		loop
 		ls_line = Trim(ls_trim)
 	elseif Left(ls_trim, 2) = "- " or Left(ls_trim, 2) = "* " then
-		// Liste à puces
-		ls_line = "  • " + Mid(ls_trim, 3)
+		// Liste Ã  puces
+		ls_line = "  â€¢ " + Mid(ls_trim, 3)
 	elseif Left(ls_trim, 1) = "|" then
-		// Tableau : on saute la ligne de séparation |---|---|
+		// Tableau : on saute la ligne de sÃ©paration |---|---|
 		ls_rest = of_replace_all(ls_trim, "|", "")
 		ls_rest = of_replace_all(ls_rest, "-", "")
 		ls_rest = of_replace_all(ls_rest, ":", "")
@@ -455,8 +554,8 @@ loop
 return ls_out
 end function
 
-protected function long of_request (string as_method, string as_path, string as_body, ref string as_response);// Appel HTTP authentifié. Retourne le code HTTP (200, 201, 202, 404, 409…)
-// ou une valeur négative si l'appel n'a pas abouti (réseau, délai…).
+protected function long of_request (string as_method, string as_path, string as_body, ref string as_response);// Appel HTTP authentifiÃ©. Retourne le code HTTP (200, 201, 202, 404, 409â€¦)
+// ou une valeur nÃ©gative si l'appel n'a pas abouti (rÃ©seau, dÃ©laiâ€¦).
 HttpClient lnv_http
 integer li_rc
 long ll_status
@@ -482,9 +581,9 @@ if li_rc <> 1 then
 	elseif li_rc = -3 then
 		is_last_error = "Connexion impossible au serveur BI."
 	elseif li_rc = -4 then
-		is_last_error = "Le serveur BI n'a pas répondu à temps."
+		is_last_error = "Le serveur BI n'a pas rÃ©pondu Ã  temps."
 	else
-		is_last_error = "Erreur réseau (" + String(li_rc) + ")."
+		is_last_error = "Erreur rÃ©seau (" + String(li_rc) + ")."
 	end if
 	destroy lnv_http
 	il_last_status = li_rc
@@ -500,19 +599,19 @@ if ll_status >= 400 then is_last_error = of_error_message(ll_status, as_response
 return ll_status
 end function
 
-protected function string of_error_message (long al_status, string as_body);// Message lisible à partir du code HTTP et du champ "detail" renvoyé par le serveur
+protected function string of_error_message (long al_status, string as_body);// Message lisible Ã  partir du code HTTP et du champ "detail" renvoyÃ© par le serveur
 JsonParser lnv_json
 long ll_item
 string ls_msg
 
 if al_status = 401 then
-	ls_msg = "Jeton d'accès refusé (401) : vérifier la configuration."
+	ls_msg = "Jeton d'accÃ¨s refusÃ© (401) : vÃ©rifier la configuration."
 elseif al_status = 404 then
 	ls_msg = "Introuvable (404)"
 elseif al_status = 409 then
-	ls_msg = "Opération impossible pour l'instant (409)"
+	ls_msg = "OpÃ©ration impossible pour l'instant (409)"
 elseif al_status = 422 then
-	ls_msg = "Demande mal formée (422)"
+	ls_msg = "Demande mal formÃ©e (422)"
 elseif al_status = 503 then
 	ls_msg = "Service indisponible (503)"
 else
@@ -534,13 +633,13 @@ end if
 return ls_msg
 end function
 
-protected function boolean of_check (long al_status, long al_expected);// Vrai si le code reçu est celui attendu ; sinon is_last_error est renseigné
+protected function boolean of_check (long al_status, long al_expected);// Vrai si le code reÃ§u est celui attendu ; sinon is_last_error est renseignÃ©
 if al_status = al_expected then return true
-if is_last_error = "" then is_last_error = "Réponse inattendue du serveur BI (" + String(al_status) + ")."
+if is_last_error = "" then is_last_error = "RÃ©ponse inattendue du serveur BI (" + String(al_status) + ")."
 return false
 end function
 
-protected function long of_find (jsonparser anv_json, long al_parent, string as_key);// Poignée de l'élément as_key d'un objet JSON, 0 si absent
+protected function long of_find (jsonparser anv_json, long al_parent, string as_key);// PoignÃ©e de l'Ã©lÃ©ment as_key d'un objet JSON, 0 si absent
 long ll_i, ll_count
 if al_parent <= 0 then return 0
 if anv_json.GetItemType(al_parent) <> JsonObjectItem! then return 0
@@ -553,7 +652,7 @@ next
 return 0
 end function
 
-protected function string of_value_text (jsonparser anv_json, long al_item);// Valeur d'un élément sous forme de texte ("" si null, objet ou tableau)
+protected function string of_value_text (jsonparser anv_json, long al_item);// Valeur d'un Ã©lÃ©ment sous forme de texte ("" si null, objet ou tableau)
 if al_item <= 0 then return ""
 if anv_json.GetItemType(al_item) = JsonStringItem! then
 	return anv_json.GetItemString(al_item)
@@ -569,11 +668,11 @@ end if
 return ""
 end function
 
-protected function string of_str (jsonparser anv_json, long al_parent, string as_key);// Valeur texte de la clé as_key ("" si absente ou null)
+protected function string of_str (jsonparser anv_json, long al_parent, string as_key);// Valeur texte de la clÃ© as_key ("" si absente ou null)
 return of_value_text(anv_json, of_find(anv_json, al_parent, as_key))
 end function
 
-protected function double of_value_number (jsonparser anv_json, long al_item);// Valeur numérique d'un élément (0 si null ou non numérique)
+protected function double of_value_number (jsonparser anv_json, long al_item);// Valeur numÃ©rique d'un Ã©lÃ©ment (0 si null ou non numÃ©rique)
 string ls_value
 if al_item <= 0 then return 0
 if anv_json.GetItemType(al_item) = JsonNumberItem! then return anv_json.GetItemNumber(al_item)

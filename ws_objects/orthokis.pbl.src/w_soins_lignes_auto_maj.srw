@@ -809,7 +809,7 @@ IF type_soin <> ancien_soin THEN
 		
 		st_modificateurs.visible = true
 		sle_modificateurs.visible = true
-		sle_modificateurs.text = v_code_association
+		sle_modificateurs.text = v_modificateurs
 
 		
 	else

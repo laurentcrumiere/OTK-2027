@@ -1,0 +1,28 @@
+﻿$PBExportHeader$str_pbus_toast.srs
+global type str_pbus_toast from structure
+	string		title
+	string		message
+	string		image
+	long		toastcount
+	long		duration
+	window		w_opencallback
+	userobject		uo_opencallback
+	string		opencallback
+	window		w_clickcallback
+	userobject		uo_clickcallback
+	string		clickcallback
+	window		w_closecallback
+	userobject		uo_closecallback
+	string		closecallback
+	n_cst_powertoast		nv_toast
+	long		lasty
+	long		animation
+	long		messageid
+	dragobject		focusobject
+	blob		blobimage
+	string		color
+	boolean		anchortoparent
+	window		parentwindow
+	boolean		closeonclick
+end type
+

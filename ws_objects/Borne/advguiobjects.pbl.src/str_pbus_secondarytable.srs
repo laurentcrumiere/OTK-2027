@@ -1,0 +1,8 @@
+﻿$PBExportHeader$str_pbus_secondarytable.srs
+global type str_pbus_secondarytable from structure
+	string		tablename
+	string		aliasname
+	string		jointype
+	string		conditions[]
+end type
+

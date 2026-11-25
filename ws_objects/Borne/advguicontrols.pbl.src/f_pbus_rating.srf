@@ -1,0 +1,161 @@
+﻿$PBExportHeader$f_pbus_rating.srf
+global type f_pbus_rating from function_object
+end type
+
+forward prototypes
+global function boolean f_pbus_rating (ulong ahdc, long ax, long ay, long awidth, long aheight, double currentvalue, integer maxvalue, string theme)
+end prototypes
+
+global function boolean f_pbus_rating (ulong ahdc, long ax, long ay, long awidth, long aheight, double currentvalue, integer maxvalue, string theme);LongPtr lul_Graphic, lul_path, lul_GdiToken, lul_Pen,lul_Pen2, lul_colorRGB
+LongPtr ull_BrushColor
+Long ll_index, ll_starsize, ll_size, ll_x, ll_lastx
+ULong lul_color, lul_color2
+Int li_red, li_green, li_blue
+String ls_text
+Double cw, ch, h, w
+RECT lstr_Rect
+RECT l_TextRect
+GdiplusStartupInput  lstr_input
+GdiplusStartupOutput lstr_output
+n_cst_win32 lnv_win32
+
+n_cst_pbus_lic iu_lic
+IF NOT iu_lic.of_Registered() AND &
+   iu_lic.of_Key() = "38017E06-84A2-4B73-9CE5-87C0BD9A39A8" THEN
+	RETURN FALSE
+END IF
+
+lnv_win32 = CREATE n_cst_win32
+
+//Setup
+lstr_input.GdiplusVersion = 1
+lnv_win32.GdiplusStartup(lul_GdiToken, lstr_input, lstr_output)
+lnv_win32.GdipCreateFromHDC(ahdc, lul_Graphic)
+lnv_win32.GdipSetSmoothingMode(lul_Graphic, 5)
+lnv_win32.GdipSetPageUnit(lul_Graphic, 2)
+
+//Get size
+ll_size = awidth / maxvalue
+ll_starsize = ll_size - 2
+
+//Create star cut outs
+lnv_win32.GdipCreatePath(0, lul_path)
+
+//Creat star points
+w = ll_starsize
+h  = ll_starsize * .9437
+cw = w / 2
+ch = h / 2
+
+Point Points[]
+
+Points[1].px = cw
+Points[1].py = 0
+Points[2].px = cw + (w * .129)
+Points[2].py = ch - (h * .15)
+Points[3].px = w
+Points[3].py = ch - (h * .15)
+Points[4].px = cw + (w * .2)
+Points[4].py = ch + (h *.12)
+Points[5].px = cw + (w * .314)
+Points[5].py = h
+Points[6].px = cw
+Points[6].py = ch + (h * .269)
+Points[7].px = cw - (w * .314)
+Points[7].py = h
+Points[8].px = cw - (w * .2)
+Points[8].py = ch + (h * .12)
+Points[9].px = 0
+Points[9].py = ch - (h * .15)
+Points[10].px = cw - (w * .129)
+Points[10].py = ch - (h * .15)
+Points[11].px = Points[1].px
+Points[11].py = Points[1].py
+
+ll_x = ax
+
+FOR ll_index = 1 TO MaxValue
+	lnv_win32.GdipAddPathLineI(lul_path, ll_x + points[1].px, ay + points[1].py, ll_x + points[2].px,  ay + points[2].py)
+	lnv_win32.GdipAddPathLineI(lul_path, ll_x + points[2].px, ay + points[2].py, ll_x + points[3].px,  ay + points[3].py)
+	lnv_win32.GdipAddPathLineI(lul_path, ll_x + points[3].px, ay + points[3].py, ll_x + points[4].px,  ay + points[4].py)
+	lnv_win32.GdipAddPathLineI(lul_path, ll_x + points[4].px, ay + points[4].py, ll_x + points[5].px,  ay + points[5].py)
+	lnv_win32.GdipAddPathLineI(lul_path, ll_x + points[5].px, ay + points[5].py, ll_x + points[6].px,  ay + points[6].py)
+	lnv_win32.GdipAddPathLineI(lul_path, ll_x + points[6].px, ay + points[6].py, ll_x + points[7].px,  ay + points[7].py)
+	lnv_win32.GdipAddPathLineI(lul_path, ll_x + points[7].px, ay + points[7].py, ll_x + points[8].px,  ay + points[8].py)
+	lnv_win32.GdipAddPathLineI(lul_path, ll_x + points[8].px, ay + points[8].py, ll_x + points[9].px,  ay + points[9].py)
+	lnv_win32.GdipAddPathLineI(lul_path, ll_x + points[9].px, ay + points[9].py, ll_x + points[10].px,  ay + points[10].py)
+	lnv_win32.GdipAddPathLineI(lul_path, ll_x + points[10].px, ay + points[10].py, ll_x + points[11].px,  ay + points[11].py)
+	
+	lnv_win32.GdipClosePathFigure(lul_path)
+	
+	ll_x = ll_x + ll_size
+NEXT
+
+//Get the current background color so we can use this for the overlay
+//We need to get a sampling from three different spots because one spot
+//maybe hidden due to scrolling
+ULong ll_backcolor, ll_backcolor2, ll_backcolor3
+LongPtr ll_overlaybrush, ll_fillbrush, ll_unfilledbrush
+ll_backcolor = lnv_win32.GetPixel (ahdc, aX, aY)
+ll_backcolor2 = lnv_win32.GetPixel (ahdc, aX + awidth / 2, aY + aheight / 2)
+ll_backcolor3 = lnv_win32.GetPixel (ahdc, aX + awidth, aY + aheight)
+
+ll_backcolor = Min(ll_backcolor, Min(ll_backcolor2, ll_backcolor3))
+
+//Get PenColor for circle outline
+n_uspb_colors lnv_colors
+lul_colorRGB = lnv_colors.of_GetColor(Theme, li_red, li_green, li_blue)
+
+//Get color for circle fill
+lul_color = lnv_win32.PBUSMakeARGB (255, li_red, li_green, li_blue)
+lul_color2 = lnv_win32.PBUSMakeARGB (255, 190, 190, 190)
+
+//Get overlay color
+lnv_colors.of_SplitRGB(ll_backcolor, li_red, li_green, li_blue)
+ll_backcolor = lnv_win32.PBUSMakeARGB (255, li_red, li_green, li_blue)
+
+//Create our brushes
+lnv_win32.GdipCreateSolidFill(ll_backcolor, ll_overlaybrush)
+lnv_win32.GdipCreateSolidFill(lul_color, ll_fillbrush)
+lnv_win32.GdipCreateSolidFill(lul_color2, ll_unfilledbrush)
+
+//Determine our true width from the number of stars
+awidth = ll_size * maxvalue
+
+//Change the antialiasing to none
+lnv_win32.GdipSetSmoothingMode(lul_Graphic, 0)
+
+//Draw two rectangles, the first is the rating color, the second is the remaining non-rated portion
+lnv_win32.GdipFillRectangleI(lul_graphic, ll_fillbrush, ax, ay,  (awidth * currentvalue / maxvalue),aheight)
+lnv_win32.GdipFillRectangleI(lul_graphic, ll_unfilledbrush, ax+ (awidth * currentvalue / maxvalue), ay,  awidth -  (awidth * currentvalue / maxvalue), aheight)
+
+//Setting the clip path so that our stars are not draw (punch out)
+lnv_win32.GdipSetClipPath(lul_graphic, lul_path, 4)
+
+//Draw our overlay, the code above will cause this to dray everything but our stars
+lnv_win32.GdipFillRectangleI(lul_graphic, ll_overlaybrush, ax - 1, ay - 1,  awidth + 2,aheight + 2)
+
+//Rest the clip region
+lnv_win32.GdipResetClip(lul_graphic)
+
+//Set antialiasing back
+lnv_win32.GdipSetSmoothingMode(lul_Graphic, 5)
+
+//Clip region drawing doesn't antialias so it looks ugly, this will draw an outline around our stars to pretty it up
+lnv_win32.GdipCreatePen1(ll_backcolor,1, 2, lul_Pen)
+lnv_win32.GdipDrawPath(lul_graphic, lul_Pen, lul_path);
+
+//Cleanup
+lnv_win32.GdipDeletePath(lul_path)
+lnv_win32.GdipDeletePen(lul_Pen)
+lnv_win32.GdipDeleteBrush(ll_overlaybrush)
+lnv_win32.GdipDeleteBrush(ll_fillbrush)
+lnv_win32.GdipDeleteBrush(ll_unfilledbrush)
+lnv_win32.GdipDeleteGraphics(lul_Graphic)
+lnv_win32.GdiplusShutdown(lul_GdiToken)
+
+DESTROY lnv_win32
+
+RETURN true
+end function
+

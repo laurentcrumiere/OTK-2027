@@ -1,0 +1,9 @@
+﻿$PBExportHeader$str_powermodal.srs
+global type str_powermodal from structure
+	boolean		responsereturn
+	string		sreturn
+	long		lreturn
+	double		dreturn
+	powerobject		poreturn
+end type
+

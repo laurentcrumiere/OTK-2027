@@ -1,0 +1,139 @@
+﻿$PBExportHeader$fxg_lancer_commande_myorthokis.srf
+global type fxg_lancer_commande_myorthokis from function_object
+end type
+
+forward prototypes
+global function boolean fxg_lancer_commande_myorthokis (string v_action, boolean v_synchro, integer v_code_fonction)
+end prototypes
+
+global function boolean fxg_lancer_commande_myorthokis (string v_action, boolean v_synchro, integer v_code_fonction);// UTILISER UNIQUEMENT POUR LE LIEN VISIODENT
+// v_code_fonction = type de fonction VISIODENT
+// 1 : mise à jour du patient
+// 2 : récupération des infos AMO
+// 3 : récupération des infos AMC
+// 4 : Envoi d'un Soin
+// 5 : Suppression d'un soin
+
+
+
+// Accées internet
+Inet iinet_base
+string url_wb, url_myo
+integer li_rc
+n_inetresult in_irdata
+integer v_fichier_retour
+string v_ligne
+long v_pos1, v_pos2
+string v_code_erreur
+
+boolean retour
+
+GetContextService("Internet", iinet_base)
+in_irdata = CREATE n_inetresult
+
+//open(w_patience)
+
+// Retour XML
+constant string nom_fichier_recu = "wb.xml"
+
+// myo ?
+select top 1 url_my_orthokis into :url_myo from param ;
+
+
+// effacement du fichier du dernier appel
+FileDelete(dir_ini + nom_fichier_recu)
+
+// Lancement du webservice qui va bien
+url_wb = url_myo + "myorthokis/" +  v_action
+li_rc = iinet_base.GetURL(url_wb, in_irdata)
+
+if li_rc = 1 then
+	
+	in_irdata.of_WriteFile(dir_ini + nom_fichier_recu, in_irdata.iblob_data)
+	
+end if
+
+if not FileExists(dir_ini + nom_fichier_recu) then
+	
+	Messagebox("ATTENTION","Erreur de communication avec myOrthokis.~n~nMerci de contacter l'administrateur du réseau.~n~nCauses probables : ~n- l'URL de myorthokis est mal indiquée dans les Paramètres Généraux~n- les services Apache sont arrétés")
+	
+else
+	
+	// Analyse code erreur ...
+	
+	
+	
+	// Affichage des infos en retour
+	if ProfileString(dir_ini + nom_fichier_recu,"0", "CodeErreur", "") <> "0" then
+		MessageBox("ERREUR DE L'ECHANGE AVEC VEASY", "Erreur N° : " +  ProfileString(dir_ini + nom_fichier_recu,"0", "CodeErreur", "")  +&
+		"~n~Message : " +  ProfileString(dir_ini + nom_fichier_recu,"0", "LibelleErreur", ""))
+		retour = false
+	else
+		
+		retour = true
+		// Pas d'erreur 
+		if v_synchro then 
+			
+			// Affichage des messages en retour
+
+			choose case v_code_fonction
+				case 1
+					// Mise à jour fiche Patient
+					MessageBox("INFORMATION","La mise à jour du dossier a été réalisée avec succés !") 
+				case 2
+					// AMO
+					
+					MessageBox("INFORMATIONS VISIODENT",&
+					"Caisse : " + ProfileString(dir_ini + nom_fichier_recu,"1", "Libelle", "") +&
+					"~nCode Grand Regime : " + ProfileString(dir_ini + nom_fichier_recu,"1", "CodeGrandRegime", "") +&
+					"~nCaisse Gestioinnaire : " + ProfileString(dir_ini + nom_fichier_recu,"1", "Caisse Gestioinnaire", "") +&
+					"~nCode Centre : " + ProfileString(dir_ini + nom_fichier_recu,"1", "CodeCentre", "") +&
+					"~nTaux Remboursement : " + ProfileString(dir_ini + nom_fichier_recu,"1", "TauxRemboursement", "") +&
+					"~nDate de Debut : " + ProfileString(dir_ini + nom_fichier_recu,"1", "DateDebut", "") +&
+					"~nDate de Fin : " + ProfileString(dir_ini + nom_fichier_recu,"1", "DateFin", "") +&
+					"~nALD ? : " + ProfileString(dir_ini + nom_fichier_recu,"1", "TopAld", "") +&
+					"~nSituation : " + ProfileString(dir_ini + nom_fichier_recu,"1", "Situation", "") +&
+					"~nTiers Payant ? : " + ProfileString(dir_ini + nom_fichier_recu,"1", "TopTP", "")  )	
+					
+				case 3
+					// AMC
+					
+					// Il peut y avoir plusieurs bloc AMC ...
+					
+					integer nb_blocs
+					nb_blocs = ProfileInt(dir_ini + nom_fichier_recu,"0", "NbReponses", 1)
+					
+					if nb_blocs = 1 then 
+						
+							MessageBox("INFORMATIONS VISIODENT",&
+						"Caisse : " + ProfileString(dir_ini + nom_fichier_recu,"1", "Libelle", "") +&
+						"~nNuméro RNM : " + ProfileString(dir_ini + nom_fichier_recu,"1", "RNM", "") +&
+						"~nDate de Debut : " + ProfileString(dir_ini + nom_fichier_recu,"1", "DateDebut", "") +&
+						"~nDate de Fin : " + ProfileString(dir_ini + nom_fichier_recu,"1", "DateFin", "") +&
+						"~nTiers Payant ? : " + ProfileString(dir_ini + nom_fichier_recu,"1", "TopTP", "")  )	
+					
+					else
+						//openWithParm (w_visiodent_amc, dir_ini + nom_fichier_recu)
+					end if
+					
+				case 4
+					// Mise à jour du soin
+					
+					// le message est à gérer par l'appel de la fonction
+					// MessageBox("INFORMATION","La mise à jour du soin a été réalisée avec succés !") 
+
+				case 5
+					// Mise à jour du soin
+					MessageBox("INFORMATION","Le soin a été supprimé avec succés !") 
+	
+			end choose
+		end if
+			
+	end if
+end if
+
+//close(w_patience)
+
+return retour
+end function
+

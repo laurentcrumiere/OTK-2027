@@ -1,0 +1,160 @@
+﻿$PBExportHeader$f_pbus_picture.srf
+global type f_pbus_picture from function_object
+end type
+
+forward prototypes
+global function boolean f_pbus_picture (unsignedlong ahdc, long ax, long ay, long awidth, long aheight, string aimage, integer aframethickness, string atheme, unsignedlong abackcolor)
+end prototypes
+
+global function boolean f_pbus_picture (unsignedlong ahdc, long ax, long ay, long awidth, long aheight, string aimage, integer aframethickness, string atheme, unsignedlong abackcolor);GdiplusStartupInput  istr_input
+GdiplusStartupOutput istr_output
+LongPtr iul_GdiToken
+LongPtr iul_Pen, iul_Brush
+LongPtr iul_colorRGB
+LongPtr iul_hBitmap
+LongPtr iul_Path
+LongPtr iul_Graphic
+LongPtr iul_pImageStream = 0
+LongPtr iul_pGlobalBuffer = 0
+LongPtr iul_hGlobal = 0
+Long ll_Length
+long ll_minside
+Constant ULong GMEM_MOVEABLE = 2
+
+n_cst_win32 inv_win32
+
+IF NOT FileExists(aimage) THEN RETURN FALSE
+
+n_cst_pbus_lic iu_lic
+IF NOT iu_lic.of_Registered() OR &
+   iu_lic.of_Key() <> "38017E06-84A2-4B73-9CE5-87C0BD9A39A8" THEN
+	RETURN FALSE
+END IF
+
+inv_win32 = CREATE n_cst_win32
+
+//Setup
+istr_input.GdiplusVersion = 1
+inv_win32.GdiplusStartup(iul_GdiToken, istr_input, istr_output)
+inv_win32.GdipCreateFromHDC(ahdc, iul_Graphic)
+inv_win32.GdipSetSmoothingMode(iul_Graphic, 5)
+inv_win32.GdipSetPageUnit(iul_Graphic, 2)
+
+//Load Image
+inv_win32.GdipCreateBitmapFromFileICM(aimage, iul_hBitmap)
+
+//Create Pen
+int ai_red, ai_green, ai_blue
+ULong lul_color, lul_color2
+
+n_uspb_colors lnv_colors
+lnv_colors.of_GetColor(aTheme, ai_red, ai_green, ai_blue)
+
+//Get color for circle fill
+lul_color = inv_win32.PBUSMakeARGB (255, ai_red, ai_green, ai_blue)
+
+int i
+i = inv_win32.GetDeviceCaps(ahdc,2)
+
+IF i = 2 THEN
+	inv_win32.GdipCreatePen1(lul_color,aframethickness, 3, iul_Pen)	
+ELSE
+	inv_win32.GdipCreatePen1(lul_color,aframethickness, 2, iul_Pen)	
+END IF
+
+//Create Path
+//Calc full path
+inv_win32.GdipCreatePath(0, iul_path)
+inv_win32.GdipAddPathRectangleI(iul_path, aframethickness + ax,aframethickness + ay, awidth - aframethickness - aframethickness, aheight - aframethickness - aframethickness)
+	
+//Fill Path
+lnv_colors.of_SplitRGB(aBackcolor, ai_red, ai_green, ai_blue)
+lul_color = inv_win32.PBUSMakeARGB (255, ai_red, ai_green, ai_blue)
+inv_win32.GdipCreateSolidFill(lul_color, iul_Brush)
+inv_win32.GdipFillPath(iul_graphic,iul_Brush,iul_path)
+
+//Draw Image
+Constant Long UnitPixel = 2
+Constant Long LOGPIXELSX = 88
+Constant Long LOGPIXELSY = 90
+unsignedlong lul_Attribs, lul_path
+RECT lstr_Rect
+RECTF lstr_gRect
+Long ll_Units, ll_x, ll_y, ll_width, ll_height
+Double ld_factor, ld_xfactor, ld_yfactor
+
+ll_Units = UnitPixel
+
+inv_win32.GdipGetImageBounds(iul_hBitmap, lstr_gRect, ll_Units)
+inv_win32.GdipSetInterpolationMode(iul_Graphic, 7)
+inv_win32.GdipSetClipPath(iul_Graphic, iul_path, 0)
+
+ll_Width  = lstr_gRect.Width
+ll_Height = lstr_gRect.Height
+
+IF ll_width > 0 THEN
+	ld_xfactor = (Double(awidth) / Double(ll_width)) // 
+	ld_yfactor = (Double(aheight) / Double(ll_height))// 
+END IF
+
+ld_factor =  Min(ld_xfactor, ld_yfactor)
+
+Long ll_imagewidth, ll_imageheight
+
+IF ld_factor <> 1 THEN
+	ll_imagewidth = ll_width * ld_factor
+	ll_imageheight = ll_Height * ld_factor
+END IF
+
+
+ll_x = ((awidth - ll_imagewidth) / 2) + ax
+ll_y = ((aheight - ll_imageheight) / 2) + ay
+
+SetNull(lul_Attribs)
+
+inv_win32.GdipDrawImageRectRectI(iul_Graphic, iul_hBitmap, &
+					ll_x, ll_y, ll_imagewidth, ll_imageheight, &
+					0, 0, lstr_gRect.Width, lstr_gRect.Height, &
+					ll_Units, lul_Attribs, 0, 0)
+
+inv_win32.GdipResetClip(iul_Graphic)
+
+//Draw Path
+If aframethickness > 0 Then inv_win32.GdipDrawPath(iul_graphic, iul_Pen, iul_path);
+
+//Clean Up
+IF iul_Pen > 0 THEN
+	inv_win32.GdipDeletePen(iul_Pen)
+END IF
+
+IF iul_Brush > 0 THEN
+	inv_win32.GdipDeleteBrush(iul_Brush)
+END IF
+
+IF iul_hBitmap > 0 THEN
+	inv_win32.GdipDisposeImage(iul_hBitmap)
+END IF
+
+IF iul_path > 0 THEN
+	inv_win32.GdipDeletePath(iul_path)
+END IF
+
+IF iul_Graphic > 0 THEN
+	inv_win32.GdipDeleteGraphics(iul_Graphic)
+END IF
+
+IF iul_pGlobalBuffer > 0 THEN
+	inv_win32.GlobalUnlock(iul_pGlobalBuffer)
+END IF
+
+IF iul_hGlobal > 0 THEN
+	inv_win32.GlobalFree(iul_hGlobal)
+END IF
+
+inv_win32.GdiplusShutdown(iul_GdiToken)
+
+DESTROY inv_win32
+
+RETURN TRUE
+end function
+

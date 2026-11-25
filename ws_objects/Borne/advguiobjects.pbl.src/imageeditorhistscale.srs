@@ -1,0 +1,7 @@
+﻿$PBExportHeader$imageeditorhistscale.srs
+global type imageeditorhistscale from structure
+	real		rw
+	real		rh
+	boolean		bpercent
+end type
+
